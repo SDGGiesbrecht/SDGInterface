@@ -35,11 +35,11 @@ configuration.documentation.readMe.quotation?.translation["🇨🇦EN"] = "And t
 configuration.documentation.readMe.quotation?.link["🇨🇦EN"] = URL(string: "https://www.biblegateway.com/passage/?search=John+1&version=SBLGNT;NIV")!
 configuration.documentation.readMe.quotation?.citation["🇨🇦EN"] = "‎יוחנן/Yoẖanan"
 
-// [_Workaround: No features yet._]
+// [_Warning: No features yet._]
 configuration.documentation.readMe.featureList["🇨🇦EN"] = [
     ].joinedAsLines()
 
-// [_Workaround: No examples yet._]
+// [_Warning: No examples yet._]
 configuration.documentation.readMe.exampleUsage["🇨🇦EN"] = ""
 
 // [_Workaround: No key yet._]
