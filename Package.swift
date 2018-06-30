@@ -19,14 +19,26 @@ import PackageDescription
 let package = Package(
     name: "SDGInterface",
     products: [
-        .library(name: "SDGInterface", targets: ["SDGInterface"])
+        // The entire package.
+        .library(name: "SDGInterface", targets: ["SDGInterface"]),
+
+        // Individual component modules.
+        .library(name: "SDGApplication", targets: ["SDGApplication"])
     ],
     dependencies: [
         .package(url: "https://github.com/SDGGiesbrecht/SDGCornerstone", .upToNextMinor(from: Version(0, 10, 0)))
     ],
     targets: [
+        // The entire package.
         .target(name: "SDGInterface", dependencies: [
+            "SDGApplication"
             ]),
+
+        // Individual component modules.
+        .target(name: "SDGApplication", dependencies: [
+        ]),
+
+        // Internal tests.
         .testTarget(name: "SDGInterfaceTests", dependencies: [
             "SDGInterface",
             .productItem(name: "SDGXCTestUtilities", package: "SDGCornerstone")
