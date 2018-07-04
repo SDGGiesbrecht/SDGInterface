@@ -13,13 +13,17 @@
  */
 
 #if !os(watchOS)
+// MARK: - #if !os(watchOS)
 
+// [_Define Example: sample_]
 public final class SampleApplicationDelegate : ApplicationDelegate {
 
     public override func applicationDidFinishLaunching() {
         super.applicationDidFinishLaunching()
+
         print("Hello, world!")
     }
 }
+// [_End_]
 
 #endif

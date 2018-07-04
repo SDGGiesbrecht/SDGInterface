@@ -13,12 +13,15 @@
  */
 
 #if !os(watchOS)
+// MARK: - #if !os(watchOS)
 
 #if canImport(AppKit)
+// MARK: - #if canImport(AppKit)
 // [_Define Documentation: SDGInterface.Application_]
 /// An alias for `NSApplication` or `UIApplication`.
 public typealias Application = NSApplication
 #elseif canImport(UIKit)
+// MARK: - #elseif canImport(UIKit)
 // [_Inherit Documentation: SDGInterface.Application_]
 /// An alias for `NSApplication` or `UIApplication`.
 public typealias Application = UIApplication

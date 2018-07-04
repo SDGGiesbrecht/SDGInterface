@@ -13,11 +13,14 @@
  */
 
 #if !os(watchOS)
+// MARK: - #if !os(watchOS)
 
 #if canImport(AppKit)
+// MARK: - #if canImport(AppKit)
 /// :nodoc:
 public typealias _ApplicationDelegate = NSApplicationDelegate
 #elseif canImport(UIKit)
+// MARK: - #elseif canImport(UIKit)
 /// :nodoc:
 public typealias _ApplicationDelegate = UIApplicationDelegate
 #endif
@@ -34,7 +37,7 @@ open class ApplicationDelegate : NSObject, _ApplicationDelegate {
         super.init()
     }
 
-    /// MARK: - Launching
+    // MARK: - Launching
 
     /// Notifies the delegate that the application has been launched and initialized.
     ///
@@ -73,7 +76,7 @@ extension ApplicationDelegate {
 extension ApplicationDelegate {
 
     /// Tells the delegate that the launch process is almost done and the application is almost ready to run.
-    open func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+    open func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]? = nil) -> Bool {
         applicationDidFinishLaunching()
         return true
     }
