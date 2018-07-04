@@ -12,12 +12,17 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit)
+#if !os(watchOS)
 
 public class SampleApplicationDelegate : NSObject, ApplicationDelegate {
 
     public func applicationDidFinishLaunching(_ notification: Notification) {
         print("Hello, world!")
+    }
+
+    public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+        print("Hello, world!")
+        return true
     }
 }
 

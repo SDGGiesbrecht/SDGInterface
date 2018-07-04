@@ -27,12 +27,12 @@ public typealias ApplicationDelegate = UIApplicationDelegate
 extension ApplicationDelegate {
 
     /// Starts the application’s main run loop.
-    public func main() -> Never {
-        Application.shared.delegate = self
+    public static func main() -> Never {
         #if canImport(AppKit)
+        Application.shared.delegate = Self()
         exit(NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv))
         #elseif canImport(UIKit)
-        exit(UIApplicationMain(CommandLine.argc, UnsafeMutableRawPointer(CommandLine.unsafeArgv).bindMemory(to: UnsafeMutablePointer<Int8>.self, capacity: Int(CommandLine.argc)), nil, nil))
+        exit(UIApplicationMain(CommandLine.argc, UnsafeMutableRawPointer(CommandLine.unsafeArgv).bindMemory(to: UnsafeMutablePointer<Int8>.self, capacity: Int(CommandLine.argc)), nil, NSStringFromClass(Self.self)))
         #endif
     }
 }
