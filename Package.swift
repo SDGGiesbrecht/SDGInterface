@@ -44,7 +44,7 @@ let package = Package(
             .productItem(name: "SDGXCTestUtilities", package: "SDGCornerstone")
             ]),
 
-        .target(name: "SDGInterfaceMacOSSample", dependencies: [
+        .target(name: "SDGInterfaceSample", dependencies: [
             "SDGInterface"
             ])
     ]
