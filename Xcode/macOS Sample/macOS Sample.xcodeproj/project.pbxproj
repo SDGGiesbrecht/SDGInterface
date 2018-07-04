@@ -21,18 +21,18 @@
 
 /* Begin PBXBuildFile section */
 		3F7D89F420E46BCA00C5D395 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7D89F320E46BCA00C5D395 /* main.swift */; };
-		3F7D8A4320E46DA500C5D395 /* SDGInterfaceMacOSSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F7D8A4220E46DA500C5D395 /* SDGInterfaceMacOSSample.framework */; };
-		3F7D8A4420E46DA500C5D395 /* SDGInterfaceMacOSSample.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3F7D8A4220E46DA500C5D395 /* SDGInterfaceMacOSSample.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3FAF808520EC5E14004E6FC5 /* SDGInterfaceSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FAF808420EC5E14004E6FC5 /* SDGInterfaceSample.framework */; };
+		3FAF808620EC5E14004E6FC5 /* SDGInterfaceSample.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FAF808420EC5E14004E6FC5 /* SDGInterfaceSample.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		3F7D8A4520E46DA500C5D395 /* Embed Frameworks */ = {
+		3FAF808720EC5E15004E6FC5 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3F7D8A4420E46DA500C5D395 /* SDGInterfaceMacOSSample.framework in Embed Frameworks */,
+				3FAF808620EC5E14004E6FC5 /* SDGInterfaceSample.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -43,7 +43,7 @@
 		3F7D89F020E46BCA00C5D395 /* macOS Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "macOS Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F7D89F320E46BCA00C5D395 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		3F7D89FA20E46BCC00C5D395 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3F7D8A4220E46DA500C5D395 /* SDGInterfaceMacOSSample.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDGInterfaceMacOSSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3FAF808420EC5E14004E6FC5 /* SDGInterfaceSample.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDGInterfaceSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,7 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F7D8A4320E46DA500C5D395 /* SDGInterfaceMacOSSample.framework in Frameworks */,
+				3FAF808520EC5E14004E6FC5 /* SDGInterfaceSample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,7 +61,7 @@
 		3F7D89E720E46BCA00C5D395 = {
 			isa = PBXGroup;
 			children = (
-				3F7D8A4220E46DA500C5D395 /* SDGInterfaceMacOSSample.framework */,
+				3FAF808420EC5E14004E6FC5 /* SDGInterfaceSample.framework */,
 				3F7D89F220E46BCA00C5D395 /* macOS Sample */,
 				3F7D89F120E46BCA00C5D395 /* Products */,
 			);
@@ -94,7 +94,7 @@
 				3F7D89EC20E46BCA00C5D395 /* Sources */,
 				3F7D89ED20E46BCA00C5D395 /* Frameworks */,
 				3F7D89EE20E46BCA00C5D395 /* Resources */,
-				3F7D8A4520E46DA500C5D395 /* Embed Frameworks */,
+				3FAF808720EC5E15004E6FC5 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
