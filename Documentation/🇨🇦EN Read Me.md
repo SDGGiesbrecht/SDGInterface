@@ -26,7 +26,7 @@ SDGInterface provides tools for implementing a graphical user interface.
 
 ## Features
 
-
+- API unification accross platforms.
 
 (For a list of related projects, see [here](🇨🇦EN%20Related%20Projects.md).) <!--Skip in Jazzy-->
 
@@ -60,7 +60,16 @@ import SDGApplication
 
 ## Example Usage
 
+```swift
+public final class SampleApplicationDelegate : ApplicationDelegate {
 
+    public override func applicationDidFinishLaunching() {
+        super.applicationDidFinishLaunching()
+
+        print("Hello, world!")
+    }
+}
+```
 
 ## About
 
