@@ -18,7 +18,7 @@ import SDGXCTestUtilities
 
 import SDGInterface
 
-final class SDGInterfaceAPITests : XCTestCase {
+final class SDGApplicationAPITests : XCTestCase {
     func testExample() {
     }
 }

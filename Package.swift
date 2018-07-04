@@ -39,8 +39,8 @@ let package = Package(
         ]),
 
         // Internal tests.
-        .testTarget(name: "SDGInterfaceTests", dependencies: [
-            "SDGInterface",
+        .testTarget(name: "SDGApplicationTests", dependencies: [
+            "SDGApplication",
             .productItem(name: "SDGXCTestUtilities", package: "SDGCornerstone")
             ]),
 
