@@ -1,5 +1,5 @@
 /*
- Exports.swift
+ Application.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface/SDGInterface
@@ -12,8 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-@_exported import Foundation
-
 #if canImport(AppKit)
-@_exported import AppKit
+/// A platform‐indepentent alias for `NSApplication`.
+public typealias Application = NSApplication
 #endif

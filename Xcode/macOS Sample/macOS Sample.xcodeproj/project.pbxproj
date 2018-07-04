@@ -20,7 +20,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3F7D89F420E46BCA00C5D395 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7D89F320E46BCA00C5D395 /* AppDelegate.swift */; };
+		3F7D89F420E46BCA00C5D395 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7D89F320E46BCA00C5D395 /* main.swift */; };
 		3F7D8A4320E46DA500C5D395 /* SDGInterfaceMacOSSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F7D8A4220E46DA500C5D395 /* SDGInterfaceMacOSSample.framework */; };
 		3F7D8A4420E46DA500C5D395 /* SDGInterfaceMacOSSample.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3F7D8A4220E46DA500C5D395 /* SDGInterfaceMacOSSample.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -41,7 +41,7 @@
 
 /* Begin PBXFileReference section */
 		3F7D89F020E46BCA00C5D395 /* macOS Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "macOS Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3F7D89F320E46BCA00C5D395 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3F7D89F320E46BCA00C5D395 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		3F7D89FA20E46BCC00C5D395 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F7D8A4220E46DA500C5D395 /* SDGInterfaceMacOSSample.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDGInterfaceMacOSSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -78,7 +78,7 @@
 		3F7D89F220E46BCA00C5D395 /* macOS Sample */ = {
 			isa = PBXGroup;
 			children = (
-				3F7D89F320E46BCA00C5D395 /* AppDelegate.swift */,
+				3F7D89F320E46BCA00C5D395 /* main.swift */,
 				3F7D89FA20E46BCC00C5D395 /* Info.plist */,
 			);
 			path = "macOS Sample";
@@ -153,7 +153,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F7D89F420E46BCA00C5D395 /* AppDelegate.swift in Sources */,
+				3F7D89F420E46BCA00C5D395 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

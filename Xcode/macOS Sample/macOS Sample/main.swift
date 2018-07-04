@@ -1,5 +1,5 @@
 /*
- Exports.swift
+ main.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface/SDGInterface
@@ -12,8 +12,6 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-@_exported import Foundation
+import SDGInterfaceMacOSSample
 
-#if canImport(AppKit)
-@_exported import AppKit
-#endif
+SampleApplicationDelegate().main()
