@@ -20,6 +20,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F2A5A3920EC7F8E00E7A4DC /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2A5A3820EC7F8E00E7A4DC /* main.swift */; };
+		3F2A5A4620EC7FA300E7A4DC /* SDGInterfaceSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F2A5A4520EC7FA300E7A4DC /* SDGInterfaceSample.framework */; };
+		3F2A5A4720EC7FA300E7A4DC /* SDGInterfaceSample.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3F2A5A4520EC7FA300E7A4DC /* SDGInterfaceSample.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3F75CA1B20EC600400BD76A6 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F75CA1A20EC600400BD76A6 /* main.swift */; };
 		3F75CA2720EC60AA00BD76A6 /* SDGInterfaceSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F75CA2620EC60AA00BD76A6 /* SDGInterfaceSample.framework */; };
 		3F75CA2820EC60AA00BD76A6 /* SDGInterfaceSample.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3F75CA2620EC60AA00BD76A6 /* SDGInterfaceSample.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -29,6 +32,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		3F2A5A4820EC7FA300E7A4DC /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3F2A5A4720EC7FA300E7A4DC /* SDGInterfaceSample.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3F75CA2920EC60AA00BD76A6 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -54,6 +68,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3F2A5A3620EC7F8E00E7A4DC /* tvOS Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tvOS Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F2A5A3820EC7F8E00E7A4DC /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		3F2A5A4120EC7F9000E7A4DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3F2A5A4520EC7FA300E7A4DC /* SDGInterfaceSample.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDGInterfaceSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F75CA1720EC600400BD76A6 /* macOS Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "macOS Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F75CA1A20EC600400BD76A6 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		3F75CA2120EC600500BD76A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -66,6 +84,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3F2A5A3320EC7F8E00E7A4DC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F2A5A4620EC7FA300E7A4DC /* SDGInterfaceSample.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3F75CA1420EC600400BD76A6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -85,13 +111,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3F2A5A3720EC7F8E00E7A4DC /* tvOS Sample */ = {
+			isa = PBXGroup;
+			children = (
+				3F2A5A3820EC7F8E00E7A4DC /* main.swift */,
+				3F2A5A4120EC7F9000E7A4DC /* Info.plist */,
+			);
+			path = "tvOS Sample";
+			sourceTree = "<group>";
+		};
 		3F75CA0C20EC5F9300BD76A6 = {
 			isa = PBXGroup;
 			children = (
+				3F2A5A4520EC7FA300E7A4DC /* SDGInterfaceSample.framework */,
 				3FB8FAE920EC63DE00C4EE09 /* SDGInterfaceSample.framework */,
 				3F75CA2620EC60AA00BD76A6 /* SDGInterfaceSample.framework */,
 				3F75CA1920EC600400BD76A6 /* macOS Sample */,
 				3FB8FAD820EC638D00C4EE09 /* iOS Sample */,
+				3F2A5A3720EC7F8E00E7A4DC /* tvOS Sample */,
 				3F75CA1820EC600400BD76A6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -101,6 +138,7 @@
 			children = (
 				3F75CA1720EC600400BD76A6 /* macOS Sample.app */,
 				3FB8FAD720EC638D00C4EE09 /* iOS Sample.app */,
+				3F2A5A3620EC7F8E00E7A4DC /* tvOS Sample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -127,6 +165,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		3F2A5A3520EC7F8E00E7A4DC /* tvOS Sample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3F2A5A4420EC7F9000E7A4DC /* Build configuration list for PBXNativeTarget "tvOS Sample" */;
+			buildPhases = (
+				3F2A5A3220EC7F8E00E7A4DC /* Sources */,
+				3F2A5A3320EC7F8E00E7A4DC /* Frameworks */,
+				3F2A5A3420EC7F8E00E7A4DC /* Resources */,
+				3F2A5A4820EC7FA300E7A4DC /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "tvOS Sample";
+			productName = "tvOS Sample";
+			productReference = 3F2A5A3620EC7F8E00E7A4DC /* tvOS Sample.app */;
+			productType = "com.apple.product-type.application";
+		};
 		3F75CA1620EC600400BD76A6 /* macOS Sample */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3F75CA2520EC600500BD76A6 /* Build configuration list for PBXNativeTarget "macOS Sample" */;
@@ -172,6 +228,9 @@
 				LastSwiftUpdateCheck = 0940;
 				LastUpgradeCheck = 0940;
 				TargetAttributes = {
+					3F2A5A3520EC7F8E00E7A4DC = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
 					3F75CA1620EC600400BD76A6 = {
 						CreatedOnToolsVersion = 9.4.1;
 					};
@@ -195,11 +254,19 @@
 			targets = (
 				3F75CA1620EC600400BD76A6 /* macOS Sample */,
 				3FB8FAD620EC638D00C4EE09 /* iOS Sample */,
+				3F2A5A3520EC7F8E00E7A4DC /* tvOS Sample */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3F2A5A3420EC7F8E00E7A4DC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3F75CA1520EC600400BD76A6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -217,6 +284,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3F2A5A3220EC7F8E00E7A4DC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F2A5A3920EC7F8E00E7A4DC /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3F75CA1320EC600400BD76A6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -236,6 +311,142 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		3F2A5A4220EC7F9000E7A4DC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "tvOS Sample/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "ca.solideogloria.SDGInterface.tvOS-Sample";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 11.4;
+			};
+			name = Debug;
+		};
+		3F2A5A4320EC7F9000E7A4DC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "tvOS Sample/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "ca.solideogloria.SDGInterface.tvOS-Sample";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 11.4;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		3F75CA1120EC5F9300BD76A6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -524,6 +735,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3F2A5A4420EC7F9000E7A4DC /* Build configuration list for PBXNativeTarget "tvOS Sample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3F2A5A4220EC7F9000E7A4DC /* Debug */,
+				3F2A5A4320EC7F9000E7A4DC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		3F75CA1020EC5F9300BD76A6 /* Build configuration list for PBXProject "Sample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
