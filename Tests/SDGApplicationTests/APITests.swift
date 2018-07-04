@@ -18,11 +18,12 @@ import XCTest
 import SDGXCTestUtilities
 
 import SDGInterface
+import SDGInterfaceSample
 
 final class SDGApplicationAPITests : XCTestCase {
 
     func testApplicationDelegate() {
-        let delegate = ApplicationDelegate()
+        let delegate = SampleApplicationDelegate()
         #if canImport(AppKit)
         delegate.applicationDidFinishLaunching(Notification(name: Application.didFinishLaunchingNotification))
         #elseif canImport(UIKit)

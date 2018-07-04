@@ -17,6 +17,7 @@
 public final class SampleApplicationDelegate : ApplicationDelegate {
 
     public override func applicationDidFinishLaunching() {
+        super.applicationDidFinishLaunching()
         print("Hello, world!")
     }
 }
