@@ -13,6 +13,11 @@
  */
 
 #if canImport(AppKit)
-/// A platform‐indepentent alias for `NSApplication`.
+// [_Define Documentation: SDGInterface.Application_]
+/// An alias for `NSApplication` or `UIApplication`.
 public typealias Application = NSApplication
+#elseif canImport(UIKit)
+// [_Inherit Documentation: SDGInterface.Application_]
+/// An alias for `NSApplication` or `UIApplication`.
+public typealias Application = UIApplication
 #endif

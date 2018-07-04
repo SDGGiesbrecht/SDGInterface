@@ -13,23 +13,21 @@
  */
 
 #if canImport(AppKit)
-/// A platform‐indepented alias for `NSApplicationDelegate`.
+// [_Define Documentation: SDGInterface.ApplicationDelegate_]
+/// An alias for `NSApplicationDelegate` or `UIApplicationDelegate`.
 public typealias ApplicationDelegate = NSApplicationDelegate
+#elseif canImport(UIKit)
+// [_Inherit Documentation: SDGInterface.ApplicationDelegate_]
+/// An alias for `NSApplicationDelegate` or `UIApplicationDelegate`.
+public typealias ApplicationDelegate = UIApplicationDelegate
 #endif
 
 extension ApplicationDelegate {
 
     /// Starts the application’s main run loop.
     public func main() -> Never {
-        autoreleasepool {
-            mainDelegate = self
-
-            let application = Application.shared
-
-            application.delegate = self
-            application.run()
-        }
-        exit(0)
+        Application.shared.delegate = self
+        exit(NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv))
     }
 }
 
