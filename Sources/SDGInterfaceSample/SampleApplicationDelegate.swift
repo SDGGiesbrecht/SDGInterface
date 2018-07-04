@@ -14,15 +14,10 @@
 
 #if !os(watchOS)
 
-public class SampleApplicationDelegate : NSObject, ApplicationDelegate {
+public final class SampleApplicationDelegate : ApplicationDelegate {
 
-    public func applicationDidFinishLaunching(_ notification: Notification) {
+    public override func applicationDidFinishLaunching() {
         print("Hello, world!")
-    }
-
-    public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
-        print("Hello, world!")
-        return true
     }
 }
 

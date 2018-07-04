@@ -14,4 +14,4 @@
 
 import SDGInterfaceSample
 
-SampleApplicationDelegate().main()
+SampleApplicationDelegate.main()

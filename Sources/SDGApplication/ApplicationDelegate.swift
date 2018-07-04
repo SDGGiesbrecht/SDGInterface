@@ -15,29 +15,69 @@
 #if !os(watchOS)
 
 #if canImport(AppKit)
-// [_Define Documentation: SDGInterface.ApplicationDelegate_]
-/// An alias for `NSApplicationDelegate` or `UIApplicationDelegate`.
-public typealias ApplicationDelegate = NSApplicationDelegate
+/// :nodoc:
+public typealias _ApplicationDelegate = NSApplicationDelegate
 #elseif canImport(UIKit)
-// [_Inherit Documentation: SDGInterface.ApplicationDelegate_]
-/// An alias for `NSApplicationDelegate` or `UIApplicationDelegate`.
-public typealias ApplicationDelegate = UIApplicationDelegate
+/// :nodoc:
+public typealias _ApplicationDelegate = UIApplicationDelegate
 #endif
+
+/// An application delegate.
+///
+/// This inherits from `NSApplicationDelegate` or `UIApplicationDelegate`, and provides several additional API unifications.
+open class ApplicationDelegate : NSObject, _ApplicationDelegate {
+
+    // MARK: - Initialization
+
+    /// Creates an application delegate.
+    public required override init() {
+        super.init()
+    }
+
+    /// MARK: - Launching
+
+    /// Notifies the delegate that the application has been launched and initialized.
+    ///
+    /// This is a unification of `applicationDidFinishLaunching(:)` and `application(_:, didFinishLaunchingWithOptions:) -> Bool`. The default implementations of each redirect to this method.
+    open func applicationDidFinishLaunching() {
+
+    }
+}
 
 extension ApplicationDelegate {
 
+    // Permanent strong storage for the delegate.
+    private static var mainDelegate: ApplicationDelegate?
     /// Starts the application’s main run loop.
-    public static func main() -> Never {
+    public class func main() -> Never {
         #if canImport(AppKit)
-        Application.shared.delegate = Self()
+        let delegate = self.init()
+        mainDelegate = delegate
+        Application.shared.delegate = delegate
         exit(NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv))
         #elseif canImport(UIKit)
-        exit(UIApplicationMain(CommandLine.argc, UnsafeMutableRawPointer(CommandLine.unsafeArgv).bindMemory(to: UnsafeMutablePointer<Int8>.self, capacity: Int(CommandLine.argc)), nil, NSStringFromClass(Self.self)))
+        exit(UIApplicationMain(CommandLine.argc, UnsafeMutableRawPointer(CommandLine.unsafeArgv).bindMemory(to: UnsafeMutablePointer<Int8>.self, capacity: Int(CommandLine.argc)), nil, NSStringFromClass(self)))
         #endif
     }
 }
 
-// Permanent strong storage for the delegate.
-private var mainDelegate: ApplicationDelegate?
+#if canImport(AppKit)
+extension ApplicationDelegate {
+
+    /// Sent by the default notification center after the application has been launched and initialized but before it has received its first event.
+    public func applicationDidFinishLaunching(_ notification: Notification) {
+        applicationDidFinishLaunching()
+    }
+}
+#elseif canImport(UIKit)
+extension ApplicationDelegate {
+
+    /// Tells the delegate that the launch process is almost done and the application is almost ready to run.
+    public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+        applicationDidFinishLaunching()
+        return true
+    }
+}
+#endif
 
 #endif
