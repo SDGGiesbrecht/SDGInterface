@@ -49,7 +49,7 @@ extension ApplicationDelegate {
     // Permanent strong storage for the delegate.
     private static var mainDelegate: ApplicationDelegate?
     /// Starts the application’s main run loop.
-    public class func main() -> Never {
+    public class func main() -> Never { // [_Exempt from Test Coverage_]
         #if canImport(AppKit)
         let delegate = self.init()
         mainDelegate = delegate
@@ -65,7 +65,7 @@ extension ApplicationDelegate {
 extension ApplicationDelegate {
 
     /// Sent by the default notification center after the application has been launched and initialized but before it has received its first event.
-    public func applicationDidFinishLaunching(_ notification: Notification) {
+    open func applicationDidFinishLaunching(_ notification: Notification) {
         applicationDidFinishLaunching()
     }
 }
@@ -73,7 +73,7 @@ extension ApplicationDelegate {
 extension ApplicationDelegate {
 
     /// Tells the delegate that the launch process is almost done and the application is almost ready to run.
-    public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+    open func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         applicationDidFinishLaunching()
         return true
     }

@@ -12,6 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import Foundation
 import XCTest
 
 import SDGXCTestUtilities
@@ -19,6 +20,13 @@ import SDGXCTestUtilities
 import SDGInterface
 
 final class SDGApplicationAPITests : XCTestCase {
-    func testExample() {
+
+    func testApplicationDelegate() {
+        let delegate = ApplicationDelegate()
+        #if canImport(AppKit)
+        delegate.applicationDidFinishLaunching(Notification(name: Application.didFinishLaunchingNotification))
+        #elseif canImport(UIKit)
+        _ = delegate.application(Application.shared)
+        #endif
     }
 }
