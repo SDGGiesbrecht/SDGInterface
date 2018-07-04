@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if !os(watchOS)
+
 #if canImport(AppKit)
 // [_Define Documentation: SDGInterface.Application_]
 /// An alias for `NSApplication` or `UIApplication`.
@@ -20,4 +22,6 @@ public typealias Application = NSApplication
 // [_Inherit Documentation: SDGInterface.Application_]
 /// An alias for `NSApplication` or `UIApplication`.
 public typealias Application = UIApplication
+#endif
+
 #endif

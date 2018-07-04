@@ -12,9 +12,13 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(AppKit)
+
 public class SampleApplicationDelegate : NSObject, ApplicationDelegate {
 
     public func applicationDidFinishLaunching(_ notification: Notification) {
         print("Hello, world!")
     }
 }
+
+#endif
