@@ -1,5 +1,5 @@
 /*
- Exports.swift
+ MenuItem.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface/SDGInterface
@@ -12,5 +12,12 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-@_exported import SDGInterfaceElements
-@_exported import SDGApplication
+#if canImport(AppKit)
+// MARK: - #if canImport(AppKit)
+/// :nodoc:
+public typealias MenuItem = NSMenuItem
+#elseif canImport(UIKit)
+// MARK: - #elseif canImport(UIKit)
+/// :nodoc:
+public typealias MenuItem = UIMenuItem
+#endif
