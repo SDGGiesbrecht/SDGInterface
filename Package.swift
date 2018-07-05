@@ -36,7 +36,10 @@ let package = Package(
 
         // Individual component modules.
         .target(name: "SDGApplication", dependencies: [
-        ]),
+            "SDGInterfaceElements",
+            ]),
+        .target(name: "SDGInterfaceElements", dependencies: [
+            ]),
 
         // Internal tests.
         .testTarget(name: "SDGApplicationTests", dependencies: [
