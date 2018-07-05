@@ -25,6 +25,6 @@ undocumented.json
 
 # [_End Workspace Section]
 
-// [_Workaround: Until Workspace handles these._]
+// [_Workaround: Until Workspace handles these. (workspace version 0.9.0)_]
 IDEWorkspaceChecks.plist
 xcuserdata

@@ -35,15 +35,13 @@ configuration.documentation.readMe.quotation?.translation["🇨🇦EN"] = "And t
 configuration.documentation.readMe.quotation?.link["🇨🇦EN"] = URL(string: "https://www.biblegateway.com/passage/?search=John+1&version=SBLGNT;NIV")!
 configuration.documentation.readMe.quotation?.citation["🇨🇦EN"] = "‎יוחנן/Yoẖanan"
 
-// [_Workaround: No features yet._]
 configuration.documentation.readMe.featureList["🇨🇦EN"] = [
+    "\u{2D} API unification accross platforms."
     ].joinedAsLines()
 
-// [_Workaround: No examples yet._]
-configuration.documentation.readMe.exampleUsage["🇨🇦EN"] = ""
+configuration.documentation.readMe.exampleUsage["🇨🇦EN"] = "\u{23}example(sample)"
 
-// [_Workaround: No key yet._]
-configuration.documentation.api.encryptedTravisCIDeploymentKey = ""
+configuration.documentation.api.encryptedTravisCIDeploymentKey = "O5o7Iu10Pk7hfyfcRBxcEw8G52INRoGCgLTDBladFxOZLx6a6yKaYu1RuYeOi2A2Y4SdGCI88Wk64rMVNh3t8j7chJUImGWTCt0Da8wOfVIub958MyXojU8ed2tKURkyfTrGm/fUc3ED0E/VGongGF8bYUOreVXFK6qJ8S2XtQROpgYA7mek25YMu9uvem8O3JvN6U+esbLmMx9n/GOkaPNcu1IOsRytbwzLdClWbkwhW8tgAF7ca9BEholyzw3LT2/9uigZaScjtifsKs+9xB6L4+3DLD9WL8+0A1YqQi1SmH1EpB7tigDe0DgEsI3ElRyJbBVfDIFRFbcmLihSc/mttBVbLVlcHD7b3jJ75jOpfBgBTH7UoYM2JHn6KzqrDp0SZXETUs6m76E5D0i6BtvqFIDU61WqIF1fKy/06/nMnt5vACeUZ9oVUfpB0QUjO78Xjziv/qsgEvoVlWgW8hjuB70MusJvNtGbWCY8cJjcx2LPqK7dEkEsx4xMc20W/SmZP8aQeGgZijuTD/kFJTryX27B1CGnRcOscSsIWiN3LiHZoV7zcM2czQxNSq3s6uIz+craAnz7H5+Ngrh5q39XSvlznlHUWhT7Is4H0sJvXAOSWYQmcbsB7ajQg5tJ5TDA5XS6GK4vyeueNXDpyWZVTVlHdzkkqbDFQP9InHs="
 
 configuration.applySDGOverrides()
 configuration.validateSDGStandards()

@@ -16,7 +16,7 @@
 
 macOS • iOS • watchOS • tvOS
 
-APIs: [SDGInterface](https://sdggiesbrecht.github.io/SDGInterface/SDGInterface)
+APIs: [SDGInterface](https://sdggiesbrecht.github.io/SDGInterface/SDGInterface) • [SDGApplication](https://sdggiesbrecht.github.io/SDGInterface/SDGApplication)
 
 # SDGInterface
 
@@ -26,15 +26,15 @@ SDGInterface provides tools for implementing a graphical user interface.
 
 ## Features
 
-
+- API unification accross platforms.
 
 (For a list of related projects, see [here](Documentation/🇨🇦EN%20Related%20Projects.md).) <!--Skip in Jazzy-->
 
 ## Importing
 
-SDGInterface provides a library for use with the [Swift Package Manager](https://swift.org/package-manager/).
+SDGInterface provides libraries for use with the [Swift Package Manager](https://swift.org/package-manager/).
 
-Simply add SDGInterface as a dependency in `Package.swift`:
+Simply add SDGInterface as a dependency in `Package.swift` and specify which of the libraries to use:
 
 ```swift
 let package = Package(
@@ -45,20 +45,31 @@ let package = Package(
     targets: [
         .target(name: "MyTarget", dependencies: [
             .productItem(name: "SDGInterface", package: "SDGInterface"),
+            .productItem(name: "SDGApplication", package: "SDGInterface"),
         ])
     ]
 )
 ```
 
-The library’s module can then be imported in source files:
+The libraries’ modules can then be imported in source files:
 
 ```swift
 import SDGInterface
+import SDGApplication
 ```
 
 ## Example Usage
 
+```swift
+public final class SampleApplicationDelegate : ApplicationDelegate {
 
+    public override func applicationDidFinishLaunching() {
+        super.applicationDidFinishLaunching()
+
+        print("Hello, world!")
+    }
+}
+```
 
 ## About
 

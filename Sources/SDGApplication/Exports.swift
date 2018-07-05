@@ -1,5 +1,5 @@
 /*
- SDGInterfaceAPITests.swift
+ Exports.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface/SDGInterface
@@ -12,13 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-import XCTest
+@_exported import Foundation
 
-import SDGXCTestUtilities
-
-import SDGInterface
-
-final class SDGInterfaceAPITests : XCTestCase {
-    func testExample() {
-    }
-}
+#if canImport(AppKit)
+@_exported import AppKit
+#elseif canImport(UIKit)
+@_exported import UIKit
+#endif
