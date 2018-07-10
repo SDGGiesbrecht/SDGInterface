@@ -28,6 +28,7 @@ public final class SampleApplicationDelegate : ApplicationDelegate {
 extension SampleApplicationDelegate {
 
     private func setUpSamples() {
+        #if canImport(AppKit)
         let menuBar = LocalizedMenu(label: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "" })))
         NSApplication.shared.mainMenu = menuBar
         menuBar.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "" })))
@@ -52,6 +53,7 @@ extension SampleApplicationDelegate {
             }
         })))
         submenu.newEntry(labelled: menuItemLabel)
+        #endif
     }
 }
 

@@ -18,14 +18,16 @@ open class LocalizedMenuItem<L : Localization> : MenuItem, SharedValueObserver {
 
     // MARK: - Initialization
 
-    public init(label: Shared<UserFacing<StrictString, L>>, action: Selector? = nil, keyEquivalent: String? = nil, modifierMask: NSEvent.ModifierFlags = [], target: AnyObject? = nil, indented: Bool = false) {
+    public init(label: Shared<UserFacing<StrictString, L>>, action: Selector? = nil) {
 
         self.label = label
-        self.indented = indented
 
-        super.init(title: label.value.resolved(indented: indented), action: action, keyEquivalent: keyEquivalent ?? "")
-
-        self.target = target
+        let startingTitle = String(label.value.resolved())
+        #if canImport(AppKit)
+        super.init(title: startingTitle, action: action, keyEquivalent: "")
+        #elseif canImport(UIKit)
+        super.init(title: startingTitle, action: action ?? #selector(NSObject._placeholderMethod))
+        #endif
 
         LocalizationSetting.current.register(observer: self)
     }
@@ -45,7 +47,7 @@ open class LocalizedMenuItem<L : Localization> : MenuItem, SharedValueObserver {
     public var label: Shared<UserFacing<StrictString, L>>
 
     /// Whether the label is indented.
-    public var indented: Bool
+    public var indented: Bool = false
 
     // MARK: - SharedValueObserver
 

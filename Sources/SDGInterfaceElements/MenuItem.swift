@@ -14,10 +14,12 @@
 
 #if canImport(AppKit)
 // MARK: - #if canImport(AppKit)
-/// :nodoc:
+// [_Define Documentation: MenuItem_]
+/// An alias for `NSMenuItem` or `UIMenuItem`.
 public typealias MenuItem = NSMenuItem
 #elseif canImport(UIKit)
 // MARK: - #elseif canImport(UIKit)
-/// :nodoc:
+// [_Inherit Documentation: MenuItem_]
+/// An alias for `NSMenuItem` or `UIMenuItem`.
 public typealias MenuItem = UIMenuItem
 #endif

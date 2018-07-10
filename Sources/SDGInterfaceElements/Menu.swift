@@ -14,9 +14,8 @@
 
 #if canImport(AppKit)
 // #if canImport(AppKit)
-/// :nodoc:
+/// An alias for `NSMenu`.
 public typealias Menu = NSMenu
-#endif
 
 extension Menu {
 
@@ -32,3 +31,4 @@ extension Menu {
         return nil
     }
 }
+#endif

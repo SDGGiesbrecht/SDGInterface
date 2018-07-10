@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(AppKit)
+
 import SDGLocalization
 import SDGInterfaceLocalizations
 
@@ -42,8 +44,8 @@ open class LocalizedMenu<L : Localization> : Menu, SharedValueObserver {
     // MARK: - Modifications
 
     /// Creates, inserts and returns a new entry.
-    @discardableResult public func newEntry<E>(labelled label: Shared<UserFacing<StrictString, E>>, action: Selector? = nil, keyEquivalent: String? = nil, modifierMask: NSEvent.ModifierFlags = [], target: AnyObject? = nil) -> LocalizedMenuItem<E> {
-        let entry = createEntry(labelled: label, action: action, keyEquivalent: keyEquivalent, modifierMask: modifierMask, target: target)
+    @discardableResult public func newEntry<E>(labelled label: Shared<UserFacing<StrictString, E>>, action: Selector? = nil) -> LocalizedMenuItem<E> {
+        let entry = createEntry(labelled: label, action: action)
         addItem(entry)
         return entry
     }
@@ -66,8 +68,8 @@ open class LocalizedMenu<L : Localization> : Menu, SharedValueObserver {
     // MARK: - Subclassing
 
     /// Override in a subclass to use a different class of menu entry.
-    open func createEntry<E>(labelled label: Shared<UserFacing<StrictString, E>>, action: Selector?, keyEquivalent: String?, modifierMask: NSEvent.ModifierFlags, target: AnyObject?, indented: Bool = false) -> LocalizedMenuItem<E> {
-        return LocalizedMenuItem(label: label, action: action, keyEquivalent: keyEquivalent, modifierMask: modifierMask, target: target, indented: indented)
+    open func createEntry<E>(labelled label: Shared<UserFacing<StrictString, E>>, action: Selector?) -> LocalizedMenuItem<E> {
+        return LocalizedMenuItem(label: label, action: action)
     }
 
     /// Override in a subclass to use a different class of menu entry.
@@ -93,3 +95,4 @@ open class LocalizedMenu<L : Localization> : Menu, SharedValueObserver {
         self.title = String(label.value.resolved())
     }
 }
+#endif
