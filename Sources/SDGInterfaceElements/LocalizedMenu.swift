@@ -42,21 +42,21 @@ open class LocalizedMenu<L : Localization> : Menu, SharedValueObserver {
     // MARK: - Modifications
 
     /// Creates, inserts and returns a new entry.
-    public func newEntry<E>(labelled label: Shared<UserFacing<StrictString, E>>, action: Selector? = nil, keyEquivalent: String? = nil, modifierMask: NSEvent.ModifierFlags = [], target: AnyObject? = nil) -> LocalizedMenuItem<E> {
+    @discardableResult public func newEntry<E>(labelled label: Shared<UserFacing<StrictString, E>>, action: Selector? = nil, keyEquivalent: String? = nil, modifierMask: NSEvent.ModifierFlags = [], target: AnyObject? = nil) -> LocalizedMenuItem<E> {
         let entry = createEntry(labelled: label, action: action, keyEquivalent: keyEquivalent, modifierMask: modifierMask, target: target)
         addItem(entry)
         return entry
     }
 
     /// Creates, inserts and returns a new separator.
-    public func newSeparator() -> MenuItem {
+    @discardableResult public func newSeparator() -> MenuItem {
         let separator = createSeparator()
         addItem(separator)
         return separator
     }
 
     /// Creates, inserts and returns a new submenu.
-    public func newSubmenu<S>(labelled label: Shared<UserFacing<StrictString, S>>) -> LocalizedMenu<S> {
+    @discardableResult public func newSubmenu<S>(labelled label: Shared<UserFacing<StrictString, S>>) -> LocalizedMenu<S> {
         let header = newEntry(labelled: label)
         let submenu = createSubmenu(labelled: label)
         header.submenu = submenu

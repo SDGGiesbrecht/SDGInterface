@@ -20,10 +20,39 @@ public final class SampleApplicationDelegate : ApplicationDelegate {
 
     public override func applicationDidFinishLaunching() {
         super.applicationDidFinishLaunching()
-
-        print("Hello, world!")
+        setUpSamples()
     }
 }
 // [_End_]
+
+extension SampleApplicationDelegate {
+
+    private func setUpSamples() {
+        let menuBar = LocalizedMenu(label: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "" })))
+        NSApplication.shared.mainMenu = menuBar
+        menuBar.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "" })))
+        let menu = menuBar.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Menu"
+            }
+        })))
+        let menuItemLabel = Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Menu Item"
+            }
+        }))
+        menu.newEntry(labelled: menuItemLabel)
+        menu.newSeparator()
+        let submenu = menu.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Submenu"
+            }
+        })))
+        submenu.newEntry(labelled: menuItemLabel)
+    }
+}
 
 #endif
