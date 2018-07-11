@@ -19,6 +19,7 @@ import SDGLogic
 import SDGXCTestUtilities
 
 import SDGInterface
+import SDGInterfaceLocalizations
 import SDGInterfaceSample
 
 final class SDGApplicationAPITests : TestCase {
@@ -37,6 +38,10 @@ final class SDGApplicationAPITests : TestCase {
     }()
 
     func testMenu() {
+        let menuItem = LocalizedMenuItem(label: Shared(UserFacing<StrictString, APILocalization>({ _ in "..." })))
+        menuItem.indented = false
+        menuItem.indented = true
+
         #if canImport(AppKit)
         let menuBar = Application.shared.mainMenu
         XCTAssertNotNil(menuBar)
@@ -45,6 +50,8 @@ final class SDGApplicationAPITests : TestCase {
         XCTAssertNotNil(submenu)
         XCTAssertEqual(submenu?.parentMenuItem, itemWithSubmenu)
         XCTAssertNil(menuBar?.parentMenuItem)
+        #elseif canImport(UIKit)
+        XCTAssertNil(Menu.shared.parentMenuItem)
         #endif
     }
 }
