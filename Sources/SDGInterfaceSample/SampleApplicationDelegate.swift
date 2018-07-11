@@ -92,7 +92,7 @@ extension SampleApplicationDelegate {
 
 #endif
 
-#if canImport(UIKit)
+#if canImport(UIKit) && !os(watchOS)
 // [_Workaround: Temporary window storage._]
 var permanentWindow: UIWindow?
 #endif

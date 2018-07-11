@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if !os(watchOS) && !os(tvOS)
+
 import SDGInterfaceLocalizations
 
 open class LocalizedMenuItem<L : Localization> : MenuItem, SharedValueObserver {
@@ -77,3 +79,5 @@ extension UserFacing where Element == StrictString {
         return String(result)
     }
 }
+
+#endif

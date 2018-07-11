@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if !os(watchOS) && !os(tvOS)
+
 #if canImport(AppKit)
 // MARK: - #if canImport(AppKit)
 // [_Define Documentation: MenuItem_]
@@ -22,4 +24,6 @@ public typealias MenuItem = NSMenuItem
 // [_Inherit Documentation: MenuItem_]
 /// An alias for `NSMenuItem` or `UIMenuItem`.
 public typealias MenuItem = UIMenuItem
+#endif
+
 #endif
