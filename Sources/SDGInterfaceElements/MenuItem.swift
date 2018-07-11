@@ -13,15 +13,16 @@
  */
 
 #if !os(watchOS) && !os(tvOS)
+// MARK: - #if !os(watchOS) && !os(tvOS)
 
 #if canImport(AppKit)
 // MARK: - #if canImport(AppKit)
-// [_Define Documentation: MenuItem_]
+// @documentation(MenuItem)
 /// An alias for `NSMenuItem` or `UIMenuItem`.
 public typealias MenuItem = NSMenuItem
 #elseif canImport(UIKit)
 // MARK: - #elseif canImport(UIKit)
-// [_Inherit Documentation: MenuItem_]
+// #documentation(MenuItem)
 /// An alias for `NSMenuItem` or `UIMenuItem`.
 public typealias MenuItem = UIMenuItem
 #endif

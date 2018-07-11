@@ -13,6 +13,7 @@
  */
 
 #if canImport(AppKit)
+// MARK: - #if canImport(AppKit)
 
 import SDGLocalization
 import SDGInterfaceLocalizations
@@ -43,7 +44,7 @@ open class LocalizedMenu<L : Localization> : Menu, SharedValueObserver {
 
     // MARK: - SharedValueObserver
 
-    // [_Inherit Documentation: SDGCornerstone.SharedValueObserver.valueChanged(for:)_]
+    // #documentation(SDGCornerstone.SharedValueObserver.valueChanged(for:))
     /// Called when a value changes.
     ///
     /// - Parameters:

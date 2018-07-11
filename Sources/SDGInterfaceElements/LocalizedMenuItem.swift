@@ -13,6 +13,7 @@
  */
 
 #if !os(watchOS) && !os(tvOS)
+// MARK: - #if !os(watchOS) && !os(tvOS)
 
 import SDGInterfaceLocalizations
 
@@ -57,7 +58,7 @@ open class LocalizedMenuItem<L : Localization> : MenuItem, SharedValueObserver {
 
     // MARK: - SharedValueObserver
 
-    // [_Inherit Documentation: SDGCornerstone.SharedValueObserver.valueChanged(for:)_]
+    // #documentation(SDGCornerstone.SharedValueObserver.valueChanged(for:))
     /// Called when a value changes.
     ///
     /// - Parameters:
@@ -70,6 +71,7 @@ open class LocalizedMenuItem<L : Localization> : MenuItem, SharedValueObserver {
 }
 
 extension UserFacing where Element == StrictString {
+    // MARK: - where Element == StrictString
 
     fileprivate func resolved(indented: Bool) -> String {
         var result = resolved()

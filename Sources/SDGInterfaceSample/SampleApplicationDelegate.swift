@@ -70,7 +70,9 @@ extension SampleApplicationDelegate {
 
         #elseif canImport(UIKit)
 
-        #if !os(tvOS)
+        #if os(tvOS)
+        _ = menuItemLabel.value.resolved()
+        #else
         let window = UIWindow(frame: UIScreen.main.bounds)
         permanentWindow = window
         let view = UIViewController()
@@ -95,6 +97,6 @@ extension SampleApplicationDelegate {
 #endif
 
 #if canImport(UIKit) && !os(watchOS)
-// [_Workaround: Temporary window storage._]
+// #workaround(Temporary window storage.)
 var permanentWindow: UIWindow?
 #endif
