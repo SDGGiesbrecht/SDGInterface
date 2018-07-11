@@ -17,7 +17,7 @@ import SDGMathematics
 #if !os(watchOS)
 // MARK: - #if !os(watchOS)
 
-// [_Define Example: sample_]
+// @example(sample)
 public final class SampleApplicationDelegate : ApplicationDelegate {
 
     public override func applicationDidFinishLaunching() {
@@ -25,7 +25,7 @@ public final class SampleApplicationDelegate : ApplicationDelegate {
         setUpSamples()
     }
 }
-// [_End_]
+// @endExample
 
 extension SampleApplicationDelegate {
 
