@@ -26,7 +26,7 @@ open class LocalizedMenuItem<L : Localization> : MenuItem, SharedValueObserver {
         #if canImport(AppKit)
         super.init(title: startingTitle, action: action, keyEquivalent: "")
         #elseif canImport(UIKit)
-        super.init(title: startingTitle, action: action ?? #selector(NSObject._placeholderMethod))
+        super.init(title: startingTitle, action: action ?? #selector(NSObject._placeholderMethod)) // @exempt(from: tests) False coverage result in Xcode 9.4.1.
         #endif
 
         LocalizationSetting.current.register(observer: self)
