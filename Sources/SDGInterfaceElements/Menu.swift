@@ -23,6 +23,7 @@ public typealias Menu = NSMenu
 #elseif canImport(UIKit)
 // MARK: - #elseif canImport(UIKit)
 // #documentation(Menu)
+/// An alias for `NSMenu` or `UIMenuController`.
 public typealias Menu = UIMenuController
 #endif
 
