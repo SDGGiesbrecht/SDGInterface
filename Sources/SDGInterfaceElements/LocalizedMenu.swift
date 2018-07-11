@@ -41,47 +41,6 @@ open class LocalizedMenu<L : Localization> : Menu, SharedValueObserver {
     /// The label.
     public var label: Shared<UserFacing<StrictString, L>>
 
-    // MARK: - Modifications
-
-    /// Creates, inserts and returns a new entry.
-    @discardableResult public func newEntry<E>(labelled label: Shared<UserFacing<StrictString, E>>, action: Selector? = nil) -> LocalizedMenuItem<E> {
-        let entry = createEntry(labelled: label, action: action)
-        addItem(entry)
-        return entry
-    }
-
-    /// Creates, inserts and returns a new separator.
-    @discardableResult public func newSeparator() -> MenuItem {
-        let separator = createSeparator()
-        addItem(separator)
-        return separator
-    }
-
-    /// Creates, inserts and returns a new submenu.
-    @discardableResult public func newSubmenu<S>(labelled label: Shared<UserFacing<StrictString, S>>) -> LocalizedMenu<S> {
-        let header = newEntry(labelled: label)
-        let submenu = createSubmenu(labelled: label)
-        header.submenu = submenu
-        return submenu
-    }
-
-    // MARK: - Subclassing
-
-    /// Override in a subclass to use a different class of menu entry.
-    open func createEntry<E>(labelled label: Shared<UserFacing<StrictString, E>>, action: Selector?) -> LocalizedMenuItem<E> {
-        return LocalizedMenuItem(label: label, action: action)
-    }
-
-    /// Override in a subclass to use a different class of menu entry.
-    open func createSeparator() -> NSMenuItem {
-        return MenuItem.separator()
-    }
-
-    /// Override in a subclass to use a different class of sub menu.
-    open func createSubmenu<S>(labelled label: Shared<UserFacing<StrictString, S>>) -> LocalizedMenu<S> where S : Localization {
-        return LocalizedMenu<S>(label: label)
-    }
-
     // MARK: - SharedValueObserver
 
     // [_Inherit Documentation: SDGCornerstone.SharedValueObserver.valueChanged(for:)_]
