@@ -44,6 +44,7 @@ final class SDGApplicationAPITests : TestCase {
         let submenu = itemWithSubmenu?.submenu
         XCTAssertNotNil(submenu)
         XCTAssertEqual(submenu?.parentMenuItem, itemWithSubmenu)
+        XCTAssertNil(menuBar?.parentMenuItem)
         #endif
     }
 }

@@ -15,5 +15,5 @@
 extension NSObject {
 
     /// :nodoc:
-    @objc internal func _placeholderMethod() {}
+    @objc internal func _placeholderMethod() {} // @exempt(from: tests)
 }
