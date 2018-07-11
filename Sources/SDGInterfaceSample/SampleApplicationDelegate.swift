@@ -77,7 +77,11 @@ extension SampleApplicationDelegate {
         let field = UITextView(frame: UIScreen.main.bounds)
         field.backgroundColor = UIColor.white
         view.view.addSubview(field)
-        window.makeKeyAndVisible()
+        if BuildConfiguration.current == .debug,
+            ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil { // #exempt(from: tests)
+            // This call fails during tests.
+            window.makeKeyAndVisible()
+        }
 
         UIMenuController.shared.newEntry(labelled: menuItemLabel)
         UIMenuController.shared.update()
