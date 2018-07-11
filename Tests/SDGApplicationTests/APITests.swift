@@ -38,6 +38,8 @@ final class SDGApplicationAPITests : TestCase {
     }()
 
     func testMenu() {
+        #if !os(tvOS)
+
         let menuItem = LocalizedMenuItem(label: Shared(UserFacing<StrictString, APILocalization>({ _ in "..." })))
         menuItem.indented = false
         menuItem.indented = true
@@ -52,6 +54,8 @@ final class SDGApplicationAPITests : TestCase {
         XCTAssertNil(menuBar?.parentMenuItem)
         #elseif canImport(UIKit)
         XCTAssertNil(Menu.shared.parentMenuItem)
+        #endif
+
         #endif
     }
 }
