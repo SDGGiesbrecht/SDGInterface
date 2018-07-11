@@ -15,7 +15,7 @@
 import SDGInterfaceLocalizations
 
 public func codingNotSupported<L>(forType type: UserFacing<StrictString, L>) -> Never where L : Localization {
-    fatalError(UserFacing<StrictString, APILocalization>({ localization in
+    preconditionFailure(UserFacing<StrictString, APILocalization>({ localization in
         switch localization {
         case .englishCanada:
             return "“" + type.resolved() + "” does not support coding."
