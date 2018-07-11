@@ -54,6 +54,7 @@ let package = Package(
         .testTarget(name: "SDGApplicationTests", dependencies: [
             "SDGApplication",
             "SDGInterfaceSample",
+            .productItem(name: "SDGLogic", package: "SDGCornerstone"),
             .productItem(name: "SDGXCTestUtilities", package: "SDGCornerstone")
             ]),
 
