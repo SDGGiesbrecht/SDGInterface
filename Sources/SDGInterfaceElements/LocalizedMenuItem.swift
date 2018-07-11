@@ -47,7 +47,11 @@ open class LocalizedMenuItem<L : Localization> : MenuItem, SharedValueObserver {
     public var label: Shared<UserFacing<StrictString, L>>
 
     /// Whether the label is indented.
-    public var indented: Bool = false
+    public var indented: Bool = false {
+        didSet {
+            title = label.value.resolved(indented: indented)
+        }
+    }
 
     // MARK: - SharedValueObserver
 

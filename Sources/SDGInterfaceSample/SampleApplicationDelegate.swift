@@ -52,6 +52,13 @@ extension SampleApplicationDelegate {
         })))
 
         menu.newEntry(labelled: menuItemLabel)
+        let indented = menu.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Indented"
+            }
+        })))
+        indented.indented = true
         menu.newSeparator()
         let submenu = menu.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
@@ -60,7 +67,9 @@ extension SampleApplicationDelegate {
             }
         })))
         submenu.newEntry(labelled: menuItemLabel)
+
         #elseif canImport(UIKit)
+
         let window = UIWindow(frame: UIScreen.main.bounds)
         permanentWindow = window
         let view = UIViewController()
@@ -72,6 +81,7 @@ extension SampleApplicationDelegate {
 
         UIMenuController.shared.newEntry(labelled: menuItemLabel)
         UIMenuController.shared.update()
+
         #endif
     }
 }
