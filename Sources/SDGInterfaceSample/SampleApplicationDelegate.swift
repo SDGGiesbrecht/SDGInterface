@@ -70,6 +70,7 @@ extension SampleApplicationDelegate {
 
         #elseif canImport(UIKit)
 
+        #if !os(tvOS)
         let window = UIWindow(frame: UIScreen.main.bounds)
         permanentWindow = window
         let view = UIViewController()
@@ -85,6 +86,7 @@ extension SampleApplicationDelegate {
 
         UIMenuController.shared.newEntry(labelled: menuItemLabel)
         UIMenuController.shared.update()
+        #endif
 
         #endif
     }
