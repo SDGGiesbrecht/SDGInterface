@@ -33,7 +33,7 @@ open class ApplicationDelegate : NSObject, _ApplicationDelegate {
     // MARK: - Initialization
 
     /// Creates an application delegate.
-    public required override init() { // [_Exempt from Test Coverage_] False coverage result in Xcode 9.4.1.
+    public required override init() { // @exempt(from: tests) False coverage result in Xcode 9.4.1.
         super.init()
     }
 
@@ -43,7 +43,9 @@ open class ApplicationDelegate : NSObject, _ApplicationDelegate {
     ///
     /// This is a unification of `applicationDidFinishLaunching(:)` and `application(_:, didFinishLaunchingWithOptions:) -> Bool`. The default implementations of each redirect to this method.
     open func applicationDidFinishLaunching() {
-
+        #if canImport(AppKit)
+        Application.shared.activate(ignoringOtherApps: false)
+        #endif
     }
 }
 
@@ -52,7 +54,7 @@ extension ApplicationDelegate {
     // Permanent strong storage for the delegate.
     private static var mainDelegate: ApplicationDelegate?
     /// Starts the application’s main run loop.
-    public class func main() -> Never { // [_Exempt from Test Coverage_]
+    public class func main() -> Never { // @exempt(from: tests)
         #if canImport(AppKit)
         let delegate = self.init()
         mainDelegate = delegate

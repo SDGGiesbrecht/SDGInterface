@@ -10,21 +10,15 @@
 # Licensed under the Apache Licence, Version 2.0.
 # See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
 
-# [_Begin Workspace Section_]
-
 .DS_Store
 *~
 .build
 Packages
-*.profraw
 Validate\ (macOS).command
 Validate\ (Linux).sh
-undocumented.json
-*.tgz
 *.xcodeproj
-
-# [_End Workspace Section]
-
-// [_Workaround: Until Workspace handles these. (workspace version 0.9.0)_]
 IDEWorkspaceChecks.plist
 xcuserdata
+*.profraw
+undocumented.json
+*.tgz

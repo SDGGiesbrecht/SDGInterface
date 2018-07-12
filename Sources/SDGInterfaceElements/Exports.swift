@@ -12,4 +12,13 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-@_exported import SDGInterfaceElements
+@_exported import Foundation
+
+#if canImport(AppKit)
+@_exported import AppKit
+#elseif canImport(UIKit)
+@_exported import UIKit
+#endif
+
+@_exported import SDGControlFlow
+@_exported import SDGLocalization

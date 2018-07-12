@@ -1,5 +1,5 @@
 /*
- Exports.swift
+ NSObject.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface/SDGInterface
@@ -12,4 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-@_exported import SDGInterfaceElements
+extension NSObject {
+
+    /// :nodoc:
+    @objc internal func _placeholderMethod() {} // @exempt(from: tests)
+}

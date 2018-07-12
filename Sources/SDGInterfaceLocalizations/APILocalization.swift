@@ -1,5 +1,5 @@
 /*
- SDGInterface.swift
+ APILocalization.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface/SDGInterface
@@ -12,4 +12,19 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-@_exported import SDGApplication
+import SDGLocalization
+
+public enum APILocalization : String, InputLocalization {
+
+    // MARK: - Cases
+
+    case englishCanada = "en\u{2D}CA"
+
+    public static var cases: [APILocalization] = [
+        .englishCanada
+    ]
+
+    // MARK: - Localization
+
+    public static let fallbackLocalization: APILocalization = .englishCanada
+}

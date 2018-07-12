@@ -45,3 +45,5 @@ configuration.documentation.api.encryptedTravisCIDeploymentKey = "O5o7Iu10Pk7hfy
 
 configuration.applySDGOverrides()
 configuration.validateSDGStandards()
+
+configuration.testing.testCoverageExemptions.insert(TestCoverageExemptionToken("codingNotSupported", scope: .previousLine))

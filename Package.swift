@@ -31,17 +31,31 @@ let package = Package(
     targets: [
         // The entire package.
         .target(name: "SDGInterface", dependencies: [
+            "SDGInterfaceElements",
             "SDGApplication"
             ]),
 
         // Individual component modules.
         .target(name: "SDGApplication", dependencies: [
-        ]),
+            "SDGInterfaceElements"
+            ]),
+        .target(name: "SDGInterfaceElements", dependencies: [
+            "SDGInterfaceLocalizations",
+            .productItem(name: "SDGControlFlow", package: "SDGCornerstone"),
+            .productItem(name: "SDGLocalization", package: "SDGCornerstone")
+            ]),
+
+        // Internal
+        .target(name: "SDGInterfaceLocalizations", dependencies: [
+            .productItem(name: "SDGLocalization", package: "SDGCornerstone")
+            ]),
 
         // Internal tests.
         .testTarget(name: "SDGApplicationTests", dependencies: [
             "SDGApplication",
+            "SDGInterfaceLocalizations",
             "SDGInterfaceSample",
+            .productItem(name: "SDGLogic", package: "SDGCornerstone"),
             .productItem(name: "SDGXCTestUtilities", package: "SDGCornerstone")
             ]),
 

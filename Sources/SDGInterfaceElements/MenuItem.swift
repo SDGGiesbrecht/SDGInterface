@@ -1,5 +1,5 @@
 /*
- Application.swift
+ MenuItem.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface/SDGInterface
@@ -12,19 +12,19 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if !os(watchOS)
-// MARK: - #if !os(watchOS)
+#if !os(watchOS) && !os(tvOS)
+// MARK: - #if !os(watchOS) && !os(tvOS)
 
 #if canImport(AppKit)
 // MARK: - #if canImport(AppKit)
-// @documentation(SDGInterface.Application)
-/// An alias for `NSApplication` or `UIApplication`.
-public typealias Application = NSApplication
+// @documentation(MenuItem)
+/// An alias for `NSMenuItem` or `UIMenuItem`.
+public typealias MenuItem = NSMenuItem
 #elseif canImport(UIKit)
 // MARK: - #elseif canImport(UIKit)
-// #documentation(SDGInterface.Application)
-/// An alias for `NSApplication` or `UIApplication`.
-public typealias Application = UIApplication
+// #documentation(MenuItem)
+/// An alias for `NSMenuItem` or `UIMenuItem`.
+public typealias MenuItem = UIMenuItem
 #endif
 
 #endif
