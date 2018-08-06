@@ -46,7 +46,7 @@ configuration.documentation.api.encryptedTravisCIDeploymentKey = "O5o7Iu10Pk7hfy
 configuration.applySDGOverrides()
 configuration.validateSDGStandards()
 
-configuration.testing.testCoverageExemptions.insert(TestCoverageExemptionToken("codingNotSupported", scope: .previousLine))
+configuration.testing.exemptionTokens.insert(TestCoverageExemptionToken("codingNotSupported", scope: .previousLine))
 
 // #workaround(workspace version 0.10.1, Jazzy times out Travis CI.)
 configuration.documentation.api.generate = false
