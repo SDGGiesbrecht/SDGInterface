@@ -142,6 +142,7 @@ public class MenuBar : LocalizedMenu<MenuBarLocalization> {
     }
 
     private func initializeFileMenu() {
+        // #warning(Update these to modern variants (“Duplicate”?))
 
         let file = newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -202,7 +203,6 @@ public class MenuBar : LocalizedMenu<MenuBarLocalization> {
         save.keyEquivalent = "s"
         save.keyEquivalentModifierMask = .command
 
-        // #warning(Update to “Duplicate”?)
         let saveAs = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .englishCanada:
@@ -211,5 +211,34 @@ public class MenuBar : LocalizedMenu<MenuBarLocalization> {
         })), action: #selector(NSDocument.saveAs))
         saveAs.keyEquivalent = "S"
         saveAs.keyEquivalentModifierMask = .command
+
+        let revertToSaved = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Revert to Saved"
+            }
+        })), action: #selector(NSDocument.revertToSaved))
+        revertToSaved.keyEquivalent = "r"
+        revertToSaved.keyEquivalentModifierMask = .command
+
+        file.newSeparator()
+
+        let pageSetUp = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Page Set‐Up..."
+            }
+        })), action: #selector(NSDocument.runPageLayout))
+        pageSetUp.keyEquivalent = "P"
+        pageSetUp.keyEquivalentModifierMask = .command
+
+        let print = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Print..."
+            }
+        })), action: #selector(NSView.printView))
+        print.keyEquivalent = "p"
+        print.keyEquivalentModifierMask = .command
     }
 }

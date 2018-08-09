@@ -38,7 +38,8 @@ let package = Package(
         // Individual component modules.
         .target(name: "SDGApplication", dependencies: [
             "SDGInterfaceLocalizations",
-            "SDGInterfaceElements"
+            "SDGInterfaceElements",
+            .productItem(name: "SDGLogic", package: "SDGCornerstone")
             ]),
         .target(name: "SDGInterfaceElements", dependencies: [
             "SDGInterfaceLocalizations",
