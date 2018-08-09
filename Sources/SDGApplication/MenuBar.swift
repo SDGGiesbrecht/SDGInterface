@@ -202,6 +202,7 @@ public class MenuBar : LocalizedMenu<MenuBarLocalization> {
         save.keyEquivalent = "s"
         save.keyEquivalentModifierMask = .command
 
+        // #warning(Update to “Duplicate”?)
         let saveAs = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .englishCanada:
