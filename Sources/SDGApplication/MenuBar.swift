@@ -16,12 +16,38 @@ import SDGInterfaceLocalizations
 
 public class MenuBar : LocalizedMenu<MenuBarLocalization> {
 
-    internal init() {
+    // MARK: - Class Properties
+
+    public static let menuBar: MenuBar = MenuBar()
+
+    // MARK: - Initialization
+
+    private init() {
         super.init(label: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .englishCanada:
-                return "Main Menu"
+                return "Menu Bar"
             }
         })))
+
+        initializeApplicationMenu()
+    }
+
+    // MARK: - Application
+
+    private func initializeApplicationMenu() {
+        let application = newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Application" // #workaround(Should detect actual application name.)
+            }
+        })))
+
+        application.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "About" // #workaround(Should include the application name.)
+            }
+        })), action: #selector(NSApplication.orderFrontStandardAboutPanel(_:)))
     }
 }
