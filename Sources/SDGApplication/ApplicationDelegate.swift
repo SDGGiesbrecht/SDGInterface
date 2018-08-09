@@ -44,6 +44,7 @@ open class ApplicationDelegate : NSObject, _ApplicationDelegate {
     /// This is a unification of `applicationDidFinishLaunching(:)` and `application(_:, didFinishLaunchingWithOptions:) -> Bool`. The default implementations of each redirect to this method.
     open func applicationDidFinishLaunching() {
         #if canImport(AppKit)
+        Application.shared.menu = MenuBar() // #warning(Actually detect application name?)
         Application.shared.activate(ignoringOtherApps: false)
         #endif
     }
