@@ -22,18 +22,22 @@ public final class SampleApplicationDelegate : ApplicationDelegate {
 
     public override func applicationDidFinishLaunching() {
         super.applicationDidFinishLaunching()
-        setUpSamples()
+        setSamplesUp()
+    }
+
+    public override func openPreferences(_ sender: Any?) {
+        print("Opening preferences...")
     }
 }
 // @endExample
 
 extension SampleApplicationDelegate {
 
-    private func setUpSamples() {
-        setUpMenu()
+    private func setSamplesUp() {
+        setMenuUp()
     }
 
-    private func setUpMenu() {
+    private func setMenuUp() {
         let menuItemLabel = Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
@@ -41,7 +45,7 @@ extension SampleApplicationDelegate {
             }
         }))
         #if canImport(AppKit)
-        let menuBar = Application.shared.mainMenu as! MenuBar
+        let menuBar = MenuBar.menuBar
         let menu = menuBar.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:

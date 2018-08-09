@@ -44,18 +44,6 @@ public class MenuBar : LocalizedMenu<MenuBarLocalization> {
 
     // MARK: - Properties
 
-    private var preferencesEntry: LocalizedMenuItem<MenuBarLocalization>!
-    /// The action for the preferences item. Set this action to make the preferences item appear in the menu. The action should open a view which manages preferences.
-    public var preferencesAction: Selector? {
-        set {
-            preferencesEntry.action = newValue
-            preferencesEntry.isHidden = (newValue == nil) // #warning(Rethink to use responder chain.)
-        }
-        get {
-            return preferencesEntry.action
-        }
-    }
-
     private var endOfPreferenceSection: NSMenuItem!
 
     // MARK: - Items
@@ -85,8 +73,7 @@ public class MenuBar : LocalizedMenu<MenuBarLocalization> {
                 return "Preferences..."
             }
         })))
-        preferencesEntry = preferences
-        preferencesAction = nil
+        preferences.action = #selector(ApplicationDelegate.openPreferences)
         preferences.keyEquivalent = ","
         preferences.keyEquivalentModifierMask = .command
 

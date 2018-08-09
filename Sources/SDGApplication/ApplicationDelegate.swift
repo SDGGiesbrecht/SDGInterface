@@ -65,6 +65,11 @@ open class ApplicationDelegate : NSObject, _ApplicationDelegate {
         #endif
     }
 
+    // MARK: - Preferences
+
+    /// This action method opens the application preferences. It must be overridden to provide an implementation for the “Preferences...” menu item so that it will appear.
+    @objc open func openPreferences(_ sender: Any?) {}
+
     // MARK: - NSApplicationDelegate & UIApplicationDelegate
 
     #if canImport(AppKit)
@@ -79,5 +84,19 @@ open class ApplicationDelegate : NSObject, _ApplicationDelegate {
         return true
     }
     #endif
+
+    // MARK: - NSObject
+
+    /// Implemented to override the default action of enabling or disabling a specific menu item.
+    open override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        let openPreferencesSelector = #selector(ApplicationDelegate.openPreferences)
+        if menuItem.action == openPreferencesSelector,
+            method(for: openPreferencesSelector) == ApplicationDelegate.instanceMethod(for: openPreferencesSelector) {
+            // Primitive method not overridden.
+            menuItem.isHidden = true
+            return false
+        }
+        return responds(to: openPreferencesSelector)
+    }
 }
 #endif
