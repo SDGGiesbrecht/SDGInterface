@@ -129,7 +129,6 @@ public class MenuBar : LocalizedMenu<MenuBarLocalization> {
     }
 
     private func initializeFileMenu() {
-        // #warning(Update these to modern variants (“Duplicate”?))
 
         let file = newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -184,20 +183,34 @@ public class MenuBar : LocalizedMenu<MenuBarLocalization> {
         let save = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .englishCanada:
-                return "Save..."
+                return "Save"
             }
         })), action: #selector(NSDocument.save(_:)))
         save.keyEquivalent = "s"
         save.keyEquivalentModifierMask = .command
 
-        let saveAs = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let duplicate = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .englishCanada:
-                return "Save As..."
+                return "Duplicate"
             }
-        })), action: #selector(NSDocument.saveAs))
-        saveAs.keyEquivalent = "S"
-        saveAs.keyEquivalentModifierMask = .command
+        })), action: #selector(NSDocument.duplicate(_:)))
+        duplicate.keyEquivalent = "S"
+        duplicate.keyEquivalentModifierMask = .command
+
+        file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Rename..."
+            }
+        })), action: #selector(NSDocument.rename))
+
+        file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Move to..."
+            }
+        })), action: #selector(NSDocument.move))
 
         let revertToSaved = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
