@@ -22,6 +22,12 @@ public enum MenuBarLocalization : String, Localization {
     case englishUnitedStates = "en\u{2D}US"
     case englishCanada = "en\u{2D}CA"
 
+    case deutschDeutschland = "de\u{2D}DE"
+
+    case françaisFrance = "fr\u{2D}FR"
+
+    case ελληνικάΕλλάδα = "el\u{2D}GR"
+
     case עברית־ישראל = "he\u{2D}IL"
 
     // MARK: - Localization

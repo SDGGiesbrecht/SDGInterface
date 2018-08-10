@@ -62,6 +62,12 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             // #workaround(Should include the application name.)
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "About"
+            case .deutschDeutschland:
+                return "Über"
+            case .françaisFrance:
+                return "À propos"
+            case .ελληνικάΕλλάδα:
+                return "Πληροφορίες"
             case .עברית־ישראל:
                 return "אותות"
             }
@@ -73,6 +79,13 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Preferences..."
+            case .françaisFrance:
+                return "Préférences..."
+
+            case .deutschDeutschland:
+                return "Einstellungen ..."
+            case .ελληνικάΕλλάδα:
+                return "Προτιμήσεις..."
             case .עברית־ישראל:
                 return "העדפות..."
             }
@@ -85,8 +98,13 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
 
         let services = application.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada,
+                .françaisFrance:
                 return "Services"
+            case .deutschDeutschland:
+                return "Dienste"
+            case .ελληνικάΕλλάδα:
+                return "Υπηρεσίες"
             case .עברית־ישראל:
                 return "שירותים"
             }
@@ -100,6 +118,12 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             // #workaround(Should include the application name.)
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Hide"
+            case .deutschDeutschland:
+                return "Ausblenden"
+            case .françaisFrance:
+                return "Masquer"
+            case .ελληνικάΕλλάδα:
+                return "Απόκρυψη"
             case .עברית־ישראל:
                 return "הסתר"
             }
@@ -111,6 +135,12 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Hide Others"
+            case .deutschDeutschland:
+                return "Andere ausblenden"
+            case .françaisFrance:
+                return "Masquer les autres"
+            case .ελληνικάΕλλάδα:
+                return "Απόκρυψη άλλων"
             case .עברית־ישראל:
                 return "הסתר אחרים"
             }
@@ -122,6 +152,12 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Show All"
+            case .deutschDeutschland:
+                return "Alle einblenden"
+            case .françaisFrance:
+                return "Tout afficher"
+            case .ελληνικάΕλλάδα:
+                return "Εμφάνιση όλων"
             case .עברית־ישראל:
                 return "הצג הכול"
             }
@@ -134,6 +170,13 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             // #workaround(Should include the application name.)
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Quit"
+            case .françaisFrance:
+                return "Quitter"
+
+            case .deutschDeutschland:
+                return "Beenden"
+            case .ελληνικάΕλλάδα:
+                return "Τερματισμός"
             case .עברית־ישראל:
                 return "סיים"
             }
@@ -148,6 +191,12 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "File"
+            case .deutschDeutschland:
+                return "Ablage"
+            case .françaisFrance:
+                return "Fichier"
+            case .ελληνικάΕλλάδα:
+                return "Αρχείο"
             case .עברית־ישראל:
                 return "קובץ"
             }
@@ -157,6 +206,13 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "New"
+            case .deutschDeutschland:
+                return "Neu"
+            case .françaisFrance:
+                return "Nouveau"
+
+            case .ελληνικάΕλλάδα:
+                return "Δημιουργία"
             case .עברית־ישראל:
                 return "חדש"
             }
@@ -168,6 +224,13 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Open..."
+            case .deutschDeutschland:
+                return "Öffnen ..."
+
+            case .françaisFrance:
+                return "Ouvrir..."
+            case .ελληνικάΕλλάδα:
+                return "Άνοιγμα..."
             case .עברית־ישראל:
                 return "פתח..."
             }
@@ -179,6 +242,12 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Open Recent"
+            case .deutschDeutschland:
+                return "Benutzte Dokumente"
+            case .françaisFrance:
+                return "Ouvrir l’élément récent"
+            case .ελληνικάΕλλάδα:
+                return "Άνοιγμα προσφάτου"
             case .עברית־ישראל:
                 return "פתח אחרונים"
             }
@@ -188,6 +257,12 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Clear Menu"
+            case .deutschDeutschland:
+                return "Einträge löschen"
+            case .françaisFrance:
+                return "Effacer le menu"
+            case .ελληνικάΕλλάδα:
+                return "Εκκαθάριση μενού"
             case .עברית־ישראל:
                 return "נקה תפריט"
             }
@@ -199,6 +274,12 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Close"
+            case .deutschDeutschland:
+                return "Schließen"
+            case .françaisFrance:
+                return "Fermer"
+            case .ελληνικάΕλλάδα:
+                return "Κλείσιμο"
             case .עברית־ישראל:
                 return "סגור"
             }
@@ -210,6 +291,12 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Save"
+            case .deutschDeutschland:
+                return "Sichern"
+            case .françaisFrance:
+                return "Enregistrer"
+            case .ελληνικάΕλλάδα:
+                return "Αποθήκευση"
             case .עברית־ישראל:
                 return "שמור"
             }
@@ -221,6 +308,13 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Duplicate"
+            case .deutschDeutschland:
+                return "Duplizieren"
+            case .françaisFrance:
+                return "Dupliquer"
+
+            case .ελληνικάΕλλάδα:
+                return "Διπλότυπο"
             case .עברית־ישראל:
                 return "שכפל"
             }
@@ -232,6 +326,13 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Rename..."
+            case .françaisFrance:
+                return "Renommer..."
+
+            case .deutschDeutschland:
+                return "Umbenennen ..."
+            case .ελληνικάΕλλάδα:
+                return "Μετανομασία..."
             case .עברית־ישראל:
                 return "שינוי שם..."
             }
@@ -241,17 +342,21 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Move to..."
+            case .deutschDeutschland:
+                return "Bewegen ..."
+            case .françaisFrance:
+                return "Déplacer vers..."
+            case .ελληνικάΕλλάδα:
+                return "Μετακίνηση σε..."
             case .עברית־ישראל:
                 return "העבר אל..."
             }
         })), action: #selector(NSDocument.move))
 
-        let revertToSaved = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let revertToSaved = file.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Revert to Saved"
-            case .עברית־ישראל:
-                return "חזור לפריט שמור"
             }
         })), action: #selector(NSDocument.revertToSaved))
         revertToSaved.keyEquivalent = "r"
@@ -263,6 +368,12 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Page Set‐Up..."
+            case .deutschDeutschland:
+                return "Papierformat ..."
+            case .françaisFrance:
+                return "Format d’impression..."
+            case .ελληνικάΕλλάδα:
+                return "Διαμόρφωση σελίδας..."
             case .עברית־ישראל:
                 return "הגדרת עמוד..."
             }
@@ -274,6 +385,12 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Print..."
+            case .deutschDeutschland:
+                return "Drucken ..."
+            case .françaisFrance:
+                return "Imprimer..."
+            case .ελληνικάΕλλάδα:
+                return "Εκτύπωση..."
             case .עברית־ישראל:
                 return "הדפס..."
             }
