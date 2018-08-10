@@ -18,6 +18,9 @@ public enum MenuBarLocalization : String, Localization {
 
     // MARK: - Cases
 
+    // #workaround(Extend this list.)
+    case españolEspaña = "es\u{2D}ES"
+
     case englishUnitedKingdom = "en\u{2D}GB"
     case englishUnitedStates = "en\u{2D}US"
     case englishCanada = "en\u{2D}CA"

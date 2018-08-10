@@ -60,6 +60,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
         application.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             // #workaround(Should include the application name.)
+            case .españolEspaña:
+                return "Acerca"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "About"
             case .deutschDeutschland:
@@ -77,6 +79,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
 
         let preferences = application.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
+            case .españolEspaña:
+                return "Preferencias..."
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Preferences..."
             case .françaisFrance:
@@ -98,6 +102,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
 
         let services = application.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
+            case .españolEspaña:
+                return "Servicios"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada,
                 .françaisFrance:
                 return "Services"
@@ -116,6 +122,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
         let hide = application.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             // #workaround(Should include the application name.)
+            case .españolEspaña:
+                return "Ocultar"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Hide"
             case .deutschDeutschland:
@@ -133,6 +141,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
 
         let hideOthers = application.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
+            case .españolEspaña:
+                return "Ocultar otros"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Hide Others"
             case .deutschDeutschland:
@@ -150,6 +160,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
 
         application.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
+            case .españolEspaña:
+                return "Mostrar todo"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Show All"
             case .deutschDeutschland:
@@ -168,6 +180,9 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
         let quit = application.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             // #workaround(Should include the application name.)
+            case .españolEspaña:
+                return "Salir"
+
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Quit"
             case .françaisFrance:
@@ -189,14 +204,17 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
 
         let file = newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
+            case .españolEspaña:
+                return "Archivo"
+            case .ελληνικάΕλλάδα:
+                return "Αρχείο"
+
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "File"
             case .deutschDeutschland:
                 return "Ablage"
             case .françaisFrance:
                 return "Fichier"
-            case .ελληνικάΕλλάδα:
-                return "Αρχείο"
             case .עברית־ישראל:
                 return "קובץ"
             }
@@ -204,6 +222,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
 
         let new = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
+            case .españolEspaña:
+                return "Nuevo"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "New"
             case .deutschDeutschland:
@@ -222,6 +242,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
 
         let open = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
+            case .españolEspaña:
+                return "Abrir..."
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Open..."
             case .deutschDeutschland:
@@ -240,6 +262,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
 
         let openRecent = file.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
+            case .españolEspaña:
+                return "Abrir recientes"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Open Recent"
             case .deutschDeutschland:
@@ -255,6 +279,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
 
         openRecent.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
+            case .españolEspaña:
+                return "Vaciar menú"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Clear Menu"
             case .deutschDeutschland:
@@ -272,6 +298,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
 
         let close = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
+            case .españolEspaña:
+                return "Cerrar"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Close"
             case .deutschDeutschland:
@@ -289,6 +317,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
 
         let save = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
+            case .españolEspaña:
+                return "Guardar"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Save"
             case .deutschDeutschland:
@@ -306,6 +336,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
 
         let duplicate = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
+            case .españolEspaña:
+                return "Duplicar"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Duplicate"
             case .deutschDeutschland:
@@ -324,6 +356,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
 
         file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
+            case .españolEspaña:
+                return "Renombrar..."
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Rename..."
             case .françaisFrance:
@@ -340,6 +374,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
 
         file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
+            case .españolEspaña:
+                return "Trasladar a..."
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Move to..."
             case .deutschDeutschland:
@@ -366,6 +402,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
 
         let pageSetUp = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
+            case .españolEspaña:
+                return "Ajustar página..."
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Page Set‐Up..."
             case .deutschDeutschland:
@@ -383,12 +421,14 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
 
         let print = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
+            case .españolEspaña:
+                return "Imprimir..."
+            case .françaisFrance:
+                return "Imprimer..."
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Print..."
             case .deutschDeutschland:
                 return "Drucken ..."
-            case .françaisFrance:
-                return "Imprimer..."
             case .ελληνικάΕλλάδα:
                 return "Εκτύπωση..."
             case .עברית־ישראל:
