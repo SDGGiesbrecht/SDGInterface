@@ -1,5 +1,5 @@
 /*
- MenuBarLocalization.swift
+ InterfaceLocalization.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface/SDGInterface
@@ -14,7 +14,7 @@
 
 import SDGLocalization
 
-public enum MenuBarLocalization : String, Localization {
+public enum InterfaceLocalization : String, Localization {
 
     // MARK: - Cases
 
@@ -22,9 +22,7 @@ public enum MenuBarLocalization : String, Localization {
     case englishUnitedStates = "en\u{2D}US"
     case englishCanada = "en\u{2D}CA"
 
-    case עברית־ישראל = "he\u{2D}IL"
-
     // MARK: - Localization
 
-    public static let fallbackLocalization: MenuBarLocalization = .עברית־ישראל
+    public static let fallbackLocalization: InterfaceLocalization = .englishUnitedKingdom
 }

@@ -21,7 +21,7 @@ import SDGInterfaceLocalizations
 /// “Preferences...” is hidden unless the `preferencesAction` property is set.
 ///
 /// The “Help” menu is hidden unless a help book is specified in the application’s `Info.plist` file.
-public class MenuBar : LocalizedMenu<MenuBarLocalization> {
+public class MenuBar : LocalizedMenu<InterfaceLocalization> {
 
     // MARK: - Class Properties
 
@@ -31,9 +31,9 @@ public class MenuBar : LocalizedMenu<MenuBarLocalization> {
     // MARK: - Initialization
 
     private init() {
-        super.init(label: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        super.init(label: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
-            case .englishCanada:
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Menu Bar"
             }
         })))
@@ -49,10 +49,10 @@ public class MenuBar : LocalizedMenu<MenuBarLocalization> {
     // MARK: - Items
 
     private func initializeApplicationMenu() {
-        let application = newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let application = newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             // #workaround(Should detect actual application name.)
-            case .englishCanada:
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Application"
             }
         })))
@@ -60,8 +60,10 @@ public class MenuBar : LocalizedMenu<MenuBarLocalization> {
         application.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             // #workaround(Should include the application name.)
-            case .englishCanada:
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "About"
+            case .עברית־ישראל:
+                return "אותות"
             }
         })), action: #selector(Application.orderFrontStandardAboutPanel(_:)))
 
@@ -69,8 +71,10 @@ public class MenuBar : LocalizedMenu<MenuBarLocalization> {
 
         let preferences = application.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
-            case .englishCanada:
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Preferences..."
+            case .עברית־ישראל:
+                return "העדפות..."
             }
         })))
         preferences.action = #selector(ApplicationDelegate.openPreferences)
@@ -81,8 +85,10 @@ public class MenuBar : LocalizedMenu<MenuBarLocalization> {
 
         let services = application.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
-            case .englishCanada:
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Services"
+            case .עברית־ישראל:
+                return "שירותים"
             }
         })))
         Application.shared.servicesMenu = services
@@ -92,8 +98,10 @@ public class MenuBar : LocalizedMenu<MenuBarLocalization> {
         let hide = application.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             // #workaround(Should include the application name.)
-            case .englishCanada:
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Hide"
+            case .עברית־ישראל:
+                return "הסתר"
             }
         })), action: #selector(Application.hide))
         hide.keyEquivalent = "h"
@@ -101,8 +109,10 @@ public class MenuBar : LocalizedMenu<MenuBarLocalization> {
 
         let hideOthers = application.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
-            case .englishCanada:
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Hide Others"
+            case .עברית־ישראל:
+                return "הסתר אחרים"
             }
         })), action: #selector(Application.hideOtherApplications))
         hideOthers.keyEquivalent = "h"
@@ -110,8 +120,10 @@ public class MenuBar : LocalizedMenu<MenuBarLocalization> {
 
         application.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
-            case .englishCanada:
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Show All"
+            case .עברית־ישראל:
+                return "הצג הכול"
             }
         })), action: #selector(Application.unhideAllApplications))
 
@@ -120,8 +132,10 @@ public class MenuBar : LocalizedMenu<MenuBarLocalization> {
         let quit = application.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             // #workaround(Should include the application name.)
-            case .englishCanada:
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Quit"
+            case .עברית־ישראל:
+                return "סיים"
             }
         })), action: #selector(Application.terminate))
         quit.keyEquivalent = "q"
@@ -132,15 +146,19 @@ public class MenuBar : LocalizedMenu<MenuBarLocalization> {
 
         let file = newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
-            case .englishCanada:
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "File"
+            case .עברית־ישראל:
+                return "קובץ"
             }
         })))
 
         let new = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
-            case .englishCanada:
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "New"
+            case .עברית־ישראל:
+                return "חדש"
             }
         })), action: #selector(NSDocumentController.newDocument))
         new.keyEquivalent = "n"
@@ -148,8 +166,10 @@ public class MenuBar : LocalizedMenu<MenuBarLocalization> {
 
         let open = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
-            case .englishCanada:
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Open..."
+            case .עברית־ישראל:
+                return "פתח..."
             }
         })), action: #selector(NSDocumentController.openDocument(_:)))
         open.keyEquivalent = "o"
@@ -157,15 +177,19 @@ public class MenuBar : LocalizedMenu<MenuBarLocalization> {
 
         let openRecent = file.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
-            case .englishCanada:
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Open Recent"
+            case .עברית־ישראל:
+                return "פתח אחרונים"
             }
         })))
 
         openRecent.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
-            case .englishCanada:
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Clear Menu"
+            case .עברית־ישראל:
+                return "נקה תפריט"
             }
         })), action: #selector(NSDocumentController.clearRecentDocuments))
 
@@ -173,8 +197,10 @@ public class MenuBar : LocalizedMenu<MenuBarLocalization> {
 
         let close = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
-            case .englishCanada:
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Close"
+            case .עברית־ישראל:
+                return "סגור"
             }
         })), action: #selector(NSWindow.performClose))
         close.keyEquivalent = "w"
@@ -182,8 +208,10 @@ public class MenuBar : LocalizedMenu<MenuBarLocalization> {
 
         let save = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
-            case .englishCanada:
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Save"
+            case .עברית־ישראל:
+                return "שמור"
             }
         })), action: #selector(NSDocument.save(_:)))
         save.keyEquivalent = "s"
@@ -191,8 +219,10 @@ public class MenuBar : LocalizedMenu<MenuBarLocalization> {
 
         let duplicate = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
-            case .englishCanada:
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Duplicate"
+            case .עברית־ישראל:
+                return "שכפל"
             }
         })), action: #selector(NSDocument.duplicate(_:)))
         duplicate.keyEquivalent = "S"
@@ -200,22 +230,28 @@ public class MenuBar : LocalizedMenu<MenuBarLocalization> {
 
         file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
-            case .englishCanada:
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Rename..."
+            case .עברית־ישראל:
+                return "שינוי שם..."
             }
         })), action: #selector(NSDocument.rename))
 
         file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
-            case .englishCanada:
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Move to..."
+            case .עברית־ישראל:
+                return "העבר אל..."
             }
         })), action: #selector(NSDocument.move))
 
         let revertToSaved = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
-            case .englishCanada:
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Revert to Saved"
+            case .עברית־ישראל:
+                return "חזור לפריט שמור"
             }
         })), action: #selector(NSDocument.revertToSaved))
         revertToSaved.keyEquivalent = "r"
@@ -225,8 +261,10 @@ public class MenuBar : LocalizedMenu<MenuBarLocalization> {
 
         let pageSetUp = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
-            case .englishCanada:
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Page Set‐Up..."
+            case .עברית־ישראל:
+                return "הגדרת עמוד..."
             }
         })), action: #selector(NSDocument.runPageLayout))
         pageSetUp.keyEquivalent = "P"
@@ -234,8 +272,10 @@ public class MenuBar : LocalizedMenu<MenuBarLocalization> {
 
         let print = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
-            case .englishCanada:
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Print..."
+            case .עברית־ישראל:
+                return "הדפס..."
             }
         })), action: #selector(NSView.printView))
         print.keyEquivalent = "p"
