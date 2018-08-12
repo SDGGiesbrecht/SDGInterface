@@ -14,7 +14,7 @@
 
 import SDGLocalization
 
-public enum MenuBarLocalization : String, Localization {
+public enum MenuBarLocalization : String, InputLocalization {
 
     // MARK: - Cases
 
@@ -32,6 +32,22 @@ public enum MenuBarLocalization : String, Localization {
     case ελληνικάΕλλάδα = "el\u{2D}GR"
 
     case עברית־ישראל = "he\u{2D}IL"
+
+    public static var cases: [MenuBarLocalization] = [
+        .españolEspaña,
+
+        .englishUnitedKingdom,
+        .englishUnitedStates,
+        .englishCanada,
+
+        .deutschDeutschland,
+
+        .françaisFrance,
+
+        .ελληνικάΕλλάδα,
+
+        .עברית־ישראל,
+    ]
 
     // MARK: - Localization
 

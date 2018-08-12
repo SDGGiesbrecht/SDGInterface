@@ -96,7 +96,11 @@ open class ApplicationDelegate : NSObject, _ApplicationDelegate {
             menuItem.isHidden = true
             return false
         }
-        return responds(to: openPreferencesSelector)
+        if let action = menuItem.action {
+            return responds(to: action)
+        } else {
+            return false
+        }
     }
 }
 #endif
