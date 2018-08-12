@@ -87,6 +87,7 @@ open class ApplicationDelegate : NSObject, _ApplicationDelegate {
 
     // MARK: - NSObject
 
+    #if canImport(AppKit)
     /// Implemented to override the default action of enabling or disabling a specific menu item.
     open override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         let openPreferencesSelector = #selector(ApplicationDelegate.openPreferences)
@@ -102,5 +103,6 @@ open class ApplicationDelegate : NSObject, _ApplicationDelegate {
             return false
         }
     }
+    #endif
 }
 #endif
