@@ -46,7 +46,7 @@ public enum MenuBarLocalization : String, InputLocalization {
 
         .ελληνικάΕλλάδα,
 
-        .עברית־ישראל,
+        .עברית־ישראל
     ]
 
     // MARK: - Localization

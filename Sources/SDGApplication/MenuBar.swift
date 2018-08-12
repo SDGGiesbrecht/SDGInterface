@@ -13,6 +13,7 @@
  */
 
 #if canImport(AppKit)
+// MARK: - #if canImport(AppKit)
 
 import SDGInterfaceLocalizations
 
