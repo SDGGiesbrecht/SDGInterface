@@ -73,7 +73,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "אותות"
             }
-        })), action: #selector(Application.orderFrontStandardAboutPanel(_:)))
+        })), action: #selector(Application.orderFrontStandardAboutPanel(_: )))
 
         application.newSeparator()
 
@@ -256,7 +256,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "פתח..."
             }
-        })), action: #selector(NSDocumentController.openDocument(_:)))
+        })), action: #selector(NSDocumentController.openDocument(_: )))
         open.keyEquivalent = "o"
         open.keyEquivalentModifierMask = .command
 
@@ -330,7 +330,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "שמור"
             }
-        })), action: #selector(NSDocument.save(_:)))
+        })), action: #selector(NSDocument.save(_: )))
         save.keyEquivalent = "s"
         save.keyEquivalentModifierMask = .command
 
@@ -350,7 +350,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "שכפל"
             }
-        })), action: #selector(NSDocument.duplicate(_:)))
+        })), action: #selector(NSDocument.duplicate(_: )))
         duplicate.keyEquivalent = "S"
         duplicate.keyEquivalentModifierMask = .command
 
