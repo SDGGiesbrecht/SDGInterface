@@ -58,4 +58,23 @@ final class SDGApplicationAPITests : TestCase {
 
         #endif
     }
+
+    func testMenuBar() {
+        for localization in MenuBarLocalization.cases {
+            LocalizationSetting(orderOfPrecedence: [localization.code]).do {}
+        }
+        #if canImport(AppKit)
+        let preferencesMenuItem = MenuBar.menuBar.items.first!.submenu!.items.first(where: { $0.action == #selector(ApplicationDelegate.openPreferences) })!
+        XCTAssert(SampleApplicationDelegate().validateMenuItem(preferencesMenuItem))
+        XCTAssertFalse(ApplicationDelegate().validateMenuItem(preferencesMenuItem))
+
+        XCTAssertFalse(SampleApplicationDelegate().validateMenuItem(MenuBar.menuBar.items.first!)) // Application
+        XCTAssertFalse(SampleApplicationDelegate().validateMenuItem(NSMenuItem(title: "", action: nil, keyEquivalent: "")))
+        #endif
+    }
+
+    func testPreferences() {
+        ApplicationDelegate().openPreferences(nil)
+        SampleApplicationDelegate().openPreferences(nil)
+    }
 }
