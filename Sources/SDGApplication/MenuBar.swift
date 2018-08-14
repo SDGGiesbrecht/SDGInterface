@@ -1074,14 +1074,14 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             }
         })))
 
-        let alignLeft = text.newEntry(labelled: Shared(UserFacing<StrictString, _MenuBarLocalization>({ localization in
+        let alignRight = text.newEntry(labelled: Shared(UserFacing<StrictString, _MenuBarLocalization>({ localization in
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Align Left"
+                return "Align Right"
             }
-        })), action: #selector(NSText.alignLeft(_: )))
-        alignLeft.keyEquivalent = "{"
-        alignLeft.keyEquivalentModifierMask = .command
+        })), action: #selector(NSText.alignRight(_: )))
+        alignRight.keyEquivalent = "}"
+        alignRight.keyEquivalentModifierMask = .command
 
         let centre = text.newEntry(labelled: Shared(UserFacing<StrictString, _MenuBarLocalization>({ localization in
             switch localization {
@@ -1101,14 +1101,14 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             }
         })), action: #selector(NSTextView.alignJustified(_: )))
 
-        let alignRight = text.newEntry(labelled: Shared(UserFacing<StrictString, _MenuBarLocalization>({ localization in
+        let alignLeft = text.newEntry(labelled: Shared(UserFacing<StrictString, _MenuBarLocalization>({ localization in
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Align Right"
+                return "Align Left"
             }
-        })), action: #selector(NSText.alignRight(_: )))
-        alignRight.keyEquivalent = "}"
-        alignRight.keyEquivalentModifierMask = .command
+        })), action: #selector(NSText.alignLeft(_: )))
+        alignLeft.keyEquivalent = "{"
+        alignLeft.keyEquivalentModifierMask = .command
 
         text.newSeparator()
 
