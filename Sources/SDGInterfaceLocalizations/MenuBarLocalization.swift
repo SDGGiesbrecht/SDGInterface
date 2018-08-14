@@ -53,3 +53,16 @@ public enum MenuBarLocalization : String, InputLocalization {
 
     public static let fallbackLocalization: MenuBarLocalization = .עברית־ישראל
 }
+
+// #warning(Temporary)
+public enum _MenuBarLocalization : String, InputLocalization {
+    case englishUnitedKingdom = "en\u{2D}GB"
+    case englishUnitedStates = "en\u{2D}US"
+    case englishCanada = "en\u{2D}CA"
+    public static var cases: [_MenuBarLocalization] = [
+        .englishUnitedKingdom,
+        .englishUnitedStates,
+        .englishCanada
+    ]
+    public static let fallbackLocalization: _MenuBarLocalization = .englishCanada
+}
