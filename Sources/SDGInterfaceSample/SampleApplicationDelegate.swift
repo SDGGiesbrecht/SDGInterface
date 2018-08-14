@@ -46,10 +46,10 @@ extension SampleApplicationDelegate {
         }))
         #if canImport(AppKit)
         let menuBar = MenuBar.menuBar
-        let menu = menuBar.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        let menu = menuBar.newApplicationSpecificSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
-                return "Menu"
+                return "Application‐Specific Menu"
             }
         })))
 

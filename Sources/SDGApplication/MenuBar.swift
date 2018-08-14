@@ -53,6 +53,19 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
     // MARK: - Properties
 
     private var endOfPreferenceSection: NSMenuItem!
+    private var endOfCustomMenuSection: NSMenuItem!
+
+    // MARK: - Modification
+
+    @discardableResult public func newApplicationSpecificSubmenu<S>(labelled label: Shared<UserFacing<StrictString, S>>) -> LocalizedMenu<S> {
+        let menu = newSubmenu(labelled: label)
+        if let menuItem = menu.parentMenuItem {
+            removeItem(menuItem)
+            let insertIndex = index(of: endOfCustomMenuSection)
+            insertItem(menuItem, at: insertIndex)
+        }
+        return menu
+    }
 
     // MARK: - Items
 
@@ -1259,6 +1272,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             }
         })))
         defer { Application.shared.windowsMenu = window }
+        endOfCustomMenuSection = window.parentMenuItem
 
         let minimize = window.newEntry(labelled: Shared(UserFacing<StrictString, _MenuBarLocalization>({ localization in
             switch localization {
