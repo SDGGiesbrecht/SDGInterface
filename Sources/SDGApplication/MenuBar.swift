@@ -474,6 +474,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Edit"
             case .deutschDeutschland:
                 return "Bearbeiten"
+            case .françaisFrance:
+                return "Édition"
             }
         })))
 
@@ -483,6 +485,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Undo"
             case .deutschDeutschland:
                 return "Widerrufen"
+            case .françaisFrance:
+                return "Annuler"
             }
         })), action: #selector(Responder.undo(_: )))
         undo.keyEquivalent = "z"
@@ -494,6 +498,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Redo"
             case .deutschDeutschland:
                 return "Wiederholen"
+            case .françaisFrance:
+                return "Rétablir"
             }
         })), action: #selector(Responder.redo(_: )))
         redo.keyEquivalent = "Z"
@@ -507,6 +513,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Cut"
             case .deutschDeutschland:
                 return "Ausschneiden"
+            case .françaisFrance:
+                return "Couper"
             }
         })), action: #selector(NSText.cut(_: )))
         cut.keyEquivalent = "x"
@@ -518,6 +526,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Copy"
             case .deutschDeutschland:
                 return "Kopieren"
+            case .françaisFrance:
+                return "Copier"
             }
         })), action: #selector(NSText.copy(_: )))
         copy.keyEquivalent = "c"
@@ -529,6 +539,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Paste"
             case .deutschDeutschland:
                 return "Einsetzen"
+            case .françaisFrance:
+                return "Coller"
             }
         })), action: #selector(NSText.paste(_: )))
         paste.keyEquivalent = "v"
@@ -540,6 +552,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Paste & Match Style"
             case .deutschDeutschland:
                 return "Einsetzen und Stil anpassen"
+            case .françaisFrance:
+                return "Coller et adapter le style"
             }
         })), action: #selector(NSTextView.pasteAsPlainText(_: )))
         pasteAndMatchStyle.keyEquivalent = "V"
@@ -551,6 +565,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Delete"
             case .deutschDeutschland:
                 return "Löschen"
+            case .françaisFrance:
+                return "Supprimer"
             }
         })), action: #selector(NSText.delete(_: )))
 
@@ -558,6 +574,9 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Select All"
+            case .françaisFrance:
+                return "Tout sélectionner"
+
             case .deutschDeutschland:
                 return "Alles auswählen"
             }
@@ -573,6 +592,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Find"
             case .deutschDeutschland:
                 return "Suchen"
+            case .françaisFrance:
+                return "Rechercher"
             }
         })))
 
@@ -582,6 +603,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Find..."
             case .deutschDeutschland:
                 return "Suchen ..."
+            case .françaisFrance:
+                return "Rechercher..."
             }
         })), action: #selector(NSTextView.performFindPanelAction(_: )))
         findEntry.tag = 1
@@ -594,6 +617,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Find & Replace..."
             case .deutschDeutschland:
                 return "Suchen und Ersetzen ..."
+            case .françaisFrance:
+                return "Rechercher et remplacer..."
             }
         })), action: #selector(NSTextView.performFindPanelAction(_: )))
         replace.tag = 12
@@ -606,6 +631,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Find Next"
             case .deutschDeutschland:
                 return "Weitersuchen (vorwärts)"
+            case .françaisFrance:
+                return "Rechercher le suivant"
             }
         })), action: #selector(NSTextView.performFindPanelAction(_: )))
         findNext.tag = 2
@@ -618,6 +645,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Find Previous"
             case .deutschDeutschland:
                 return "Weitersuchen (rückwärts)"
+            case .françaisFrance:
+                return "Rechercher le précédent"
             }
         })), action: #selector(NSTextView.performFindPanelAction(_: )))
         findPrevious.tag = 3
@@ -630,6 +659,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Use Selection for Find"
             case .deutschDeutschland:
                 return "Auswahl suchen"
+            case .françaisFrance:
+                return "Rechercher la sélection"
             }
         })), action: #selector(NSTextView.performFindPanelAction(_: )))
         useSelectionForFind.tag = 7
@@ -642,6 +673,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Jump to Selection"
             case .deutschDeutschland:
                 return "Auswahl anzeigen"
+            case .françaisFrance:
+                return "Aller à la sélection"
             }
         })), action: #selector(NSResponder.centerSelectionInVisibleArea(_: )))
         jumpToSelection.keyEquivalent = "j"
@@ -653,6 +686,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Spelling & Grammar"
             case .deutschDeutschland:
                 return "Rechtschreibung und Grammatik"
+            case .françaisFrance:
+                return "Orthographe et grammaire"
             }
         })))
 
@@ -662,6 +697,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Show Spelling & Grammar"
             case .deutschDeutschland:
                 return "Rechtschreibung und Grammatik einblenden"
+            case .françaisFrance:
+                return "Afficher l’orthographe et la grammaire"
             }
         })), action: #selector(NSText.showGuessPanel(_:)))
         showSpellingAndGrammar.keyEquivalent = ":"
@@ -673,6 +710,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Check Document Now"
             case .deutschDeutschland:
                 return "Dokument jetzt prüfen"
+            case .françaisFrance:
+                return "Vérifier le document maintenant"
             }
         })), action: #selector(NSText.checkSpelling(_:)))
         checkDocumentNow.keyEquivalent = ";"
@@ -686,6 +725,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Check Spelling While Typing"
             case .deutschDeutschland:
                 return "Während der Texteingabe prüfen"
+            case .françaisFrance:
+                return "Vérifier l’orthographe lors de la saisie"
             }
         })), action: #selector(NSTextView.toggleContinuousSpellChecking(_:)))
 
@@ -695,6 +736,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Check Grammar with Spelling"
             case .deutschDeutschland:
                 return "Rechtschreib‐ und Grammatikprüfung"
+            case .françaisFrance:
+                return "Vérifier la grammaire et l’orthographe"
             }
         })), action: #selector(NSTextView.toggleGrammarChecking(_:)))
 
@@ -704,6 +747,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Correct Spelling Automatically"
             case .deutschDeutschland:
                 return "Rechtschreibung automatisch korrigieren"
+            case .françaisFrance:
+                return "Corriger l’orthographe automatiquement"
             }
         })), action: #selector(NSTextView.toggleAutomaticSpellingCorrection(_:)))
 
@@ -711,6 +756,9 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Substitutions"
+            case .françaisFrance:
+                return "Substitutions"
+
             case .deutschDeutschland:
                 return "Ersetzungen"
             }
@@ -722,6 +770,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Show Substitutions"
             case .deutschDeutschland:
                 return "Ersetzungen einblenden"
+            case .françaisFrance:
+                return "Afficher les substitutions"
             }
         })), action: #selector(NSTextView.orderFrontSubstitutionsPanel(_:)))
 
@@ -733,6 +783,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Smart Copy/Paste"
             case .deutschDeutschland:
                 return "Intelligentes Kopieren/Einsetzen"
+            case .françaisFrance:
+                return "Copier–coller intelligent"
             }
         })), action: #selector(NSTextView.toggleSmartInsertDelete(_:)))
 
@@ -742,6 +794,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Smart Quotes"
             case .deutschDeutschland:
                 return "Intelligente Anführungszeichen"
+            case .françaisFrance:
+                return "Guillemets courbes"
             }
         })), action: #selector(NSTextView.toggleAutomaticQuoteSubstitution(_:)))
 
@@ -751,6 +805,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Smart Dashes"
             case .deutschDeutschland:
                 return "Intelligente Bindestriche"
+            case .françaisFrance:
+                return "Tirets intelligents"
             }
         })), action: #selector(NSTextView.toggleAutomaticDashSubstitution(_:)))
 
@@ -760,6 +816,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Smart Links"
             case .deutschDeutschland:
                 return "Intellingente Links"
+            case .françaisFrance:
+                return "Liens intelligents"
             }
         })), action: #selector(NSTextView.toggleAutomaticLinkDetection(_:)))
 
@@ -769,6 +827,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Data Detectors"
             case .deutschDeutschland:
                 return "Datenerkennung"
+            case .françaisFrance:
+                return "Détection de données"
             }
         })), action: #selector(NSTextView.toggleAutomaticDataDetection(_:)))
 
@@ -778,12 +838,15 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Text Replacement"
             case .deutschDeutschland:
                 return "Text ersetzen"
+            case .françaisFrance:
+                return "Remplacement de texte"
             }
         })), action: #selector(NSTextView.toggleAutomaticTextReplacement(_:)))
 
         let transformations = edit.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada,
+                 .françaisFrance:
                 return "Transformations"
             case .deutschDeutschland:
                 return "Transformationen"
@@ -818,6 +881,9 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Speech"
             case .deutschDeutschland:
                 return "Sprachausgabe"
+
+            case .françaisFrance:
+                return "Parole"
             }
         })))
 
@@ -827,6 +893,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Start Speaking"
             case .deutschDeutschland:
                 return "Sprachausgabe starten"
+            case .françaisFrance:
+                return "Commencer la lecture"
             }
         })), action: #selector(NSTextView.startSpeaking(_: )))
 
@@ -836,6 +904,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Stop Speaking"
             case .deutschDeutschland:
                 return "Sprachausgabe stoppen"
+            case .françaisFrance:
+                return "Arrêter la lecture"
             }
         })), action: #selector(NSTextView.stopSpeaking(_: )))
     }
@@ -857,7 +927,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
         let format = newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada,
-                 deutschDeutschland:
+                 .deutschDeutschland,
+                 .françaisFrance:
                 return "Format"
             }
         })))
@@ -868,6 +939,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Font"
             case .deutschDeutschland:
                 return "Schrift"
+            case .françaisFrance:
+                return "Police"
             }
         })))
 
@@ -877,6 +950,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Show Fonts"
             case .deutschDeutschland:
                 return "Schriften einblenden"
+            case .françaisFrance:
+                return "Afficher les polices"
             }
         })), action: #selector(NSFontManager.orderFrontFontPanel(_: )))
         showFonts.target = NSFontManager.shared
@@ -889,6 +964,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Bold"
             case .deutschDeutschland:
                 return "Fett"
+            case .françaisFrance:
+                return "Gras"
             }
         })), action: #selector(NSFontManager.addFontTrait(_: )))
         bold.target = NSFontManager.shared
@@ -900,6 +977,9 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Italic"
+            case .françaisFrance:
+                return "Italique"
+
             case .deutschDeutschland:
                 return "Kursiv"
             }
@@ -915,6 +995,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Underline"
             case .deutschDeutschland:
                 return "Unterstrichen"
+            case .françaisFrance:
+                return "Souligné"
             }
         })), action: #selector(NSText.underline(_: )))
         underline.keyEquivalent = "u"
@@ -926,8 +1008,11 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Bigger"
+
             case .deutschDeutschland:
                 return "Größer"
+            case .françaisFrance:
+                return "Plus grand"
             }
         })), action: #selector(NSFontManager.modifyFont(_: )))
         bigger.target = NSFontManager.shared
@@ -941,6 +1026,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Smaller"
             case .deutschDeutschland:
                 return "Kleiner"
+            case .françaisFrance:
+                return "Plus petit"
             }
         })), action: #selector(NSFontManager.modifyFont(_: )))
         smaller.target = NSFontManager.shared
@@ -954,6 +1041,9 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Kern"
+            case .françaisFrance:
+                return "Crénage"
+
             case .deutschDeutschland:
                 return "Zeichenabstand"
             }
@@ -965,6 +1055,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Use Default"
             case .deutschDeutschland:
                 return "Normal"
+            case .françaisFrance:
+                return "Valeur par défaut"
             }
         })), action: #selector(NSTextView.useStandardKerning(_: )))
 
@@ -974,6 +1066,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Use None"
             case .deutschDeutschland:
                 return "Nicht verwenden"
+            case .françaisFrance:
+                return "Aucun"
             }
         })), action: #selector(NSTextView.turnOffKerning(_: )))
 
@@ -983,6 +1077,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Tighten"
             case .deutschDeutschland:
                 return "Enger"
+            case .françaisFrance:
+                return "Resserrer"
             }
         })), action: #selector(NSTextView.tightenKerning(_: )))
 
@@ -992,12 +1088,15 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Loosen"
             case .deutschDeutschland:
                 return "Weiter"
+            case .françaisFrance:
+                return "Desserrer"
             }
         })), action: #selector(NSTextView.loosenKerning(_: )))
 
         let ligatures = font.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada,
+                 .françaisFrance:
                 return "Ligatures"
             case .deutschDeutschland:
                 return "Ligaturen"
@@ -1010,6 +1109,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Use Default"
             case .deutschDeutschland:
                 return "Normal"
+            case .françaisFrance:
+                return "Valeur par défaut"
             }
         })), action: #selector(NSTextView.useStandardLigatures(_: )))
 
@@ -1019,6 +1120,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Use None"
             case .deutschDeutschland:
                 return "Nicht verwenden"
+            case .françaisFrance:
+                return "Aucune"
             }
         })), action: #selector(NSTextView.turnOffLigatures(_: )))
 
@@ -1028,6 +1131,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Use All"
             case .deutschDeutschland:
                 return "Alle verwenden"
+            case .françaisFrance:
+                return "Toutes"
             }
         })), action: #selector(NSTextView.useAllLigatures(_: )))
 
@@ -1035,6 +1140,9 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Baseline"
+            case .françaisFrance:
+                return "Ligne de base"
+
             case .deutschDeutschland:
                 return "Schriftlinie"
             }
@@ -1046,6 +1154,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Use Default"
             case .deutschDeutschland:
                 return "Normal"
+            case .françaisFrance:
+                return "Valeur par défaut"
             }
         })), action: #selector(Responder.resetBaseline(_: )))
 
@@ -1055,6 +1165,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Superscript"
             case .deutschDeutschland:
                 return "Hochgestellt"
+            case .françaisFrance:
+                return "Exposant"
             }
         })), action: #selector(Responder.makeSuperscript(_: )))
 
@@ -1064,6 +1176,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Subscript"
             case .deutschDeutschland:
                 return "Tiefgestellt"
+            case .françaisFrance:
+                return "Indice"
             }
         })), action: #selector(Responder.makeSubscript(_: )))
 
@@ -1073,6 +1187,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Raise"
             case .deutschDeutschland:
                 return "Höher"
+            case .françaisFrance:
+                return "Élever"
             }
         })), action: #selector(NSTextView.raiseBaseline(_: )))
 
@@ -1082,6 +1198,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Lower"
             case .deutschDeutschland:
                 return "Niedriger"
+            case .françaisFrance:
+                return "Abaisser"
             }
         })), action: #selector(NSTextView.lowerBaseline(_: )))
 
@@ -1170,6 +1288,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Show Colors"
             case .deutschDeutschland:
                 return "Farben einblenden"
+            case .françaisFrance:
+                return "Afficher les couleurs"
             }
         })), action: #selector(NSApplication.orderFrontColorPanel(_: )))
         showColours.keyEquivalent = "C"
@@ -1183,6 +1303,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Copy Style"
             case .deutschDeutschland:
                 return "Stil kopieren"
+            case .françaisFrance:
+                return "Copier le style"
             }
         })), action: #selector(NSText.copyFont(_: )))
         copyStyle.keyEquivalent = "c"
@@ -1194,6 +1316,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Paste Style"
             case .deutschDeutschland:
                 return "Stil einsetzen"
+            case .françaisFrance:
+                return "Coller le style"
             }
         })), action: #selector(NSText.pasteFont(_: )))
         pasteStyle.keyEquivalent = "v"
@@ -1204,6 +1328,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada,
                  .deutschDeutschland:
                 return "Text"
+            case .françaisFrance:
+                return "Texte"
             }
         })))
 
@@ -1213,6 +1339,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Align Right"
             case .deutschDeutschland:
                 return "Rechtsbündig"
+            case .françaisFrance:
+                return "Aligner à droite"
             }
         })), action: #selector(NSText.alignRight(_: )))
         alignRight.keyEquivalent = "}"
@@ -1226,6 +1354,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Center"
             case .deutschDeutschland:
                 return "Zentriert"
+            case .françaisFrance:
+                return "Centrer"
             }
         })), action: #selector(NSText.alignCenter(_: )))
         centre.keyEquivalent = "|"
@@ -1235,6 +1365,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Justify"
+            case .françaisFrance:
+                return "Justifier"
             case .deutschDeutschland:
                 return "Blocksatz"
             }
@@ -1246,6 +1378,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Align Left"
             case .deutschDeutschland:
                 return "Linksbündig"
+            case .françaisFrance:
+                return "Aligner à gauche"
             }
         })), action: #selector(NSText.alignLeft(_: )))
         alignLeft.keyEquivalent = "{"
@@ -1259,6 +1393,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Writing Direction"
             case .deutschDeutschland:
                 return "Richtung beim Schreiben"
+            case .françaisFrance:
+                return "Sens de l’écriture"
             }
         })))
 
@@ -1266,6 +1402,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Paragraph"
+            case .françaisFrance:
+                return "Paragraphe"
             case .deutschDeutschland:
                 return "Absatz"
             }
@@ -1275,6 +1413,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Default"
+            case .françaisFrance:
+                return "Par défaut"
             case .deutschDeutschland:
                 return "Standard"
             }
@@ -1286,6 +1426,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Right to Left"
             case .deutschDeutschland:
                 return "Von rechts nach links"
+            case .françaisFrance:
+                return "De droite à gauche"
             }
         })
 
@@ -1295,6 +1437,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Left to Right"
             case .deutschDeutschland:
                 return "Von links nach rechts"
+            case .françaisFrance:
+                return "De gauche à droite"
             }
         })
 
@@ -1311,6 +1455,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Selection"
+            case .françaisFrance:
+                return "Sélection"
             case .deutschDeutschland:
                 return "Auswahl"
             }
@@ -1333,6 +1479,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Show Ruler"
             case .deutschDeutschland:
                 return "Lineal einblenden"
+            case .françaisFrance:
+                return "Afficher la règle"
             }
         })), action: #selector(NSText.toggleRuler(_: )))
 
@@ -1342,6 +1490,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Copy Ruler"
             case .deutschDeutschland:
                 return "Lineal kopieren"
+            case .françaisFrance:
+                return "Copier la règle"
             }
         })), action: #selector(NSText.copyRuler(_: )))
         copyRuler.keyEquivalent = "c"
@@ -1353,6 +1503,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Paste Ruler"
             case .deutschDeutschland:
                 return "Lineal einsetzen"
+            case .françaisFrance:
+                return "Coller la règle"
             }
         })), action: #selector(NSText.pasteRuler(_: )))
         pasteRuler.keyEquivalent = "v"
@@ -1370,6 +1522,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "View"
             case .deutschDeutschland:
                 return "Darstellung"
+            case .françaisFrance:
+                return "Présentation"
             }
         })))
 
@@ -1379,6 +1533,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Show Toolbar"
             case .deutschDeutschland:
                 return "Symbolleiste einblenden"
+            case .françaisFrance:
+                return "Afficher la barre d’outils"
             }
         })), action: #selector(NSWindow.toggleToolbarShown(_: )))
         showToolbar.keyEquivalent = "t"
@@ -1392,6 +1548,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Customize Toolbar..."
             case .deutschDeutschland:
                 return "Symbolleiste anpassen ..."
+            case .françaisFrance:
+                return "Personnaliser la barre d’outils..."
             }
         })), action: #selector(NSWindow.runToolbarCustomizationPalette(_: )))
 
@@ -1403,6 +1561,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Show Side Bar"
             case .deutschDeutschland:
                 return "Seitenleiste einblenden"
+            case .françaisFrance:
+                return "Afficher la barre latérale"
             }
         })), action: #selector(Responder.toggleSourceList(_: )))
         showSideBar.keyEquivalent = "s"
@@ -1414,6 +1574,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Enter Full Screen"
             case .deutschDeutschland:
                 return "Vollbild ein"
+            case .françaisFrance:
+                return "Activer le mode plein écran"
             }
         })), action: #selector(NSWindow.toggleFullScreen(_: )))
         enterFullScreen.keyEquivalent = "f"
@@ -1427,6 +1589,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Window"
             case .deutschDeutschland:
                 return "Fenster"
+            case .françaisFrance:
+                return "Fenêtre"
             }
         })))
         defer { Application.shared.windowsMenu = window }
@@ -1440,6 +1604,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Minimize"
             case .deutschDeutschland:
                 return "Im Dock ablegen"
+            case .françaisFrance:
+                return "Placer dans le Dock"
             }
         })), action: #selector(NSWindow.performMiniaturize(_: )))
         minimize.keyEquivalent = "m"
@@ -1451,6 +1617,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Zoom"
             case .deutschDeutschland:
                 return "Zoomen"
+            case .françaisFrance:
+                return "Réduire/agrandir"
             }
         })), action: #selector(NSWindow.performZoom(_: )))
 
@@ -1462,6 +1630,8 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Bring All to Front"
             case .deutschDeutschland:
                 return "Alle nach vorne bringen"
+            case .françaisFrance:
+                return "Tout ramener au premier plan"
             }
         })), action: #selector(NSApplication.arrangeInFront(_: )))
     }
@@ -1473,6 +1643,9 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Help"
             case .deutschDeutschland:
                 return "Hilfe"
+
+            case .françaisFrance:
+                return "Aide"
             }
         })))
         defer { Application.shared.helpMenu = helpMenu }
@@ -1484,6 +1657,9 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "Help"
             case .deutschDeutschland:
                 return "Hilfe"
+
+            case .françaisFrance:
+                return "Aide"
             }
         })), action: #selector(NSApplication.showHelp(_: )))
         helpItem.keyEquivalent = "?"
