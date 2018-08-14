@@ -49,7 +49,7 @@ extension SampleApplicationDelegate {
         let menu = menuBar.newApplicationSpecificSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
-                return "Application‐Specific Menu"
+                return "Menu"
             }
         })))
 
