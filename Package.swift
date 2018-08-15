@@ -23,6 +23,7 @@ let package = Package(
         .library(name: "SDGInterface", targets: ["SDGInterface"]),
 
         // Individual component modules.
+        .library(name: "SDGInterfaceElements", targets: ["SDGInterfaceElements"]),
         .library(name: "SDGApplication", targets: ["SDGApplication"])
     ],
     dependencies: [

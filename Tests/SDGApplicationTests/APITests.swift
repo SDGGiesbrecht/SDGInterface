@@ -40,9 +40,7 @@ final class SDGApplicationAPITests : TestCase {
     func testMenu() {
         #if !os(tvOS)
 
-        let menuItem = LocalizedMenuItem(label: Shared(UserFacing<StrictString, APILocalization>({ _ in "..." })))
-        menuItem.indented = false
-        menuItem.indented = true
+        _ = LocalizedMenuItem(label: Shared(UserFacing<StrictString, APILocalization>({ _ in "..." })))
 
         #if canImport(AppKit)
         let menuBar = Application.shared.mainMenu

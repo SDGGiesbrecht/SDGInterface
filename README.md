@@ -16,7 +16,7 @@
 
 macOS • iOS • watchOS • tvOS
 
-APIs: [SDGInterface](https://sdggiesbrecht.github.io/SDGInterface/SDGInterface) • [SDGApplication](https://sdggiesbrecht.github.io/SDGInterface/SDGApplication)
+APIs: [SDGInterface](https://sdggiesbrecht.github.io/SDGInterface/SDGInterface) • [SDGInterfaceElements](https://sdggiesbrecht.github.io/SDGInterface/SDGInterfaceElements) • [SDGApplication](https://sdggiesbrecht.github.io/SDGInterface/SDGApplication)
 
 # SDGInterface
 
@@ -45,6 +45,7 @@ let package = Package(
     targets: [
         .target(name: "MyTarget", dependencies: [
             .productItem(name: "SDGInterface", package: "SDGInterface"),
+            .productItem(name: "SDGInterfaceElements", package: "SDGInterface"),
             .productItem(name: "SDGApplication", package: "SDGInterface"),
         ])
     ]
@@ -55,6 +56,7 @@ The libraries’ modules can then be imported in source files:
 
 ```swift
 import SDGInterface
+import SDGInterfaceElements
 import SDGApplication
 ```
 

@@ -46,7 +46,7 @@ extension SampleApplicationDelegate {
         }))
         #if canImport(AppKit)
         let menuBar = MenuBar.menuBar
-        let menu = menuBar.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        let menu = menuBar.newApplicationSpecificSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Menu"
@@ -60,7 +60,7 @@ extension SampleApplicationDelegate {
                 return "Indented"
             }
         })))
-        indented.indented = true
+        indented.indentationLevel = 1
         menu.newSeparator()
         let submenu = menu.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
