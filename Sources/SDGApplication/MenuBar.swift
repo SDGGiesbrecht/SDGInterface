@@ -21,9 +21,9 @@ import SDGInterfaceLocalizations
 ///
 /// `MenuBar` is a fully localized version of Interface Builder’s template with several useful additions.
 ///
-/// “Preferences...” is hidden unless the `preferencesAction` property is set.
-///
-/// The “Help” menu is hidden unless a help book is specified in the application’s `Info.plist` file.
+/// Some menu items only appear if the application provides details they need to operate:
+/// - “Preferences...” appears if the application delegate overrides `openPreferences(_:)`.
+/// - “Help” appears if a help book is specified in the `Info.plist` file.
 public class MenuBar : LocalizedMenu<InterfaceLocalization> {
 
     // MARK: - Class Properties

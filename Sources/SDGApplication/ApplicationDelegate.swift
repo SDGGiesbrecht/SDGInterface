@@ -67,7 +67,7 @@ open class ApplicationDelegate : NSObject, _ApplicationDelegate {
 
     // MARK: - Preferences
 
-    /// This action method opens the application preferences. It must be overridden to provide an implementation for the “Preferences...” menu item so that it will appear.
+    /// This action method opens the application preferences. Override it to provide an implementation for the “Preferences...” menu item, which is otherwise hidden.
     @objc open func openPreferences(_ sender: Any?) {}
 
     // MARK: - NSApplicationDelegate & UIApplicationDelegate
