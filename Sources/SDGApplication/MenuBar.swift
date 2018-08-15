@@ -461,7 +461,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
     }
 
     private func initializeEditMenu() {
-        class Responder: NSObject {
+        class Responder : NSObject {
             @objc func undo(_ sender: Any?) {}
             @objc func redo(_ sender: Any?) {}
             @objc func normalizeText(_ sender: Any?) {} // #workaround(Until provided by NSTextView.)
@@ -811,7 +811,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "הצג איות ודקדוק"
             }
-        })), action: #selector(NSText.showGuessPanel(_:)))
+        })), action: #selector(NSText.showGuessPanel(_: )))
         showSpellingAndGrammar.keyEquivalent = ":"
         showSpellingAndGrammar.keyEquivalentModifierMask = .command
 
@@ -830,7 +830,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "בדוק את המסמך כעת"
             }
-        })), action: #selector(NSText.checkSpelling(_:)))
+        })), action: #selector(NSText.checkSpelling(_: )))
         checkDocumentNow.keyEquivalent = ";"
         checkDocumentNow.keyEquivalentModifierMask = .command
 
@@ -851,7 +851,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "בדוק איות תוך כדי הקלדה"
             }
-        })), action: #selector(NSTextView.toggleContinuousSpellChecking(_:)))
+        })), action: #selector(NSTextView.toggleContinuousSpellChecking(_: )))
 
         spellingAndGrammar.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -868,7 +868,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "בדוק דקדוק ביחד עם איות"
             }
-        })), action: #selector(NSTextView.toggleGrammarChecking(_:)))
+        })), action: #selector(NSTextView.toggleGrammarChecking(_: )))
 
         spellingAndGrammar.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -886,7 +886,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "תקן איות באופן אוטומטי"
             }
-        })), action: #selector(NSTextView.toggleAutomaticSpellingCorrection(_:)))
+        })), action: #selector(NSTextView.toggleAutomaticSpellingCorrection(_: )))
 
         let substitutions = edit.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -921,7 +921,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "הצג החלפות"
             }
-        })), action: #selector(NSTextView.orderFrontSubstitutionsPanel(_:)))
+        })), action: #selector(NSTextView.orderFrontSubstitutionsPanel(_: )))
 
         substitutions.newSeparator()
 
@@ -940,7 +940,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "העתקה והדבקה חכמות"
             }
-        })), action: #selector(NSTextView.toggleSmartInsertDelete(_:)))
+        })), action: #selector(NSTextView.toggleSmartInsertDelete(_: )))
 
         substitutions.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -957,7 +957,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "מרכאות חכמות"
             }
-        })), action: #selector(NSTextView.toggleAutomaticQuoteSubstitution(_:)))
+        })), action: #selector(NSTextView.toggleAutomaticQuoteSubstitution(_: )))
 
         substitutions.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -974,7 +974,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "מיקוף חכם"
             }
-        })), action: #selector(NSTextView.toggleAutomaticDashSubstitution(_:)))
+        })), action: #selector(NSTextView.toggleAutomaticDashSubstitution(_: )))
 
         substitutions.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -991,7 +991,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "קישורים חכמים"
             }
-        })), action: #selector(NSTextView.toggleAutomaticLinkDetection(_:)))
+        })), action: #selector(NSTextView.toggleAutomaticLinkDetection(_: )))
 
         substitutions.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1009,7 +1009,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "גלאי נתונים"
             }
-        })), action: #selector(NSTextView.toggleAutomaticDataDetection(_:)))
+        })), action: #selector(NSTextView.toggleAutomaticDataDetection(_: )))
 
         substitutions.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1026,7 +1026,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "החלפת מלל"
             }
-        })), action: #selector(NSTextView.toggleAutomaticTextReplacement(_:)))
+        })), action: #selector(NSTextView.toggleAutomaticTextReplacement(_: )))
 
         let transformations = edit.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1122,7 +1122,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
     }
 
     private func initializeFormatMenu() {
-        class Responder: NSObject {
+        class Responder : NSObject {
             @objc func resetBaseline(_ sender: Any?) {} // #workaround(Until provided by NSTextView.)
             @objc func makeSuperscript(_ sender: Any?) {} // #workaround(Until provided by NSTextView.)
             @objc func makeSubscript(_ sender: Any?) {} // #workaround(Until provided by NSTextView.)
@@ -1264,7 +1264,6 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
 
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Bigger"
-
 
             case .ελληνικάΕλλάδα:
                 return "Μεγαλύτερα"
@@ -1980,7 +1979,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
     }
 
     private func initializeViewMenu() {
-        class Responder: NSObject {
+        class Responder : NSObject {
             @objc func toggleSourceList(_ sender: Any?) {}
         }
 
