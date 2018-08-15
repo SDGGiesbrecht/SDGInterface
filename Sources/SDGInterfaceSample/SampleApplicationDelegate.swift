@@ -60,7 +60,7 @@ extension SampleApplicationDelegate {
                 return "Indented"
             }
         })))
-        indented.indented = true
+        indented.indentationLevel = 1
         menu.newSeparator()
         let submenu = menu.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {

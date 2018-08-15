@@ -1607,13 +1607,13 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
         })))
 
         let latinateUpperCase = casing.newEntry(labelled: Shared(upperCase), action: #selector(Responder.makeLatinateUpperCase(_: )))
-        latinateUpperCase.indented = true
+        latinateUpperCase.indentationLevel = 1
 
         let latinateSmallUpperCase = casing.newEntry(labelled: Shared(smallUpperCase), action: #selector(Responder.makeLatinateSmallUpperCase(_: )))
-        latinateSmallUpperCase.indented = true
+        latinateSmallUpperCase.indentationLevel = 1
 
         let latinateLowerCase = casing.newEntry(labelled: Shared(lowerCase), action: #selector(Responder.makeLatinateLowerCase(_: )))
-        latinateLowerCase.indented = true
+        latinateLowerCase.indentationLevel = 1
 
         casing.newSeparator()
 
@@ -1627,13 +1627,13 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
         })))
 
         let turkicUpperCase = casing.newEntry(labelled: Shared(upperCase), action: #selector(Responder.makeTurkicUpperCase(_: )))
-        turkicUpperCase.indented = true
+        turkicUpperCase.indentationLevel = 1
 
         let turkicSmallUpperCase = casing.newEntry(labelled: Shared(smallUpperCase), action: #selector(Responder.makeTurkicSmallUpperCase(_: )))
-        turkicSmallUpperCase.indented = true
+        turkicSmallUpperCase.indentationLevel = 1
 
         let turkicLowerCase = casing.newEntry(labelled: Shared(lowerCase), action: #selector(Responder.makeTurkicLowerCase(_: )))
-        turkicLowerCase.indented = true
+        turkicLowerCase.indentationLevel = 1
 
         font.newSeparator()
 
@@ -1883,13 +1883,15 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
         })
 
         let paragraphDefault = writingDirection.newEntry(labelled: Shared(`default`), action: #selector(NSResponder.makeBaseWritingDirectionNatural(_: )))
-        paragraphDefault.indented = true
+        paragraphDefault.indentationLevel = 1
 
         let paragraphRightToLeft = writingDirection.newEntry(labelled: Shared(rightToLeft), action: #selector(NSResponder.makeBaseWritingDirectionRightToLeft(_: )))
-        paragraphRightToLeft.indented = true
+        paragraphRightToLeft.indentationLevel = 1
 
         let paragraphLeftToRight = writingDirection.newEntry(labelled: Shared(leftToRight), action: #selector(NSResponder.makeBaseWritingDirectionLeftToRight(_: )))
-        paragraphLeftToRight.indented = true
+        paragraphLeftToRight.indentationLevel = 1
+
+        writingDirection.newSeparator()
 
         writingDirection.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1910,13 +1912,13 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
         })))
 
         let selectionDefault = writingDirection.newEntry(labelled: Shared(`default`), action: #selector(NSResponder.makeTextWritingDirectionNatural(_: )))
-        selectionDefault.indented = true
+        selectionDefault.indentationLevel = 1
 
         let selectionRightToLeft = writingDirection.newEntry(labelled: Shared(rightToLeft), action: #selector(NSResponder.makeTextWritingDirectionRightToLeft(_: )))
-        selectionRightToLeft.indented = true
+        selectionRightToLeft.indentationLevel = 1
 
         let selectionLeftToRight = writingDirection.newEntry(labelled: Shared(leftToRight), action: #selector(NSResponder.makeTextWritingDirectionLeftToRight(_: )))
-        selectionLeftToRight.indented = true
+        selectionLeftToRight.indentationLevel = 1
 
         text.newSeparator()
 

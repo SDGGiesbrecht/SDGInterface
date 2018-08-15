@@ -49,13 +49,6 @@ open class LocalizedMenuItem<L : Localization> : MenuItem, SharedValueObserver {
     /// The label.
     public var label: Shared<UserFacing<StrictString, L>>
 
-    /// Whether the label is indented.
-    public var indented: Bool = false {
-        didSet {
-            title = label.value.resolved(indented: indented)
-        }
-    }
-
     // MARK: - SharedValueObserver
 
     // #documentation(SDGCornerstone.SharedValueObserver.valueChanged(for:))
@@ -66,19 +59,7 @@ open class LocalizedMenuItem<L : Localization> : MenuItem, SharedValueObserver {
     ///
     /// - SeeAlso: `register(observer:identifier)`
     public func valueChanged(for identifier: String) {
-        self.title = label.value.resolved(indented: indented)
-    }
-}
-
-extension UserFacing where Element == StrictString {
-    // MARK: - where Element == StrictString
-
-    fileprivate func resolved(indented: Bool) -> String {
-        var result = resolved()
-        if indented {
-            result.prepend("\u{9}")
-        }
-        return String(result)
+        self.title = String(label.value.resolved())
     }
 }
 
