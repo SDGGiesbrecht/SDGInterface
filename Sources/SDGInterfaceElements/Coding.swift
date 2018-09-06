@@ -14,6 +14,10 @@
 
 import SDGInterfaceLocalizations
 
+// @documentation(codingNotSupported)
+/// Do not use. This type does not support coding.
+
+/// A precondition failure with a message stating that the type does not support coding.
 public func codingNotSupported<L>(forType type: UserFacing<StrictString, L>) -> Never where L : Localization {
     preconditionFailure(UserFacing<StrictString, APILocalization>({ localization in
         switch localization {

@@ -18,16 +18,20 @@
 import SDGLocalization
 import SDGInterfaceLocalizations
 
+/// A localized menu.
 open class LocalizedMenu<L : Localization> : Menu, SharedValueObserver {
 
     // MARK: - Initialization
 
+    /// Creates a localized menu with the specified label.
     public init(label: Shared<UserFacing<StrictString, L>>) {
         self.label = label
         super.init(title: String(label.value.resolved()))
         LocalizationSetting.current.register(observer: self)
     }
 
+    // #documentation(codingNotSupported)
+    /// Do not use. This type does not support coding.
     @available(*, unavailable) public required init(coder decoder: NSCoder) {
         codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
             switch localization {
