@@ -12,11 +12,11 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  -->
 
-[🇨🇦EN](🇨🇦EN%20Read%20Me.md) <!--Skip in Jazzy-->
+[🇨🇦EN](🇨🇦EN%20Read%20Me.md)
 
 macOS • iOS • watchOS • tvOS
 
-APIs: [SDGInterface](https://sdggiesbrecht.github.io/SDGInterface/SDGInterface) • [SDGInterfaceElements](https://sdggiesbrecht.github.io/SDGInterface/SDGInterfaceElements) • [SDGApplication](https://sdggiesbrecht.github.io/SDGInterface/SDGApplication)
+[Documentation](https://sdggiesbrecht.github.io/SDGInterface/%F0%9F%87%A8%F0%9F%87%A6EN)
 
 # SDGInterface
 
@@ -28,7 +28,7 @@ SDGInterface provides tools for implementing a graphical user interface.
 
 - API unification accross platforms.
 
-(For a list of related projects, see [here](🇨🇦EN%20Related%20Projects.md).) <!--Skip in Jazzy-->
+(For a list of related projects, see [here](🇨🇦EN%20Related%20Projects.md).)
 
 ## Importing
 

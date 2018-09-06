@@ -17,10 +17,12 @@
 
 import SDGInterfaceLocalizations
 
+/// A localized menu item.
 open class LocalizedMenuItem<L : Localization> : MenuItem, SharedValueObserver {
 
     // MARK: - Initialization
 
+    /// Creates a localized menu item with the specified label and action.
     public init(label: Shared<UserFacing<StrictString, L>>, action: Selector? = nil) {
 
         self.label = label
@@ -35,6 +37,8 @@ open class LocalizedMenuItem<L : Localization> : MenuItem, SharedValueObserver {
         LocalizationSetting.current.register(observer: self)
     }
 
+    // #documentation(codingNotSupported)
+    /// Do not use. This type does not support coding.
     @available(*, unavailable) public required init(coder decoder: NSCoder) {
         codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
             switch localization {
