@@ -47,6 +47,3 @@ configuration._applySDGOverrides()
 configuration._validateSDGStandards()
 
 configuration.testing.exemptionTokens.insert(TestCoverageExemptionToken("codingNotSupported", scope: .previousLine))
-
-// #workaround(workspace version 0.10.1, Jazzy times out Travis CI.)
-configuration.documentation.api.generate = false
