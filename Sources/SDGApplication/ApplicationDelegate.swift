@@ -79,7 +79,7 @@ open class ApplicationDelegate : NSObject, _ApplicationDelegate {
     }
     #elseif canImport(UIKit)
     /// Tells the delegate that the launch process is almost done and the application is almost ready to run.
-    open func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]? = nil) -> Bool {
+    open func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         applicationDidFinishLaunching()
         return true
     }
