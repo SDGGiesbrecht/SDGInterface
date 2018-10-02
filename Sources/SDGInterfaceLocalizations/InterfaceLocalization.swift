@@ -14,7 +14,7 @@
 
 import SDGLocalization
 
-public enum InterfaceLocalization : String, InputLocalization {
+public enum InterfaceLocalization : String, CaseIterable, InputLocalization {
 
     // MARK: - Cases
 
@@ -22,11 +22,8 @@ public enum InterfaceLocalization : String, InputLocalization {
     case englishUnitedStates = "en\u{2D}US"
     case englishCanada = "en\u{2D}CA"
 
-    public static var cases: [InterfaceLocalization] = [
-        .englishUnitedKingdom,
-        .englishUnitedStates,
-        .englishCanada
-    ]
+    // #workaround(SDGCornerstone 0.11.0, This may not be necessary once InputLocalization is refactored around CaseIterable.)
+    public static var cases: [InterfaceLocalization] = allCases
 
     // MARK: - Localization
 

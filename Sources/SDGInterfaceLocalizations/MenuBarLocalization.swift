@@ -14,7 +14,7 @@
 
 import SDGLocalization
 
-public enum MenuBarLocalization : String, InputLocalization {
+public enum MenuBarLocalization : String, CaseIterable, InputLocalization {
 
     // MARK: - Cases
 
@@ -33,21 +33,8 @@ public enum MenuBarLocalization : String, InputLocalization {
 
     case עברית־ישראל = "he\u{2D}IL"
 
-    public static var cases: [MenuBarLocalization] = [
-        .españolEspaña,
-
-        .englishUnitedKingdom,
-        .englishUnitedStates,
-        .englishCanada,
-
-        .deutschDeutschland,
-
-        .françaisFrance,
-
-        .ελληνικάΕλλάδα,
-
-        .עברית־ישראל
-    ]
+    // #workaround(SDGCornerstone 0.11.0, This may not be necessary once InputLocalization is refactored around CaseIterable.)
+    public static var cases: [MenuBarLocalization] = allCases
 
     // MARK: - Localization
 
