@@ -42,7 +42,7 @@ open class ApplicationDelegate : NSObject, _ApplicationDelegate {
         Application.shared.delegate = delegate
         exit(NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv))
         #elseif canImport(UIKit)
-        exit(UIApplicationMain(CommandLine.argc, UnsafeMutableRawPointer(CommandLine.unsafeArgv).bindMemory(to: UnsafeMutablePointer<Int8>.self, capacity: Int(CommandLine.argc)), nil, NSStringFromClass(self)))
+        exit(UIApplicationMain(CommandLine.argc, CommandLine.unsafeArgv, nil, NSStringFromClass(self)))
         #endif
     }
 
