@@ -42,7 +42,7 @@ open class ApplicationDelegate : NSObject, _ApplicationDelegate {
         Application.shared.delegate = delegate
         exit(NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv))
         #elseif canImport(UIKit)
-        exit(UIApplicationMain(CommandLine.argc, UnsafeMutableRawPointer(CommandLine.unsafeArgv).bindMemory(to: UnsafeMutablePointer<Int8>.self, capacity: Int(CommandLine.argc)), nil, NSStringFromClass(self)))
+        exit(UIApplicationMain(CommandLine.argc, CommandLine.unsafeArgv, nil, NSStringFromClass(self)))
         #endif
     }
 
@@ -79,17 +79,19 @@ open class ApplicationDelegate : NSObject, _ApplicationDelegate {
     }
     #elseif canImport(UIKit)
     /// Tells the delegate that the launch process is almost done and the application is almost ready to run.
-    open func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]? = nil) -> Bool {
+    open func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         applicationDidFinishLaunching()
         return true
     }
     #endif
+}
+#endif
 
-    // MARK: - NSObject
+#if canImport(AppKit)
+extension ApplicationDelegate : NSMenuItemValidation {
 
-    #if canImport(AppKit)
     /// Implemented to override the default action of enabling or disabling a specific menu item.
-    open override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+    open func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         let openPreferencesSelector = #selector(ApplicationDelegate.openPreferences)
         if menuItem.action == openPreferencesSelector,
             method(for: openPreferencesSelector) == ApplicationDelegate.instanceMethod(for: openPreferencesSelector) {
@@ -103,6 +105,5 @@ open class ApplicationDelegate : NSObject, _ApplicationDelegate {
             return false
         }
     }
-    #endif
 }
 #endif

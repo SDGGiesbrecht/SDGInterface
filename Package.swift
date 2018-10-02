@@ -1,4 +1,4 @@
-// swift-tools-version:4.1
+// swift-tools-version:4.2
 
 /*
  Package.swift
@@ -48,7 +48,7 @@ let package = Package(
         .library(name: "SDGApplication", targets: ["SDGApplication"])
     ],
     dependencies: [
-        .package(url: "https://github.com/SDGGiesbrecht/SDGCornerstone", .upToNextMinor(from: Version(0, 10, 0)))
+        .package(url: "https://github.com/SDGGiesbrecht/SDGCornerstone", .upToNextMinor(from: Version(0, 11, 0)))
     ],
     targets: [
         // The entire package.
@@ -66,8 +66,8 @@ let package = Package(
         /// Re‐usable interface elements, such as views, windows and menus.
         .target(name: "SDGInterfaceElements", dependencies: [
             "SDGInterfaceLocalizations",
-            .productItem(name: "SDGControlFlow", package: "SDGCornerstone"),
-            .productItem(name: "SDGLocalization", package: "SDGCornerstone")
+            .product(name: "SDGControlFlow", package: "SDGCornerstone"),
+            .product(name: "SDGLocalization", package: "SDGCornerstone")
             ]),
 
         // #documentation(SDGApplication)
@@ -75,13 +75,13 @@ let package = Package(
         .target(name: "SDGApplication", dependencies: [
             "SDGInterfaceLocalizations",
             "SDGInterfaceElements",
-            .productItem(name: "SDGLogic", package: "SDGCornerstone")
+            .product(name: "SDGLogic", package: "SDGCornerstone")
             ]),
 
         // Internal
 
         .target(name: "SDGInterfaceLocalizations", dependencies: [
-            .productItem(name: "SDGLocalization", package: "SDGCornerstone")
+            .product(name: "SDGLocalization", package: "SDGCornerstone")
             ]),
 
         // Internal tests.
@@ -90,8 +90,8 @@ let package = Package(
             "SDGApplication",
             "SDGInterfaceLocalizations",
             "SDGInterfaceSample",
-            .productItem(name: "SDGLogic", package: "SDGCornerstone"),
-            .productItem(name: "SDGXCTestUtilities", package: "SDGCornerstone")
+            .product(name: "SDGLogic", package: "SDGCornerstone"),
+            .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
             ]),
 
         .target(name: "SDGInterfaceSample", dependencies: [
