@@ -12,15 +12,14 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-internal enum InterfaceLocalization : String, InputLocalization {
+internal enum InterfaceLocalization : String, CaseIterable, InputLocalization {
 
     // MARK: - Cases
 
     case englishCanada = "en\u{2D}CA"
 
-    internal static let cases: [InterfaceLocalization] = [
-        .englishCanada
-    ]
+    // #workaround(SDGCornerstone 0.11.0, This may not be necessary once InputLocalization is refactored around CaseIterable.)
+    internal static let cases: [InterfaceLocalization] = allCases
 
     // MARK: - Localization
 
