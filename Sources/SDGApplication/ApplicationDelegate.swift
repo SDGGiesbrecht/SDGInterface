@@ -17,11 +17,9 @@
 
 #if canImport(AppKit)
 // MARK: - #if canImport(AppKit)
-/// :nodoc:
 public typealias _ApplicationDelegate = NSApplicationDelegate
 #elseif canImport(UIKit)
 // MARK: - #elseif canImport(UIKit)
-/// :nodoc:
 public typealias _ApplicationDelegate = UIApplicationDelegate
 #endif
 
