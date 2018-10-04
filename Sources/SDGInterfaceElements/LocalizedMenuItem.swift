@@ -13,7 +13,6 @@
  */
 
 #if !os(watchOS) && !os(tvOS)
-// MARK: - #if !os(watchOS) && !os(tvOS)
 
 import SDGInterfaceLocalizations
 

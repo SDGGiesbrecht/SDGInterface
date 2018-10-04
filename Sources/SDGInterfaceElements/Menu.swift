@@ -13,15 +13,12 @@
  */
 
 #if !os(watchOS) && !os(tvOS)
-// MARK: - #if !os(watchOS) && !os(tvOS)
 
 #if canImport(AppKit)
-// MARK: - #if canImport(AppKit)
 // @documentation(Menu)
 /// An alias for `NSMenu` or `UIMenuController`.
 public typealias Menu = NSMenu
 #elseif canImport(UIKit)
-// MARK: - #elseif canImport(UIKit)
 // #documentation(Menu)
 /// An alias for `NSMenu` or `UIMenuController`.
 public typealias Menu = UIMenuController
@@ -60,7 +57,6 @@ extension Menu {
     }
 
     #if canImport(AppKit)
-    // MARK: - #if canImport(AppKit)
     /// Creates, inserts and returns a new separator.
     @discardableResult public func newSeparator() -> MenuItem {
         let separator = createSeparator()
