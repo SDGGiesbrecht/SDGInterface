@@ -13,13 +13,10 @@
  */
 
 #if !os(watchOS)
-// MARK: - #if !os(watchOS)
 
 #if canImport(AppKit)
-// MARK: - #if canImport(AppKit)
 public typealias _ApplicationDelegate = NSApplicationDelegate
 #elseif canImport(UIKit)
-// MARK: - #elseif canImport(UIKit)
 public typealias _ApplicationDelegate = UIApplicationDelegate
 #endif
 

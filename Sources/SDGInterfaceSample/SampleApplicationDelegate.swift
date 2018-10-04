@@ -15,7 +15,6 @@
 import SDGMathematics
 
 #if !os(watchOS)
-// MARK: - #if !os(watchOS)
 
 // @example(sample)
 public final class SampleApplicationDelegate : ApplicationDelegate {
