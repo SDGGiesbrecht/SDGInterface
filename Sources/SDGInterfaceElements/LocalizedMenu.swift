@@ -48,8 +48,7 @@ open class LocalizedMenu<L : Localization> : Menu, SharedValueObserver {
 
     // MARK: - SharedValueObserver
 
-    // #workaround(Detatched until available from SDGCornerstone again.)
-    // @documentation(SDGCornerstone.SharedValueObserver.valueChanged(for:))
+    // #documentation(SDGCornerstone.SharedValueObserver.valueChanged(for:))
     /// Called when a value changes.
     ///
     /// - Parameters:
