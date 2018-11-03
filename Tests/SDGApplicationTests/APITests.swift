@@ -58,7 +58,7 @@ final class SDGApplicationAPITests : TestCase {
     }
 
     func testMenuBar() {
-        for localization in MenuBarLocalization.cases {
+        for localization in MenuBarLocalization.allCases {
             LocalizationSetting(orderOfPrecedence: [localization.code]).do {}
         }
         #if canImport(AppKit)
