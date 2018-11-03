@@ -33,9 +33,6 @@ public enum MenuBarLocalization : String, CaseIterable, InputLocalization {
 
     case עברית־ישראל = "he\u{2D}IL"
 
-    // #workaround(SDGCornerstone 0.11.0, This may not be necessary once InputLocalization is refactored around CaseIterable.)
-    public static var cases: [MenuBarLocalization] = allCases
-
     // MARK: - Localization
 
     public static let fallbackLocalization: MenuBarLocalization = .עברית־ישראל

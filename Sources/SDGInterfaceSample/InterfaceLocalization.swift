@@ -18,9 +18,6 @@ internal enum InterfaceLocalization : String, CaseIterable, InputLocalization {
 
     case englishCanada = "en\u{2D}CA"
 
-    // #workaround(SDGCornerstone 0.11.0, This may not be necessary once InputLocalization is refactored around CaseIterable.)
-    internal static let cases: [InterfaceLocalization] = allCases
-
     // MARK: - Localization
 
     internal static let fallbackLocalization: InterfaceLocalization = .englishCanada
