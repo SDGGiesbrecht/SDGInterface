@@ -4,7 +4,7 @@
  Package.swift
 
  This source file is part of the SDGInterface open source project.
- https://sdggiesbrecht.github.io/SDGInterface/SDGInterface
+ https://sdggiesbrecht.github.io/SDGInterface
 
  Copyright ©2018 Jeremy David Giesbrecht and the SDGInterface project contributors.
 
