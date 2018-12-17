@@ -2,7 +2,7 @@
  Workspace.swift
 
  This source file is part of the SDGInterface open source project.
- https://sdggiesbrecht.github.io/SDGInterface/SDGInterface
+ https://sdggiesbrecht.github.io/SDGInterface
 
  Copyright ©2018 Jeremy David Giesbrecht and the SDGInterface project contributors.
 
@@ -19,7 +19,7 @@ configuration._applySDGDefaults()
 
 configuration.documentation.currentVersion = Version(0, 0, 0)
 
-configuration.documentation.projectWebsite = URL(string: "https://sdggiesbrecht.github.io/SDGInterface/SDGInterface")!
+configuration.documentation.projectWebsite = URL(string: "https://sdggiesbrecht.github.io/SDGInterface")!
 configuration.documentation.documentationURL = URL(string: "https://sdggiesbrecht.github.io/SDGInterface")!
 configuration.documentation.api.yearFirstPublished = 2018
 configuration.documentation.repositoryURL = URL(string: "https://github.com/SDGGiesbrecht/SDGInterface")!
