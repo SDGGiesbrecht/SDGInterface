@@ -4,7 +4,7 @@
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
 
- Copyright ©2018 Jeremy David Giesbrecht and the SDGInterface project contributors.
+ Copyright ©2018–2019 Jeremy David Giesbrecht and the SDGInterface project contributors.
 
  Soli Deo gloria.
 
@@ -44,7 +44,7 @@ open class ApplicationDelegate : NSObject, _ApplicationDelegate {
     // MARK: - Initialization
 
     /// Creates an application delegate.
-    public required override init() { // @exempt(from: tests) False coverage result in Xcode 9.4.1.
+    public required override init() {
         super.init()
     }
 
