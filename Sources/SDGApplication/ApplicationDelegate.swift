@@ -44,7 +44,7 @@ open class ApplicationDelegate : NSObject, _ApplicationDelegate {
     // MARK: - Initialization
 
     /// Creates an application delegate.
-    public required override init() { // @exempt(from: tests) False coverage result in Xcode 9.4.1.
+    public required override init() {
         super.init()
     }
 
