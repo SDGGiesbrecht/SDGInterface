@@ -16,6 +16,7 @@ import SDGLocalization
 
 extension ProcessInfo {
 
+    // #workaround(There should be a way to validate this against an expected set of localizations.)
     private static var _applicationName: ((ApplicationNameForm) ->StrictString?)?
     /// A closure which produces the declined application name suitable for use in various gramatical contexts.
     ///
