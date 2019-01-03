@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import Foundation
+
 import SDGLocalization
 internal struct ApplicationNameLocalization : Localization {
 
@@ -21,8 +23,13 @@ internal struct ApplicationNameLocalization : Localization {
 
     private var _correspondingIsolatedName: StrictString?
     internal var correspondingIsolatedName: StrictString {
-        #warning("This needs a fallback of some sort.")
-        return _correspondingIsolatedName ?? ""
+        if let defined = _correspondingIsolatedName {
+            return defined
+        } else if let infoPropertyList = Bundle.main.infoDictionary?[kCFBundleNameKey as String] as? String { // @exempt(from: tests)
+            return StrictString(infoPropertyList)
+        } else {
+            return StrictString(ProcessInfo.processInfo.processName)
+        }
     }
 
     // MARK: - Localization
