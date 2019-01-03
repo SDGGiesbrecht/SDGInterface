@@ -32,7 +32,7 @@ public final class SampleApplicationDelegate : ApplicationDelegate {
 
 extension SampleApplicationDelegate {
 
-    public class func setUpAndMain() {
+    public static func setUp() {
         ProcessInfo.applicationName = { form in
             switch form {
             case .english(let region):
@@ -42,6 +42,10 @@ extension SampleApplicationDelegate {
                 }
             }
         }
+    }
+
+    public class func setUpAndMain() {
+        setUp()
         super.main()
     }
 

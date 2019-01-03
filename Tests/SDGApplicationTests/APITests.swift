@@ -29,6 +29,7 @@ final class SDGApplicationAPITests : TestCase {
         launch
     }
     let launch: Void = {
+        SampleApplicationDelegate.setUp()
         let delegate = SampleApplicationDelegate()
         #if canImport(AppKit)
         delegate.applicationDidFinishLaunching(Notification(name: Application.didFinishLaunchingNotification))
