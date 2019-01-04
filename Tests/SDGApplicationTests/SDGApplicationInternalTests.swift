@@ -25,4 +25,12 @@ import SDGInterfaceSample
 
 final class SDGApplicationInternalTests : ApplicationTestCase {
 
+    func testApplicationName() {
+        let isolated = ApplicationNameForm.isolatedForm
+        for localization in MenuBarLocalization.allCases {
+            LocalizationSetting(orderOfPrecedence: [localization.code]).do {
+                _ = isolated.resolved()
+            }
+        }
+    }
 }

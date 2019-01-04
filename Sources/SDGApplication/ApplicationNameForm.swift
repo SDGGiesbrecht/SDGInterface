@@ -33,4 +33,8 @@ public enum ApplicationNameForm {
             return nil
         }
     }
+
+    static var isolatedForm: UserFacing<StrictString, ApplicationNameLocalization> {
+        return UserFacing<StrictString, ApplicationNameLocalization>({ $0.correspondingIsolatedName })
+    }
 }

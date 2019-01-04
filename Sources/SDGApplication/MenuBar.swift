@@ -70,7 +70,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
     // MARK: - Items
 
     private func initializeApplicationMenu() {
-        let application = newSubmenu(labelled: Shared(UserFacing<StrictString, ApplicationNameLocalization>({ $0.correspondingIsolatedName })))
+        let application = newSubmenu(labelled: Shared(ApplicationNameForm.isolatedForm))
 
         application.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
