@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-import SDGLocalization
+import SDGInterfaceLocalizations
 
 extension ProcessInfo {
 
@@ -24,12 +24,12 @@ extension ProcessInfo {
     public static var applicationName: ((ApplicationNameForm) ->StrictString?) {
         get {
             guard let result = _applicationName else {
-                _preconditionFailure({ (localization: _APILocalization) -> String in
+                preconditionFailure(UserFacing<StrictString, APILocalization>({ localization in
                     switch localization {
                     case .englishCanada: // @exempt(from: tests)
                         return "“ProcessInfo.applicationName” has not been set yet. (Import SDGInterface or SDGApplication.)"
                     }
-                })
+                }))
             }
             return result
         }
