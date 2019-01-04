@@ -22,21 +22,7 @@ import SDGInterface
 import SDGInterfaceLocalizations
 import SDGInterfaceSample
 
-final class SDGApplicationAPITests : TestCase {
-
-    override func setUp() {
-        super.setUp()
-        launch
-    }
-    let launch: Void = {
-        SampleApplicationDelegate.setUp()
-        let delegate = SampleApplicationDelegate()
-        #if canImport(AppKit)
-        delegate.applicationDidFinishLaunching(Notification(name: Application.didFinishLaunchingNotification))
-        #elseif canImport(UIKit)
-        _ = delegate.application(Application.shared)
-        #endif
-    }()
+final class SDGApplicationAPITests : ApplicationTestCase {
 
     func testMenu() {
         #if !os(tvOS)
