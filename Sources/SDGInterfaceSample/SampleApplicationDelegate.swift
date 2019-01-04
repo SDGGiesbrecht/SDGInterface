@@ -32,6 +32,23 @@ public final class SampleApplicationDelegate : ApplicationDelegate {
 
 extension SampleApplicationDelegate {
 
+    public static func setUp() {
+        ProcessInfo.applicationName = { form in
+            switch form {
+            case .english(let region):
+                switch region {
+                case .unitedKingdom, .unitedStates, .canada:
+                    return "macOS Sample"
+                }
+            }
+        }
+    }
+
+    public class func setUpAndMain() { // @exempt(from: tests)
+        setUp()
+        super.main()
+    }
+
     private func setSamplesUp() {
         setMenuUp()
     }
