@@ -44,7 +44,7 @@ extension SampleApplicationDelegate {
         }
     }
 
-    public class func setUpAndMain() {
+    public class func setUpAndMain() { // @exempt(from: tests)
         setUp()
         super.main()
     }

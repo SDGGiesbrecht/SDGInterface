@@ -25,8 +25,8 @@ internal struct ApplicationNameLocalization : Localization {
     internal var correspondingIsolatedName: StrictString {
         if let defined = _correspondingIsolatedName {
             return defined
-        } else if let infoPropertyList = Bundle.main.infoDictionary?[kCFBundleNameKey as String] as? String { // @exempt(from: tests)
-            return StrictString(infoPropertyList)
+        } else if let infoPropertyList = Bundle.main.infoDictionary?[kCFBundleNameKey as String] as? String {
+            return StrictString(infoPropertyList) // @exempt(from: tests)
         } else {
             return StrictString(ProcessInfo.processInfo.processName)
         }
