@@ -12,12 +12,20 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+/// A key form a particular grammatical form of the application’s name.
 public enum ApplicationNameForm {
+
     // #workaround(These should be validated against the Info.plist entries seen by the system.)
+
+    /// English forms.
     case english(EnglishRegion)
+    /// An regional dialect of English.
     public enum EnglishRegion {
+        /// As spoken in the United Kingdom.
         case unitedKingdom
+        /// As spoken in the United States.
         case unitedStates
+        /// As spoken in Canada.
         case canada
     }
 
