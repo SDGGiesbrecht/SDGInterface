@@ -47,3 +47,6 @@ configuration._applySDGOverrides()
 configuration._validateSDGStandards()
 
 configuration.testing.exemptionTokens.insert(TestCoverageExemptionToken("codingNotSupported", scope: .previousLine))
+
+// #workaround(workspace version 0.16.0, Currently inaccurate.)
+configuration.proofreading.rules.remove(.colonSpacing)
