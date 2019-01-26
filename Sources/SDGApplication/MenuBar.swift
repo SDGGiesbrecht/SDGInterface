@@ -73,20 +73,23 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
         let application = newSubmenu(labelled: Shared(ApplicationNameForm.isolatedForm))
 
         application.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            #warning("Use here.")
             switch localization {
             case .españolEspaña:
-                return "Acerca de «...»"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "About ‘...’/“...”"
+                return "Acerca " + (ProcessInfo.applicationName(.español(.de)) ?? "de «\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}»")
+            case .englishUnitedKingdom:
+                return "About " + (ProcessInfo.applicationName(.english(.unitedKingdom)) ?? "‘\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}’")
+            case .englishUnitedStates:
+                return "About " + (ProcessInfo.applicationName(.english(.unitedStates)) ?? "“\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}”")
+            case .englishCanada:
+                return "About " + (ProcessInfo.applicationName(.english(.canada)) ?? "“\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}”")
             case .deutschDeutschland:
-                return "Über „...“"
+                return "Über " + (ProcessInfo.applicationName(.deutsch(.akkusativ)) ?? "„\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}“")
             case .françaisFrance:
-                return "À propos de « ... »"
+                return "À propos " + (ProcessInfo.applicationName(.français(.de)) ?? "de « \u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069} »")
             case .ελληνικάΕλλάδα:
-                return "Πληροφορίες για το «...»"
+                return "Πληροφορίες για " + (ProcessInfo.applicationName(.ελληνικά(.αιτιατική)) ?? "«\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}»")
             case .עברית־ישראל:
-                return "אותות ”...“"
+                return "אותות " + (ProcessInfo.applicationName(.עברית) ?? "”\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}“")
             }
         })), action: #selector(Application.orderFrontStandardAboutPanel(_: )))
 
