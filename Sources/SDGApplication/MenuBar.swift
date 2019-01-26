@@ -73,20 +73,20 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
         let application = newSubmenu(labelled: Shared(ApplicationNameForm.isolatedForm))
 
         application.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+            #warning("Use here.")
             switch localization {
-            // #workaround(Should include the application name.)
             case .españolEspaña:
-                return "Acerca"
+                return "Acerca de «...»"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "About"
+                return "About ‘...’/“...”"
             case .deutschDeutschland:
-                return "Über"
+                return "Über „...“"
             case .françaisFrance:
-                return "À propos"
+                return "À propos de « ... »"
             case .ελληνικάΕλλάδα:
-                return "Πληροφορίες"
+                return "Πληροφορίες για το «...»"
             case .עברית־ישראל:
-                return "אותות"
+                return "אותות ”...“"
             }
         })), action: #selector(Application.orderFrontStandardAboutPanel(_: )))
 
