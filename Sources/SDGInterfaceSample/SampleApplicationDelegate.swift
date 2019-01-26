@@ -38,8 +38,37 @@ extension SampleApplicationDelegate {
             case .english(let region):
                 switch region {
                 case .unitedKingdom, .unitedStates, .canada:
-                    return "macOS Sample"
+                    return "Sample"
                 }
+            case .español(let preposición):
+                switch preposición {
+                case .ninguna:
+                    return "Ejemplar"
+                case .de:
+                    return "del Ejemplar"
+                }
+            case .deutsch(let fall):
+                switch fall {
+                case .nominativ, .akkusativ:
+                    return "Beispiel"
+                }
+            case .français(let préposition):
+                switch préposition {
+                case .aucune:
+                    return "Exemple"
+                case .de:
+                    return "de l’Exemple"
+                }
+
+            case .ελληνικά(let πτώση):
+                switch πτώση {
+                case .ονομαστική:
+                    return "Παράδειγμα"
+                case .αιτιατική:
+                    return "το Παράδειγμα"
+                }
+            case .עברית:
+                return "דוגמה"
             }
         }
     }
