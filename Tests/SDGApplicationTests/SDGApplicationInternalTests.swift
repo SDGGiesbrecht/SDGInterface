@@ -26,11 +26,28 @@ import SDGInterfaceSample
 final class SDGApplicationInternalTests : ApplicationTestCase {
 
     func testApplicationName() {
-        let isolated = ApplicationNameForm.isolatedForm
-        for localization in MenuBarLocalization.allCases {
-            LocalizationSetting(orderOfPrecedence: [localization.code]).do {
-                _ = isolated.resolved()
+        let previous = ProcessInfo.applicationName
+        func testAllLocalizations() {
+            defer {
+                ProcessInfo.applicationName = previous
+            }
+            let isolated = ApplicationNameForm.isolatedForm
+            for localization in MenuBarLocalization.allCases {
+                LocalizationSetting(orderOfPrecedence: [localization.code]).do {
+                    _ = isolated.resolved()
+                }
             }
         }
+        testAllLocalizations()
+
+        ProcessInfo.applicationName = { form in
+            switch form {
+            case .english(.canada):
+                return "..."
+            default:
+                return nil
+            }
+        }
+        testAllLocalizations()
     }
 }

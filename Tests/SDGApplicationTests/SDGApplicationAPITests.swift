@@ -24,6 +24,13 @@ import SDGInterfaceSample
 
 final class SDGApplicationAPITests : ApplicationTestCase {
 
+    func testApplicationName() {
+        XCTAssertEqual(ProcessInfo.applicationName(.español(.de)), "del Ejemplar")
+        XCTAssertEqual(ProcessInfo.applicationName(.deutsch(.akkusativ)), "Beispiel")
+        XCTAssertEqual(ProcessInfo.applicationName(.français(.de)), "de l’Exemple")
+        XCTAssertEqual(ProcessInfo.applicationName(.ελληνικά(.αιτιατική)), "το Παράδειγμα")
+    }
+
     func testMenu() {
         #if !os(tvOS)
 
@@ -45,9 +52,35 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testMenuBar() {
-        for localization in MenuBarLocalization.allCases {
-            LocalizationSetting(orderOfPrecedence: [localization.code]).do {}
+        let previous = ProcessInfo.applicationName
+        func testAllLocalizations() {
+            defer {
+                ProcessInfo.applicationName = previous
+            }
+            for localization in MenuBarLocalization.allCases {
+                LocalizationSetting(orderOfPrecedence: [localization.code]).do {}
+            }
         }
+
+        ProcessInfo.applicationName = { form in
+            switch form {
+            case .english(.canada):
+                return "..."
+            default:
+                return nil
+            }
+        }
+        testAllLocalizations()
+        ProcessInfo.applicationName = { form in
+            switch form {
+            case .english(.unitedKingdom):
+                return "..."
+            default:
+                return nil
+            }
+        }
+        testAllLocalizations()
+
         #if canImport(AppKit)
         let preferencesMenuItem = MenuBar.menuBar.items.first!.submenu!.items.first(where: { $0.action == #selector(ApplicationDelegate.openPreferences) })!
         XCTAssert(SampleApplicationDelegate().validateMenuItem(preferencesMenuItem))
