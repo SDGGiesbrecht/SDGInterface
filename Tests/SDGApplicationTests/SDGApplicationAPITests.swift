@@ -25,6 +25,7 @@ import SDGInterfaceSample
 final class SDGApplicationAPITests : ApplicationTestCase {
 
     func testApplicationName() {
+        XCTAssertEqual(ProcessInfo.applicationName(.español(.de)), "del Ejemplar")
         XCTAssertEqual(ProcessInfo.applicationName(.deutsch(.akkusativ)), "Beispiel")
         XCTAssertEqual(ProcessInfo.applicationName(.français(.de)), "de l’Exemple")
         XCTAssertEqual(ProcessInfo.applicationName(.ελληνικά(.αιτιατική)), "το Παράδειγμα")
