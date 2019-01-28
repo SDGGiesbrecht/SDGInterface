@@ -26,6 +26,8 @@ public enum ApplicationNameForm {
         /// Con ninguna preposición.
         case ninguna
         /// Con «de» o «del».
+        ///
+        /// Por ejemplo: «Acerca [...]»
         case de
     }
 
@@ -48,6 +50,8 @@ public enum ApplicationNameForm {
         /// Nominativ.
         case nominativ
         /// Akkusativ.
+        ///
+        /// Zum Beispiel: „Über [...]“
         case akkusativ
     }
 
@@ -58,6 +62,8 @@ public enum ApplicationNameForm {
         /// Avec aucune préposition.
         case aucune
         /// Avec « de », « d’ », « du » ou « des ».
+        ///
+        /// Par exemple : « À propos [...] »
         case de
     }
 
@@ -68,7 +74,13 @@ public enum ApplicationNameForm {
         /// Ονομαστική.
         case ονομαστική
         /// Αιτιατική.
+        ///
+        /// Παραδείγματος χάριν : «Πληροφορίες για [...]»
         case αιτιατική
+        /// Γενική.
+        ///
+        /// Παραδείγματος χάριν : «Απόκρυψη [...]»
+        case γενική
     }
 
     /// בעברית.

@@ -66,6 +66,8 @@ extension SampleApplicationDelegate {
                     return "Παράδειγμα"
                 case .αιτιατική:
                     return "το Παράδειγμα"
+                case .γενική:
+                    return "του Παραδείγματος"
                 }
             case .עברית:
                 return "דוגמה"
