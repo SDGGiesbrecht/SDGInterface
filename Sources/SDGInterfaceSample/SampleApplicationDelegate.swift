@@ -49,7 +49,7 @@ extension SampleApplicationDelegate {
                 }
             case .deutsch(let fall):
                 switch fall {
-                case .nominativ, .akkusativ:
+                case .nominativ, .akkusativ, .dativ:
                     return "Beispiel"
                 }
             case .français(let préposition):
