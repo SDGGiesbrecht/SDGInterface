@@ -2185,21 +2185,24 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
 
         let helpItem = helpMenu.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
-            // #workaround(Should include the application name.)
             case .españolEspaña:
-                return "Ayuda"
+                return "Ayuda " + (ProcessInfo.applicationName(.español(.de)) ?? "«\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}»")
             case .françaisFrance:
-                return "Aide"
+                return "Aide " + (ProcessInfo.applicationName(.français(.de)) ?? "de « \u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069} »")
 
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Help"
+            case .englishUnitedKingdom:
+                return (ProcessInfo.applicationName(.english(.unitedKingdom)) ?? "‘\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}’") + " Help"
+            case .englishUnitedStates:
+                return (ProcessInfo.applicationName(.english(.unitedStates)) ?? "“\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}”") + " Help"
+            case .englishCanada:
+                return (ProcessInfo.applicationName(.english(.canada)) ?? "“\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}”") + " Help"
             case .deutschDeutschland:
-                return "Hilfe"
+                return "Hilfe zu " + (ProcessInfo.applicationName(.deutsch(.dativ)) ?? "„\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}“")
 
             case .ελληνικάΕλλάδα:
-                return "Βοήθεια"
+                return "Βοήθεια για " + (ProcessInfo.applicationName(.ελληνικά(.αιτιατική)) ?? "«\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}»")
             case .עברית־ישראל:
-                return "עזרה"
+                return "עזרה עבור " + (ProcessInfo.applicationName(.עברית) ?? "”\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}“")
             }
         })), action: #selector(NSApplication.showHelp(_: )))
         helpItem.keyEquivalent = "?"
