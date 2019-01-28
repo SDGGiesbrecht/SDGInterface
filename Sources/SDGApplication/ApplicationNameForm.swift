@@ -27,7 +27,10 @@ public enum ApplicationNameForm {
         case ninguna
         /// Con «de» o «del».
         ///
-        /// Por ejemplo: «Acerca [...]»
+        /// Por ejemplo:
+        ///
+        /// - «Acerca [...]»
+        /// - «Salir [...]»
         case de
     }
 
@@ -51,7 +54,11 @@ public enum ApplicationNameForm {
         case nominativ
         /// Akkusativ.
         ///
-        /// Zum Beispiel: „Über [...]“
+        /// Zum Beispiel:
+        ///
+        /// - „Über [...]“
+        /// - „[...] ausblenden“
+        /// - „[...] beenden“
         case akkusativ
     }
 
@@ -75,11 +82,14 @@ public enum ApplicationNameForm {
         case ονομαστική
         /// Αιτιατική.
         ///
-        /// Παραδείγματος χάριν : «Πληροφορίες για [...]»
+        /// Παραδείγματος χάριν: «Πληροφορίες για [...]»
         case αιτιατική
         /// Γενική.
         ///
-        /// Παραδείγματος χάριν : «Απόκρυψη [...]»
+        /// Παραδείγματος χάριν:
+        ///
+        /// - «Απόκρυψη [...]»
+        /// - «Τερματισμός [...]»
         case γενική
     }
 

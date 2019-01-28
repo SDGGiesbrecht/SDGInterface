@@ -200,21 +200,24 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
 
         let quit = application.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
-            // #workaround(Should include the application name.)
             case .españolEspaña:
-                return "Salir"
+                return "Salir " + (ProcessInfo.applicationName(.español(.de)) ?? "«\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}»")
 
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Quit"
+            case .englishUnitedKingdom:
+                return "Quit " + (ProcessInfo.applicationName(.english(.unitedKingdom)) ?? "‘\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}’")
+            case .englishUnitedStates:
+                return "Quit " + (ProcessInfo.applicationName(.english(.unitedStates)) ?? "“\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}”")
+            case .englishCanada:
+                return "Quit " + (ProcessInfo.applicationName(.english(.canada)) ?? "“\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}”")
             case .françaisFrance:
-                return "Quitter"
+                return "Quitter " + (ProcessInfo.applicationName(.français(.aucune)) ?? "« \u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069} »")
 
             case .deutschDeutschland:
-                return "Beenden"
+                return (ProcessInfo.applicationName(.deutsch(.akkusativ)) ?? "„\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}“") + " beenden"
             case .ελληνικάΕλλάδα:
-                return "Τερματισμός"
+                return "Τερματισμός " + (ProcessInfo.applicationName(.ελληνικά(.γενική)) ?? "«\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}»")
             case .עברית־ישראל:
-                return "סיים"
+                return "סיים את " + (ProcessInfo.applicationName(.עברית) ?? "”\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}“")
             }
         })), action: #selector(Application.terminate(_: )))
         quit.keyEquivalent = "q"
