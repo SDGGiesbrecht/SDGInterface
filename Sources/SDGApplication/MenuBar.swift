@@ -91,7 +91,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "אותות " + (ProcessInfo.applicationName(.עברית) ?? "”\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}“")
             }
-        })), action: #selector(Application.orderFrontStandardAboutPanel(_: )))
+        })), action: #selector(Application.orderFrontStandardAboutPanel(_:)))
 
         application.newSeparator()
 
@@ -112,7 +112,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
                 return "העדפות..."
             }
         })))
-        preferences.action = #selector(ApplicationDelegate.openPreferences(_: ))
+        preferences.action = #selector(ApplicationDelegate.openPreferences(_:))
         preferences.keyEquivalent = ","
         preferences.keyEquivalentModifierMask = .command
 
@@ -156,7 +156,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "הסתר את " + (ProcessInfo.applicationName(.עברית) ?? "”\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}“")
             }
-        })), action: #selector(Application.hide(_: )))
+        })), action: #selector(Application.hide(_:)))
         hide.keyEquivalent = "h"
         hide.keyEquivalentModifierMask = .command
 
@@ -175,7 +175,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "הסתר אחרים"
             }
-        })), action: #selector(Application.hideOtherApplications(_: )))
+        })), action: #selector(Application.hideOtherApplications(_:)))
         hideOthers.keyEquivalent = "h"
         hideOthers.keyEquivalentModifierMask = [.option, .command]
 
@@ -194,7 +194,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "הצג הכול"
             }
-        })), action: #selector(Application.unhideAllApplications(_: )))
+        })), action: #selector(Application.unhideAllApplications(_:)))
 
         application.newSeparator()
 
@@ -219,7 +219,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "סיים את " + (ProcessInfo.applicationName(.עברית) ?? "”\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}“")
             }
-        })), action: #selector(Application.terminate(_: )))
+        })), action: #selector(Application.terminate(_:)))
         quit.keyEquivalent = "q"
         quit.keyEquivalentModifierMask = .command
     }
@@ -260,7 +260,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "חדש"
             }
-        })), action: #selector(NSDocumentController.newDocument(_: )))
+        })), action: #selector(NSDocumentController.newDocument(_:)))
         new.keyEquivalent = "n"
         new.keyEquivalentModifierMask = .command
 
@@ -280,7 +280,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "פתח..."
             }
-        })), action: #selector(NSDocumentController.openDocument(_: )))
+        })), action: #selector(NSDocumentController.openDocument(_:)))
         open.keyEquivalent = "o"
         open.keyEquivalentModifierMask = .command
 
@@ -316,7 +316,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "נקה תפריט"
             }
-        })), action: #selector(NSDocumentController.clearRecentDocuments(_: )))
+        })), action: #selector(NSDocumentController.clearRecentDocuments(_:)))
 
         file.newSeparator()
 
@@ -335,7 +335,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "סגור"
             }
-        })), action: #selector(NSWindow.performClose(_: )))
+        })), action: #selector(NSWindow.performClose(_:)))
         close.keyEquivalent = "w"
         close.keyEquivalentModifierMask = .command
 
@@ -354,7 +354,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "שמור"
             }
-        })), action: #selector(NSDocument.save(_: )))
+        })), action: #selector(NSDocument.save(_:)))
         save.keyEquivalent = "s"
         save.keyEquivalentModifierMask = .command
 
@@ -374,7 +374,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "שכפל"
             }
-        })), action: #selector(NSDocument.duplicate(_: )))
+        })), action: #selector(NSDocument.duplicate(_:)))
         duplicate.keyEquivalent = "S"
         duplicate.keyEquivalentModifierMask = .command
 
@@ -394,7 +394,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "שינוי שם..."
             }
-        })), action: #selector(NSDocument.rename(_: )))
+        })), action: #selector(NSDocument.rename(_:)))
 
         file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -411,14 +411,14 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "העבר אל..."
             }
-        })), action: #selector(NSDocument.move(_: )))
+        })), action: #selector(NSDocument.move(_:)))
 
         let revertToSaved = file.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Revert to Saved"
             }
-        })), action: #selector(NSDocument.revertToSaved(_: )))
+        })), action: #selector(NSDocument.revertToSaved(_:)))
         revertToSaved.keyEquivalent = "r"
         revertToSaved.keyEquivalentModifierMask = .command
 
@@ -439,7 +439,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "הגדרת עמוד..."
             }
-        })), action: #selector(NSDocument.runPageLayout(_: )))
+        })), action: #selector(NSDocument.runPageLayout(_:)))
         pageSetUp.keyEquivalent = "P"
         pageSetUp.keyEquivalentModifierMask = .command
 
@@ -458,7 +458,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "הדפס..."
             }
-        })), action: #selector(NSView.printView(_: )))
+        })), action: #selector(NSView.printView(_:)))
         print.keyEquivalent = "p"
         print.keyEquivalentModifierMask = .command
     }
@@ -503,7 +503,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "בטל"
             }
-        })), action: #selector(Responder.undo(_: )))
+        })), action: #selector(Responder.undo(_:)))
         undo.keyEquivalent = "z"
         undo.keyEquivalentModifierMask = .command
 
@@ -522,7 +522,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "חזור על הפעולה האחרונה"
             }
-        })), action: #selector(Responder.redo(_: )))
+        })), action: #selector(Responder.redo(_:)))
         redo.keyEquivalent = "Z"
         redo.keyEquivalentModifierMask = .command
 
@@ -543,7 +543,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "גזור"
             }
-        })), action: #selector(NSText.cut(_: )))
+        })), action: #selector(NSText.cut(_:)))
         cut.keyEquivalent = "x"
         cut.keyEquivalentModifierMask = .command
 
@@ -563,7 +563,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "העתק"
             }
-        })), action: #selector(NSText.copy(_: )))
+        })), action: #selector(NSText.copy(_:)))
         copy.keyEquivalent = "c"
         copy.keyEquivalentModifierMask = .command
 
@@ -584,7 +584,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "הדבק"
             }
-        })), action: #selector(NSText.paste(_: )))
+        })), action: #selector(NSText.paste(_:)))
         paste.keyEquivalent = "v"
         paste.keyEquivalentModifierMask = .command
 
@@ -603,7 +603,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "הדבק והתאם לסגנון"
             }
-        })), action: #selector(NSTextView.pasteAsPlainText(_: )))
+        })), action: #selector(NSTextView.pasteAsPlainText(_:)))
         pasteAndMatchStyle.keyEquivalent = "V"
         pasteAndMatchStyle.keyEquivalentModifierMask = [.command, .option]
 
@@ -622,7 +622,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "מחק"
             }
-        })), action: #selector(NSText.delete(_: )))
+        })), action: #selector(NSText.delete(_:)))
 
         let selectAll = edit.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -639,7 +639,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "בחר הכל"
             }
-        })), action: #selector(NSResponder.selectAll(_: )))
+        })), action: #selector(NSResponder.selectAll(_:)))
         selectAll.keyEquivalent = "a"
         selectAll.keyEquivalentModifierMask = .command
 
@@ -677,7 +677,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "חיפוש..."
             }
-        })), action: #selector(NSTextView.performFindPanelAction(_: )))
+        })), action: #selector(NSTextView.performFindPanelAction(_:)))
         findEntry.tag = 1
         findEntry.keyEquivalent = "f"
         findEntry.keyEquivalentModifierMask = .command
@@ -697,7 +697,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "חפש והחלף..."
             }
-        })), action: #selector(NSTextView.performFindPanelAction(_: )))
+        })), action: #selector(NSTextView.performFindPanelAction(_:)))
         replace.tag = 12
         replace.keyEquivalent = "f"
         replace.keyEquivalentModifierMask = [.command, .option]
@@ -717,7 +717,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "חפש את הבא"
             }
-        })), action: #selector(NSTextView.performFindPanelAction(_: )))
+        })), action: #selector(NSTextView.performFindPanelAction(_:)))
         findNext.tag = 2
         findNext.keyEquivalent = "g"
         findNext.keyEquivalentModifierMask = [.command]
@@ -737,7 +737,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "חפש את הקודם"
             }
-        })), action: #selector(NSTextView.performFindPanelAction(_: )))
+        })), action: #selector(NSTextView.performFindPanelAction(_:)))
         findPrevious.tag = 3
         findPrevious.keyEquivalent = "G"
         findPrevious.keyEquivalentModifierMask = [.command]
@@ -757,7 +757,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "השתמש במלל הנבחר לחיפוש"
             }
-        })), action: #selector(NSTextView.performFindPanelAction(_: )))
+        })), action: #selector(NSTextView.performFindPanelAction(_:)))
         useSelectionForFind.tag = 7
         useSelectionForFind.keyEquivalent = "e"
         useSelectionForFind.keyEquivalentModifierMask = .command
@@ -777,7 +777,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "עבור על הקטע הנבחר"
             }
-        })), action: #selector(NSResponder.centerSelectionInVisibleArea(_: )))
+        })), action: #selector(NSResponder.centerSelectionInVisibleArea(_:)))
         jumpToSelection.keyEquivalent = "j"
         jumpToSelection.keyEquivalentModifierMask = [.command]
 
@@ -814,7 +814,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "הצג איות ודקדוק"
             }
-        })), action: #selector(NSText.showGuessPanel(_: )))
+        })), action: #selector(NSText.showGuessPanel(_:)))
         showSpellingAndGrammar.keyEquivalent = ":"
         showSpellingAndGrammar.keyEquivalentModifierMask = .command
 
@@ -833,7 +833,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "בדוק את המסמך כעת"
             }
-        })), action: #selector(NSText.checkSpelling(_: )))
+        })), action: #selector(NSText.checkSpelling(_:)))
         checkDocumentNow.keyEquivalent = ";"
         checkDocumentNow.keyEquivalentModifierMask = .command
 
@@ -854,7 +854,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "בדוק איות תוך כדי הקלדה"
             }
-        })), action: #selector(NSTextView.toggleContinuousSpellChecking(_: )))
+        })), action: #selector(NSTextView.toggleContinuousSpellChecking(_:)))
 
         spellingAndGrammar.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -871,7 +871,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "בדוק דקדוק ביחד עם איות"
             }
-        })), action: #selector(NSTextView.toggleGrammarChecking(_: )))
+        })), action: #selector(NSTextView.toggleGrammarChecking(_:)))
 
         spellingAndGrammar.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -889,7 +889,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "תקן איות באופן אוטומטי"
             }
-        })), action: #selector(NSTextView.toggleAutomaticSpellingCorrection(_: )))
+        })), action: #selector(NSTextView.toggleAutomaticSpellingCorrection(_:)))
 
         let substitutions = edit.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -924,7 +924,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "הצג החלפות"
             }
-        })), action: #selector(NSTextView.orderFrontSubstitutionsPanel(_: )))
+        })), action: #selector(NSTextView.orderFrontSubstitutionsPanel(_:)))
 
         substitutions.newSeparator()
 
@@ -943,7 +943,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "העתקה והדבקה חכמות"
             }
-        })), action: #selector(NSTextView.toggleSmartInsertDelete(_: )))
+        })), action: #selector(NSTextView.toggleSmartInsertDelete(_:)))
 
         substitutions.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -960,7 +960,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "מרכאות חכמות"
             }
-        })), action: #selector(NSTextView.toggleAutomaticQuoteSubstitution(_: )))
+        })), action: #selector(NSTextView.toggleAutomaticQuoteSubstitution(_:)))
 
         substitutions.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -977,7 +977,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "מיקוף חכם"
             }
-        })), action: #selector(NSTextView.toggleAutomaticDashSubstitution(_: )))
+        })), action: #selector(NSTextView.toggleAutomaticDashSubstitution(_:)))
 
         substitutions.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -994,7 +994,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "קישורים חכמים"
             }
-        })), action: #selector(NSTextView.toggleAutomaticLinkDetection(_: )))
+        })), action: #selector(NSTextView.toggleAutomaticLinkDetection(_:)))
 
         substitutions.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1012,7 +1012,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "גלאי נתונים"
             }
-        })), action: #selector(NSTextView.toggleAutomaticDataDetection(_: )))
+        })), action: #selector(NSTextView.toggleAutomaticDataDetection(_:)))
 
         substitutions.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1029,7 +1029,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "החלפת מלל"
             }
-        })), action: #selector(NSTextView.toggleAutomaticTextReplacement(_: )))
+        })), action: #selector(NSTextView.toggleAutomaticTextReplacement(_:)))
 
         let transformations = edit.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1055,7 +1055,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .englishUnitedStates, .englishCanada:
                 return "Normalize Text"
             }
-        })), action: #selector(Responder.normalizeText(_: )))
+        })), action: #selector(Responder.normalizeText(_:)))
 
         // “Make Upper Case” does not belong here. Uppercase‐only is a font style, not a semantic aspect of the text. Attempting to fake it by switching to capital letters (a) results in semantically incorrect text, and (b) is irreversable. A font‐based version is available under the “Font” menu instead.
 
@@ -1068,7 +1068,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Show Character Information"
             }
-        })), action: #selector(Responder.showCharacterInformation(_: )))
+        })), action: #selector(Responder.showCharacterInformation(_:)))
 
         let speech = edit.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1104,7 +1104,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "התחל לדבר"
             }
-        })), action: #selector(NSTextView.startSpeaking(_: )))
+        })), action: #selector(NSTextView.startSpeaking(_:)))
 
         speech.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1121,7 +1121,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "הפסק לדבר"
             }
-        })), action: #selector(NSTextView.stopSpeaking(_: )))
+        })), action: #selector(NSTextView.stopSpeaking(_:)))
     }
 
     private func initializeFormatMenu() {
@@ -1186,7 +1186,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "הצג גופנים"
             }
-        })), action: #selector(NSFontManager.orderFrontFontPanel(_: )))
+        })), action: #selector(NSFontManager.orderFrontFontPanel(_:)))
         showFonts.target = NSFontManager.shared
         showFonts.keyEquivalent = "t"
         showFonts.keyEquivalentModifierMask = .command
@@ -1206,7 +1206,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "עבה"
             }
-        })), action: #selector(NSFontManager.addFontTrait(_: )))
+        })), action: #selector(NSFontManager.addFontTrait(_:)))
         bold.target = NSFontManager.shared
         bold.tag = 2
         bold.keyEquivalent = "b"
@@ -1229,7 +1229,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "נטוי"
             }
-        })), action: #selector(NSFontManager.addFontTrait(_: )))
+        })), action: #selector(NSFontManager.addFontTrait(_:)))
         italic.target = NSFontManager.shared
         italic.tag = 1
         italic.keyEquivalent = "i"
@@ -1250,7 +1250,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "קו תחתון"
             }
-        })), action: #selector(NSText.underline(_: )))
+        })), action: #selector(NSText.underline(_:)))
         underline.keyEquivalent = "u"
         underline.keyEquivalentModifierMask = .command
 
@@ -1273,7 +1273,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "גדול יותר"
             }
-        })), action: #selector(NSFontManager.modifyFont(_: )))
+        })), action: #selector(NSFontManager.modifyFont(_:)))
         bigger.target = NSFontManager.shared
         bigger.tag = 3
         bigger.keyEquivalent = "+"
@@ -1295,7 +1295,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "קטן יותר"
             }
-        })), action: #selector(NSFontManager.modifyFont(_: )))
+        })), action: #selector(NSFontManager.modifyFont(_:)))
         smaller.target = NSFontManager.shared
         smaller.tag = 4
         smaller.keyEquivalent = "\u{2D}"
@@ -1337,7 +1337,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "השתמש בברירת המחדל"
             }
-        })), action: #selector(NSTextView.useStandardKerning(_: )))
+        })), action: #selector(NSTextView.useStandardKerning(_:)))
 
         kern.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1354,7 +1354,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "אל תשתמש בשום אפשרות"
             }
-        })), action: #selector(NSTextView.turnOffKerning(_: )))
+        })), action: #selector(NSTextView.turnOffKerning(_:)))
 
         kern.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1371,7 +1371,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "הדוק יותר"
             }
-        })), action: #selector(NSTextView.tightenKerning(_: )))
+        })), action: #selector(NSTextView.tightenKerning(_:)))
 
         kern.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1388,7 +1388,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "מרווח יותר"
             }
-        })), action: #selector(NSTextView.loosenKerning(_: )))
+        })), action: #selector(NSTextView.loosenKerning(_:)))
 
         let ligatures = font.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1422,7 +1422,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "השתמש בברירת המחדל"
             }
-        })), action: #selector(NSTextView.useStandardLigatures(_: )))
+        })), action: #selector(NSTextView.useStandardLigatures(_:)))
 
         ligatures.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1439,7 +1439,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "אל תשתמש בשום אפשרות"
             }
-        })), action: #selector(NSTextView.turnOffLigatures(_: )))
+        })), action: #selector(NSTextView.turnOffLigatures(_:)))
 
         ligatures.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1456,7 +1456,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "השתמש בכולם"
             }
-        })), action: #selector(NSTextView.useAllLigatures(_: )))
+        })), action: #selector(NSTextView.useAllLigatures(_:)))
 
         let baseline = font.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1491,7 +1491,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "השתמש בברירת המחדל"
             }
-        })), action: #selector(Responder.resetBaseline(_: )))
+        })), action: #selector(Responder.resetBaseline(_:)))
 
         baseline.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1508,7 +1508,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "כתב עילי"
             }
-        })), action: #selector(Responder.makeSuperscript(_: )))
+        })), action: #selector(Responder.makeSuperscript(_:)))
 
         baseline.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1526,7 +1526,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "כתב תחתי"
             }
-        })), action: #selector(Responder.makeSubscript(_: )))
+        })), action: #selector(Responder.makeSubscript(_:)))
 
         baseline.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1543,7 +1543,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "הגבה"
             }
-        })), action: #selector(NSTextView.raiseBaseline(_: )))
+        })), action: #selector(NSTextView.raiseBaseline(_:)))
 
         baseline.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1560,7 +1560,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "נמוך יותר"
             }
-        })), action: #selector(NSTextView.lowerBaseline(_: )))
+        })), action: #selector(NSTextView.lowerBaseline(_:)))
 
         let casing = font.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
@@ -1574,7 +1574,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Use Default"
             }
-        })), action: #selector(Responder.resetCasing(_: )))
+        })), action: #selector(Responder.resetCasing(_:)))
 
         let upperCase = UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
@@ -1608,13 +1608,13 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             return latinate + " (I ↔ i)"
         })))
 
-        let latinateUpperCase = casing.newEntry(labelled: Shared(upperCase), action: #selector(Responder.makeLatinateUpperCase(_: )))
+        let latinateUpperCase = casing.newEntry(labelled: Shared(upperCase), action: #selector(Responder.makeLatinateUpperCase(_:)))
         latinateUpperCase.indentationLevel = 1
 
-        let latinateSmallUpperCase = casing.newEntry(labelled: Shared(smallUpperCase), action: #selector(Responder.makeLatinateSmallUpperCase(_: )))
+        let latinateSmallUpperCase = casing.newEntry(labelled: Shared(smallUpperCase), action: #selector(Responder.makeLatinateSmallUpperCase(_:)))
         latinateSmallUpperCase.indentationLevel = 1
 
-        let latinateLowerCase = casing.newEntry(labelled: Shared(lowerCase), action: #selector(Responder.makeLatinateLowerCase(_: )))
+        let latinateLowerCase = casing.newEntry(labelled: Shared(lowerCase), action: #selector(Responder.makeLatinateLowerCase(_:)))
         latinateLowerCase.indentationLevel = 1
 
         casing.newSeparator()
@@ -1628,13 +1628,13 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             return turkic + " (I ↔ ı, İ ↔ i)"
         })))
 
-        let turkicUpperCase = casing.newEntry(labelled: Shared(upperCase), action: #selector(Responder.makeTurkicUpperCase(_: )))
+        let turkicUpperCase = casing.newEntry(labelled: Shared(upperCase), action: #selector(Responder.makeTurkicUpperCase(_:)))
         turkicUpperCase.indentationLevel = 1
 
-        let turkicSmallUpperCase = casing.newEntry(labelled: Shared(smallUpperCase), action: #selector(Responder.makeTurkicSmallUpperCase(_: )))
+        let turkicSmallUpperCase = casing.newEntry(labelled: Shared(smallUpperCase), action: #selector(Responder.makeTurkicSmallUpperCase(_:)))
         turkicSmallUpperCase.indentationLevel = 1
 
-        let turkicLowerCase = casing.newEntry(labelled: Shared(lowerCase), action: #selector(Responder.makeTurkicLowerCase(_: )))
+        let turkicLowerCase = casing.newEntry(labelled: Shared(lowerCase), action: #selector(Responder.makeTurkicLowerCase(_:)))
         turkicLowerCase.indentationLevel = 1
 
         font.newSeparator()
@@ -1656,7 +1656,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "הצג צבעים"
             }
-        })), action: #selector(NSApplication.orderFrontColorPanel(_: )))
+        })), action: #selector(NSApplication.orderFrontColorPanel(_:)))
         showColours.keyEquivalent = "C"
         showColours.keyEquivalentModifierMask = .command
 
@@ -1678,7 +1678,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "העתק סגנון"
             }
-        })), action: #selector(NSText.copyFont(_: )))
+        })), action: #selector(NSText.copyFont(_:)))
         copyStyle.keyEquivalent = "c"
         copyStyle.keyEquivalentModifierMask = [.command, .option]
 
@@ -1697,7 +1697,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "הדבק סגנון"
             }
-        })), action: #selector(NSText.pasteFont(_: )))
+        })), action: #selector(NSText.pasteFont(_:)))
         pasteStyle.keyEquivalent = "v"
         pasteStyle.keyEquivalentModifierMask = [.command, .option]
 
@@ -1732,7 +1732,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "יישר לימין"
             }
-        })), action: #selector(NSText.alignRight(_: )))
+        })), action: #selector(NSText.alignRight(_:)))
         alignRight.keyEquivalent = "}"
         alignRight.keyEquivalentModifierMask = .command
 
@@ -1754,7 +1754,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "מרכז"
             }
-        })), action: #selector(NSText.alignCenter(_: )))
+        })), action: #selector(NSText.alignCenter(_:)))
         centre.keyEquivalent = "|"
         centre.keyEquivalentModifierMask = .command
 
@@ -1774,7 +1774,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "יישר לשני הצדדים"
             }
-        })), action: #selector(NSTextView.alignJustified(_: )))
+        })), action: #selector(NSTextView.alignJustified(_:)))
 
         let alignLeft = text.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1791,7 +1791,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "יישר לשמאל"
             }
-        })), action: #selector(NSText.alignLeft(_: )))
+        })), action: #selector(NSText.alignLeft(_:)))
         alignLeft.keyEquivalent = "{"
         alignLeft.keyEquivalentModifierMask = .command
 
@@ -1884,13 +1884,13 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             }
         })
 
-        let paragraphDefault = writingDirection.newEntry(labelled: Shared(`default`), action: #selector(NSResponder.makeBaseWritingDirectionNatural(_: )))
+        let paragraphDefault = writingDirection.newEntry(labelled: Shared(`default`), action: #selector(NSResponder.makeBaseWritingDirectionNatural(_:)))
         paragraphDefault.indentationLevel = 1
 
-        let paragraphRightToLeft = writingDirection.newEntry(labelled: Shared(rightToLeft), action: #selector(NSResponder.makeBaseWritingDirectionRightToLeft(_: )))
+        let paragraphRightToLeft = writingDirection.newEntry(labelled: Shared(rightToLeft), action: #selector(NSResponder.makeBaseWritingDirectionRightToLeft(_:)))
         paragraphRightToLeft.indentationLevel = 1
 
-        let paragraphLeftToRight = writingDirection.newEntry(labelled: Shared(leftToRight), action: #selector(NSResponder.makeBaseWritingDirectionLeftToRight(_: )))
+        let paragraphLeftToRight = writingDirection.newEntry(labelled: Shared(leftToRight), action: #selector(NSResponder.makeBaseWritingDirectionLeftToRight(_:)))
         paragraphLeftToRight.indentationLevel = 1
 
         writingDirection.newSeparator()
@@ -1913,13 +1913,13 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             }
         })))
 
-        let selectionDefault = writingDirection.newEntry(labelled: Shared(`default`), action: #selector(NSResponder.makeTextWritingDirectionNatural(_: )))
+        let selectionDefault = writingDirection.newEntry(labelled: Shared(`default`), action: #selector(NSResponder.makeTextWritingDirectionNatural(_:)))
         selectionDefault.indentationLevel = 1
 
-        let selectionRightToLeft = writingDirection.newEntry(labelled: Shared(rightToLeft), action: #selector(NSResponder.makeTextWritingDirectionRightToLeft(_: )))
+        let selectionRightToLeft = writingDirection.newEntry(labelled: Shared(rightToLeft), action: #selector(NSResponder.makeTextWritingDirectionRightToLeft(_:)))
         selectionRightToLeft.indentationLevel = 1
 
-        let selectionLeftToRight = writingDirection.newEntry(labelled: Shared(leftToRight), action: #selector(NSResponder.makeTextWritingDirectionLeftToRight(_: )))
+        let selectionLeftToRight = writingDirection.newEntry(labelled: Shared(leftToRight), action: #selector(NSResponder.makeTextWritingDirectionLeftToRight(_:)))
         selectionLeftToRight.indentationLevel = 1
 
         text.newSeparator()
@@ -1939,7 +1939,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "הצג סרגל"
             }
-        })), action: #selector(NSText.toggleRuler(_: )))
+        })), action: #selector(NSText.toggleRuler(_:)))
 
         let copyRuler = text.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1957,7 +1957,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "העתק סרגל"
             }
-        })), action: #selector(NSText.copyRuler(_: )))
+        })), action: #selector(NSText.copyRuler(_:)))
         copyRuler.keyEquivalent = "c"
         copyRuler.keyEquivalentModifierMask = [.command, .control]
 
@@ -1976,7 +1976,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "הדבק סרגל"
             }
-        })), action: #selector(NSText.pasteRuler(_: )))
+        })), action: #selector(NSText.pasteRuler(_:)))
         pasteRuler.keyEquivalent = "v"
         pasteRuler.keyEquivalentModifierMask = [.command, .control]
     }
@@ -2018,7 +2018,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "הצג את סרגל הכלים"
             }
-        })), action: #selector(NSWindow.toggleToolbarShown(_: )))
+        })), action: #selector(NSWindow.toggleToolbarShown(_:)))
         showToolbar.keyEquivalent = "t"
         showToolbar.keyEquivalentModifierMask = [.command, .option]
 
@@ -2039,7 +2039,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "התאמה אישית של סרגל הכלים..."
             }
-        })), action: #selector(NSWindow.runToolbarCustomizationPalette(_: )))
+        })), action: #selector(NSWindow.runToolbarCustomizationPalette(_:)))
 
         view.newSeparator()
 
@@ -2058,7 +2058,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "הצג את סרגל הצד"
             }
-        })), action: #selector(Responder.toggleSourceList(_: )))
+        })), action: #selector(Responder.toggleSourceList(_:)))
         showSideBar.keyEquivalent = "s"
         showSideBar.keyEquivalentModifierMask = [.command, .control]
 
@@ -2077,7 +2077,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "עבור למסך מלא"
             }
-        })), action: #selector(NSWindow.toggleFullScreen(_: )))
+        })), action: #selector(NSWindow.toggleFullScreen(_:)))
         enterFullScreen.keyEquivalent = "f"
         enterFullScreen.keyEquivalentModifierMask = [.command, .control]
     }
@@ -2121,7 +2121,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "מזער"
             }
-        })), action: #selector(NSWindow.performMiniaturize(_: )))
+        })), action: #selector(NSWindow.performMiniaturize(_:)))
         minimize.keyEquivalent = "m"
         minimize.keyEquivalentModifierMask = .command
 
@@ -2140,7 +2140,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "הגדל/הקטן"
             }
-        })), action: #selector(NSWindow.performZoom(_: )))
+        })), action: #selector(NSWindow.performZoom(_:)))
 
         window.newSeparator()
 
@@ -2159,7 +2159,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "הבא הכל קדימה"
             }
-        })), action: #selector(NSApplication.arrangeInFront(_: )))
+        })), action: #selector(NSApplication.arrangeInFront(_:)))
     }
 
     private func initializeHelpMenu() {
@@ -2204,7 +2204,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "עזרה עבור " + (ProcessInfo.applicationName(.עברית) ?? "”\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}“")
             }
-        })), action: #selector(NSApplication.showHelp(_: )))
+        })), action: #selector(NSApplication.showHelp(_:)))
         helpItem.keyEquivalent = "?"
         helpItem.keyEquivalentModifierMask = .command
         // #workaround(Should hide if the application does not have a help book.)

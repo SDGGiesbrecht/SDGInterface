@@ -38,7 +38,7 @@ open class LocalizedMenuItem<L : Localization> : MenuItem, SharedValueObserver {
 
     // #documentation(codingNotSupported)
     /// Do not use. This type does not support coding.
-    @available(*, unavailable) public required init(coder decoder: NSCoder) {
+    @available(*, unavailable) public required init(coder decoder: NSCoder) { // @exempt(from: unicode)
         codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
             switch localization {
             case .englishCanada:
@@ -60,7 +60,7 @@ open class LocalizedMenuItem<L : Localization> : MenuItem, SharedValueObserver {
     /// - Parameters:
     ///     - identifier: The identifier that was specified when the observer was registered. This can be used to differentiate between several values watched by the same observer.
     ///
-    /// - SeeAlso: `register(observer:identifier)`
+    /// - SeeAlso: `register(observer:identifier:)`
     public func valueChanged(for identifier: String) {
         self.title = String(label.value.resolved())
     }

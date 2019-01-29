@@ -52,7 +52,7 @@ open class ApplicationDelegate : NSObject, _ApplicationDelegate {
 
     /// Notifies the delegate that the application has been launched and initialized.
     ///
-    /// This is a unification of `applicationDidFinishLaunching(:)` and `application(_:, didFinishLaunchingWithOptions:) -> Bool`. The default implementations of each redirect to this method.
+    /// This is a unification of `applicationDidFinishLaunching(_:)` and `application(_:didFinishLaunchingWithOptions:)`. The default implementations of each redirect to this method.
     open func applicationDidFinishLaunching() {
         #if canImport(AppKit)
         Application.shared.menu = MenuBar.menuBar
