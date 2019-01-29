@@ -49,7 +49,7 @@ extension SampleApplicationDelegate {
                 }
             case .deutsch(let fall):
                 switch fall {
-                case .nominativ, .akkusativ:
+                case .nominativ, .akkusativ, .dativ:
                     return "Beispiel"
                 }
             case .français(let préposition):
@@ -66,6 +66,8 @@ extension SampleApplicationDelegate {
                     return "Παράδειγμα"
                 case .αιτιατική:
                     return "το Παράδειγμα"
+                case .γενική:
+                    return "του Παραδείγματος"
                 }
             case .עברית:
                 return "דוגמה"

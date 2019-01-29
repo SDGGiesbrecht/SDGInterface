@@ -139,19 +139,22 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
 
         let hide = application.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
-            // #workaround(Should include the application name.)
             case .españolEspaña:
-                return "Ocultar"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Hide"
+                return "Ocultar " + (ProcessInfo.applicationName(.español(.ninguna)) ?? "«\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}»")
+            case .englishUnitedKingdom:
+                return "Hide " + (ProcessInfo.applicationName(.english(.unitedKingdom)) ?? "‘\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}’")
+            case .englishUnitedStates:
+                return "Hide " + (ProcessInfo.applicationName(.english(.unitedStates)) ?? "“\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}”")
+            case .englishCanada:
+                return "Hide " + (ProcessInfo.applicationName(.english(.canada)) ?? "“\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}”")
             case .deutschDeutschland:
-                return "Ausblenden"
+                return (ProcessInfo.applicationName(.deutsch(.akkusativ)) ?? "„\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}“") + " ausblenden"
             case .françaisFrance:
-                return "Masquer"
+                return "Masquer " + (ProcessInfo.applicationName(.français(.aucune)) ?? "« \u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069} »")
             case .ελληνικάΕλλάδα:
-                return "Απόκρυψη"
+                return "Απόκρυψη " + (ProcessInfo.applicationName(.ελληνικά(.γενική)) ?? "«\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}»")
             case .עברית־ישראל:
-                return "הסתר"
+                return "הסתר את " + (ProcessInfo.applicationName(.עברית) ?? "”\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}“")
             }
         })), action: #selector(Application.hide(_: )))
         hide.keyEquivalent = "h"
@@ -197,21 +200,24 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
 
         let quit = application.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
-            // #workaround(Should include the application name.)
             case .españolEspaña:
-                return "Salir"
+                return "Salir " + (ProcessInfo.applicationName(.español(.de)) ?? "«\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}»")
 
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Quit"
+            case .englishUnitedKingdom:
+                return "Quit " + (ProcessInfo.applicationName(.english(.unitedKingdom)) ?? "‘\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}’")
+            case .englishUnitedStates:
+                return "Quit " + (ProcessInfo.applicationName(.english(.unitedStates)) ?? "“\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}”")
+            case .englishCanada:
+                return "Quit " + (ProcessInfo.applicationName(.english(.canada)) ?? "“\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}”")
             case .françaisFrance:
-                return "Quitter"
+                return "Quitter " + (ProcessInfo.applicationName(.français(.aucune)) ?? "« \u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069} »")
 
             case .deutschDeutschland:
-                return "Beenden"
+                return (ProcessInfo.applicationName(.deutsch(.akkusativ)) ?? "„\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}“") + " beenden"
             case .ελληνικάΕλλάδα:
-                return "Τερματισμός"
+                return "Τερματισμός " + (ProcessInfo.applicationName(.ελληνικά(.γενική)) ?? "«\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}»")
             case .עברית־ישראל:
-                return "סיים"
+                return "סיים את " + (ProcessInfo.applicationName(.עברית) ?? "”\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}“")
             }
         })), action: #selector(Application.terminate(_: )))
         quit.keyEquivalent = "q"
@@ -2179,21 +2185,24 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
 
         let helpItem = helpMenu.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
-            // #workaround(Should include the application name.)
             case .españolEspaña:
-                return "Ayuda"
+                return "Ayuda " + (ProcessInfo.applicationName(.español(.de)) ?? "«\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}»")
             case .françaisFrance:
-                return "Aide"
+                return "Aide " + (ProcessInfo.applicationName(.français(.de)) ?? "de « \u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069} »")
 
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Help"
+            case .englishUnitedKingdom:
+                return (ProcessInfo.applicationName(.english(.unitedKingdom)) ?? "‘\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}’") + " Help"
+            case .englishUnitedStates:
+                return (ProcessInfo.applicationName(.english(.unitedStates)) ?? "“\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}”") + " Help"
+            case .englishCanada:
+                return (ProcessInfo.applicationName(.english(.canada)) ?? "“\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}”") + " Help"
             case .deutschDeutschland:
-                return "Hilfe"
+                return "Hilfe zu " + (ProcessInfo.applicationName(.deutsch(.dativ)) ?? "„\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}“")
 
             case .ελληνικάΕλλάδα:
-                return "Βοήθεια"
+                return "Βοήθεια για " + (ProcessInfo.applicationName(.ελληνικά(.αιτιατική)) ?? "«\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}»")
             case .עברית־ישראל:
-                return "עזרה"
+                return "עזרה עבור " + (ProcessInfo.applicationName(.עברית) ?? "”\u{2068}" + ApplicationNameForm.isolatedForm.resolved() + "\u{2069}“")
             }
         })), action: #selector(NSApplication.showHelp(_: )))
         helpItem.keyEquivalent = "?"
