@@ -22,6 +22,10 @@ open class LocalizedMenuItem<L : Localization> : MenuItem, SharedValueObserver {
     // MARK: - Initialization
 
     /// Creates a localized menu item with the specified label and action.
+    ///
+    /// - Parameters:
+    ///     - label: A label for the menu item.
+    ///     - action: (Optional.) An action for the menu item.
     public init(label: Shared<UserFacing<StrictString, L>>, action: Selector? = nil) {
 
         self.label = label
@@ -60,7 +64,7 @@ open class LocalizedMenuItem<L : Localization> : MenuItem, SharedValueObserver {
     /// - Parameters:
     ///     - identifier: The identifier that was specified when the observer was registered. This can be used to differentiate between several values watched by the same observer.
     ///
-    /// - SeeAlso: `register(observer:identifier:)`
+    /// - SeeAlso: `register(observer:identifier)`
     public func valueChanged(for identifier: String) {
         self.title = String(label.value.resolved())
     }

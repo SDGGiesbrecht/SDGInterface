@@ -57,6 +57,9 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
     // MARK: - Modification
 
     /// Creates a new menu in the application‐specific section. (Before the “Window” menu.)
+    ///
+    /// - Parameters:
+    ///     - label: A label for the new submenu.
     @discardableResult public func newApplicationSpecificSubmenu<S>(labelled label: Shared<UserFacing<StrictString, S>>) -> LocalizedMenu<S> {
         let menu = newSubmenu(labelled: label)
         if let menuItem = menu.parentMenuItem {

@@ -76,6 +76,10 @@ extension Menu {
     // MARK: - Subclassing
 
     /// Override in a subclass to use a different class of menu entry.
+    ///
+    /// - Parameters:
+    ///     - label: A label for the entry.
+    ///     - action: Optional. An action for the entry.
     open func createEntry<E>(labelled label: Shared<UserFacing<StrictString, E>>, action: Selector?) -> LocalizedMenuItem<E> {
         return LocalizedMenuItem(label: label, action: action)
     }
@@ -87,6 +91,9 @@ extension Menu {
     }
 
     /// Override in a subclass to use a different class of sub menu.
+    ///
+    /// - Parameters:
+    ///     - label: A label for the submenu.
     open func createSubmenu<S>(labelled label: Shared<UserFacing<StrictString, S>>) -> LocalizedMenu<S> where S : Localization {
         return LocalizedMenu<S>(label: label)
     }
