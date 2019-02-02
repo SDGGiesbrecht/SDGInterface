@@ -43,6 +43,10 @@ extension Menu {
     // MARK: - Modifications
 
     /// Creates, inserts and returns a new entry.
+    ///
+    /// - Parameters:
+    ///     - label: A label for the entry.
+    ///     - action: Optional. An action for the entry.
     @discardableResult public func newEntry<E>(labelled label: Shared<UserFacing<StrictString, E>>, action: Selector? = nil) -> LocalizedMenuItem<E> {
         let entry = createEntry(labelled: label, action: action)
         #if canImport(AppKit)
@@ -65,6 +69,9 @@ extension Menu {
     }
 
     /// Creates, inserts and returns a new submenu.
+    ///
+    /// - Parameters:
+    ///     - label: A label for the submenu.
     @discardableResult public func newSubmenu<S>(labelled label: Shared<UserFacing<StrictString, S>>) -> LocalizedMenu<S> {
         let header = newEntry(labelled: label)
         let submenu = createSubmenu(labelled: label)
@@ -76,6 +83,10 @@ extension Menu {
     // MARK: - Subclassing
 
     /// Override in a subclass to use a different class of menu entry.
+    ///
+    /// - Parameters:
+    ///     - label: A label for the entry.
+    ///     - action: Optional. An action for the entry.
     open func createEntry<E>(labelled label: Shared<UserFacing<StrictString, E>>, action: Selector?) -> LocalizedMenuItem<E> {
         return LocalizedMenuItem(label: label, action: action)
     }
@@ -87,6 +98,9 @@ extension Menu {
     }
 
     /// Override in a subclass to use a different class of sub menu.
+    ///
+    /// - Parameters:
+    ///     - label: A label for the submenu.
     open func createSubmenu<S>(labelled label: Shared<UserFacing<StrictString, S>>) -> LocalizedMenu<S> where S : Localization {
         return LocalizedMenu<S>(label: label)
     }

@@ -23,6 +23,9 @@ open class LocalizedMenu<L : Localization> : Menu, SharedValueObserver {
     // MARK: - Initialization
 
     /// Creates a localized menu with the specified label.
+    ///
+    /// - Parameters:
+    ///     - label: A label for the menu.
     public init(label: Shared<UserFacing<StrictString, L>>) {
         self.label = label
         super.init(title: String(label.value.resolved()))
@@ -31,7 +34,7 @@ open class LocalizedMenu<L : Localization> : Menu, SharedValueObserver {
 
     // #documentation(codingNotSupported)
     /// Do not use. This type does not support coding.
-    @available(*, unavailable) public required init(coder decoder: NSCoder) {
+    @available(*, unavailable) public required init(coder decoder: NSCoder) { // @exempt(from: unicode)
         codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
             switch localization {
             case .englishCanada:
@@ -47,13 +50,6 @@ open class LocalizedMenu<L : Localization> : Menu, SharedValueObserver {
 
     // MARK: - SharedValueObserver
 
-    // #documentation(SDGCornerstone.SharedValueObserver.valueChanged(for:))
-    /// Called when a value changes.
-    ///
-    /// - Parameters:
-    ///     - identifier: The identifier that was specified when the observer was registered. This can be used to differentiate between several values watched by the same observer.
-    ///
-    /// - SeeAlso: `register(observer:identifier)`
     public func valueChanged(for identifier: String) {
         self.title = String(label.value.resolved())
     }

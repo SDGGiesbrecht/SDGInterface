@@ -52,7 +52,7 @@ open class ApplicationDelegate : NSObject, _ApplicationDelegate {
 
     /// Notifies the delegate that the application has been launched and initialized.
     ///
-    /// This is a unification of `applicationDidFinishLaunching(:)` and `application(_:, didFinishLaunchingWithOptions:) -> Bool`. The default implementations of each redirect to this method.
+    /// This is a unification of `applicationDidFinishLaunching(_:)` and `application(_:didFinishLaunchingWithOptions:)`. The default implementations of each redirect to this method.
     open func applicationDidFinishLaunching() {
         #if canImport(AppKit)
         Application.shared.menu = MenuBar.menuBar
@@ -63,17 +63,27 @@ open class ApplicationDelegate : NSObject, _ApplicationDelegate {
     // MARK: - Preferences
 
     /// This action method opens the application preferences. Override it to provide an implementation for the “Preferences...” menu item, which is otherwise hidden.
+    ///
+    /// - Parameters:
+    ///     - sender: The sender.
     @objc open func openPreferences(_ sender: Any?) {}
 
     // MARK: - NSApplicationDelegate & UIApplicationDelegate
 
     #if canImport(AppKit)
     /// Sent by the default notification center after the application has been launched and initialized but before it has received its first event.
+    ///
+    /// - Parameters:
+    ///     - notification: A notification.
     open func applicationDidFinishLaunching(_ notification: Notification) {
         applicationDidFinishLaunching()
     }
     #elseif canImport(UIKit)
     /// Tells the delegate that the launch process is almost done and the application is almost ready to run.
+    ///
+    /// - Parameters:
+    ///     - application: The application object.
+    ///     - launchOptions: A dictionary indicating the reason the application was launched.
     open func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         applicationDidFinishLaunching()
         return true
@@ -86,6 +96,9 @@ open class ApplicationDelegate : NSObject, _ApplicationDelegate {
 extension ApplicationDelegate : NSMenuItemValidation {
 
     /// Implemented to override the default action of enabling or disabling a specific menu item.
+    ///
+    /// - Parameters:
+    ///     - menuItem: The menu item.
     open func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         let openPreferencesSelector = #selector(ApplicationDelegate.openPreferences)
         if menuItem.action == openPreferencesSelector,
