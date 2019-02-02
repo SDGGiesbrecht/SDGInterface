@@ -50,13 +50,6 @@ open class LocalizedMenu<L : Localization> : Menu, SharedValueObserver {
 
     // MARK: - SharedValueObserver
 
-    // #documentation(SDGCornerstone.SharedValueObserver.valueChanged(for:))
-    /// Called when a value changes.
-    ///
-    /// - Parameters:
-    ///     - identifier: The identifier that was specified when the observer was registered. This can be used to differentiate between several values watched by the same observer.
-    ///
-    /// - SeeAlso: `register(observer:identifier)`
     public func valueChanged(for identifier: String) {
         self.title = String(label.value.resolved())
     }
