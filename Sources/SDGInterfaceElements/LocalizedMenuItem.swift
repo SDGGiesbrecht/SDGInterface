@@ -40,8 +40,6 @@ open class LocalizedMenuItem<L : Localization> : MenuItem, SharedValueObserver {
         LocalizationSetting.current.register(observer: self)
     }
 
-    // #documentation(codingNotSupported)
-    /// Do not use. This type does not support coding.
     @available(*, unavailable) public required init(coder decoder: NSCoder) { // @exempt(from: unicode)
         codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
             switch localization {
