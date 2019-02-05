@@ -14,9 +14,6 @@
 
 import SDGInterfaceLocalizations
 
-// @documentation(codingNotSupported)
-/// Do not use. This type does not support coding.
-
 /// A precondition failure with a message stating that the type does not support coding.
 ///
 /// - Parameters:
