@@ -38,7 +38,12 @@ extension ProcessInfo {
         }
     }
 
+    /// Validates the application bundle.
+    ///
+    /// This method is intended for use in unit tests. It does nothing when compiled in release mode.
     public static func validate(applicationBundle: Bundle) {
+        if BuildConfiguration.current == .debug {
 
+        }
     }
 }

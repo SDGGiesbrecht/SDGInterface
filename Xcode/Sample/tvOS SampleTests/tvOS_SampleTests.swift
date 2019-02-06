@@ -19,7 +19,7 @@ import XCTest
 import SDGApplication
 
 class tvOS_SampleTests: XCTestCase {
-    
+
     func testBundle() {
         ProcessInfo.validate(applicationBundle: Bundle(for: BundleClass.self))
     }
