@@ -37,4 +37,8 @@ extension ProcessInfo {
             _applicationName = newValue
         }
     }
+
+    public func validate(applicationBundle: Bundle) {
+
+    }
 }
