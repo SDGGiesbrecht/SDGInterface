@@ -38,7 +38,7 @@ extension ProcessInfo {
         }
     }
 
-    public func validate(applicationBundle: Bundle) {
+    public static func validate(applicationBundle: Bundle) {
 
     }
 }
