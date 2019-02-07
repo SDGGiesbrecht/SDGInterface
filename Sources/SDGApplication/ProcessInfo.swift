@@ -45,8 +45,6 @@ extension ProcessInfo {
     /// - Parameters:
     ///     - applicationBundle: The main application bundle.
     public static func validate(applicationBundle: Bundle) { // @exempt(from: tests)
-        if BuildConfiguration.current == .debug {
-
-        }
+        if BuildConfiguration.current == .debug {}
     }
 }

@@ -18,7 +18,7 @@ import XCTest
 
 import SDGApplication
 
-class macOS_SampleTests: XCTestCase {
+class macOS_SampleTests : XCTestCase {
 
     func testBundle() {
         ProcessInfo.validate(applicationBundle: Bundle(for: BundleClass.self))
