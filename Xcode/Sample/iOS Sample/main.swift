@@ -14,4 +14,5 @@
 
 import SDGInterfaceSample
 
+class BundleClass {}
 SampleApplicationDelegate.setUpAndMain()

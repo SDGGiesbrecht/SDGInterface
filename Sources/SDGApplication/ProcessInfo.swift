@@ -37,4 +37,14 @@ extension ProcessInfo {
             _applicationName = newValue
         }
     }
+
+    /// Validates the application bundle.
+    ///
+    /// This method is intended for use in tests. It does nothing when compiled in release mode.
+    ///
+    /// - Parameters:
+    ///     - applicationBundle: The main application bundle.
+    public static func validate(applicationBundle: Bundle) { // @exempt(from: tests)
+        if BuildConfiguration.current == .debug {}
+    }
 }
