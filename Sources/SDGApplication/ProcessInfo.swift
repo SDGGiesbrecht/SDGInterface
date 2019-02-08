@@ -60,8 +60,8 @@ extension ProcessInfo {
             func assert(_ condition: Bool, _ message: UserFacing<StrictString, APILocalization>) {
                 if ¬condition {
                     failing = true
+                    print(message)
                 }
-                print(message)
             }
             func assertEqual<T>(_ a: (value: T, key: String), _ b: (value: T, key: String)) where T : Equatable {
                 assert(a.value == b.value, UserFacing<StrictString, APILocalization>({ localization in
@@ -88,12 +88,18 @@ extension ProcessInfo {
 
                 let form = ApplicationNameForm.isolatedForm(for: localization.code)
                 let name: String? = form.flatMap({ ProcessInfo.applicationName($0) }).flatMap({ String($0) })
-                assertEqual((systemName, nameKey), (name, "ProcessInfo.applicationName." + localization.code))
+                assertEqual(
+                    (systemName, localization.code + ".InfoPlist.strings." + nameKey),
+                    (name, "ProcessInfo.applicationName." + localization.code))
                 if let count = name?.utf16.count,
                     count < 16 {
-                    assertEqual((short, shortKey), (name, "ProcessInfo.applicationName." + localization.code))
+                    assertEqual(
+                        (short, localization.code + ".InfoPlist.strings." + shortKey),
+                        (name, "ProcessInfo.applicationName." + localization.code))
                 } else if name == nil {
-                    assertEqual((short, shortKey), (name, "ProcessInfo.applicationName." + localization.code))
+                    assertEqual(
+                        (short, localization.code + ".InfoPlist.strings." + shortKey),
+                        (name, "ProcessInfo.applicationName." + localization.code))
                 }
             }
 
