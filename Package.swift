@@ -67,6 +67,9 @@ let package = Package(
         .target(name: "SDGInterfaceElements", dependencies: [
             "SDGInterfaceLocalizations",
             .product(name: "SDGControlFlow", package: "SDGCornerstone"),
+            .product(name: "SDGLogic", package: "SDGCornerstone"),
+            .product(name: "SDGMathematics", package: "SDGCornerstone"),
+            .product(name: "SDGCollections", package: "SDGCornerstone"),
             .product(name: "SDGLocalization", package: "SDGCornerstone")
             ]),
 
