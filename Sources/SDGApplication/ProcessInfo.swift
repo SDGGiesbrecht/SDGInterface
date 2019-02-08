@@ -75,7 +75,7 @@ extension ProcessInfo {
             for localization in MenuBarLocalization.allCases {
                 let infoPlist = applicationBundle.url(forResource: "InfoPlist", withExtension: "strings", subdirectory: nil, localization: localization.code)
                 let dictionary: NSDictionary? = (infoPlist.flatMap({ (url: URL) -> NSDictionary? in
-                    if #available(OSX 10.13, *) { // #workaround(Swift 4.2.1, Until platform version can be customized.)
+                    if #available(OSX 10.13, *) { // #workaround(Swift 4.2.1, Until platform version can be customized.) @exempt(from: unicode)
                         return try? NSDictionary(contentsOf: url, error: ())
                     } else {
                         return NSDictionary(contentsOf: url)
