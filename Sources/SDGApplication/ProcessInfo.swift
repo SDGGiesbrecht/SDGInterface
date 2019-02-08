@@ -12,11 +12,12 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import SDGLogic
+
 import SDGInterfaceLocalizations
 
 extension ProcessInfo {
 
-    // #workaround(There should be a way to validate this against an expected set of localizations.)
     private static var _applicationName: ((ApplicationNameForm) -> StrictString?)?
     /// A closure which produces the declined application name suitable for use in various gramatical contexts.
     ///
@@ -45,6 +46,57 @@ extension ProcessInfo {
     /// - Parameters:
     ///     - applicationBundle: The main application bundle.
     public static func validate(applicationBundle: Bundle) { // @exempt(from: tests)
-        if BuildConfiguration.current == .debug {}
+        if BuildConfiguration.current == .debug {
+            var failing = false
+            defer {
+                SDGLocalization.assert(¬failing, UserFacing<StrictString, APILocalization>({ localization in
+                    switch localization {
+                    case .englishCanada:
+                        return "The application bundle fails validation."
+                    }
+                }))
+            }
+
+            func assert(_ condition: Bool, _ message: UserFacing<StrictString, APILocalization>) {
+                if ¬condition {
+                    failing = true
+                }
+                print(message)
+            }
+            func assertEqual<T>(_ a: (value: T, key: String), _ b: (value: T, key: String)) where T : Equatable {
+                assert(a.value == b.value, UserFacing<StrictString, APILocalization>({ localization in
+                    switch localization {
+                    case .englishCanada:
+                        return StrictString("\(a.key) ≠ \(b.key); “\(a.value)” ≠ “\(b.value)”")
+                    }
+                }))
+            }
+
+            for localization in MenuBarLocalization.allCases {
+                let infoPlist = applicationBundle.url(forResource: "InfoPlist", withExtension: "strings", subdirectory: nil, localization: localization.code)
+                let dictionary: NSDictionary? = (infoPlist.flatMap({ (url: URL) -> NSDictionary? in
+                    if #available(OSX 10.13, *) { // #workaround(Swift 4.2.1, Until platform version can be customized.)
+                        return try? NSDictionary(contentsOf: url, error: ())
+                    } else {
+                        return NSDictionary(contentsOf: url)
+                    }
+                }))
+                let nameKey = "CFBundleDisplayName"
+                let shortKey = "CFBundleName"
+                let systemName: String? = dictionary?[nameKey] as? String
+                let short: String? = dictionary?[shortKey] as? String
+
+                let form = ApplicationNameForm.isolatedForm(for: localization.code)
+                let name: String? = form.flatMap({ ProcessInfo.applicationName($0) }).flatMap({ String($0) })
+                assertEqual((systemName, nameKey), (name, "ProcessInfo.applicationName." + localization.code))
+                if let count = name?.utf16.count,
+                    count < 16 {
+                    assertEqual((short, shortKey), (name, "ProcessInfo.applicationName." + localization.code))
+                } else if name == nil {
+                    assertEqual((short, shortKey), (name, "ProcessInfo.applicationName." + localization.code))
+                }
+            }
+
+        }
     }
 }

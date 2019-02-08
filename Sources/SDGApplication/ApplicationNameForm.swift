@@ -106,7 +106,7 @@ public enum ApplicationNameForm {
     /// בעברית.
     case עברית
 
-    static func isolatedForm(for localizationCode: String) -> ApplicationNameForm? {
+    internal static func isolatedForm(for localizationCode: String) -> ApplicationNameForm? {
         guard let localization = MenuBarLocalization(exactly: localizationCode) else {
             return nil
         }
@@ -130,7 +130,7 @@ public enum ApplicationNameForm {
         }
     }
 
-    static var isolatedForm: UserFacing<StrictString, ApplicationNameLocalization> {
+    internal static var isolatedForm: UserFacing<StrictString, ApplicationNameLocalization> {
         return UserFacing<StrictString, ApplicationNameLocalization>({ $0.correspondingIsolatedName })
     }
 }
