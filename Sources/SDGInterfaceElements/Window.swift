@@ -34,7 +34,9 @@ public class Window : NSWindow, NSWindowDelegate {
         additionalStyles: NSWindow.StyleMask = [],
         disabledStyles: NSWindow.StyleMask = []) {
 
-        interceptor = DelegationInterceptor(selectors: [])
+        interceptor = DelegationInterceptor(selectors: [
+            #selector(NSWindowDelegate.windowWillReturnFieldEditor(_:to:))
+            ])
         defer {
             interceptor.delegate = super.delegate
             interceptor.listener = self
@@ -71,6 +73,11 @@ public class Window : NSWindow, NSWindowDelegate {
         randomizeLocation()
     }
 
+    // MARK: - Properties
+
+    // #workaround(Should be a field editor.)
+    private var fieldEditor = NSTextView()
+
     // MARK: - NSWindow
 
     private var interceptor: DelegationInterceptor
@@ -101,5 +108,11 @@ public class Window : NSWindow, NSWindowDelegate {
     public override func close() {
         Window.allWindows.remove(self)
         super.close()
+    }
+
+    // MARK: - NSWindowDelegate
+
+    public func windowWillReturnFieldEditor(_ sender: NSWindow, to client: Any?) -> Any? {
+        return (interceptor.delegate as? NSWindowDelegate)?.windowWillReturnFieldEditor?(sender, to: client) ?? fieldEditor
     }
 }
