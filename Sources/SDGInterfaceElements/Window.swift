@@ -75,11 +75,14 @@ open class Window : NSWindow {
 
     // MARK: - Properties
 
+    #if canImport(AppKit)
     // #workaround(Should be a field editor.)
     private var fieldEditor = NSTextView()
+    #endif
 
     // MARK: - NSWindow
 
+    #if canImport(AppKit)
     private var interceptor: DelegationInterceptor
     open override var delegate: NSWindowDelegate? {
         get {
@@ -90,7 +93,9 @@ open class Window : NSWindow {
             super.delegate = interceptor
         }
     }
+    #endif
 
+    #if canImport(AppKit)
     open override var title: String {
         get {
             return super.title
@@ -99,16 +104,42 @@ open class Window : NSWindow {
             super.title = String(StrictString(newValue))
         }
     }
+    #else
+    private var _title: String
+    /// The title of the window.
+    open var title: String {
+        get {
+            return _title
+        }
+        set {
+            _title = String(StrictString(newValue))
+        }
+    }
+    #endif
 
+    #if canImport(AppKit)
     open override func makeKeyAndOrderFront(_ sender: Any?) {
         Window.allWindows.insert(self)
         super.makeKeyAndOrderFront(sender)
     }
+    #else
+    open override func makeKeyAndVisible() {
+        Window.allWindows.insert(self)
+        super.makeKeyAndVisible()
+    }
+    #endif
 
+    #if canImport(AppKit)
     open override func close() {
         Window.allWindows.remove(self)
         super.close()
     }
+    #else
+    /// Closes the window, allowing it to be deallocated.
+    open func close() {
+        Window.allWindows.remove(self)
+    }
+    #endif
 }
 
 #if canImport(AppKit)
