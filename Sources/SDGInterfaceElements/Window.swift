@@ -13,7 +13,7 @@
  */
 
 /// A window.
-public class Window : NSWindow, NSWindowDelegate {
+open class Window : NSWindow, NSWindowDelegate {
 
     // MARK: - Static Variables
 
@@ -81,7 +81,7 @@ public class Window : NSWindow, NSWindowDelegate {
     // MARK: - NSWindow
 
     private var interceptor: DelegationInterceptor
-    public override var delegate: NSWindowDelegate? {
+    open override var delegate: NSWindowDelegate? {
         get {
             return interceptor.delegate as? NSWindowDelegate
         }
@@ -91,7 +91,7 @@ public class Window : NSWindow, NSWindowDelegate {
         }
     }
 
-    public override var title: String {
+    open override var title: String {
         get {
             return super.title
         }
@@ -100,12 +100,12 @@ public class Window : NSWindow, NSWindowDelegate {
         }
     }
 
-    public override func makeKeyAndOrderFront(_ sender: Any?) {
+    open override func makeKeyAndOrderFront(_ sender: Any?) {
         Window.allWindows.insert(self)
         super.makeKeyAndOrderFront(sender)
     }
 
-    public override func close() {
+    open override func close() {
         Window.allWindows.remove(self)
         super.close()
     }
