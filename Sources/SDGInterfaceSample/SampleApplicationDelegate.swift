@@ -117,6 +117,16 @@ extension SampleApplicationDelegate {
         })))
         submenu.newEntry(labelled: menuItemLabel)
 
+        menu.newSeparator()
+
+        let window = menu.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Window"
+            }
+        })), action: #selector(SampleApplicationDelegate.demonstrateWindow))
+        window.target = self
+
         #elseif canImport(UIKit)
 
         #if os(tvOS)
@@ -140,6 +150,11 @@ extension SampleApplicationDelegate {
         #endif
 
         #endif
+    }
+
+    @objc private func demonstrateWindow() {
+        let window = Window(title: "...", size: NSSize(width: 700, height: 300))
+        window.makeKeyAndOrderFront(nil)
     }
 }
 
