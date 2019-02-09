@@ -13,7 +13,7 @@
  */
 
 /// A window.
-open class Window : NSWindow, NSWindowDelegate {
+open class Window : NSWindow {
 
     // MARK: - Static Variables
 
@@ -30,7 +30,7 @@ open class Window : NSWindow, NSWindowDelegate {
     ///     - disabledStyles: Window styles to opt out of.
     public init(
         title: StrictString,
-        size: NSSize,
+        size: CGSize,
         additionalStyles: NSWindow.StyleMask = [],
         disabledStyles: NSWindow.StyleMask = []) {
 
@@ -109,10 +109,13 @@ open class Window : NSWindow, NSWindowDelegate {
         Window.allWindows.remove(self)
         super.close()
     }
+}
 
-    // MARK: - NSWindowDelegate
+#if canImport(AppKit)
+extension Window : NSWindowDelegate {
 
     public func windowWillReturnFieldEditor(_ sender: NSWindow, to client: Any?) -> Any? {
         return (interceptor.delegate as? NSWindowDelegate)?.windowWillReturnFieldEditor?(sender, to: client) ?? fieldEditor
     }
 }
+#endif
