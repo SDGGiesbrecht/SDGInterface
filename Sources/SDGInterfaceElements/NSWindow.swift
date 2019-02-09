@@ -24,6 +24,17 @@ public typealias NSWindow = UIWindow
 
 extension NSWindow {
 
+    // MARK: - Options
+
+    /// A stand‐in for AppKit’s `StyleMask`.
+    public struct StyleMask: OptionSet {
+        // MARK: - OptionSet
+        public init(rawValue: UInt8) {
+            self.rawValue = rawValue
+        }
+        public let rawValue: UInt8
+    }
+
     // MARK: - Fullscreen
 
     /// Returns whether or not the window is in fullscreen mode.

@@ -34,6 +34,7 @@ open class Window : NSWindow {
         additionalStyles: NSWindow.StyleMask = [],
         disabledStyles: NSWindow.StyleMask = []) {
 
+        #if canImport(AppKit)
         interceptor = DelegationInterceptor(selectors: [
             #selector(NSWindowDelegate.windowWillReturnFieldEditor(_:to:))
             ])
@@ -41,10 +42,12 @@ open class Window : NSWindow {
             interceptor.delegate = super.delegate
             interceptor.listener = self
         }
+        #endif
 
-        var rectangle = NSRect.zero
+        var rectangle = CGRect.zero
         rectangle.size = size
 
+        #if canImport(AppKit)
         var style: NSWindow.StyleMask = [
             .titled,
             .closable,
@@ -55,14 +58,21 @@ open class Window : NSWindow {
         ]
         style.formUnion(additionalStyles)
         style.subtract(disabledStyles)
+        #endif
 
+        #if canImport(AppKit)
         super.init(
             contentRect: rectangle,
             styleMask: style,
             backing: .buffered,
             defer: true)
+        #else
+        super.init(frame: rectangle)
+        #endif
 
+        #if canImport(AppKit)
         isReleasedWhenClosed = false
+        #endif
 
         super.title = String(title)
         titleVisibility = .hidden
