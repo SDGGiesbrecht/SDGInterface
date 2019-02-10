@@ -82,8 +82,10 @@ open class Window : NSWindow {
         titleVisibility = .hidden
         #endif
 
+        #if canImport(AppKit)
         setAutorecalculatesContentBorderThickness(false, for: NSRectEdge.minY)
         setContentBorderThickness(0, for: NSRectEdge.minY)
+        #endif
 
         randomizeLocation()
     }
