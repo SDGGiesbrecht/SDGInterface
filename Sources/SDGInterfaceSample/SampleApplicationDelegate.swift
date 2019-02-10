@@ -132,8 +132,7 @@ extension SampleApplicationDelegate {
         #if os(tvOS)
         _ = menuItemLabel.value.resolved()
         #else
-        let window = UIWindow(frame: UIScreen.main.bounds)
-        permanentWindow = window
+        let window = Window(title: "Title")
         let view = UIViewController()
         window.rootViewController = view
         let field = UITextView(frame: UIScreen.main.bounds)
@@ -153,14 +152,9 @@ extension SampleApplicationDelegate {
     }
 
     @objc private func demonstrateWindow() {
-        let window = Window(title: "...", size: CGSize(width: 700, height: 300))
+        let window = Window(title: "Title", size: CGSize(width: 700, height: 300))
         window.makeKeyAndOrderFront(nil)
     }
 }
 
-#endif
-
-#if canImport(UIKit) && !os(watchOS)
-// #workaround(Temporary window storage.)
-var permanentWindow: UIWindow?
 #endif

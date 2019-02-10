@@ -91,6 +91,16 @@ open class Window : NSWindow {
     }
 
     #if canImport(UIKit)
+    /// Creates a window.
+    ///
+    /// - Parameters:
+    ///     - title: The title of the window.
+    public convenience init(title: StrictString) {
+        self.init(title: title, size: Screen.main.bounds.size)
+    }
+    #endif
+
+    #if canImport(UIKit)
     @available(*, unavailable) public required init(coder decoder: NSCoder) { // @exempt(from: unicode)
         codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
             switch localization {
