@@ -26,6 +26,7 @@ extension NSWindow {
 
     // MARK: - Options
 
+    #if !canImport(AppKit)
     /// A stand‐in for AppKit’s `StyleMask`.
     public struct StyleMask: OptionSet {
         // MARK: - OptionSet
@@ -34,6 +35,7 @@ extension NSWindow {
         }
         public let rawValue: UInt8
     }
+    #endif
 
     // MARK: - Fullscreen
 

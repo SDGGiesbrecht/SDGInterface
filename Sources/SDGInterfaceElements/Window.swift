@@ -90,6 +90,7 @@ open class Window : NSWindow {
         randomizeLocation()
     }
 
+    #if canImport(UIKit)
     @available(*, unavailable) public required init(coder decoder: NSCoder) { // @exempt(from: unicode)
         codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
             switch localization {
@@ -98,6 +99,7 @@ open class Window : NSWindow {
             }
         }))
     }
+    #endif
 
     // MARK: - Properties
 
