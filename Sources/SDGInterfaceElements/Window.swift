@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import SDGInterfaceLocalizations
+
 /// A window.
 open class Window : NSWindow {
 
@@ -81,6 +83,15 @@ open class Window : NSWindow {
         setContentBorderThickness(0, for: NSRectEdge.minY)
 
         randomizeLocation()
+    }
+
+    @available(*, unavailable) public required init(coder decoder: NSCoder) { // @exempt(from: unicode)
+        codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Window"
+            }
+        }))
     }
 
     // MARK: - Properties
