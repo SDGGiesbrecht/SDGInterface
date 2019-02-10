@@ -15,7 +15,7 @@
 import SDGCollections
 
 /// An instance which intercepts particular selectors sent to a delegate and passes them to a listener instead.
-public class DelegationInterceptor : NSObject, NSWindowDelegate {
+public class DelegationInterceptor : NSObject {
 
     // MARK: - Initialization
 
@@ -64,3 +64,7 @@ public class DelegationInterceptor : NSObject, NSWindowDelegate {
         }
     }
 }
+
+#if canImport(AppKit)
+extension DelegationInterceptor : NSWindowDelegate {}
+#endif
