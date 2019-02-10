@@ -153,7 +153,7 @@ extension SampleApplicationDelegate {
     }
 
     @objc private func demonstrateWindow() {
-        let window = Window(title: "...", size: NSSize(width: 700, height: 300))
+        let window = Window(title: "...", size: CGSize(width: 700, height: 300))
         window.makeKeyAndOrderFront(nil)
     }
 }
