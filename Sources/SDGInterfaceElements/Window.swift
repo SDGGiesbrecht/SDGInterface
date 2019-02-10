@@ -149,6 +149,9 @@ open class Window : NSWindow {
         super.makeKeyAndOrderFront(sender)
     }
     #else
+    public func makeKeyAndOrderFront(_ sender: Any?) {
+        makeKeyAndVisible()
+    }
     open override func makeKeyAndVisible() {
         Window.allWindows.insert(self)
         super.makeKeyAndVisible()
