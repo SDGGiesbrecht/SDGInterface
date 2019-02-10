@@ -69,6 +69,7 @@ open class Window : NSWindow {
             backing: .buffered,
             defer: true)
         #else
+        _title = String(title)
         super.init(frame: rectangle)
         #endif
 
@@ -76,8 +77,10 @@ open class Window : NSWindow {
         isReleasedWhenClosed = false
         #endif
 
+        #if canImport(AppKit)
         super.title = String(title)
         titleVisibility = .hidden
+        #endif
 
         setAutorecalculatesContentBorderThickness(false, for: NSRectEdge.minY)
         setContentBorderThickness(0, for: NSRectEdge.minY)
