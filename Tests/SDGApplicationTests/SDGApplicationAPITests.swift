@@ -160,9 +160,15 @@ final class SDGApplicationAPITests : ApplicationTestCase {
 
     func testWindow() {
         let window = Window(title: "Title", size: CGSize(width: 700, height: 300))
+        window.makeKeyAndOrderFront(nil)
         defer { window.close() }
+
         window.isFullscreen = true
-        wait(for: [/* toggleFullscreen(_:) has no tangible result in a test setting, but text‐coverage validates whether it gets called. */], timeout: 3)
+        let fullscreenWindow = Window(title: "Title", size: CGSize(width: 700, height: 300))
+        fullscreenWindow.isFullscreen = true
+        fullscreenWindow.makeKeyAndOrderFront(nil)
+        defer { fullscreenWindow.close() }
+        RunLoop.main.run(until: Date() + 3)
 
         #if canImport(AppKit)
         XCTAssert((window as NSWindowDelegate).windowWillReturnFieldEditor?(window, to: nil) is NSTextView)
