@@ -162,6 +162,10 @@ open class Window : NSWindow {
     #if canImport(AppKit)
     // #workaround(workspace version 0.17.0, Redundant documentation.)
     // #documentation(makeKeyAndOrderFront(_:))
+    /// Displays the window, moving it in front of other windows and making it the key window.
+    ///
+    /// - Parameters:
+    ///     - sender: The message’s sender.
     open override func makeKeyAndOrderFront(_ sender: Any?) {
         Window.allWindows.insert(self)
         super.makeKeyAndOrderFront(sender)
