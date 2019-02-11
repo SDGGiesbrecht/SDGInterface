@@ -160,13 +160,17 @@ final class SDGApplicationAPITests : ApplicationTestCase {
 
     func testWindow() {
         let window = Window(title: "Title", size: CGSize(width: 700, height: 300))
+        #if canImport(AppKit) // UIKit raises an exception during tests.
         window.makeKeyAndOrderFront(nil)
+        #endif
         defer { window.close() }
 
         window.isFullscreen = true
         let fullscreenWindow = Window(title: "Fullscreen", size: CGSize(width: 700, height: 300))
         fullscreenWindow.isFullscreen = true
+        #if canImport(AppKit) // UIKit raises an exception during tests.
         fullscreenWindow.makeKeyAndOrderFront(nil)
+        #endif
         defer { fullscreenWindow.close() }
         RunLoop.main.run(until: Date() + 3)
 

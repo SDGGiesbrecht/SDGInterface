@@ -140,7 +140,7 @@ extension NSWindow {
     ///
     /// - Parameters:
     ///     - sender: The message’s sender.
-    public func makeKeyAndOrderFront(_ sender: Any?) {
+    public func makeKeyAndOrderFront(_ sender: Any?) { // @exempt(from: tests) UIKit raises an exception.
         makeKeyAndVisible()
     }
     #endif
