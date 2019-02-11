@@ -34,7 +34,29 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testDelegationInterceptor() {
-
+        class Delegate : NSObject, NSWindowDelegate {
+            var recievedSomething = false
+            func windowWillBeginSheet(_ notification: Notification) {
+                recievedSomething = true
+            }
+        }
+        let delegate = Delegate()
+        defer { XCTAssert(delegate.recievedSomething) }
+        class Listener : NSObject, NSWindowDelegate {
+            var recievedSomething = false
+            func windowDidEndSheet(_ notification: Notification) {
+                recievedSomething = true
+            }
+        }
+        let listener = Listener()
+        defer { XCTAssert(listener.recievedSomething) }
+        let selectors: Set<Selector> = [#selector(NSWindowDelegate.windowDidEndSheet(_:))]
+        let interceptor = DelegationInterceptor(delegate: delegate, listener: listener, selectors: selectors)
+        let windowDelegate = interceptor as NSWindowDelegate
+        windowDelegate.windowWillBeginSheet?(Notification(name: NSWindow.willBeginSheetNotification))
+        windowDelegate.windowDidEndSheet?(Notification(name: NSWindow.didEndSheetNotification))
+        _ = interceptor.forwardingTarget(for: #selector(NSWindowDelegate.windowDidResize(_:)))
+        windowDelegate.windowDidResize?(Notification(name: NSWindow.didResizeNotification))
     }
 
     func testMenu() {
