@@ -30,7 +30,7 @@ extension NSWindow {
 
     #if !canImport(AppKit)
     /// A stand‐in for AppKit’s `StyleMask`.
-    public struct StyleMask: OptionSet {
+    public struct StyleMask : OptionSet {
         // MARK: - OptionSet
         public init(rawValue: UInt8) {
             self.rawValue = rawValue
