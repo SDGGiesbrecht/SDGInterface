@@ -124,6 +124,8 @@ open class Window : NSWindow {
 
     #if canImport(AppKit)
     private var interceptor: DelegationInterceptor
+    // #workaround(workspace version 0.17.0, Redundant documentation.)
+    /// The window’s delegate.
     open override var delegate: NSWindowDelegate? {
         get {
             return interceptor.delegate as? NSWindowDelegate
@@ -158,14 +160,24 @@ open class Window : NSWindow {
     #endif
 
     #if canImport(AppKit)
+    // #workaround(workspace version 0.17.0, Redundant documentation.)
+    // #documentation(makeKeyAndOrderFront(_:))
+    /// Displays the window, moving it in front of other windows and making it the key window.
+    ///
+    /// - Parameters:
+    ///     - sender: The message’s sender.
     open override func makeKeyAndOrderFront(_ sender: Any?) {
         Window.allWindows.insert(self)
         super.makeKeyAndOrderFront(sender)
     }
     #else
+    // #documentation(makeKeyAndOrderFront(_:))
     public func makeKeyAndOrderFront(_ sender: Any?) {
         makeKeyAndVisible()
     }
+    // #workaround(workspace version 0.17.0, Redundant documentation.)
+    // #documentation(makeKeyAndOrderFront(_:))
+    /// Shows the window and makes it the key window.
     open override func makeKeyAndVisible() {
         Window.allWindows.insert(self)
         super.makeKeyAndVisible()
@@ -188,6 +200,11 @@ open class Window : NSWindow {
 #if canImport(AppKit)
 extension Window : NSWindowDelegate {
 
+    /// Determines the window’s field editor.
+    ///
+    /// - Parameters:
+    ///     - sender: The window requesting the field editor.
+    ///     - client: A text‐displaying object to be associated with the field editor.
     public func windowWillReturnFieldEditor(_ sender: NSWindow, to client: Any?) -> Any? {
         return (interceptor.delegate as? NSWindowDelegate)?.windowWillReturnFieldEditor?(sender, to: client) ?? fieldEditor
     }
