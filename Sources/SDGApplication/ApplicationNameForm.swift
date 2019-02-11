@@ -128,7 +128,8 @@ public enum ApplicationNameForm {
         }
     }
 
-    internal static var isolatedForm: UserFacing<StrictString, ApplicationNameLocalization> {
+    /// The localized application name suitable for use in isolation.
+    public static var localizedIsolatedForm: UserFacing<StrictString, ApplicationNameLocalization> {
         return UserFacing<StrictString, ApplicationNameLocalization>({ $0.correspondingIsolatedName })
     }
 }

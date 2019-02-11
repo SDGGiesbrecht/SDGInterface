@@ -132,7 +132,7 @@ extension SampleApplicationDelegate {
         #if os(tvOS)
         _ = menuItemLabel.value.resolved()
         #else
-        let window = Window(title: "Title")
+        let window = Window(title: ApplicationNameForm.localizedIsolatedForm.resolved())
         let view = UIViewController()
         window.rootViewController = view
         let field = UITextView(frame: UIScreen.main.bounds)
