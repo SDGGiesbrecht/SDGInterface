@@ -164,7 +164,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         defer { window.close() }
 
         window.isFullscreen = true
-        let fullscreenWindow = Window(title: "Title", size: CGSize(width: 700, height: 300))
+        let fullscreenWindow = Window(title: "Fullscreen", size: CGSize(width: 700, height: 300))
         fullscreenWindow.isFullscreen = true
         fullscreenWindow.makeKeyAndOrderFront(nil)
         defer { fullscreenWindow.close() }
@@ -173,5 +173,8 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         #if canImport(AppKit)
         XCTAssert((window as NSWindowDelegate).windowWillReturnFieldEditor?(window, to: nil) is NSTextView)
         #endif
+
+        let neverOnscreen = Window(title: "Never Onscreen", size: CGSize.zero)
+        neverOnscreen.centreInScreen()
     }
 }
