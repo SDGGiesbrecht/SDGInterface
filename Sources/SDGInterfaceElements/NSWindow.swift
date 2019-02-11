@@ -46,7 +46,7 @@ extension NSWindow {
     /// For a smoother transition, the effect of setting this property may be delayed until the window is ready to switch.
     ///
     /// - Note: In a UIKit setting, all windows are always fullscreen. Attempting to set this property on a UIKit window will do nothing.
-    public var fullscreen: Bool {
+    public var isFullscreen: Bool {
         get {
             #if canImport(AppKit)
             return styleMask.contains(.fullScreen)

@@ -97,4 +97,10 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         ApplicationDelegate().openPreferences(nil)
         SampleApplicationDelegate().openPreferences(nil)
     }
+
+    func testWindow() {
+        let window = Window(title: "Title", size: CGSize(width: 700, height: 300))
+        window.isFullscreen = true
+        wait(for: [/* toggleFullscreen(_:) has no tangible result in a test setting, but text‐coverage validates whether it gets called. */], timeout: 3)
+    }
 }

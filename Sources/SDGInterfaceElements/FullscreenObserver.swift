@@ -33,7 +33,7 @@ internal class FullscreenObserver {
     // MARK: - Fullscreen
 
     internal func setFullscreenModeSettingAsSoonAsPossible(_ setting: Bool) {
-        if window?.fullscreen ≠ setting {
+        if window?.isFullscreen ≠ setting {
             if window?.isVisible == true {
                 setFullscreenMode(setting: setting)
             } else {
@@ -50,7 +50,7 @@ internal class FullscreenObserver {
     }
 
     private func setFullscreenMode(setting: Bool) {
-        if self.window?.fullscreen ≠ setting {
+        if self.window?.isFullscreen ≠ setting {
             self.window?.toggleFullScreen(self)
         }
     }
