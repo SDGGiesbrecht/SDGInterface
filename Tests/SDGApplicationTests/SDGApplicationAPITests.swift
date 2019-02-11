@@ -33,6 +33,10 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertEqual(ProcessInfo.applicationName(.ελληνικά(.γενική)), "του Παραδείγματος")
     }
 
+    func testDelegationInterceptor() {
+
+    }
+
     func testMenu() {
         #if !os(tvOS)
 
@@ -100,6 +104,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
 
     func testWindow() {
         let window = Window(title: "Title", size: CGSize(width: 700, height: 300))
+        defer { window.close() }
         window.isFullscreen = true
         wait(for: [/* toggleFullscreen(_:) has no tangible result in a test setting, but text‐coverage validates whether it gets called. */], timeout: 3)
 
