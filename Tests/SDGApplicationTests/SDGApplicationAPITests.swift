@@ -34,29 +34,63 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testDelegationInterceptor() {
+
+        #if canImport(AppKit)
         class Delegate : NSObject, NSWindowDelegate {
             var recievedSomething = false
             func windowWillBeginSheet(_ notification: Notification) {
                 recievedSomething = true
             }
         }
+        #else
+        class Delegate : NSObject, UIApplicationDelegate {
+            var recievedSomething = false
+            func applicationDidBecomeActive(_ application: UIApplication) {
+                recievedSomething = true
+            }
+        }
+        #endif
         let delegate = Delegate()
         defer { XCTAssert(delegate.recievedSomething) }
+
+        #if canImport(AppKit)
         class Listener : NSObject, NSWindowDelegate {
             var recievedSomething = false
             func windowDidEndSheet(_ notification: Notification) {
                 recievedSomething = true
             }
         }
+        #else
+        class Listener : NSObject, UIApplicationDelegate {
+            var recievedSomething = false
+            func applicationDidEnterBackground(_ application: UIApplication) {
+                recievedSomething = true
+            }
+        }
+        #endif
         let listener = Listener()
         defer { XCTAssert(listener.recievedSomething) }
+
+        #if canImport(AppKit)
         let selectors: Set<Selector> = [#selector(NSWindowDelegate.windowDidEndSheet(_:))]
+        #else
+        let selectors: Set<Selector> = [#selector(UIApplicationDelegate.applicationDidEnterBackground(_:))]
+        #endif
+
         let interceptor = DelegationInterceptor(delegate: delegate, listener: listener, selectors: selectors)
+        #if canImport(AppKit)
         let windowDelegate = interceptor as NSWindowDelegate
         windowDelegate.windowWillBeginSheet?(Notification(name: NSWindow.willBeginSheetNotification))
         windowDelegate.windowDidEndSheet?(Notification(name: NSWindow.didEndSheetNotification))
         _ = interceptor.forwardingTarget(for: #selector(NSWindowDelegate.windowDidResize(_:)))
         windowDelegate.windowDidResize?(Notification(name: NSWindow.didResizeNotification))
+        #else
+        let applicationDelegate = interceptor as UIApplicationDelegate
+        applicationDelegate.applicationDidBecomeActive?(UIApplication.shared)
+        applicationDelegate.applicationDidEnterBackground?(UIApplication.shared)
+        _ = interceptor.forwardingTarget(for: #selector(UIApplicationDelegate.applicationWillResignActive(_:)))
+        applicationDelegate.applicationWillResignActive?(UIApplication.shared)
+        #endif
     }
 
     func testMenu() {
@@ -130,6 +164,8 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         window.isFullscreen = true
         wait(for: [/* toggleFullscreen(_:) has no tangible result in a test setting, but text‐coverage validates whether it gets called. */], timeout: 3)
 
+        #if canImport(AppKit)
         XCTAssert((window as NSWindowDelegate).windowWillReturnFieldEditor?(window, to: nil) is NSTextView)
+        #endif
     }
 }

@@ -76,5 +76,7 @@ public class DelegationInterceptor : NSObject {
 }
 
 #if canImport(AppKit)
-extension DelegationInterceptor : NSWindowDelegate {}
+extension DelegationInterceptor : NSApplicationDelegate, NSWindowDelegate {}
+#else
+extension DelegationInterceptor : UIApplicationDelegate {}
 #endif
