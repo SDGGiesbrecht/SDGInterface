@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if !os(watchOS)
+
 #if canImport(AppKit)
 // @documentation(Screen)
 /// An alias for `NSScreen` or `UIScreen`.
@@ -20,4 +22,6 @@ public typealias Screen = NSScreen
 // #documentation(Screen)
 /// An alias for `NSScreen` or `UIScreen`.
 public typealias Screen = UIScreen
+#endif
+
 #endif

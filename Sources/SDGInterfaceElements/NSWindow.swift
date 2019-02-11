@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if !os(watchOS)
+
 import SDGControlFlow
 import SDGMathematics
 import SDGCollections
@@ -127,3 +129,5 @@ extension NSWindow {
     }
     #endif
 }
+
+#endif

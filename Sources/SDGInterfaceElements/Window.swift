@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if !os(watchOS)
+
 import SDGInterfaceLocalizations
 
 /// A window.
@@ -190,4 +192,6 @@ extension Window : NSWindowDelegate {
         return (interceptor.delegate as? NSWindowDelegate)?.windowWillReturnFieldEditor?(sender, to: client) ?? fieldEditor
     }
 }
+#endif
+
 #endif
