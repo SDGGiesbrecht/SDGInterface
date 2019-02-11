@@ -31,7 +31,7 @@ final class SDGApplicationInternalTests : ApplicationTestCase {
             defer {
                 ProcessInfo.applicationName = previous
             }
-            let isolated = ApplicationNameForm.isolatedForm
+            let isolated = ApplicationNameForm.localizedIsolatedForm
             for localization in MenuBarLocalization.allCases {
                 LocalizationSetting(orderOfPrecedence: [localization.code]).do {
                     _ = isolated.resolved()
