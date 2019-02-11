@@ -131,6 +131,19 @@ extension NSWindow {
         }
     }
     #endif
+
+    // MARK: - NSWindow
+
+    #if canImport(UIKit)
+    // @documentation(makeKeyAndOrderFront(_:))
+    /// Displays the window, moving it in front of other windows and making it the key window.
+    ///
+    /// - Parameters:
+    ///     - sender: The message’s sender.
+    public func makeKeyAndOrderFront(_ sender: Any?) {
+        makeKeyAndVisible()
+    }
+    #endif
 }
 
 #endif
