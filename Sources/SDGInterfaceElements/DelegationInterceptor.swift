@@ -78,5 +78,7 @@ public class DelegationInterceptor : NSObject {
 #if canImport(AppKit)
 extension DelegationInterceptor : NSApplicationDelegate, NSWindowDelegate {}
 #else
+#if !os(watchOS)
 extension DelegationInterceptor : UIApplicationDelegate {}
+#endif
 #endif
