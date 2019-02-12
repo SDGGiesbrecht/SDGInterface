@@ -38,8 +38,8 @@ internal class FullscreenObserver {
                 setFullscreenMode(setting: setting)
             } else {
                 DispatchQueue.global(qos: .userInitiated).async {
-                    while DispatchQueue.main.sync(execute: { self.window ≠ nil ∧ self.window?.isVisible ≠ true }) { // @exempt(from: tests)
-                        Thread.sleep(forTimeInterval: 0.1)
+                    while DispatchQueue.main.sync(execute: { self.window ≠ nil ∧ self.window?.isVisible ≠ true }) {
+                        Thread.sleep(forTimeInterval: 0.1) // @exempt(from: tests)
                     }
                     DispatchQueue.main.async {
                         self.setFullscreenMode(setting: setting)

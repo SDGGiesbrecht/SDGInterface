@@ -151,7 +151,7 @@ extension SampleApplicationDelegate {
         #endif
     }
 
-    @objc private func demonstrateWindow() {
+    @objc private func demonstrateWindow() { // @exempt(from: tests)
         let window = Window(title: "Title", size: CGSize(width: 700, height: 300))
         window.makeKeyAndOrderFront(nil)
     }
