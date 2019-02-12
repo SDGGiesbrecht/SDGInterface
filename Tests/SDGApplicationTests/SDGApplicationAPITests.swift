@@ -174,7 +174,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         #endif
         defer { fullscreenWindow.close() }
         RunLoop.main.run(until: Date() + 3)
-        
+
         window.title = "Replaced Title"
         XCTAssert(window.title == "Replaced Title")
 
@@ -184,5 +184,9 @@ final class SDGApplicationAPITests : ApplicationTestCase {
 
         let neverOnscreen = Window(title: "Never Onscreen", size: CGSize.zero)
         neverOnscreen.centreInScreen()
+
+        #if canImport(UIKit)
+        _ = Window(title: "Title")
+        #endif
     }
 }
