@@ -173,7 +173,7 @@ open class Window : NSWindow {
     #else
     // #workaround(workspace version 0.17.0, Redundant documentation.)
     /// Shows the window and makes it the key window.
-    open override func makeKeyAndVisible() {
+    open override func makeKeyAndVisible() { // @exempt(from: tests) Causes exception during tests.
         Window.allWindows.insert(self)
         super.makeKeyAndVisible()
     }

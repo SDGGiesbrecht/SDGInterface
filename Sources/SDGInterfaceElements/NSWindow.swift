@@ -92,7 +92,7 @@ extension NSWindow {
 
         move(to: windowRect)
         #else
-        frame = screen.bounds
+        frame = nearestScreen.bounds
         #endif
     }
 
@@ -114,7 +114,7 @@ extension NSWindow {
 
         move(to: windowRect)
         #else
-        frame = screen.bounds
+        frame = nearestScreen.bounds
         #endif
     }
 

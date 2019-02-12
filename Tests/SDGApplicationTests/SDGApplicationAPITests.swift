@@ -166,6 +166,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         defer { window.close() }
 
         window.isFullscreen = true
+        _ = window.isFullscreen
         let fullscreenWindow = Window(title: "Fullscreen", size: CGSize(width: 700, height: 300))
         fullscreenWindow.isFullscreen = true
         #if canImport(AppKit) // UIKit raises an exception during tests.
@@ -173,6 +174,9 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         #endif
         defer { fullscreenWindow.close() }
         RunLoop.main.run(until: Date() + 3)
+        
+        window.title = "Replaced Title"
+        XCTAssert(window.title == "Replaced Title")
 
         #if canImport(AppKit)
         XCTAssert((window as NSWindowDelegate).windowWillReturnFieldEditor?(window, to: nil) is NSTextView)
