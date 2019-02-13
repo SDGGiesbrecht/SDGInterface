@@ -117,13 +117,22 @@ extension SampleApplicationDelegate {
         })))
         submenu.newEntry(labelled: menuItemLabel)
 
+        menu.newSeparator()
+
+        let window = menu.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Window"
+            }
+        })), action: #selector(SampleApplicationDelegate.demonstrateWindow))
+        window.target = self
+
         #elseif canImport(UIKit)
 
         #if os(tvOS)
         _ = menuItemLabel.value.resolved()
         #else
-        let window = UIWindow(frame: UIScreen.main.bounds)
-        permanentWindow = window
+        let window = Window(title: ApplicationNameForm.localizedIsolatedForm.resolved())
         let view = UIViewController()
         window.rootViewController = view
         let field = UITextView(frame: UIScreen.main.bounds)
@@ -141,11 +150,11 @@ extension SampleApplicationDelegate {
 
         #endif
     }
+
+    @objc private func demonstrateWindow() { // @exempt(from: tests)
+        let window = Window(title: "Title", size: CGSize(width: 700, height: 300))
+        window.makeKeyAndOrderFront(nil)
+    }
 }
 
-#endif
-
-#if canImport(UIKit) && !os(watchOS)
-// #workaround(Temporary window storage.)
-var permanentWindow: UIWindow?
 #endif

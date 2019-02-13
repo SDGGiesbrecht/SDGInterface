@@ -17,8 +17,6 @@ import SDGInterfaceLocalizations
 /// A key form a particular grammatical form of the application’s name.
 public enum ApplicationNameForm {
 
-    // #workaround(These should be validated against the Info.plist entries seen by the system.)
-
     /// Una forma española.
     case español(Preposición)
     /// Una forma con una preposición.
@@ -130,7 +128,8 @@ public enum ApplicationNameForm {
         }
     }
 
-    internal static var isolatedForm: UserFacing<StrictString, ApplicationNameLocalization> {
+    /// The localized application name suitable for use in isolation.
+    public static var localizedIsolatedForm: UserFacing<StrictString, ApplicationNameLocalization> {
         return UserFacing<StrictString, ApplicationNameLocalization>({ $0.correspondingIsolatedName })
     }
 }

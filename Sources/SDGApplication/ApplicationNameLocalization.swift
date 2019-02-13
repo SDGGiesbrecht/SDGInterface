@@ -15,7 +15,11 @@
 import Foundation
 
 import SDGLocalization
-internal struct ApplicationNameLocalization : Localization {
+
+/// A dynamic localization set based on the provided forms of the application’s name.
+///
+/// See `ProcessInfo.applicationName`.
+public struct ApplicationNameLocalization : Localization {
 
     private init(undefined: Void) {
         self.code = "und"
@@ -34,7 +38,7 @@ internal struct ApplicationNameLocalization : Localization {
 
     // MARK: - Localization
 
-    internal init?(exactly code: String) {
+    public init?(exactly code: String) {
         guard let form = ApplicationNameForm.isolatedForm(for: code),
             let name = ProcessInfo.applicationName(form) else {
             return nil
@@ -43,7 +47,7 @@ internal struct ApplicationNameLocalization : Localization {
         _correspondingIsolatedName = name
     }
 
-    internal var code: String
+    public var code: String
 
-    internal static var fallbackLocalization = ApplicationNameLocalization(undefined: ())
+    public static var fallbackLocalization = ApplicationNameLocalization(undefined: ())
 }
