@@ -22,7 +22,10 @@ extension ProcessInfo {
     /// A closure which produces the declined application name suitable for use in various gramatical contexts.
     ///
     /// Applications must assign this property a value at the very beginning of program execution. Failing to do so before the first attempt to read this property will trigger a precondition failure.
-    public static var applicationName: ((ApplicationNameForm) -> StrictString?) {
+    ///
+    /// - Parameters:
+    ///     - form: The requested form of the application name.
+    public static var applicationName: ((_ form: ApplicationNameForm) -> StrictString?) {
         get {
             guard let result = _applicationName else {
                 preconditionFailure(UserFacing<StrictString, APILocalization>({ localization in
