@@ -42,11 +42,6 @@ public class DelegationInterceptor : NSObject {
 
     // MARK: - NSObject
 
-    // #workaround(workspace version 0.17.0, Redundant documentation.)
-    /// Returns the object to which unrecognized messages should first be directed.
-    ///
-    /// - Parameters:
-    ///     - aSelector: A Selector for a method that the receiver does not implement.
     public override func forwardingTarget(for aSelector: Selector) -> Any? {
         if aSelector ∈ selectors,
             listener?.responds(to: aSelector) == true {
@@ -58,11 +53,6 @@ public class DelegationInterceptor : NSObject {
         }
     }
 
-    // #workaround(workspace version 0.17.0, Redundant documentation.)
-    /// Returns a Boolean value that indicates whether the receiver implements or inherits a method that can respond to a specified message.
-    ///
-    /// - Parameters:
-    ///     - aSelector: A selector that identifies a message.
     public override func responds(to aSelector: Selector) -> Bool {
         if aSelector ∈ selectors,
             listener?.responds(to: aSelector) == true {

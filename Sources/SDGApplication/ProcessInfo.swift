@@ -18,11 +18,14 @@ import SDGInterfaceLocalizations
 
 extension ProcessInfo {
 
-    private static var _applicationName: ((ApplicationNameForm) -> StrictString?)?
+    /// A closure of type `(_ form: ApplicationNameForm) -> StrictString?` which resolves the application name for a particular localized grammatical form.
+    public typealias ApplicationNameResolver = (_ form: ApplicationNameForm) -> StrictString?
+
+    private static var _applicationName: ApplicationNameResolver?
     /// A closure which produces the declined application name suitable for use in various gramatical contexts.
     ///
     /// Applications must assign this property a value at the very beginning of program execution. Failing to do so before the first attempt to read this property will trigger a precondition failure.
-    public static var applicationName: ((ApplicationNameForm) -> StrictString?) {
+    public static var applicationName: ApplicationNameResolver {
         get {
             guard let result = _applicationName else {
                 preconditionFailure(UserFacing<StrictString, APILocalization>({ localization in
