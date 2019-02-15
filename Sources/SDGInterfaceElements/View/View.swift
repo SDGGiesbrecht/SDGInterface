@@ -13,6 +13,7 @@
  */
 
 import SDGLogic
+import SDGMathematics
 
 import SDGInterfaceLocalizations
 
@@ -155,5 +156,61 @@ extension View {
 
         let constraint = NSLayoutConstraint(item: subview, attribute: attribute, relatedBy: .equal, toItem: self, attribute: attribute, multiplier: 1, constant: 0)
         addConstraint(constraint)
+    }
+
+    // MARK: - Subview Proportions
+
+    /// Makes the width or height of subviews equal. The subviews will be automatically added if they have not been added already.
+    public func equalizeSize(amongSubviews subviews: [NSView], on axis: Axis) {
+        let attribute: NSLayoutConstraint.Attribute
+        switch axis {
+        case .horizontal:
+            attribute = .width
+        case .vertical:
+            attribute = .height
+        }
+        equalize(attribute, amongSubviews: subviews)
+    }
+
+    /// Makes the length or width of subviews a fraction of the same attribute on the superview. The subviews will be automatically added if they have not been added already.
+    public func lockSizeRatio(toSubviews subviews: [NSView], coefficient: CGFloat, axis: Axis) {
+        let attribute: NSLayoutConstraint.Attribute
+        switch axis {
+        case .horizontal:
+            attribute = .width
+        case .vertical:
+            attribute = .height
+        }
+        lock(attribute, ratioToSubviews: subviews, coefficient: coefficient)
+    }
+
+    // MARK: - Abstract
+
+    /// Makes an attribute of subviews equal. The subviews will be automatically added if they have not been added already.
+    public func equalize(_ attribute: NSLayoutConstraint.Attribute, amongSubviews subviews: [View]) {
+        for view in subviews {
+            addSubviewIfNecessary(view)
+        }
+
+        assert(subviews.count ≥ 2, UserFacing<StrictString, APILocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Attempt made to equalize fewer than two views."
+            }
+        }))
+
+        for viewIndex in subviews.indices {
+            let constraint = NSLayoutConstraint(item: subviews[0], attribute: attribute, relatedBy: .equal, toItem: subviews[viewIndex], attribute: attribute, multiplier: 1, constant: 0)
+            addConstraint(constraint)
+        }
+    }
+
+    /// Makes an attribute of subviews a fraction of the same attribute on the superview. The subviews will be automatically added if they have not been added already.
+    public func lock(_ attribute: NSLayoutConstraint.Attribute, ratioToSubviews subviews: [NSView], coefficient: CGFloat) {
+        for view in subviews {
+            addSubviewIfNecessary(view)
+            let constraint = NSLayoutConstraint(item: self, attribute: attribute, relatedBy: .equal, toItem: view, attribute: attribute, multiplier: coefficient, constant: 0)
+            addConstraint(constraint)
+        }
     }
 }
