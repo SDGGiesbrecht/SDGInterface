@@ -62,7 +62,7 @@ extension View {
 
     /// Arranges a subview to fill the view on one axis with differing margins. The subview will be automatically added if it has not been added already.
     public func fill(with subview: View, on axis: Axis, leadingMargin: Margin, trailingMargin: Margin) {
-        position(views: [subview], inSequenceAlong: axis, padding: .system, leadingMargin: leadingMargin, trailingMargin: trailingMargin)
+        position(subviews: [subview], inSequenceAlong: axis, padding: .system, leadingMargin: leadingMargin, trailingMargin: trailingMargin)
     }
 
     /// Arranges subviews along an axis. The subview will be automatically added if they have not been added already.
@@ -70,8 +70,8 @@ extension View {
     /// - Precondition: A least one view must be specified.
     ///
     /// - Precondition: The padding between views must not be unspecified if there is more than one view.
-    public func position(views: [View], inSequenceAlong axis: Axis, padding: Margin = .system, margin: Margin = .system) {
-        position(views: views, inSequenceAlong: axis, padding: padding, leadingMargin: margin, trailingMargin: margin)
+    public func position(subviews: [View], inSequenceAlong axis: Axis, padding: Margin = .system, margin: Margin = .system) {
+        position(subviews: subviews, inSequenceAlong: axis, padding: padding, leadingMargin: margin, trailingMargin: margin)
     }
 
     /// Arranges subviews along an axis. The subviews will be automatically added if they have not been added already.
@@ -81,18 +81,18 @@ extension View {
     /// - Precondition: The padding between views must not be unspecified if there is more than one view.
     ///
     /// - Parameters:
-    ///     - views: The views to position in sequence.
+    ///     - subviews: The views to position in sequence.
     ///     - axis: The axis along which to position the views.
     ///     - padding: The size of the padding between views.
     ///     - leadingMargin: The size of the leading margin.
     ///     - trailingMargin: The size of the trailing margin.
-    public func position(views: [View], inSequenceAlong axis: Axis, padding: Margin = .system, leadingMargin: Margin, trailingMargin: Margin) {
+    public func position(subviews: [View], inSequenceAlong axis: Axis, padding: Margin = .system, leadingMargin: Margin, trailingMargin: Margin) {
 
-        for view in views {
+        for view in subviews {
             addSubviewIfNecessary(view)
         }
 
-        assert(views.count > 0, UserFacing<StrictString, APILocalization>({ localization in
+        assert(subviews.count > 0, UserFacing<StrictString, APILocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Attempt made to position 0 views in sequence."
@@ -101,7 +101,7 @@ extension View {
 
         var viewList = String()
         var viewDictionary = [String: View]()
-        for index in views.indices {
+        for index in subviews.indices {
             if index > 0 {
                 guard let paddingString = padding.string else {
                     preconditionFailure(UserFacing<StrictString, APILocalization>({ localization in
@@ -114,7 +114,7 @@ extension View {
                 viewList += paddingString
             }
             viewList += "[v\(index)]"
-            viewDictionary["v\(index)"] = views[index]
+            viewDictionary["v\(index)"] = subviews[index]
         }
 
         var leadingMarginString = ""
@@ -130,5 +130,30 @@ extension View {
         let visualFormat = "\(axis.string)\(leadingMarginString)\(viewList)\(trailingMarginString)"
         let constraints = NSLayoutConstraint.constraints(withVisualFormat: visualFormat, options: [], metrics: nil, views: viewDictionary)
         addConstraints(constraints)
+    }
+
+    // MARK: - Centring Subviews
+
+    /// Centres a subview. The subview will be automatically added if it has not been added already.
+    public func centre(subview: View) {
+        centre(subview: subview, on: .horizontal)
+        centre(subview: subview, on: .vertical)
+    }
+
+    /// Centres a subview on an axis. The subview will be automatically added if it has not been added already.
+    public func centre(subview: View, on axis: Axis) {
+
+        addSubviewIfNecessary(subview)
+
+        let attribute: NSLayoutConstraint.Attribute
+        switch axis {
+        case .horizontal:
+            attribute = .centerX
+        case .vertical:
+            attribute = .centerY
+        }
+
+        let constraint = NSLayoutConstraint(item: subview, attribute: attribute, relatedBy: .equal, toItem: self, attribute: attribute, multiplier: 1, constant: 0)
+        addConstraint(constraint)
     }
 }
