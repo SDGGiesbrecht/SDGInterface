@@ -177,7 +177,7 @@ extension View {
     /// Makes the width or height of subviews equal.
     ///
     /// The subviews will be automatically added if they have not been added already.
-    public func equalizeSize(amongSubviews subviews: [NSView], on axis: Axis) {
+    public func equalizeSize(amongSubviews subviews: [View], on axis: Axis) {
         let attribute: NSLayoutConstraint.Attribute
         switch axis {
         case .horizontal:
@@ -191,7 +191,7 @@ extension View {
     /// Makes the length or width of subviews a fraction of the same attribute on the superview.
     ///
     /// The subviews will be automatically added if they have not been added already.
-    public func lockSizeRatio(toSubviews subviews: [NSView], coefficient: CGFloat, axis: Axis) {
+    public func lockSizeRatio(toSubviews subviews: [View], coefficient: CGFloat, axis: Axis) {
         let attribute: NSLayoutConstraint.Attribute
         switch axis {
         case .horizontal:
@@ -262,7 +262,7 @@ extension View {
     /// Makes an attribute of subviews a fraction of the same attribute on the superview.
     ///
     /// The subviews will be automatically added if they have not been added already.
-    public func lock(_ attribute: NSLayoutConstraint.Attribute, ratioToSubviews subviews: [NSView], coefficient: CGFloat) {
+    public func lock(_ attribute: NSLayoutConstraint.Attribute, ratioToSubviews subviews: [View], coefficient: CGFloat) {
         for view in subviews {
             addSubviewIfNecessary(view)
             let constraint = NSLayoutConstraint(item: self, attribute: attribute, relatedBy: .equal, toItem: view, attribute: attribute, multiplier: coefficient, constant: 0)
