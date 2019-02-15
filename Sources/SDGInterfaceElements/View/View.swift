@@ -225,6 +225,17 @@ extension View {
         equalize(.lastBaseline, amongSubviews: subviews)
     }
 
+    // MARK: - Aspect Ratio
+
+    /// Locks the aspect ratio of the view.
+    ///
+    /// - Parameters:
+    ///     - aspectRatio: The aspect ratio. (*width* ∶ *height*)
+    public func lockAspectRatio(to aspectRatio: CGFloat) {
+        let constraint = NSLayoutConstraint(item: self, attribute: .width, relatedBy: .equal, toItem: self, attribute: .height, multiplier: aspectRatio, constant: 0)
+        addConstraint(constraint)
+    }
+
     // MARK: - Abstract
 
     /// Makes an attribute of subviews equal.
