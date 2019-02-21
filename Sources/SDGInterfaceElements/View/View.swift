@@ -44,6 +44,10 @@ extension View {
     // MARK: - Size Limits
 
     /// Sets the minimum size for the view along a given axis.
+    ///
+    /// - Parameters:
+    ///     - size: The minimum size.
+    ///     - axis: The axis to constrain.
     public func setMinimumSize(size: Double, axis: Axis) {
         let format = "\(axis.string)[view(\u{3E}=\(size))]"
         let constraints = NSLayoutConstraint.constraints(withVisualFormat: format, options: [], metrics: nil, views: ["view": self])
@@ -55,6 +59,10 @@ extension View {
     /// Arranges a subview to fill the view.
     ///
     /// The subview will be automatically added if it has not been added already.
+    ///
+    /// - Parameters:
+    ///     - subview: The subview with which to fill the view.
+    ///     - margin: The size of the margins.
     public func fill(with subview: View, margin: Margin = .system) {
         fill(with: subview, on: .horizontal, margin: margin)
         fill(with: subview, on: .vertical, margin: margin)
@@ -63,6 +71,11 @@ extension View {
     /// Arranges a subview to fill the view along one axis.
     ///
     /// The subview will be automatically added if it has not been added already.
+    ///
+    /// - Parameters:
+    ///     - subview: The subview with which to fill the view.
+    ///     - axis: The axis to fill.
+    ///     - margin: The size of the margins.
     public func fill(with subview: View, on axis: Axis, margin: Margin = .system) {
         fill(with: subview, on: axis, leadingMargin: margin, trailingMargin: margin)
     }
@@ -70,6 +83,12 @@ extension View {
     /// Arranges a subview to fill the view on one axis with differing margins.
     ///
     /// The subview will be automatically added if it has not been added already.
+    ///
+    /// - Parameters:
+    ///     - subview: The subview with which to fill the view.
+    ///     - axis: The axis to fill.
+    ///     - leadingMargin: The size of the leading margin.
+    ///     - trailingMargin: The size of the trailing margin.
     public func fill(with subview: View, on axis: Axis, leadingMargin: Margin, trailingMargin: Margin) {
         position(subviews: [subview], inSequenceAlong: axis, padding: .system, leadingMargin: leadingMargin, trailingMargin: trailingMargin)
     }
@@ -81,6 +100,12 @@ extension View {
     /// - Precondition: A least one view must be specified.
     ///
     /// - Precondition: The padding between views must not be unspecified if there is more than one view.
+    ///
+    /// - Parameters:
+    ///     - subviews: The views to position in sequence.
+    ///     - axis: The axis along which to position the views.
+    ///     - padding: The size of the padding between views.
+    ///     - margin: The size of the margins.
     public func position(subviews: [View], inSequenceAlong axis: Axis, padding: Margin = .system, margin: Margin = .system) {
         position(subviews: subviews, inSequenceAlong: axis, padding: padding, leadingMargin: margin, trailingMargin: margin)
     }
@@ -150,6 +175,9 @@ extension View {
     /// Centres a subview.
     ///
     /// The subview will be automatically added if it has not been added already.
+    ///
+    /// - Parameters:
+    ///     - subview: The subview to centre.
     public func centre(subview: View) {
         centre(subview: subview, on: .horizontal)
         centre(subview: subview, on: .vertical)
@@ -158,6 +186,10 @@ extension View {
     /// Centres a subview on an axis.
     ///
     /// The subview will be automatically added if it has not been added already.
+    ///
+    /// - Parameters:
+    ///     - subview: The subview to centre.
+    ///     - axis: An axis along which to centre the subview.
     public func centre(subview: View, on axis: Axis) {
 
         addSubviewIfNecessary(subview)
@@ -179,6 +211,10 @@ extension View {
     /// Makes the width or height of subviews equal.
     ///
     /// The subviews will be automatically added if they have not been added already.
+    ///
+    /// - Parameters:
+    ///     - subviews: The subviews to make the same size.
+    ///     - axis: An axis along which to resize the subviews.
     public func equalizeSize(amongSubviews subviews: [View], on axis: Axis) {
         let attribute: NSLayoutConstraint.Attribute
         switch axis {
@@ -193,6 +229,11 @@ extension View {
     /// Makes the length or width of subviews a fraction of the same attribute on the superview.
     ///
     /// The subviews will be automatically added if they have not been added already.
+    ///
+    /// - Parameters:
+    ///     - subviews: The subviews to resize.
+    ///     - coefficient: The size ratio.
+    ///     - axis: An axis along which to resize the subviews.
     public func lockSizeRatio(toSubviews subviews: [View], coefficient: CGFloat, axis: Axis) {
         let attribute: NSLayoutConstraint.Attribute
         switch axis {
@@ -209,6 +250,10 @@ extension View {
     /// Aligns subviews according to their centre.
     ///
     /// The subviews will be automatically added if they have not been added already.
+    ///
+    /// - Parameters:
+    ///     - subviews: The subviews to align.
+    ///     - axis: An axis along which to align the subviews.
     public func alignCentres(ofSubviews subviews: [View], on axis: Axis) {
         let attribute: NSLayoutConstraint.Attribute
         switch axis {
@@ -223,6 +268,9 @@ extension View {
     /// Aligns subviews according to their baseline.
     ///
     /// The subviews will be automatically added if they have not been added already.
+    ///
+    /// - Parameters:
+    ///     - subviews: The subviews to align.
     public func alignLastBaselines(ofSubviews subviews: [View]) {
         equalize(.lastBaseline, amongSubviews: subviews)
     }
@@ -243,6 +291,10 @@ extension View {
     /// Makes an attribute of subviews equal.
     ///
     /// The subviews will be automatically added if they have not been added already.
+    ///
+    /// - Parameters:
+    ///     - attribute: The attribute to equalize.
+    ///     - subviews: The subviews on whose attributes should be equalized.
     public func equalize(_ attribute: NSLayoutConstraint.Attribute, amongSubviews subviews: [View]) {
         for view in subviews {
             addSubviewIfNecessary(view)
@@ -264,6 +316,11 @@ extension View {
     /// Makes an attribute of subviews a fraction of the same attribute on the superview.
     ///
     /// The subviews will be automatically added if they have not been added already.
+    ///
+    /// - Parameters:
+    ///     - attribute: The attribute to lock.
+    ///     - subviews: The subviews on whose attributes should be locked.
+    ///     - coefficient: The ratio.
     public func lock(_ attribute: NSLayoutConstraint.Attribute, ratioToSubviews subviews: [View], coefficient: CGFloat) {
         for view in subviews {
             addSubviewIfNecessary(view)
