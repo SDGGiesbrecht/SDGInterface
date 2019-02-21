@@ -131,7 +131,7 @@ extension View {
         }
 
         assert(subviews.count > 0, UserFacing<StrictString, APILocalization>({ localization in
-            switch localization {
+            switch localization { // @exempt(from: tests)
             case .englishCanada:
                 return "Attempt made to position 0 views in sequence."
             }
@@ -301,7 +301,7 @@ extension View {
         }
 
         assert(subviews.count ≥ 2, UserFacing<StrictString, APILocalization>({ localization in
-            switch localization {
+            switch localization { // @exempt(from: tests)
             case .englishCanada:
                 return "Attempt made to equalize fewer than two views."
             }
