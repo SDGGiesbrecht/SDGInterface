@@ -34,7 +34,7 @@ extension View {
     private func addSubviewIfNecessary(_ subview: View) {
         subview.translatesAutoresizingMaskIntoConstraints = false
 
-        if !subviews.contains(subview) {
+        if ¬subviews.contains(subview) {
             addSubview(subview)
         }
     }
@@ -45,7 +45,7 @@ extension View {
 
     /// Sets the minimum size for the view along a given axis.
     public func setMinimumSize(size: Double, axis: Axis) {
-        let format = "\(axis.string)[view(>=\(size))]"
+        let format = "\(axis.string)[view(\u{3E}=\(size))]"
         let constraints = NSLayoutConstraint.constraints(withVisualFormat: format, options: [], metrics: nil, views: ["view": self])
         addConstraints(constraints)
     }
@@ -204,7 +204,7 @@ extension View {
         lock(attribute, ratioToSubviews: subviews, coefficient: coefficient)
     }
 
-    // Mark: - Subview Alignment
+    // MARK: - Subview Alignment
 
     /// Aligns subviews according to their centre.
     ///
