@@ -17,6 +17,8 @@ import SDGMathematics
 
 import SDGInterfaceLocalizations
 
+#if !os(watchOS)
+
 #if canImport(AppKit)
 // @documentation(View)
 /// An alias for `NSView` or `UIView`.
@@ -270,3 +272,5 @@ extension View {
         }
     }
 }
+
+#endif
