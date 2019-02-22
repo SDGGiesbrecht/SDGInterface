@@ -158,6 +158,22 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         SampleApplicationDelegate().openPreferences(nil)
     }
 
+    func testView() {
+        View().fill(with: View())
+        View().setMinimumSize(size: 10, axis: .horizontal)
+        View().position(subviews: [View(), View()], inSequenceAlong: .vertical)
+        View().centre(subview: View())
+        View().equalizeSize(amongSubviews: [View(), View()], on: .horizontal)
+        View().equalizeSize(amongSubviews: [View(), View()], on: .vertical)
+        View().lockSizeRatio(toSubviews: [View(), View()], coefficient: 1, axis: .horizontal)
+        View().lockSizeRatio(toSubviews: [View(), View()], coefficient: 1, axis: .vertical)
+        View().alignCentres(ofSubviews: [View(), View()], on: .horizontal)
+        View().alignCentres(ofSubviews: [View(), View()], on: .vertical)
+        View().alignLastBaselines(ofSubviews: [View(), View()])
+        View().lockAspectRatio(to: 1)
+        View().position(subviews: [View(), View()], inSequenceAlong: .horizontal, padding: .none, leadingMargin: .specific(8), trailingMargin: .unspecified)
+    }
+
     func testWindow() {
         let window = Window(title: "Title", size: CGSize(width: 700, height: 300))
         #if canImport(AppKit) // UIKit raises an exception during tests.

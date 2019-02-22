@@ -47,3 +47,6 @@ configuration._applySDGOverrides()
 configuration._validateSDGStandards()
 
 configuration.testing.exemptionTokens.insert(TestCoverageExemptionToken("codingNotSupported", scope: .previousLine))
+
+// #workaround(workspace version 0.17.1, Custom configuration to work around Travis CI bug.)
+configuration.continuousIntegration.manage = false
