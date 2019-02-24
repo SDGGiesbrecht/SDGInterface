@@ -27,8 +27,8 @@ extension RichText {
 
         // MARK: - Properties
 
-        internal var segment: Array<Segment>.Index
-        internal var scalar: StrictString.Index
+        @usableFromInline internal var segment: Array<Segment>.Index
+        @usableFromInline internal var scalar: StrictString.Index
 
         // MARK: - Comparable
 

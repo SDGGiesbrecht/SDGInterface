@@ -37,7 +37,7 @@ public struct RichText: Decodable, Encodable, BidirectionalCollection, Equatable
         self.init(unsafeSegments: [Segment(rawText: rawText, attributes: attributes)])
     }
 
-    private init(segments: [Segment]) {
+    @usableFromInline internal init(segments: [Segment]) {
         self.segments = segments
     }
 
@@ -89,7 +89,7 @@ public struct RichText: Decodable, Encodable, BidirectionalCollection, Equatable
     // MARK: - Properties
 
     private var _segments: [Segment] = []
-    private var segments: [Segment] {
+    @usableFromInline internal var segments: [Segment] {
         get {
             return _segments
         }
@@ -174,7 +174,7 @@ public struct RichText: Decodable, Encodable, BidirectionalCollection, Equatable
         return attributes(at: position)[key]
     }
 
-    private mutating func set<R>(attribute key: NSAttributedString.Key, to value: Any?, forRange range: R) where R : RangeExpression, R.Bound == Index {
+    @inlinable internal mutating func set<R>(attribute key: NSAttributedString.Key, to value: Any?, forRange range: R) where R : RangeExpression, R.Bound == Index {
         var changedSegments: [Segment] = []
         for segment in RichText(self[range]).segments {
             var copy = segment
@@ -195,7 +195,7 @@ public struct RichText: Decodable, Encodable, BidirectionalCollection, Equatable
     }
 
     /// Superscripts a particular range.
-    public mutating func superscript(range: Range<Index>) {
+    @inlinable public mutating func superscript<R>(range: R) where R : RangeExpression, R.Bound == Index {
         var change = RichText(self[range])
         change.superscript()
         replaceSubrange(range, with: change)
@@ -212,7 +212,7 @@ public struct RichText: Decodable, Encodable, BidirectionalCollection, Equatable
     }
 
     /// Subscripts a particular range.
-    public mutating func `subscript`(range: Range<Index>) {
+    @inlinable public mutating func `subscript`<R>(range: R) where R : RangeExpression, R.Bound == Index {
         var change = RichText(self[range])
         change.`subscript`()
         replaceSubrange(range, with: change)
@@ -223,7 +223,7 @@ public struct RichText: Decodable, Encodable, BidirectionalCollection, Equatable
         set(font: font, forRange: bounds)
     }
     /// Sets the font for a particular range.
-    public mutating func set<R>(font: Font, forRange range: R) where R : RangeExpression, R.Bound == Index {
+    @inlinable public mutating func set<R>(font: Font, forRange range: R) where R : RangeExpression, R.Bound == Index {
         set(attribute: NSAttributedString.Key.font, to: font, forRange: range)
     }
 
@@ -232,7 +232,7 @@ public struct RichText: Decodable, Encodable, BidirectionalCollection, Equatable
         set(colour: colour, forRange: bounds)
     }
     /// Sets the font colour for a particular range.
-    public mutating func set<R>(colour: NSColor, forRange range: R) where R : RangeExpression, R.Bound == Index {
+    @inlinable public mutating func set<R>(colour: NSColor, forRange range: R) where R : RangeExpression, R.Bound == Index {
         set(attribute: NSAttributedString.Key.foregroundColor, to: colour, forRange: range)
     }
 
@@ -241,7 +241,7 @@ public struct RichText: Decodable, Encodable, BidirectionalCollection, Equatable
         set(paragraphStyle: paragraphStyle, forRange: bounds)
     }
     /// Sets the paragraph style for a particular range.
-    public mutating func set<R>(paragraphStyle: NSParagraphStyle, forRange range: R) where R : RangeExpression, R.Bound == Index {
+    @inlinable public mutating func set<R>(paragraphStyle: NSParagraphStyle, forRange range: R) where R : RangeExpression, R.Bound == Index {
         set(attribute: NSAttributedString.Key.paragraphStyle, to: paragraphStyle, forRange: range)
     }
 
@@ -322,7 +322,7 @@ public struct RichText: Decodable, Encodable, BidirectionalCollection, Equatable
 
     }
 
-    public init<S>(_ elements: S) where S : Sequence, S.Element == RichText.Scalar {
+    @inlinable public init<S>(_ elements: S) where S : Sequence, S.Element == RichText.Scalar {
         if let rich = elements as? RichText {
             self = rich
         } else if let slice = elements as? RichText.SubSequence {
@@ -358,7 +358,7 @@ public struct RichText: Decodable, Encodable, BidirectionalCollection, Equatable
         }
     }
 
-    private static func concatenateRichText(_ first: RichText, _ second: RichText) -> RichText {
+    @usableFromInline internal static func concatenateRichText(_ first: RichText, _ second: RichText) -> RichText {
         if first.isEmpty {
             return second
         } else if second.isEmpty {
@@ -375,15 +375,15 @@ public struct RichText: Decodable, Encodable, BidirectionalCollection, Equatable
         }
     }
 
-    public mutating func append<S>(contentsOf newElements: S) where S : Sequence, S.Element == RichText.Scalar {
+    @inlinable public mutating func append<S>(contentsOf newElements: S) where S : Sequence, S.Element == RichText.Scalar {
         self = RichText.concatenateRichText(self, RichText(newElements))
     }
 
-    public mutating func insert<S>(contentsOf newElements: S, at i: Index) where S : Sequence, S.Element == RichText.Scalar {
+    @inlinable public mutating func insert<S>(contentsOf newElements: S, at i: Index) where S : Sequence, S.Element == RichText.Scalar {
         replaceSubrange(i ..< i, with: newElements)
     }
 
-    public mutating func replaceSubrange<S>(_ subrange: Range<RichText.Index>, with newElements: S) where S : Sequence, S.Element == RichText.Scalar {
+    @inlinable public mutating func replaceSubrange<S>(_ subrange: Range<RichText.Index>, with newElements: S) where S : Sequence, S.Element == RichText.Scalar {
         let preceding = RichText(self[..<subrange.lowerBound])
         let following = RichText(self[subrange.upperBound...])
         var result = RichText.concatenateRichText(preceding, RichText(newElements))

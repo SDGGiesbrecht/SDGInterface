@@ -18,19 +18,19 @@ import SDGLogic
 
 extension RichText {
 
-    internal struct Segment : Equatable, Hashable {
+    @usableFromInline internal struct Segment : Equatable, Hashable {
 
         // MARK: - Initialization
 
-        internal init(rawText: StrictString, attributes: [NSAttributedString.Key: Any] = [:]) {
+        @usableFromInline internal init(rawText: StrictString, attributes: [NSAttributedString.Key: Any] = [:]) {
             self.rawText = rawText
             self.attributes = attributes
         }
 
         // MARK: - Properties
 
-        internal var rawText: StrictString
-        internal var attributes: [NSAttributedString.Key: Any]
+        @usableFromInline internal var rawText: StrictString
+        @usableFromInline internal var attributes: [NSAttributedString.Key: Any]
 
         private var attributesProxy: NSAttributedString {
             return NSAttributedString(string: " ", attributes: attributes)
