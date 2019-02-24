@@ -18,13 +18,12 @@ import SDGControlFlow
 import SDGMathematics
 import SDGText
 
-#warning("Consider inlining.")
 #warning("Consider common protocols.")
 
 /// Rich text.
 ///
 /// Rich text is built on `StrictString` and maintains normalization form NFKD, except where canonical reordering would cause scalars to cross attribute boundaries.
-public struct RichText: Decodable, Encodable, BidirectionalCollection, Equatable, Hashable, RangeReplaceableCollection {
+public struct RichText: Addable, Comparable, Decodable, Encodable, BidirectionalCollection, Equatable, Hashable, RangeReplaceableCollection {
 
     // MARK: - Initialization
 
@@ -285,6 +284,12 @@ public struct RichText: Decodable, Encodable, BidirectionalCollection, Equatable
         let segment = segments[position.segment]
         let scalar = segment.rawText.scalars[position.scalar]
         return Scalar(scalar, attributes: segment.attributes)
+    }
+
+    // MARK: - Comparable
+
+    public static func <(precedingValue: RichText, followingValue: RichText) -> Bool {
+        return precedingValue.attributedString() < followingValue.attributedString()
     }
 
     // MARK: - Decodable
