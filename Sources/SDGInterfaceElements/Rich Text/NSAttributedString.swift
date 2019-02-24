@@ -31,18 +31,76 @@ extension NSAttributedString : Comparable {
 
     // MARK: - Superscript & Subscript
 
+    private static var superscriptSizeReduction: [String: [Int: (size: Int, lineHeight: Int)]] = [:]
+    private static func superscriptMetrics(for font: Font) -> (size: Int, lineHeight: Int) {
+        return cached(in: &superscriptSizeReduction[font.fontName, default: [:]][Int(font.pointSize)]) { () -> (size: Int, lineHeight: Int) in
+
+            let superscripted = SemanticMarkup("_").superscripted().richText(font: font)
+            let newAttributes = superscripted.attributes(at: 0, effectiveRange: nil)
+
+            let superscriptFont = newAttributes[NSAttributedString.Key.font] as! Font
+            let paragraphStyle = newAttributes[NSAttributedString.Key.paragraphStyle] as! NSParagraphStyle
+            return (Int(superscriptFont.pointSize), Int(paragraphStyle.minimumLineHeight))
+        }
+    }
+
+    private static func reduceSizeForSuperscript(_ attributes: inout [NSAttributedString.Key: Any]) {
+        var font = attributes[NSAttributedString.Key.font] as? Font ?? Font.default
+        let paragraphStyle = (attributes[NSAttributedString.Key.paragraphStyle] as? NSParagraphStyle ?? NSParagraphStyle.default).mutableCopy() as! NSMutableParagraphStyle
+
+        let newSizes = superscriptMetrics(for: font)
+
+        font = font.resized(to: CGFloat(newSizes.size))
+        paragraphStyle.minimumLineHeight = CGFloat(newSizes.lineHeight)
+
+        attributes[NSAttributedString.Key.font] = font
+        attributes[NSAttributedString.Key.paragraphStyle] = paragraphStyle.copy()
+    }
+
     internal static func addSuperscript(to attributes: inout [NSAttributedString.Key: Any]) {
-        let font = (attributes[NSAttributedString.Key.font] as? Font) ?? Font.default
-        let superscripted = SemanticMarkup("_").superscripted().richText(font: font)
-        let newAttributes = superscripted.attributes(at: 0, effectiveRange: nil)
-        attributes.merge(newAttributes, uniquingKeysWith: { $1 })
+        reduceSizeForSuperscript(&attributes)
+
+        var baseline = attributes[NSAttributedString.Key.superscript] as? Int ?? 0
+        baseline += 1
+        attributes[NSAttributedString.Key.superscript] = baseline
     }
 
     internal static func addSubscript(to attributes: inout [NSAttributedString.Key: Any]) {
-        let font = (attributes[NSAttributedString.Key.font] as? Font) ?? Font.default
-        let superscripted = SemanticMarkup("_").subscripted().richText(font: font)
-        let newAttributes = superscripted.attributes(at: 0, effectiveRange: nil)
-        attributes.merge(newAttributes, uniquingKeysWith: { $1 })
+        reduceSizeForSuperscript(&attributes)
+
+        var baseline = attributes[NSAttributedString.Key.superscript] as? Int ?? 0
+        baseline −= 1
+        attributes[NSAttributedString.Key.superscript] = baseline
+    }
+
+    private static func resetBaseline(for attributes: inout [NSAttributedString.Key: Any]) {
+        let level = |(attributes[NSAttributedString.Key.superscript] as? Int ?? 0)|
+        var font = attributes[NSAttributedString.Key.font] as? Font ?? Font.default
+        let superscriptSize = Int(font.pointSize)
+        let paragraphStyle = (attributes[NSAttributedString.Key.paragraphStyle] as? NSParagraphStyle ?? NSParagraphStyle.default).mutableCopy() as! NSMutableParagraphStyle
+        let superscriptHeight = Int(paragraphStyle.minimumLineHeight)
+
+        let baseSize = findLocalMinimum(near: Int(Font.systemSize)) { (base: Int) -> Int in
+            var resultingSize = base
+            for _ in 0 ..< level {
+                resultingSize = superscriptMetrics(for: font.resized(to: CGFloat(resultingSize))).size
+            }
+            return |(resultingSize − superscriptSize)|
+        }
+        let baseHeight = findLocalMinimum(near: Int(Font.systemSize)) { (base: Int) -> Int in
+            var resultingHeight = base
+            for _ in 0 ..< level {
+                resultingHeight = superscriptMetrics(for: font.resized(to: CGFloat(resultingHeight))).lineHeight
+            }
+            return |(resultingHeight − superscriptHeight)|
+        }
+
+        font = font.resized(to: CGFloat(baseSize))
+        paragraphStyle.minimumLineHeight = CGFloat(baseHeight)
+
+        attributes[NSAttributedString.Key.font] = font
+        attributes[NSAttributedString.Key.paragraphStyle] = paragraphStyle.copy() as! NSParagraphStyle
+        attributes[NSAttributedString.Key.superscript] = 0
     }
 
     // MARK: - Comparable
