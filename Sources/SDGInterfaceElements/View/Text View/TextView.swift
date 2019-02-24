@@ -55,14 +55,14 @@ internal class TextView: NSTextView {
                 } else if replacementRange.location ≠ NSNotFound ∧ replacementRange.location ≠ 0 {
                     attributes = textStorage?.attributes(at: replacementRange.location - 1, effectiveRange: nil)
                 }
-                let attributed = RichText(NSAttributedString(string: string, attributes: attributes))
+                let attributed = RichText(NSAttributedString(string: raw, attributes: attributes))
                 super.insertText(NSAttributedString(attributed), replacementRange: replacementRange)
             } else {
                 super.insertText(String(StrictString(raw)), replacementRange: replacementRange)
             }
         } else if let attributed = string as? NSAttributedString {
             if ¬isFieldEditor {
-                super.insertText(NSAttributedString(RichText(string)), replacementRange: replacementRange)
+                super.insertText(NSAttributedString(RichText(attributed)), replacementRange: replacementRange)
             } else {
                 super.insertText(String(StrictString(attributed.string)), replacementRange: replacementRange)
             }
