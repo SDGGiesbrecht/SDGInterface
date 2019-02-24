@@ -64,11 +64,9 @@ public struct RichText: Addable, Comparable, CustomPlaygroundDisplayConvertible,
                     var modified = attributes
                     switch format {
                     case .superscript:
-                        #warning("Needs to apply superscript.")
-                        //NSAttributedString.addSuperscriptToAttributes(&modified)
+                        NSAttributedString.addSuperscript(to: &modified)
                     case .subscript:
-                        #warning("Needs to apply subscript.")
-                        //NSAttributedString.addSubscriptToAttributes(&modified)
+                        NSAttributedString.addSubscript(to: &modified)
                     }
                     segments.append(Segment(rawText: StrictString(element), attributes: modified))
 
@@ -185,8 +183,7 @@ public struct RichText: Addable, Comparable, CustomPlaygroundDisplayConvertible,
     public mutating func superscript() {
         segments = segments.map { segment in
             var mutable = segment
-            #warning("Needs to superscript.")
-            //NSAttributedString.addSuperscriptToAttributes(&mutable.attributes)
+            NSAttributedString.addSuperscript(to: &mutable.attributes)
             return mutable
         }
     }
@@ -202,8 +199,7 @@ public struct RichText: Addable, Comparable, CustomPlaygroundDisplayConvertible,
     public mutating func `subscript`() {
         segments = segments.map { segment in
             var mutable = segment
-            #warning("Needs to subscript.")
-            //NSAttributedString.addSubscriptToAttributes(&mutable.attributes)
+            NSAttributedString.addSubscript(to: &mutable.attributes)
             return mutable
         }
     }
