@@ -18,12 +18,10 @@ import SDGControlFlow
 import SDGMathematics
 import SDGText
 
-#warning("Consider common protocols.")
-
 /// Rich text.
 ///
 /// Rich text is built on `StrictString` and maintains normalization form NFKD, except where canonical reordering would cause scalars to cross attribute boundaries.
-public struct RichText: Addable, Comparable, Decodable, Encodable, BidirectionalCollection, Equatable, Hashable, RangeReplaceableCollection {
+public struct RichText: Addable, Comparable, CustomPlaygroundDisplayConvertible, Decodable, Encodable, BidirectionalCollection, Equatable, ExpressibleByStringLiteral, Hashable, RangeReplaceableCollection {
 
     // MARK: - Initialization
 
@@ -292,6 +290,18 @@ public struct RichText: Addable, Comparable, Decodable, Encodable, Bidirectional
         return precedingValue.attributedString() < followingValue.attributedString()
     }
 
+    // MARK: - CustomPlaygroundDisplayConvertible
+
+    public var playgroundDescription: Any {
+        return attributedString()
+    }
+
+    // MARK: - CustomStringConvertible
+
+    public var description: String {
+        return String(rawText())
+    }
+
     // MARK: - Decodable
 
     public init(from decoder: Decoder) throws {
@@ -313,6 +323,12 @@ public struct RichText: Addable, Comparable, Decodable, Encodable, Bidirectional
 
     public static func == (precedingValue: RichText, followingValue: RichText) -> Bool {
         return precedingValue.segments == followingValue.segments
+    }
+
+    // MARK: - ExpressibleByStringLiteral
+
+    public init(stringLiteral value: String) {
+        self.init(rawText: StrictString(value))
     }
 
     // MARK: - Hashable
