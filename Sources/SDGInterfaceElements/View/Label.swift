@@ -14,16 +14,19 @@
 
 import SDGInterfaceLocalizations
 
-#warning("Rethink binding.")
-
 /// A text label.
-open class Label: NSTextField {
+open class Label<L>: NSTextField, SharedValueObserver where L : Localization {
 
     // MARK: - Initialization
 
     /// Creates a text label.
-    public init(text: StrictString) {
+    public init(text: Shared<UserFacing<StrictString, L>>) {
+        self.text = text
+
         super.init(frame: NSZeroRect)
+
+        text.register(observer: self)
+        LocalizationSetting.current.register(observer: self)
 
         isBordered = false
         isBezeled = false
@@ -39,8 +42,6 @@ open class Label: NSTextField {
         isEditable = false
 
         font = Font.forLabels
-
-        stringValue = String(text)
     }
 
     public required init?(coder: NSCoder) {
@@ -51,5 +52,20 @@ open class Label: NSTextField {
             }
         }))
         return nil
+    }
+
+    // MARK: - Properties
+
+    public var text: Shared<UserFacing<StrictString, L>> {
+        didSet {
+            oldValue.cancel(observer: self)
+            text.register(observer: self)
+        }
+    }
+
+    // MARK: - SharedValueObserver
+
+    public func valueChanged(for identifier: String) {
+        stringValue = String(text.value.resolved())
     }
 }

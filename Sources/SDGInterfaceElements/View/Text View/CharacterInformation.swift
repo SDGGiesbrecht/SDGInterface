@@ -35,27 +35,27 @@ public class CharacterInformation : NSObject {
         let table = Table(content: details)
 
         table.newColumn(header: "P", viewGenerator: {
-            let view = LabelCell()
+            let view = LabelCell<InterfaceLocalization>()
             view.bindText(contentKeyPath: CharacterInformation.codePointKeyPath)
             view.bindTextColour(contentKeyPath: CharacterInformation.warningColourPath)
             return view
         })
 
         table.newColumn(header: "C", viewGenerator: {
-            let view = LabelCell()
+            let view = LabelCell<InterfaceLocalization>()
             view.bindText(contentKeyPath: CharacterInformation.characterKeyPath)
             view.bindTextColour(contentKeyPath: CharacterInformation.warningColourPath)
             return view
         })
 
         table.newColumn(header: "D", viewGenerator: {
-            let view = LabelCell()
+            let view = LabelCell<InterfaceLocalization>()
             view.bindText(contentKeyPath: CharacterInformation.normalizedCodePointsPath)
             return view
         })
 
         table.newColumn(header: "S", viewGenerator: {
-            let view = LabelCell()
+            let view = LabelCell<InterfaceLocalization>()
             view.bindText(contentKeyPath: CharacterInformation.normalizedCharacters)
             return view
         })

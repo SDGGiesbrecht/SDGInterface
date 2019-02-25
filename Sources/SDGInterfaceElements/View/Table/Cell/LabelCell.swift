@@ -19,17 +19,17 @@ import SDGInterfaceLocalizations
 #warning("Rethink binding.")
 
 /// A label table cell.
-open class LabelCell: NSTableCellView {
+open class LabelCell<L>: NSTableCellView where L : Localization {
 
     // MARK: - Properties
 
-    private var label: Label
+    private var label: Label<L>
 
     // MARK: - Initialization
 
     /// Creates a label table cell.
     public init() {
-        label = Label(text: "")
+        label = Label(text: Shared(UserFacing<StrictString, L>({ _ in "" })))
         super.init(frame: NSRect.zero)
 
         fill(with: label, on: .horizontal, margin: .specific(label.fittingSize.height ÷ 16))
