@@ -147,13 +147,13 @@ open class Window<L> : NSWindow, SharedValueObserver, WindowConformances where L
     }
 
     #if canImport(AppKit)
-    private var fieldEditor = FieldEditor()
+    private let fieldEditor = FieldEditor()
     #endif
 
     // MARK: - NSWindow
 
     #if canImport(AppKit)
-    private var interceptor: DelegationInterceptor
+    private let interceptor: DelegationInterceptor
     open override var delegate: NSWindowDelegate? {
         get {
             return interceptor.delegate as? NSWindowDelegate
