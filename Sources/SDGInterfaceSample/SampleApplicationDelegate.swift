@@ -152,7 +152,12 @@ extension SampleApplicationDelegate {
     }
 
     @objc private func demonstrateWindow() { // @exempt(from: tests)
-        let window = Window(title: "Title", size: CGSize(width: 700, height: 300))
+        let window = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Window"
+            }
+        })), size: CGSize(width: 700, height: 300))
         window.makeKeyAndOrderFront(nil)
     }
 }
