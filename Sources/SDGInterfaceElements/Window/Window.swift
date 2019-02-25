@@ -79,7 +79,7 @@ open class Window : NSWindow {
         super.init(frame: Window.initializeContentRectangle(size: size))
         #endif
 
-        finishInitialization()
+        finishInitialization(title: title)
     }
 
     #if canImport(UIKit)
@@ -89,11 +89,11 @@ open class Window : NSWindow {
     ///     - title: The title of the window.
     public init(title: StrictString) {
         super.init(frame: Window.initializeContentRectangle(size: Screen.main.bounds.size))
-        finishInitialization()
+        finishInitialization(title: title)
     }
     #endif
 
-    private func finishInitialization() {
+    private func finishInitialization(title: StrictString) {
         #if canImport(AppKit)
         interceptor.delegate = super.delegate
         interceptor.listener = self
