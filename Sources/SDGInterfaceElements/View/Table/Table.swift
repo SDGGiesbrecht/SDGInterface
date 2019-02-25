@@ -39,9 +39,6 @@ public class Table: NSScrollView, NSTableViewDelegate {
         super.init(frame: NSRect.zero)
         #warning("Intercept delegation.")
         table.delegate = self
-        table.target = self
-        table.action = #selector(Table.actionFired)
-        table.doubleAction = #selector(Table.doubleActionFired)
 
         borderType = .bezelBorder
         hasHorizontalScroller = true
@@ -76,13 +73,32 @@ public class Table: NSScrollView, NSTableViewDelegate {
     private var viewGenerators: [NSUserInterfaceItemIdentifier: () -> NSTableCellView] = [:]
 
     /// The click action.
-    public var action: Selector?
-    /// The target for the click action.
-    public var target: AnyObject?
+    public var action: Selector? {
+        get {
+            return table.action
+        }
+        set {
+            table.action = newValue
+        }
+    }
     /// The double click action.
-    public var doubleAction: Selector?
-    /// The double click target.
-    public var doubleTarget: AnyObject?
+    public var doubleAction: Selector? {
+        get {
+            return table.doubleAction
+        }
+        set {
+            table.doubleAction = doubleAction
+        }
+    }
+    /// The target for the click actions.
+    public var target: AnyObject? {
+        get {
+            return table.target
+        }
+        set {
+            table.target = newValue
+        }
+    }
 
     // MARK: - Behaviour
 
@@ -196,21 +212,6 @@ public class Table: NSScrollView, NSTableViewDelegate {
             column.width = tableView(table, sizeToFitWidthOfColumn: index)
         }
         table.sizeLastColumnToFit()
-    }
-
-    // MARK: - Forwarding Actions
-    #warning("Rethink these.")
-
-    @objc private func actionFired() {
-        if let theAction = action {
-            NSApplication.shared.sendAction(theAction, to: target, from: self)
-        }
-    }
-
-    @objc private func doubleActionFired() {
-        if let theAction = doubleAction {
-            NSApplication.shared.sendAction(theAction, to: doubleTarget, from: self)
-        }
     }
 
     // MARK: - Subclassing
