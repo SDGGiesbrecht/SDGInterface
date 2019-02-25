@@ -18,7 +18,7 @@ import SDGLocalization
 import SDGInterfaceLocalizations
 
 /// A localized menu.
-open class LocalizedMenu<L : Localization> : Menu, SharedValueObserver {
+open class LocalizedMenu<L : Localization> : NSMenu, SharedValueObserver {
 
     // MARK: - Initialization
 

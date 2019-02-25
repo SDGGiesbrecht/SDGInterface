@@ -14,14 +14,10 @@
 
 #if !os(watchOS) && !os(tvOS)
 
-#if canImport(AppKit)
-// @documentation(MenuItem)
-/// An alias for `NSMenuItem` or `UIMenuItem`.
-public typealias MenuItem = NSMenuItem
-#elseif canImport(UIKit)
+#if !canImport(AppKit)
 // #documentation(MenuItem)
-/// An alias for `NSMenuItem` or `UIMenuItem`.
-public typealias MenuItem = UIMenuItem
+/// An `AppKit.NSMenuItem` or a `UIMenuItem`.
+public typealias NSMenuItem = UIMenuItem
 #endif
 
 #endif

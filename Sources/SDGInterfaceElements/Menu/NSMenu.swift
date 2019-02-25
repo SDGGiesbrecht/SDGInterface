@@ -14,22 +14,17 @@
 
 #if !os(watchOS) && !os(tvOS)
 
-#if canImport(AppKit)
-// @documentation(Menu)
-/// An alias for `NSMenu` or `UIMenuController`.
-public typealias Menu = NSMenu
-#elseif canImport(UIKit)
-// #documentation(Menu)
-/// An alias for `NSMenu` or `UIMenuController`.
-public typealias Menu = UIMenuController
+#if !canImport(AppKit)
+/// An `AppKit.NSMenu` or a `UIMenuController`.
+public typealias NSMenu = UIMenuController
 #endif
 
-extension Menu {
+extension NSMenu {
 
     // MARK: - Related Items
 
     /// Returns the parent menu item.
-    public var parentMenuItem: MenuItem? {
+    public var parentMenuItem: NSMenuItem? {
         #if canImport(AppKit)
         if let index = supermenu?.indexOfItem(withSubmenu: self),
             let parent = supermenu?.item(at: index) {
@@ -62,7 +57,7 @@ extension Menu {
 
     #if canImport(AppKit)
     /// Creates, inserts and returns a new separator.
-    @discardableResult public func newSeparator() -> MenuItem {
+    @discardableResult public func newSeparator() -> NSMenuItem {
         let separator = createSeparator()
         addItem(separator)
         return separator
@@ -93,8 +88,8 @@ extension Menu {
 
     #if canImport(AppKit)
     /// Override in a subclass to use a different class of menu entry.
-    open func createSeparator() -> MenuItem {
-        return MenuItem.separator()
+    open func createSeparator() -> NSMenuItem {
+        return NSMenuItem.separator()
     }
 
     /// Override in a subclass to use a different class of sub menu.

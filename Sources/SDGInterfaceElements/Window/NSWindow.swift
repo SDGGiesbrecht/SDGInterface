@@ -20,7 +20,7 @@ import SDGCollections
 import SDGInterfaceLocalizations
 
 #if !canImport(AppKit)
-/// A `AppKit.NSWindow` or a `UIWindow`.
+/// An `AppKit.NSWindow` or a `UIWindow`.
 public typealias NSWindow = UIWindow
 #endif
 
