@@ -18,7 +18,6 @@ import SDGLocalization
 
 import SDGInterfaceLocalizations
 
-#warning("Rethink finality and subclassing.")
 #warning("Rethink binding?")
 
 /// A table.
@@ -78,8 +77,8 @@ open class Table: NSScrollView, NSTableViewDelegate {
 
     // MARK: - Properties
 
-    private let table: NSTableView
-    private let controller: NSArrayController
+    public let table: NSTableView
+    public let controller: NSArrayController
     private var viewGenerators: [NSUserInterfaceItemIdentifier: () -> NSTableCellView] = [:]
 
     // MARK: - Actions

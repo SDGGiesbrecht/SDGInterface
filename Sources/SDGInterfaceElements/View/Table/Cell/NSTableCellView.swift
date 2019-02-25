@@ -21,7 +21,6 @@ extension NSTableCellView {
 
     /// Binds a subview’s property to a content property.
     public func bind(subview: NSView, keyPath: NSBindingName, to contentKeyPath: String, options: [NSBindingOption: Any]? = nil) {
-        #warning("Rethink.")
         subview.bind(keyPath, to: self, withKeyPath: #keyPath(NSTableCellView.objectValue) + "." + contentKeyPath, options: options)
     }
 }

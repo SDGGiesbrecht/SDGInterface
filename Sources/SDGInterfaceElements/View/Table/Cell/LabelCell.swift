@@ -16,8 +16,6 @@ import SDGMathematics
 
 import SDGInterfaceLocalizations
 
-#warning("Rethink binding.")
-
 /// A label table cell.
 open class LabelCell<L>: NSTableCellView where L : Localization {
 
