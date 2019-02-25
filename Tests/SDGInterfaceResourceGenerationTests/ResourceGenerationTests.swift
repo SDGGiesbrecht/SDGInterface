@@ -52,6 +52,8 @@ final class SDGInterfaceResourceGenerationTests : XCTestCase {
         }
 
         let mapping = RichText.NormalizationAttribute.Mapping(compatibility)
-        try mapping.save(to: interfaceElementsResourcesDirectory.appendingPathComponent("Normalization Mapping.json"))
+        let mappingURL = interfaceElementsResourcesDirectory.appendingPathComponent("Normalization Mapping.json")
+        try mapping.save(to: mappingURL)
+        try String(from: mappingURL).appending("\n").save(to: mappingURL)
     }
 }
