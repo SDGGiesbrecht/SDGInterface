@@ -84,10 +84,16 @@ let package = Package(
             .product(name: "SDGLocalization", package: "SDGCornerstone")
             ]),
 
-        // Internal
+        // Internal modules.
 
         .target(name: "SDGInterfaceLocalizations", dependencies: [
             .product(name: "SDGLocalization", package: "SDGCornerstone")
+            ]),
+
+        // Internal utilities.
+
+        .testTarget(name: "SDGInterfaceResourceGenerationTests", dependencies: [
+            "SDGInterfaceElements",
             ]),
 
         // Internal tests.

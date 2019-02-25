@@ -1,5 +1,5 @@
 /*
- RichTextNormalizationAttribute.swift
+ RichTextNormalizationAttributeMapping.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,16 +12,13 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-extension RichText {
-    internal enum NormalizationAttribute : String, Codable {
+@testable import SDGInterfaceElements
 
-        // MARK: - Type Properties
-        #warning("Needs to import data.")
-        internal static let mapping: [Unicode.Scalar: NormalizationAttribute] = [:]
+extension RichText.NormalizationAttribute.Mapping : Encodable {
 
-        // MARK: - Cases
+    // MARK: - Encodable
 
-        case superscript
-        case `subscript`
+    public func encode(to encoder: Encoder) throws {
+        try encode(to: encoder, via: mapping.mapKeys({ $0.value }))
     }
 }
