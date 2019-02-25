@@ -37,6 +37,7 @@ open class MenuItem<L : Localization> : NSMenuItem, SharedValueObserver {
         super.init(title: startingTitle, action: action ?? #selector(NSObject._placeholderMethod))
         #endif
 
+        label.register(observer: self)
         LocalizationSetting.current.register(observer: self)
     }
 
@@ -53,7 +54,12 @@ open class MenuItem<L : Localization> : NSMenuItem, SharedValueObserver {
     // MARK: - Properties
 
     /// The label.
-    public var label: Shared<UserFacing<StrictString, L>>
+    public var label: Shared<UserFacing<StrictString, L>> {
+        didSet {
+            oldValue.cancel(observer: self)
+            label.register(observer: self)
+        }
+    }
 
     // MARK: - SharedValueObserver
 
