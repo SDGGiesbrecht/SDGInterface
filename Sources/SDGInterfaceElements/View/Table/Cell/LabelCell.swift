@@ -23,7 +23,7 @@ open class LabelCell<L>: NSTableCellView where L : Localization {
 
     // MARK: - Properties
 
-    public let label: Label<L>
+    private let label: Label<L>
 
     // MARK: - Initialization
 
