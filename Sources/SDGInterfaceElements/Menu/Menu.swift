@@ -29,6 +29,7 @@ open class Menu<L : Localization> : NSMenu, SharedValueObserver {
     public init(label: Shared<UserFacing<StrictString, L>>) {
         self.label = label
         super.init(title: String(label.value.resolved()))
+        label.register(observer: self)
         LocalizationSetting.current.register(observer: self)
     }
 
@@ -36,7 +37,7 @@ open class Menu<L : Localization> : NSMenu, SharedValueObserver {
         codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
             switch localization {
             case .englishCanada:
-                return "LocalizatedMenu"
+                return "Menu"
             }
         }))
         preconditionFailure()
@@ -45,7 +46,12 @@ open class Menu<L : Localization> : NSMenu, SharedValueObserver {
     // MARK: - Properties
 
     /// The label.
-    public var label: Shared<UserFacing<StrictString, L>>
+    public var label: Shared<UserFacing<StrictString, L>> {
+        didSet {
+            oldValue.cancel(observer: self)
+            label.register(observer: self)
+        }
+    }
 
     // MARK: - SharedValueObserver
 

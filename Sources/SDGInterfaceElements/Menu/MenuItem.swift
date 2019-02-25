@@ -44,7 +44,7 @@ open class MenuItem<L : Localization> : NSMenuItem, SharedValueObserver {
         codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
             switch localization {
             case .englishCanada:
-                return "LocalizedMenuItem"
+                return "MenuItem"
             }
         }))
         preconditionFailure()
