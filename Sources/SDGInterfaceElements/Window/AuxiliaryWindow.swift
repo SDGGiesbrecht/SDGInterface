@@ -13,15 +13,16 @@
  */
 
 /// An window which plays a supporting role to another window.
-open class AuxiliaryWindow: Window {
+open class AuxiliaryWindow<L>: Window<L> where L : Localization {
 
     // MARK: - Initialization
 
-    private static let defaultSize = NSSize(width: 480, height: 270)
+    private static var defaultSize: NSSize {
+        return NSSize(width: 480, height: 270)
+    }
 
-    #warning("Binding?")
     /// Creates an auxiliary window.
-    public init(title: StrictString) {
+    public init(title: Shared<UserFacing<StrictString, L>>) {
         super.init(title: title, size: AuxiliaryWindow.defaultSize)
         finishInitialization()
     }

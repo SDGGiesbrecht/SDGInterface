@@ -16,6 +16,8 @@
 
 import SDGLogic
 
+import SDGInterfaceLocalizations
+
 /// User‐presentable Unicode information about the characters in a string.
 public class CharacterInformation : NSObject {
 
@@ -29,7 +31,7 @@ public class CharacterInformation : NSObject {
             details.append(CharacterInformation(scalar))
         }
 
-        let window = AuxiliaryWindow(title: StrictString(characters))
+        let window = AuxiliaryWindow(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in StrictString(characters) })))
         let table = Table(content: details)
 
         table.newColumn(header: "P", viewGenerator: {
