@@ -15,7 +15,7 @@
 import SDGInterfaceLocalizations
 
 /// A text field.
-public class TextField: NSTextField {
+open class TextField: NSTextField {
 
     // MARK: - Static Constants
 

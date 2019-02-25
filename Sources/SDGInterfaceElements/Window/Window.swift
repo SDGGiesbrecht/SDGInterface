@@ -25,6 +25,32 @@ open class Window : NSWindow {
 
     // MARK: - Initialization
 
+    private static func initializeInterceptor() -> DelegationInterceptor {
+        return DelegationInterceptor(selectors: [
+            #selector(NSWindowDelegate.windowWillReturnFieldEditor(_:to:))
+            ])
+    }
+
+    private static func initializeContentRectangle(size: NSSize) -> NSRect {
+        var rectangle = CGRect.zero
+        rectangle.size = size
+        return rectangle
+    }
+
+    private static func initializeStyleMask(additionalStyles: NSWindow.StyleMask, disabledStyles: NSWindow.StyleMask) -> NSWindow.StyleMask {
+        var style: NSWindow.StyleMask = [
+            .titled,
+            .closable,
+            .miniaturizable,
+            .resizable,
+            .texturedBackground,
+            .unifiedTitleAndToolbar
+        ]
+        style.formUnion(additionalStyles)
+        style.subtract(disabledStyles)
+        return style
+    }
+
     /// Creates a window.
     ///
     /// - Parameters:
@@ -39,40 +65,38 @@ open class Window : NSWindow {
         disabledStyles: NSWindow.StyleMask = []) {
 
         #if canImport(AppKit)
-        interceptor = DelegationInterceptor(selectors: [
-            #selector(NSWindowDelegate.windowWillReturnFieldEditor(_:to:))
-            ])
-        defer {
-            interceptor.delegate = super.delegate
-            interceptor.listener = self
-        }
-        #endif
-
-        var rectangle = CGRect.zero
-        rectangle.size = size
-
-        #if canImport(AppKit)
-        var style: NSWindow.StyleMask = [
-            .titled,
-            .closable,
-            .miniaturizable,
-            .resizable,
-            .texturedBackground,
-            .unifiedTitleAndToolbar
-        ]
-        style.formUnion(additionalStyles)
-        style.subtract(disabledStyles)
+        interceptor = Window.initializeInterceptor()
         #endif
 
         #if canImport(AppKit)
         super.init(
-            contentRect: rectangle,
-            styleMask: style,
+            contentRect: Window.initializeContentRectangle(size: size),
+            styleMask: Window.initializeStyleMask(additionalStyles: additionalStyles, disabledStyles: disabledStyles),
             backing: .buffered,
             defer: true)
         #else
         _title = String(title)
-        super.init(frame: rectangle)
+        super.init(frame: Window.initializeContentRectangle(size: size))
+        #endif
+
+        finishInitialization()
+    }
+
+    #if canImport(UIKit)
+    /// Creates a window.
+    ///
+    /// - Parameters:
+    ///     - title: The title of the window.
+    public init(title: StrictString) {
+        super.init(frame: Window.initializeContentRectangle(size: Screen.main.bounds.size))
+        finishInitialization()
+    }
+    #endif
+
+    private func finishInitialization() {
+        #if canImport(AppKit)
+        interceptor.delegate = super.delegate
+        interceptor.listener = self
         #endif
 
         #if canImport(AppKit)
@@ -91,16 +115,6 @@ open class Window : NSWindow {
 
         randomizeLocation()
     }
-
-    #if canImport(UIKit)
-    /// Creates a window.
-    ///
-    /// - Parameters:
-    ///     - title: The title of the window.
-    public convenience init(title: StrictString) {
-        self.init(title: title, size: Screen.main.bounds.size)
-    }
-    #endif
 
     #if canImport(UIKit)
     @available(*, unavailable) public required init(coder decoder: NSCoder) { // @exempt(from: unicode)

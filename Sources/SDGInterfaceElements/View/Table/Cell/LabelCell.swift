@@ -19,7 +19,7 @@ import SDGInterfaceLocalizations
 #warning("Rethink binding.")
 
 /// A label table cell.
-public class LabelCell: NSTableCellView {
+open class LabelCell: NSTableCellView {
 
     // MARK: - Properties
 
@@ -36,7 +36,7 @@ public class LabelCell: NSTableCellView {
         fill(with: label, on: .vertical, margin: .none)
     }
 
-    required init?(coder decoder: NSCoder) {
+    public required init?(coder decoder: NSCoder) {
         codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
             switch localization {
             case .englishCanada:

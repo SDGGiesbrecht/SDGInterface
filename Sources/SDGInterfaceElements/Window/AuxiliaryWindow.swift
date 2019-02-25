@@ -13,7 +13,7 @@
  */
 
 /// An window which plays a supporting role to another window.
-public class AuxiliaryWindow: Window {
+open class AuxiliaryWindow: Window {
 
     // MARK: - Initialization
 
@@ -23,10 +23,10 @@ public class AuxiliaryWindow: Window {
     /// Creates an auxiliary window.
     public init(title: StrictString) {
         super.init(title: title, size: AuxiliaryWindow.defaultSize)
-        configure()
+        finishInitialization()
     }
 
-    private func configure() {
+    private func finishInitialization() {
         collectionBehavior = NSWindow.CollectionBehavior.fullScreenAuxiliary
     }
 }

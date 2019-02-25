@@ -17,7 +17,7 @@ import SDGInterfaceLocalizations
 #warning("Rethink binding.")
 
 /// A text label.
-public class Label: NSTextField {
+open class Label: NSTextField {
 
     // MARK: - Static Constants
     #warning("Are these really necessary?")
@@ -52,7 +52,7 @@ public class Label: NSTextField {
         stringValue = String(text)
     }
 
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
             switch localization {
             case .englishCanada:
