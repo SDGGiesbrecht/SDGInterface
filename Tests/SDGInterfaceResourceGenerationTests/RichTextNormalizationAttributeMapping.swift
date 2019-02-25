@@ -12,13 +12,33 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import Foundation
+
+import SDGLocalization
+import SDGPersistence
+
 @testable import SDGInterfaceElements
 
-extension RichText.NormalizationAttribute.Mapping : Encodable {
+extension RichText.NormalizationAttribute.Mapping : Encodable, FileConvertible {
 
     // MARK: - Encodable
 
     public func encode(to encoder: Encoder) throws {
-        try encode(to: encoder, via: mapping.mapKeys({ $0.value }))
+        try encode(to: encoder, via: mapping.mapKeys({ String($0.hexadecimalCode) }))
+    }
+
+    // MARK: - FileConvertible
+
+    public init(file: Data, origin: URL?) throws {
+        self = try JSONDecoder().decode(RichText.NormalizationAttribute.Mapping.self, from: file)
+    }
+
+    public var file: Data {
+        let encoder = JSONEncoder()
+        if #available(OSX 10.13, *) {
+            encoder.outputFormatting.insert(.sortedKeys)
+        }
+        encoder.outputFormatting.insert(.prettyPrinted)
+        return try! encoder.encode(self)
     }
 }

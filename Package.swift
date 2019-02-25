@@ -94,6 +94,9 @@ let package = Package(
 
         .testTarget(name: "SDGInterfaceResourceGenerationTests", dependencies: [
             "SDGInterfaceElements",
+            .product(name: "SDGText", package: "SDGCornerstone"),
+            .product(name: "SDGLocalization", package: "SDGCornerstone"),
+            .product(name: "SDGPersistence", package: "SDGCornerstone")
             ]),
 
         // Internal tests.

@@ -14,9 +14,44 @@
 
 import XCTest
 
+import SDGText
+import SDGLocalization
+import SDGPersistence
+
+@testable import SDGInterfaceElements
+
 final class SDGInterfaceResourceGenerationTests : XCTestCase {
 
-    func testRefresh() {
+    func testRefreshUnicodeData() throws {
+        let ucd = URL(string: "https://www.unicode.org/Public/UCD/latest/ucd")!
+        let unicodeDataURL = ucd.appendingPathComponent("UnicodeData.txt")
+        let unicodeData = try String(from: unicodeDataURL)
 
+        var compatibility = [Unicode.Scalar: RichText.NormalizationAttribute]()
+
+        for line in unicodeData.lines {
+            let entry = line.line
+            if entry.isEmpty {
+                continue
+            }
+
+            let fields = entry.components(separatedBy: ";".scalars)
+            XCTAssertEqual(fields.count, 15, "Unexpected number of fields. Field indices may be mismatched: \(fields.map({ String($0.contents) }))")
+
+            let decomposition = fields[5].contents
+            var possibleAttribute: RichText.NormalizationAttribute?
+            if decomposition.hasPrefix("<super>".scalars) {
+                possibleAttribute = .superscript
+            } else if decomposition.hasPrefix("<sub>".unicodeScalars) {
+                possibleAttribute = .subscript
+            }
+            if let attribute = possibleAttribute {
+                let character = Unicode.Scalar(UInt32(hexadecimal: StrictString(fields[0].contents)))!
+                compatibility[character] = attribute
+            }
+        }
+
+        let mapping = RichText.NormalizationAttribute.Mapping(compatibility)
+        try mapping.save(to: interfaceElementsResourcesDirectory.appendingPathComponent("Normalization Mapping.json"))
     }
 }

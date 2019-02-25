@@ -31,8 +31,8 @@ extension RichText.NormalizationAttribute {
         // MARK: - Decodable
 
         internal init(from decoder: Decoder) throws {
-            try self.init(from: decoder, via: [UInt32: RichText.NormalizationAttribute].self) { (proxy: [UInt32: RichText.NormalizationAttribute]) -> Mapping in
-                return Mapping(proxy.mapKeys({ Unicode.Scalar($0)! }))
+            try self.init(from: decoder, via: [StrictString: RichText.NormalizationAttribute].self) { (proxy: [StrictString: RichText.NormalizationAttribute]) -> Mapping in
+                return Mapping(proxy.mapKeys({ Unicode.Scalar(UInt32(hexadecimal: $0))! }))
             }
         }
     }
