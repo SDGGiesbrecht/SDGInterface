@@ -16,8 +16,11 @@ extension RichText {
     internal enum NormalizationAttribute : String, Codable {
 
         // MARK: - Type Properties
-        #warning("Needs to import data.")
-        internal static let mapping: [Unicode.Scalar: NormalizationAttribute] = [:]
+        internal static let mapping: [Unicode.Scalar: NormalizationAttribute] = {
+            let data = Resources.normalizationMapping
+            let wrapper = try! JSONDecoder().decode(NormalizationAttribute.Mapping.self, from: data)
+            return wrapper.mapping
+        }()
 
         // MARK: - Cases
 
