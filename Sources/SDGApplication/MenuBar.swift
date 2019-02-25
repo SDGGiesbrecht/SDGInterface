@@ -23,7 +23,7 @@ import SDGInterfaceLocalizations
 /// Some menu items only appear if the application provides details they need to operate:
 /// - “Preferences...” appears if the application delegate overrides `openPreferences(_:)`.
 /// - “Help” appears if a help book is specified in the `Info.plist` file.
-public class MenuBar : LocalizedMenu<InterfaceLocalization> {
+public class MenuBar : Menu<InterfaceLocalization> {
 
     // MARK: - Class Properties
 
@@ -60,7 +60,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
     ///
     /// - Parameters:
     ///     - label: A label for the new submenu.
-    @discardableResult public func newApplicationSpecificSubmenu<S>(labelled label: Shared<UserFacing<StrictString, S>>) -> LocalizedMenu<S> {
+    @discardableResult public func newApplicationSpecificSubmenu<S>(labelled label: Shared<UserFacing<StrictString, S>>) -> Menu<S> {
         let menu = newSubmenu(labelled: label)
         if let menuItem = menu.parentMenuItem {
             removeItem(menuItem)

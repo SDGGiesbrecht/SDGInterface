@@ -42,7 +42,7 @@ extension NSMenu {
     /// - Parameters:
     ///     - label: A label for the entry.
     ///     - action: Optional. An action for the entry.
-    @discardableResult public func newEntry<E>(labelled label: Shared<UserFacing<StrictString, E>>, action: Selector? = nil) -> LocalizedMenuItem<E> {
+    @discardableResult public func newEntry<E>(labelled label: Shared<UserFacing<StrictString, E>>, action: Selector? = nil) -> MenuItem<E> {
         let entry = createEntry(labelled: label, action: action)
         #if canImport(AppKit)
         addItem(entry)
@@ -67,7 +67,7 @@ extension NSMenu {
     ///
     /// - Parameters:
     ///     - label: A label for the submenu.
-    @discardableResult public func newSubmenu<S>(labelled label: Shared<UserFacing<StrictString, S>>) -> LocalizedMenu<S> {
+    @discardableResult public func newSubmenu<S>(labelled label: Shared<UserFacing<StrictString, S>>) -> Menu<S> {
         let header = newEntry(labelled: label)
         let submenu = createSubmenu(labelled: label)
         header.submenu = submenu
@@ -82,8 +82,8 @@ extension NSMenu {
     /// - Parameters:
     ///     - label: A label for the entry.
     ///     - action: Optional. An action for the entry.
-    open func createEntry<E>(labelled label: Shared<UserFacing<StrictString, E>>, action: Selector?) -> LocalizedMenuItem<E> {
-        return LocalizedMenuItem(label: label, action: action)
+    open func createEntry<E>(labelled label: Shared<UserFacing<StrictString, E>>, action: Selector?) -> MenuItem<E> {
+        return MenuItem(label: label, action: action)
     }
 
     #if canImport(AppKit)
@@ -96,8 +96,8 @@ extension NSMenu {
     ///
     /// - Parameters:
     ///     - label: A label for the submenu.
-    open func createSubmenu<S>(labelled label: Shared<UserFacing<StrictString, S>>) -> LocalizedMenu<S> where S : Localization {
-        return LocalizedMenu<S>(label: label)
+    open func createSubmenu<S>(labelled label: Shared<UserFacing<StrictString, S>>) -> Menu<S> where S : Localization {
+        return Menu<S>(label: label)
     }
     #endif
 }

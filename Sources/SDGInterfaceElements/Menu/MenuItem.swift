@@ -1,5 +1,5 @@
 /*
- LocalizedMenu.swift
+ LocalizedMenuItem.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,23 +12,31 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit)
+#if !os(watchOS) && !os(tvOS)
 
-import SDGLocalization
 import SDGInterfaceLocalizations
 
-/// A localized menu.
-open class LocalizedMenu<L : Localization> : NSMenu, SharedValueObserver {
+/// A localized menu item.
+open class MenuItem<L : Localization> : NSMenuItem, SharedValueObserver {
 
     // MARK: - Initialization
 
-    /// Creates a localized menu with the specified label.
+    /// Creates a localized menu item with the specified label and action.
     ///
     /// - Parameters:
-    ///     - label: A label for the menu.
-    public init(label: Shared<UserFacing<StrictString, L>>) {
+    ///     - label: A label for the menu item.
+    ///     - action: (Optional.) An action for the menu item.
+    public init(label: Shared<UserFacing<StrictString, L>>, action: Selector? = nil) {
+
         self.label = label
-        super.init(title: String(label.value.resolved()))
+
+        let startingTitle = String(label.value.resolved())
+        #if canImport(AppKit)
+        super.init(title: startingTitle, action: action, keyEquivalent: "")
+        #elseif canImport(UIKit)
+        super.init(title: startingTitle, action: action ?? #selector(NSObject._placeholderMethod))
+        #endif
+
         LocalizationSetting.current.register(observer: self)
     }
 
@@ -36,7 +44,7 @@ open class LocalizedMenu<L : Localization> : NSMenu, SharedValueObserver {
         codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
             switch localization {
             case .englishCanada:
-                return "LocalizatedMenu"
+                return "LocalizedMenuItem"
             }
         }))
         preconditionFailure()
@@ -53,4 +61,5 @@ open class LocalizedMenu<L : Localization> : NSMenu, SharedValueObserver {
         self.title = String(label.value.resolved())
     }
 }
+
 #endif
