@@ -21,7 +21,7 @@ open class Window : NSWindow {
 
     // MARK: - Static Variables
 
-    private static var allWindows = Set<Window>()
+    private static var allWindows = Set<NSWindow>()
 
     // MARK: - Initialization
 
