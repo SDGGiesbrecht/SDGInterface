@@ -18,8 +18,6 @@ import SDGLocalization
 
 import SDGInterfaceLocalizations
 
-#warning("Rethink binding?")
-
 /// A table.
 open class Table: NSScrollView, NSTableViewDelegate {
 
