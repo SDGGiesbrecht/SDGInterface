@@ -1060,9 +1060,9 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             }
         })), action: #selector(Responder.normalizeText(_:)))
 
-        // “Make Upper Case” does not belong here. Uppercase‐only is a font style, not a semantic aspect of the text. Attempting to fake it by switching to capital letters (a) results in semantically incorrect text, and (b) is irreversable. A font‐based version is available under the “Font” menu instead.
+        // “Make Upper Case” does not belong here. Upper‐case‐only is a font style, not a semantic aspect of the text. Attempting to fake it by switching to capital letters (a) results in semantically incorrect text, and (b) is irreversable. A font‐based version is available under the “Font” menu instead.
 
-        // “Make Lower Case” is never useful. Instead, reversion from an uppercase‐only font style to normally cased font—which preserves true capitals—is available under the “Font” menu.
+        // “Make Lower Case” is never useful. Instead, reversion from an upper‐case‐only font style to normally cased font—which preserves true capitals—is available under the “Font” menu.
 
         // “Capitalize” is just not possible for a machine to do properly in any language.
 
@@ -1482,7 +1482,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "השתמש בברירת המחדל"
             }
-        })), action: #selector(Responder.resetBaseline(_:)))
+        })), action: #selector(NSTextView.resetBaseline(_:)))
 
         baseline.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1499,7 +1499,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "כתב עילי"
             }
-        })), action: #selector(Responder.makeSuperscript(_:)))
+        })), action: #selector(NSTextView.makeSuperscript(_:)))
 
         baseline.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1517,7 +1517,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "כתב תחתי"
             }
-        })), action: #selector(Responder.makeSubscript(_:)))
+        })), action: #selector(NSTextView.makeSubscript(_:)))
 
         baseline.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1565,7 +1565,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Use Default"
             }
-        })), action: #selector(Responder.resetCasing(_:)))
+        })), action: #selector(NSTextView.resetCasing(_:)))
 
         let upperCase = UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
@@ -1599,13 +1599,13 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             return latinate + " (I ↔ i)"
         })))
 
-        let latinateUpperCase = casing.newEntry(labelled: Shared(upperCase), action: #selector(Responder.makeLatinateUpperCase(_:)))
+        let latinateUpperCase = casing.newEntry(labelled: Shared(upperCase), action: #selector(NSTextView.makeLatinateUpperCase(_:)))
         latinateUpperCase.indentationLevel = 1
 
-        let latinateSmallUpperCase = casing.newEntry(labelled: Shared(smallUpperCase), action: #selector(Responder.makeLatinateSmallUpperCase(_:)))
+        let latinateSmallUpperCase = casing.newEntry(labelled: Shared(smallUpperCase), action: #selector(NSTextView.makeLatinateSmallCaps(_:)))
         latinateSmallUpperCase.indentationLevel = 1
 
-        let latinateLowerCase = casing.newEntry(labelled: Shared(lowerCase), action: #selector(Responder.makeLatinateLowerCase(_:)))
+        let latinateLowerCase = casing.newEntry(labelled: Shared(lowerCase), action: #selector(NSTextView.makeLatinateLowerCase(_:)))
         latinateLowerCase.indentationLevel = 1
 
         casing.newSeparator()
@@ -1619,13 +1619,13 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             return turkic + " (I ↔ ı, İ ↔ i)"
         })))
 
-        let turkicUpperCase = casing.newEntry(labelled: Shared(upperCase), action: #selector(Responder.makeTurkicUpperCase(_:)))
+        let turkicUpperCase = casing.newEntry(labelled: Shared(upperCase), action: #selector(NSTextView.makeTurkicUpperCase(_:)))
         turkicUpperCase.indentationLevel = 1
 
-        let turkicSmallUpperCase = casing.newEntry(labelled: Shared(smallUpperCase), action: #selector(Responder.makeTurkicSmallUpperCase(_:)))
+        let turkicSmallUpperCase = casing.newEntry(labelled: Shared(smallUpperCase), action: #selector(NSTextView.makeTurkicSmallCaps(_:)))
         turkicSmallUpperCase.indentationLevel = 1
 
-        let turkicLowerCase = casing.newEntry(labelled: Shared(lowerCase), action: #selector(Responder.makeTurkicLowerCase(_:)))
+        let turkicLowerCase = casing.newEntry(labelled: Shared(lowerCase), action: #selector(NSTextView.makeTurkicLowerCase(_:)))
         turkicLowerCase.indentationLevel = 1
 
         font.newSeparator()

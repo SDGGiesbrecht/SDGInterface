@@ -14,6 +14,7 @@
 
 import SDGControlFlow
 import SDGLogic
+import SDGMathematics
 
 internal class TextView : NSTextView {
 

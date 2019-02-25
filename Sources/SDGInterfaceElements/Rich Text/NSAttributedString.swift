@@ -73,7 +73,7 @@ extension NSAttributedString : Comparable {
         attributes[NSAttributedString.Key.superscript] = baseline
     }
 
-    private static func resetBaseline(for attributes: inout [NSAttributedString.Key: Any]) {
+    fileprivate static func resetBaseline(for attributes: inout [NSAttributedString.Key: Any]) {
         let level = |(attributes[NSAttributedString.Key.superscript] as? Int ?? 0)|
         var font = attributes[NSAttributedString.Key.font] as? Font ?? Font.default
         let superscriptSize = Int(font.pointSize)
@@ -222,6 +222,14 @@ extension NSMutableAttributedString {
         applyUniformChanges(to: range) { NSAttributedString.addSubscript(to: &$0) }
     }
 
+    /// Resets the baseline of a subrange.
+    ///
+    /// - Parameters:
+    ///     - range: The range to reset.
+    public func resetBaseline(for range: NSRange) {
+        applyUniformChanges(to: range) { NSAttributedString.resetBaseline(for: &$0) }
+    }
+
     // MARK: - Case
 
     private static var smallCapsSizeReduction: [String: [Int: Int]] = [:]
@@ -262,12 +270,12 @@ extension NSMutableAttributedString {
 
     private func modifyCasing(of range: NSRange, caseMapping: (String) -> String) {
         resetCasing(of: range)
-        swapGlyphs(in: range, mapping: { caseMapping($0) }, { _ in })
+        swapGlyphs(in: range, mapping: { caseMapping($0) }, additionalChangesWhenTriggered: { _ in })
     }
 
     private func makeSmallCaps(_ range: NSRange, caseMapping: (String) -> String) {
         resetCasing(of: range)
-        swapGlyphs(in: range, mapping: { caseMapping($0) }, { (attributes: inout [NSAttributedString.Key: Any]) in
+        swapGlyphs(in: range, mapping: { caseMapping($0) }, additionalChangesWhenTriggered: { (attributes: inout [NSAttributedString.Key: Any]) in
 
             attributes[NSAttributedString.Key.smallCaps] = true
 
@@ -287,18 +295,18 @@ extension NSMutableAttributedString {
         return string.uppercased()
     }
 
-    /// Switches to a Latinate uppercase font.
+    /// Switches to a Latinate upper case font.
     ///
     /// - Parameters:
-    ///     - range: The range to switch to uppercase.
-    public func makeLatinateUpperCase(range: NSRange) {
+    ///     - range: The range to switch to upper case.
+    public func makeLatinateUpperCase(_ range: NSRange) {
         modifyCasing(of: range, caseMapping: { $0.uppercased() })
     }
-    /// Switches to a Turkic uppercase font.
+    /// Switches to a Turkic upper case font.
     ///
     /// - Parameters:
-    ///     - range: The range to switch to uppercase.
-    public func makeTurkicUpperCase(range: NSRange) {
+    ///     - range: The range to switch to upper case.
+    public func makeTurkicUpperCase(_ range: NSRange) {
         modifyCasing(of: range, caseMapping: { NSMutableAttributedString.turkicUpperCase($0) })
     }
 
@@ -306,33 +314,33 @@ extension NSMutableAttributedString {
     ///
     /// - Parameters:
     ///     - range: The range to switch to small caps.
-    public func makeLatinateSmallCaps(range: NSRange) {
+    public func makeLatinateSmallCaps(_ range: NSRange) {
         makeSmallCaps(range, caseMapping: { $0.uppercased() })
     }
     /// Switches to a Turkic small caps font.
     ///
     /// - Parameters:
     ///     - range: The range to switch to small caps.
-    public func makeTurkicSmallCaps(range: NSRange) {
+    public func makeTurkicSmallCaps(_ range: NSRange) {
         makeSmallCaps(range, caseMapping: { NSMutableAttributedString.turkicUpperCase($0) })
     }
 
-    /// Switches to a Latinate lowercase font.
+    /// Switches to a Latinate lower case font.
     ///
     /// - Parameters:
-    ///     - range: The range to switch to lowercase.
-    public func makeLatinateLowerCase(range: NSRange) {
+    ///     - range: The range to switch to lower case.
+    public func makeLatinateLowerCase(_ range: NSRange) {
         modifyCasing(of: range, caseMapping: {
             var string = $0
             string.scalars.replaceMatches(for: "I\u{307}".scalars, with: "i".scalars)
             return string.lowercased()
         })
     }
-    /// Switches to a Turkic lowercase font.
+    /// Switches to a Turkic lower case font.
     ///
     /// - Parameters:
-    ///     - range: The range to switch to lowercase.
-    public func makeTurkicLowerCase(range: NSRange) {
+    ///     - range: The range to switch to lower case.
+    public func makeTurkicLowerCase(_ range: NSRange) {
         modifyCasing(of: range, caseMapping: {
             var string = $0
             string.scalars.replaceMatches(for: "I\u{307}".scalars, with: "i".scalars)
