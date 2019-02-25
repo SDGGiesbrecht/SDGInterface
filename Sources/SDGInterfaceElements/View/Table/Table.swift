@@ -22,21 +22,31 @@ import SDGInterfaceLocalizations
 #warning("Rethink binding?")
 
 /// A table.
-public class Table: NSScrollView, NSTableViewDelegate {
+open class Table: NSScrollView, NSTableViewDelegate {
 
     // MARK: - Initialization
 
+    private static func initializeTableView() -> NSTableView {
+        return NSTableView(frame: NSRect.zero)
+    }
+
     /// Creates a table to display content.
-    public convenience init(content: [NSObject]) {
-        self.init(contentController: NSArrayController(content: content))
+    public init(content: [NSObject]) {
+        table = Table.initializeTableView()
+        controller = NSArrayController(content: content)
+        super.init(frame: NSRect.zero)
+        finishInitialization()
     }
 
     /// Creates a table managed by an array controller.
     public init(contentController: NSArrayController) {
-        table = NSTableView(frame: NSRect.zero)
+        table = Table.initializeTableView()
         controller = contentController
-
         super.init(frame: NSRect.zero)
+        finishInitialization()
+    }
+
+    private func finishInitialization() {
         #warning("Intercept delegation.")
         table.delegate = self
 
@@ -56,7 +66,7 @@ public class Table: NSScrollView, NSTableViewDelegate {
         table.bind(.sortDescriptors, to: controller, withKeyPath: NSBindingName.sortDescriptors.rawValue, options: nil)
     }
 
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
             switch localization {
             case .englishCanada:
@@ -71,6 +81,8 @@ public class Table: NSScrollView, NSTableViewDelegate {
     private let table: NSTableView
     private let controller: NSArrayController
     private var viewGenerators: [NSUserInterfaceItemIdentifier: () -> NSTableCellView] = [:]
+
+    // MARK: - Actions
 
     /// The click action.
     public var action: Selector? {
@@ -158,7 +170,7 @@ public class Table: NSScrollView, NSTableViewDelegate {
 
     // MARK: - NSTableViewDelegate
 
-    public final func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+    public func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         if let identifier = tableColumn?.identifier {
             if let view = table.makeView(withIdentifier: identifier, owner: self) {
                 return view
@@ -193,7 +205,7 @@ public class Table: NSScrollView, NSTableViewDelegate {
         }
     }
 
-    public final func tableView(_ tableView: NSTableView, sizeToFitWidthOfColumn column: Int) -> CGFloat {
+    public func tableView(_ tableView: NSTableView, sizeToFitWidthOfColumn column: Int) -> CGFloat {
         var width = table.tableColumns[column].headerCell.cellSize.width
         for row in 0 ..< table.numberOfRows {
             if let view = table.view(atColumn: column, row: row, makeIfNecessary: true) {
@@ -217,12 +229,12 @@ public class Table: NSScrollView, NSTableViewDelegate {
     // MARK: - Subclassing
 
     /// Override in a subclass to use a different class of column.
-    public func createColumn(withIdentifier identifier: NSUserInterfaceItemIdentifier) -> NSTableColumn {
+    open func createColumn(withIdentifier identifier: NSUserInterfaceItemIdentifier) -> NSTableColumn {
         return NSTableColumn(identifier: identifier)
     }
 
     /// Override in a subclass to use a different class of header.
-    public func createHeader() -> NSTableHeaderView {
+    open func createHeader() -> NSTableHeaderView {
         return NSTableHeaderView(frame: NSZeroRect)
     }
 }
