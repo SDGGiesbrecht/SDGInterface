@@ -17,14 +17,6 @@ import SDGInterfaceLocalizations
 /// A text field.
 open class TextField: NSTextField {
 
-    // MARK: - Static Constants
-
-    /// The key path for the text value.
-    public static let textKeyPath: NSBindingName = .value
-
-    /// The text colour key path.
-    public static let textColourKeyPath = #keyPath(TextField.textColor)
-
     // MARK: - Initialization
 
     /// Creates a text field.

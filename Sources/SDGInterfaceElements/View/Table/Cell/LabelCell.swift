@@ -50,7 +50,7 @@ open class LabelCell: NSTableCellView {
 
     /// Binds the text to a content property.
     public func bindText(contentKeyPath: String) {
-        bind(subview: label, keyPath: Label.textKeyPath, to: contentKeyPath)
+        bind(subview: label, keyPath: .value, to: contentKeyPath)
     }
 
     /// Binds the text colour to a content property.

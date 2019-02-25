@@ -19,15 +19,6 @@ import SDGInterfaceLocalizations
 /// A text label.
 open class Label: NSTextField {
 
-    // MARK: - Static Constants
-    #warning("Are these really necessary?")
-
-    /// The text key path.
-    public static let textKeyPath: NSBindingName = .value
-
-    /// The text colour key path.
-    public static let textColourKeyPath = #keyPath(NSTextField.textColor)
-
     // MARK: - Initialization
 
     /// Creates a text label.
