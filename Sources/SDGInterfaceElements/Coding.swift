@@ -14,12 +14,14 @@
 
 import SDGInterfaceLocalizations
 
+#warning("Look at coding again.")
+
 /// A precondition failure with a message stating that the type does not support coding.
 ///
 /// - Parameters:
 ///     - type: The type.
-public func codingNotSupported<L>(forType type: UserFacing<StrictString, L>) -> Never where L : Localization {
-    preconditionFailure(UserFacing<StrictString, APILocalization>({ localization in
+public func codingNotSupported<L>(forType type: UserFacing<StrictString, L>) where L : Localization {
+    assertionFailure(UserFacing<StrictString, APILocalization>({ localization in
         switch localization {
         case .englishCanada:
             return "“" + type.resolved() + "” does not support coding."

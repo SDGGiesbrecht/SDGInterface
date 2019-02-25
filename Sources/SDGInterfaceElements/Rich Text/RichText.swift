@@ -16,7 +16,6 @@ import Foundation
 
 import SDGControlFlow
 import SDGMathematics
-import SDGText
 
 /// Rich text.
 ///

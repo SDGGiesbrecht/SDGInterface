@@ -1,3 +1,16 @@
+/*
+ NSTextView.swift
+
+ This source file is part of the SDGInterface open source project.
+ https://sdggiesbrecht.github.io/SDGInterface
+
+ Copyright ©2019 Jeremy David Giesbrecht and the SDGInterface project contributors.
+
+ Soli Deo gloria.
+
+ Licensed under the Apache Licence, Version 2.0.
+ See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
+ */
 
 import SDGLogic
 
@@ -43,8 +56,7 @@ extension NSTextView {
 
     @objc internal func showCharacterInformation(_ sender: Any?) {
         if let string = attributedSubstring(forProposedRange: selectedRange(), actualRange: nil) {
-            #warning("Needs to display character information.")
-            // displayCharacterInformation(string.string)
+            CharacterInformation.display(for: string.string)
         }
     }
 

@@ -44,9 +44,10 @@ open class LocalizedMenuItem<L : Localization> : MenuItem, SharedValueObserver {
         codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
             switch localization {
             case .englishCanada:
-                return "MenuItem"
+                return "LocalizedMenuItem"
             }
         }))
+        preconditionFailure()
     }
 
     // MARK: - Properties

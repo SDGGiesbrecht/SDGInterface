@@ -14,7 +14,6 @@
 
 import SDGLogic
 import SDGMathematics
-import SDGText
 
 extension NSAttributedString.Key {
     internal static let smallCaps = NSAttributedString.Key(rawValue: "SDGSmallCaps")

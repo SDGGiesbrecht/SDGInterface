@@ -16,6 +16,8 @@ import SDGControlFlow
 import SDGLogic
 import SDGMathematics
 
+import SDGInterfaceLocalizations
+
 internal class TextView : NSTextView {
 
     internal init() {
@@ -42,7 +44,13 @@ internal class TextView : NSTextView {
     }
 
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "TextView"
+            }
+        }))
+        return nil
     }
 
     // MARK: - Normalization

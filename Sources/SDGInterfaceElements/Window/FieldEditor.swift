@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import SDGInterfaceLocalizations
+
 internal class FieldEditor : TextView {
     internal override init() {
         super.init()
@@ -19,6 +21,12 @@ internal class FieldEditor : TextView {
     }
 
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "FieldEditor"
+            }
+        }))
+        return nil
     }
 }
