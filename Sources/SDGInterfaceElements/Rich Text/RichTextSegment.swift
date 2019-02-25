@@ -52,7 +52,7 @@ extension RichText {
 
         // MARK: - Equatable
 
-        internal static func ==(precedingValue: Segment, followingValue: Segment) -> Bool {
+        internal static func == (precedingValue: Segment, followingValue: Segment) -> Bool {
             return precedingValue.rawText == followingValue.rawText ∧ precedingValue.attributesEqual(followingValue)
         }
 

@@ -1128,18 +1128,6 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
     }
 
     private func initializeFormatMenu() {
-        class Responder : NSObject {
-            @objc func resetBaseline(_ sender: Any?) {} // #workaround(Until provided by NSTextView.)
-            @objc func makeSuperscript(_ sender: Any?) {} // #workaround(Until provided by NSTextView.)
-            @objc func makeSubscript(_ sender: Any?) {} // #workaround(Until provided by NSTextView.)
-            @objc func resetCasing(_ sender: Any?) {} // #workaround(Until provided by NSTextView.)
-            @objc func makeLatinateUpperCase(_ sender: Any?) {} // #workaround(Until provided by NSTextView.)
-            @objc func makeLatinateSmallUpperCase(_ sender: Any?) {} // #workaround(Until provided by NSTextView.)
-            @objc func makeLatinateLowerCase(_ sender: Any?) {} // #workaround(Until provided by NSTextView.)
-            @objc func makeTurkicUpperCase(_ sender: Any?) {} // #workaround(Until provided by NSTextView.)
-            @objc func makeTurkicSmallUpperCase(_ sender: Any?) {} // #workaround(Until provided by NSTextView.)
-            @objc func makeTurkicLowerCase(_ sender: Any?) {} // #workaround(Until provided by NSTextView.)
-        }
 
         let format = newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {

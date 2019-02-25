@@ -105,7 +105,7 @@ extension NSAttributedString : Comparable {
 
     // MARK: - Comparable
 
-    public static func <(precedingValue: NSAttributedString, followingValue: NSAttributedString) -> Bool {
+    public static func < (precedingValue: NSAttributedString, followingValue: NSAttributedString) -> Bool {
         let precedingRaw = precedingValue.string
         let followingRaw = followingValue.string
         if precedingRaw < followingRaw {
@@ -138,8 +138,8 @@ extension NSMutableAttributedString {
         }
     }
 
-    private func applyUniformChanges(to range: NSRange, modifySection: (inout [NSAttributedString.Key: Any]) -> ()) {
-        applyChanges(to: range) { (sectionRange: NSRange, sectionAttributes: [NSAttributedString.Key: Any]) -> Void in
+    private func applyUniformChanges(to range: NSRange, modifySection: (inout [NSAttributedString.Key: Any]) -> Void) {
+        applyChanges(to: range) { (sectionRange: NSRange, sectionAttributes: [NSAttributedString.Key: Any]) in
 
             var sectionAttributes = sectionAttributes
             modifySection(&sectionAttributes)
@@ -149,8 +149,7 @@ extension NSMutableAttributedString {
 
     private func swapGlyphs(in range: NSRange, mapping performMap: (String) -> String, additionalChangesWhenTriggered makeAdditionalChanges: (inout [NSAttributedString.Key: Any]) -> Void) {
 
-        applyChanges(to: range) {
-            (sectionRange: NSRange, sectionAttributes: [NSAttributedString.Key: Any]) -> () in
+        applyChanges(to: range) { (sectionRange: NSRange, sectionAttributes: [NSAttributedString.Key: Any]) in
 
             let section = attributedSubstring(from: sectionRange).string
             let font = sectionAttributes[NSAttributedString.Key.font] as? Font ?? Font.default
@@ -240,8 +239,7 @@ extension NSMutableAttributedString {
     /// - Parameters:
     ///     - range: The range to reset.
     public func resetCasing(of range: NSRange) {
-        applyUniformChanges(to: range) {
-            ( attributes: inout [NSAttributedString.Key: Any]) -> () in
+        applyUniformChanges(to: range) { ( attributes: inout [NSAttributedString.Key: Any]) in
 
             attributes[NSAttributedString.Key.glyphInfo] = nil
 
@@ -264,12 +262,12 @@ extension NSMutableAttributedString {
 
     private func modifyCasing(of range: NSRange, caseMapping: (String) -> String) {
         resetCasing(of: range)
-        swapGlyphs(in: range, mapping: { caseMapping($0) }) { _ in }
+        swapGlyphs(in: range, mapping: { caseMapping($0) }, { _ in })
     }
 
     private func makeSmallCaps(_ range: NSRange, caseMapping: (String) -> String) {
         resetCasing(of: range)
-        swapGlyphs(in: range, mapping: { caseMapping($0) }) { (attributes: inout [NSAttributedString.Key: Any]) in
+        swapGlyphs(in: range, mapping: { caseMapping($0) }, { (attributes: inout [NSAttributedString.Key: Any]) in
 
             attributes[NSAttributedString.Key.smallCaps] = true
 
@@ -277,7 +275,7 @@ extension NSMutableAttributedString {
             let smallCapsSize = NSMutableAttributedString.smallCapsMetrics(for: font, baseSize: Int(font.pointSize))
 
             attributes[NSAttributedString.Key.font] = font.resized(to: CGFloat(smallCapsSize))
-        }
+        })
     }
 
     private static func turkicUpperCase(_ string: String) -> String {

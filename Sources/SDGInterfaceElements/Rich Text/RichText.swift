@@ -21,7 +21,7 @@ import SDGText
 /// Rich text.
 ///
 /// Rich text is built on `StrictString` and maintains normalization form NFKD, except where canonical reordering would cause scalars to cross attribute boundaries.
-public struct RichText: Addable, Comparable, CustomPlaygroundDisplayConvertible, Decodable, Encodable, BidirectionalCollection, Equatable, ExpressibleByStringLiteral, Hashable, RangeReplaceableCollection {
+public struct RichText : Addable, Comparable, CustomPlaygroundDisplayConvertible, Decodable, Encodable, BidirectionalCollection, Equatable, ExpressibleByStringLiteral, Hashable, RangeReplaceableCollection {
 
     // MARK: - Initialization
 
@@ -30,7 +30,7 @@ public struct RichText: Addable, Comparable, CustomPlaygroundDisplayConvertible,
     /// - Parameters:
     ///     - rawText: The raw text.
     ///     - attributes: The rich text attributes.
-    public init(rawText: StrictString, attributes: [NSAttributedString.Key : Any] = [:]) {
+    public init(rawText: StrictString, attributes: [NSAttributedString.Key: Any] = [:]) {
         self.init(unsafeSegments: [Segment(rawText: rawText, attributes: attributes)])
     }
 
@@ -282,7 +282,7 @@ public struct RichText: Addable, Comparable, CustomPlaygroundDisplayConvertible,
 
     // MARK: - Comparable
 
-    public static func <(precedingValue: RichText, followingValue: RichText) -> Bool {
+    public static func < (precedingValue: RichText, followingValue: RichText) -> Bool {
         return precedingValue.attributedString() < followingValue.attributedString()
     }
 
@@ -335,9 +335,7 @@ public struct RichText: Addable, Comparable, CustomPlaygroundDisplayConvertible,
 
     // MARK: - RangeReplaceableCollection
 
-    public init() {
-
-    }
+    public init() {}
 
     @inlinable public init<S>(_ elements: S) where S : Sequence, S.Element == RichText.Scalar {
         if let rich = elements as? RichText {

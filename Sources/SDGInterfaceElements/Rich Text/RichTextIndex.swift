@@ -32,7 +32,7 @@ extension RichText {
 
         // MARK: - Comparable
 
-        public static func <(precedingValue: Index, followingValue: Index) -> Bool {
+        public static func < (precedingValue: Index, followingValue: Index) -> Bool {
             return (precedingValue.segment, precedingValue.scalar) < (followingValue.segment, followingValue.scalar)
         }
     }

@@ -116,8 +116,7 @@ open class Window : NSWindow {
     // MARK: - Properties
 
     #if canImport(AppKit)
-    // #workaround(Should be a field editor.)
-    private var fieldEditor = NSTextView()
+    private var fieldEditor = FieldEditor()
     #endif
 
     // MARK: - NSWindow

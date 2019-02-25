@@ -18,7 +18,7 @@ extension RichText {
         // MARK: - Type Properties
         internal static let mapping: [Unicode.Scalar: NormalizationAttribute] = {
             let data = Resources.normalizationMapping
-            let wrapper = try! JSONDecoder().decode(NormalizationAttribute.Mapping.self, from: data)
+            let wrapper = (try? JSONDecoder().decode(NormalizationAttribute.Mapping.self, from: data))!
             return wrapper.mapping
         }()
 

@@ -15,11 +15,11 @@
 import SDGControlFlow
 import SDGLogic
 
-internal class TextView: NSTextView {
+internal class TextView : NSTextView {
 
     internal init() {
         let prototype = NSTextView()
-        super.init(frame: NSZeroRect, textContainer: prototype.textContainer)
+        super.init(frame: NSRect.zero, textContainer: prototype.textContainer)
 
         maxSize = NSSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
         isVerticallyResizable = true
@@ -53,7 +53,7 @@ internal class TextView: NSTextView {
                 if replacementRange.location ≠ NSNotFound ∧ replacementRange.location ≠ textStorage?.length {
                     attributes = textStorage?.attributes(at: replacementRange.location, effectiveRange: nil)
                 } else if replacementRange.location ≠ NSNotFound ∧ replacementRange.location ≠ 0 {
-                    attributes = textStorage?.attributes(at: replacementRange.location - 1, effectiveRange: nil)
+                    attributes = textStorage?.attributes(at: replacementRange.location − 1, effectiveRange: nil)
                 }
                 let attributed = RichText(NSAttributedString(string: raw, attributes: attributes))
                 super.insertText(NSAttributedString(attributed), replacementRange: replacementRange)
