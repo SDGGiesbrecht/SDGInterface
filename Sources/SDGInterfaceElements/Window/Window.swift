@@ -28,30 +28,10 @@ open class Window<L> : NSWindow, SharedValueObserver, WindowConformances where L
 
     // MARK: - Initialization
 
-    private static func initializeInterceptor() -> DelegationInterceptor {
-        return DelegationInterceptor(selectors: [
-            #selector(NSWindowDelegate.windowWillReturnFieldEditor(_:to:))
-            ])
-    }
-
     private static func initializeContentRectangle(size: NSSize) -> NSRect {
         var rectangle = CGRect.zero
         rectangle.size = size
         return rectangle
-    }
-
-    private static func initializeStyleMask(additionalStyles: NSWindow.StyleMask, disabledStyles: NSWindow.StyleMask) -> NSWindow.StyleMask {
-        var style: NSWindow.StyleMask = [
-            .titled,
-            .closable,
-            .miniaturizable,
-            .resizable,
-            .texturedBackground,
-            .unifiedTitleAndToolbar
-        ]
-        style.formUnion(additionalStyles)
-        style.subtract(disabledStyles)
-        return style
     }
 
     /// Creates a window.
@@ -70,13 +50,22 @@ open class Window<L> : NSWindow, SharedValueObserver, WindowConformances where L
         localizedTitle = title
 
         #if canImport(AppKit)
-        interceptor = Window.initializeInterceptor()
+        var style: NSWindow.StyleMask = [
+            .titled,
+            .closable,
+            .miniaturizable,
+            .resizable,
+            .texturedBackground,
+            .unifiedTitleAndToolbar
+        ]
+        style.formUnion(additionalStyles)
+        style.subtract(disabledStyles)
         #endif
 
         #if canImport(AppKit)
         super.init(
             contentRect: Window.initializeContentRectangle(size: size),
-            styleMask: Window.initializeStyleMask(additionalStyles: additionalStyles, disabledStyles: disabledStyles),
+            styleMask: style,
             backing: .buffered,
             defer: true)
         #else
@@ -153,7 +142,9 @@ open class Window<L> : NSWindow, SharedValueObserver, WindowConformances where L
     // MARK: - NSWindow
 
     #if canImport(AppKit)
-    private let interceptor: DelegationInterceptor
+    private let interceptor = DelegationInterceptor(selectors: [
+        #selector(NSWindowDelegate.windowWillReturnFieldEditor(_:to:))
+        ])
     open override var delegate: NSWindowDelegate? {
         get {
             return interceptor.delegate as? NSWindowDelegate
