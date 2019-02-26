@@ -110,6 +110,16 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertNil(Menu.shared.parentMenuItem)
         #endif
 
+        let menuLabel = Shared(UserFacing<StrictString, APILocalization>({ _ in "initial" }))
+        let menu = Menu(label: menuLabel)
+        menuLabel.value = UserFacing<StrictString, APILocalization>({ _ in "changed" })
+        XCTAssertEqual(menu.title, String(menuLabel.value.resolved()))
+        let separateMenuLabel = Shared(UserFacing<StrictString, APILocalization>({ _ in "separate" }))
+        menu.label = separateMenuLabel
+        XCTAssertEqual(menu.title, String(separateMenuLabel.value.resolved()))
+        menuLabel.value = UserFacing<StrictString, APILocalization>({ _ in "unrelated" })
+        XCTAssertEqual(menu.title, String(separateMenuLabel.value.resolved()))
+
         #endif
     }
 
@@ -151,6 +161,27 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertFalse(SampleApplicationDelegate().validateMenuItem(MenuBar.menuBar.items.first!)) // Application
         XCTAssertFalse(SampleApplicationDelegate().validateMenuItem(NSMenuItem(title: "", action: nil, keyEquivalent: "")))
         #endif
+    }
+
+    func testMenuItem() {
+        let menuLabel = Shared(UserFacing<StrictString, APILocalization>({ _ in "initial" }))
+        let menu = MenuItem(label: menuLabel)
+        menuLabel.value = UserFacing<StrictString, APILocalization>({ _ in "changed" })
+        XCTAssertEqual(menu.title, String(menuLabel.value.resolved()))
+        let separateMenuLabel = Shared(UserFacing<StrictString, APILocalization>({ _ in "separate" }))
+        menu.label = separateMenuLabel
+        XCTAssertEqual(menu.title, String(separateMenuLabel.value.resolved()))
+        menuLabel.value = UserFacing<StrictString, APILocalization>({ _ in "unrelated" })
+        XCTAssertEqual(menu.title, String(separateMenuLabel.value.resolved()))
+    }
+
+    func testFont() {
+        let font = Font.default
+        _ = Font.forLabels
+        _ = Font.forTextEditing
+        XCTAssert(NSFontManager.shared.traits(of: font.bold).contains(.boldFontMask))
+        XCTAssert(NSFontManager.shared.traits(of: font.italic).contains(.italicFontMask))
+        XCTAssertEqual(font.resized(to: 12).pointSize, 12)
     }
 
     func testPreferences() {

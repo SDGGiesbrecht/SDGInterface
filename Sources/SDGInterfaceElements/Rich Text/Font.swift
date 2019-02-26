@@ -28,7 +28,7 @@ extension Font {
 
     /// The default font for text editing.
     public static var forTextEditing: NSFont {
-        return userFont(ofSize: systemSize) ?? systemFont(ofSize: systemSize)
+        return userFont(ofSize: systemSize) ?? systemFont(ofSize: systemSize) // @exempt(from: tests) Unknown why it would ever be nil.
     }
 
     // MARK: - Modified Versions
