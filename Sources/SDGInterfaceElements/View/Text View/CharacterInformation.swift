@@ -12,8 +12,6 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#warning("Rethink binding.")
-
 import SDGLogic
 
 import SDGInterfaceLocalizations
@@ -34,27 +32,27 @@ public class CharacterInformation : NSObject {
         let window = AuxiliaryWindow(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in StrictString(characters) })))
         let table = Table(content: details)
 
-        table.newColumn(header: "P", viewGenerator: {
+        table.newColumn(header: "", viewGenerator: {
             let view = LabelCell<InterfaceLocalization>()
             view.bindText(contentKeyPath: CharacterInformation.codePointKeyPath)
             view.bindTextColour(contentKeyPath: CharacterInformation.warningColourPath)
             return view
         })
 
-        table.newColumn(header: "C", viewGenerator: {
+        table.newColumn(header: "", viewGenerator: {
             let view = LabelCell<InterfaceLocalization>()
             view.bindText(contentKeyPath: CharacterInformation.characterKeyPath)
             view.bindTextColour(contentKeyPath: CharacterInformation.warningColourPath)
             return view
         })
 
-        table.newColumn(header: "D", viewGenerator: {
+        table.newColumn(header: "", viewGenerator: {
             let view = LabelCell<InterfaceLocalization>()
             view.bindText(contentKeyPath: CharacterInformation.normalizedCodePointsPath)
             return view
         })
 
-        table.newColumn(header: "S", viewGenerator: {
+        table.newColumn(header: "", viewGenerator: {
             let view = LabelCell<InterfaceLocalization>()
             view.bindText(contentKeyPath: CharacterInformation.normalizedCharacters)
             return view
