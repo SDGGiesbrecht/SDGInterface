@@ -24,7 +24,7 @@ extension TextField {
             super.init(textCell: "")
         }
 
-        required init(coder: NSCoder) {
+        @available(*, unavailable) required init(coder: NSCoder) {
             codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
                 switch localization {
                 case .englishCanada:

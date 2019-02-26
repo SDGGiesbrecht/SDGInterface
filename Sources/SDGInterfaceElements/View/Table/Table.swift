@@ -59,7 +59,7 @@ open class Table: NSScrollView, NSTableViewDelegate {
         table.bind(.sortDescriptors, to: controller, withKeyPath: NSBindingName.sortDescriptors.rawValue, options: nil)
     }
 
-    public required init?(coder: NSCoder) {
+    @available(*, unavailable) public required init?(coder: NSCoder) {
         codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
             switch localization {
             case .englishCanada:

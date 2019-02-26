@@ -34,7 +34,7 @@ open class LabelCell<L>: NSTableCellView where L : Localization {
         fill(with: label, on: .vertical, margin: .none)
     }
 
-    public required init?(coder decoder: NSCoder) {
+    @available(*, unavailable) public required init?(coder decoder: NSCoder) {
         codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
             switch localization {
             case .englishCanada:

@@ -44,7 +44,7 @@ open class Label<L>: NSTextField, SharedValueObserver where L : Localization {
         font = Font.forLabels
     }
 
-    public required init?(coder: NSCoder) {
+    @available(*, unavailable) public required init?(coder: NSCoder) {
         codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
             switch localization {
             case .englishCanada:
