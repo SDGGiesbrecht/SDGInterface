@@ -96,7 +96,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     func testMenu() {
         #if !os(tvOS)
 
-        _ = LocalizedMenuItem(label: Shared(UserFacing<StrictString, APILocalization>({ _ in "..." })))
+        _ = MenuItem(label: Shared(UserFacing<StrictString, APILocalization>({ _ in "..." })))
 
         #if canImport(AppKit)
         let menuBar = Application.shared.mainMenu
@@ -175,7 +175,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testWindow() {
-        let window = Window(title: "Title", size: CGSize(width: 700, height: 300))
+        let window = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "Title" })), size: CGSize(width: 700, height: 300))
         #if canImport(AppKit) // UIKit raises an exception during tests.
         window.makeKeyAndOrderFront(nil)
         #endif
@@ -183,7 +183,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
 
         window.isFullscreen = true
         _ = window.isFullscreen
-        let fullscreenWindow = Window(title: "Fullscreen", size: CGSize(width: 700, height: 300))
+        let fullscreenWindow = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "Fullscreen" })), size: CGSize(width: 700, height: 300))
         fullscreenWindow.isFullscreen = true
         #if canImport(AppKit) // UIKit raises an exception during tests.
         fullscreenWindow.makeKeyAndOrderFront(nil)
@@ -198,7 +198,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssert((window as NSWindowDelegate).windowWillReturnFieldEditor?(window, to: nil) is NSTextView)
         #endif
 
-        let neverOnscreen = Window(title: "Never Onscreen", size: CGSize.zero)
+        let neverOnscreen = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "Never Onscreen" })), size: CGSize.zero)
         neverOnscreen.centreInScreen()
 
         #if canImport(UIKit)
