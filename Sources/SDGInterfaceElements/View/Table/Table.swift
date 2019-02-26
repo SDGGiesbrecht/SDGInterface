@@ -23,13 +23,8 @@ open class Table: NSScrollView, NSTableViewDelegate {
 
     // MARK: - Initialization
 
-    private static func initializeTableView() -> NSTableView {
-        return NSTableView(frame: NSRect.zero)
-    }
-
     /// Creates a table to display content.
     public init(content: [NSObject]) {
-        table = Table.initializeTableView()
         controller = NSArrayController(content: content)
         super.init(frame: NSRect.zero)
         finishInitialization()
@@ -37,15 +32,16 @@ open class Table: NSScrollView, NSTableViewDelegate {
 
     /// Creates a table managed by an array controller.
     public init(contentController: NSArrayController) {
-        table = Table.initializeTableView()
         controller = contentController
         super.init(frame: NSRect.zero)
         finishInitialization()
     }
 
     private func finishInitialization() {
-        #warning("Intercept delegation.")
-        table.delegate = self
+
+        interceptor.delegate = table.delegate
+        interceptor.listener = self
+        table.delegate = interceptor
 
         borderType = .bezelBorder
         hasHorizontalScroller = true
@@ -75,9 +71,25 @@ open class Table: NSScrollView, NSTableViewDelegate {
 
     // MARK: - Properties
 
-    public let table: NSTableView
+    public let table: NSTableView = NSTableView(frame: NSRect.zero)
     public let controller: NSArrayController
     private var viewGenerators: [NSUserInterfaceItemIdentifier: () -> NSTableCellView] = [:]
+
+    // MARK: - Delegation
+
+    private let interceptor = DelegationInterceptor(selectors: [
+        #selector(NSTableViewDelegate.tableView(_:viewFor:row:)),
+        #selector(NSTableViewDelegate.tableView(_:sizeToFitWidthOfColumn:))
+        ])
+    public var delegate: NSTableViewDelegate? {
+        get {
+            return interceptor.delegate as? NSTableViewDelegate
+        }
+        set {
+            interceptor.delegate = newValue
+            table.delegate = interceptor
+        }
+    }
 
     // MARK: - Actions
 
