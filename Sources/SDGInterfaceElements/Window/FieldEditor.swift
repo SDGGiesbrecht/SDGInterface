@@ -19,14 +19,4 @@ internal class FieldEditor : TextView {
         super.init()
         self.isFieldEditor = true
     }
-
-    @available(*, unavailable) required init?(coder: NSCoder) {
-        codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "FieldEditor"
-            }
-        }))
-        return nil
-    }
 }

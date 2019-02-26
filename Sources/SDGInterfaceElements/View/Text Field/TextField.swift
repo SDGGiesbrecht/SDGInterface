@@ -40,7 +40,7 @@ open class TextField: NSTextField {
         font = Font.forLabels
     }
 
-    @available(*, unavailable) required public init?(coder: NSCoder) {
+    @available(*, unavailable) public required init?(coder: NSCoder) {
         codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
             switch localization {
             case .englishCanada:

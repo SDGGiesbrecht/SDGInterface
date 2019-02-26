@@ -43,7 +43,7 @@ internal class TextView : NSTextView {
         smartInsertDeleteEnabled = true
     }
 
-    @available(*, unavailable) required init?(coder: NSCoder) {
+    @available(*, unavailable) internal required init?(coder: NSCoder) {
         codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
             switch localization {
             case .englishCanada:

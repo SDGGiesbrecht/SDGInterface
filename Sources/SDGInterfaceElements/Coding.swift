@@ -14,8 +14,6 @@
 
 import SDGInterfaceLocalizations
 
-#warning("Look at coding again.")
-
 /// A precondition failure with a message stating that the type does not support coding.
 ///
 /// - Parameters:
