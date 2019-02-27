@@ -33,6 +33,13 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertEqual(ProcessInfo.applicationName(.ελληνικά(.γενική)), "του Παραδείγματος")
     }
 
+    func testAttributedString() {
+        let attributed = NSMutableAttributedString(string: "...")
+        attributed.addAttribute(NSAttributedString.Key.font, value: Font.systemFont(ofSize: 24), range: NSRange(0 ..< 3))
+        attributed.superscript(NSRange(0 ..< 3))
+        XCTAssert((attributed.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! Font).pointSize < 24, "\((attributed.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! Font).pointSize)")
+    }
+
     func testDelegationInterceptor() {
 
         #if canImport(AppKit)
