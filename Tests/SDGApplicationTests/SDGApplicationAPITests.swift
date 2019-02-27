@@ -213,7 +213,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             let all = NSRange(0 ..< mutable.length)
             mutable.removeAttribute(.font, range: all)
             mutable.addAttribute(NSAttributedString.Key(rawValue: "SDGTestFontName"), value: font.fontName, range: all)
-            mutable.addAttribute(NSAttributedString.Key(rawValue: "SDGTestFontSize"), value: font.pointSize, range: all)
+            mutable.addAttribute(NSAttributedString.Key(rawValue: "SDGTestFontSize"), value: font.pointSize.rounded(.toNearestOrEven), range: all)
             return mutable.copy() as! NSAttributedString
         }
         let fixedSup = process(toFixSup)
