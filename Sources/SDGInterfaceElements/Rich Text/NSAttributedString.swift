@@ -30,18 +30,24 @@ extension NSAttributedString : Comparable {
 
     // MARK: - Superscript & Subscript
 
+    private static var htmlPointSizeAdjustments: [String: [Int: Int]] = [:]
+    private static func htmlPointSizeAdjustment(for font: Font, fontSize: Int) -> Int {
+        let placeholder = SemanticMarkup("_")
+        return findLocalMinimum(near: fontSize) { (pointSize: Int) -> CGFloat in
+            let guessFont = font.resized(to: CGFloat(pointSize))
+            let html = placeholder.richText(font: guessFont)
+            let htmlFont = html.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! Font
+            return |(font.pointSize − htmlFont.pointSize)|
+        }
+    }
+
     private static var superscriptSizeReduction: [String: [Int: (size: Int, lineHeight: Int)]] = [:]
     private static func superscriptMetrics(for font: Font) -> (size: Int, lineHeight: Int) {
         return cached(in: &superscriptSizeReduction[font.fontName, default: [:]][Int(font.pointSize.rounded(.toNearestOrEven))]) { () -> (size: Int, lineHeight: Int) in
 
-            let placeholder = SemanticMarkup("_")
-            let htmlPointSize = CGFloat(findLocalMinimum(near: Int(font.pointSize.rounded(.toNearestOrEven))) { (pointSize: Int) -> CGFloat in
-                let guessFont = font.resized(to: CGFloat(pointSize))
-                let html = placeholder.richText(font: guessFont)
-                let htmlFont = html.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! Font
-                return |(font.pointSize − htmlFont.pointSize)|
-            })
+            let htmlPointSize = CGFloat(htmlPointSizeAdjustment(for: font, fontSize: Int(font.pointSize.rounded(.toNearestOrEven))))
 
+            let placeholder = SemanticMarkup("_")
             let superscripted = placeholder.superscripted().richText(font: font.resized(to: htmlPointSize))
             let newAttributes = superscripted.attributes(at: 0, effectiveRange: nil)
 
@@ -80,12 +86,21 @@ extension NSAttributedString : Comparable {
         attributes[NSAttributedString.Key.superscript] = baseline
     }
 
+    private static var lineHeightForFontSize: [String: [Int: CGFloat]] = [:]
+    private static func lineHeightMetrics(for font: Font, fontSize: Int) -> CGFloat {
+        return cached(in: &lineHeightForFontSize[font.fontName, default: [:]][fontSize]) {
+            let adjustedSize = CGFloat(htmlPointSizeAdjustment(for: font, fontSize: fontSize))
+            let paragraph = SemanticMarkup("_").richText(font: font.resized(to: adjustedSize))
+            let style = paragraph.attribute(.paragraphStyle, at: 0, effectiveRange: nil) as! NSParagraphStyle
+            return style.minimumLineHeight
+        }
+    }
+
     fileprivate static func resetBaseline(for attributes: inout [NSAttributedString.Key: Any]) {
         let level = |(attributes[NSAttributedString.Key.superscript] as? Int ?? 0)|
         var font = attributes[NSAttributedString.Key.font] as? Font ?? Font.default
         let superscriptSize = Int(font.pointSize.rounded(.toNearestOrEven))
         let paragraphStyle = (attributes[NSAttributedString.Key.paragraphStyle] as? NSParagraphStyle ?? NSParagraphStyle.default).mutableCopy() as! NSMutableParagraphStyle
-        let superscriptHeight = Int(paragraphStyle.minimumLineHeight.rounded(.toNearestOrEven))
 
         let baseSize = findLocalMinimum(near: Int(Font.systemSize.rounded(.toNearestOrEven))) { (base: Int) -> Int in
             var resultingSize = base
@@ -94,13 +109,7 @@ extension NSAttributedString : Comparable {
             }
             return |(resultingSize − superscriptSize)|
         }
-        let baseHeight = findLocalMinimum(near: Int(Font.systemSize.rounded(.toNearestOrEven))) { (base: Int) -> Int in
-            var resultingHeight = base
-            for _ in 0 ..< level {
-                resultingHeight = superscriptMetrics(for: font.resized(to: CGFloat(resultingHeight))).lineHeight
-            }
-            return |(resultingHeight − superscriptHeight)|
-        }
+        let baseHeight = lineHeightMetrics(for: font, fontSize: baseSize)
 
         font = font.resized(to: CGFloat(baseSize))
         paragraphStyle.minimumLineHeight = CGFloat(baseHeight)
