@@ -34,7 +34,15 @@ extension NSAttributedString : Comparable {
     private static func superscriptMetrics(for font: Font) -> (size: Int, lineHeight: Int) {
         return cached(in: &superscriptSizeReduction[font.fontName, default: [:]][Int(font.pointSize)]) { () -> (size: Int, lineHeight: Int) in
 
-            let superscripted = SemanticMarkup("_").superscripted().richText(font: font)
+            let placeholder = SemanticMarkup("_")
+            let htmlPointSize = CGFloat(findLocalMinimum(near: Int(font.pointSize)) { (pointSize: Int) -> CGFloat in
+                let guessFont = font.resized(to: CGFloat(pointSize))
+                let html = placeholder.richText(font: guessFont)
+                let htmlFont = html.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! Font
+                return |(font.pointSize − htmlFont.pointSize)|
+            })
+
+            let superscripted = placeholder.superscripted().richText(font: font.resized(to: htmlPointSize))
             let newAttributes = superscripted.attributes(at: 0, effectiveRange: nil)
 
             let superscriptFont = newAttributes[NSAttributedString.Key.font] as! Font
