@@ -211,29 +211,29 @@ public struct RichText : Addable, Comparable, CustomPlaygroundDisplayConvertible
     }
 
     /// Sets the font for the entire string.
-    public mutating func set(font: Font) {
+    public mutating func set(font: Font?) {
         set(font: font, forRange: bounds)
     }
     /// Sets the font for a particular range.
-    @inlinable public mutating func set<R>(font: Font, forRange range: R) where R : RangeExpression, R.Bound == Index {
+    @inlinable public mutating func set<R>(font: Font?, forRange range: R) where R : RangeExpression, R.Bound == Index {
         set(attribute: NSAttributedString.Key.font, to: font, forRange: range)
     }
 
     /// Sets the font colour for the entire string.
-    public mutating func set(colour: NSColor) {
+    public mutating func set(colour: NSColor?) {
         set(colour: colour, forRange: bounds)
     }
     /// Sets the font colour for a particular range.
-    @inlinable public mutating func set<R>(colour: NSColor, forRange range: R) where R : RangeExpression, R.Bound == Index {
+    @inlinable public mutating func set<R>(colour: NSColor?, forRange range: R) where R : RangeExpression, R.Bound == Index {
         set(attribute: NSAttributedString.Key.foregroundColor, to: colour, forRange: range)
     }
 
     /// Sets the paragraph style for the entire string.
-    public mutating func set(paragraphStyle: NSParagraphStyle) {
+    public mutating func set(paragraphStyle: NSParagraphStyle?) {
         set(paragraphStyle: paragraphStyle, forRange: bounds)
     }
     /// Sets the paragraph style for a particular range.
-    @inlinable public mutating func set<R>(paragraphStyle: NSParagraphStyle, forRange range: R) where R : RangeExpression, R.Bound == Index {
+    @inlinable public mutating func set<R>(paragraphStyle: NSParagraphStyle?, forRange range: R) where R : RangeExpression, R.Bound == Index {
         set(attribute: NSAttributedString.Key.paragraphStyle, to: paragraphStyle, forRange: range)
     }
 
