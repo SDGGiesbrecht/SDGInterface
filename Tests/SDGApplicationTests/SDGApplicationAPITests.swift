@@ -231,6 +231,14 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertEqual(fixedSub, correctSub)
         XCTAssertEqual(fixedSupGiant, correctSupGiant)
         XCTAssertEqual(fixedSubGiant, correctSubGiant)
+
+        let start = SemanticMarkup("...").richText(font: Font.default)
+        let mutable = start.mutableCopy() as! NSMutableAttributedString
+        mutable.superscript(NSRange(0 ..< mutable.length))
+        mutable.resetBaseline(for: NSRange(0 ..< mutable.length))
+        let processedStart = process(start)
+        let end = process(mutable.copy() as! NSAttributedString)
+        XCTAssertEqual(processedStart, end)
     }
 
     func testView() {

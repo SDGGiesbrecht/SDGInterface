@@ -107,7 +107,7 @@ extension NSAttributedString : Comparable {
 
         attributes[NSAttributedString.Key.font] = font
         attributes[NSAttributedString.Key.paragraphStyle] = paragraphStyle.copy() as! NSParagraphStyle
-        attributes[NSAttributedString.Key.superscript] = 0
+        attributes[NSAttributedString.Key.superscript] = nil
     }
 
     // MARK: - Comparable
