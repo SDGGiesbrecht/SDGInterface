@@ -189,6 +189,33 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         SampleApplicationDelegate().openPreferences(nil)
     }
 
+    func testRichText() {
+        let toFixSup = NSAttributedString(html: "\u{B2}".file, options: [.characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)!
+        let toFixSub = NSAttributedString(html: "\u{2082}".file, options: [.characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)!
+        let alreadyCorrectSup = NSAttributedString(html: "<sup>2</sup>".file, options: [:], documentAttributes: nil)!
+        let alreadyCorrectSub = NSAttributedString(html: "<sub>2</sub>".file, options: [:], documentAttributes: nil)!
+        let toFixSupGiant = NSAttributedString(html: "<span style=\"font-size:1024pt\">\u{B2}</font>".file, options: [.characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)!
+        let toFixSubGiant = NSAttributedString(html: "<span style=\"font-size:1024pt\">\u{2082}</font>".file, options: [.characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)!
+        let alreadyCorrectSupGiant = NSAttributedString(html: "<span style=\"font-size:1024pt\"><sup>2</sup></font>".file, options: [:], documentAttributes: nil)!
+        let alreadyCorrectSubGiant = NSAttributedString(html: "<span style=\"font-size:1024pt\"><sub>2</sub></font>".file, options: [:], documentAttributes: nil)!
+
+        let fixedSup = RichText(toFixSup)
+        let fixedSub = RichText(toFixSub)
+        let correctSup = RichText(alreadyCorrectSup)
+        let correctSub = RichText(alreadyCorrectSub)
+        let fixedSupGiant = RichText(toFixSupGiant)
+        let fixedSubGiant = RichText(toFixSubGiant)
+        let correctSupGiant = RichText(alreadyCorrectSupGiant)
+        let correctSubGiant = RichText(alreadyCorrectSubGiant)
+
+        XCTAssertEqual(NSAttributedString(fixedSup).string, NSAttributedString(correctSup).string)
+        XCTAssertEqual(NSAttributedString(fixedSub).string, NSAttributedString(correctSub).string)
+        XCTAssertEqual(NSAttributedString(fixedSup), NSAttributedString(correctSup))
+        XCTAssertEqual(NSAttributedString(fixedSub), NSAttributedString(correctSub))
+        XCTAssertEqual(NSAttributedString(fixedSupGiant), NSAttributedString(correctSupGiant))
+        XCTAssertEqual(NSAttributedString(fixedSubGiant), NSAttributedString(correctSubGiant))
+    }
+
     func testView() {
         View().fill(with: View())
         View().setMinimumSize(size: 10, axis: .horizontal)
