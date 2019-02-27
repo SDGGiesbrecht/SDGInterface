@@ -206,21 +206,31 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         let alreadyCorrectSupGiant = NSAttributedString(html: "<span style=\"font-size:1024pt\"><sup>2</sup></font>".file, options: [:], documentAttributes: nil)!
         let alreadyCorrectSubGiant = NSAttributedString(html: "<span style=\"font-size:1024pt\"><sub>2</sub></font>".file, options: [:], documentAttributes: nil)!
 
-        let fixedSup = RichText(toFixSup)
-        let fixedSub = RichText(toFixSub)
-        let correctSup = RichText(alreadyCorrectSup)
-        let correctSub = RichText(alreadyCorrectSub)
-        let fixedSupGiant = RichText(toFixSupGiant)
-        let fixedSubGiant = RichText(toFixSubGiant)
-        let correctSupGiant = RichText(alreadyCorrectSupGiant)
-        let correctSubGiant = RichText(alreadyCorrectSubGiant)
+        func process(_ string: NSAttributedString) -> NSAttributedString {
+            let processed = NSAttributedString(RichText(string))
+            let font = processed.attribute(.font, at: 0, effectiveRange: nil) as! Font
+            let mutable = processed.mutableCopy() as! NSMutableAttributedString
+            let all = NSRange(0 ..< mutable.length)
+            mutable.removeAttribute(.font, range: all)
+            mutable.addAttribute(NSAttributedString.Key(rawValue: "SDGTestFontName"), value: font.fontName, range: all)
+            mutable.addAttribute(NSAttributedString.Key(rawValue: "SDGTestFontSize"), value: font.pointSize, range: all)
+            return mutable.copy() as! NSAttributedString
+        }
+        let fixedSup = process(toFixSup)
+        let fixedSub = process(toFixSub)
+        let correctSup = process(alreadyCorrectSup)
+        let correctSub = process(alreadyCorrectSub)
+        let fixedSupGiant = process(toFixSupGiant)
+        let fixedSubGiant = process(toFixSubGiant)
+        let correctSupGiant = process(alreadyCorrectSupGiant)
+        let correctSubGiant = process(alreadyCorrectSubGiant)
 
-        XCTAssertEqual(NSAttributedString(fixedSup).string, NSAttributedString(correctSup).string)
-        XCTAssertEqual(NSAttributedString(fixedSub).string, NSAttributedString(correctSub).string)
-        XCTAssertEqual(NSAttributedString(fixedSup), NSAttributedString(correctSup))
-        XCTAssertEqual(NSAttributedString(fixedSub), NSAttributedString(correctSub))
-        XCTAssertEqual(NSAttributedString(fixedSupGiant), NSAttributedString(correctSupGiant))
-        XCTAssertEqual(NSAttributedString(fixedSubGiant), NSAttributedString(correctSubGiant))
+        XCTAssertEqual(fixedSup.string, correctSup.string)
+        XCTAssertEqual(fixedSub.string, correctSub.string)
+        XCTAssertEqual(fixedSup, correctSup)
+        XCTAssertEqual(fixedSub, correctSub)
+        XCTAssertEqual(fixedSupGiant, correctSupGiant)
+        XCTAssertEqual(fixedSubGiant, correctSubGiant)
     }
 
     func testView() {
