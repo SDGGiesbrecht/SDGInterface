@@ -197,47 +197,48 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testRichText() {
-        let toFixSup = NSAttributedString(html: "\u{B2}".file, options: [.characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)!
-        let toFixSub = NSAttributedString(html: "\u{2082}".file, options: [.characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)!
-        let alreadyCorrectSup = NSAttributedString(html: "<sup>2</sup>".file, options: [:], documentAttributes: nil)!
-        let alreadyCorrectSub = NSAttributedString(html: "<sub>2</sub>".file, options: [:], documentAttributes: nil)!
-        let toFixSupGiant = NSAttributedString(html: "<span style=\"font-size:1024pt\">\u{B2}</font>".file, options: [.characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)!
-        let toFixSubGiant = NSAttributedString(html: "<span style=\"font-size:1024pt\">\u{2082}</font>".file, options: [.characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)!
-        let alreadyCorrectSupGiant = NSAttributedString(html: "<span style=\"font-size:1024pt\"><sup>2</sup></font>".file, options: [:], documentAttributes: nil)!
-        let alreadyCorrectSubGiant = NSAttributedString(html: "<span style=\"font-size:1024pt\"><sub>2</sub></font>".file, options: [:], documentAttributes: nil)!
-
-        func process(_ string: NSAttributedString) -> NSAttributedString {
+        let fontNameKey = NSAttributedString.Key(rawValue: "SDGTestFontName")
+        func prepareForEqualityCheck(_ string: NSAttributedString, ignoring ignored: [NSAttributedString.Key] = []) -> NSAttributedString {
             let processed = NSAttributedString(RichText(string))
             let font = processed.attribute(.font, at: 0, effectiveRange: nil) as! Font
             let mutable = processed.mutableCopy() as! NSMutableAttributedString
             let all = NSRange(0 ..< mutable.length)
             mutable.removeAttribute(.font, range: all)
-            mutable.addAttribute(NSAttributedString.Key(rawValue: "SDGTestFontName"), value: font.fontName, range: all)
+            mutable.addAttribute(fontNameKey, value: font.fontName, range: all)
             mutable.addAttribute(NSAttributedString.Key(rawValue: "SDGTestFontSize"), value: font.pointSize.rounded(.toNearestOrEven), range: all)
+            for attribute in ignored {
+                mutable.removeAttribute(attribute, range: all)
+            }
             return mutable.copy() as! NSAttributedString
         }
-        let fixedSup = process(toFixSup)
-        let fixedSub = process(toFixSub)
-        let correctSup = process(alreadyCorrectSup)
-        let correctSub = process(alreadyCorrectSub)
-        let fixedSupGiant = process(toFixSupGiant)
-        let fixedSubGiant = process(toFixSubGiant)
-        let correctSupGiant = process(alreadyCorrectSupGiant)
-        let correctSubGiant = process(alreadyCorrectSubGiant)
+        for fontSize in 1 ... 1000 {
+            let placeholderText = "..."
+            let font = Font.systemFont(ofSize: CGFloat(fontSize))
+            let basicString = NSAttributedString(string: placeholderText, attributes: [.font: font])
+            let basicHTML = NSAttributedString(html: placeholderText, font: font)!
+            var ignored: [NSAttributedString.Key] = [.foregroundColor, .kern, .paragraphStyle, .strokeColor, .strokeWidth]
+            if fontSize < 20 {
+                ignored.append(fontNameKey)
+            }
+            XCTAssertEqual(prepareForEqualityCheck(basicString, ignoring: ignored), prepareForEqualityCheck(basicHTML, ignoring: ignored))
 
-        XCTAssertEqual(fixedSup.string, correctSup.string)
-        XCTAssertEqual(fixedSub.string, correctSub.string)
-        XCTAssertEqual(fixedSup, correctSup)
-        XCTAssertEqual(fixedSub, correctSub)
-        XCTAssertEqual(fixedSupGiant, correctSupGiant)
-        XCTAssertEqual(fixedSubGiant, correctSubGiant)
+            let toFixSup = NSAttributedString(html: "\u{B2}", font: font)!
+            let alreadyCorrectSup = NSAttributedString(html: "<sup>2</sup>", font: font)!
+            print((alreadyCorrectSup.attribute(.font, at: 0, effectiveRange: nil) as! Font).pointSize, terminator: ", ")
+            print((alreadyCorrectSup.attribute(.paragraphStyle, at: 0, effectiveRange: nil) as! NSParagraphStyle).minimumLineHeight)
+            XCTAssertEqual(prepareForEqualityCheck(toFixSup), prepareForEqualityCheck(alreadyCorrectSup))
+
+            let toFixSub = NSAttributedString(html: "\u{2082}", font: font)!
+            let alreadyCorrectSub = NSAttributedString(html: "<sub>2</sub>", font: font)!
+            XCTAssertEqual(prepareForEqualityCheck(toFixSub), prepareForEqualityCheck(alreadyCorrectSub))
+        }
 
         let start = SemanticMarkup("...").richText(font: Font.default)
         let mutable = start.mutableCopy() as! NSMutableAttributedString
         mutable.superscript(NSRange(0 ..< mutable.length))
         mutable.resetBaseline(for: NSRange(0 ..< mutable.length))
-        let processedStart = process(start)
-        let end = process(mutable.copy() as! NSAttributedString)
+        let processedStart = prepareForEqualityCheck(start)
+        let end = prepareForEqualityCheck(mutable.copy() as! NSAttributedString)
         XCTAssertEqual(processedStart, end)
     }
 
