@@ -16,6 +16,7 @@ import Foundation
 import XCTest
 
 import SDGLogic
+import SDGMathematics
 import SDGXCTestUtilities
 
 import SDGInterface
@@ -211,7 +212,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             }
             return mutable.copy() as! NSAttributedString
         }
-        for fontSize in 1 ... 1000 {
+        for fontSize in sequence(first: 0, next: { $0 + 1 }).prefix(10).map({ 2 ↑ $0 }) {
             let placeholderText = "..."
             let font = Font.systemFont(ofSize: CGFloat(fontSize))
             let basicString = NSAttributedString(string: placeholderText, attributes: [.font: font])
@@ -224,22 +225,17 @@ final class SDGApplicationAPITests : ApplicationTestCase {
 
             let toFixSup = NSAttributedString(html: "\u{B2}", font: font)!
             let alreadyCorrectSup = NSAttributedString(html: "<sup>2</sup>", font: font)!
-            print((alreadyCorrectSup.attribute(.font, at: 0, effectiveRange: nil) as! Font).pointSize, terminator: ", ")
-            print((alreadyCorrectSup.attribute(.paragraphStyle, at: 0, effectiveRange: nil) as! NSParagraphStyle).minimumLineHeight)
             XCTAssertEqual(prepareForEqualityCheck(toFixSup), prepareForEqualityCheck(alreadyCorrectSup))
 
             let toFixSub = NSAttributedString(html: "\u{2082}", font: font)!
             let alreadyCorrectSub = NSAttributedString(html: "<sub>2</sub>", font: font)!
             XCTAssertEqual(prepareForEqualityCheck(toFixSub), prepareForEqualityCheck(alreadyCorrectSub))
-        }
 
-        let start = SemanticMarkup("...").richText(font: Font.default)
-        let mutable = start.mutableCopy() as! NSMutableAttributedString
-        mutable.superscript(NSRange(0 ..< mutable.length))
-        mutable.resetBaseline(for: NSRange(0 ..< mutable.length))
-        let processedStart = prepareForEqualityCheck(start)
-        let end = prepareForEqualityCheck(mutable.copy() as! NSAttributedString)
-        XCTAssertEqual(processedStart, end)
+            let mutable = basicHTML.mutableCopy() as! NSMutableAttributedString
+            mutable.superscript(NSRange(0 ..< mutable.length))
+            mutable.resetBaseline(for: NSRange(0 ..< mutable.length))
+            XCTAssertEqual(prepareForEqualityCheck(mutable), prepareForEqualityCheck(basicHTML))
+        }
     }
 
     func testView() {

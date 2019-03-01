@@ -36,11 +36,15 @@ extension NSAttributedString : Comparable {
     private static func basePointSize(forSuperscriptPointSize superscriptSize: CGFloat) -> CGFloat {
         return superscriptSize × 6 ÷ 5
     }
-    private static func superscriptLineHeight(forBaseLineHeight baseHeight: CGFloat) -> CGFloat {
-        return (baseHeight × 5 ÷ 6).rounded(.toNearestOrEven)
-    }
-    private static func baseLineHeight(forSuperscriptLineHeight superscriptHeight: CGFloat) -> CGFloat {
-        return (superscriptHeight × 6 ÷ 5).rounded(.toNearestOrEven)
+
+    internal static let htmlCorrection: CGFloat = 3 ÷ 4
+    private static var lineHeightTable: [Font: [CGFloat: CGFloat]] = [:]
+    private static func lineHeight(for font: Font) -> CGFloat {
+        return cached(in: &lineHeightTable[font, default: [:]][font.pointSize]) {
+            let markedUp = SemanticMarkup("_").richText(font: font.resized(to: font.pointSize × htmlCorrection))
+            let paragraph = markedUp.attribute(.paragraphStyle, at: 0, effectiveRange: nil) as! NSParagraphStyle
+            return paragraph.minimumLineHeight
+        }
     }
 
     private static func reduceSizeForSuperscript(_ attributes: inout [NSAttributedString.Key: Any]) {
@@ -48,7 +52,7 @@ extension NSAttributedString : Comparable {
         let paragraphStyle = (attributes[.paragraphStyle] as? NSParagraphStyle ?? NSParagraphStyle.default).mutableCopy() as! NSMutableParagraphStyle
 
         font = font.resized(to: superscriptPointSize(forBasePointSize: font.pointSize))
-        paragraphStyle.minimumLineHeight = superscriptLineHeight(forBaseLineHeight: paragraphStyle.minimumLineHeight)
+        paragraphStyle.minimumLineHeight = lineHeight(for: font)
 
         attributes[.font] = font
         attributes[.paragraphStyle] = paragraphStyle.copy()
@@ -79,7 +83,7 @@ extension NSAttributedString : Comparable {
             defer { level −= 1 }
 
             font = font.resized(to: basePointSize(forSuperscriptPointSize: font.pointSize))
-            paragraphStyle.minimumLineHeight = baseLineHeight(forSuperscriptLineHeight: paragraphStyle.minimumLineHeight)
+            paragraphStyle.minimumLineHeight = lineHeight(for: font)
         }
 
 

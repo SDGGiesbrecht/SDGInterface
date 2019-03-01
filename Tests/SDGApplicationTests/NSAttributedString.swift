@@ -17,12 +17,14 @@ import Foundation
 import SDGMathematics
 import SDGText
 
+@testable import SDGInterfaceElements
+
 extension NSAttributedString {
 
     // MARK: - Initialization
 
     internal convenience init?(html: String, font: Font) {
-        let adjustedFont = font.resized(to: font.pointSize × 3 ÷ 4)
+        let adjustedFont = font.resized(to: font.pointSize × NSAttributedString.htmlCorrection)
 
         #warning("Share with SemanticMarkup?")
         var modified = "<span style=\u{22}"
