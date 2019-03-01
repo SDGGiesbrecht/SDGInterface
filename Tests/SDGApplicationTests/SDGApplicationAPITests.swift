@@ -236,6 +236,10 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             mutable.resetBaseline(for: NSRange(0 ..< mutable.length))
             XCTAssertEqual(prepareForEqualityCheck(mutable), prepareForEqualityCheck(basicHTML))
         }
+
+        let noAttributes = NSAttributedString(string: "...")
+        (noAttributes.mutableCopy() as! NSMutableAttributedString).superscript(NSRange(0 ..< noAttributes.length))
+        (noAttributes.mutableCopy() as! NSMutableAttributedString).resetBaseline(for: NSRange(0 ..< noAttributes.length))
     }
 
     func testView() {

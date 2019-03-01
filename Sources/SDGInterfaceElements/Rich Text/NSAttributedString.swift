@@ -19,7 +19,7 @@ extension NSAttributedString.Key {
     internal static let smallCaps = NSAttributedString.Key(rawValue: "SDGSmallCaps")
 }
 
-extension NSAttributedString : Comparable {
+extension NSAttributedString {
 
     // MARK: - Initialization
 
@@ -90,20 +90,6 @@ extension NSAttributedString : Comparable {
         attributes[.font] = font
         attributes[.paragraphStyle] = paragraphStyle.copy() as! NSParagraphStyle
         attributes[.superscript] = nil
-    }
-
-    // MARK: - Comparable
-
-    public static func < (precedingValue: NSAttributedString, followingValue: NSAttributedString) -> Bool {
-        let precedingRaw = precedingValue.string
-        let followingRaw = followingValue.string
-        if precedingRaw < followingRaw {
-            return true
-        } else if precedingRaw > followingRaw {
-            return false
-        } else {
-            return precedingValue.isLessThanOrEqual(to: followingValue)
-        }
     }
 }
 

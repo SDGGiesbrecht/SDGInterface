@@ -20,7 +20,7 @@ import SDGMathematics
 /// Rich text.
 ///
 /// Rich text is built on `StrictString` and maintains normalization form NFKD, except where canonical reordering would cause scalars to cross attribute boundaries.
-public struct RichText : Addable, Comparable, CustomPlaygroundDisplayConvertible, Decodable, Encodable, BidirectionalCollection, Equatable, ExpressibleByStringLiteral, Hashable, RangeReplaceableCollection {
+public struct RichText : Addable, CustomPlaygroundDisplayConvertible, Decodable, Encodable, BidirectionalCollection, Equatable, ExpressibleByStringLiteral, Hashable, RangeReplaceableCollection {
 
     // MARK: - Initialization
 
@@ -277,12 +277,6 @@ public struct RichText : Addable, Comparable, CustomPlaygroundDisplayConvertible
         let segment = segments[position.segment]
         let scalar = segment.rawText.scalars[position.scalar]
         return Scalar(scalar, attributes: segment.attributes)
-    }
-
-    // MARK: - Comparable
-
-    public static func < (precedingValue: RichText, followingValue: RichText) -> Bool {
-        return precedingValue.attributedString() < followingValue.attributedString()
     }
 
     // MARK: - CustomPlaygroundDisplayConvertible
