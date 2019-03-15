@@ -50,6 +50,9 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         var türkçe = NSMutableAttributedString("İstanbul, Türkiye")
         türkçe.makeTurkicSmallCaps(NSRange(0 ..< türkçe.length))
         XCTAssert(¬türkçe.attributes(at: 2, effectiveRange: nil).isEmpty)
+
+        italiano.resetCasing(of: NSRange(0 ..< italiano.length))
+
         italiano = NSMutableAttributedString("Roma, Italia")
         italiano.makeLatinateUpperCase(NSRange(0 ..< italiano.length))
         XCTAssert(¬italiano.attributes(at: 1, effectiveRange: nil).isEmpty)
