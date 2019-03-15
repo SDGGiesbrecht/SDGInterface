@@ -105,6 +105,7 @@ extension NSMutableAttributedString {
                 var upperBound = sectionRange.upperBound
                 lowerBound.increase(to: index)
                 upperBound.decrease(to: range.upperBound)
+                sectionRange = NSRange(lowerBound ..< upperBound)
 
                 modifySection(sectionRange, sectionAttributes)
 
