@@ -230,7 +230,7 @@ extension NSMutableAttributedString {
             if attributes[.smallCaps] as? Bool == true {
                 attributes[.smallCaps] = nil
 
-                let font = attributes[.font] as? Font ?? Font.default
+                let font = attributes[.font] as? Font ?? Font.default // @exempt(from: tests) Never nil.
                 let actualSmallCapsSize = Int(font.pointSize.rounded(.toNearestOrEven))
 
                 let baseSize = findLocalMinimum(near: actualSmallCapsSize) { (attemptedBaseSize: Int) -> Int in

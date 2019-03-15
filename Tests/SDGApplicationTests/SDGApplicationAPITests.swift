@@ -44,12 +44,24 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         mutable.subscript(NSRange(0 ..< mutable.length))
         XCTAssert((mutable.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! Font).pointSize < 24, "\((mutable.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! Font).pointSize)")
 
-        let italiano = NSMutableAttributedString("Roma, Italia")
+        var italiano = NSMutableAttributedString("Roma, Italia")
         italiano.makeLatinateSmallCaps(NSRange(0 ..< italiano.length))
         XCTAssert(¬italiano.attributes(at: 1, effectiveRange: nil).isEmpty)
-        let türkçe = NSMutableAttributedString("İstanbul, Türkiye")
+        var türkçe = NSMutableAttributedString("İstanbul, Türkiye")
         türkçe.makeTurkicSmallCaps(NSRange(0 ..< türkçe.length))
         XCTAssert(¬türkçe.attributes(at: 2, effectiveRange: nil).isEmpty)
+        italiano = NSMutableAttributedString("Roma, Italia")
+        italiano.makeLatinateUpperCase(NSRange(0 ..< italiano.length))
+        XCTAssert(¬italiano.attributes(at: 1, effectiveRange: nil).isEmpty)
+        türkçe = NSMutableAttributedString("İstanbul, Türkiye")
+        türkçe.makeTurkicUpperCase(NSRange(0 ..< türkçe.length))
+        XCTAssert(¬türkçe.attributes(at: 2, effectiveRange: nil).isEmpty)
+        italiano = NSMutableAttributedString("Roma, Italia")
+        italiano.makeLatinateLowerCase(NSRange(0 ..< italiano.length))
+        XCTAssert(italiano.attributes(at: 1, effectiveRange: nil).isEmpty)
+        türkçe = NSMutableAttributedString("İstanbul, Türkiye")
+        türkçe.makeTurkicLowerCase(NSRange(0 ..< türkçe.length))
+        XCTAssert(türkçe.attributes(at: 2, effectiveRange: nil).isEmpty)
     }
 
     func testDelegationInterceptor() {
