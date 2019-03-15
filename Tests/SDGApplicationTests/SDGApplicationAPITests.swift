@@ -35,10 +35,21 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testAttributedString() {
-        let attributed = NSMutableAttributedString(string: "...")
-        attributed.addAttribute(NSAttributedString.Key.font, value: Font.systemFont(ofSize: 24), range: NSRange(0 ..< 3))
-        attributed.superscript(NSRange(0 ..< 3))
-        XCTAssert((attributed.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! Font).pointSize < 24, "\((attributed.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! Font).pointSize)")
+        let attributed = NSAttributedString(string: "...")
+        var mutable = attributed.mutableCopy() as! NSMutableAttributedString
+        mutable.addAttribute(NSAttributedString.Key.font, value: Font.systemFont(ofSize: 24), range: NSRange(0 ..< 3))
+        mutable.superscript(NSRange(0 ..< mutable.length))
+        XCTAssert((mutable.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! Font).pointSize < 24, "\((mutable.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! Font).pointSize)")
+        mutable = attributed.mutableCopy() as! NSMutableAttributedString
+        mutable.subscript(NSRange(0 ..< mutable.length))
+        XCTAssert((mutable.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! Font).pointSize < 24, "\((mutable.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! Font).pointSize)")
+
+        let italiano = NSMutableAttributedString("Roma, Italia")
+        italiano.makeLatinateSmallCaps(NSRange(0 ..< italiano.length))
+        XCTAssert(¬italiano.attributes(at: 1, effectiveRange: nil).isEmpty)
+        let türkçe = NSMutableAttributedString("İstanbul, Türkiye")
+        türkçe.makeTurkicSmallCaps(NSRange(0 ..< türkçe.length))
+        XCTAssert(¬türkçe.attributes(at: 2, effectiveRange: nil).isEmpty)
     }
 
     func testDelegationInterceptor() {
