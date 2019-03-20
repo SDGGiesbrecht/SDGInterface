@@ -18,6 +18,7 @@ import XCTest
 import SDGLogic
 import SDGMathematics
 import SDGXCTestUtilities
+import SDGLocalizationTestUtilities
 
 import SDGInterface
 import SDGInterfaceLocalizations
@@ -279,6 +280,11 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertEqual(richText.index(before: richText.index(after: richText.startIndex)), richText.startIndex)
         richText.superscript(range: ..<richText.index(after: richText.startIndex))
         XCTAssertEqual(richText.index(before: richText.index(after: richText.startIndex)), richText.startIndex)
+        XCTAssertNotEqual(richText.index(before: richText.endIndex), richText.startIndex)
+        XCTAssertEqual(richText.index(after: richText.index(before: richText.endIndex)), richText.endIndex)
+        XCTAssertEqual(richText[richText.startIndex].rawScalar, ".")
+        _ = richText.playgroundDescription
+        testCustomStringConvertibleConformance(of: richText, localizations: APILocalization.self, uniqueTestName: "Rich Text", overwriteSpecificationInsteadOfFailing: false)
     }
 
     func testView() {

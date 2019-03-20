@@ -20,7 +20,7 @@ import SDGMathematics
 /// Rich text.
 ///
 /// Rich text is built on `StrictString` and maintains normalization form NFKD, except where canonical reordering would cause scalars to cross attribute boundaries.
-public struct RichText : Addable, CustomPlaygroundDisplayConvertible, Decodable, Encodable, BidirectionalCollection, Equatable, ExpressibleByStringLiteral, Hashable, RangeReplaceableCollection {
+public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStringConvertible, Decodable, Encodable, BidirectionalCollection, Equatable, ExpressibleByStringLiteral, Hashable, RangeReplaceableCollection {
 
     // MARK: - Initialization
 
