@@ -266,6 +266,12 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         let noAttributes = NSAttributedString(string: "...")
         (noAttributes.mutableCopy() as! NSMutableAttributedString).superscript(NSRange(0 ..< noAttributes.length))
         (noAttributes.mutableCopy() as! NSMutableAttributedString).resetBaseline(for: NSRange(0 ..< noAttributes.length))
+
+        var richText = RichText(rawText: "...")
+        richText.superscript()
+        richText.set(colour: NSColor(calibratedRed: 1, green: 1, blue: 1, alpha: 1))
+        XCTAssertEqual(richText.rawText(), StrictString("..."))
+        XCTAssert(richText.scalars().elementsEqual("...".scalars))
     }
 
     func testView() {

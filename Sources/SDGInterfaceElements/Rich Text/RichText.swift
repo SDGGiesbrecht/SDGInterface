@@ -160,14 +160,6 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, Decodable,
 
     // MARK: - Attributes
 
-    private func attributes(at position: Index) -> [NSAttributedString.Key: Any] {
-        return self[position].attributes
-    }
-
-    private func attribute(_ key: NSAttributedString.Key, at position: Index) -> Any? {
-        return attributes(at: position)[key]
-    }
-
     @inlinable internal mutating func set<R>(attribute key: NSAttributedString.Key, to value: Any?, forRange range: R) where R : RangeExpression, R.Bound == Index {
         var changedSegments: [Segment] = []
         for segment in RichText(self[range]).segments {
