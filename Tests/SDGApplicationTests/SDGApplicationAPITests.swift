@@ -285,6 +285,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertEqual(richText[richText.startIndex].rawScalar, ".")
         _ = richText.playgroundDescription
         testCustomStringConvertibleConformance(of: richText, localizations: APILocalization.self, uniqueTestName: "Rich Text", overwriteSpecificationInsteadOfFailing: false)
+        XCTAssertEqual(richText.count, 3)
     }
 
     func testView() {
