@@ -279,13 +279,13 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssert(richText.scalars().elementsEqual("...".scalars))
         XCTAssertEqual(richText.index(before: richText.index(after: richText.startIndex)), richText.startIndex)
         richText.superscript(range: ..<richText.index(after: richText.startIndex))
+        XCTAssertEqual(richText.count, 3)
         XCTAssertEqual(richText.index(before: richText.index(after: richText.startIndex)), richText.startIndex)
         XCTAssertNotEqual(richText.index(before: richText.endIndex), richText.startIndex)
         XCTAssertEqual(richText.index(after: richText.index(before: richText.endIndex)), richText.endIndex)
         XCTAssertEqual(richText[richText.startIndex].rawScalar, ".")
         _ = richText.playgroundDescription
         testCustomStringConvertibleConformance(of: richText, localizations: APILocalization.self, uniqueTestName: "Rich Text", overwriteSpecificationInsteadOfFailing: false)
-        XCTAssertEqual(richText.count, 3)
     }
 
     func testView() {
