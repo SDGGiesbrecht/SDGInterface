@@ -232,12 +232,20 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, Decodable,
     // MARK: - BidirectionalCollection
 
     public func index(before i: RichText.Index) -> RichText.Index {
-        let segment = segments[i.segment]
-        if i.scalar == segment.rawText.startIndex {
-            let previous = i.segment − 1
-            return Index(segment: previous, scalar: segments[previous].rawText.startIndex)
+        func endOfPrevious() -> Index {
+            let previousSegment = segments.index(before: i.segment)
+            let previous = segments[previousSegment].rawText
+            return Index(segment: previousSegment, scalar: previous.index(before: previous.endIndex))
+        }
+        if i == endIndex {
+            return endOfPrevious()
         } else {
-            return Index(segment: i.segment, scalar: segment.rawText.index(before: i.scalar))
+            let segment = segments[i.segment]
+            if i.scalar == segment.rawText.startIndex {
+                return endOfPrevious()
+            } else {
+                return Index(segment: i.segment, scalar: segment.rawText.index(before: i.scalar))
+            }
         }
     }
 
@@ -253,15 +261,16 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, Decodable,
 
     public func index(after i: Index) -> Index {
         let segment = segments[i.segment]
-        if i.scalar == segment.rawText.endIndex {
-            let next = i.segment + 1
-            if next == segments.endIndex {
+        let nextScalar = segment.rawText.index(after: i.scalar)
+        if nextScalar == segment.rawText.endIndex {
+            let nextSegment = segments.index(after: i.segment)
+            if nextSegment == segments.endIndex {
                 return endIndex
             } else {
-                return Index(segment: next, scalar: segments[next].rawText.startIndex)
+                return Index(segment: nextSegment, scalar: segments[nextSegment].rawText.startIndex)
             }
         } else {
-            return Index(segment: i.segment, scalar: segment.rawText.index(after: i.scalar))
+            return Index(segment: i.segment, scalar: nextScalar)
         }
     }
 

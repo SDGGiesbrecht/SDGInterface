@@ -270,8 +270,15 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         var richText = RichText(rawText: "...")
         richText.superscript()
         richText.set(colour: NSColor(calibratedRed: 1, green: 1, blue: 1, alpha: 1))
+        richText.superscript(range: richText.bounds)
+        richText.subscript(range: richText.bounds)
+        richText.set(font: Font.systemFont(ofSize: Font.systemSize))
+        richText.set(paragraphStyle: NSParagraphStyle())
         XCTAssertEqual(richText.rawText(), StrictString("..."))
         XCTAssert(richText.scalars().elementsEqual("...".scalars))
+        XCTAssertEqual(richText.index(before: richText.index(after: richText.startIndex)), richText.startIndex)
+        richText.superscript(range: ..<richText.index(after: richText.startIndex))
+        XCTAssertEqual(richText.index(before: richText.index(after: richText.startIndex)), richText.startIndex)
     }
 
     func testView() {
