@@ -18,7 +18,6 @@ import XCTest
 import SDGLogic
 import SDGMathematics
 import SDGXCTestUtilities
-import SDGPersistenceTestUtilities
 import SDGLocalizationTestUtilities
 
 import SDGInterface
@@ -288,7 +287,6 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         _ = richText.playgroundDescription
 
         testCustomStringConvertibleConformance(of: RichText(rawText: "..."), localizations: APILocalization.self, uniqueTestName: "Rich Text", overwriteSpecificationInsteadOfFailing: false)
-        testCodableConformance(of: RichText(rawText: "..."), uniqueTestName: "Rich Text")
     }
 
     func testView() {

@@ -20,7 +20,7 @@ import SDGMathematics
 /// Rich text.
 ///
 /// Rich text is built on `StrictString` and maintains normalization form NFKD, except where canonical reordering would cause scalars to cross attribute boundaries.
-public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStringConvertible, Decodable, Encodable, BidirectionalCollection, Equatable, ExpressibleByStringLiteral, Hashable, RangeReplaceableCollection {
+public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStringConvertible, BidirectionalCollection, Equatable, ExpressibleByStringLiteral, Hashable, RangeReplaceableCollection {
 
     // MARK: - Initialization
 
@@ -290,23 +290,6 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
 
     public var description: String {
         return String(rawText())
-    }
-
-    // MARK: - Decodable
-
-    public init(from decoder: Decoder) throws {
-        let data = try decoder.singleValueContainer().decode(Data.self)
-        let attributed = try NSAttributedString(data: data, options: [:], documentAttributes: nil)
-        self = RichText(attributed)
-    }
-
-    // MARK: - Encodable
-
-    public func encode(to encoder: Encoder) throws {
-        let attributed = NSAttributedString(self)
-        let data = try attributed.data(from: NSRange(location: 0, length: attributed.length), documentAttributes: [:])
-        var container = encoder.singleValueContainer()
-        try container.encode(data)
     }
 
     // MARK: - Equatable
