@@ -351,7 +351,7 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
                     if segmentIndex < slice.endIndex.segment {
                         // Same segment as start.
                         let segment = slice.base.segments[segmentIndex]
-                        let rawSlice = segment.rawText[slice.endIndex.scalar...]
+                        let rawSlice = segment.rawText[slice.startIndex.scalar...]
                         segments.append(Segment(rawText: StrictString(rawSlice), attributes: segment.attributes))
                     } else if segmentIndex == slice.endIndex.segment {
                         // Same segment as both start and end.
