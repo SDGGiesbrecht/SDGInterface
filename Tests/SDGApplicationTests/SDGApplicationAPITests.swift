@@ -351,9 +351,15 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             let textEditor = window.contentView!.subviews[0] as! TextEditor
             let textView = textEditor.documentView as! NSTextView
 
-            textEditor.append(RichText(rawText: "..."))
+            let characters = "\u{20}\u{21}\u{22}\u{AA}\u{C0}"
+            textEditor.append(RichText(rawText: StrictString(characters)))
             textView.selectAll(nil)
             textView.showCharacterInformation(nil)
+
+            let compatibilityTextView = NSTextView(frame: NSRect.zero)
+            compatibilityTextView.string.append(characters)
+            compatibilityTextView.selectAll(nil)
+            compatibilityTextView.showCharacterInformation(nil)
         }
     }
 
