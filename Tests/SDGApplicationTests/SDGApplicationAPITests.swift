@@ -338,6 +338,25 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         }
     }
 
+    func testTable() {
+        let table = Table(contentController: NSArrayController())
+        let delegate = DelegationInterceptor(delegate: nil, listener: nil, selectors: [])
+        table.delegate = delegate
+        XCTAssertNotNil(table.delegate as? DelegationInterceptor)
+        table.action = nil
+        XCTAssertNil(table.action)
+        table.doubleAction = nil
+        XCTAssertNil(table.doubleAction)
+        table.target = nil
+        XCTAssertNil(table.target)
+        table.hasHeader = true
+        XCTAssert(table.hasHeader)
+        table.allowsSelection = true
+        XCTAssert(table.allowsSelection)
+        table.sortOrder = []
+        XCTAssert(table.sortOrder.isEmpty)
+    }
+
     func testView() {
         View().fill(with: View())
         View().setMinimumSize(size: 10, axis: .horizontal)
