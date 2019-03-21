@@ -61,20 +61,29 @@ extension NSAttributedString {
     internal static func addSuperscript(to attributes: inout [NSAttributedString.Key: Any]) {
         reduceSizeForSuperscript(&attributes)
 
+        #if canImport(AppKit)
         var baseline = attributes[.superscript] as? Int ?? 0
         baseline += 1
         attributes[.superscript] = baseline
+        #else
+        #warning("iOS?")
+        #endif
     }
 
     internal static func addSubscript(to attributes: inout [NSAttributedString.Key: Any]) {
         reduceSizeForSuperscript(&attributes)
 
+        #if canImport(AppKit)
         var baseline = attributes[.superscript] as? Int ?? 0
         baseline −= 1
         attributes[.superscript] = baseline
+        #else
+        #warning("iOS?")
+        #endif
     }
 
     fileprivate static func resetBaseline(for attributes: inout [NSAttributedString.Key: Any]) {
+        #if canImport(AppKit)
         var level = |(attributes[.superscript] as? Int ?? 0)|
         var font = attributes[.font] as? Font ?? Font.default
         let paragraphStyle = (attributes[.paragraphStyle] as? NSParagraphStyle ?? NSParagraphStyle.default).mutableCopy() as! NSMutableParagraphStyle
@@ -90,6 +99,9 @@ extension NSAttributedString {
         attributes[.font] = font
         attributes[.paragraphStyle] = paragraphStyle.copy() as! NSParagraphStyle
         attributes[.superscript] = nil
+        #else
+        #warning("iOS?")
+        #endif
     }
 }
 
