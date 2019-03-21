@@ -151,14 +151,32 @@ extension SampleApplicationDelegate {
         #endif
     }
 
-    @objc private func demonstrateWindow() { // @exempt(from: tests)
+    private func demonstrate(_ window: NSWindow) {
+        window.makeKeyAndOrderFront(nil)
+    }
+    private func demonstrate<L>(_ view: NSView, windowTitle: UserFacing<StrictString, L>) {
+        let window = AuxiliaryWindow(title: Shared(windowTitle))
+        window.contentView?.fill(with: view)
+        demonstrate(window)
+    }
+
+    @objc private func demonstrateTextEditor() {
+        demonstrate(TextEditor(), windowTitle: UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Text Editor"
+            }
+        }))
+    }
+
+    @objc private func demonstrateWindow() {
         let window = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Window"
             }
         })), size: CGSize(width: 700, height: 300))
-        window.makeKeyAndOrderFront(nil)
+        demonstrate(window)
     }
 }
 

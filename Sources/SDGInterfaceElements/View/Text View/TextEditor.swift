@@ -56,7 +56,7 @@ public class TextEditor: NSScrollView {
 
         hasVerticalScroller = true
     }
-    
+
     @available(*, unavailable) internal required init?(coder: NSCoder) {
         codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
             switch localization {
@@ -66,11 +66,11 @@ public class TextEditor: NSScrollView {
         }))
         return nil
     }
-    
+
     // MARK: - Modifying content.
 
-    /// Appends text to the content.
-    public func append(appendix: RichText) {
+    /// Appends text to the content and scrolls to its position.
+    public func append(_ appendix: RichText) {
         textView.textStorage?.append(NSAttributedString(appendix))
         let content = textView.string
         textView.scrollRangeToVisible(NSRange(content.endIndex..., in: content))
