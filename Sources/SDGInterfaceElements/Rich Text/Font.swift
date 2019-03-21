@@ -17,34 +17,52 @@ extension Font {
     // MARK: - System Fonts
 
     /// The default font.
-    public static var `default`: NSFont {
+    public static var `default`: Font {
         return forTextEditing
     }
 
     /// The label font.
-    public static var forLabels: NSFont {
-        return systemFont(ofSize: systemFontSize(for: .regular))
+    public static var forLabels: Font {
+        let size: CGFloat
+        #if canImport(AppKit)
+        size = systemFontSize(for: .regular)
+        #else
+        size = systemFontSize
+        #endif
+        return systemFont(ofSize: size)
     }
 
     /// The default font for text editing.
-    public static var forTextEditing: NSFont {
-        return userFont(ofSize: systemSize) ?? systemFont(ofSize: systemSize) // @exempt(from: tests) Unknown why it would ever be nil.
+    public static var forTextEditing: Font {
+        var user: Font?
+        #if canImport(AppKit)
+        user = userFont(ofSize: systemSize)
+        #endif
+        return user ?? systemFont(ofSize: systemSize) // @exempt(from: tests) Unknown why it would ever be nil on macOS.
     }
 
     // MARK: - Modified Versions
 
     /// The bold version of `self`.
     public var bold: Font {
+        #if canImport(AppKit)
         return NSFontManager.shared.convert(self, toHaveTrait: .boldFontMask)
+        #else
+        return Font(descriptor: fontDescriptor.withSymbolicTraits(.traitBold) ?? fontDescriptor, size: 0)
+        #endif
     }
 
     /// The italic version of `self`.
     public var italic: Font {
+        #if canImport(AppKit)
         return NSFontManager.shared.convert(self, toHaveTrait: .italicFontMask)
+        #else
+        return Font(descriptor: fontDescriptor.withSymbolicTraits(.traitItalic) ?? fontDescriptor, size: 0)
+        #endif
     }
 
     /// The same font in a different size.
-    public func resized(to size: CGFloat) -> NSFont {
-        return NSFontManager.shared.convert(self, toSize: size)
+    public func resized(to size: CGFloat) -> Font {
+        return Font(descriptor: fontDescriptor, size: size)
     }
 }
