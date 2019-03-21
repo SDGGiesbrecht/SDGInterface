@@ -155,6 +155,14 @@ extension SampleApplicationDelegate {
         })), action: #selector(SampleApplicationDelegate.demonstrateTextEditor))
         textEditor.target = self
 
+        let textField = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Text Field"
+            }
+        })), action: #selector(SampleApplicationDelegate.demonstrateTextField))
+        textField.target = self
+
         #elseif canImport(UIKit)
 
         #if os(tvOS)
@@ -203,6 +211,15 @@ extension SampleApplicationDelegate {
             switch localization {
             case .englishCanada:
                 return "Text Editor"
+            }
+        }))
+    }
+
+    @objc public func demonstrateTextField() {
+        demonstrate(TextField(), windowTitle: UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Text Field"
             }
         }))
     }

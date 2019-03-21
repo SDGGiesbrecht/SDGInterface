@@ -326,18 +326,6 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertNotEqual(richText, copy)
     }
 
-    func testTextEditor() {
-        SampleApplicationDelegate().demonstrateTextEditor()
-        forEachWindow { window in
-            let textEditor = window.contentView!.subviews[0] as! TextEditor
-            let textView = textEditor.documentView as! NSTextView
-
-            textEditor.append(RichText(rawText: "..."))
-            textView.selectAll(nil)
-            textView.showCharacterInformation(nil)
-        }
-    }
-
     func testTable() {
         let table = Table(contentController: NSArrayController())
         let delegate = DelegationInterceptor(delegate: nil, listener: nil, selectors: [])
@@ -355,6 +343,22 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssert(table.allowsSelection)
         table.sortOrder = []
         XCTAssert(table.sortOrder.isEmpty)
+    }
+
+    func testTextEditor() {
+        SampleApplicationDelegate().demonstrateTextEditor()
+        forEachWindow { window in
+            let textEditor = window.contentView!.subviews[0] as! TextEditor
+            let textView = textEditor.documentView as! NSTextView
+
+            textEditor.append(RichText(rawText: "..."))
+            textView.selectAll(nil)
+            textView.showCharacterInformation(nil)
+        }
+    }
+
+    func testTextField() {
+        SampleApplicationDelegate().demonstrateTextField()
     }
 
     func testView() {
