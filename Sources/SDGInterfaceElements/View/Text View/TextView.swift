@@ -75,7 +75,7 @@ internal class TextView : NSTextView {
             } else {
                 super.insertText(String(StrictString(attributed.string)), replacementRange: replacementRange)
             }
-        } else {
+        } else { // @exempt(from: tests)
             if BuildConfiguration.current == .debug {
                 assertionFailure("Unidentified type of text. (\(type(of: string)))")
             }
@@ -89,7 +89,7 @@ internal class TextView : NSTextView {
             for item in items {
                 insertText(item, replacementRange: selectedRange())
             }
-        } else {
+        } else { // @exempt(from: tests) Always empty instead of nil.
             super.paste(sender)
         }
     }
@@ -163,7 +163,7 @@ internal class TextView : NSTextView {
                     } else {
                         return false // Empty selection.
                     }
-                } else {
+                } else { // @exempt(from: tests) Always empty instead.
                     return false // No selection available.
                 }
             }

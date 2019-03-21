@@ -393,6 +393,8 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             textView.insertText(NSAttributedString(string: "..."), replacementRange: NSRange(0 ..< 0))
             textView.insertText("...", replacementRange: NSRange(textView.textStorage!.length ..< textView.textStorage!.length))
             textView.paste(nil)
+            NSPasteboard.general.clearContents()
+            textView.paste(nil)
 
             func validate(_ selector: Selector) -> Bool {
                 let menuItem = NSMenuItem(title: "", action: selector, keyEquivalent: "")
@@ -400,11 +402,27 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             }
             textView.selectAll(nil)
             XCTAssert(validate(#selector(NSTextView.normalizeText(_:))))
+            XCTAssert(validate(#selector(NSTextView.makeSuperscript(_:))))
+            XCTAssert(validate(#selector(NSTextView.underline(_:))))
+            textView.setSelectedRange(NSRange(location: NSNotFound, length: 0))
+            XCTAssertFalse(validate(#selector(NSTextView.normalizeText(_:))))
+            textView.selectAll(nil)
+            textEditor.isEditable = false
+            XCTAssertFalse(validate(#selector(NSTextView.normalizeText(_:))))
         }
     }
 
     func testTextField() {
         SampleApplicationDelegate().demonstrateTextField()
+        forEachWindow { window in
+            let fieldEditor = window.fieldEditor(true, for: window.contentView!.subviews[0]) as! NSTextView
+            fieldEditor.insertText("...", replacementRange: NSRange(0 ..< 0))
+            fieldEditor.insertText(NSAttributedString(string: "..."), replacementRange: NSRange(0 ..< 0))
+
+            fieldEditor.insertText("...")
+            fieldEditor.selectAll(nil)
+            XCTAssertFalse(fieldEditor.validateMenuItem(NSMenuItem(title: "", action: #selector(NSTextView.makeSuperscript(_:)), keyEquivalent: "")))
+        }
     }
 
     func testView() {
