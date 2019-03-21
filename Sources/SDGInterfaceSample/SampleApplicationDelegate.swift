@@ -180,7 +180,7 @@ extension SampleApplicationDelegate {
         demonstrate(window)
     }
 
-    @objc private func demonstrateTextEditor() {
+    @objc public func demonstrateTextEditor() {
         demonstrate(TextEditor(), windowTitle: UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
@@ -189,7 +189,7 @@ extension SampleApplicationDelegate {
         }))
     }
 
-    @objc private func demonstrateWindow() {
+    @objc public func demonstrateWindow() {
         let window = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
