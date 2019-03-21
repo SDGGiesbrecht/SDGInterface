@@ -93,7 +93,14 @@ extension SampleApplicationDelegate {
         }))
         #if canImport(AppKit)
         let menuBar = MenuBar.menuBar
-        let menu = menuBar.newApplicationSpecificSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        let sample = menuBar.newApplicationSpecificSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Sample"
+            }
+        })))
+
+        let menu = sample.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Menu"
@@ -117,15 +124,28 @@ extension SampleApplicationDelegate {
         })))
         submenu.newEntry(labelled: menuItemLabel)
 
-        menu.newSeparator()
-
-        let window = menu.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        let window = sample.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Window"
             }
         })), action: #selector(SampleApplicationDelegate.demonstrateWindow))
         window.target = self
+
+        let view = sample.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "View"
+            }
+        })))
+
+        let textEditor = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Text Editor"
+            }
+        })), action: #selector(SampleApplicationDelegate.demonstrateTextEditor))
+        textEditor.target = self
 
         #elseif canImport(UIKit)
 
