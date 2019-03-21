@@ -17,7 +17,7 @@ import SDGLogic
 extension NSTextView {
 
     private func attemptToModifySelection(_ modify: (_ previousValue: NSAttributedString) -> NSAttributedString) {
-        guard let storage = textStorage else {
+        guard let storage = textStorage else { // @exempt(from: tests)
             return
         }
 
@@ -26,7 +26,7 @@ extension NSTextView {
 
         if let original = attributedSubstring(forProposedRange: originalRange, actualRange: &adjustedRange) {
 
-            if adjustedRange.location == NSNotFound {
+            if adjustedRange.location == NSNotFound { // @exempt(from: tests)
                 adjustedRange = originalRange
             }
 
@@ -119,93 +119,5 @@ extension NSTextView {
         attemptToMutateSelection() {
             $0.makeTurkicLowerCase(NSRange(0 ..< $0.length))
         }
-    }
-
-    // MARK: - NSMenuItemValidation
-
-    private func actionRequiresSelection(_ action: Selector) -> Bool {
-        switch action {
-        case #selector(NSTextView.normalizeText(_:)),
-             #selector(NSTextView.showCharacterInformation(_:)),
-             #selector(NSTextView.makeSuperscript(_:)),
-             #selector(NSTextView.makeSubscript(_:)),
-             #selector(NSTextView.resetBaseline(_:)),
-             #selector(NSTextView.resetCasing(_:)),
-             #selector(NSTextView.makeLatinateUpperCase(_:)),
-             #selector(NSTextView.makeTurkicUpperCase(_:)),
-             #selector(NSTextView.makeLatinateSmallCaps(_:)),
-             #selector(NSTextView.makeTurkicSmallCaps(_:)),
-             #selector(NSTextView.makeLatinateLowerCase(_:)),
-             #selector(NSTextView.makeTurkicLowerCase(_:)):
-            return true
-        default:
-            return false
-        }
-    }
-
-    private func actionRequiresEditability(_ action: Selector) -> Bool {
-        switch action {
-        case #selector(NSTextView.normalizeText(_:)),
-             #selector(NSTextView.makeSuperscript(_:)),
-             #selector(NSTextView.makeSubscript(_:)),
-             #selector(NSTextView.resetBaseline(_:)),
-             #selector(NSTextView.resetCasing(_:)),
-             #selector(NSTextView.makeLatinateUpperCase(_:)),
-             #selector(NSTextView.makeTurkicUpperCase(_:)),
-             #selector(NSTextView.makeLatinateSmallCaps(_:)),
-             #selector(NSTextView.makeTurkicSmallCaps(_:)),
-             #selector(NSTextView.makeLatinateLowerCase(_:)),
-             #selector(NSTextView.makeTurkicLowerCase(_:)):
-            return true
-        default:
-            return false
-        }
-    }
-
-    private func actionRequiresRichEditability(_ action: Selector) -> Bool {
-        switch action {
-        case #selector(NSTextView.makeSuperscript(_:)),
-             #selector(NSTextView.makeSubscript(_:)),
-             #selector(NSTextView.resetBaseline(_:)),
-             #selector(NSTextView.resetCasing(_:)),
-             #selector(NSTextView.makeLatinateUpperCase(_:)),
-             #selector(NSTextView.makeTurkicUpperCase(_:)),
-             #selector(NSTextView.makeLatinateSmallCaps(_:)),
-             #selector(NSTextView.makeTurkicSmallCaps(_:)),
-             #selector(NSTextView.makeLatinateLowerCase(_:)),
-             #selector(NSTextView.makeTurkicLowerCase(_:)):
-            return true
-        default:
-            return false
-        }
-    }
-
-    open func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-
-        if let action = menuItem.action {
-            if actionRequiresSelection(action) {
-                if let selection = Range<Int>(selectedRange()) {
-                    if selection.isEmpty {
-                        // Next test.
-                    } else {
-                        return false // Empty selection.
-                    }
-                } else {
-                    return false // No selection available.
-                }
-            }
-            if actionRequiresEditability(action) {
-                if ¬isEditable {
-                    return false // Not editable
-                }
-            }
-            if actionRequiresRichEditability(action) {
-                if isFieldEditor {
-                    return false // Attributes locked.
-                }
-            }
-        }
-
-        return validateUserInterfaceItem(menuItem)
     }
 }

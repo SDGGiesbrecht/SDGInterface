@@ -360,6 +360,34 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             compatibilityTextView.string.append(characters)
             compatibilityTextView.selectAll(nil)
             compatibilityTextView.showCharacterInformation(nil)
+
+            textView.selectAll(nil)
+            textView.normalizeText(nil)
+            textView.selectAll(nil)
+            textView.makeSuperscript(nil)
+            textView.selectAll(nil)
+            textView.makeSuperscript(nil)
+            textView.selectAll(nil)
+            textView.resetBaseline(nil)
+            textView.selectAll(nil)
+            textView.resetCasing(nil)
+            textView.selectAll(nil)
+            textView.makeLatinateUpperCase(nil)
+            textView.selectAll(nil)
+            textView.makeTurkicUpperCase(nil)
+            textView.selectAll(nil)
+            textView.makeLatinateSmallCaps(nil)
+            textView.selectAll(nil)
+            textView.makeTurkicSmallCaps(nil)
+            textView.selectAll(nil)
+            textView.makeLatinateLowerCase(nil)
+            textView.selectAll(nil)
+            textView.makeTurkicLowerCase(nil)
+
+            func validate(_ selector: Selector) -> Bool {
+                let menuItem = NSMenuItem(title: "", action: selector, keyEquivalent: "")
+                return textView.validateMenuItem(menuItem)
+            }
         }
     }
 
