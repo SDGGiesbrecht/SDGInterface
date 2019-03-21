@@ -135,6 +135,7 @@ extension NSMutableAttributedString {
         }
     }
 
+    #if canImport(AppKit)
     private func swapGlyphs(in range: NSRange, mapping performMap: (String) -> String, additionalChangesWhenTriggered makeAdditionalChanges: (inout [NSAttributedString.Key: Any]) -> Void) {
 
         applyChanges(to: range) { (sectionRange: NSRange, sectionAttributes: [NSAttributedString.Key: Any]) in
@@ -191,6 +192,7 @@ extension NSMutableAttributedString {
             }
         }
     }
+    #endif
 
     // MARK: - Superscript & Subscript
 
@@ -218,6 +220,7 @@ extension NSMutableAttributedString {
         applyUniformChanges(to: range) { NSAttributedString.resetBaseline(for: &$0) }
     }
 
+    #if canImport(AppKit)
     // MARK: - Case
 
     private static var smallCapsSizeReduction: [String: [Int: Int]] = [:]
@@ -339,4 +342,5 @@ extension NSMutableAttributedString {
             return string.lowercased()
         })
     }
+    #endif
 }
