@@ -366,7 +366,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             textView.selectAll(nil)
             textView.makeSuperscript(nil)
             textView.selectAll(nil)
-            textView.makeSuperscript(nil)
+            textView.makeSubscript(nil)
             textView.selectAll(nil)
             textView.resetBaseline(nil)
             textView.selectAll(nil)
@@ -383,6 +383,14 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             textView.makeLatinateLowerCase(nil)
             textView.selectAll(nil)
             textView.makeTurkicLowerCase(nil)
+
+            textEditor.drawsTextBackground = true
+            XCTAssertTrue(textEditor.drawsTextBackground)
+            textEditor.isEditable = true
+            XCTAssertTrue(textEditor.isEditable)
+
+            textView.insertText("...", replacementRange: NSRange(0 ..< 0))
+            textView.insertText(NSAttributedString(string: "..."), replacementRange: NSRange(0 ..< 0))
 
             func validate(_ selector: Selector) -> Bool {
                 let menuItem = NSMenuItem(title: "", action: selector, keyEquivalent: "")
