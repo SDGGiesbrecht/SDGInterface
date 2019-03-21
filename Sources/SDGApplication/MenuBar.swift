@@ -528,8 +528,6 @@ public class MenuBar : Menu<InterfaceLocalization> {
         class Responder : NSObject {
             @objc func undo(_ sender: Any?) {}
             @objc func redo(_ sender: Any?) {}
-            @objc func normalizeText(_ sender: Any?) {} // #workaround(Until provided by NSTextView.)
-            @objc func showCharacterInformation(_ sender: Any?) {} // #workaround(Until provided by NSTextView.)
         }
 
         let edit = newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
@@ -1116,7 +1114,7 @@ public class MenuBar : Menu<InterfaceLocalization> {
             case .englishUnitedStates, .englishCanada:
                 return "Normalize Text"
             }
-        })), action: #selector(Responder.normalizeText(_:)))
+        })), action: #selector(NSTextView.normalizeText(_:)))
 
         // “Make Upper Case” does not belong here. Upper‐case‐only is a font style, not a semantic aspect of the text. Attempting to fake it by switching to capital letters (a) results in semantically incorrect text, and (b) is irreversable. A font‐based version is available under the “Font” menu instead.
 
@@ -1129,7 +1127,7 @@ public class MenuBar : Menu<InterfaceLocalization> {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Show Character Information"
             }
-        })), action: #selector(Responder.showCharacterInformation(_:)))
+        })), action: #selector(NSTextView.showCharacterInformation(_:)))
 
         let speech = edit.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
