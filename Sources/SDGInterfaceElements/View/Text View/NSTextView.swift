@@ -48,13 +48,13 @@ extension NSTextView {
 
     // MARK: - Manual Normalization
 
-    @objc internal func normalizeText(_ sender: Any?) {
+    @objc public func normalizeText(_ sender: Any?) {
         attemptToModifySelection() { NSAttributedString(RichText($0)) }
     }
 
     // MARK: - Displaying Character Information
 
-    @objc internal func showCharacterInformation(_ sender: Any?) {
+    @objc public func showCharacterInformation(_ sender: Any?) {
         if let string = attributedSubstring(forProposedRange: selectedRange(), actualRange: nil) {
             CharacterInformation.display(for: string.string)
         }

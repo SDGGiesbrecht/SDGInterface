@@ -328,6 +328,13 @@ final class SDGApplicationAPITests : ApplicationTestCase {
 
     func testTextEditor() {
         SampleApplicationDelegate().demonstrateTextEditor()
+        forEachWindow { window in
+            let textEditor = window.contentView!.subviews[0] as! TextEditor
+            let textView = textEditor.documentView as! NSTextView
+
+            textEditor.append(RichText(rawText: "..."))
+            textView.showCharacterInformation(nil)
+        }
     }
 
     func testView() {
