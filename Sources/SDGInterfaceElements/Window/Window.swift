@@ -22,7 +22,7 @@ private typealias WindowConformances = NSWindowDelegate
 private protocol WindowConformances {}
 #endif
 
-private var allWindows = Set<NSWindow>()
+internal var allWindows = Set<NSWindow>()
 /// A window.
 open class Window<L> : NSWindow, SharedValueObserver, WindowConformances where L : Localization {
 

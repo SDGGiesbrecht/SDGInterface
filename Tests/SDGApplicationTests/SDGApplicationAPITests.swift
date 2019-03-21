@@ -27,6 +27,12 @@ import SDGInterfaceSample
 
 final class SDGApplicationAPITests : ApplicationTestCase {
 
+    override func tearDown() {
+        forEachWindow { window in
+            window.close()
+        }
+    }
+
     func testApplicationName() {
         XCTAssertEqual(ProcessInfo.applicationName(.español(.de)), "del Ejemplar")
         XCTAssertEqual(ProcessInfo.applicationName(.deutsch(.akkusativ)), "Beispiel")
