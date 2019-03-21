@@ -333,6 +333,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             let textView = textEditor.documentView as! NSTextView
 
             textEditor.append(RichText(rawText: "..."))
+            textView.selectAll(nil)
             textView.showCharacterInformation(nil)
         }
     }
