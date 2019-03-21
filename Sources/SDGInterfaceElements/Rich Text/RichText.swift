@@ -212,11 +212,11 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
     }
 
     /// Sets the font colour for the entire string.
-    public mutating func set(colour: NSColor?) {
+    public mutating func set(colour: Colour?) {
         set(colour: colour, forRange: bounds)
     }
     /// Sets the font colour for a particular range.
-    @inlinable public mutating func set<R>(colour: NSColor?, forRange range: R) where R : RangeExpression, R.Bound == Index {
+    @inlinable public mutating func set<R>(colour: Colour?, forRange range: R) where R : RangeExpression, R.Bound == Index {
         set(attribute: NSAttributedString.Key.foregroundColor, to: colour, forRange: range)
     }
 
