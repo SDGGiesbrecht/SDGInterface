@@ -301,6 +301,10 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         richText.append(contentsOf: array)
         richText.insert(contentsOf: array, at: richText.startIndex)
         XCTAssertEqual(richText.count, 5)
+
+        let copy = richText
+        richText.superscript()
+        XCTAssertNotEqual(richText, copy)
     }
 
     func testView() {

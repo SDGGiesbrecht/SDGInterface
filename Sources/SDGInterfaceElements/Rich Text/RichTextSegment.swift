@@ -42,14 +42,6 @@ extension RichText {
             return attributesProxy == other.attributesProxy
         }
 
-        // MARK: - Splitting
-
-        internal func splitting(at index: StrictString.Index) -> (Segment, Segment) {
-            let first = StrictString(rawText.prefix(upTo: index))
-            let second = StrictString(rawText.suffix(from: index))
-            return (Segment(rawText: first, attributes: attributes), Segment(rawText: second, attributes: attributes))
-        }
-
         // MARK: - Equatable
 
         internal static func == (precedingValue: Segment, followingValue: Segment) -> Bool {
