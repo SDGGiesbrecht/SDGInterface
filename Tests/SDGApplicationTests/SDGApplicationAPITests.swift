@@ -307,6 +307,10 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertNotEqual(richText, copy)
     }
 
+    func testTextEditor() {
+        SampleApplicationDelegate().demonstrateTextEditor()
+    }
+
     func testView() {
         View().fill(with: View())
         View().setMinimumSize(size: 10, axis: .horizontal)
