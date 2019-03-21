@@ -129,6 +129,10 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         #endif
     }
 
+    func testLabel() {
+        SampleApplicationDelegate().demonstrateLabel()
+    }
+
     func testMenu() {
         #if !os(tvOS)
 
