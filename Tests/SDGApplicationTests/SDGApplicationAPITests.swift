@@ -391,7 +391,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
 
             textView.insertText("...", replacementRange: NSRange(0 ..< 0))
             textView.insertText(NSAttributedString(string: "..."), replacementRange: NSRange(0 ..< 0))
-            textView.insertText("...", replacementRange: NSRange(location: NSNotFound, length: textView.textStorage!.length))
+            textView.insertText("...", replacementRange: NSRange(textView.textStorage!.length ..< textView.textStorage!.length))
             textView.paste(nil)
 
             func validate(_ selector: Selector) -> Bool {
