@@ -140,6 +140,7 @@ internal class TextView : NSTextView {
         }
     }
 
+    #if canImport(AppKit)
     // MARK: - NSMenuItemValidation
 
     private func actionRequiresSelection(_ action: Selector) -> Bool {
@@ -227,4 +228,5 @@ internal class TextView : NSTextView {
 
         return super.validateMenuItem(menuItem)
     }
+    #endif
 }
