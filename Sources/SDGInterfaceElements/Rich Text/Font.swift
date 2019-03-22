@@ -30,6 +30,7 @@ extension Font {
         size = systemFontSize
         #endif
         return systemFont(ofSize: size)
+        #warning("Verify for iOS.")
     }
 
     /// The default font for text editing.
