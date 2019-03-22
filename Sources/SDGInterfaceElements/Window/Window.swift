@@ -28,7 +28,7 @@ open class Window<L> : NSWindow, SharedValueObserver, WindowConformances where L
 
     // MARK: - Initialization
 
-    private static func initializeContentRectangle(size: NSSize) -> NSRect {
+    private static func initializeContentRectangle(size: CGSize) -> CGRect {
         var rectangle = CGRect.zero
         rectangle.size = size
         return rectangle
@@ -69,7 +69,6 @@ open class Window<L> : NSWindow, SharedValueObserver, WindowConformances where L
             backing: .buffered,
             defer: true)
         #else
-        _title = String(title)
         super.init(frame: Window.initializeContentRectangle(size: size))
         #endif
 
@@ -176,7 +175,7 @@ open class Window<L> : NSWindow, SharedValueObserver, WindowConformances where L
     #else
     /// Closes the window, allowing it to be deallocated.
     open func close() {
-        Window.allWindows.remove(self)
+        allWindows.remove(self)
     }
     #endif
 
