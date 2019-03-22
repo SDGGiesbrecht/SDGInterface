@@ -80,6 +80,11 @@ open class Label<L>: LabelSuperclass, SharedValueObserver where L : Localization
     // MARK: - SharedValueObserver
 
     public func valueChanged(for identifier: String) {
-        stringValue = String(labelText.value.resolved())
+        let string = String(labelText.value.resolved())
+        #if canImport(AppKit)
+        stringValue = string
+        #else
+        text = string
+        #endif
     }
 }
