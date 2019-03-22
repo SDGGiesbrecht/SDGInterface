@@ -67,16 +67,22 @@ public class TextEditor : TextEditorSuperclass {
 
     /// Creates a multiline text editor.
     public init() {
-        super.init(frame: NSRect.zero)
+        super.init(frame: CGRect.zero)
 
+        #if canImport(AppKit)
         documentView = textView
+        #else
+        fill(with: textView, margin: .none)
+        #endif
 
+        #if canImport(AppKit)
         borderType = NSBorderType.bezelBorder
 
         horizontalScrollElasticity = NSScrollView.Elasticity.automatic
         verticalScrollElasticity = NSScrollView.Elasticity.automatic
 
         hasVerticalScroller = true
+        #endif
     }
 
     @available(*, unavailable) internal required init?(coder: NSCoder) {
