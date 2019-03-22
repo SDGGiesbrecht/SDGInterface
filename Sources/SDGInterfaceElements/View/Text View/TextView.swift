@@ -59,32 +59,55 @@ internal class TextView : NSTextView {
 
     // MARK: - Normalization
 
-    private func insert(text: Any, at range: NSRange) {
+    private func insert(text string: Any, at replacementRange: NSRange) {
         if let raw = string as? String {
-            if ¬isFieldEditor {
-                var attributes: [NSAttributedString.Key: Any]?
-                if replacementRange.location ≠ NSNotFound ∧ replacementRange.location ≠ textStorage?.length {
-                    attributes = textStorage?.attributes(at: replacementRange.location, effectiveRange: nil)
-                } else if replacementRange.location ≠ NSNotFound ∧ replacementRange.location ≠ 0 {
-                    attributes = textStorage?.attributes(at: replacementRange.location − 1, effectiveRange: nil)
-                }
-                let attributed = RichText(NSAttributedString(string: raw, attributes: attributes))
-                super.insertText(NSAttributedString(attributed), replacementRange: replacementRange)
-            } else {
+
+            #if canImport(AppKit)
+            if isFieldEditor {
                 super.insertText(String(StrictString(raw)), replacementRange: replacementRange)
+                return
             }
-        } else if let attributed = string as? NSAttributedString {
-            if ¬isFieldEditor {
-                super.insertText(NSAttributedString(RichText(attributed)), replacementRange: replacementRange)
-            } else {
-                super.insertText(String(StrictString(attributed.string)), replacementRange: replacementRange)
+            #endif
+
+            var attributes: [NSAttributedString.Key: Any]?
+            let possibleStorage: NSTextStorage? = textStorage
+            if replacementRange.location ≠ NSNotFound ∧ replacementRange.location ≠ possibleStorage?.length {
+                attributes = possibleStorage?.attributes(at: replacementRange.location, effectiveRange: nil)
+            } else if replacementRange.location ≠ NSNotFound ∧ replacementRange.location ≠ 0 {
+                attributes = possibleStorage?.attributes(at: replacementRange.location − 1, effectiveRange: nil)
             }
-        } else { // @exempt(from: tests)
-            if BuildConfiguration.current == .debug {
-                assertionFailure("Unidentified type of text. (\(type(of: string)))")
-            }
-            super.insertText(string, replacementRange: replacementRange)
+            let attributed = NSAttributedString(RichText(NSAttributedString(string: raw, attributes: attributes)))
+            #if canImport(AppKit)
+            super.insertText(attributed, replacementRange: replacementRange)
+            #else
+            possibleStorage?.replaceCharacters(in: replacementRange, with: attributed)
+            #endif
+            return
         }
+
+        if let attributed = string as? NSAttributedString {
+            #if canImport(AppKit)
+            if isFieldEditor {
+                super.insertText(String(StrictString(attributed.string)), replacementRange: replacementRange)
+                return
+            }
+            #endif
+
+            let normalized = NSAttributedString(RichText(attributed))
+            #if canImport(AppKit)
+            super.insertText(normalized, replacementRange: replacementRange)
+            #else
+            textStorage.replaceCharacters(in: replacementRange, with: normalized)
+            #endif
+            return
+        } // @exempt(from: tests)
+
+        if BuildConfiguration.current == .debug {
+            assertionFailure("Unidentified type of text. (\(type(of: string)))")
+        }
+        #if canImport(AppKit)
+        super.insertText(string, replacementRange: replacementRange)
+        #endif
     }
     #if canImport(AppKit)
     override func insertText(_ string: Any, replacementRange: NSRange) {
