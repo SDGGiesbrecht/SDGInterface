@@ -59,8 +59,7 @@ internal class TextView : NSTextView {
 
     // MARK: - Normalization
 
-    #if canImport(AppKit)
-    override func insertText(_ string: Any, replacementRange: NSRange) {
+    private func insert(text: Any, at range: NSRange) {
         if let raw = string as? String {
             if ¬isFieldEditor {
                 var attributes: [NSAttributedString.Key: Any]?
@@ -87,15 +86,31 @@ internal class TextView : NSTextView {
             super.insertText(string, replacementRange: replacementRange)
         }
     }
+    #if canImport(AppKit)
+    override func insertText(_ string: Any, replacementRange: NSRange) {
+        insert(text: string, at: replacementRange)
+    }
     #else
     #warning("iOS?")
     #endif
 
     override func paste(_ sender: Any?) {
-        let pasteboard = NSPasteboard.general
-        if let items = pasteboard.readObjects(forClasses: [NSAttributedString.self, NSString.self], options: nil) {
+        let pasteboard = Pasteboard.general
+        let possibleItems: [Any]?
+        #if canImport(AppKit)
+        possibleItems = pasteboard.readObjects(forClasses: [NSAttributedString.self, NSString.self], options: nil)
+        #else
+        possibleItems = pasteboard.strings
+        #endif
+        if let items = possibleItems, ¬items.isEmpty {
             for item in items {
-                insertText(item, replacementRange: selectedRange())
+                let range: NSRange
+                #if canImport(AppKit)
+                range = selectedRange()
+                #else
+                range = selectedRange
+                #endif
+                insert(text: item, at: range)
             }
         } else { // @exempt(from: tests) Always empty instead of nil.
             super.paste(sender)
