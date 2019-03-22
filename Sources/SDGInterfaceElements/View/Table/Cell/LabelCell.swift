@@ -59,6 +59,7 @@ open class LabelCell<L>: TableCellView where L : Localization {
         return label
     }
 
+    #if canImport(AppKit)
     // MARK: - Binding
 
     /// Binds the text to a content property.
@@ -70,4 +71,5 @@ open class LabelCell<L>: TableCellView where L : Localization {
     public func bindTextColour(contentKeyPath: String) {
         bind(subview: label, keyPath: .textColor, to: contentKeyPath)
     }
+    #endif
 }
