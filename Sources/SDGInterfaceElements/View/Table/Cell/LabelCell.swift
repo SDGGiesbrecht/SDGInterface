@@ -17,7 +17,7 @@ import SDGMathematics
 import SDGInterfaceLocalizations
 
 /// A label table cell.
-open class LabelCell<L>: NSTableCellView where L : Localization {
+open class LabelCell<L>: TableCellView where L : Localization {
 
     // MARK: - Properties
 
@@ -28,10 +28,19 @@ open class LabelCell<L>: NSTableCellView where L : Localization {
     /// Creates a label table cell.
     public init() {
         label = Label(text: Shared(UserFacing<StrictString, L>({ _ in "" })))
-        super.init(frame: NSRect.zero)
+        #if canImport(AppKit)
+        super.init(frame: CGRect.zero)
+        #else
+        #warning("Reuse identifier?")
+        super.init(style: .default, reuseIdentifier: nil)
+        #endif
 
+        #if canImport(AppKit)
         fill(with: label, on: .horizontal, margin: .specific(label.fittingSize.height ÷ 16))
         fill(with: label, on: .vertical, margin: .none)
+        #else
+        #warning("iOS?")
+        #endif
     }
 
     @available(*, unavailable) public required init?(coder decoder: NSCoder) {
@@ -42,6 +51,12 @@ open class LabelCell<L>: NSTableCellView where L : Localization {
             }
         }))
         return nil
+    }
+
+    // MARK: - UITableViewCell
+
+    open override var textLabel: UILabel? {
+        return label
     }
 
     // MARK: - Binding
