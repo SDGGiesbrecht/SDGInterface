@@ -21,10 +21,15 @@ open class TextField: NSTextField {
 
     /// Creates a text field.
     public init() {
-        super.init(frame: NSZeroRect)
+        super.init(frame: CGRect.zero)
+        #if canImport(AppKit)
         let cell = NormalizingCell()
         self.cell = cell
+        #else
+        #warning("iOS?")
+        #endif
 
+        #if canImport(AppKit)
         isBordered = true
         isBezeled = true
         bezelStyle = .squareBezel
@@ -35,6 +40,9 @@ open class TextField: NSTextField {
         cell.sendsActionOnEndEditing = true
         isSelectable = true
         isEditable = true
+        #else
+        #warning("iOS?")
+        #endif
         allowsEditingTextAttributes = false
 
         font = Font.forLabels

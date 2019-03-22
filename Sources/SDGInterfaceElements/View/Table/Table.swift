@@ -31,20 +31,32 @@ open class Table: TableSuperclass {
 
     /// Creates a table to display content.
     public init(content: [NSObject]) {
+        #if canImport(AppKit)
         controller = NSArrayController(content: content)
-        super.init(frame: NSRect.zero)
+        #else
+        #warning("iOS?")
+        #endif
+        #if canImport(AppKit)
+        super.init(frame: CGRect.zero)
+        #else
+        super.init(frame: CGRect.zero, style: .plain)
+        #endif
         finishInitialization()
     }
 
+    #if canImport(AppKit)
     /// Creates a table managed by an array controller.
     public init(contentController: NSArrayController) {
         controller = contentController
         super.init(frame: NSRect.zero)
         finishInitialization()
     }
+    #else
+    #warning("iOS?")
+    #endif
 
     private func finishInitialization() {
-
+        #if canImport(AppKit)
         interceptor.delegate = table.delegate
         interceptor.listener = self
         table.delegate = interceptor
@@ -63,6 +75,9 @@ open class Table: TableSuperclass {
         table.bind(.content, to: controller, withKeyPath: #keyPath(NSArrayController.arrangedObjects), options: nil)
         table.bind(.selectionIndexes, to: controller, withKeyPath: NSBindingName.selectionIndexes.rawValue, options: nil)
         table.bind(.sortDescriptors, to: controller, withKeyPath: NSBindingName.sortDescriptors.rawValue, options: nil)
+        #else
+        #warning("iOS?")
+        #endif
     }
 
     @available(*, unavailable) public required init?(coder: NSCoder) {
@@ -77,10 +92,15 @@ open class Table: TableSuperclass {
 
     // MARK: - Properties
 
+    #if canImport(AppKit)
     public let table: NSTableView = NSTableView(frame: NSRect.zero)
     public let controller: NSArrayController
     private var viewGenerators: [NSUserInterfaceItemIdentifier: () -> NSTableCellView] = [:]
+    #else
+    #warning("iOS?")
+    #endif
 
+    #if canImport(AppKit)
     // MARK: - Delegation
 
     private let interceptor = DelegationInterceptor(selectors: [
@@ -96,7 +116,11 @@ open class Table: TableSuperclass {
             table.delegate = interceptor
         }
     }
+    #else
+    #warning("iOS?")
+    #endif
 
+    #if canImport(AppKit)
     // MARK: - Actions
 
     /// The click action.
@@ -126,9 +150,11 @@ open class Table: TableSuperclass {
             table.target = newValue
         }
     }
+    #endif
 
     // MARK: - Behaviour
 
+    #if canImport(AppKit)
     /// Whether or not the table displays column headers.
     public var hasHeader: Bool {
         get {
@@ -142,7 +168,9 @@ open class Table: TableSuperclass {
             }
         }
     }
+    #endif
 
+    #if canImport(AppKit)
     /// Whether or not the table allows rows to be selected.
     public var allowsSelection: Bool {
         get {
@@ -156,7 +184,9 @@ open class Table: TableSuperclass {
             }
         }
     }
+    #endif
 
+    #if canImport(AppKit)
     /// The sort order for the table.
     public var sortOrder: [NSSortDescriptor] {
         get {
@@ -166,7 +196,11 @@ open class Table: TableSuperclass {
             controller.sortDescriptors = newValue
         }
     }
+    #else
+    #warning("iOS?")
+    #endif
 
+    #if canImport(AppKit)
     private var identifiers = sequence(first: 0, next: { $0 + 1 })
     /// Creates, adds and returns a new column.
     @discardableResult public func newColumn(header: StrictString, viewGenerator: @escaping () -> NSTableCellView) -> NSTableColumn {
@@ -182,9 +216,11 @@ open class Table: TableSuperclass {
 
         return column
     }
+    #endif
 
     // MARK: - Other Behavioural Fixes
 
+    #if canImport(AppKit)
     public final override func setFrameSize(_ newSize: NSSize) {
         super.setFrameSize(newSize)
         for index in table.tableColumns.indices {
@@ -193,18 +229,23 @@ open class Table: TableSuperclass {
         }
         table.sizeLastColumnToFit()
     }
+    #endif
 
     // MARK: - Subclassing
 
+    #if canImport(AppKit)
     /// Override in a subclass to use a different class of column.
     open func createColumn(withIdentifier identifier: NSUserInterfaceItemIdentifier) -> NSTableColumn {
         return NSTableColumn(identifier: identifier)
     }
+    #endif
 
+    #if canImport(AppKit)
     /// Override in a subclass to use a different class of header.
     open func createHeader() -> NSTableHeaderView {
         return NSTableHeaderView(frame: NSZeroRect)
     }
+    #endif
 }
 
 #if canImport(AppKit)
