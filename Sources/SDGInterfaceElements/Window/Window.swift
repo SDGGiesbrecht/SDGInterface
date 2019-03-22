@@ -121,6 +121,7 @@ open class Window<L> : NSWindow, SharedValueObserver, WindowConformances where L
                 return "Window"
             }
         }))
+        preconditionFailure()
     }
     #endif
 

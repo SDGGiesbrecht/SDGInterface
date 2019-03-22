@@ -124,5 +124,5 @@ public class CharacterInformation : NSObject {
     @objc private var normalizedCharacters: String
 
     static let warningColourPath = "warningColour"
-    @objc let warningColour: NSColor
+    @objc let warningColour: Colour
 }
