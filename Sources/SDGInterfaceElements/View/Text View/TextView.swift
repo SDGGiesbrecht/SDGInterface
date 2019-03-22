@@ -100,7 +100,8 @@ internal class TextView : NSTextView {
             textStorage.replaceCharacters(in: replacementRange, with: normalized)
             #endif
             return
-        } // @exempt(from: tests)
+        }
+        // @exempt(from: tests)
 
         if BuildConfiguration.current == .debug {
             assertionFailure("Unidentified type of text. (\(type(of: string)))")
@@ -135,8 +136,8 @@ internal class TextView : NSTextView {
                 #endif
                 insert(text: item, at: range)
             }
-        } else { // @exempt(from: tests) Always empty instead of nil.
-            super.paste(sender)
+        } else {
+            super.paste(sender) // @exempt(from: tests) Always empty instead of nil.
         }
     }
 

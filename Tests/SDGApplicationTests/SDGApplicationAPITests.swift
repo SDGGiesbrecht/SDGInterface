@@ -395,6 +395,9 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             textView.paste(nil)
             NSPasteboard.general.clearContents()
             textView.paste(nil)
+            textView.selectAll(nil)
+            textView.copy(nil)
+            textView.paste(nil)
 
             func validate(_ selector: Selector) -> Bool {
                 let menuItem = NSMenuItem(title: "", action: selector, keyEquivalent: "")
@@ -473,5 +476,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         #if canImport(UIKit)
         _ = Window(title: "Title")
         #endif
+
+        window.localizedTitle = Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "Modified Title" }))
     }
 }

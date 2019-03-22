@@ -181,8 +181,8 @@ open class Table: NSScrollView, NSTableViewDelegate {
 
     public func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         if let identifier = tableColumn?.identifier {
-            if let view = table.makeView(withIdentifier: identifier, owner: self) { // @exempt(from: tests)
-                return view
+            if let view = table.makeView(withIdentifier: identifier, owner: self) {
+                return view // @exempt(from: tests)
             } else {
                 if let generator = viewGenerators[identifier] {
                     let view = generator()

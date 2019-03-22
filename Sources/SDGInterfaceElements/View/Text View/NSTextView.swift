@@ -22,8 +22,8 @@ extension NSTextView {
 
     private func attemptToModifySelection(_ modify: (_ previousValue: NSAttributedString) -> NSAttributedString) {
         let possibleStorage: NSTextStorage? = textStorage
-        guard let storage = possibleStorage else { // @exempt(from: tests)
-            return
+        guard let storage = possibleStorage else {
+            return // @exempt(from: tests)
         }
 
         let originalRange: NSRange
@@ -42,8 +42,8 @@ extension NSTextView {
         #endif
         if let original = possibleOriginal {
 
-            if adjustedRange.location == NSNotFound { // @exempt(from: tests)
-                adjustedRange = originalRange
+            if adjustedRange.location == NSNotFound {
+                adjustedRange = originalRange // @exempt(from: tests)
             }
 
             let result = modify(original)
