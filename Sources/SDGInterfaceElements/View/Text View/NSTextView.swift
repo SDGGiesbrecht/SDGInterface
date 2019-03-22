@@ -113,6 +113,7 @@ extension NSTextView {
         }
     }
 
+    #if canImport(AppKit)
     // MARK: - Case
 
     @objc public func resetCasing(_ sender: Any?) {
@@ -153,4 +154,5 @@ extension NSTextView {
             $0.makeTurkicLowerCase(NSRange(0 ..< $0.length))
         }
     }
+    #endif
 }
