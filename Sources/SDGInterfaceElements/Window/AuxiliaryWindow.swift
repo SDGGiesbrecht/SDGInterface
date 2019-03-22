@@ -12,6 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(AppKit)
 /// An window which plays a supporting role to another window.
 open class AuxiliaryWindow<L>: Window<L> where L : Localization {
 
@@ -31,3 +32,4 @@ open class AuxiliaryWindow<L>: Window<L> where L : Localization {
         collectionBehavior = NSWindow.CollectionBehavior.fullScreenAuxiliary
     }
 }
+#endif
