@@ -22,9 +22,10 @@ internal class TextView : NSTextView {
 
     internal init() {
         let prototype = NSTextView()
-        super.init(frame: NSRect.zero, textContainer: prototype.textContainer)
+        super.init(frame: CGRect.zero, textContainer: prototype.textContainer)
 
-        maxSize = NSSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
+        #if canImport(AppKit)
+        maxSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
         isVerticallyResizable = true
         autoresizingMask = NSView.AutoresizingMask.width
 
@@ -41,6 +42,9 @@ internal class TextView : NSTextView {
         isAutomaticDataDetectionEnabled = false
         isAutomaticTextReplacementEnabled = true
         smartInsertDeleteEnabled = true
+        #else
+        #warning("iOS?")
+        #endif
     }
 
     @available(*, unavailable) internal required init?(coder: NSCoder) {
