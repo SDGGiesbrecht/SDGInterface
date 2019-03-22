@@ -14,8 +14,14 @@
 
 import SDGInterfaceLocalizations
 
+#if canImport(AppKit)
+public typealias LabelSuperclass = NSTextField
+#else
+public typealias LabelSuperclass = UILabel
+#endif
+
 /// A text label.
-open class Label<L>: NSTextField, SharedValueObserver where L : Localization {
+open class Label<L>: LabelSuperclass, SharedValueObserver where L : Localization {
 
     // MARK: - Initialization
 
@@ -23,16 +29,21 @@ open class Label<L>: NSTextField, SharedValueObserver where L : Localization {
     public init(text: Shared<UserFacing<StrictString, L>>) {
         self.text = text
 
-        super.init(frame: NSZeroRect)
+        super.init(frame: CGRect.zero)
 
         text.register(observer: self)
         LocalizationSetting.current.register(observer: self)
 
+        #if canImport(AppKit)
         isBordered = false
         isBezeled = false
         drawsBackground = false
+        #else
+        #warning("iOS?")
+        #endif
         lineBreakMode = .byTruncatingTail
 
+        #if canImport(AppKit)
         if let theCell = self.cell as? NSTextFieldCell {
             theCell.isScrollable = false
             theCell.usesSingleLineMode = true
@@ -40,6 +51,9 @@ open class Label<L>: NSTextField, SharedValueObserver where L : Localization {
 
         isSelectable = false
         isEditable = false
+        #else
+        #warning("iOS?")
+        #endif
 
         font = Font.forLabels
     }
