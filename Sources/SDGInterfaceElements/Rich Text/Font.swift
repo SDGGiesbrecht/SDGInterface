@@ -30,7 +30,6 @@ extension Font {
         size = systemFontSize
         #endif
         return systemFont(ofSize: size)
-        #warning("Verify for iOS.")
     }
 
     /// The default font for text editing.
@@ -64,6 +63,10 @@ extension Font {
 
     /// The same font in a different size.
     public func resized(to size: CGFloat) -> Font {
+        #if canImport(AppKit)
+        return NSFontManager.shared.convert(self, toSize: size)
+        #else
         return Font(descriptor: fontDescriptor, size: size)
+        #endif
     }
 }
