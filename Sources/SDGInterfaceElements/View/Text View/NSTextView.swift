@@ -14,6 +14,10 @@
 
 import SDGLogic
 
+#if canImport(UIKit)
+public typealias NSTextView = UITextView
+#endif
+
 extension NSTextView {
 
     private func attemptToModifySelection(_ modify: (_ previousValue: NSAttributedString) -> NSAttributedString) {
