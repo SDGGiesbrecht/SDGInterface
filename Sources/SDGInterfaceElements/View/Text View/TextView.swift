@@ -59,6 +59,7 @@ internal class TextView : NSTextView {
 
     // MARK: - Normalization
 
+    #if canImport(AppKit)
     override func insertText(_ string: Any, replacementRange: NSRange) {
         if let raw = string as? String {
             if ¬isFieldEditor {
@@ -86,6 +87,9 @@ internal class TextView : NSTextView {
             super.insertText(string, replacementRange: replacementRange)
         }
     }
+    #else
+    #warning("iOS?")
+    #endif
 
     override func paste(_ sender: Any?) {
         let pasteboard = NSPasteboard.general
