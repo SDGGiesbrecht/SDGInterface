@@ -139,7 +139,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         SampleApplicationDelegate().demonstrateLabel()
         forEachWindow { window in
             let label = window.contentView!.subviews[0] as! Label<SDGInterfaceSample.InterfaceLocalization>
-            label.text = Shared(UserFacing<StrictString, SDGInterfaceSample.InterfaceLocalization>({ localization in
+            label.labelText = Shared(UserFacing<StrictString, SDGInterfaceSample.InterfaceLocalization>({ localization in
                 switch localization {
                 case .englishCanada:
                     return "Modified"

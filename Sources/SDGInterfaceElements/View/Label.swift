@@ -27,7 +27,7 @@ open class Label<L>: LabelSuperclass, SharedValueObserver where L : Localization
 
     /// Creates a text label.
     public init(text: Shared<UserFacing<StrictString, L>>) {
-        self.text = text
+        self.labelText = text
 
         super.init(frame: CGRect.zero)
 
@@ -70,16 +70,16 @@ open class Label<L>: LabelSuperclass, SharedValueObserver where L : Localization
 
     // MARK: - Properties
 
-    public var text: Shared<UserFacing<StrictString, L>> {
+    public var labelText: Shared<UserFacing<StrictString, L>> {
         didSet {
             oldValue.cancel(observer: self)
-            text.register(observer: self)
+            labelText.register(observer: self)
         }
     }
 
     // MARK: - SharedValueObserver
 
     public func valueChanged(for identifier: String) {
-        stringValue = String(text.value.resolved())
+        stringValue = String(labelText.value.resolved())
     }
 }
