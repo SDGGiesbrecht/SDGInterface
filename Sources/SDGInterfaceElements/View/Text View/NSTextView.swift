@@ -21,14 +21,26 @@ public typealias NSTextView = UITextView
 extension NSTextView {
 
     private func attemptToModifySelection(_ modify: (_ previousValue: NSAttributedString) -> NSAttributedString) {
-        guard let storage = textStorage else { // @exempt(from: tests)
+        let possibleStorage: NSTextStorage? = textStorage
+        guard let storage = possibleStorage else { // @exempt(from: tests)
             return
         }
 
-        let originalRange = selectedRange()
+        let originalRange: NSRange
+        #if canImport(AppKit)
+        originalRange = selectedRange()
+        #else
+        originalRange = selectedRange
+        #endif
         var adjustedRange = NSRange(location: NSNotFound, length: NSNotFound)
 
-        if let original = attributedSubstring(forProposedRange: originalRange, actualRange: &adjustedRange) {
+        let possibleOriginal: NSAttributedString?
+        #if canImport(AppKit)
+        possibleOriginal = attributedSubstring(forProposedRange: originalRange, actualRange: &adjustedRange)
+        #else
+        possibleOriginal = textStorage.attributedSubstring(from: originalRange)
+        #endif
+        if let original = possibleOriginal {
 
             if adjustedRange.location == NSNotFound { // @exempt(from: tests)
                 adjustedRange = originalRange
@@ -36,9 +48,20 @@ extension NSTextView {
 
             let result = modify(original)
             let rawResult = result.string
-            if shouldChangeText(in: adjustedRange, replacementString: rawResult) {
+            let shouldChange: Bool
+            #if canImport(AppKit)
+            shouldChange = shouldChangeText(in: adjustedRange, replacementString: rawResult)
+            #else
+            guard let textRange = selectedTextRange else { // @exempt(from: tests)
+                return
+            }
+            shouldChange = shouldChangeText(in: textRange, replacementText: rawResult)
+            #endif
+            if shouldChange {
                 storage.replaceCharacters(in: adjustedRange, with: result)
+                #if canImport(AppKit)
                 didChangeText()
+                #endif
             }
         }
     }
