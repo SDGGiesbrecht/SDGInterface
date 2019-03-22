@@ -82,7 +82,13 @@ extension NSTextView {
     // MARK: - Displaying Character Information
 
     @objc public func showCharacterInformation(_ sender: Any?) {
-        if let string = attributedSubstring(forProposedRange: selectedRange(), actualRange: nil) {
+        let possibleString: NSAttributedString?
+        #if canImport(AppKit)
+        possibleString = attributedSubstring(forProposedRange: selectedRange(), actualRange: nil)
+        #else
+        possibleString = textStorage.attributedSubstring(from: selectedRange)
+        #endif
+        if let string = possibleString {
             CharacterInformation.display(for: string.string)
         }
     }
