@@ -29,6 +29,7 @@ public class CharacterInformation : NSObject {
             details.append(CharacterInformation(scalar))
         }
 
+        #if canImport(AppKit)
         let window = AuxiliaryWindow(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in StrictString(characters) })))
         let table = Table(content: details)
 
@@ -64,6 +65,9 @@ public class CharacterInformation : NSObject {
         window.contentView!.fill(with: table)
 
         window.makeKeyAndOrderFront(nil)
+        #else
+        #warning("iOS?")
+        #endif
     }
 
     // MARK: - Initialization
