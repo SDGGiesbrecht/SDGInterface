@@ -53,11 +53,13 @@ open class LabelCell<L>: TableCellView where L : Localization {
         return nil
     }
 
+    #if canImport(UIKit)
     // MARK: - UITableViewCell
 
     open override var textLabel: UILabel? {
         return label
     }
+    #endif
 
     #if canImport(AppKit)
     // MARK: - Binding

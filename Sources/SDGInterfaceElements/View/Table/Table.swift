@@ -18,8 +18,14 @@ import SDGLocalization
 
 import SDGInterfaceLocalizations
 
+#if canImport(AppKit)
+public typealias TableSuperclass = NSScrollView
+#else
+public typealias TableSuperclass = UITableView
+#endif
+
 /// A table.
-open class Table: NSScrollView, NSTableViewDelegate {
+open class Table: TableSuperclass {
 
     // MARK: - Initialization
 
@@ -177,7 +183,32 @@ open class Table: NSScrollView, NSTableViewDelegate {
         return column
     }
 
-    // MARK: - NSTableViewDelegate
+    // MARK: - Other Behavioural Fixes
+
+    public final override func setFrameSize(_ newSize: NSSize) {
+        super.setFrameSize(newSize)
+        for index in table.tableColumns.indices {
+            let column = table.tableColumns[index]
+            column.width = tableView(table, sizeToFitWidthOfColumn: index)
+        }
+        table.sizeLastColumnToFit()
+    }
+
+    // MARK: - Subclassing
+
+    /// Override in a subclass to use a different class of column.
+    open func createColumn(withIdentifier identifier: NSUserInterfaceItemIdentifier) -> NSTableColumn {
+        return NSTableColumn(identifier: identifier)
+    }
+
+    /// Override in a subclass to use a different class of header.
+    open func createHeader() -> NSTableHeaderView {
+        return NSTableHeaderView(frame: NSZeroRect)
+    }
+}
+
+#if canImport(AppKit)
+extension Table : NSTableViewDelegate {
 
     public func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         if let identifier = tableColumn?.identifier {
@@ -223,27 +254,5 @@ open class Table: NSScrollView, NSTableViewDelegate {
         }
         return width
     }
-
-    // MARK: - Other Behavioural Fixes
-
-    public final override func setFrameSize(_ newSize: NSSize) {
-        super.setFrameSize(newSize)
-        for index in table.tableColumns.indices {
-            let column = table.tableColumns[index]
-            column.width = tableView(table, sizeToFitWidthOfColumn: index)
-        }
-        table.sizeLastColumnToFit()
-    }
-
-    // MARK: - Subclassing
-
-    /// Override in a subclass to use a different class of column.
-    open func createColumn(withIdentifier identifier: NSUserInterfaceItemIdentifier) -> NSTableColumn {
-        return NSTableColumn(identifier: identifier)
-    }
-
-    /// Override in a subclass to use a different class of header.
-    open func createHeader() -> NSTableHeaderView {
-        return NSTableHeaderView(frame: NSZeroRect)
-    }
 }
+#endif
