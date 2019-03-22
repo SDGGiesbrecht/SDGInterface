@@ -99,8 +99,14 @@ public class TextEditor : TextEditorSuperclass {
 
     /// Appends text to the content and scrolls to its position.
     public func append(_ appendix: RichText) {
-        textView.textStorage?.append(NSAttributedString(appendix))
-        let content = textView.string
+        let possibleStorage: NSTextStorage? = textView.textStorage
+        possibleStorage?.append(NSAttributedString(appendix))
+        let content: String
+        #if canImport(AppKit)
+        content = textView.string
+        #else
+        content = textView.text
+        #endif
         textView.scrollRangeToVisible(NSRange(content.endIndex..., in: content))
     }
 }
