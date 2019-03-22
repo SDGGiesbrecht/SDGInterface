@@ -168,7 +168,7 @@ extension SampleApplicationDelegate {
         #if os(tvOS)
         _ = menuItemLabel.value.resolved()
         #else
-        let window = Window(title: ApplicationNameForm.localizedIsolatedForm.resolved())
+        let window = Window(title: Shared(ApplicationNameForm.localizedIsolatedForm))
         let view = UIViewController()
         window.rootViewController = view
         let field = UITextView(frame: UIScreen.main.bounds)
@@ -190,10 +190,14 @@ extension SampleApplicationDelegate {
     private func demonstrate(_ window: NSWindow) {
         window.makeKeyAndOrderFront(nil)
     }
-    private func demonstrate<L>(_ view: NSView, windowTitle: UserFacing<StrictString, L>) {
+    private func demonstrate<L>(_ view: View, windowTitle: UserFacing<StrictString, L>) {
+        #if canImport(AppKit)
         let window = AuxiliaryWindow(title: Shared(windowTitle))
         window.contentView?.fill(with: view)
         demonstrate(window)
+        #else
+        #warning("iOS?")
+        #endif
     }
 
     @objc public func demonstrateLabel() {
