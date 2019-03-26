@@ -12,99 +12,51 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if !os(watchOS) && !os(tvOS)
-
 #if canImport(AppKit)
-// @documentation(Menu)
-/// An alias for `NSMenu` or `UIMenuController`.
-public typealias Menu = NSMenu
-#elseif canImport(UIKit)
-// #documentation(Menu)
-/// An alias for `NSMenu` or `UIMenuController`.
-public typealias Menu = UIMenuController
-#endif
 
-extension Menu {
+import SDGLocalization
+import SDGInterfaceLocalizations
 
-    // MARK: - Related Items
+/// A localized menu.
+open class Menu<L : Localization> : NSMenu, SharedValueObserver {
 
-    /// Returns the parent menu item.
-    public var parentMenuItem: MenuItem? {
-        #if canImport(AppKit)
-        if let index = supermenu?.indexOfItem(withSubmenu: self),
-            let parent = supermenu?.item(at: index) {
+    // MARK: - Initialization
 
-            return parent
+    /// Creates a localized menu with the specified label.
+    ///
+    /// - Parameters:
+    ///     - label: A label for the menu.
+    public init(label: Shared<UserFacing<StrictString, L>>) {
+        self.label = label
+        super.init(title: String(label.value.resolved()))
+        label.register(observer: self)
+        LocalizationSetting.current.register(observer: self)
+    }
+
+    @available(*, unavailable) public required init(coder decoder: NSCoder) { // @exempt(from: unicode)
+        codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Menu"
+            }
+        }))
+        preconditionFailure()
+    }
+
+    // MARK: - Properties
+
+    /// The label.
+    public var label: Shared<UserFacing<StrictString, L>> {
+        didSet {
+            oldValue.cancel(observer: self)
+            label.register(observer: self)
         }
-        #endif
-        return nil
     }
 
-    // MARK: - Modifications
+    // MARK: - SharedValueObserver
 
-    /// Creates, inserts and returns a new entry.
-    ///
-    /// - Parameters:
-    ///     - label: A label for the entry.
-    ///     - action: Optional. An action for the entry.
-    @discardableResult public func newEntry<E>(labelled label: Shared<UserFacing<StrictString, E>>, action: Selector? = nil) -> LocalizedMenuItem<E> {
-        let entry = createEntry(labelled: label, action: action)
-        #if canImport(AppKit)
-        addItem(entry)
-        #elseif canImport(UIKit)
-        if menuItems == nil {
-            menuItems = []
-        }
-        menuItems?.append(entry)
-        #endif
-        return entry
+    public func valueChanged(for identifier: String) {
+        self.title = String(label.value.resolved())
     }
-
-    #if canImport(AppKit)
-    /// Creates, inserts and returns a new separator.
-    @discardableResult public func newSeparator() -> MenuItem {
-        let separator = createSeparator()
-        addItem(separator)
-        return separator
-    }
-
-    /// Creates, inserts and returns a new submenu.
-    ///
-    /// - Parameters:
-    ///     - label: A label for the submenu.
-    @discardableResult public func newSubmenu<S>(labelled label: Shared<UserFacing<StrictString, S>>) -> LocalizedMenu<S> {
-        let header = newEntry(labelled: label)
-        let submenu = createSubmenu(labelled: label)
-        header.submenu = submenu
-        return submenu
-    }
-    #endif
-
-    // MARK: - Subclassing
-
-    /// Override in a subclass to use a different class of menu entry.
-    ///
-    /// - Parameters:
-    ///     - label: A label for the entry.
-    ///     - action: Optional. An action for the entry.
-    open func createEntry<E>(labelled label: Shared<UserFacing<StrictString, E>>, action: Selector?) -> LocalizedMenuItem<E> {
-        return LocalizedMenuItem(label: label, action: action)
-    }
-
-    #if canImport(AppKit)
-    /// Override in a subclass to use a different class of menu entry.
-    open func createSeparator() -> MenuItem {
-        return MenuItem.separator()
-    }
-
-    /// Override in a subclass to use a different class of sub menu.
-    ///
-    /// - Parameters:
-    ///     - label: A label for the submenu.
-    open func createSubmenu<S>(labelled label: Shared<UserFacing<StrictString, S>>) -> LocalizedMenu<S> where S : Localization {
-        return LocalizedMenu<S>(label: label)
-    }
-    #endif
 }
-
 #endif

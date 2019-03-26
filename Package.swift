@@ -70,6 +70,7 @@ let package = Package(
             .product(name: "SDGLogic", package: "SDGCornerstone"),
             .product(name: "SDGMathematics", package: "SDGCornerstone"),
             .product(name: "SDGCollections", package: "SDGCornerstone"),
+            .product(name: "SDGText", package: "SDGCornerstone"),
             .product(name: "SDGLocalization", package: "SDGCornerstone")
             ]),
 
@@ -83,10 +84,19 @@ let package = Package(
             .product(name: "SDGLocalization", package: "SDGCornerstone")
             ]),
 
-        // Internal
+        // Internal modules.
 
         .target(name: "SDGInterfaceLocalizations", dependencies: [
             .product(name: "SDGLocalization", package: "SDGCornerstone")
+            ]),
+
+        // Internal utilities.
+
+        .testTarget(name: "SDGInterfaceResourceGenerationTests", dependencies: [
+            "SDGInterfaceElements",
+            .product(name: "SDGText", package: "SDGCornerstone"),
+            .product(name: "SDGLocalization", package: "SDGCornerstone"),
+            .product(name: "SDGPersistence", package: "SDGCornerstone")
             ]),
 
         // Internal tests.
@@ -96,7 +106,11 @@ let package = Package(
             "SDGInterfaceLocalizations",
             "SDGInterfaceSample",
             .product(name: "SDGLogic", package: "SDGCornerstone"),
-            .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
+            .product(name: "SDGMathematics", package: "SDGCornerstone"),
+            .product(name: "SDGText", package: "SDGCornerstone"),
+            .product(name: "SDGXCTestUtilities", package: "SDGCornerstone"),
+            .product(name: "SDGLogicTestUtilities", package: "SDGCornerstone"),
+            .product(name: "SDGLocalizationTestUtilities", package: "SDGCornerstone")
             ]),
 
         .target(name: "SDGInterfaceSample", dependencies: [

@@ -21,4 +21,5 @@
 #endif
 
 @_exported import SDGControlFlow
+@_exported import SDGText
 @_exported import SDGLocalization

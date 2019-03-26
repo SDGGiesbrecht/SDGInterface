@@ -93,7 +93,14 @@ extension SampleApplicationDelegate {
         }))
         #if canImport(AppKit)
         let menuBar = MenuBar.menuBar
-        let menu = menuBar.newApplicationSpecificSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        let sample = menuBar.newApplicationSpecificSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Sample"
+            }
+        })))
+
+        let menu = sample.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Menu"
@@ -117,9 +124,7 @@ extension SampleApplicationDelegate {
         })))
         submenu.newEntry(labelled: menuItemLabel)
 
-        menu.newSeparator()
-
-        let window = menu.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        let window = sample.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Window"
@@ -127,12 +132,43 @@ extension SampleApplicationDelegate {
         })), action: #selector(SampleApplicationDelegate.demonstrateWindow))
         window.target = self
 
+        let view = sample.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "View"
+            }
+        })))
+
+        let label = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Label"
+            }
+        })), action: #selector(SampleApplicationDelegate.demonstrateLabel))
+        label.target = self
+
+        let textEditor = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Text Editor"
+            }
+        })), action: #selector(SampleApplicationDelegate.demonstrateTextEditor))
+        textEditor.target = self
+
+        let textField = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Text Field"
+            }
+        })), action: #selector(SampleApplicationDelegate.demonstrateTextField))
+        textField.target = self
+
         #elseif canImport(UIKit)
 
         #if os(tvOS)
         _ = menuItemLabel.value.resolved()
         #else
-        let window = Window(title: ApplicationNameForm.localizedIsolatedForm.resolved())
+        let window = Window(title: Shared(ApplicationNameForm.localizedIsolatedForm))
         let view = UIViewController()
         window.rootViewController = view
         let field = UITextView(frame: UIScreen.main.bounds)
@@ -151,10 +187,66 @@ extension SampleApplicationDelegate {
         #endif
     }
 
-    @objc private func demonstrateWindow() { // @exempt(from: tests)
-        let window = Window(title: "Title", size: CGSize(width: 700, height: 300))
+    #if canImport(AppKit) // #workaround(Temporary.)
+    private func demonstrate(_ window: NSWindow) {
         window.makeKeyAndOrderFront(nil)
     }
+    #if canImport(AppKit) // #workaround(Temporary.)
+    private func demonstrate<L>(_ view: View, windowTitle: UserFacing<StrictString, L>) {
+        #if canImport(AppKit)
+        let window = AuxiliaryWindow(title: Shared(windowTitle))
+        window.contentView?.fill(with: view)
+        demonstrate(window)
+        #else
+        // #workaround(iOS?)
+        #endif
+    }
+    #endif
+
+    @objc public func demonstrateLabel() {
+        #if canImport(AppKit) // #workaround(Temporary.)
+        let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Label"
+            }
+        })
+        demonstrate(Label(text: Shared(label)), windowTitle: label)
+        #endif
+    }
+
+    @objc public func demonstrateTextEditor() {
+        #if canImport(AppKit) // #workaround(Temporary.)
+        demonstrate(TextEditor(), windowTitle: UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Text Editor"
+            }
+        }))
+        #endif
+    }
+
+    @objc public func demonstrateTextField() {
+        #if canImport(AppKit) // #workaround(Temporary.)
+        demonstrate(TextField(), windowTitle: UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Text Field"
+            }
+        }))
+        #endif
+    }
+
+    @objc public func demonstrateWindow() {
+        let window = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Window"
+            }
+        })), size: CGSize(width: 700, height: 300))
+        demonstrate(window)
+    }
+    #endif
 }
 
 #endif

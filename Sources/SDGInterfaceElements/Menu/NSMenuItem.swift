@@ -1,5 +1,5 @@
 /*
- InterfaceLocalization.swift
+ NSMenuItem.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,13 +12,11 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-public enum InterfaceLocalization : String, CaseIterable, InputLocalization {
+#if !os(watchOS) && !os(tvOS)
 
-    // MARK: - Cases
+#if !canImport(AppKit)
+/// An `AppKit.NSMenuItem` or a `UIMenuItem`.
+public typealias NSMenuItem = UIMenuItem
+#endif
 
-    case englishCanada = "en\u{2D}CA"
-
-    // MARK: - Localization
-
-    public static let fallbackLocalization: InterfaceLocalization = .englishCanada
-}
+#endif

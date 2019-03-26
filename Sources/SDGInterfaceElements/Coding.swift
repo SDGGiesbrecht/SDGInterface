@@ -18,8 +18,8 @@ import SDGInterfaceLocalizations
 ///
 /// - Parameters:
 ///     - type: The type.
-public func codingNotSupported<L>(forType type: UserFacing<StrictString, L>) -> Never where L : Localization {
-    preconditionFailure(UserFacing<StrictString, APILocalization>({ localization in
+public func codingNotSupported<L>(forType type: UserFacing<StrictString, L>) where L : Localization {
+    assertionFailure(UserFacing<StrictString, APILocalization>({ localization in
         switch localization {
         case .englishCanada:
             return "“" + type.resolved() + "” does not support coding."

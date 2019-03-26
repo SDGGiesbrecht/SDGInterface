@@ -23,7 +23,7 @@ import SDGInterfaceLocalizations
 /// Some menu items only appear if the application provides details they need to operate:
 /// - “Preferences...” appears if the application delegate overrides `openPreferences(_:)`.
 /// - “Help” appears if a help book is specified in the `Info.plist` file.
-public class MenuBar : LocalizedMenu<InterfaceLocalization> {
+public class MenuBar : Menu<InterfaceLocalization> {
 
     // MARK: - Class Properties
 
@@ -60,7 +60,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
     ///
     /// - Parameters:
     ///     - label: A label for the new submenu.
-    @discardableResult public func newApplicationSpecificSubmenu<S>(labelled label: Shared<UserFacing<StrictString, S>>) -> LocalizedMenu<S> {
+    @discardableResult public func newApplicationSpecificSubmenu<S>(labelled label: Shared<UserFacing<StrictString, S>>) -> Menu<S> {
         let menu = newSubmenu(labelled: label)
         if let menuItem = menu.parentMenuItem {
             removeItem(menuItem)
@@ -72,27 +72,53 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
 
     // MARK: - Items
 
+    private static func fallbackApplicationName(quotationMarks: (leading: StrictString, trailing: StrictString)) -> StrictString {
+        // #workaround(SDGCornerstone 0.14.0, Until SDGCornerstone does this.)
+        var result = quotationMarks.leading
+        result.append("\u{2068}")
+        result.append(contentsOf: ApplicationNameForm.localizedIsolatedForm.resolved())
+        result.append("\u{2069}")
+        result.append(contentsOf: quotationMarks.trailing)
+        return result
+    }
+
     private func initializeApplicationMenu() {
         let application = newSubmenu(labelled: Shared(ApplicationNameForm.localizedIsolatedForm))
 
         application.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Acerca " + (ProcessInfo.applicationName(.español(.de)) ?? "de «\u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069}»")
+                return StrictString("Acerca ")
+                    + (ProcessInfo.applicationName(.español(.de))
+                        ?? StrictString("de ") + MenuBar.fallbackApplicationName(quotationMarks: ("«", "»")))
             case .englishUnitedKingdom:
-                return "About " + (ProcessInfo.applicationName(.english(.unitedKingdom)) ?? "‘\u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069}’")
+                return StrictString("About ")
+                    + (ProcessInfo.applicationName(.english(.unitedKingdom))
+                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("‘", "’")))
             case .englishUnitedStates:
-                return "About " + (ProcessInfo.applicationName(.english(.unitedStates)) ?? "“\u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069}”")
+                return StrictString("About ")
+                    + (ProcessInfo.applicationName(.english(.unitedStates))
+                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”")))
             case .englishCanada:
-                return "About " + (ProcessInfo.applicationName(.english(.canada)) ?? "“\u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069}”")
+                return StrictString("About ")
+                    + (ProcessInfo.applicationName(.english(.canada))
+                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”")))
             case .deutschDeutschland:
-                return "Über " + (ProcessInfo.applicationName(.deutsch(.akkusativ)) ?? "„\u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069}“")
+                return StrictString("Über ")
+                    + (ProcessInfo.applicationName(.deutsch(.akkusativ))
+                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("„", "“")))
             case .françaisFrance:
-                return "À propos " + (ProcessInfo.applicationName(.français(.de)) ?? "de « \u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069} »")
+                return StrictString("À propos ")
+                    + (ProcessInfo.applicationName(.français(.de))
+                        ?? StrictString("de ") + MenuBar.fallbackApplicationName(quotationMarks: ("« ", " »")))
             case .ελληνικάΕλλάδα:
-                return "Πληροφορίες για " + (ProcessInfo.applicationName(.ελληνικά(.αιτιατική)) ?? "«\u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069}»")
+                return StrictString("Πληροφορίες για ")
+                    + (ProcessInfo.applicationName(.ελληνικά(.αιτιατική))
+                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("«", "»")))
             case .עברית־ישראל:
-                return "אותות " + (ProcessInfo.applicationName(.עברית) ?? "”\u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069}“")
+                return StrictString("אותות ")
+                    + (ProcessInfo.applicationName(.עברית)
+                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("”", "“")))
             }
         })), action: #selector(Application.orderFrontStandardAboutPanel(_:)))
 
@@ -143,21 +169,37 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
         let hide = application.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Ocultar " + (ProcessInfo.applicationName(.español(.ninguna)) ?? "«\u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069}»")
+                return StrictString("Ocultar ")
+                    + (ProcessInfo.applicationName(.español(.ninguna))
+                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("«", "»")))
             case .englishUnitedKingdom:
-                return "Hide " + (ProcessInfo.applicationName(.english(.unitedKingdom)) ?? "‘\u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069}’")
+                return StrictString("Hide ")
+                    + (ProcessInfo.applicationName(.english(.unitedKingdom))
+                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("‘", "’")))
             case .englishUnitedStates:
-                return "Hide " + (ProcessInfo.applicationName(.english(.unitedStates)) ?? "“\u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069}”")
+                return StrictString("Hide ")
+                    + (ProcessInfo.applicationName(.english(.unitedStates))
+                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”")))
             case .englishCanada:
-                return "Hide " + (ProcessInfo.applicationName(.english(.canada)) ?? "“\u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069}”")
+                return StrictString("Hide ")
+                    + (ProcessInfo.applicationName(.english(.canada))
+                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”")))
             case .deutschDeutschland:
-                return (ProcessInfo.applicationName(.deutsch(.akkusativ)) ?? "„\u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069}“") + " ausblenden"
+                return (ProcessInfo.applicationName(.deutsch(.akkusativ))
+                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("„", "“")))
+                    + " ausblenden"
             case .françaisFrance:
-                return "Masquer " + (ProcessInfo.applicationName(.français(.aucune)) ?? "« \u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069} »")
+                return StrictString("Masquer ")
+                    + (ProcessInfo.applicationName(.français(.aucune))
+                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("« ", " »")))
             case .ελληνικάΕλλάδα:
-                return "Απόκρυψη " + (ProcessInfo.applicationName(.ελληνικά(.γενική)) ?? "«\u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069}»")
+                return StrictString("Απόκρυψη ")
+                    + (ProcessInfo.applicationName(.ελληνικά(.γενική))
+                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("«", "»")))
             case .עברית־ישראל:
-                return "הסתר את " + (ProcessInfo.applicationName(.עברית) ?? "”\u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069}“")
+                return StrictString("הסתר את ")
+                    + (ProcessInfo.applicationName(.עברית)
+                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("”", "“")))
             }
         })), action: #selector(Application.hide(_:)))
         hide.keyEquivalent = "h"
@@ -204,23 +246,39 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
         let quit = application.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Salir " + (ProcessInfo.applicationName(.español(.de)) ?? "«\u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069}»")
+                return StrictString("Salir ")
+                    + (ProcessInfo.applicationName(.español(.de))
+                        ?? StrictString("de ") + MenuBar.fallbackApplicationName(quotationMarks: ("«", "»")))
 
             case .englishUnitedKingdom:
-                return "Quit " + (ProcessInfo.applicationName(.english(.unitedKingdom)) ?? "‘\u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069}’")
+                return StrictString("Quit ")
+                    + (ProcessInfo.applicationName(.english(.unitedKingdom))
+                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("‘", "’")))
             case .englishUnitedStates:
-                return "Quit " + (ProcessInfo.applicationName(.english(.unitedStates)) ?? "“\u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069}”")
+                return StrictString("Quit ")
+                    + (ProcessInfo.applicationName(.english(.unitedStates))
+                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”")))
             case .englishCanada:
-                return "Quit " + (ProcessInfo.applicationName(.english(.canada)) ?? "“\u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069}”")
+                return StrictString("Quit ")
+                    + (ProcessInfo.applicationName(.english(.canada))
+                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”")))
             case .françaisFrance:
-                return "Quitter " + (ProcessInfo.applicationName(.français(.aucune)) ?? "« \u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069} »")
+                return StrictString("Quitter ")
+                    + (ProcessInfo.applicationName(.français(.aucune))
+                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("« ", " »")))
 
             case .deutschDeutschland:
-                return (ProcessInfo.applicationName(.deutsch(.akkusativ)) ?? "„\u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069}“") + " beenden"
+                return (ProcessInfo.applicationName(.deutsch(.akkusativ))
+                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("„", "“")))
+                    + " beenden"
             case .ελληνικάΕλλάδα:
-                return "Τερματισμός " + (ProcessInfo.applicationName(.ελληνικά(.γενική)) ?? "«\u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069}»")
+                return StrictString("Τερματισμός ")
+                    + (ProcessInfo.applicationName(.ελληνικά(.γενική))
+                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("«", "»")))
             case .עברית־ישראל:
-                return "סיים את " + (ProcessInfo.applicationName(.עברית) ?? "”\u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069}“")
+                return StrictString("סיים את ")
+                    + (ProcessInfo.applicationName(.עברית)
+                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("”", "“")))
             }
         })), action: #selector(Application.terminate(_:)))
         quit.keyEquivalent = "q"
@@ -470,8 +528,6 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
         class Responder : NSObject {
             @objc func undo(_ sender: Any?) {}
             @objc func redo(_ sender: Any?) {}
-            @objc func normalizeText(_ sender: Any?) {} // #workaround(Until provided by NSTextView.)
-            @objc func showCharacterInformation(_ sender: Any?) {} // #workaround(Until provided by NSTextView.)
         }
 
         let edit = newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
@@ -1058,11 +1114,11 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .englishUnitedStates, .englishCanada:
                 return "Normalize Text"
             }
-        })), action: #selector(Responder.normalizeText(_:)))
+        })), action: #selector(NSTextView.normalizeText(_:)))
 
-        // “Make Upper Case” does not belong here. Uppercase‐only is a font style, not a semantic aspect of the text. Attempting to fake it by switching to capital letters (a) results in semantically incorrect text, and (b) is irreversable. A font‐based version is available under the “Font” menu instead.
+        // “Make Upper Case” does not belong here. Upper‐case‐only is a font style, not a semantic aspect of the text. Attempting to fake it by switching to capital letters (a) results in semantically incorrect text, and (b) is irreversable. A font‐based version is available under the “Font” menu instead.
 
-        // “Make Lower Case” is never useful. Instead, reversion from an uppercase‐only font style to normally cased font—which preserves true capitals—is available under the “Font” menu.
+        // “Make Lower Case” is never useful. Instead, reversion from an upper‐case‐only font style to normally cased font—which preserves true capitals—is available under the “Font” menu.
 
         // “Capitalize” is just not possible for a machine to do properly in any language.
 
@@ -1071,7 +1127,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Show Character Information"
             }
-        })), action: #selector(Responder.showCharacterInformation(_:)))
+        })), action: #selector(NSTextView.showCharacterInformation(_:)))
 
         let speech = edit.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1128,18 +1184,6 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
     }
 
     private func initializeFormatMenu() {
-        class Responder : NSObject {
-            @objc func resetBaseline(_ sender: Any?) {} // #workaround(Until provided by NSTextView.)
-            @objc func makeSuperscript(_ sender: Any?) {} // #workaround(Until provided by NSTextView.)
-            @objc func makeSubscript(_ sender: Any?) {} // #workaround(Until provided by NSTextView.)
-            @objc func resetCasing(_ sender: Any?) {} // #workaround(Until provided by NSTextView.)
-            @objc func makeLatinateUpperCase(_ sender: Any?) {} // #workaround(Until provided by NSTextView.)
-            @objc func makeLatinateSmallUpperCase(_ sender: Any?) {} // #workaround(Until provided by NSTextView.)
-            @objc func makeLatinateLowerCase(_ sender: Any?) {} // #workaround(Until provided by NSTextView.)
-            @objc func makeTurkicUpperCase(_ sender: Any?) {} // #workaround(Until provided by NSTextView.)
-            @objc func makeTurkicSmallUpperCase(_ sender: Any?) {} // #workaround(Until provided by NSTextView.)
-            @objc func makeTurkicLowerCase(_ sender: Any?) {} // #workaround(Until provided by NSTextView.)
-        }
 
         let format = newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1494,7 +1538,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "השתמש בברירת המחדל"
             }
-        })), action: #selector(Responder.resetBaseline(_:)))
+        })), action: #selector(NSTextView.resetBaseline(_:)))
 
         baseline.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1511,7 +1555,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "כתב עילי"
             }
-        })), action: #selector(Responder.makeSuperscript(_:)))
+        })), action: #selector(NSTextView.makeSuperscript(_:)))
 
         baseline.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1529,7 +1573,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "כתב תחתי"
             }
-        })), action: #selector(Responder.makeSubscript(_:)))
+        })), action: #selector(NSTextView.makeSubscript(_:)))
 
         baseline.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1577,7 +1621,7 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Use Default"
             }
-        })), action: #selector(Responder.resetCasing(_:)))
+        })), action: #selector(NSTextView.resetCasing(_:)))
 
         let upperCase = UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
@@ -1611,13 +1655,13 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             return latinate + " (I ↔ i)"
         })))
 
-        let latinateUpperCase = casing.newEntry(labelled: Shared(upperCase), action: #selector(Responder.makeLatinateUpperCase(_:)))
+        let latinateUpperCase = casing.newEntry(labelled: Shared(upperCase), action: #selector(NSTextView.makeLatinateUpperCase(_:)))
         latinateUpperCase.indentationLevel = 1
 
-        let latinateSmallUpperCase = casing.newEntry(labelled: Shared(smallUpperCase), action: #selector(Responder.makeLatinateSmallUpperCase(_:)))
+        let latinateSmallUpperCase = casing.newEntry(labelled: Shared(smallUpperCase), action: #selector(NSTextView.makeLatinateSmallCaps(_:)))
         latinateSmallUpperCase.indentationLevel = 1
 
-        let latinateLowerCase = casing.newEntry(labelled: Shared(lowerCase), action: #selector(Responder.makeLatinateLowerCase(_:)))
+        let latinateLowerCase = casing.newEntry(labelled: Shared(lowerCase), action: #selector(NSTextView.makeLatinateLowerCase(_:)))
         latinateLowerCase.indentationLevel = 1
 
         casing.newSeparator()
@@ -1631,13 +1675,13 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
             return turkic + " (I ↔ ı, İ ↔ i)"
         })))
 
-        let turkicUpperCase = casing.newEntry(labelled: Shared(upperCase), action: #selector(Responder.makeTurkicUpperCase(_:)))
+        let turkicUpperCase = casing.newEntry(labelled: Shared(upperCase), action: #selector(NSTextView.makeTurkicUpperCase(_:)))
         turkicUpperCase.indentationLevel = 1
 
-        let turkicSmallUpperCase = casing.newEntry(labelled: Shared(smallUpperCase), action: #selector(Responder.makeTurkicSmallUpperCase(_:)))
+        let turkicSmallUpperCase = casing.newEntry(labelled: Shared(smallUpperCase), action: #selector(NSTextView.makeTurkicSmallCaps(_:)))
         turkicSmallUpperCase.indentationLevel = 1
 
-        let turkicLowerCase = casing.newEntry(labelled: Shared(lowerCase), action: #selector(Responder.makeTurkicLowerCase(_:)))
+        let turkicLowerCase = casing.newEntry(labelled: Shared(lowerCase), action: #selector(NSTextView.makeTurkicLowerCase(_:)))
         turkicLowerCase.indentationLevel = 1
 
         font.newSeparator()
@@ -2189,23 +2233,39 @@ public class MenuBar : LocalizedMenu<InterfaceLocalization> {
         let helpItem = helpMenu.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Ayuda " + (ProcessInfo.applicationName(.español(.de)) ?? "«\u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069}»")
+                return StrictString("Ayuda ")
+                    + (ProcessInfo.applicationName(.español(.de))
+                        ?? StrictString("de ") + MenuBar.fallbackApplicationName(quotationMarks: ("«", "»")))
             case .françaisFrance:
-                return "Aide " + (ProcessInfo.applicationName(.français(.de)) ?? "de « \u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069} »")
+                return StrictString("Aide ")
+                    + (ProcessInfo.applicationName(.français(.de))
+                        ?? StrictString("de ") + MenuBar.fallbackApplicationName(quotationMarks: ("« ", " »")))
 
             case .englishUnitedKingdom:
-                return (ProcessInfo.applicationName(.english(.unitedKingdom)) ?? "‘\u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069}’") + " Help"
+                return (ProcessInfo.applicationName(.english(.unitedKingdom))
+                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("‘", "’")))
+                    + " Help"
             case .englishUnitedStates:
-                return (ProcessInfo.applicationName(.english(.unitedStates)) ?? "“\u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069}”") + " Help"
+                return (ProcessInfo.applicationName(.english(.unitedStates))
+                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”")))
+                    + " Help"
             case .englishCanada:
-                return (ProcessInfo.applicationName(.english(.canada)) ?? "“\u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069}”") + " Help"
+                return (ProcessInfo.applicationName(.english(.canada))
+                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”")))
+                    + " Help"
             case .deutschDeutschland:
-                return "Hilfe zu " + (ProcessInfo.applicationName(.deutsch(.dativ)) ?? "„\u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069}“")
+                return StrictString("Hilfe zu ")
+                    + (ProcessInfo.applicationName(.deutsch(.dativ))
+                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("„", "“")))
 
             case .ελληνικάΕλλάδα:
-                return "Βοήθεια για " + (ProcessInfo.applicationName(.ελληνικά(.αιτιατική)) ?? "«\u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069}»")
+                return StrictString("Βοήθεια για ")
+                    + (ProcessInfo.applicationName(.ελληνικά(.αιτιατική))
+                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("«", "»")))
             case .עברית־ישראל:
-                return "עזרה עבור " + (ProcessInfo.applicationName(.עברית) ?? "”\u{2068}" + ApplicationNameForm.localizedIsolatedForm.resolved() + "\u{2069}“")
+                return StrictString("עזרה עבור ")
+                    + (ProcessInfo.applicationName(.עברית)
+                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("”", "“")))
             }
         })), action: #selector(NSApplication.showHelp(_:)))
         helpItem.keyEquivalent = "?"
