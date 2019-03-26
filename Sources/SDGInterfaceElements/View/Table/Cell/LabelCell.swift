@@ -44,7 +44,7 @@ open class LabelCell<L>: TableCellView where L : Localization {
         #endif
     }
 
-    @available(*, unavailable) public required init?(coder decoder: NSCoder) {
+    @available(*, unavailable) public required init?(coder decoder: NSCoder) { // @exempt(from: unicode)
         codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
             switch localization {
             case .englishCanada:

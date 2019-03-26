@@ -88,7 +88,7 @@ public class TextEditor : TextEditorSuperclass {
         #endif
     }
 
-    @available(*, unavailable) internal required init?(coder: NSCoder) {
+    @available(*, unavailable) internal required init?(coder: NSCoder) { // @exempt(from: unicode)
         codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
             switch localization {
             case .englishCanada:
