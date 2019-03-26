@@ -464,7 +464,9 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testWindow() {
+        #if canImport(AppKit) // #workaround(Temporary.)
         SampleApplicationDelegate().demonstrateWindow()
+        #endif
 
         let window = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "Title" })), size: CGSize(width: 700, height: 300))
         #if canImport(AppKit) // UIKit raises an exception during tests.
