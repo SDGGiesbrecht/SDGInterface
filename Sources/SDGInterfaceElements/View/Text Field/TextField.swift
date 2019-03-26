@@ -16,7 +16,7 @@
 import SDGInterfaceLocalizations
 
 /// A text field.
-open class TextField: NSTextField {
+open class TextField : NSTextField {
 
     // MARK: - Initialization
 

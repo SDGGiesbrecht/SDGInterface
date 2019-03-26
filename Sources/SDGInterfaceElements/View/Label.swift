@@ -22,7 +22,7 @@ public typealias LabelSuperclass = UILabel
 #endif
 
 /// A text label.
-open class Label<L>: LabelSuperclass, SharedValueObserver where L : Localization {
+open class Label<L> : LabelSuperclass, SharedValueObserver where L : Localization {
 
     // MARK: - Initialization
 

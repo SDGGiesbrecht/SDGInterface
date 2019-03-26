@@ -14,7 +14,7 @@
 
 #if canImport(AppKit)
 /// An window which plays a supporting role to another window.
-open class AuxiliaryWindow<L>: Window<L> where L : Localization {
+open class AuxiliaryWindow<L> : Window<L> where L : Localization {
 
     // MARK: - Initialization
 

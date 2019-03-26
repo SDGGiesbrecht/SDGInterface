@@ -17,7 +17,7 @@ import SDGInterfaceLocalizations
 
 extension TextField {
 
-    internal class NormalizingCell: NSTextFieldCell {
+    internal class NormalizingCell : NSTextFieldCell {
 
         // MARK: - Initialization
 

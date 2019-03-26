@@ -26,7 +26,7 @@ public typealias TableSuperclass = UITableView
 #endif
 
 /// A table.
-open class Table: TableSuperclass {
+open class Table : TableSuperclass {
 
     // MARK: - Initialization
 
@@ -244,7 +244,7 @@ open class Table: TableSuperclass {
     #if canImport(AppKit)
     /// Override in a subclass to use a different class of header.
     open func createHeader() -> NSTableHeaderView {
-        return NSTableHeaderView(frame: NSZeroRect)
+        return NSTableHeaderView(frame: CGRecut.zero)
     }
     #endif
 }

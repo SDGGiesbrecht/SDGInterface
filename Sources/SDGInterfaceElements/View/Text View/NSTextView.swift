@@ -67,7 +67,7 @@ extension NSTextView {
         }
     }
     private func attemptToMutateSelection(_ mutate: (NSMutableAttributedString) -> Void) {
-        attemptToModifySelection() {
+        attemptToModifySelection {
             let selection = $0.mutableCopy() as! NSMutableAttributedString
             mutate(selection)
             return selection.copy() as! NSAttributedString
@@ -77,7 +77,7 @@ extension NSTextView {
     // MARK: - Manual Normalization
 
     @objc public func normalizeText(_ sender: Any?) {
-        attemptToModifySelection() { NSAttributedString(RichText($0)) }
+        attemptToModifySelection { NSAttributedString(RichText($0)) }
     }
 
     // MARK: - Displaying Character Information
@@ -100,19 +100,19 @@ extension NSTextView {
 
     #if canImport(AppKit) // #workaround(Temporary.)
     @objc public func makeSuperscript(_ sender: Any?) {
-        attemptToMutateSelection() {
+        attemptToMutateSelection {
             $0.superscript(NSRange(0 ..< $0.length))
         }
     }
 
     @objc public func makeSubscript(_ sender: Any?) {
-        attemptToMutateSelection() {
+        attemptToMutateSelection {
             $0.`subscript`(NSRange(0 ..< $0.length))
         }
     }
 
     @objc public func resetBaseline(_ sender: Any?) {
-        attemptToMutateSelection() {
+        attemptToMutateSelection {
             $0.resetBaseline(for: NSRange(0 ..< $0.length))
         }
     }
@@ -122,40 +122,40 @@ extension NSTextView {
     // MARK: - Case
 
     @objc public func resetCasing(_ sender: Any?) {
-        attemptToMutateSelection() {
+        attemptToMutateSelection {
             $0.resetCasing(of: NSRange(0 ..< $0.length))
         }
     }
 
     @objc public func makeLatinateUpperCase(_ sender: Any?) {
-        attemptToMutateSelection() {
+        attemptToMutateSelection {
             $0.makeLatinateUpperCase(NSRange(0 ..< $0.length))
         }
     }
     @objc public func makeTurkicUpperCase(_ sender: Any?) {
-        attemptToMutateSelection() {
+        attemptToMutateSelection {
             $0.makeTurkicUpperCase(NSRange(0 ..< $0.length))
         }
     }
 
     @objc public func makeLatinateSmallCaps(_ sender: Any?) {
-        attemptToMutateSelection() {
+        attemptToMutateSelection {
             $0.makeLatinateSmallCaps(NSRange(0 ..< $0.length))
         }
     }
     @objc public func makeTurkicSmallCaps(_ sender: Any?) {
-        attemptToMutateSelection() {
+        attemptToMutateSelection {
             $0.makeTurkicSmallCaps(NSRange(0 ..< $0.length))
         }
     }
 
     @objc public func makeLatinateLowerCase(_ sender: Any?) {
-        attemptToMutateSelection() {
+        attemptToMutateSelection {
             $0.makeLatinateLowerCase(NSRange(0 ..< $0.length))
         }
     }
     @objc public func makeTurkicLowerCase(_ sender: Any?) {
-        attemptToMutateSelection() {
+        attemptToMutateSelection {
             $0.makeTurkicLowerCase(NSRange(0 ..< $0.length))
         }
     }

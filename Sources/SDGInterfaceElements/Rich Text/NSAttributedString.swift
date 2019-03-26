@@ -97,7 +97,6 @@ extension NSAttributedString {
             paragraphStyle.minimumLineHeight = lineHeight(for: font)
         }
 
-
         attributes[.font] = font
         attributes[.paragraphStyle] = paragraphStyle.copy() as! NSParagraphStyle
         attributes[.superscript] = nil

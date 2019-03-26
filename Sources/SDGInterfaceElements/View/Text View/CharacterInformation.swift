@@ -102,7 +102,7 @@ public class CharacterInformation : NSObject {
             }
         } else {
             switch character {
-            case "\"", "'", "-", "\\", "^", "_", "`", "~":
+            case "\u{22}", "\u{27}", "\u{2D}", "\\", "^", "_", "`", "~":
                 warningColour = .yellow // Code‐only ASCII
             default:
                 warningColour = .black // Normal
@@ -111,7 +111,7 @@ public class CharacterInformation : NSObject {
 
         self.character = character.visibleRepresentation
         let printable = self.normalizedCharacters.unicodeScalars.map { $0.visibleRepresentation }
-        self.normalizedCharacters = printable.reduce("") {$0 + $1}
+        self.normalizedCharacters = printable.reduce("") { $0 + $1 }
     }
 
     // MARK: - Properties

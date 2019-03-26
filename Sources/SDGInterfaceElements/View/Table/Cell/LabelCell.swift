@@ -18,7 +18,7 @@ import SDGMathematics
 import SDGInterfaceLocalizations
 
 /// A label table cell.
-open class LabelCell<L>: TableCellView where L : Localization {
+open class LabelCell<L> : TableCellView where L : Localization {
 
     // MARK: - Properties
 
