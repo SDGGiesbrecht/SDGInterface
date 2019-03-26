@@ -32,7 +32,7 @@ open class LabelCell<L>: TableCellView where L : Localization {
         #if canImport(AppKit)
         super.init(frame: CGRect.zero)
         #else
-        #warning("Reuse identifier?")
+        // #workaround(Reuse identifier?)
         super.init(style: .default, reuseIdentifier: nil)
         #endif
 
@@ -40,7 +40,7 @@ open class LabelCell<L>: TableCellView where L : Localization {
         fill(with: label, on: .horizontal, margin: .specific(label.fittingSize.height ÷ 16))
         fill(with: label, on: .vertical, margin: .none)
         #else
-        #warning("iOS?")
+        // #workaround(iOS?)
         #endif
     }
 

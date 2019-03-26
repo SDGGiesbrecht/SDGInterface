@@ -35,7 +35,7 @@ open class Table: TableSuperclass {
         #if canImport(AppKit)
         controller = NSArrayController(content: content)
         #else
-        #warning("iOS?")
+        // #workaround(iOS?)
         #endif
         #if canImport(AppKit)
         super.init(frame: CGRect.zero)
@@ -53,7 +53,7 @@ open class Table: TableSuperclass {
         finishInitialization()
     }
     #else
-    #warning("iOS?")
+    // #workaround(iOS?)
     #endif
 
     private func finishInitialization() {
@@ -77,7 +77,7 @@ open class Table: TableSuperclass {
         table.bind(.selectionIndexes, to: controller, withKeyPath: NSBindingName.selectionIndexes.rawValue, options: nil)
         table.bind(.sortDescriptors, to: controller, withKeyPath: NSBindingName.sortDescriptors.rawValue, options: nil)
         #else
-        #warning("iOS?")
+        // #workaround(iOS?)
         #endif
     }
 
@@ -98,7 +98,7 @@ open class Table: TableSuperclass {
     public let controller: NSArrayController
     private var viewGenerators: [NSUserInterfaceItemIdentifier: () -> NSTableCellView] = [:]
     #else
-    #warning("iOS?")
+    // #workaround(iOS?)
     #endif
 
     #if canImport(AppKit)
@@ -118,7 +118,7 @@ open class Table: TableSuperclass {
         }
     }
     #else
-    #warning("iOS?")
+    // #workaround(iOS?)
     #endif
 
     #if canImport(AppKit)
@@ -198,7 +198,7 @@ open class Table: TableSuperclass {
         }
     }
     #else
-    #warning("iOS?")
+    // #workaround(iOS?)
     #endif
 
     #if canImport(AppKit)

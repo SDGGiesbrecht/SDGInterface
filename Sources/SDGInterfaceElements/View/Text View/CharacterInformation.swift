@@ -67,7 +67,7 @@ public class CharacterInformation : NSObject {
 
         window.makeKeyAndOrderFront(nil)
         #else
-        #warning("iOS?")
+        // #workaround(iOS?)
         #endif
     }
 

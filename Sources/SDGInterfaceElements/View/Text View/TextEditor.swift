@@ -84,7 +84,7 @@ public class TextEditor : TextEditorSuperclass {
 
         hasVerticalScroller = true
         #else
-        #warning("iOS?")
+        // #workaround(iOS?)
         #endif
     }
 

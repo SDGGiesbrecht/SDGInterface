@@ -29,7 +29,7 @@ extension Font {
         #if canImport(AppKit)
         size = systemFontSize(for: .regular)
         #else
-        #warning("Verify iOS.")
+        // #workaround(Verify iOS.)
         size = systemFontSize
         #endif
         return systemFont(ofSize: size)

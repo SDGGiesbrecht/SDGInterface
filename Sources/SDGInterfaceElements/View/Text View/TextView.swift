@@ -44,7 +44,7 @@ internal class TextView : NSTextView {
         isAutomaticTextReplacementEnabled = true
         smartInsertDeleteEnabled = true
         #else
-        #warning("iOS?")
+        // #workaround(iOS?)
         #endif
     }
 
@@ -116,7 +116,7 @@ internal class TextView : NSTextView {
         insert(text: string, at: replacementRange)
     }
     #else
-    #warning("iOS?")
+    // #workaround(iOS?)
     #endif
 
     override func paste(_ sender: Any?) {

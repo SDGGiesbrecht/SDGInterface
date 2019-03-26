@@ -198,7 +198,7 @@ extension SampleApplicationDelegate {
         window.contentView?.fill(with: view)
         demonstrate(window)
         #else
-        #warning("iOS?")
+        // #workaround(iOS?)
         #endif
     }
     #endif

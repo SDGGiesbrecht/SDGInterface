@@ -27,7 +27,7 @@ open class TextField: NSTextField {
         let cell = NormalizingCell()
         self.cell = cell
         #else
-        #warning("iOS?")
+        // #workaround(iOS?)
         #endif
 
         #if canImport(AppKit)
@@ -42,7 +42,7 @@ open class TextField: NSTextField {
         isSelectable = true
         isEditable = true
         #else
-        #warning("iOS?")
+        // #workaround(iOS?)
         #endif
         allowsEditingTextAttributes = false
 

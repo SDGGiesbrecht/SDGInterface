@@ -27,7 +27,7 @@ extension NSAttributedString {
     internal convenience init?(html: String, font: Font) {
         let adjustedFont = font.resized(to: font.pointSize × NSAttributedString.htmlCorrection)
 
-        #warning("Share with SemanticMarkup?")
+        // #workaround(Share with SemanticMarkup?)
         var modified = "<span style=\u{22}"
 
         modified += "font\u{2D}family: &#x22;" + adjustedFont.fontName + "&#x22;;"

@@ -40,7 +40,7 @@ open class Label<L>: LabelSuperclass, SharedValueObserver where L : Localization
         isBezeled = false
         drawsBackground = false
         #else
-        #warning("iOS?")
+        // #workaround(iOS?)
         #endif
         lineBreakMode = .byTruncatingTail
 
@@ -53,7 +53,7 @@ open class Label<L>: LabelSuperclass, SharedValueObserver where L : Localization
         isSelectable = false
         isEditable = false
         #else
-        #warning("iOS?")
+        // #workaround(iOS?)
         #endif
 
         font = Font.forLabels

@@ -68,7 +68,7 @@ extension NSAttributedString {
         baseline += 1
         attributes[.superscript] = baseline
         #else
-        #warning("iOS?")
+        // #workaround(iOS?)
         #endif
     }
 
@@ -80,7 +80,7 @@ extension NSAttributedString {
         baseline −= 1
         attributes[.superscript] = baseline
         #else
-        #warning("iOS?")
+        // #workaround(iOS?)
         #endif
     }
 
@@ -102,7 +102,7 @@ extension NSAttributedString {
         attributes[.paragraphStyle] = paragraphStyle.copy() as! NSParagraphStyle
         attributes[.superscript] = nil
         #else
-        #warning("iOS?")
+        // #workaround(iOS?)
         #endif
     }
     #endif
