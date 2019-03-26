@@ -273,6 +273,7 @@ extension Table : NSTableViewDelegate {
     /// - Parameters:
     ///     - tableView: The table view.
     ///     - tableColumn: The column.
+    /// 	- row: The row.
     public func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         if let identifier = tableColumn?.identifier {
             if let view = table.makeView(withIdentifier: identifier, owner: self) {

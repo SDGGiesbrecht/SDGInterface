@@ -101,6 +101,9 @@ public class TextEditor : _TextEditorSuperclass {
     // MARK: - Modifying content.
 
     /// Appends text to the content and scrolls to its position.
+    ///
+    /// - Parameters:
+    ///     - appendix: The text to append.
     public func append(_ appendix: RichText) {
         let possibleStorage: NSTextStorage? = textView.textStorage
         possibleStorage?.append(NSAttributedString(appendix))
