@@ -29,7 +29,9 @@ final class SDGApplicationAPITests : ApplicationTestCase {
 
     override func tearDown() {
         forEachWindow { window in
+            #if canImport(AppKit) // #workaround(Temporary.)
             window.close()
+            #endif
         }
     }
 
@@ -43,6 +45,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testAttributedString() {
+        #if canImport(AppKit) // #workaround(Temporary.)
         let attributed = NSAttributedString(string: "...")
         var mutable = attributed.mutableCopy() as! NSMutableAttributedString
         mutable.addAttribute(NSAttributedString.Key.font, value: Font.systemFont(ofSize: 24), range: NSRange(0 ..< 3))
@@ -73,6 +76,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         türkçe = NSMutableAttributedString("İstanbul, Türkiye")
         türkçe.makeTurkicLowerCase(NSRange(0 ..< türkçe.length))
         XCTAssert(türkçe.attributes(at: 2, effectiveRange: nil).isEmpty)
+        #endif
     }
 
     func testDelegationInterceptor() {
@@ -138,6 +142,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     func testLabel() {
         SampleApplicationDelegate().demonstrateLabel()
         forEachWindow { window in
+            #if canImport(AppKit) // #workaround(Temporary.)
             let label = window.contentView!.subviews[0] as! Label<SDGInterfaceSample.InterfaceLocalization>
             label.labelText = Shared(UserFacing<StrictString, SDGInterfaceSample.InterfaceLocalization>({ localization in
                 switch localization {
@@ -145,6 +150,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
                     return "Modified"
                 }
             }))
+            #endif
         }
     }
 
@@ -162,9 +168,10 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertEqual(submenu?.parentMenuItem, itemWithSubmenu)
         XCTAssertNil(menuBar?.parentMenuItem)
         #elseif canImport(UIKit)
-        XCTAssertNil(Menu.shared.parentMenuItem)
+        XCTAssertNil(NSMenu.shared.parentMenuItem)
         #endif
 
+        #if canImport(AppKit) // #workaround(Temporary.)
         let menuLabel = Shared(UserFacing<StrictString, APILocalization>({ _ in "initial" }))
         let menu = Menu(label: menuLabel)
         menuLabel.value = UserFacing<StrictString, APILocalization>({ _ in "changed" })
@@ -174,6 +181,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertEqual(menu.title, String(separateMenuLabel.value.resolved()))
         menuLabel.value = UserFacing<StrictString, APILocalization>({ _ in "unrelated" })
         XCTAssertEqual(menu.title, String(separateMenuLabel.value.resolved()))
+        #endif
 
         #endif
     }
@@ -231,12 +239,14 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testFont() {
+        #if canImport(AppKit) // #workaround(Temporary.)
         let font = Font.default
         _ = Font.forLabels
         _ = Font.forTextEditing
         XCTAssert(NSFontManager.shared.traits(of: font.bold).contains(.boldFontMask))
         XCTAssert(NSFontManager.shared.traits(of: font.italic).contains(.italicFontMask))
         XCTAssertEqual(font.resized(to: 12).pointSize, 12)
+        #endif
     }
 
     func testPreferences() {
@@ -245,6 +255,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testRichText() {
+        #if canImport(AppKit) // #workaround(Temporary.)
         let fontNameKey = NSAttributedString.Key(rawValue: "SDGTestFontName")
         func prepareForEqualityCheck(_ string: NSAttributedString, ignoring ignored: [NSAttributedString.Key] = []) -> NSAttributedString {
             let processed = NSAttributedString(RichText(string))
@@ -324,9 +335,11 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         let copy = richText
         richText.superscript()
         XCTAssertNotEqual(richText, copy)
+        #endif
     }
 
     func testTable() {
+        #if canImport(AppKit) // #workaround(Temporary.)
         let table = Table(contentController: NSArrayController())
         let delegate = DelegationInterceptor(delegate: nil, listener: nil, selectors: [])
         table.delegate = delegate
@@ -343,11 +356,14 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssert(table.allowsSelection)
         table.sortOrder = []
         XCTAssert(table.sortOrder.isEmpty)
+        #endif
     }
 
     func testTextEditor() {
+        
         SampleApplicationDelegate().demonstrateTextEditor()
         forEachWindow { window in
+            #if canImport(AppKit) // #workaround(Temporary.)
             let textEditor = window.contentView!.subviews[0] as! TextEditor
             let textView = textEditor.documentView as! NSTextView
 
@@ -412,12 +428,14 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             textView.selectAll(nil)
             textEditor.isEditable = false
             XCTAssertFalse(validate(#selector(NSTextView.normalizeText(_:))))
+            #endif
         }
     }
 
     func testTextField() {
         SampleApplicationDelegate().demonstrateTextField()
         forEachWindow { window in
+            #if canImport(AppKit) // #workaround(Temporary.)
             let fieldEditor = window.fieldEditor(true, for: window.contentView!.subviews[0]) as! NSTextView
             fieldEditor.insertText("...", replacementRange: NSRange(0 ..< 0))
             fieldEditor.insertText(NSAttributedString(string: "..."), replacementRange: NSRange(0 ..< 0))
@@ -425,6 +443,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             fieldEditor.insertText("...")
             fieldEditor.selectAll(nil)
             XCTAssertFalse(fieldEditor.validateMenuItem(NSMenuItem(title: "", action: #selector(NSTextView.makeSuperscript(_:)), keyEquivalent: "")))
+            #endif
         }
     }
 
@@ -463,8 +482,10 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         defer { fullscreenWindow.close() }
         RunLoop.main.run(until: Date() + 3)
 
+        #if canImport(AppKit) // #workaround(Temporary.)
         window.title = "Replaced Title"
         XCTAssert(window.title == "Replaced Title")
+        #endif
 
         #if canImport(AppKit)
         XCTAssert((window as NSWindowDelegate).windowWillReturnFieldEditor?(window, to: nil) is NSTextView)
@@ -474,7 +495,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         neverOnscreen.centreInScreen()
 
         #if canImport(UIKit)
-        _ = Window(title: "Title")
+        _ = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "Title" })))
         #endif
 
         window.localizedTitle = Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "Modified Title" }))
