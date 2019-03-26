@@ -211,8 +211,8 @@ internal class TextView : NSTextView {
                     } else {
                         return false // Empty selection.
                     }
-                } else { // @exempt(from: tests) Always empty instead.
-                    return false // No selection available.
+                } else {
+                    return false // No selection available. // @exempt(from: tests) Always empty instead.
                 }
             }
             if actionRequiresEditability(action) {
