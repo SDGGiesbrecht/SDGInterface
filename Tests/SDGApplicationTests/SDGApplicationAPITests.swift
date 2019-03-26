@@ -228,6 +228,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         #endif
     }
 
+    #if !os(tvOS) // #workaround(Temporary.)
     func testMenuItem() {
         let menuLabel = Shared(UserFacing<StrictString, APILocalization>({ _ in "initial" }))
         let menu = MenuItem(label: menuLabel)
@@ -239,6 +240,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         menuLabel.value = UserFacing<StrictString, APILocalization>({ _ in "unrelated" })
         XCTAssertEqual(menu.title, String(separateMenuLabel.value.resolved()))
     }
+    #endif
 
     func testFont() {
         #if canImport(AppKit) // #workaround(Temporary.)
