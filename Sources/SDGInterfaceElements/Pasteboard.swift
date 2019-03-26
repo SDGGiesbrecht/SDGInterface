@@ -12,8 +12,12 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if !os(watchOS)
+
 #if canImport(AppKit)
 public typealias Pasteboard = NSPasteboard
 #else
 public typealias Pasteboard = UIPasteboard
+#endif
+
 #endif

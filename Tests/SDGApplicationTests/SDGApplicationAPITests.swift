@@ -363,7 +363,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
 
     #if canImport(AppKit) // #workaround(Temporary.)
     func testTextEditor() {
-        
+
         SampleApplicationDelegate().demonstrateTextEditor()
         forEachWindow { window in
             #if canImport(AppKit) // #workaround(Temporary.)
