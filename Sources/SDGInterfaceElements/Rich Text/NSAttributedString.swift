@@ -58,6 +58,7 @@ extension NSAttributedString {
         attributes[.paragraphStyle] = paragraphStyle.copy()
     }
 
+    #if canImport(AppKit) // #workaround(Temporary.)
     internal static func addSuperscript(to attributes: inout [NSAttributedString.Key: Any]) {
         reduceSizeForSuperscript(&attributes)
 
@@ -103,6 +104,7 @@ extension NSAttributedString {
         #warning("iOS?")
         #endif
     }
+    #endif
 }
 
 extension NSMutableAttributedString {
@@ -196,6 +198,7 @@ extension NSMutableAttributedString {
 
     // MARK: - Superscript & Subscript
 
+    #if canImport(AppKit) // #workaround(Temporary.)
     /// Superscripts a subrange.
     ///
     /// - Parameters:
@@ -219,6 +222,7 @@ extension NSMutableAttributedString {
     public func resetBaseline(for range: NSRange) {
         applyUniformChanges(to: range) { NSAttributedString.resetBaseline(for: &$0) }
     }
+    #endif
 
     #if canImport(AppKit)
     // MARK: - Case

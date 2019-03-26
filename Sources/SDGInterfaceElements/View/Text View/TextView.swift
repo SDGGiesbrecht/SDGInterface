@@ -12,6 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(AppKit) // #workaround(Temporary.)
 import SDGControlFlow
 import SDGLogic
 import SDGMathematics
@@ -231,3 +232,4 @@ internal class TextView : NSTextView {
     }
     #endif
 }
+#endif

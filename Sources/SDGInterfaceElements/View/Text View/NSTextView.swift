@@ -81,6 +81,7 @@ extension NSTextView {
 
     // MARK: - Displaying Character Information
 
+    #if canImport(AppKit) // #workaround(Temporary.)
     @objc public func showCharacterInformation(_ sender: Any?) {
         let possibleString: NSAttributedString?
         #if canImport(AppKit)
@@ -92,9 +93,11 @@ extension NSTextView {
             CharacterInformation.display(for: string.string)
         }
     }
+    #endif
 
     // MARK: - Superscripts & Subscripts
 
+    #if canImport(AppKit) // #workaround(Temporary.)
     @objc public func makeSuperscript(_ sender: Any?) {
         attemptToMutateSelection() {
             $0.superscript(NSRange(0 ..< $0.length))
@@ -112,6 +115,7 @@ extension NSTextView {
             $0.resetBaseline(for: NSRange(0 ..< $0.length))
         }
     }
+    #endif
 
     #if canImport(AppKit)
     // MARK: - Case

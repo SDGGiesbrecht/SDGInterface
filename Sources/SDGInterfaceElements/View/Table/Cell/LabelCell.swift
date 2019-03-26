@@ -12,6 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(AppKit) // #workaround(Temporary.)
 import SDGMathematics
 
 import SDGInterfaceLocalizations
@@ -75,3 +76,4 @@ open class LabelCell<L>: TableCellView where L : Localization {
     }
     #endif
 }
+#endif

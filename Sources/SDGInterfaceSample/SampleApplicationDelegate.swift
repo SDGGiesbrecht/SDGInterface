@@ -190,6 +190,7 @@ extension SampleApplicationDelegate {
     private func demonstrate(_ window: NSWindow) {
         window.makeKeyAndOrderFront(nil)
     }
+    #if canImport(AppKit) // #workaround(Temporary.)
     private func demonstrate<L>(_ view: View, windowTitle: UserFacing<StrictString, L>) {
         #if canImport(AppKit)
         let window = AuxiliaryWindow(title: Shared(windowTitle))
@@ -199,8 +200,10 @@ extension SampleApplicationDelegate {
         #warning("iOS?")
         #endif
     }
+    #endif
 
     @objc public func demonstrateLabel() {
+        #if canImport(AppKit) // #workaround(Temporary.)
         let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
@@ -208,24 +211,29 @@ extension SampleApplicationDelegate {
             }
         })
         demonstrate(Label(text: Shared(label)), windowTitle: label)
+        #endif
     }
 
     @objc public func demonstrateTextEditor() {
+        #if canImport(AppKit) // #workaround(Temporary.)
         demonstrate(TextEditor(), windowTitle: UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Text Editor"
             }
         }))
+        #endif
     }
 
     @objc public func demonstrateTextField() {
+        #if canImport(AppKit) // #workaround(Temporary.)
         demonstrate(TextField(), windowTitle: UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Text Field"
             }
         }))
+        #endif
     }
 
     @objc public func demonstrateWindow() {
