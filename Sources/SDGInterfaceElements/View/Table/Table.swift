@@ -260,7 +260,7 @@ open class Table : _TableSuperclass {
     #if canImport(AppKit)
     /// Override in a subclass to use a different class of header.
     open func createHeader() -> NSTableHeaderView {
-        return NSTableHeaderView(frame: CGRecut.zero)
+        return NSTableHeaderView(frame: CGRect.zero)
     }
     #endif
 }
