@@ -13,7 +13,11 @@
  */
 
 #if canImport(AppKit)
+// @documentation(Colour)
+/// An alias for `NSColor` or `UIColor`.
 public typealias Colour = NSColor
 #else
+// #documentation(Colour)
+/// An alias for `NSColor` or `UIColor`.
 public typealias Colour = UIColor
 #endif

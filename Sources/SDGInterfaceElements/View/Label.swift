@@ -16,17 +16,20 @@
 import SDGInterfaceLocalizations
 
 #if canImport(AppKit)
-public typealias LabelSuperclass = NSTextField
+public typealias _LabelSuperclass = NSTextField
 #else
-public typealias LabelSuperclass = UILabel
+public typealias _LabelSuperclass = UILabel
 #endif
 
 /// A text label.
-open class Label<L> : LabelSuperclass, SharedValueObserver where L : Localization {
+open class Label<L> : _LabelSuperclass, SharedValueObserver where L : Localization {
 
     // MARK: - Initialization
 
     /// Creates a text label.
+    ///
+    /// - Parameters:
+    ///     - text: The text of the label.
     public init(text: Shared<UserFacing<StrictString, L>>) {
         self.labelText = text
 
@@ -71,6 +74,7 @@ open class Label<L> : LabelSuperclass, SharedValueObserver where L : Localizatio
 
     // MARK: - Properties
 
+    /// The text of the label.
     public var labelText: Shared<UserFacing<StrictString, L>> {
         didSet {
             oldValue.cancel(observer: self)

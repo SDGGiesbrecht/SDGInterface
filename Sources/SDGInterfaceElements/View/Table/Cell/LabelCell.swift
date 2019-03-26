@@ -66,11 +66,17 @@ open class LabelCell<L> : TableCellView where L : Localization {
     // MARK: - Binding
 
     /// Binds the text to a content property.
+    ///
+    /// - Parameters:
+    ///     - contentKeyPath: The key path of the content’s property.
     public func bindText(contentKeyPath: String) {
         bind(subview: label, keyPath: .value, to: contentKeyPath)
     }
 
     /// Binds the text colour to a content property.
+    ///
+    /// - Parameters:
+    ///     - contentKeyPath: The key path of the content’s property.
     public func bindTextColour(contentKeyPath: String) {
         bind(subview: label, keyPath: .textColor, to: contentKeyPath)
     }

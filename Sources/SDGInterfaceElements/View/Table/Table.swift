@@ -20,17 +20,20 @@ import SDGLocalization
 import SDGInterfaceLocalizations
 
 #if canImport(AppKit)
-public typealias TableSuperclass = NSScrollView
+public typealias _TableSuperclass = NSScrollView
 #else
-public typealias TableSuperclass = UITableView
+public typealias _TableSuperclass = UITableView
 #endif
 
 /// A table.
-open class Table : TableSuperclass {
+open class Table : _TableSuperclass {
 
     // MARK: - Initialization
 
     /// Creates a table to display content.
+    ///
+    /// - Parameters:
+    ///     - content: An array of data for the table. Each element of the array reperestents the data for one row of the table.
     public init(content: [NSObject]) {
         #if canImport(AppKit)
         controller = NSArrayController(content: content)
@@ -47,6 +50,9 @@ open class Table : TableSuperclass {
 
     #if canImport(AppKit)
     /// Creates a table managed by an array controller.
+    ///
+    /// - Parameters:
+    ///     - contentController: An array controller representing the table content.
     public init(contentController: NSArrayController) {
         controller = contentController
         super.init(frame: NSRect.zero)
@@ -94,7 +100,9 @@ open class Table : TableSuperclass {
     // MARK: - Properties
 
     #if canImport(AppKit)
+    /// The actual `NSTableView` instance.
     public let table: NSTableView = NSTableView(frame: NSRect.zero)
+    /// The array controller which manages the content.
     public let controller: NSArrayController
     private var viewGenerators: [NSUserInterfaceItemIdentifier: () -> NSTableCellView] = [:]
     #else
@@ -108,6 +116,7 @@ open class Table : TableSuperclass {
         #selector(NSTableViewDelegate.tableView(_:viewFor:row:)),
         #selector(NSTableViewDelegate.tableView(_:sizeToFitWidthOfColumn:))
         ])
+    /// The table view’s delegate.
     public var delegate: NSTableViewDelegate? {
         get {
             return interceptor.delegate as? NSTableViewDelegate
@@ -204,6 +213,10 @@ open class Table : TableSuperclass {
     #if canImport(AppKit)
     private var identifiers = sequence(first: 0, next: { $0 + 1 })
     /// Creates, adds and returns a new column.
+    ///
+    /// - Parameters:
+    ///     - header: The header for the column.
+    ///     - viewGenerator: A closure which generates the view to use for each cell.
     @discardableResult public func newColumn(header: StrictString, viewGenerator: @escaping () -> NSTableCellView) -> NSTableColumn {
         let identifier = NSUserInterfaceItemIdentifier("\(identifiers.next()!)")
         viewGenerators[identifier] = viewGenerator
@@ -236,6 +249,9 @@ open class Table : TableSuperclass {
 
     #if canImport(AppKit)
     /// Override in a subclass to use a different class of column.
+    ///
+    /// - Parameters:
+    ///     - identifier: An identifier for the column.
     open func createColumn(withIdentifier identifier: NSUserInterfaceItemIdentifier) -> NSTableColumn {
         return NSTableColumn(identifier: identifier)
     }
@@ -252,6 +268,11 @@ open class Table : TableSuperclass {
 #if canImport(AppKit)
 extension Table : NSTableViewDelegate {
 
+    /// Returns the view for a particular column. (See `NSTableViewDelegate`.)
+    ///
+    /// - Parameters:
+    ///     - tableView: The table view.
+    ///     - tableColumn: The column.
     public func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         if let identifier = tableColumn?.identifier {
             if let view = table.makeView(withIdentifier: identifier, owner: self) {
@@ -287,6 +308,11 @@ extension Table : NSTableViewDelegate {
         }
     }
 
+    /// Returns the size of a particular column. (See `NSTableViewDelegate`.)
+    ///
+    /// - Parameters:
+    ///     - tableView: The table view.
+    ///     - column: The column.
     public func tableView(_ tableView: NSTableView, sizeToFitWidthOfColumn column: Int) -> CGFloat {
         var width = table.tableColumns[column].headerCell.cellSize.width
         for row in 0 ..< table.numberOfRows {

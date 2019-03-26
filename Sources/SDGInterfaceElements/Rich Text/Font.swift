@@ -66,6 +66,9 @@ extension Font {
     }
 
     /// The same font in a different size.
+    ///
+    /// - Parameters:
+    ///     - size: The new point size.
     public func resized(to size: CGFloat) -> Font {
         #if canImport(AppKit)
         return NSFontManager.shared.convert(self, toSize: size)

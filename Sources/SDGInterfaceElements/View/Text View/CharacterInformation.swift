@@ -23,6 +23,9 @@ public class CharacterInformation : NSObject {
     // MARK: - Static Methods
 
     /// Displays information to the user about the characters in a string.
+    ///
+    /// - Parameters:
+    ///     - characters: The string whose characters should be described.
     public static func display(for characters: String) {
         var details: [CharacterInformation] = []
         details.reserveCapacity(characters.scalars.count)

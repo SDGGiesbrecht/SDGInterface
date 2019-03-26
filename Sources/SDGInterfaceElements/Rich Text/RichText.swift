@@ -184,6 +184,9 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
     }
 
     /// Superscripts a particular range.
+    ///
+    /// - Parameters:
+    ///     - range: The range.
     @inlinable public mutating func superscript<R>(range: R) where R : RangeExpression, R.Bound == Index {
         var change = RichText(self[range])
         change.superscript()
@@ -200,6 +203,9 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
     }
 
     /// Subscripts a particular range.
+    ///
+    /// - Parameters:
+    ///     - range: The range.
     @inlinable public mutating func `subscript`<R>(range: R) where R : RangeExpression, R.Bound == Index {
         var change = RichText(self[range])
         change.`subscript`()
@@ -208,28 +214,49 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
     #endif
 
     /// Sets the font for the entire string.
+    ///
+    /// - Parameters:
+    ///     - font: The font.
     public mutating func set(font: Font?) {
         set(font: font, forRange: bounds)
     }
     /// Sets the font for a particular range.
+    ///
+    /// - Parameters:
+    ///     - font: The font.
+    ///     - range: The range.
     @inlinable public mutating func set<R>(font: Font?, forRange range: R) where R : RangeExpression, R.Bound == Index {
         set(attribute: NSAttributedString.Key.font, to: font, forRange: range)
     }
 
     /// Sets the font colour for the entire string.
+    ///
+    /// - Parameters:
+    ///     - colour: The colour.
     public mutating func set(colour: Colour?) {
         set(colour: colour, forRange: bounds)
     }
     /// Sets the font colour for a particular range.
+    ///
+    /// - Parameters:
+    ///     - colour: The colour.
+    /// 	- range: The range.
     @inlinable public mutating func set<R>(colour: Colour?, forRange range: R) where R : RangeExpression, R.Bound == Index {
         set(attribute: NSAttributedString.Key.foregroundColor, to: colour, forRange: range)
     }
 
     /// Sets the paragraph style for the entire string.
+    ///
+    /// - Parameters:
+    ///     - paragraphStyle: The paragraph style.
     public mutating func set(paragraphStyle: NSParagraphStyle?) {
         set(paragraphStyle: paragraphStyle, forRange: bounds)
     }
     /// Sets the paragraph style for a particular range.
+    ///
+    /// - Parameters:
+    ///     - paragraphStyle: The paragraph style.
+    ///     - range: The range.
     @inlinable public mutating func set<R>(paragraphStyle: NSParagraphStyle?, forRange range: R) where R : RangeExpression, R.Bound == Index {
         set(attribute: NSAttributedString.Key.paragraphStyle, to: paragraphStyle, forRange: range)
     }

@@ -25,6 +25,9 @@ extension NSAttributedString {
     // MARK: - Initialization
 
     /// Creates an attributed string from rich text.
+    ///
+    /// - Parameters:
+    ///     - richText: The rich text.
     public convenience init(_ richText: RichText) {
         self.init(attributedString: richText.attributedString())
     }

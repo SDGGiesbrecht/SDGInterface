@@ -18,13 +18,13 @@ import SDGLogic
 import SDGInterfaceLocalizations
 
 #if canImport(AppKit)
-public typealias TextEditorSuperclass = NSScrollView
+public typealias _TextEditorSuperclass = NSScrollView
 #else
-public typealias TextEditorSuperclass = View
+public typealias _TextEditorSuperclass = View
 #endif
 
 /// An editor for multiline text.
-public class TextEditor : TextEditorSuperclass {
+public class TextEditor : _TextEditorSuperclass {
 
     // MARK: - Properties
 

@@ -34,7 +34,9 @@ extension RichText {
 
         // MARK: - Properties
 
+        /// The raw text scalar.
         public var rawScalar: Unicode.Scalar
+        /// The attributes applied to the scalar.
         public var attributes: [NSAttributedString.Key: Any]
     }
 }
