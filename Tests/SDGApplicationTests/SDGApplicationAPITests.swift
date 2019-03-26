@@ -139,6 +139,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         #endif
     }
 
+    #if canImport(AppKit) // #workaround(Temporary.)
     func testLabel() {
         SampleApplicationDelegate().demonstrateLabel()
         forEachWindow { window in
@@ -153,6 +154,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             #endif
         }
     }
+    #endif
 
     func testMenu() {
         #if !os(tvOS)
@@ -359,6 +361,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         #endif
     }
 
+    #if canImport(AppKit) // #workaround(Temporary.)
     func testTextEditor() {
         
         SampleApplicationDelegate().demonstrateTextEditor()
@@ -431,7 +434,9 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             #endif
         }
     }
+    #endif
 
+    #if canImport(AppKit) // #workaround(Temporary.)
     func testTextField() {
         SampleApplicationDelegate().demonstrateTextField()
         forEachWindow { window in
@@ -446,6 +451,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             #endif
         }
     }
+    #endif
 
     func testView() {
         View().fill(with: View())

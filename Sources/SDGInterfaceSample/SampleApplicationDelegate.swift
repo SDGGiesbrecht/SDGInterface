@@ -187,6 +187,7 @@ extension SampleApplicationDelegate {
         #endif
     }
 
+    #if canImport(AppKit) // #workaround(Temporary.)
     private func demonstrate(_ window: NSWindow) {
         window.makeKeyAndOrderFront(nil)
     }
@@ -245,6 +246,7 @@ extension SampleApplicationDelegate {
         })), size: CGSize(width: 700, height: 300))
         demonstrate(window)
     }
+    #endif
 }
 
 #endif

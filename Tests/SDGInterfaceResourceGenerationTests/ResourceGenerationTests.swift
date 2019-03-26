@@ -12,6 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(AppKit) // #workaround(Temporary.)
 import XCTest
 
 import SDGText
@@ -57,3 +58,4 @@ final class SDGInterfaceResourceGenerationTests : XCTestCase {
         try String(from: mappingURL).appending("\n").save(to: mappingURL)
     }
 }
+#endif
