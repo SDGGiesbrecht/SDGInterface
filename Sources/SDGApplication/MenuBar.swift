@@ -73,7 +73,6 @@ public class MenuBar : Menu<InterfaceLocalization> {
     // MARK: - Items
 
     private static func fallbackApplicationName(quotationMarks: (leading: StrictString, trailing: StrictString)) -> StrictString {
-        // #workaround(SDGCornerstone 0.14.0, Until SDGCornerstone does this.)
         var result = quotationMarks.leading
         result.append("\u{2068}")
         result.append(contentsOf: ApplicationNameForm.localizedIsolatedForm.resolved())
