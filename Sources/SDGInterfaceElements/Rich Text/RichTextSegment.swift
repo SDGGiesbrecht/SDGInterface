@@ -45,13 +45,13 @@ extension RichText {
 
         // MARK: - Equatable
 
-        internal static func == (precedingValue: Segment, followingValue: Segment) -> Bool {
+        @usableFromInline internal static func == (precedingValue: Segment, followingValue: Segment) -> Bool {
             return precedingValue.rawText == followingValue.rawText ∧ precedingValue.attributesEqual(followingValue)
         }
 
         // MARK: - Hashable
 
-        internal func hash(into hasher: inout Hasher) {
+        @usableFromInline internal func hash(into hasher: inout Hasher) {
             hasher.combine(rawText)
             hasher.combine(attributesProxy)
         }
