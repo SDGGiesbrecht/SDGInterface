@@ -78,6 +78,8 @@ let package = Package(
             .product(name: "SDGCollections", package: "SDGCornerstone"),
             .product(name: "SDGText", package: "SDGCornerstone"),
             .product(name: "SDGLocalization", package: "SDGCornerstone")
+            ], swiftSettings: [
+                .define("UNIDENTIFIED_PASTEBOARD_WARNINGS", .when(configuration: .debug))
             ]),
 
         // #documentation(SDGApplication)
