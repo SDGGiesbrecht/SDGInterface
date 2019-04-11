@@ -36,9 +36,7 @@ extension RichText.NormalizationAttribute.Mapping : Encodable, FileConvertible {
 
     public var file: Data {
         let encoder = JSONEncoder()
-        if #available(OSX 10.13, *) { // @exempt(from: unicode)
-            encoder.outputFormatting.insert(.sortedKeys)
-        }
+        encoder.outputFormatting.insert(.sortedKeys)
         encoder.outputFormatting.insert(.prettyPrinted)
         return (try? encoder.encode(self))!
     }
