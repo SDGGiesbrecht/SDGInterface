@@ -77,7 +77,6 @@ let package = Package(
         // #documentation(SDGApplication)
         /// Specific, application‐level elements, such as the application delegate and menu bar.
         .target(name: "SDGApplication", dependencies: [
-            "SDGLogic",
             "SDGInterfaceLocalizations",
             "SDGInterfaceElements",
             .product(name: "SDGLogic", package: "SDGCornerstone"),
