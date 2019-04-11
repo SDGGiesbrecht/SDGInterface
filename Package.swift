@@ -90,6 +90,8 @@ let package = Package(
             "SDGInterfaceElements",
             .product(name: "SDGLogic", package: "SDGCornerstone"),
             .product(name: "SDGLocalization", package: "SDGCornerstone")
+            ], swiftSettings: [
+                .define("VALIDATION", .when(configuration: .debug))
             ]),
 
         // Internal modules.

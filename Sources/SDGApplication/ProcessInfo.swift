@@ -44,12 +44,12 @@ extension ProcessInfo {
 
     /// Validates the application bundle.
     ///
-    /// This method is intended for use in tests. It does nothing when compiled in release mode.
+    /// This method is intended for use in tests. It does nothing if SDGInterface was compiled in release mode.
     ///
     /// - Parameters:
     ///     - applicationBundle: The main application bundle.
     public static func validate(applicationBundle: Bundle) { // @exempt(from: tests)
-        if BuildConfiguration.current == .debug {
+        #if VALIDATION
             var failing = false
             defer {
                 SDGLocalization.assert(¬failing, UserFacing<StrictString, APILocalization>({ localization in
@@ -105,7 +105,6 @@ extension ProcessInfo {
                         (name, "ProcessInfo.applicationName." + localization.code))
                 }
             }
-
-        }
+        #endif
     }
 }
