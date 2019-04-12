@@ -68,7 +68,7 @@ extension NSWindow {
             return theScreen
         } else if let theScreen = Screen.main {
             return theScreen
-        } else {
+        } else { // @exempt(from: tests)
             // @exempt(from: tests)
             #if SCREEN_LOCATION_WARNINGS
             print("Unable to locate any screen.")

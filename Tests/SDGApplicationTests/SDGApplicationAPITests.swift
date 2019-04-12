@@ -360,6 +360,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssert(table.allowsSelection)
         table.sortOrder = []
         XCTAssert(table.sortOrder.isEmpty)
+        XCTAssertNotNil(NSTableColumn().header)
         #endif
     }
 
@@ -480,6 +481,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         #if canImport(AppKit) // UIKit raises an exception during tests.
         window.makeKeyAndOrderFront(nil)
         #endif
+        window.move(to: CGRect(x: 100, y: 200, width: 300, height: 400))
         defer { window.close() }
 
         window.isFullscreen = true
