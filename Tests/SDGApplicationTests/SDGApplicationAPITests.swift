@@ -360,6 +360,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssert(table.allowsSelection)
         table.sortOrder = []
         XCTAssert(table.sortOrder.isEmpty)
+        XCTAssertNotNil(NSTableColumn().header)
         #endif
     }
 
@@ -479,6 +480,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         let window = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "Title" })), size: CGSize(width: 700, height: 300))
         #if canImport(AppKit) // UIKit raises an exception during tests.
         window.makeKeyAndOrderFront(nil)
+        window.move(to: CGRect(x: 100, y: 200, width: 300, height: 400))
         #endif
         defer { window.close() }
 

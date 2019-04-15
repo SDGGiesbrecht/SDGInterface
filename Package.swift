@@ -1,4 +1,4 @@
-// swift-tools-version:4.2
+// swift-tools-version:5.0
 
 /*
  Package.swift
@@ -30,6 +30,12 @@ import PackageDescription
 /// - Localized menu bar.
 let package = Package(
     name: "SDGInterface",
+    platforms: [
+        .macOS(.v10_13),
+        .iOS(.v11),
+        .watchOS(.v4),
+        .tvOS(.v11)
+    ],
     products: [
         // The entire package.
 
@@ -48,7 +54,7 @@ let package = Package(
         .library(name: "SDGApplication", targets: ["SDGApplication"])
     ],
     dependencies: [
-        .package(url: "https://github.com/SDGGiesbrecht/SDGCornerstone", .upToNextMinor(from: Version(0, 13, 0)))
+        .package(url: "https://github.com/SDGGiesbrecht/SDGCornerstone", .upToNextMinor(from: Version(0, 16, 0)))
     ],
     targets: [
         // The entire package.
@@ -72,16 +78,20 @@ let package = Package(
             .product(name: "SDGCollections", package: "SDGCornerstone"),
             .product(name: "SDGText", package: "SDGCornerstone"),
             .product(name: "SDGLocalization", package: "SDGCornerstone")
+            ], swiftSettings: [
+                .define("UNIDENTIFIED_PASTEBOARD_WARNINGS", .when(configuration: .debug)),
+                .define("SCREEN_LOCATION_WARNINGS", .when(configuration: .debug))
             ]),
 
         // #documentation(SDGApplication)
         /// Specific, application‐level elements, such as the application delegate and menu bar.
         .target(name: "SDGApplication", dependencies: [
-            "SDGLogic",
             "SDGInterfaceLocalizations",
             "SDGInterfaceElements",
             .product(name: "SDGLogic", package: "SDGCornerstone"),
             .product(name: "SDGLocalization", package: "SDGCornerstone")
+            ], swiftSettings: [
+                .define("VALIDATION", .when(configuration: .debug))
             ]),
 
         // Internal modules.

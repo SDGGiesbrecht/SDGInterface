@@ -69,9 +69,10 @@ extension NSWindow {
         } else if let theScreen = Screen.main {
             return theScreen
         } else { // @exempt(from: tests)
-            if BuildConfiguration.current == .debug { // @exempt(from: tests)
-                print("Unable to locate any screen.")
-            }
+            // @exempt(from: tests)
+            #if SCREEN_LOCATION_WARNINGS
+            print("Unable to locate any screen.")
+            #endif
             return NSScreen()
         }
         #else

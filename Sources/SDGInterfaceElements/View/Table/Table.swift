@@ -168,7 +168,7 @@ open class Table : _TableSuperclass {
     /// Whether or not the table displays column headers.
     public var hasHeader: Bool {
         get {
-            return self.table.headerView != nil
+            return self.table.headerView ≠ nil
         }
         set {
             if newValue {

@@ -104,9 +104,9 @@ internal class TextView : NSTextView {
         }
         // @exempt(from: tests)
 
-        if BuildConfiguration.current == .debug {
-            assertionFailure("Unidentified type of text. (\(type(of: string)))")
-        }
+        #if UNIDENTIFIED_PASTEBOARD_WARNINGS
+        print("Unidentified text type: (\(type(of: string)))")
+        #endif
         #if canImport(AppKit)
         super.insertText(string, replacementRange: replacementRange)
         #endif

@@ -44,12 +44,12 @@ extension ProcessInfo {
 
     /// Validates the application bundle.
     ///
-    /// This method is intended for use in tests. It does nothing when compiled in release mode.
+    /// This method is intended for use in tests. It does nothing if SDGInterface was compiled in release mode.
     ///
     /// - Parameters:
     ///     - applicationBundle: The main application bundle.
     public static func validate(applicationBundle: Bundle) { // @exempt(from: tests)
-        if BuildConfiguration.current == .debug {
+        #if VALIDATION
             var failing = false
             defer {
                 SDGLocalization.assert(¬failing, UserFacing<StrictString, APILocalization>({ localization in
@@ -78,11 +78,7 @@ extension ProcessInfo {
             for localization in MenuBarLocalization.allCases {
                 let infoPlist = applicationBundle.url(forResource: "InfoPlist", withExtension: "strings", subdirectory: nil, localization: localization.code)
                 let dictionary: NSDictionary? = (infoPlist.flatMap({ (url: URL) -> NSDictionary? in
-                    if #available(OSX 10.13, *) { // #workaround(Swift 4.2.1, Until platform version can be customized.) @exempt(from: unicode)
-                        return try? NSDictionary(contentsOf: url, error: ())
-                    } else {
-                        return NSDictionary(contentsOf: url)
-                    }
+                    return try? NSDictionary(contentsOf: url, error: ())
                 }))
                 let nameKey = "CFBundleDisplayName"
                 let shortKey = "CFBundleName"
@@ -105,7 +101,6 @@ extension ProcessInfo {
                         (name, "ProcessInfo.applicationName." + localization.code))
                 }
             }
-
-        }
+        #endif
     }
 }
