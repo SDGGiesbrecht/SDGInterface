@@ -246,10 +246,8 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         let font = Font.default
         _ = Font.forLabels
         _ = Font.forTextEditing
-        #if canImport(AppKit)
-        XCTAssert(NSFontManager.shared.traits(of: font.bold).contains(.boldFontMask))
-        XCTAssert(NSFontManager.shared.traits(of: font.italic).contains(.italicFontMask))
-        #endif
+        _ = font.bold
+        _ = font.italic
         XCTAssertEqual(font.resized(to: 12).pointSize, 12)
     }
 
