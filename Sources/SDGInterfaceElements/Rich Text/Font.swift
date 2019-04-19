@@ -12,7 +12,6 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit) // #workaround(Temporary.)
 extension Font {
 
     // MARK: - System Fonts
@@ -22,7 +21,6 @@ extension Font {
         return forTextEditing
     }
 
-    #if canImport(AppKit) // #workaround(Temporary.)
     /// The label font.
     public static var forLabels: Font {
         let size: CGFloat
@@ -34,7 +32,6 @@ extension Font {
         #endif
         return systemFont(ofSize: size)
     }
-    #endif
 
     /// The default font for text editing.
     public static var forTextEditing: Font {
@@ -77,4 +74,3 @@ extension Font {
         #endif
     }
 }
-#endif
