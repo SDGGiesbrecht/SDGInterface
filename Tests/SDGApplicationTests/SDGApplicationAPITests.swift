@@ -448,7 +448,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             fieldEditor.insertText("...", replacementRange: NSRange(0 ..< 0))
             fieldEditor.insertText(NSAttributedString(string: "..."), replacementRange: NSRange(0 ..< 0))
 
-            fieldEditor.insertText("...")
+            fieldEditor.insertText("...", replacementRange: NSRange(0 ..< 0))
             fieldEditor.selectAll(nil)
             XCTAssertFalse(fieldEditor.validateMenuItem(NSMenuItem(title: "", action: #selector(NSTextView.makeSuperscript(_:)), keyEquivalent: "")))
             #endif
