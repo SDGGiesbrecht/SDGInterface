@@ -23,14 +23,11 @@ extension Font {
 
     /// The label font.
     public static var forLabels: Font {
-        let size: CGFloat
         #if canImport(AppKit)
-        size = systemFontSize(for: .regular)
+        return systemFont(ofSize: systemFontSize(for: .regular))
         #else
-        // #workaround(Verify iOS.)
-        size = systemFontSize
+        return preferredFont(forTextStyle: .headline)
         #endif
-        return systemFont(ofSize: size)
     }
 
     /// The default font for text editing.
