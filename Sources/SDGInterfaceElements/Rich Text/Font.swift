@@ -46,7 +46,8 @@ extension Font {
         #if canImport(AppKit)
         return NSFontManager.shared.convert(self, toHaveTrait: .boldFontMask)
         #else
-        return Font(descriptor: fontDescriptor.withSymbolicTraits(.traitBold) ?? fontDescriptor, size: 0)
+        let descriptor = fontDescriptor.withSymbolicTraits(.traitBold) ?? fontDescriptor // @exempt(from: tests) Unknown why the descriptor would be nil.
+        return Font(descriptor: descriptor, size: 0)
         #endif
     }
 
@@ -55,7 +56,8 @@ extension Font {
         #if canImport(AppKit)
         return NSFontManager.shared.convert(self, toHaveTrait: .italicFontMask)
         #else
-        return Font(descriptor: fontDescriptor.withSymbolicTraits(.traitItalic) ?? fontDescriptor, size: 0)
+        let descriptor = fontDescriptor.withSymbolicTraits(.traitItalic) ?? fontDescriptor // @exempt(from: tests) Unknown why the descriptor would be nil.
+        return Font(descriptor: descriptor, size: 0)
         #endif
     }
 
