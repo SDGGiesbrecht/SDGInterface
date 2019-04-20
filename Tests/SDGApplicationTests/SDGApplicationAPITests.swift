@@ -243,14 +243,12 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     #endif
 
     func testFont() {
-        #if canImport(AppKit) // #workaround(Temporary.)
         let font = Font.default
         _ = Font.forLabels
         _ = Font.forTextEditing
-        XCTAssert(NSFontManager.shared.traits(of: font.bold).contains(.boldFontMask))
-        XCTAssert(NSFontManager.shared.traits(of: font.italic).contains(.italicFontMask))
+        _ = font.bold
+        _ = font.italic
         XCTAssertEqual(font.resized(to: 12).pointSize, 12)
-        #endif
     }
 
     func testPreferences() {
@@ -448,7 +446,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             fieldEditor.insertText("...", replacementRange: NSRange(0 ..< 0))
             fieldEditor.insertText(NSAttributedString(string: "..."), replacementRange: NSRange(0 ..< 0))
 
-            fieldEditor.insertText("...")
+            fieldEditor.insertText("...", replacementRange: NSRange(0 ..< 0))
             fieldEditor.selectAll(nil)
             XCTAssertFalse(fieldEditor.validateMenuItem(NSMenuItem(title: "", action: #selector(NSTextView.makeSuperscript(_:)), keyEquivalent: "")))
             #endif

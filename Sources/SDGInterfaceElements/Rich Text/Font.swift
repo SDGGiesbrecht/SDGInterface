@@ -12,7 +12,6 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit) // #workaround(Temporary.)
 extension Font {
 
     // MARK: - System Fonts
@@ -22,19 +21,14 @@ extension Font {
         return forTextEditing
     }
 
-    #if canImport(AppKit) // #workaround(Temporary.)
     /// The label font.
     public static var forLabels: Font {
-        let size: CGFloat
         #if canImport(AppKit)
-        size = systemFontSize(for: .regular)
+        return systemFont(ofSize: systemFontSize(for: .regular))
         #else
-        // #workaround(Verify iOS.)
-        size = systemFontSize
+        return preferredFont(forTextStyle: .headline)
         #endif
-        return systemFont(ofSize: size)
     }
-    #endif
 
     /// The default font for text editing.
     public static var forTextEditing: Font {
@@ -52,7 +46,8 @@ extension Font {
         #if canImport(AppKit)
         return NSFontManager.shared.convert(self, toHaveTrait: .boldFontMask)
         #else
-        return Font(descriptor: fontDescriptor.withSymbolicTraits(.traitBold) ?? fontDescriptor, size: 0)
+        let descriptor = fontDescriptor.withSymbolicTraits(.traitBold) ?? fontDescriptor // @exempt(from: tests) Unknown why the descriptor would be nil.
+        return Font(descriptor: descriptor, size: 0)
         #endif
     }
 
@@ -61,7 +56,8 @@ extension Font {
         #if canImport(AppKit)
         return NSFontManager.shared.convert(self, toHaveTrait: .italicFontMask)
         #else
-        return Font(descriptor: fontDescriptor.withSymbolicTraits(.traitItalic) ?? fontDescriptor, size: 0)
+        let descriptor = fontDescriptor.withSymbolicTraits(.traitItalic) ?? fontDescriptor // @exempt(from: tests) Unknown why the descriptor would be nil.
+        return Font(descriptor: descriptor, size: 0)
         #endif
     }
 
@@ -77,4 +73,3 @@ extension Font {
         #endif
     }
 }
-#endif
