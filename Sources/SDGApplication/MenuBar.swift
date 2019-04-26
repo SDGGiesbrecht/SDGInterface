@@ -88,7 +88,7 @@ public class MenuBar : Menu<InterfaceLocalization> {
             switch localization {
             case .españolEspaña:
                 let deLaAplicación = ProcessInfo.applicationName(.español(.de))
-                    ?? StrictString("de ") + MenuBar.fallbackApplicationName(quotationMarks: ("«", "»"))
+                    ?? "de \(MenuBar.fallbackApplicationName(quotationMarks: ("«", "»")))"
                 return "Acerca \(deLaAplicación)"
             case .englishUnitedKingdom:
                 let theApplication = ProcessInfo.applicationName(.english(.unitedKingdom))
@@ -108,7 +108,7 @@ public class MenuBar : Menu<InterfaceLocalization> {
                 return "Über \(dieAnwendung)"
             case .françaisFrance:
                 let deLApplication = ProcessInfo.applicationName(.français(.de))
-                    ?? StrictString("de ") + MenuBar.fallbackApplicationName(quotationMarks: ("« ", " »"))
+                    ?? "de \(MenuBar.fallbackApplicationName(quotationMarks: ("« ", " »")))"
                 return "À propos \(deLApplication)"
             case .ελληνικάΕλλάδα:
                 let τηνΕφαρμογή = ProcessInfo.applicationName(.ελληνικά(.αιτιατική))
