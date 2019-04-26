@@ -245,39 +245,39 @@ public class MenuBar : Menu<InterfaceLocalization> {
         let quit = application.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return StrictString("Salir ")
-                    + (ProcessInfo.applicationName(.español(.de))
-                        ?? StrictString("de ") + MenuBar.fallbackApplicationName(quotationMarks: ("«", "»")))
+                let deLaAplicación = ProcessInfo.applicationName(.español(.de))
+                    ?? "de \(MenuBar.fallbackApplicationName(quotationMarks: ("«", "»")))"
+                return "Salir \(deLaAplicación)"
 
             case .englishUnitedKingdom:
-                return StrictString("Quit ")
-                    + (ProcessInfo.applicationName(.english(.unitedKingdom))
-                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("‘", "’")))
+                let theApplication = ProcessInfo.applicationName(.english(.unitedKingdom))
+                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("‘", "’"))
+                return "Quit \(theApplication)"
             case .englishUnitedStates:
-                return StrictString("Quit ")
-                    + (ProcessInfo.applicationName(.english(.unitedStates))
-                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”")))
+                let theApplication = ProcessInfo.applicationName(.english(.unitedStates))
+                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”"))
+                return "Quit \(theApplication)"
             case .englishCanada:
-                return StrictString("Quit ")
-                    + (ProcessInfo.applicationName(.english(.canada))
-                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”")))
+                let theApplication = ProcessInfo.applicationName(.english(.canada))
+                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”"))
+                return "Quit \(theApplication)"
             case .françaisFrance:
-                return StrictString("Quitter ")
-                    + (ProcessInfo.applicationName(.français(.aucune))
-                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("« ", " »")))
+                let lApplication = ProcessInfo.applicationName(.français(.aucune))
+                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("« ", " »"))
+                return "Quitter \(lApplication)"
 
             case .deutschDeutschland:
-                return (ProcessInfo.applicationName(.deutsch(.akkusativ))
-                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("„", "“")))
-                    + " beenden"
+                let dieAnwendung = ProcessInfo.applicationName(.deutsch(.akkusativ))
+                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("„", "“"))
+                return "\(dieAnwendung) beenden"
             case .ελληνικάΕλλάδα:
-                return StrictString("Τερματισμός ")
-                    + (ProcessInfo.applicationName(.ελληνικά(.γενική))
-                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("«", "»")))
+                let τηςΕφαρμογής = ProcessInfo.applicationName(.ελληνικά(.γενική))
+                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("«", "»"))
+                return "Τερματισμός \(τηςΕφαρμογής)"
             case .עברית־ישראל:
-                return StrictString("סיים את ")
-                    + (ProcessInfo.applicationName(.עברית)
-                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("”", "“")))
+                let היישום = ProcessInfo.applicationName(.עברית)
+                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("”", "“"))
+                return "סיים את \(היישום)"
             }
         })), action: #selector(Application.terminate(_:)))
         quit.keyEquivalent = "q"
