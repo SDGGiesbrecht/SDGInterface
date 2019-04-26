@@ -294,7 +294,7 @@ extension Table : NSTableViewDelegate {
                     preconditionFailure(UserFacing<StrictString, APILocalization>({ localization in
                         switch localization {
                         case .englishCanada:
-                            return "Cannot find view generation instructions for “\(identifier)”."
+                            return "Cannot find view generation instructions for “\(arbitraryDescriptionOf: identifier)”."
                         }
                     }))
                 }
