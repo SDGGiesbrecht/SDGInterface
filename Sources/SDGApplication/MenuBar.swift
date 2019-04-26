@@ -2232,39 +2232,39 @@ public class MenuBar : Menu<InterfaceLocalization> {
         let helpItem = helpMenu.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return StrictString("Ayuda ")
-                    + (ProcessInfo.applicationName(.español(.de))
-                        ?? StrictString("de ") + MenuBar.fallbackApplicationName(quotationMarks: ("«", "»")))
+                let deLaAplicación = ProcessInfo.applicationName(.español(.de))
+                    ?? "de \(MenuBar.fallbackApplicationName(quotationMarks: ("«", "»")))"
+                return "Ayuda \(deLaAplicación)"
             case .françaisFrance:
-                return StrictString("Aide ")
-                    + (ProcessInfo.applicationName(.français(.de))
-                        ?? StrictString("de ") + MenuBar.fallbackApplicationName(quotationMarks: ("« ", " »")))
+                let deLApplication = ProcessInfo.applicationName(.français(.de))
+                    ?? "de \(MenuBar.fallbackApplicationName(quotationMarks: ("« ", " »")))"
+                return "Aide \(deLApplication)"
 
             case .englishUnitedKingdom:
-                return (ProcessInfo.applicationName(.english(.unitedKingdom))
-                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("‘", "’")))
-                    + " Help"
+                let theApplication = ProcessInfo.applicationName(.english(.unitedKingdom))
+                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("‘", "’"))
+                return "\(theApplication) Help"
             case .englishUnitedStates:
-                return (ProcessInfo.applicationName(.english(.unitedStates))
-                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”")))
-                    + " Help"
+                let theApplication = ProcessInfo.applicationName(.english(.unitedStates))
+                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”"))
+                return "\(theApplication) Help"
             case .englishCanada:
-                return (ProcessInfo.applicationName(.english(.canada))
-                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”")))
-                    + " Help"
+                let theApplication = ProcessInfo.applicationName(.english(.canada))
+                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”"))
+                return "\(theApplication) Help"
             case .deutschDeutschland:
-                return StrictString("Hilfe zu ")
-                    + (ProcessInfo.applicationName(.deutsch(.dativ))
-                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("„", "“")))
+                let derAnwendung = ProcessInfo.applicationName(.deutsch(.dativ))
+                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("„", "“"))
+                return "Hilfe zu \(derAnwendung)"
 
             case .ελληνικάΕλλάδα:
-                return StrictString("Βοήθεια για ")
-                    + (ProcessInfo.applicationName(.ελληνικά(.αιτιατική))
-                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("«", "»")))
+                let τηνΕφαρμογή = ProcessInfo.applicationName(.ελληνικά(.αιτιατική))
+                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("«", "»"))
+                return "Βοήθεια για \(τηνΕφαρμογή)"
             case .עברית־ישראל:
-                return StrictString("עזרה עבור ")
-                    + (ProcessInfo.applicationName(.עברית)
-                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("”", "“")))
+                let היישום = ProcessInfo.applicationName(.עברית)
+                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("”", "“"))
+                return "עזרה עבור \(היישום)"
             }
         })), action: #selector(NSApplication.showHelp(_:)))
         helpItem.keyEquivalent = "?"
