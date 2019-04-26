@@ -87,37 +87,37 @@ public class MenuBar : Menu<InterfaceLocalization> {
         application.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return StrictString("Acerca ")
-                    + (ProcessInfo.applicationName(.español(.de))
-                        ?? StrictString("de ") + MenuBar.fallbackApplicationName(quotationMarks: ("«", "»")))
+                let deLaAplicación = ProcessInfo.applicationName(.español(.de))
+                    ?? StrictString("de ") + MenuBar.fallbackApplicationName(quotationMarks: ("«", "»"))
+                return "Acerca \(deLaAplicación)"
             case .englishUnitedKingdom:
-                return StrictString("About ")
-                    + (ProcessInfo.applicationName(.english(.unitedKingdom))
-                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("‘", "’")))
+                let theApplication = ProcessInfo.applicationName(.english(.unitedKingdom))
+                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("‘", "’"))
+                return "About \(theApplication)"
             case .englishUnitedStates:
-                return StrictString("About ")
-                    + (ProcessInfo.applicationName(.english(.unitedStates))
-                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”")))
+                let theApplication = ProcessInfo.applicationName(.english(.unitedStates))
+                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”"))
+                return "About \(theApplication)"
             case .englishCanada:
-                return StrictString("About ")
-                    + (ProcessInfo.applicationName(.english(.canada))
-                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”")))
+                let theApplication = ProcessInfo.applicationName(.english(.canada))
+                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”"))
+                return "About \(theApplication)"
             case .deutschDeutschland:
-                return StrictString("Über ")
-                    + (ProcessInfo.applicationName(.deutsch(.akkusativ))
-                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("„", "“")))
+                let dieAnwendung = ProcessInfo.applicationName(.deutsch(.akkusativ))
+                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("„", "“"))
+                return "Über \(dieAnwendung)"
             case .françaisFrance:
-                return StrictString("À propos ")
-                    + (ProcessInfo.applicationName(.français(.de))
-                        ?? StrictString("de ") + MenuBar.fallbackApplicationName(quotationMarks: ("« ", " »")))
+                let deLApplication = ProcessInfo.applicationName(.français(.de))
+                    ?? StrictString("de ") + MenuBar.fallbackApplicationName(quotationMarks: ("« ", " »"))
+                return "À propos \(deLApplication)"
             case .ελληνικάΕλλάδα:
-                return StrictString("Πληροφορίες για ")
-                    + (ProcessInfo.applicationName(.ελληνικά(.αιτιατική))
-                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("«", "»")))
+                let τηνΕφαρμογή = ProcessInfo.applicationName(.ελληνικά(.αιτιατική))
+                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("«", "»"))
+                return "Πληροφορίες για \(τηνΕφαρμογή)"
             case .עברית־ישראל:
-                return StrictString("אותות ")
-                    + (ProcessInfo.applicationName(.עברית)
-                        ?? MenuBar.fallbackApplicationName(quotationMarks: ("”", "“")))
+                let היישום = (ProcessInfo.applicationName(.עברית)
+                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("”", "“")))
+                return "אותות \(היישום)"
             }
         })), action: #selector(Application.orderFrontStandardAboutPanel(_:)))
 
