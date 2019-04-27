@@ -337,6 +337,9 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         let copy = richText
         richText.superscript()
         XCTAssertNotEqual(richText, copy)
+
+        richText = "abc\("def")ghi"
+        XCTAssertEqual(richText.rawText(), "abcdefghi")
         #endif
     }
 
