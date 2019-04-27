@@ -70,7 +70,7 @@ extension ProcessInfo {
                 assert(a.value == b.value, UserFacing<StrictString, APILocalization>({ localization in
                     switch localization {
                     case .englishCanada:
-                        return StrictString("\(a.key) ≠ \(b.key); “\(a.value)” ≠ “\(b.value)”")
+                        return "\(a.key) ≠ \(b.key); “\(arbitraryDescriptionOf: a.value)” ≠ “\(arbitraryDescriptionOf: b.value)”"
                     }
                 }))
             }
