@@ -17,11 +17,12 @@ import Foundation
 
 import SDGControlFlow
 import SDGMathematics
+import SDGText
 
 /// Rich text.
 ///
 /// Rich text is built on `StrictString` and maintains normalization form NFKD, except where canonical reordering would cause scalars to cross attribute boundaries.
-public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStringConvertible, BidirectionalCollection, Equatable, ExpressibleByStringLiteral, Hashable, RangeReplaceableCollection {
+public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStringConvertible, BidirectionalCollection, Equatable, ExpressibleByStringInterpolation, ExpressibleByStringLiteral, Hashable, RangeReplaceableCollection {
 
     // MARK: - Initialization
 
@@ -32,6 +33,16 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
     ///     - attributes: The rich text attributes.
     public init(rawText: StrictString, attributes: [NSAttributedString.Key: Any] = [:]) {
         self.init(unsafeSegments: [Segment(rawText: rawText, attributes: attributes)])
+    }
+
+    /// Creates rich text from semantic markup.
+    ///
+    /// - Parameters:
+    ///     - semanticMarkup: The semantic markup.
+    ///     - attributes: The rich text attributes.
+    public init(semanticMarkup: SemanticMarkup, attributes: [NSAttributedString.Key: Any] = [:]) {
+        let font = (attributes[NSAttributedString.Key.font] as? Font) ?? Font.default
+        self.init(semanticMarkup.richText(font: font))
     }
 
     @usableFromInline internal init(segments: [Segment]) {
@@ -328,6 +339,12 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
 
     public static func == (precedingValue: RichText, followingValue: RichText) -> Bool {
         return precedingValue.segments == followingValue.segments
+    }
+
+    // MARK: - ExpressiblyByStringInterpolation
+
+    public init(stringInterpolation: SemanticMarkup.StringInterpolation) {
+        self.init(semanticMarkup: stringInterpolation.semanticMarkup)
     }
 
     // MARK: - ExpressibleByStringLiteral
