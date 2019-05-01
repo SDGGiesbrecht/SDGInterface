@@ -16,23 +16,10 @@
 
 import SDGInterfaceLocalizations
 
-#if canImport(AppKit)
-private typealias WindowConformances = NSWindowDelegate
-#else
-private protocol WindowConformances {}
-#endif
-
-internal var allWindows = Set<NSWindow>()
 /// A window.
-open class Window<L> : NSWindow, SharedValueObserver, WindowConformances where L : Localization {
+open class Window<L> : WindowPrototype, SharedValueObserver where L : Localization {
 
     // MARK: - Initialization
-
-    private static func initializeContentRectangle(size: CGSize) -> CGRect {
-        var rectangle = CGRect.zero
-        rectangle.size = size
-        return rectangle
-    }
 
     /// Creates a window.
     ///
@@ -49,28 +36,11 @@ open class Window<L> : NSWindow, SharedValueObserver, WindowConformances where L
 
         localizedTitle = title
 
-        #if canImport(AppKit)
-        var style: NSWindow.StyleMask = [
-            .titled,
-            .closable,
-            .miniaturizable,
-            .resizable,
-            .texturedBackground,
-            .unifiedTitleAndToolbar
-        ]
-        style.formUnion(additionalStyles)
-        style.subtract(disabledStyles)
-        #endif
-
-        #if canImport(AppKit)
         super.init(
-            contentRect: Window.initializeContentRectangle(size: size),
-            styleMask: style,
-            backing: .buffered,
-            defer: true)
-        #else
-        super.init(frame: Window.initializeContentRectangle(size: size))
-        #endif
+            title: title.value.resolved(),
+            size: size,
+            additionalStyles: additionalStyles,
+            disabledStyles: disabledStyles)
 
         finishInitialization(title: title)
     }
@@ -82,48 +52,15 @@ open class Window<L> : NSWindow, SharedValueObserver, WindowConformances where L
     ///     - title: The title of the window.
     public init(title: Shared<UserFacing<StrictString, L>>) {
         localizedTitle = title
-        super.init(frame: Window.initializeContentRectangle(size: Screen.main.bounds.size))
+        super.init(title: title.value.resolved())
         finishInitialization(title: title)
     }
     #endif
 
     private func finishInitialization(title: Shared<UserFacing<StrictString, L>>) {
-
         title.register(observer: self)
         LocalizationSetting.current.register(observer: self)
-
-        #if canImport(AppKit)
-        interceptor.delegate = super.delegate
-        interceptor.listener = self
-        #endif
-
-        #if canImport(AppKit)
-        isReleasedWhenClosed = false
-        #endif
-
-        #if canImport(AppKit)
-        titleVisibility = .hidden
-        #endif
-
-        #if canImport(AppKit)
-        setAutorecalculatesContentBorderThickness(false, for: NSRectEdge.minY)
-        setContentBorderThickness(0, for: NSRectEdge.minY)
-        #endif
-
-        randomizeLocation()
     }
-
-    #if canImport(UIKit)
-    @available(*, unavailable) public required init(coder decoder: NSCoder) { // @exempt(from: unicode)
-        codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "Window"
-            }
-        }))
-        preconditionFailure()
-    }
-    #endif
 
     // MARK: - Properties
 
@@ -134,64 +71,6 @@ open class Window<L> : NSWindow, SharedValueObserver, WindowConformances where L
             localizedTitle.register(observer: self)
         }
     }
-
-    #if canImport(AppKit)
-    private let fieldEditor = FieldEditor()
-    #endif
-
-    // MARK: - NSWindow
-
-    #if canImport(AppKit)
-    private let interceptor = DelegationInterceptor(selectors: [
-        #selector(NSWindowDelegate.windowWillReturnFieldEditor(_:to:))
-        ])
-    open override var delegate: NSWindowDelegate? {
-        get {
-            return interceptor.delegate as? NSWindowDelegate
-        }
-        set {
-            interceptor.delegate = newValue
-            super.delegate = interceptor
-        }
-    }
-    #endif
-
-    #if canImport(AppKit)
-    open override func makeKeyAndOrderFront(_ sender: Any?) {
-        allWindows.insert(self)
-        super.makeKeyAndOrderFront(sender)
-    }
-    #else
-    open override func makeKeyAndVisible() { // @exempt(from: tests) Causes exception during tests.
-        allWindows.insert(self)
-        super.makeKeyAndVisible()
-    }
-    #endif
-
-    #if canImport(AppKit)
-    open override func close() {
-        allWindows.remove(self)
-        super.close()
-    }
-    #else
-    /// Closes the window, allowing it to be deallocated.
-    open func close() {
-        allWindows.remove(self)
-    }
-    #endif
-
-    #if canImport(AppKit)
-    // MARK: - NSWindowDelegate
-
-    /// Determines the window’s field editor.
-    ///
-    /// - Parameters:
-    ///     - sender: The window requesting the field editor.
-    ///     - client: A text‐displaying object to be associated with the field editor.
-    public func windowWillReturnFieldEditor(_ sender: NSWindow, to client: Any?) -> Any? {
-        return (interceptor.delegate as? NSWindowDelegate)?.windowWillReturnFieldEditor?(sender, to: client) ?? fieldEditor
-    }
-    #endif
 
     // MARK: - SharedValueObserver
 

@@ -29,9 +29,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
 
     override func tearDown() {
         forEachWindow { window in
-            #if canImport(AppKit) // #workaround(Temporary.)
             window.close()
-            #endif
         }
     }
 
