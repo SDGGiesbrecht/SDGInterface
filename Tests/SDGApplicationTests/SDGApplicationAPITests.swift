@@ -43,6 +43,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testAttributedString() {
+        print(NSAttributedString.Key.superscript.rawValue)
         let attributed = NSAttributedString(string: "...")
         var mutable = attributed.mutableCopy() as! NSMutableAttributedString
         mutable.addAttribute(NSAttributedString.Key.font, value: Font.systemFont(ofSize: 24), range: NSRange(0 ..< 3))
@@ -255,7 +256,6 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testRichText() {
-        #if canImport(AppKit) // #workaround(Temporary.)
         let fontNameKey = NSAttributedString.Key(rawValue: "SDGTestFontName")
         func prepareForEqualityCheck(_ string: NSAttributedString, ignoring ignored: [NSAttributedString.Key] = []) -> NSAttributedString {
             let processed = NSAttributedString(RichText(string))
@@ -338,7 +338,6 @@ final class SDGApplicationAPITests : ApplicationTestCase {
 
         richText = "abc\("def")ghi"
         XCTAssertEqual(richText.rawText(), "abcdefghi")
-        #endif
     }
 
     func testTable() {

@@ -62,31 +62,38 @@ extension NSAttributedString {
     }
 
     internal static func addSuperscript(to attributes: inout [NSAttributedString.Key: Any]) {
+        let originalSize = attributes[.font] as? CGFloat ?? Font.default.pointSize
         reduceSizeForSuperscript(&attributes)
 
-        #if canImport(AppKit)
         var baseline = attributes[.superscript] as? Int ?? 0
         baseline += 1
         attributes[.superscript] = baseline
-        #else
-        // #workaround(iOS?)
+
+        #if !canImport(AppKit)
+        // Other platforms do not recognize the “superscript” attribute.
+        var baselineOffset = attributes[.baselineOffset] as? CGFloat ?? 0
+        baselineOffset += originalSize ÷ 2
+        attributes[.baselineOffset] = baselineOffset
         #endif
     }
 
     internal static func addSubscript(to attributes: inout [NSAttributedString.Key: Any]) {
+        let originalSize = attributes[.font] as? CGFloat ?? Font.default.pointSize
         reduceSizeForSuperscript(&attributes)
 
-        #if canImport(AppKit)
         var baseline = attributes[.superscript] as? Int ?? 0
         baseline −= 1
         attributes[.superscript] = baseline
-        #else
-        // #workaround(iOS?)
+
+        #if !canImport(AppKit)
+        // Other platforms do not recognize the “superscript” attribute.
+        var baselineOffset = attributes[.baselineOffset] as? CGFloat ?? 0
+        baselineOffset −= originalSize ÷ 2
+        attributes[.baselineOffset] = baselineOffset
         #endif
     }
 
     fileprivate static func resetBaseline(for attributes: inout [NSAttributedString.Key: Any]) {
-        #if canImport(AppKit)
         var level = |(attributes[.superscript] as? Int ?? 0)|
         var font = attributes[.font] as? Font ?? Font.default
         let paragraphStyle = (attributes[.paragraphStyle] as? NSParagraphStyle ?? NSParagraphStyle.default).mutableCopy() as! NSMutableParagraphStyle
@@ -101,8 +108,10 @@ extension NSAttributedString {
         attributes[.font] = font
         attributes[.paragraphStyle] = paragraphStyle.copy() as! NSParagraphStyle
         attributes[.superscript] = nil
-        #else
-        // #workaround(iOS?)
+
+        #if !canImport(AppKit)
+        // Other platforms do not recognize the “superscript” attribute.
+        attributes[.baselineOffset] = nil
         #endif
     }
 }
