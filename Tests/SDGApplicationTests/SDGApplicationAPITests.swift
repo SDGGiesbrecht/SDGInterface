@@ -337,6 +337,8 @@ final class SDGApplicationAPITests : ApplicationTestCase {
 
         richText = "abc\("def")ghi"
         XCTAssertEqual(richText.rawText(), "abcdefghi")
+
+        XCTAssertEqual(("..." as RichText).rawText(), "...")
     }
 
     func testTable() {
