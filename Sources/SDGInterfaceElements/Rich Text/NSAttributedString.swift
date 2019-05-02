@@ -62,7 +62,6 @@ extension NSAttributedString {
     }
 
     internal static func addSuperscript(to attributes: inout [NSAttributedString.Key: Any]) {
-        let originalSize = attributes[.font] as? CGFloat ?? Font.default.pointSize
         reduceSizeForSuperscript(&attributes)
 
         var baseline = attributes[.superscript] as? Int ?? 0
@@ -71,7 +70,6 @@ extension NSAttributedString {
     }
 
     internal static func addSubscript(to attributes: inout [NSAttributedString.Key: Any]) {
-        let originalSize = attributes[.font] as? CGFloat ?? Font.default.pointSize
         reduceSizeForSuperscript(&attributes)
 
         var baseline = attributes[.superscript] as? Int ?? 0
