@@ -14,9 +14,7 @@
 
 extension NSAttributedString.Key {
     #if !canImport(AppKit)
-    /// Fakes AppKit’s `superscript` on other platforms.
-    ///
-    /// It is ignored by the operating system, but it allows tracking the superscript nesting level.
-    internal static let superscript = NSAttributedString.Key(rawValue: "SDGNSSuperScript")
+    // This fills in a hole in the API of `UIKit`. `UIKit` methods generate attributed strings using this attribute the same way `AppKit` does.
+    public static let superscript = NSAttributedString.Key(rawValue: "NSSuperScript")
     #endif
 }

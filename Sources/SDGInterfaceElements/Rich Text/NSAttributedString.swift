@@ -68,13 +68,6 @@ extension NSAttributedString {
         var baseline = attributes[.superscript] as? Int ?? 0
         baseline += 1
         attributes[.superscript] = baseline
-
-        #if !canImport(AppKit)
-        // Other platforms do not recognize the “superscript” attribute.
-        var baselineOffset = attributes[.baselineOffset] as? CGFloat ?? 0
-        baselineOffset += originalSize ÷ 2
-        attributes[.baselineOffset] = baselineOffset
-        #endif
     }
 
     internal static func addSubscript(to attributes: inout [NSAttributedString.Key: Any]) {
@@ -84,13 +77,6 @@ extension NSAttributedString {
         var baseline = attributes[.superscript] as? Int ?? 0
         baseline −= 1
         attributes[.superscript] = baseline
-
-        #if !canImport(AppKit)
-        // Other platforms do not recognize the “superscript” attribute.
-        var baselineOffset = attributes[.baselineOffset] as? CGFloat ?? 0
-        baselineOffset −= originalSize ÷ 2
-        attributes[.baselineOffset] = baselineOffset
-        #endif
     }
 
     fileprivate static func resetBaseline(for attributes: inout [NSAttributedString.Key: Any]) {
@@ -108,11 +94,6 @@ extension NSAttributedString {
         attributes[.font] = font
         attributes[.paragraphStyle] = paragraphStyle.copy() as! NSParagraphStyle
         attributes[.superscript] = nil
-
-        #if !canImport(AppKit)
-        // Other platforms do not recognize the “superscript” attribute.
-        attributes[.baselineOffset] = nil
-        #endif
     }
 }
 
