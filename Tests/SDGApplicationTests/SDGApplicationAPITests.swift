@@ -43,7 +43,6 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testAttributedString() {
-        print(NSAttributedString.Key.superscript.rawValue)
         let attributed = NSAttributedString(string: "...")
         var mutable = attributed.mutableCopy() as! NSMutableAttributedString
         mutable.addAttribute(NSAttributedString.Key.font, value: Font.systemFont(ofSize: 24), range: NSRange(0 ..< 3))
