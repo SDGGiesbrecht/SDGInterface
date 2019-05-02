@@ -32,7 +32,7 @@ extension Colour {
     ///     - green: The green component. (0–1)
     ///     - blue: The blue component. (0–1)
     ///     - alpha: The opacity. (0–1)
-    public init(calibratedRed red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
+    public convenience init(calibratedRed red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
         self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
     #endif
