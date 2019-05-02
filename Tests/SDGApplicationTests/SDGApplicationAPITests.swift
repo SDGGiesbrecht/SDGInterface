@@ -52,6 +52,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         mutable.subscript(NSRange(0 ..< mutable.length))
         XCTAssert((mutable.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! Font).pointSize < 24, "\((mutable.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! Font).pointSize)")
 
+        #if canImport(AppKit)
         var italiano = NSMutableAttributedString("Roma, Italia")
         italiano.makeLatinateSmallCaps(NSRange(0 ..< italiano.length))
         XCTAssert(¬italiano.attributes(at: 1, effectiveRange: nil).isEmpty)
@@ -73,6 +74,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         türkçe = NSMutableAttributedString("İstanbul, Türkiye")
         türkçe.makeTurkicLowerCase(NSRange(0 ..< türkçe.length))
         XCTAssert(türkçe.attributes(at: 2, effectiveRange: nil).isEmpty)
+        #endif
     }
 
     func testDelegationInterceptor() {
