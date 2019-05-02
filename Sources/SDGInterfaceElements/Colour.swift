@@ -21,3 +21,12 @@ public typealias Colour = NSColor
 /// An alias for `NSColor` or `UIColor`.
 public typealias Colour = UIColor
 #endif
+
+extension Colour {
+
+    #if !canImport(AppKit)
+    public init(calibratedRed red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
+        self.init(red: red, green: green, blue: blue, alpha: alpha)
+    }
+    #endif
+}
