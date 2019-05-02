@@ -43,7 +43,6 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testAttributedString() {
-        #if canImport(AppKit) // #workaround(Temporary.)
         let attributed = NSAttributedString(string: "...")
         var mutable = attributed.mutableCopy() as! NSMutableAttributedString
         mutable.addAttribute(NSAttributedString.Key.font, value: Font.systemFont(ofSize: 24), range: NSRange(0 ..< 3))
@@ -74,7 +73,6 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         türkçe = NSMutableAttributedString("İstanbul, Türkiye")
         türkçe.makeTurkicLowerCase(NSRange(0 ..< türkçe.length))
         XCTAssert(türkçe.attributes(at: 2, effectiveRange: nil).isEmpty)
-        #endif
     }
 
     func testDelegationInterceptor() {

@@ -12,7 +12,6 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit) // #workaround(Temporary.)
 import Foundation
 
 import SDGControlFlow
@@ -432,4 +431,3 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
         self = result
     }
 }
-#endif
