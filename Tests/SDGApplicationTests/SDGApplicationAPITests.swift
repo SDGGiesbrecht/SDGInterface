@@ -254,7 +254,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         SampleApplicationDelegate().openPreferences(nil)
     }
 
-    func testRichText() {
+    func testRichText() throws {
         let fontNameKey = NSAttributedString.Key(rawValue: "SDGTestFontName")
         func prepareForEqualityCheck(_ string: NSAttributedString, ignoring ignored: [NSAttributedString.Key] = []) -> NSAttributedString {
             let processed = NSAttributedString(RichText(string))
@@ -273,19 +273,19 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             let placeholderText = "..."
             let font = Font.systemFont(ofSize: CGFloat(fontSize))
             let basicString = NSAttributedString(string: placeholderText, attributes: [.font: font])
-            let basicHTML = NSAttributedString(html: placeholderText, font: font)!
+            let basicHTML = try NSAttributedString(html: placeholderText, font: font)
             var ignored: [NSAttributedString.Key] = [.foregroundColor, .kern, .paragraphStyle, .strokeColor, .strokeWidth]
             if fontSize < 20 {
                 ignored.append(fontNameKey)
             }
             XCTAssertEqual(prepareForEqualityCheck(basicString, ignoring: ignored), prepareForEqualityCheck(basicHTML, ignoring: ignored))
 
-            let toFixSup = NSAttributedString(html: "\u{B2}", font: font)!
-            let alreadyCorrectSup = NSAttributedString(html: "<sup>2</sup>", font: font)!
+            let toFixSup = try NSAttributedString(html: "\u{B2}", font: font)
+            let alreadyCorrectSup = try NSAttributedString(html: "<sup>2</sup>", font: font)
             XCTAssertEqual(prepareForEqualityCheck(toFixSup), prepareForEqualityCheck(alreadyCorrectSup))
 
-            let toFixSub = NSAttributedString(html: "\u{2082}", font: font)!
-            let alreadyCorrectSub = NSAttributedString(html: "<sub>2</sub>", font: font)!
+            let toFixSub = try NSAttributedString(html: "\u{2082}", font: font)
+            let alreadyCorrectSub = try NSAttributedString(html: "<sub>2</sub>", font: font)
             XCTAssertEqual(prepareForEqualityCheck(toFixSub), prepareForEqualityCheck(alreadyCorrectSub))
 
             let mutable = basicHTML.mutableCopy() as! NSMutableAttributedString
