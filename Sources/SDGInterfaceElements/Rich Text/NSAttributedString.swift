@@ -12,7 +12,6 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit) // #workaround(Temporary.)
 import SDGLogic
 import SDGMathematics
 
@@ -62,33 +61,23 @@ extension NSAttributedString {
         attributes[.paragraphStyle] = paragraphStyle.copy()
     }
 
-    #if canImport(AppKit) // #workaround(Temporary.)
     internal static func addSuperscript(to attributes: inout [NSAttributedString.Key: Any]) {
         reduceSizeForSuperscript(&attributes)
 
-        #if canImport(AppKit)
         var baseline = attributes[.superscript] as? Int ?? 0
         baseline += 1
         attributes[.superscript] = baseline
-        #else
-        // #workaround(iOS?)
-        #endif
     }
 
     internal static func addSubscript(to attributes: inout [NSAttributedString.Key: Any]) {
         reduceSizeForSuperscript(&attributes)
 
-        #if canImport(AppKit)
         var baseline = attributes[.superscript] as? Int ?? 0
         baseline −= 1
         attributes[.superscript] = baseline
-        #else
-        // #workaround(iOS?)
-        #endif
     }
 
     fileprivate static func resetBaseline(for attributes: inout [NSAttributedString.Key: Any]) {
-        #if canImport(AppKit)
         var level = |(attributes[.superscript] as? Int ?? 0)|
         var font = attributes[.font] as? Font ?? Font.default
         let paragraphStyle = (attributes[.paragraphStyle] as? NSParagraphStyle ?? NSParagraphStyle.default).mutableCopy() as! NSMutableParagraphStyle
@@ -103,11 +92,7 @@ extension NSAttributedString {
         attributes[.font] = font
         attributes[.paragraphStyle] = paragraphStyle.copy() as! NSParagraphStyle
         attributes[.superscript] = nil
-        #else
-        // #workaround(iOS?)
-        #endif
     }
-    #endif
 }
 
 extension NSMutableAttributedString {
@@ -201,7 +186,6 @@ extension NSMutableAttributedString {
 
     // MARK: - Superscript & Subscript
 
-    #if canImport(AppKit) // #workaround(Temporary.)
     /// Superscripts a subrange.
     ///
     /// - Parameters:
@@ -225,7 +209,6 @@ extension NSMutableAttributedString {
     public func resetBaseline(for range: NSRange) {
         applyUniformChanges(to: range) { NSAttributedString.resetBaseline(for: &$0) }
     }
-    #endif
 
     #if canImport(AppKit)
     // MARK: - Case
@@ -351,4 +334,3 @@ extension NSMutableAttributedString {
     }
     #endif
 }
-#endif

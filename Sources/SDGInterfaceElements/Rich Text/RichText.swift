@@ -12,7 +12,6 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit) // #workaround(Temporary.)
 import Foundation
 
 import SDGControlFlow
@@ -73,14 +72,12 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
                     segmentString = ""
 
                     var modified = attributes
-                    #if canImport(AppKit) // #workaround(Temporary.)
                     switch format {
                     case .superscript:
                         NSAttributedString.addSuperscript(to: &modified)
                     case .subscript:
                         NSAttributedString.addSubscript(to: &modified)
                     }
-                    #endif
                     segments.append(Segment(rawText: StrictString(element), attributes: modified))
 
                 } else {
@@ -184,7 +181,6 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
         replaceSubrange(range, with: RichText(segments: changedSegments))
     }
 
-    #if canImport(AppKit) // #workaround(Temporary.)
     /// Superscripts the entire string.
     public mutating func superscript() {
         segments = segments.map { segment in
@@ -222,7 +218,6 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
         change.`subscript`()
         replaceSubrange(range, with: change)
     }
-    #endif
 
     /// Sets the font for the entire string.
     ///
@@ -432,4 +427,3 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
         self = result
     }
 }
-#endif

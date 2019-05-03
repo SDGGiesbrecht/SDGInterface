@@ -43,16 +43,17 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testAttributedString() {
-        #if canImport(AppKit) // #workaround(Temporary.)
-        let attributed = NSAttributedString(string: "...")
-        var mutable = attributed.mutableCopy() as! NSMutableAttributedString
+        var mutable = NSMutableAttributedString(string: "...")
         mutable.addAttribute(NSAttributedString.Key.font, value: Font.systemFont(ofSize: 24), range: NSRange(0 ..< 3))
+        let attributed = mutable.copy() as! NSAttributedString
+        mutable = attributed.mutableCopy() as! NSMutableAttributedString
         mutable.superscript(NSRange(0 ..< mutable.length))
         XCTAssert((mutable.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! Font).pointSize < 24, "\((mutable.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! Font).pointSize)")
         mutable = attributed.mutableCopy() as! NSMutableAttributedString
         mutable.subscript(NSRange(0 ..< mutable.length))
         XCTAssert((mutable.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! Font).pointSize < 24, "\((mutable.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! Font).pointSize)")
 
+        #if canImport(AppKit)
         var italiano = NSMutableAttributedString("Roma, Italia")
         italiano.makeLatinateSmallCaps(NSRange(0 ..< italiano.length))
         XCTAssert(¬italiano.attributes(at: 1, effectiveRange: nil).isEmpty)
@@ -254,8 +255,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         SampleApplicationDelegate().openPreferences(nil)
     }
 
-    func testRichText() {
-        #if canImport(AppKit) // #workaround(Temporary.)
+    func testRichText() throws {
         let fontNameKey = NSAttributedString.Key(rawValue: "SDGTestFontName")
         func prepareForEqualityCheck(_ string: NSAttributedString, ignoring ignored: [NSAttributedString.Key] = []) -> NSAttributedString {
             let processed = NSAttributedString(RichText(string))
@@ -274,19 +274,19 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             let placeholderText = "..."
             let font = Font.systemFont(ofSize: CGFloat(fontSize))
             let basicString = NSAttributedString(string: placeholderText, attributes: [.font: font])
-            let basicHTML = NSAttributedString(html: placeholderText, font: font)!
+            let basicHTML = try NSAttributedString(html: placeholderText, font: font)
             var ignored: [NSAttributedString.Key] = [.foregroundColor, .kern, .paragraphStyle, .strokeColor, .strokeWidth]
             if fontSize < 20 {
                 ignored.append(fontNameKey)
             }
             XCTAssertEqual(prepareForEqualityCheck(basicString, ignoring: ignored), prepareForEqualityCheck(basicHTML, ignoring: ignored))
 
-            let toFixSup = NSAttributedString(html: "\u{B2}", font: font)!
-            let alreadyCorrectSup = NSAttributedString(html: "<sup>2</sup>", font: font)!
+            let toFixSup = try NSAttributedString(html: "\u{B2}", font: font)
+            let alreadyCorrectSup = try NSAttributedString(html: "<sup>2</sup>", font: font)
             XCTAssertEqual(prepareForEqualityCheck(toFixSup), prepareForEqualityCheck(alreadyCorrectSup))
 
-            let toFixSub = NSAttributedString(html: "\u{2082}", font: font)!
-            let alreadyCorrectSub = NSAttributedString(html: "<sub>2</sub>", font: font)!
+            let toFixSub = try NSAttributedString(html: "\u{2082}", font: font)
+            let alreadyCorrectSub = try NSAttributedString(html: "<sub>2</sub>", font: font)
             XCTAssertEqual(prepareForEqualityCheck(toFixSub), prepareForEqualityCheck(alreadyCorrectSub))
 
             let mutable = basicHTML.mutableCopy() as! NSMutableAttributedString
@@ -301,7 +301,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
 
         var richText = RichText(rawText: "...")
         richText.superscript()
-        richText.set(colour: NSColor(calibratedRed: 1, green: 1, blue: 1, alpha: 1))
+        richText.set(colour: Colour(calibratedRed: 1, green: 1, blue: 1, alpha: 1))
         richText.superscript(range: richText.bounds)
         richText.subscript(range: richText.bounds)
         richText.set(font: Font.systemFont(ofSize: Font.systemSize))
@@ -338,7 +338,8 @@ final class SDGApplicationAPITests : ApplicationTestCase {
 
         richText = "abc\("def")ghi"
         XCTAssertEqual(richText.rawText(), "abcdefghi")
-        #endif
+
+        XCTAssertEqual(("..." as RichText).rawText(), "...")
     }
 
     func testTable() {

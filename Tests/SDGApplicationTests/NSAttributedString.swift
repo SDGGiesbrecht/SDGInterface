@@ -12,7 +12,6 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit) // #workaround(Temporary.)
 import Foundation
 
 import SDGMathematics
@@ -24,7 +23,7 @@ extension NSAttributedString {
 
     // MARK: - Initialization
 
-    internal convenience init?(html: String, font: Font) {
+    internal convenience init(html: String, font: Font) throws {
         let adjustedFont = font.resized(to: font.pointSize × NSAttributedString.htmlCorrection)
 
         // #workaround(Share with SemanticMarkup?)
@@ -37,7 +36,9 @@ extension NSAttributedString {
         modified += html
         modified += "</span>"
 
-        self.init(html: modified.file, options: [.characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
+        try self.init(data: modified.file, options: [
+            .characterEncoding: String.Encoding.utf8.rawValue,
+            .documentType: NSAttributedString.DocumentType.html
+            ], documentAttributes: nil)
     }
 }
-#endif
