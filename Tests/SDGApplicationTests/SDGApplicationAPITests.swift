@@ -138,22 +138,23 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         #endif
     }
 
-    #if canImport(AppKit) // #workaround(Temporary.)
     func testLabel() {
         SampleApplicationDelegate().demonstrateLabel()
         forEachWindow { window in
-            #if canImport(AppKit) // #workaround(Temporary.)
-            let label = window.contentView!.subviews[0] as! Label<SDGInterfaceSample.InterfaceLocalization>
+            let label: Label<SDGInterfaceSample.InterfaceLocalization>
+            #if canImport(AppKit)
+            label = window.contentView!.subviews[0] as! Label<SDGInterfaceSample.InterfaceLocalization>
+            #else
+            label = window.rootViewController!.view.subviews[0] as! Label<SDGInterfaceSample.InterfaceLocalization>
+            #endif
             label.labelText = Shared(UserFacing<StrictString, SDGInterfaceSample.InterfaceLocalization>({ localization in
                 switch localization {
                 case .englishCanada:
                     return "Modified"
                 }
             }))
-            #endif
         }
     }
-    #endif
 
     func testMenu() {
         #if !os(tvOS)
