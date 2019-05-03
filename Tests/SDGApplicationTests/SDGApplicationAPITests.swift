@@ -43,9 +43,10 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testAttributedString() {
-        let attributed = NSAttributedString(string: "...")
-        var mutable = attributed.mutableCopy() as! NSMutableAttributedString
+        var mutable = NSMutableAttributedString(string: "...")
         mutable.addAttribute(NSAttributedString.Key.font, value: Font.systemFont(ofSize: 24), range: NSRange(0 ..< 3))
+        let attributed = mutable.copy() as! NSAttributedString
+        mutable = attributed.mutableCopy() as! NSMutableAttributedString
         mutable.superscript(NSRange(0 ..< mutable.length))
         XCTAssert((mutable.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! Font).pointSize < 24, "\((mutable.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! Font).pointSize)")
         mutable = attributed.mutableCopy() as! NSMutableAttributedString
