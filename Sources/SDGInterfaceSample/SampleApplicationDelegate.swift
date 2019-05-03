@@ -186,24 +186,24 @@ extension SampleApplicationDelegate {
         #endif
     }
 
-    #if canImport(AppKit) // #workaround(Temporary.)
     private func demonstrate(_ window: NSWindow) {
         window.makeKeyAndOrderFront(nil)
     }
-    #if canImport(AppKit) // #workaround(Temporary.)
     private func demonstrate<L>(_ view: View, windowTitle: UserFacing<StrictString, L>) {
         #if canImport(AppKit)
         let window = AuxiliaryWindow(title: Shared(windowTitle))
         window.contentView?.fill(with: view)
         demonstrate(window)
         #else
-        // #workaround(iOS?)
+        let window = Window(title: Shared(windowTitle))
+        let frame = UIViewController()
+        window.rootViewController = frame
+        frame.view.fill(with: view)
+        demonstrate(window)
         #endif
     }
-    #endif
 
     @objc public func demonstrateLabel() {
-        #if canImport(AppKit) // #workaround(Temporary.)
         let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
@@ -211,7 +211,6 @@ extension SampleApplicationDelegate {
             }
         })
         demonstrate(Label(text: Shared(label)), windowTitle: label)
-        #endif
     }
 
     @objc public func demonstrateTextEditor() {
@@ -245,7 +244,6 @@ extension SampleApplicationDelegate {
         })), size: CGSize(width: 700, height: 300))
         demonstrate(window)
     }
-    #endif
 }
 
 #endif

@@ -12,7 +12,6 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit) // #workaround(Temporary.)
 import SDGInterfaceLocalizations
 
 #if canImport(AppKit)
@@ -93,4 +92,3 @@ open class Label<L> : _LabelSuperclass, SharedValueObserver where L : Localizati
         #endif
     }
 }
-#endif
