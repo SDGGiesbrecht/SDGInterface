@@ -213,28 +213,29 @@ extension SampleApplicationDelegate {
         demonstrate(Label(text: Shared(label)), windowTitle: label)
     }
 
+    #if canImport(AppKit) // #workaround(Temporary.)
     @objc public func demonstrateTextEditor() {
-        #if canImport(AppKit) // #workaround(Temporary.)
         demonstrate(TextEditor(), windowTitle: UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Text Editor"
             }
         }))
-        #endif
     }
+    #endif
 
+    #if canImport(AppKit) // #workaround(Temporary.)
     @objc public func demonstrateTextField() {
-        #if canImport(AppKit) // #workaround(Temporary.)
         demonstrate(TextField(), windowTitle: UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Text Field"
             }
         }))
-        #endif
     }
+    #endif
 
+    #if canImport(AppKit) // #workaround(Temporary.)
     @objc public func demonstrateWindow() {
         let window = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
@@ -244,6 +245,7 @@ extension SampleApplicationDelegate {
         })), size: CGSize(width: 700, height: 300))
         demonstrate(window)
     }
+    #endif
 }
 
 #endif
