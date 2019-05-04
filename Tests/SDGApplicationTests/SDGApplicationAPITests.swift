@@ -422,6 +422,10 @@ final class SDGApplicationAPITests : ApplicationTestCase {
 
             textEditor.drawsTextBackground = true
             XCTAssertTrue(textEditor.drawsTextBackground)
+            textEditor.drawsTextBackground = false
+            XCTAssertFalse(textEditor.drawsTextBackground)
+            textEditor.drawsTextBackground = true
+            XCTAssertTrue(textEditor.drawsTextBackground)
             textEditor.isEditable = true
             XCTAssertTrue(textEditor.isEditable)
 
@@ -444,6 +448,8 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             textView.paste(nil)
             textView.selectAll(nil)
             textView.copy(nil)
+            textView.paste(nil)
+            textView.selectedRange = NSRange(textView.textStorage.length ..< textView.textStorage.length)
             textView.paste(nil)
 
             #if canImport(AppKit)
