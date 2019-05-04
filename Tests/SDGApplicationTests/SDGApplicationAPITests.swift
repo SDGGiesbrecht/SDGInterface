@@ -472,9 +472,8 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testWindow() {
-        #if canImport(AppKit) // #workaround(Temporary.)
         SampleApplicationDelegate().demonstrateWindow()
-        #endif
+
 
         let window = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "Title" })), size: CGSize(width: 700, height: 300))
         #if canImport(AppKit) // UIKit raises an exception during tests.
@@ -493,7 +492,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         defer { fullscreenWindow.close() }
         RunLoop.main.run(until: Date() + 3)
 
-        #if canImport(AppKit) // #workaround(Temporary.)
+        #if canImport(AppKit)
         window.title = "Replaced Title"
         XCTAssert(window.title == "Replaced Title")
         #endif

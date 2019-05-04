@@ -1,5 +1,5 @@
 /*
- WindowPrototype.swift
+ AbstractWindow.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -22,11 +22,11 @@ private typealias WindowConformances = NSWindowDelegate
 private protocol WindowConformances {}
 #endif
 
-internal var allWindows = Set<WindowPrototype>()
+internal var allWindows = Set<AbstractWindow>()
 /// A superclass of `Window` providing all of the non‐generic functionality.
 ///
 /// This superclass can be referenced in order to use functionality common to all `Window` instances regardless of their generic arguments.
-open class WindowPrototype : NSWindow, WindowConformances {
+open class AbstractWindow : NSWindow, WindowConformances {
 
     // MARK: - Initialization
 
@@ -64,15 +64,15 @@ open class WindowPrototype : NSWindow, WindowConformances {
 
         #if canImport(AppKit)
         super.init(
-            contentRect: WindowPrototype.initializeContentRectangle(size: size),
+            contentRect: AbstractWindow.initializeContentRectangle(size: size),
             styleMask: style,
             backing: .buffered,
             defer: true)
         #else
-        super.init(frame: WindowPrototype.initializeContentRectangle(size: size))
+        super.init(frame: AbstractWindow.initializeContentRectangle(size: size))
         #endif
 
-        finishInitialization(title: title)
+        finishInitialization()
     }
 
     #if canImport(UIKit)
@@ -81,12 +81,12 @@ open class WindowPrototype : NSWindow, WindowConformances {
     /// - Parameters:
     ///     - title: The title of the window.
     public init(title: StrictString) {
-        super.init(frame: WindowPrototype.initializeContentRectangle(size: Screen.main.bounds.size))
-        finishInitialization(title: title)
+        super.init(frame: AbstractWindow.initializeContentRectangle(size: Screen.main.bounds.size))
+        finishInitialization()
     }
     #endif
 
-    private func finishInitialization(title: StrictString) {
+    private func finishInitialization() {
 
         #if canImport(AppKit)
         interceptor.delegate = super.delegate
