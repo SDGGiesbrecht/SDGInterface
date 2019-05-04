@@ -426,8 +426,10 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             XCTAssertFalse(textEditor.drawsTextBackground)
             textEditor.drawsTextBackground = true
             XCTAssertTrue(textEditor.drawsTextBackground)
+            #if !os(tvOS)
             textEditor.isEditable = true
             XCTAssertTrue(textEditor.isEditable)
+            #endif
 
             #if canImport(AppKit)
             textView.insertText("...", replacementRange: NSRange(0 ..< 0))
@@ -442,7 +444,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             textView.paste(nil)
             #if canImport(AppKit)
             Pasteboard.general.clearContents()
-            #else
+            #elseif !os(tvOS)
             Pasteboard.general.items = []
             #endif
             textView.paste(nil)

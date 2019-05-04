@@ -54,6 +54,7 @@ public class TextEditor : _TextEditorSuperclass {
         }
     }
 
+    #if !os(tvOS)
     /// Whether or not editing is enabled.
     public var isEditable: Bool {
         get {
@@ -63,6 +64,7 @@ public class TextEditor : _TextEditorSuperclass {
             textView.isEditable = newValue
         }
     }
+    #endif
 
     // MARK: - Initialization
 

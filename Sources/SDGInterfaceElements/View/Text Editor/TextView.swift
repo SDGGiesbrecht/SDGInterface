@@ -120,6 +120,7 @@ internal class TextView : NSTextView {
     // #workaround(iOS?)
     #endif
 
+    #if !os(tvOS)
     override func paste(_ sender: Any?) {
         let pasteboard = Pasteboard.general
         let possibleItems: [Any]?
@@ -142,6 +143,7 @@ internal class TextView : NSTextView {
             super.paste(sender) // @exempt(from: tests) Always empty instead of nil.
         }
     }
+    #endif
 
     #if canImport(AppKit)
     // MARK: - NSMenuItemValidation
