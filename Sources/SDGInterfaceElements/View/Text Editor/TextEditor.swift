@@ -12,7 +12,6 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit) // #workaround(Temporary.)
 import SDGLogic
 
 import SDGInterfaceLocalizations
@@ -116,4 +115,3 @@ public class TextEditor : _TextEditorSuperclass {
         textView.scrollRangeToVisible(NSRange(content.endIndex..., in: content))
     }
 }
-#endif

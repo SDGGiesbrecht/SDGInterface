@@ -213,7 +213,6 @@ extension SampleApplicationDelegate {
         demonstrate(Label(text: Shared(label)), windowTitle: label)
     }
 
-    #if canImport(AppKit) // #workaround(Temporary.)
     @objc public func demonstrateTextEditor() {
         demonstrate(TextEditor(), windowTitle: UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
@@ -222,7 +221,6 @@ extension SampleApplicationDelegate {
             }
         }))
     }
-    #endif
 
     #if canImport(AppKit) // #workaround(Temporary.)
     @objc public func demonstrateTextField() {

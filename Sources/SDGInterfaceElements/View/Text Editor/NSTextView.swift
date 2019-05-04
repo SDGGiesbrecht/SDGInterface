@@ -12,7 +12,6 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit) // #workaround(Temporary.)
 import SDGLogic
 
 #if canImport(UIKit)
@@ -107,7 +106,6 @@ extension NSTextView {
 
     // MARK: - Superscripts & Subscripts
 
-    #if canImport(AppKit) // #workaround(Temporary.)
     /// Superscripts the selection.
     ///
     /// - Parameters:
@@ -137,7 +135,6 @@ extension NSTextView {
             $0.resetBaseline(for: NSRange(0 ..< $0.length))
         }
     }
-    #endif
 
     #if canImport(AppKit)
     // MARK: - Case
@@ -210,4 +207,3 @@ extension NSTextView {
     }
     #endif
 }
-#endif

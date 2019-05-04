@@ -363,24 +363,37 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         #endif
     }
 
-    #if canImport(AppKit) // #workaround(Temporary.)
     func testTextEditor() {
 
         SampleApplicationDelegate().demonstrateTextEditor()
         forEachWindow { window in
-            #if canImport(AppKit) // #workaround(Temporary.)
-            let textEditor = window.contentView!.subviews[0] as! TextEditor
-            let textView = textEditor.documentView as! NSTextView
+            let textEditor: TextEditor
+            let textView: NSTextView
+            #if canImport(AppKit)
+            textEditor = window.contentView!.subviews[0] as! TextEditor
+            textView = textEditor.documentView as! NSTextView
+            #else
+            textEditor = window.rootViewController!.view.subviews[0] as! TextEditor
+            textView = textEditor.subviews[0] as! NSTextView
+            #endif
 
             let characters = "\u{20}\u{21}\u{22}\u{AA}\u{C0}"
             textEditor.append(RichText(rawText: StrictString(characters)))
             textView.selectAll(nil)
+            #if canImport(AppKit) // #workaround(Temporary.)
             textView.showCharacterInformation(nil)
+            #endif
 
-            let compatibilityTextView = NSTextView(frame: NSRect.zero)
+            let compatibilityTextView = NSTextView(frame: CGRect.zero)
+            #if canImport(AppKit)
             compatibilityTextView.string.append(characters)
+            #else
+            compatibilityTextView.text.append(characters)
+            #endif
             compatibilityTextView.selectAll(nil)
+            #if canImport(AppKit) // #workaround(Temporary.)
             compatibilityTextView.showCharacterInformation(nil)
+            #endif
 
             textView.selectAll(nil)
             textView.normalizeText(nil)
@@ -391,6 +404,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             textView.selectAll(nil)
             textView.resetBaseline(nil)
             textView.selectAll(nil)
+            #if canImport(AppKit)
             textView.resetCasing(nil)
             textView.selectAll(nil)
             textView.makeLatinateUpperCase(nil)
@@ -404,22 +418,35 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             textView.makeLatinateLowerCase(nil)
             textView.selectAll(nil)
             textView.makeTurkicLowerCase(nil)
+            #endif
 
             textEditor.drawsTextBackground = true
             XCTAssertTrue(textEditor.drawsTextBackground)
             textEditor.isEditable = true
             XCTAssertTrue(textEditor.isEditable)
 
+            #if canImport(AppKit)
             textView.insertText("...", replacementRange: NSRange(0 ..< 0))
             textView.insertText(NSAttributedString(string: "..."), replacementRange: NSRange(0 ..< 0))
             textView.insertText("...", replacementRange: NSRange(textView.textStorage!.length ..< textView.textStorage!.length))
+            #else
+            textView.textStorage.replaceCharacters(in: NSRange(0 ..< 0), with: "...")
+            textView.textStorage.replaceCharacters(in: NSRange(0 ..< 0), with: NSAttributedString(string: "..."))
+            textView.textStorage.replaceCharacters(in: NSRange(textView.textStorage.length ..< textView.textStorage.length), with: "...")
+            #endif
+
             textView.paste(nil)
-            NSPasteboard.general.clearContents()
+            #if canImport(AppKit)
+            Pasteboard.general.clearContents()
+            #else
+            Pasteboard.general.items = []
+            #endif
             textView.paste(nil)
             textView.selectAll(nil)
             textView.copy(nil)
             textView.paste(nil)
 
+            #if canImport(AppKit)
             func validate(_ selector: Selector) -> Bool {
                 let menuItem = NSMenuItem(title: "", action: selector, keyEquivalent: "")
                 return textView.validateMenuItem(menuItem)
@@ -436,7 +463,6 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             #endif
         }
     }
-    #endif
 
     #if canImport(AppKit) // #workaround(Temporary.)
     func testTextField() {
