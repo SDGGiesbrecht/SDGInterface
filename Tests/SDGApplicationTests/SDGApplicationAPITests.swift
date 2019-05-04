@@ -451,6 +451,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             textView.paste(nil)
             textView.selectedRange = NSRange(textView.textStorage.length ..< textView.textStorage.length)
             textView.paste(nil)
+            textView.general.items = []
 
             #if canImport(AppKit)
             func validate(_ selector: Selector) -> Bool {
