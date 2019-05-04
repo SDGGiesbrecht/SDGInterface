@@ -53,10 +53,14 @@ extension NSTextView {
             #if canImport(AppKit)
             shouldChange = shouldChangeText(in: adjustedRange, replacementString: rawResult)
             #else
-            guard let textRange = selectedTextRange else { // @exempt(from: tests)
+            if ¬responds(to: #selector(TextView.shouldChangeText)) {
+                shouldChange = true
+            } else {
+                guard let textRange = selectedTextRange else { // @exempt(from: tests)
                 return
+                }
+                shouldChange = shouldChangeText(in: textRange, replacementText: rawResult)
             }
-            shouldChange = shouldChangeText(in: textRange, replacementText: rawResult)
             #endif
             if shouldChange {
                 storage.replaceCharacters(in: adjustedRange, with: result)
