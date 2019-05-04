@@ -60,6 +60,7 @@ internal class TextView : NSTextView {
 
     // MARK: - Normalization
 
+    #if !os(tvOS)
     private func insert(text string: Any, at replacementRange: NSRange) {
         if let raw = string as? String {
 
@@ -120,7 +121,6 @@ internal class TextView : NSTextView {
     // #workaround(iOS?)
     #endif
 
-    #if !os(tvOS)
     override func paste(_ sender: Any?) {
         let pasteboard = Pasteboard.general
         let possibleItems: [Any]?
