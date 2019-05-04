@@ -84,7 +84,7 @@ internal class TextView : NSTextView {
             #endif
             return
         }
-        // @exempt(from: tests) UIKit only handles raw text.
+        // @exempt(from: tests) UIKit only handles produces raw text on copy.
 
         if let attributed = string as? NSAttributedString {
             #if canImport(AppKit)
