@@ -169,11 +169,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertNotNil(submenu)
         XCTAssertEqual(submenu?.parentMenuItem, itemWithSubmenu)
         XCTAssertNil(menuBar?.parentMenuItem)
-        #elseif canImport(UIKit)
-        XCTAssertNil(NSMenu.shared.parentMenuItem)
-        #endif
 
-        #if canImport(AppKit) // #workaround(Temporary.)
         let menuLabel = Shared(UserFacing<StrictString, APILocalization>({ _ in "initial" }))
         let menu = Menu(label: menuLabel)
         menuLabel.value = UserFacing<StrictString, APILocalization>({ _ in "changed" })
@@ -183,6 +179,8 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertEqual(menu.title, String(separateMenuLabel.value.resolved()))
         menuLabel.value = UserFacing<StrictString, APILocalization>({ _ in "unrelated" })
         XCTAssertEqual(menu.title, String(separateMenuLabel.value.resolved()))
+        #else
+        XCTAssertNil(NSMenu.shared.parentMenuItem)
         #endif
 
         #endif
@@ -228,8 +226,8 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         #endif
     }
 
-    #if !os(tvOS) // #workaround(Temporary.)
     func testMenuItem() {
+        #if !os(tvOS)
         let menuLabel = Shared(UserFacing<StrictString, APILocalization>({ _ in "initial" }))
         let menu = MenuItem(label: menuLabel)
         menuLabel.value = UserFacing<StrictString, APILocalization>({ _ in "changed" })
@@ -239,8 +237,8 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertEqual(menu.title, String(separateMenuLabel.value.resolved()))
         menuLabel.value = UserFacing<StrictString, APILocalization>({ _ in "unrelated" })
         XCTAssertEqual(menu.title, String(separateMenuLabel.value.resolved()))
+        #endif
     }
-    #endif
 
     func testFont() {
         let font = Font.default
