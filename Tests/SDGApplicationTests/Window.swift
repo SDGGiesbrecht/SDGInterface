@@ -14,7 +14,7 @@
 
 @testable import SDGInterfaceElements
 
-func forEachWindow(_ closure: (WindowPrototype) -> Void) {
+func forEachWindow(_ closure: (AbstractWindow) -> Void) {
     for window in Array(allWindows) {
         closure(window)
     }

@@ -17,7 +17,7 @@
 import SDGInterfaceLocalizations
 
 /// A window.
-open class Window<L> : WindowPrototype, SharedValueObserver where L : Localization {
+open class Window<L> : AbstractWindow, SharedValueObserver where L : Localization {
 
     // MARK: - Initialization
 

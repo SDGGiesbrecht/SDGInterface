@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit) // #workaround(Temporary.)
+#if !os(watchOS)
 import SDGControlFlow
 import SDGLogic
 import SDGMathematics
@@ -60,6 +60,7 @@ internal class TextView : NSTextView {
 
     // MARK: - Normalization
 
+    #if !os(tvOS)
     private func insert(text string: Any, at replacementRange: NSRange) {
         if let raw = string as? String {
 
@@ -85,6 +86,7 @@ internal class TextView : NSTextView {
             #endif
             return
         }
+        // @exempt(from: tests) UIKit only handles produces raw text on copy.
 
         if let attributed = string as? NSAttributedString {
             #if canImport(AppKit)
@@ -141,6 +143,7 @@ internal class TextView : NSTextView {
             super.paste(sender) // @exempt(from: tests) Always empty instead of nil.
         }
     }
+    #endif
 
     #if canImport(AppKit)
     // MARK: - NSMenuItemValidation

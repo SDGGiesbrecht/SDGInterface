@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit) // #workaround(Temporary.)
+#if !os(watchOS)
 import SDGLogic
 
 import SDGInterfaceLocalizations
@@ -54,6 +54,7 @@ public class TextEditor : _TextEditorSuperclass {
         }
     }
 
+    #if !os(tvOS)
     /// Whether or not editing is enabled.
     public var isEditable: Bool {
         get {
@@ -63,6 +64,7 @@ public class TextEditor : _TextEditorSuperclass {
             textView.isEditable = newValue
         }
     }
+    #endif
 
     // MARK: - Initialization
 
