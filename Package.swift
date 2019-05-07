@@ -54,7 +54,7 @@ let package = Package(
         .library(name: "SDGApplication", targets: ["SDGApplication"])
     ],
     dependencies: [
-        .package(url: "https://github.com/SDGGiesbrecht/SDGCornerstone", .upToNextMinor(from: Version(0, 17, 1)))
+        .package(url: "https://github.com/SDGGiesbrecht/SDGCornerstone", .upToNextMinor(from: Version(0, 18, 0)))
     ],
     targets: [
         // The entire package.

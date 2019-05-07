@@ -47,3 +47,25 @@ configuration._applySDGOverrides()
 configuration._validateSDGStandards()
 
 configuration.testing.exemptionTokens.insert(TestCoverageExemptionToken("codingNotSupported", scope: .previousLine))
+
+configuration.documentation.api.ignoredDependencies = [
+
+    // SDGCornerstone
+    "SDGCalendar",
+    "SDGCollections",
+    "SDGCornerstoneLocalizations",
+    "SDGLocalizationTestUtilities",
+    "SDGLogic",
+    "SDGLogicTestUtilities",
+    "SDGMathematics",
+    "SDGPersistence",
+    "SDGPersistenceTestUtilities",
+    "SDGTesting",
+    "SDGText",
+    "SDGXCTestUtilities",
+
+    // Swift
+    "Dispatch",
+    "Foundation",
+    "XCTest"
+]
