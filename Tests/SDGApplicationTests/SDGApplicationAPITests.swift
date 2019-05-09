@@ -342,7 +342,12 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testTable() {
-        let table = Table(content: [])
+        let table: Table
+        #if canImport(AppKit)
+        table = Table(contentController: NSArrayController())
+        #else
+        table = Table(content: [])
+        #endif
         let delegate = DelegationInterceptor(delegate: nil, listener: nil, selectors: [])
         table.delegate = delegate
         XCTAssertNotNil(table.delegate as? DelegationInterceptor)
