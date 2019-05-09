@@ -57,8 +57,6 @@ open class Table : _TableSuperclass {
         super.init(frame: NSRect.zero)
         finishInitialization()
     }
-    #else
-    // #workaround(iOS?)
     #endif
 
     private func finishInitialization() {

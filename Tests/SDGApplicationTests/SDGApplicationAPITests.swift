@@ -342,7 +342,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testTable() {
-        let table = Table(contentController: NSArrayController())
+        let table = Table(content: [])
         let delegate = DelegationInterceptor(delegate: nil, listener: nil, selectors: [])
         table.delegate = delegate
         XCTAssertNotNil(table.delegate as? DelegationInterceptor)
@@ -358,7 +358,9 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssert(table.allowsSelection)
         table.sortOrder = []
         XCTAssert(table.sortOrder.isEmpty)
+        #if canImport(AppKit)
         XCTAssertNotNil(NSTableColumn().header)
+        #endif
     }
 
     func testTextEditor() {
