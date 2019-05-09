@@ -479,31 +479,13 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     func testTextField() {
         SampleApplicationDelegate().demonstrateTextField()
         forEachWindow { window in
-
-            let textField: TextField
             #if canImport(AppKit)
-            textField = window.fieldEditor(true, for: window.contentView!.subviews[0]) as! NSTextView
-            #else
-            textField = TextField()
-            #endif
-
-            #if canImport(AppKit)
-            textField.insertText("...", replacementRange: NSRange(0 ..< 0))
-            #else
-            textField.insertText("...")
-            #endif
-            #if canImport(AppKit)
-            textField.insertText(NSAttributedString(string: "..."), replacementRange: NSRange(0 ..< 0))
-            #endif
-
-            #if canImport(AppKit)
-            textField.insertText("...", replacementRange: NSRange(0 ..< 0))
-            #else
-            textField.insertText("...")
-            #endif
-            textField.selectAll(nil)
-            #if canImport(AppKit)
-            XCTAssertFalse(textField.validateMenuItem(NSMenuItem(title: "", action: #selector(NSTextView.makeSuperscript(_:)), keyEquivalent: "")))
+            let fieldEditor = window.fieldEditor(true, for: window.contentView!.subviews[0]) as! NSTextView
+            fieldEditor.insertText("...", replacementRange: NSRange(0 ..< 0))
+            fieldEditor.insertText(NSAttributedString(string: "..."), replacementRange: NSRange(0 ..< 0))
+            fieldEditor.insertText("...", replacementRange: NSRange(0 ..< 0))
+            fieldEditor.selectAll(nil)
+            XCTAssertFalse(fieldEditor.validateMenuItem(NSMenuItem(title: "", action: #selector(NSTextView.makeSuperscript(_:)), keyEquivalent: "")))
             #endif
         }
     }
