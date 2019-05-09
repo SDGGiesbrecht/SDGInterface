@@ -12,7 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit) // #workaround(Temporary.)
+#if !os(watchOS)
+
 import SDGLogic
 import SDGMathematics
 import SDGLocalization
@@ -58,8 +59,6 @@ open class Table : _TableSuperclass {
         super.init(frame: NSRect.zero)
         finishInitialization()
     }
-    #else
-    // #workaround(iOS?)
     #endif
 
     private func finishInitialization() {
@@ -206,8 +205,6 @@ open class Table : _TableSuperclass {
             controller.sortDescriptors = newValue
         }
     }
-    #else
-    // #workaround(iOS?)
     #endif
 
     #if canImport(AppKit)
@@ -325,4 +322,5 @@ extension Table : NSTableViewDelegate {
     }
 }
 #endif
+
 #endif

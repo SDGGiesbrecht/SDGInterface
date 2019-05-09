@@ -69,6 +69,6 @@ public class DelegationInterceptor : NSObject {
 extension DelegationInterceptor : NSApplicationDelegate, NSTableViewDelegate, NSWindowDelegate {}
 #else
 #if !os(watchOS)
-extension DelegationInterceptor : UIApplicationDelegate {}
+extension DelegationInterceptor : UIApplicationDelegate, UITableViewDelegate {}
 #endif
 #endif

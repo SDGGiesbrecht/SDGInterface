@@ -342,23 +342,34 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testTable() {
-        #if canImport(AppKit) // #workaround(Temporary.)
-        let table = Table(contentController: NSArrayController())
+        let table: Table
+        #if canImport(AppKit)
+        table = Table(contentController: NSArrayController())
+        #else
+        table = Table(content: [])
+        #endif
         let delegate = DelegationInterceptor(delegate: nil, listener: nil, selectors: [])
         table.delegate = delegate
         XCTAssertNotNil(table.delegate as? DelegationInterceptor)
+        #if canImport(AppKit)
         table.action = nil
         XCTAssertNil(table.action)
         table.doubleAction = nil
         XCTAssertNil(table.doubleAction)
         table.target = nil
         XCTAssertNil(table.target)
+        #endif
+        #if canImport(AppKit)
         table.hasHeader = true
         XCTAssert(table.hasHeader)
+        #endif
         table.allowsSelection = true
         XCTAssert(table.allowsSelection)
+        #if canImport(AppKit)
         table.sortOrder = []
         XCTAssert(table.sortOrder.isEmpty)
+        #endif
+        #if canImport(AppKit)
         XCTAssertNotNil(NSTableColumn().header)
         #endif
     }
