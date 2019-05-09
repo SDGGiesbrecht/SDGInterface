@@ -203,8 +203,6 @@ open class Table : _TableSuperclass {
             controller.sortDescriptors = newValue
         }
     }
-    #else
-    // #workaround(iOS?)
     #endif
 
     #if canImport(AppKit)
