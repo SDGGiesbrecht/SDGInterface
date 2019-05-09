@@ -222,7 +222,6 @@ extension SampleApplicationDelegate {
         }))
     }
 
-    #if canImport(AppKit) // #workaround(Temporary.)
     @objc public func demonstrateTextField() {
         demonstrate(TextField(), windowTitle: UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
@@ -231,7 +230,6 @@ extension SampleApplicationDelegate {
             }
         }))
     }
-    #endif
 
     @objc public func demonstrateWindow() {
         let window = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in

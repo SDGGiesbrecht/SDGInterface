@@ -476,22 +476,19 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         }
     }
 
-    #if canImport(AppKit) // #workaround(Temporary.)
     func testTextField() {
         SampleApplicationDelegate().demonstrateTextField()
         forEachWindow { window in
-            #if canImport(AppKit) // #workaround(Temporary.)
+            #if canImport(AppKit)
             let fieldEditor = window.fieldEditor(true, for: window.contentView!.subviews[0]) as! NSTextView
             fieldEditor.insertText("...", replacementRange: NSRange(0 ..< 0))
             fieldEditor.insertText(NSAttributedString(string: "..."), replacementRange: NSRange(0 ..< 0))
-
             fieldEditor.insertText("...", replacementRange: NSRange(0 ..< 0))
             fieldEditor.selectAll(nil)
             XCTAssertFalse(fieldEditor.validateMenuItem(NSMenuItem(title: "", action: #selector(NSTextView.makeSuperscript(_:)), keyEquivalent: "")))
             #endif
         }
     }
-    #endif
 
     func testView() {
         View().fill(with: View())
