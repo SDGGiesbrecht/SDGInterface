@@ -39,8 +39,6 @@ open class TextField : NSTextField {
         cell.sendsActionOnEndEditing = true
         isSelectable = true
         isEditable = true
-        #else
-        // #workaround(iOS?)
         #endif
         allowsEditingTextAttributes = false
 
