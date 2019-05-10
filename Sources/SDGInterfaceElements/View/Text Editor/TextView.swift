@@ -58,7 +58,7 @@ internal class TextView : NSTextView {
         #if canImport(AppKit)
         isAutomaticLinkDetectionEnabled = false
         isAutomaticDataDetectionEnabled = false
-        #else
+        #elseif !os(tvOS)
         dataDetectorTypes = []
         #endif
     }
