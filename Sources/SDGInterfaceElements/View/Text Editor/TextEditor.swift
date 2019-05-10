@@ -85,8 +85,6 @@ public class TextEditor : _TextEditorSuperclass {
         verticalScrollElasticity = NSScrollView.Elasticity.automatic
 
         hasVerticalScroller = true
-        #else
-        // #workaround(iOS?)
         #endif
     }
 

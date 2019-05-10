@@ -28,23 +28,38 @@ internal class TextView : NSTextView {
         #if canImport(AppKit)
         maxSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
         isVerticallyResizable = true
-        autoresizingMask = NSView.AutoresizingMask.width
+        autoresizingMask = View.AutoresizingMask.width
 
         allowsUndo = true
         usesFindPanel = true
+        #endif
 
+        #if canImport(AppKit)
         isContinuousSpellCheckingEnabled = true
         isAutomaticSpellingCorrectionEnabled = false
         isGrammarCheckingEnabled = true
+        #else
+        spellCheckingType = .yes
+        autocorrectionType = .no
+        autocapitalizationType = .none
+        #endif
 
-        isAutomaticLinkDetectionEnabled = false
+        #if canImport(AppKit)
         isAutomaticQuoteSubstitutionEnabled = true
         isAutomaticDashSubstitutionEnabled = true
-        isAutomaticDataDetectionEnabled = false
         isAutomaticTextReplacementEnabled = true
         smartInsertDeleteEnabled = true
         #else
-        // #workaround(iOS?)
+        smartQuotesType = .yes
+        smartDashesType = .yes
+        smartInsertDeleteType = .yes
+        #endif
+
+        #if canImport(AppKit)
+        isAutomaticLinkDetectionEnabled = false
+        isAutomaticDataDetectionEnabled = false
+        #else
+        dataDetectorTypes = []
         #endif
     }
 
