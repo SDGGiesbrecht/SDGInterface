@@ -26,8 +26,6 @@ open class TextField : NSTextField {
         #if canImport(AppKit)
         let cell = NormalizingCell()
         self.cell = cell
-        #else
-        // #workaround(iOS?)
         #endif
 
         #if canImport(AppKit)
@@ -41,8 +39,6 @@ open class TextField : NSTextField {
         cell.sendsActionOnEndEditing = true
         isSelectable = true
         isEditable = true
-        #else
-        // #workaround(iOS?)
         #endif
         allowsEditingTextAttributes = false
 
@@ -58,5 +54,13 @@ open class TextField : NSTextField {
         }))
         return nil
     }
+
+    // MARK: - NSTextField
+
+    #if canImport(UIKit)
+    open override func insertText(_ text: String) {
+        super.insertText(String(StrictString(text)))
+    }
+    #endif
 }
 #endif

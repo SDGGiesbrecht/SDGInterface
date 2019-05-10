@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit) // #workaround(Temporary.)
+#if canImport(AppKit)
 import XCTest
 
 import SDGText

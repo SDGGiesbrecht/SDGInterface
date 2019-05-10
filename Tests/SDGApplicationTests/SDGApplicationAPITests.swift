@@ -484,6 +484,10 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             textEditor.isEditable = false
             XCTAssertFalse(validate(#selector(NSTextView.normalizeText(_:))))
             #endif
+
+            #if canImport(UIKit)
+            textView.insertText("...")
+            #endif
         }
     }
 
@@ -497,6 +501,11 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             fieldEditor.insertText("...", replacementRange: NSRange(0 ..< 0))
             fieldEditor.selectAll(nil)
             XCTAssertFalse(fieldEditor.validateMenuItem(NSMenuItem(title: "", action: #selector(NSTextView.makeSuperscript(_:)), keyEquivalent: "")))
+            #endif
+
+            let textField = TextField()
+            #if canImport(UIKit)
+            textField.insertText("...")
             #endif
         }
     }
