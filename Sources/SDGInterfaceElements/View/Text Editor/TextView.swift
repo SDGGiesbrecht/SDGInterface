@@ -133,7 +133,9 @@ internal class TextView : NSTextView {
         insert(text: string, at: replacementRange)
     }
     #else
-    // #workaround(iOS?)
+    override func insertText(_ text: String) {
+        super.insertText(String(StrictString(text)))
+    }
     #endif
 
     override func paste(_ sender: Any?) {
