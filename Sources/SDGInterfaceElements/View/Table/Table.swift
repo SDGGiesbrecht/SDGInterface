@@ -133,7 +133,8 @@ open class Table : _TableSuperclass {
     #if canImport(AppKit)
     private var viewGenerators: [NSUserInterfaceItemIdentifier: () -> NSTableCellView] = [:]
     #else
-    private var viewUpdator: (inout UITableViewCell, NSObject) -> Void = { _, _ in }
+    /// A closure used to update a cell according to its value.
+    public var cellUpdator: (UITableViewCell, NSObject) -> Void = { _, _ in }
     #endif
 
     // MARK: - Delegation
@@ -287,13 +288,13 @@ open class Table : _TableSuperclass {
         return column
     }
     #else
-    private static let reuseIdentifier = "SDGReUseIdentifier"
+    fileprivate static let reUseIdentifier = "SDGReUseIdentifier"
     /// Creates, adds and returns a new column.
     ///
     /// - Parameters:
     ///     - cellClass: The class to use for cell views.
     public func register(_ cellClass: AnyClass?) {
-        register(cellClass, forCellReuseIdentifier: Table.reuseIdentifier)
+        register(cellClass, forCellReuseIdentifier: Table.reUseIdentifier)
     }
     #endif
 
@@ -399,9 +400,8 @@ extension Table : UITableViewDataSource {
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        #warning("Not implemented yet.")
-        let cell = UITableViewCell()
-        cell.textLabel?.text = "Cell"
+        let cell = dequeueReusableCell(withIdentifier: Table.reUseIdentifier) ?? UITableViewCell()
+        cellUpdator(cell, contentController.arrangedObjects[indexPath.row])
         return cell
     }
 }

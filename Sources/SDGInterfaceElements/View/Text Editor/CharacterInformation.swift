@@ -68,8 +68,12 @@ public class CharacterInformation : NSObject {
             return view
         })
         #else
-        #warning("Not set up.")
         table.register(UITableViewCell.self)
+        table.cellUpdator = { cell, value in
+            if let characterInformation = value as? CharacterInformation {
+                cell.textLabel?.text = characterInformation.codePoint + " " + characterInformation.character
+            }
+        }
         #endif
 
         #if canImport(AppKit)
