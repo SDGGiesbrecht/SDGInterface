@@ -25,13 +25,14 @@ public class CharacterInformation : NSObject {
     ///
     /// - Parameters:
     ///     - characters: The string whose characters should be described.
-    public static func display(for characters: String) {
+    public static func display(for characters: String, sender: View?) {
         var details: [CharacterInformation] = []
         details.reserveCapacity(characters.scalars.count)
         for scalar in characters.scalars {
             details.append(CharacterInformation(scalar))
         }
 
+        // #workaround(Unify?)
         #if canImport(AppKit)
         let window = AuxiliaryWindow(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in StrictString(characters) })))
         let table = Table(content: details)
@@ -69,9 +70,53 @@ public class CharacterInformation : NSObject {
 
         window.makeKeyAndOrderFront(nil)
         #else
+        // #workaround(Centralize utilities.)
+        #warning("Does nothing.")
+        print("Showing character information...")
+
+        let controller = UIViewController()
+        currentPopup = controller
+        controller.modalPresentationStyle = .popover
+        controller.preferredContentSize = CGSize(width: 150, height: 300)
+
+        class Delegate : NSObject, UIPopoverPresentationControllerDelegate {
+            func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+                return .none
+            }
+        }
+        let delegate = Delegate()
+        currentPopupDelegate = delegate
+
+        let popOver = controller.popoverPresentationController
+        currentPopupPresentationController = popOver
+        popOver?.delegate = delegate
+        popOver?.sourceView = sender
+        popOver?.sourceRect = CGRect(x: 150, y: 300, width: 1, height: 1)
+        popOver?.permittedArrowDirections = .any
+
+        let view = View()
+        currentPopupView = view
+        controller.view = view
+        view.fill(with: Label(text: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "Test" }))))
+
         // #workaround(iOS?)
+        var responder: UIResponder? = sender
+        var viewController: UIViewController?
+        while responder ≠ nil {
+            responder = responder!.next
+            if let cast = responder as? UIViewController {
+                viewController = cast
+                break
+            }
+        }
+        viewController?.present(controller, animated: true, completion: nil)
         #endif
     }
+    // #workaround(Is this needed?)
+    private static var currentPopup: UIViewController?
+    private static var currentPopupView: UIView?
+    private static var currentPopupDelegate: Any?
+    private static var currentPopupPresentationController: Any?
 
     // MARK: - Initialization
 

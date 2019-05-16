@@ -104,7 +104,7 @@ extension NSTextView {
         possibleString = textStorage.attributedSubstring(from: selectedRange)
         #endif
         if let string = possibleString {
-            CharacterInformation.display(for: string.string)
+            CharacterInformation.display(for: string.string, sender: self)
         }
     }
 

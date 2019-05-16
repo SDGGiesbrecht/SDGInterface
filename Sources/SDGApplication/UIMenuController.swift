@@ -26,7 +26,7 @@ extension UIMenuController {
 
         UIMenuController.shared.newEntry(
             labelled: MenuLabels.showCharacterInformation,
-            action: #selector(NSTextView.normalizeText(_:)))
+            action: #selector(NSTextView.showCharacterInformation(_:)))
 
         UIMenuController.shared.update()
     }
