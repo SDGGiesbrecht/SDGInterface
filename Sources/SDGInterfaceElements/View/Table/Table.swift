@@ -60,7 +60,6 @@ open class Table : _TableSuperclass {
     }
 
     private func finishInitialization() {
-        #if canImport(AppKit)
         interceptor.delegate = table.delegate
         interceptor.listener = self
         table.delegate = interceptor
@@ -79,9 +78,6 @@ open class Table : _TableSuperclass {
         table.bind(.content, to: controller, withKeyPath: #keyPath(NSArrayController.arrangedObjects), options: nil)
         table.bind(.selectionIndexes, to: controller, withKeyPath: NSBindingName.selectionIndexes.rawValue, options: nil)
         table.bind(.sortDescriptors, to: controller, withKeyPath: NSBindingName.sortDescriptors.rawValue, options: nil)
-        #else
-        // #workaround(iOS?)
-        #endif
     }
 
     @available(*, unavailable) public required init?(coder: NSCoder) { // @exempt(from: unicode)
@@ -110,13 +106,22 @@ open class Table : _TableSuperclass {
     // #workaround(iOS?)
     #endif
 
-    #if canImport(AppKit)
     // MARK: - Delegation
 
-    private let interceptor = DelegationInterceptor(selectors: [
-        #selector(NSTableViewDelegate.tableView(_:viewFor:row:)),
-        #selector(NSTableViewDelegate.tableView(_:sizeToFitWidthOfColumn:))
-        ])
+    private static func interceptedSelectors() -> Set<Selector> {
+        var selectors: Set<Selector> = []
+        #if canImport(AppKit)
+        selectors ∪= [
+            #selector(NSTableViewDelegate.tableView(_:viewFor:row:)),
+            #selector(NSTableViewDelegate.tableView(_:sizeToFitWidthOfColumn:))
+            ]
+        #else
+        #warning("Unimplemented.")
+        #endif
+        return selectors
+    }
+    private let interceptor = DelegationInterceptor(selectors: Table.interceptedSelectors())
+    #if canImport(AppKit)
     /// The table view’s delegate.
     public var delegate: NSTableViewDelegate? {
         get {
