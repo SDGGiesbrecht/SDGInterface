@@ -68,7 +68,11 @@ open class Table : _TableSuperclass {
         interceptor.listener = self
         #if canImport(AppKit)
         table.delegate = interceptor
+        #else
+        self.delegate = interceptor
+        #endif
 
+        #if canImport(AppKit)
         borderType = .bezelBorder
         hasHorizontalScroller = true
         hasVerticalScroller = true
