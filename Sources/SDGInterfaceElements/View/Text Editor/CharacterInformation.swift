@@ -41,6 +41,7 @@ public class CharacterInformation : NSObject {
 
         let table = Table(content: details)
 
+        #if canImport(AppKit)
         table.newColumn(header: "", viewGenerator: {
             let view = LabelCell<InterfaceLocalization>()
             view.bindText(contentKeyPath: CharacterInformation.codePointKeyPath)
@@ -66,6 +67,9 @@ public class CharacterInformation : NSObject {
             view.bindText(contentKeyPath: CharacterInformation.normalizedCharacters)
             return view
         })
+        #else
+        #warning("Unimplemented.")
+        #endif
 
         #if canImport(AppKit)
         table.hasHeader = false
