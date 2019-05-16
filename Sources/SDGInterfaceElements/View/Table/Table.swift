@@ -36,11 +36,7 @@ open class Table : _TableSuperclass {
     /// - Parameters:
     ///     - content: An array of data for the table. Each element of the array reperestents the data for one row of the table.
     public init(content: [NSObject]) {
-        #if canImport(AppKit)
-        controller = NSArrayController(content: content)
-        #else
-        // #workaround(iOS?)
-        #endif
+        arrayController = NSArrayController(content: content)
         #if canImport(AppKit)
         super.init(frame: CGRect.zero)
         #else
@@ -101,8 +97,12 @@ open class Table : _TableSuperclass {
     #if canImport(AppKit)
     /// The actual `NSTableView` instance.
     public let table: NSTableView = NSTableView(frame: NSRect.zero)
+    #endif
+
     /// The array controller which manages the content.
-    public let controller: NSArrayController
+    public let arrayController: NSArrayController
+
+    #if canImport(AppKit)
     private var viewGenerators: [NSUserInterfaceItemIdentifier: () -> NSTableCellView] = [:]
     #else
     // #workaround(iOS?)

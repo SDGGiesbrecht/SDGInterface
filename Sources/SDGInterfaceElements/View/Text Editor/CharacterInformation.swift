@@ -68,7 +68,28 @@ public class CharacterInformation : NSObject {
             return view
         })
         #else
-        #warning("Unimplemented.")
+        #warning("Needs clean‐up.")
+        let identifier = "cell"
+        table.register(UITableViewCell.self, forCellReuseIdentifier: identifier)
+        class CharacterInformationController : NSObject, UITableViewDataSource {
+            init(details: [CharacterInformation], identifier: String) {
+                self.details = details
+                self.identifier = identifier
+            }
+            var details: [CharacterInformation]
+            var identifier: String
+            func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+                return details.count
+            }
+            func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+                let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+                cell.textLabel!.text = details[indexPath.row].character
+                return cell
+            }
+        }
+        let controller = CharacterInformationController(details: details, identifier: identifier)
+        CharacterInformation.characterInformationController = controller
+        table.dataSource = controller
         #endif
 
         #if canImport(AppKit)
@@ -88,6 +109,8 @@ public class CharacterInformation : NSObject {
         origin.view.displayPopOver(view, sourceRectangle: origin.selection)
         #endif
     }
+    #warning("Don’t keep.")
+    static var characterInformationController: Any?
 
     // MARK: - Initialization
 
