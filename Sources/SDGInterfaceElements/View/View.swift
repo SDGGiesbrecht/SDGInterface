@@ -333,7 +333,6 @@ extension View {
 
     public func displayPopOver(_ view: View) {
         let controller = UIViewController()
-        View.currentPopup = controller
         controller.modalPresentationStyle = .popover
 
         class Delegate : NSObject, UIPopoverPresentationControllerDelegate {
@@ -367,7 +366,6 @@ extension View {
         viewController?.present(controller, animated: true, completion: nil)
     }
     // #workaround(Is this needed?)
-    private static var currentPopup: UIViewController?
     private static var currentPopupView: UIView?
     private static var currentPopupDelegate: Any?
     private static var currentPopupPresentationController: Any?
