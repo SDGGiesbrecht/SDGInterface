@@ -14,6 +14,7 @@
 
 #if !os(watchOS)
 import SDGLogic
+import SDGCollections
 
 #if canImport(UIKit)
 /// An `AppKit.NSTextView` or a `UITextView`.
@@ -212,66 +213,51 @@ extension NSTextView {
 
     // MARK: - Menu Validation
 
-    private func actionRequiresSelection(_ action: Selector) -> Bool {
-        switch action {
-        case #selector(NSTextView.normalizeText(_:)),
-             #selector(NSTextView.showCharacterInformation(_:)),
-             #selector(NSTextView.makeSuperscript(_:)),
-             #selector(NSTextView.makeSubscript(_:)),
-             #selector(NSTextView.resetBaseline(_:)),
-             #selector(NSTextView.resetCasing(_:)),
-             #selector(NSTextView.makeLatinateUpperCase(_:)),
-             #selector(NSTextView.makeTurkicUpperCase(_:)),
-             #selector(NSTextView.makeLatinateSmallCaps(_:)),
-             #selector(NSTextView.makeTurkicSmallCaps(_:)),
-             #selector(NSTextView.makeLatinateLowerCase(_:)),
-             #selector(NSTextView.makeTurkicLowerCase(_:)):
-            return true
-        default:
-            return false
-        }
-    }
+    private static let actionsRequiringSelection: Set<Selector> = [
+        #selector(NSTextView.normalizeText(_:)),
+        #selector(NSTextView.showCharacterInformation(_:)),
+        #selector(NSTextView.makeSuperscript(_:)),
+        #selector(NSTextView.makeSubscript(_:)),
+        #selector(NSTextView.resetBaseline(_:)),
+        #selector(NSTextView.resetCasing(_:)),
+        #selector(NSTextView.makeLatinateUpperCase(_:)),
+        #selector(NSTextView.makeTurkicUpperCase(_:)),
+        #selector(NSTextView.makeLatinateSmallCaps(_:)),
+        #selector(NSTextView.makeTurkicSmallCaps(_:)),
+        #selector(NSTextView.makeLatinateLowerCase(_:)),
+        #selector(NSTextView.makeTurkicLowerCase(_:))
+    ]
 
-    private func actionRequiresEditability(_ action: Selector) -> Bool {
-        switch action {
-        case #selector(NSTextView.normalizeText(_:)),
-             #selector(NSTextView.makeSuperscript(_:)),
-             #selector(NSTextView.makeSubscript(_:)),
-             #selector(NSTextView.resetBaseline(_:)),
-             #selector(NSTextView.resetCasing(_:)),
-             #selector(NSTextView.makeLatinateUpperCase(_:)),
-             #selector(NSTextView.makeTurkicUpperCase(_:)),
-             #selector(NSTextView.makeLatinateSmallCaps(_:)),
-             #selector(NSTextView.makeTurkicSmallCaps(_:)),
-             #selector(NSTextView.makeLatinateLowerCase(_:)),
-             #selector(NSTextView.makeTurkicLowerCase(_:)):
-            return true
-        default:
-            return false
-        }
-    }
+    private static let actionsRequiringEditability: Set<Selector> = [
+        #selector(NSTextView.normalizeText(_:)),
+        #selector(NSTextView.makeSuperscript(_:)),
+        #selector(NSTextView.makeSubscript(_:)),
+        #selector(NSTextView.resetBaseline(_:)),
+        #selector(NSTextView.resetCasing(_:)),
+        #selector(NSTextView.makeLatinateUpperCase(_:)),
+        #selector(NSTextView.makeTurkicUpperCase(_:)),
+        #selector(NSTextView.makeLatinateSmallCaps(_:)),
+        #selector(NSTextView.makeTurkicSmallCaps(_:)),
+        #selector(NSTextView.makeLatinateLowerCase(_:)),
+        #selector(NSTextView.makeTurkicLowerCase(_:))
+    ]
 
-    private func actionRequiresRichEditability(_ action: Selector) -> Bool {
-        switch action {
-        case #selector(NSTextView.makeSuperscript(_:)),
-             #selector(NSTextView.makeSubscript(_:)),
-             #selector(NSTextView.resetBaseline(_:)),
-             #selector(NSTextView.resetCasing(_:)),
-             #selector(NSTextView.makeLatinateUpperCase(_:)),
-             #selector(NSTextView.makeTurkicUpperCase(_:)),
-             #selector(NSTextView.makeLatinateSmallCaps(_:)),
-             #selector(NSTextView.makeTurkicSmallCaps(_:)),
-             #selector(NSTextView.makeLatinateLowerCase(_:)),
-             #selector(NSTextView.makeTurkicLowerCase(_:)):
-            return true
-        default:
-            return false
-        }
-    }
+    private static let actionsRequiringRichEditability: Set<Selector> = [
+        #selector(NSTextView.makeSuperscript(_:)),
+        #selector(NSTextView.makeSubscript(_:)),
+        #selector(NSTextView.resetBaseline(_:)),
+        #selector(NSTextView.resetCasing(_:)),
+        #selector(NSTextView.makeLatinateUpperCase(_:)),
+        #selector(NSTextView.makeTurkicUpperCase(_:)),
+        #selector(NSTextView.makeLatinateSmallCaps(_:)),
+        #selector(NSTextView.makeTurkicSmallCaps(_:)),
+        #selector(NSTextView.makeLatinateLowerCase(_:)),
+        #selector(NSTextView.makeTurkicLowerCase(_:))
+    ]
 
     /// Returns `nil` if the action is not recognized and should be delegated to the operating system.
     internal func canPerform(action: Selector) -> Bool? {
-        if actionRequiresSelection(action) {
+        if action ∈ NSTextView.actionsRequiringSelection {
             if let selection = Range<Int>(selectedRange()) {
                 if ¬selection.isEmpty {
                     // Next test.
@@ -282,12 +268,12 @@ extension NSTextView {
                 return false // No selection available. // @exempt(from: tests) Always empty instead.
             }
         }
-        if actionRequiresEditability(action) {
+        if action ∈ NSTextView.actionsRequiringEditability {
             if ¬isEditable {
                 return false // Not editable
             }
         }
-        if actionRequiresRichEditability(action) {
+        if action ∈ NSTextView.actionsRequiringRichEditability {
             if isFieldEditor {
                 return false // Attributes locked.
             }
