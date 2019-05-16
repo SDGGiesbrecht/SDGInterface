@@ -68,10 +68,12 @@ public class CharacterInformation : NSObject {
             return view
         })
         #else
-        table.register(UITableViewCell.self)
+        table.cellStyle = .value2
         table.cellUpdator = { cell, value in
             if let characterInformation = value as? CharacterInformation {
                 cell.textLabel?.text = characterInformation.codePoint + " " + characterInformation.character
+                cell.textLabel?.textColor = characterInformation.warningColour
+                cell.detailTextLabel?.text = characterInformation.normalizedCodePoints + " " + normalizedCharacters
             }
         }
         #endif
