@@ -331,6 +331,7 @@ extension View {
 
     // MARK: - Responder Chain
 
+    #if canImport(UIKit)
     public var controller: UIViewController? {
         var responder: UIResponder? = self
         while responder ≠ nil {
@@ -341,10 +342,12 @@ extension View {
         }
         return nil
     }
+    #endif
 
     // MARK: - Pop‐overs
 
     public func displayPopOver(_ view: View, sourceRectangle: CGRect? = nil) {
+        #if canImport(UIKit)
         let controller = UIViewController()
         controller.modalPresentationStyle = .popover
         controller.view = view
@@ -356,6 +359,9 @@ extension View {
         popOver?.permittedArrowDirections = .any
 
         self.controller?.present(controller, animated: true, completion: nil)
+        #else
+        #warning("macOS?")
+        #endif
     }
 }
 

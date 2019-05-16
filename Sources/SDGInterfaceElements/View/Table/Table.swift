@@ -104,9 +104,9 @@ open class Table : _TableSuperclass {
 
         contentController.automaticallyRearrangesObjects = true
         #if canImport(AppKit)
-        table.bind(.content, to: controller, withKeyPath: #keyPath(NSArrayController.arrangedObjects), options: nil)
-        table.bind(.selectionIndexes, to: controller, withKeyPath: NSBindingName.selectionIndexes.rawValue, options: nil)
-        table.bind(.sortDescriptors, to: controller, withKeyPath: NSBindingName.sortDescriptors.rawValue, options: nil)
+        table.bind(.content, to: contentController, withKeyPath: #keyPath(NSArrayController.arrangedObjects), options: nil)
+        table.bind(.selectionIndexes, to: contentController, withKeyPath: NSBindingName.selectionIndexes.rawValue, options: nil)
+        table.bind(.sortDescriptors, to: contentController, withKeyPath: NSBindingName.sortDescriptors.rawValue, options: nil)
         #endif
     }
 
@@ -153,11 +153,11 @@ open class Table : _TableSuperclass {
     /// The table view’s delegate.
     public var delegate: NSTableViewDelegate? {
         get {
-            return interceptor.delegate as? NSTableViewDelegate
+            return delegateInterceptor.delegate as? NSTableViewDelegate
         }
         set {
-            interceptor.delegate = newValue
-            table.delegate = interceptor
+            delegateInterceptor.delegate = newValue
+            table.delegate = delegateInterceptor
         }
     }
     #else
@@ -258,10 +258,10 @@ open class Table : _TableSuperclass {
     /// The sort order for the table.
     public var sortOrder: [NSSortDescriptor] {
         get {
-            return controller.sortDescriptors
+            return contentController.sortDescriptors
         }
         set {
-            controller.sortDescriptors = newValue
+            contentController.sortDescriptors = newValue
         }
     }
     #endif

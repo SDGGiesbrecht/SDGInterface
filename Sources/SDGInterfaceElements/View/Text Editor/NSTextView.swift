@@ -26,10 +26,19 @@ extension NSTextView {
     // MARK: - Selection
 
     public func selectionRectangle() -> CGRect? {
+        #if canImport(AppKit)
+        guard let layout = layoutManager,
+            let text = textContainer else {
+            return nil
+        }
+        let range = layout.glyphRange(forCharacterRange: selectedRange(), actualCharacterRange: nil)
+        return layout.boundingRect(forGlyphRange: range, in: text)
+        #else
         guard let range = selectedTextRange else {
             return nil
         }
         return selectionRects(for: range).first?.rect
+        #endif
     }
 
     // MARK: - Editing

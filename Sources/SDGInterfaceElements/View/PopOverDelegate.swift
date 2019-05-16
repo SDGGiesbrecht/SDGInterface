@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(UIKit)
+
 internal class PopOverDelegate : NSObject, UIPopoverPresentationControllerDelegate {
 
     internal static let delegate = PopOverDelegate()
@@ -20,3 +22,5 @@ internal class PopOverDelegate : NSObject, UIPopoverPresentationControllerDelega
         return .none
     }
 }
+
+#endif
