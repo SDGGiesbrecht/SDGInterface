@@ -64,7 +64,7 @@ public class CharacterInformation : NSObject {
 
         table.newColumn(header: "", viewGenerator: {
             let view = LabelCell<InterfaceLocalization>()
-            view.bindText(contentKeyPath: CharacterInformation.normalizedCharacters)
+            view.bindText(contentKeyPath: CharacterInformation.normalizedCharactersPath)
             return view
         })
         #else
@@ -73,7 +73,7 @@ public class CharacterInformation : NSObject {
             if let characterInformation = value as? CharacterInformation {
                 cell.textLabel?.text = characterInformation.codePoint + " " + characterInformation.character
                 cell.textLabel?.textColor = characterInformation.warningColour
-                cell.detailTextLabel?.text = characterInformation.normalizedCodePoints + " " + normalizedCharacters
+                cell.detailTextLabel?.text = characterInformation.normalizedCodePoints + " " + characterInformation.normalizedCharacters
             }
         }
         #endif
@@ -150,7 +150,7 @@ public class CharacterInformation : NSObject {
     static let normalizedCodePointsPath = "normalizedCodePoints"
     @objc private var normalizedCodePoints: String
 
-    static let normalizedCharacters = "normalizedCharacters"
+    static let normalizedCharactersPath = "normalizedCharacters"
     @objc private var normalizedCharacters: String
 
     static let warningColourPath = "warningColour"
