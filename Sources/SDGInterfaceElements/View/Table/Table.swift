@@ -64,13 +64,19 @@ open class Table : _TableSuperclass {
         #if canImport(AppKit)
         delegateInterceptor.delegate = table.delegate
         #else
-        delegateInterceptor.delegate = self.delegate
+        delegateInterceptor.delegate = super.delegate
         #endif
         delegateInterceptor.listener = self
         #if canImport(AppKit)
         table.delegate = delegateInterceptor
         #else
-        self.delegate = delegateInterceptor
+        super.delegate = delegateInterceptor
+        #endif
+
+        #if canImport(UIKit)
+        dataSourceInterceptor.delegate = super.dataSource
+        dataSourceInterceptor.listener = self
+        super.dataSource = dataSourceInterceptor
         #endif
 
         #if canImport(AppKit)
