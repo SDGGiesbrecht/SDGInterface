@@ -35,6 +35,10 @@ public class CharacterInformation : NSObject {
         // #workaround(Unify?)
         #if canImport(AppKit)
         let window = AuxiliaryWindow(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in StrictString(characters) })))
+        #else
+        let view = View()
+        #endif
+
         let table = Table(content: details)
 
         table.newColumn(header: "", viewGenerator: {
@@ -66,15 +70,15 @@ public class CharacterInformation : NSObject {
         table.hasHeader = false
         table.allowsSelection = false
 
+        #if canImport(AppKit)
         window.contentView!.fill(with: table)
+        #else
+        view.fill(with: table)
+        #endif
 
+        #if canImport(AppKit)
         window.makeKeyAndOrderFront(nil)
         #else
-        // #workaround(Centralize utilities.)
-        #warning("Does nothing.")
-
-        let view = View()
-        view.fill(with: Label(text: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "Test" }))))
         origin.view.displayPopOver(view, sourceRectangle: origin.selection)
         #endif
     }
