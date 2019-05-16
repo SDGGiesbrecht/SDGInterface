@@ -349,7 +349,6 @@ extension View {
         controller.modalPresentationStyle = .popover
 
         let popOver = controller.popoverPresentationController
-        View.currentPopupPresentationController = popOver
         popOver?.delegate = PopOverDelegate.delegate
         popOver?.sourceView = self
         popOver?.sourceRect = CGRect(x: 150, y: 300, width: 1, height: 1)
@@ -362,7 +361,6 @@ extension View {
     }
     // #workaround(Is this needed?)
     private static var currentPopupView: UIView?
-    private static var currentPopupPresentationController: Any?
 }
 
 #endif
