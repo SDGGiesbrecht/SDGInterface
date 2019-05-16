@@ -381,7 +381,20 @@ extension Table : NSTableViewDelegate {
     }
 }
 #else
-#warning("Not implemented yet.")
+extension Table : UITableViewDataSource {
+
+    // MARK: - UITableViewDataSource
+
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        #warning("Not implemented yet.")
+        return 0
+    }
+
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        #warning("Not implemented yet.")
+        return UITableViewCell()
+    }
+}
 #endif
 
 #endif
