@@ -93,14 +93,12 @@ open class Table : _TableSuperclass {
 
         #if canImport(AppKit)
         documentView = table
+        #endif
 
-        controller.automaticallyRearrangesObjects = true
+        contentController.automaticallyRearrangesObjects = true
         table.bind(.content, to: controller, withKeyPath: #keyPath(NSArrayController.arrangedObjects), options: nil)
         table.bind(.selectionIndexes, to: controller, withKeyPath: NSBindingName.selectionIndexes.rawValue, options: nil)
         table.bind(.sortDescriptors, to: controller, withKeyPath: NSBindingName.sortDescriptors.rawValue, options: nil)
-        #else
-        #warning("Not implemented yet.")
-        #endif
     }
 
     @available(*, unavailable) public required init?(coder: NSCoder) { // @exempt(from: unicode)

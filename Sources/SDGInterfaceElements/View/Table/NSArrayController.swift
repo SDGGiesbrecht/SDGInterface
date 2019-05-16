@@ -11,5 +11,7 @@ public class NSArrayController : NSObject {
     // MARK: - Properties
 
     private var content: [NSObject]
+
+    public var automaticallyRearrangesObjects: Bool = false
 }
 #endif
