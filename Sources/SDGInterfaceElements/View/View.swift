@@ -328,6 +328,49 @@ extension View {
             addConstraint(constraint)
         }
     }
+
+    // MARK: - Pop‐overs
+
+    public func displayPopOver(_ view: View) {
+        let controller = UIViewController()
+        View.currentPopup = controller
+        controller.modalPresentationStyle = .popover
+
+        class Delegate : NSObject, UIPopoverPresentationControllerDelegate {
+            func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+                return .none
+            }
+        }
+        let delegate = Delegate()
+        View.currentPopupDelegate = delegate
+
+        let popOver = controller.popoverPresentationController
+        View.currentPopupPresentationController = popOver
+        popOver?.delegate = delegate
+        popOver?.sourceView = self
+        popOver?.sourceRect = CGRect(x: 150, y: 300, width: 1, height: 1)
+        popOver?.permittedArrowDirections = .any
+
+        View.currentPopupView = view
+        controller.view = view
+
+        // #workaround(iOS?)
+        var responder: UIResponder? = self
+        var viewController: UIViewController?
+        while responder ≠ nil {
+            responder = responder!.next
+            if let cast = responder as? UIViewController {
+                viewController = cast
+                break
+            }
+        }
+        viewController?.present(controller, animated: true, completion: nil)
+    }
+    // #workaround(Is this needed?)
+    private static var currentPopup: UIViewController?
+    private static var currentPopupView: UIView?
+    private static var currentPopupDelegate: Any?
+    private static var currentPopupPresentationController: Any?
 }
 
 #endif
