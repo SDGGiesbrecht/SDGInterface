@@ -335,12 +335,7 @@ extension View {
         let controller = UIViewController()
         controller.modalPresentationStyle = .popover
 
-        class Delegate : NSObject, UIPopoverPresentationControllerDelegate {
-            func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-                return .none
-            }
-        }
-        let delegate = Delegate()
+        let delegate = PopOverDelegate()
         View.currentPopupDelegate = delegate
 
         let popOver = controller.popoverPresentationController
