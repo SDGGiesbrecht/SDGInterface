@@ -14,6 +14,8 @@
 
 import SDGCollections
 
+import SDGInterfaceLocalizations
+
 /// An instance which intercepts particular selectors sent to a delegate and passes them to a listener instead.
 public class DelegationInterceptor : NSObject {
 
@@ -69,6 +71,29 @@ public class DelegationInterceptor : NSObject {
 extension DelegationInterceptor : NSApplicationDelegate, NSTableViewDelegate, NSWindowDelegate {}
 #else
 #if !os(watchOS)
-extension DelegationInterceptor : UIApplicationDelegate, UITableViewDelegate {}
+extension DelegationInterceptor : UIApplicationDelegate, UITableViewDataSource, UITableViewDelegate {
+
+    // MARK: - UITableViewDataSource
+
+    private var dataSource: UITableViewDataSource {
+        guard let source = listener as? UITableViewDataSource ?? delegate as? UITableViewDataSource else {
+            preconditionFailure(UserFacing<StrictString, APILocalization>({ localization in
+                switch localization {
+                case .englishCanada:
+                    return "No data source available."
+                }
+            }))
+        }
+        return source
+    }
+
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dataSource.tableView(tableView, numberOfRowsInSection: section)
+    }
+
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return dataSource.tableView(tableView, cellForRowAt: indexPath)
+    }
+}
 #endif
 #endif

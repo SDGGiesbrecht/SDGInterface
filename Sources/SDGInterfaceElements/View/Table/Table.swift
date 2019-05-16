@@ -132,22 +132,17 @@ open class Table : _TableSuperclass {
 
     // MARK: - Delegation
 
-    private static func interceptedSelectors() -> Set<Selector> {
+    private static func interceptedDelegateSelectors() -> Set<Selector> {
         var selectors: Set<Selector> = []
         #if canImport(AppKit)
         selectors ∪= [
             #selector(NSTableViewDelegate.tableView(_:viewFor:row:)),
             #selector(NSTableViewDelegate.tableView(_:sizeToFitWidthOfColumn:))
             ]
-        #else
-        selectors ∪= [
-            #selector(UITableViewDataSource.tableView(_:numberOfRowsInSection:)),
-            #selector(UITableViewDataSource.tableView(_:cellForRowAt:))
-        ]
         #endif
         return selectors
     }
-    private let interceptor = DelegationInterceptor(selectors: Table.interceptedSelectors())
+    private let delegateInterceptor = DelegationInterceptor(selectors: Table.interceptedDelegateSelectors())
     #if canImport(AppKit)
     /// The table view’s delegate.
     public var delegate: NSTableViewDelegate? {
@@ -162,11 +157,27 @@ open class Table : _TableSuperclass {
     #else
     open override var delegate: UITableViewDelegate? {
         get {
-            return interceptor.delegate as? UITableViewDelegate
+            return delegateInterceptor.delegate as? UITableViewDelegate
         }
         set {
-            interceptor.delegate = newValue
-            self.delegate = interceptor
+            delegateInterceptor.delegate = newValue
+            super.delegate = delegateInterceptor
+        }
+    }
+    #endif
+
+    #if canImport(UIKit)
+    private let dataSourceInterceptor = DelegationInterceptor(selectors: [
+        #selector(UITableViewDataSource.tableView(_:numberOfRowsInSection:)),
+        #selector(UITableViewDataSource.tableView(_:cellForRowAt:))
+        ])
+    open override var dataSource: UITableViewDataSource? {
+        get {
+            return dataSourceInterceptor.delegate as? UITableViewDataSource
+        }
+        set {
+            dataSourceInterceptor.delegate = newValue
+            super.dataSource = dataSourceInterceptor
         }
     }
     #endif
