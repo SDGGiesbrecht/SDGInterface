@@ -77,7 +77,6 @@ public class CharacterInformation : NSObject {
         let controller = UIViewController()
         currentPopup = controller
         controller.modalPresentationStyle = .popover
-        controller.preferredContentSize = CGSize(width: 150, height: 300)
 
         class Delegate : NSObject, UIPopoverPresentationControllerDelegate {
             func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
