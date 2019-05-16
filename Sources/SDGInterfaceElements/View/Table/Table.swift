@@ -62,15 +62,15 @@ open class Table : _TableSuperclass {
 
     private func finishInitialization() {
         #if canImport(AppKit)
-        interceptor.delegate = table.delegate
+        delegateInterceptor.delegate = table.delegate
         #else
-        interceptor.delegate = self.delegate
+        delegateInterceptor.delegate = self.delegate
         #endif
-        interceptor.listener = self
+        delegateInterceptor.listener = self
         #if canImport(AppKit)
-        table.delegate = interceptor
+        table.delegate = delegateInterceptor
         #else
-        self.delegate = interceptor
+        self.delegate = delegateInterceptor
         #endif
 
         #if canImport(AppKit)
