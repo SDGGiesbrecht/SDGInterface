@@ -329,6 +329,19 @@ extension View {
         }
     }
 
+    // MARK: - Responder Chain
+
+    public var controller: UIViewController? {
+        var responder: UIResponder? = self
+        while responder ≠ nil {
+            responder = responder!.next
+            if let cast = responder as? UIViewController {
+                return cast
+            }
+        }
+        return nil
+    }
+
     // MARK: - Pop‐overs
 
     public func displayPopOver(_ view: View) {
@@ -345,17 +358,7 @@ extension View {
         View.currentPopupView = view
         controller.view = view
 
-        // #workaround(iOS?)
-        var responder: UIResponder? = self
-        var viewController: UIViewController?
-        while responder ≠ nil {
-            responder = responder!.next
-            if let cast = responder as? UIViewController {
-                viewController = cast
-                break
-            }
-        }
-        viewController?.present(controller, animated: true, completion: nil)
+        self.controller?.present(controller, animated: true, completion: nil)
     }
     // #workaround(Is this needed?)
     private static var currentPopupView: UIView?
