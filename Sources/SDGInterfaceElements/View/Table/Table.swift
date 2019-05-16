@@ -138,8 +138,6 @@ open class Table : _TableSuperclass {
             #selector(NSTableViewDelegate.tableView(_:viewFor:row:)),
             #selector(NSTableViewDelegate.tableView(_:sizeToFitWidthOfColumn:))
             ]
-        #else
-        #warning("Unimplemented.")
         #endif
         return selectors
     }
