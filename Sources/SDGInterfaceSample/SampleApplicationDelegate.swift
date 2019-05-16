@@ -86,7 +86,6 @@ extension SampleApplicationDelegate {
 
     private func setMenuUp() {
         let menuItemLabel = Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            #warning("Create “Advanced” menu and hook up to all text views.")
             switch localization {
             case .englishCanada:
                 return "Menu Item"
