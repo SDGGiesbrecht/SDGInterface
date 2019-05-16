@@ -300,9 +300,11 @@ extension NSTextView {
             }
         }
         if action ∈ NSTextView.actionsRequiringRichEditability {
+            #if canImport(AppKit)
             if isFieldEditor {
                 return false // Attributes locked.
             }
+            #endif
         }
         return nil
     }
