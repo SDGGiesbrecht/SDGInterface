@@ -12,7 +12,6 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit) // #workaround(Temporary.)
 import SDGLogic
 
 import SDGInterfaceLocalizations
@@ -134,4 +133,3 @@ public class CharacterInformation : NSObject {
     static let warningColourPath = "warningColour"
     @objc let warningColour: Colour
 }
-#endif
