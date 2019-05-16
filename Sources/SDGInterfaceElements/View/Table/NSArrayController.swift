@@ -12,6 +12,10 @@ public class NSArrayController : NSObject {
 
     private var content: [NSObject]
 
+    public var arrangedObjects: [NSObject] {
+        return content
+    }
+
     public var automaticallyRearrangesObjects: Bool = false
 }
 #endif

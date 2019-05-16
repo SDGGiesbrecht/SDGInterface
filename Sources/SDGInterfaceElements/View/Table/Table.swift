@@ -386,13 +386,14 @@ extension Table : UITableViewDataSource {
     // MARK: - UITableViewDataSource
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        #warning("Not implemented yet.")
-        return 0
+        return contentController.arrangedObjects.count
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         #warning("Not implemented yet.")
-        return UITableViewCell()
+        let cell = UITableViewCell()
+        cell.textLabel?.text = "Cell"
+        return cell
     }
 }
 #endif
