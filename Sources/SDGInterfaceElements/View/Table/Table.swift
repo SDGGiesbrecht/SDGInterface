@@ -60,8 +60,13 @@ open class Table : _TableSuperclass {
     }
 
     private func finishInitialization() {
+        #if canImport(AppKit)
         interceptor.delegate = table.delegate
+        #else
+        interceptor.delegate = self.delegate
+        #endif
         interceptor.listener = self
+        #if canImport(AppKit)
         table.delegate = interceptor
 
         borderType = .bezelBorder
@@ -78,6 +83,9 @@ open class Table : _TableSuperclass {
         table.bind(.content, to: controller, withKeyPath: #keyPath(NSArrayController.arrangedObjects), options: nil)
         table.bind(.selectionIndexes, to: controller, withKeyPath: NSBindingName.selectionIndexes.rawValue, options: nil)
         table.bind(.sortDescriptors, to: controller, withKeyPath: NSBindingName.sortDescriptors.rawValue, options: nil)
+        #else
+        #warning("Not implemented yet.")
+        #endif
     }
 
     @available(*, unavailable) public required init?(coder: NSCoder) { // @exempt(from: unicode)
