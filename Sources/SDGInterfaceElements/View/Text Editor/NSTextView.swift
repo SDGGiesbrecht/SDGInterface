@@ -91,7 +91,6 @@ extension NSTextView {
 
     // MARK: - Displaying Character Information
 
-    #if canImport(AppKit) // #workaround(Temporary.)
     /// Displays a window with information about the Unicode code points present in the selection.
     ///
     /// - Parameters:
@@ -107,7 +106,6 @@ extension NSTextView {
             CharacterInformation.display(for: string.string)
         }
     }
-    #endif
 
     // MARK: - Superscripts & Subscripts
 
