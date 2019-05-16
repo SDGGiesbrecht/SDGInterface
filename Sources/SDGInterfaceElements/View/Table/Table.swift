@@ -74,13 +74,24 @@ open class Table : _TableSuperclass {
 
         #if canImport(AppKit)
         borderType = .bezelBorder
+        #endif
+        #if canImport(AppKit)
         hasHorizontalScroller = true
         hasVerticalScroller = true
+        #else
+        showsHorizontalScrollIndicator = true
+        showsVerticalScrollIndicator = true
+        #endif
 
+        #if canImport(AppKit)
         table.usesAlternatingRowBackgroundColors = true
+        #endif
 
+        #if canImport(AppKit)
         table.columnAutoresizingStyle = .sequentialColumnAutoresizingStyle
+        #endif
 
+        #if canImport(AppKit)
         documentView = table
 
         controller.automaticallyRearrangesObjects = true
