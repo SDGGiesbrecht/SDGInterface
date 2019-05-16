@@ -391,9 +391,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             let characters = "\u{20}\u{21}\u{22}\u{AA}\u{C0}"
             textEditor.append(RichText(rawText: StrictString(characters)))
             textView.selectAll(nil)
-            #if canImport(AppKit) // #workaround(Temporary.)
             textView.showCharacterInformation(nil)
-            #endif
 
             let compatibilityTextView = NSTextView(frame: CGRect.zero)
             #if canImport(AppKit)
@@ -402,9 +400,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             compatibilityTextView.text.append(characters)
             #endif
             compatibilityTextView.selectAll(nil)
-            #if canImport(AppKit) // #workaround(Temporary.)
             compatibilityTextView.showCharacterInformation(nil)
-            #endif
 
             textView.selectAll(nil)
             textView.normalizeText(nil)
