@@ -67,7 +67,9 @@ public class CharacterInformation : NSObject {
             return view
         })
 
+        #if canImport(AppKit)
         table.hasHeader = false
+        #endif
         table.allowsSelection = false
 
         #if canImport(AppKit)
