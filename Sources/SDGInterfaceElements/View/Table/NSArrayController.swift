@@ -5,7 +5,11 @@ public class NSArrayController : NSObject {
     // MARK: - Initialization
 
     public init(content: [NSObject]) {
-        #warning("Unimplemented.")
+        self.content = content
     }
+
+    // MARK: - Properties
+
+    private var content: [NSObject]
 }
 #endif
