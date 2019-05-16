@@ -68,8 +68,8 @@ public class CharacterInformation : NSObject {
             return view
         })
         #else
-        let identifier = "cell"
-        table.register(UITableViewCell.self, forCellReuseIdentifier: identifier)
+        #warning("Not set up.")
+        table.register(UITableViewCell.self)
         #endif
 
         #if canImport(AppKit)

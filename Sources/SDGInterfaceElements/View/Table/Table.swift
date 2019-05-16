@@ -133,7 +133,7 @@ open class Table : _TableSuperclass {
     #if canImport(AppKit)
     private var viewGenerators: [NSUserInterfaceItemIdentifier: () -> NSTableCellView] = [:]
     #else
-    #warning("Not implemented yet.")
+    private var viewUpdator: (inout UITableViewCell, NSObject) -> Void = { _, _ in }
     #endif
 
     // MARK: - Delegation
@@ -285,6 +285,15 @@ open class Table : _TableSuperclass {
         table.rowHeight.increase(to: exampleView.minimumHeight)
 
         return column
+    }
+    #else
+    private static let reuseIdentifier = "SDGReUseIdentifier"
+    /// Creates, adds and returns a new column.
+    ///
+    /// - Parameters:
+    ///     - cellClass: The class to use for cell views.
+    public func register(_ cellClass: AnyClass?) {
+        register(cellClass, forCellReuseIdentifier: Table.reuseIdentifier)
     }
     #endif
 
