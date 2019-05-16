@@ -126,7 +126,7 @@ open class Table : _TableSuperclass {
     #if canImport(AppKit)
     private var viewGenerators: [NSUserInterfaceItemIdentifier: () -> NSTableCellView] = [:]
     #else
-    // #workaround(iOS?)
+    #warning("Not implemented yet.")
     #endif
 
     // MARK: - Delegation
@@ -154,7 +154,15 @@ open class Table : _TableSuperclass {
         }
     }
     #else
-    // #workaround(iOS?)
+    open override var delegate: UITableViewDelegate? {
+        get {
+            return interceptor.delegate as? UITableViewDelegate
+        }
+        set {
+            interceptor.delegate = newValue
+            self.delegate = interceptor
+        }
+    }
     #endif
 
     #if canImport(AppKit)
@@ -349,6 +357,8 @@ extension Table : NSTableViewDelegate {
         return width
     }
 }
+#else
+#warning("Not implemented yet.")
 #endif
 
 #endif
