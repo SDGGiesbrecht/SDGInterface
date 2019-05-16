@@ -14,6 +14,8 @@
 
 internal class PopOverDelegate : NSObject, UIPopoverPresentationControllerDelegate {
 
+    internal static let delegate = PopOverDelegate()
+
     internal func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }

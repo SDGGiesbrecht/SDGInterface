@@ -335,12 +335,9 @@ extension View {
         let controller = UIViewController()
         controller.modalPresentationStyle = .popover
 
-        let delegate = PopOverDelegate()
-        View.currentPopupDelegate = delegate
-
         let popOver = controller.popoverPresentationController
         View.currentPopupPresentationController = popOver
-        popOver?.delegate = delegate
+        popOver?.delegate = PopOverDelegate.delegate
         popOver?.sourceView = self
         popOver?.sourceRect = CGRect(x: 150, y: 300, width: 1, height: 1)
         popOver?.permittedArrowDirections = .any
@@ -362,7 +359,6 @@ extension View {
     }
     // #workaround(Is this needed?)
     private static var currentPopupView: UIView?
-    private static var currentPopupDelegate: Any?
     private static var currentPopupPresentationController: Any?
 }
 
