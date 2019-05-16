@@ -354,13 +354,10 @@ extension View {
         popOver?.sourceRect = CGRect(x: 150, y: 300, width: 1, height: 1)
         popOver?.permittedArrowDirections = .any
 
-        View.currentPopupView = view
         controller.view = view
 
         self.controller?.present(controller, animated: true, completion: nil)
     }
-    // #workaround(Is this needed?)
-    private static var currentPopupView: UIView?
 }
 
 #endif
