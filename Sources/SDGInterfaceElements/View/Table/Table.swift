@@ -16,6 +16,7 @@
 
 import SDGLogic
 import SDGMathematics
+import SDGCollections
 import SDGLocalization
 
 import SDGInterfaceLocalizations
@@ -131,17 +132,22 @@ open class Table : _TableSuperclass {
 
     // MARK: - Delegation
 
-    private static func interceptedDelegateSelectors() -> Set<Selector> {
+    private static func interceptedSelectors() -> Set<Selector> {
         var selectors: Set<Selector> = []
         #if canImport(AppKit)
         selectors ∪= [
             #selector(NSTableViewDelegate.tableView(_:viewFor:row:)),
             #selector(NSTableViewDelegate.tableView(_:sizeToFitWidthOfColumn:))
             ]
+        #else
+        selectors ∪= [
+            #selector(UITableViewDataSource.tableView(_:numberOfRowsInSection:)),
+            #selector(UITableViewDataSource.tableView(_:cellForRowAt:))
+        ]
         #endif
         return selectors
     }
-    private let interceptor = DelegationInterceptor(selectors: Table.interceptedDelegateSelectors())
+    private let interceptor = DelegationInterceptor(selectors: Table.interceptedSelectors())
     #if canImport(AppKit)
     /// The table view’s delegate.
     public var delegate: NSTableViewDelegate? {
