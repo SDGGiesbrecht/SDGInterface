@@ -131,7 +131,7 @@ open class Table : _TableSuperclass {
 
     // MARK: - Delegation
 
-    private static func interceptedSelectors() -> Set<Selector> {
+    private static func interceptedDelegateSelectors() -> Set<Selector> {
         var selectors: Set<Selector> = []
         #if canImport(AppKit)
         selectors ∪= [
@@ -141,7 +141,7 @@ open class Table : _TableSuperclass {
         #endif
         return selectors
     }
-    private let interceptor = DelegationInterceptor(selectors: Table.interceptedSelectors())
+    private let interceptor = DelegationInterceptor(selectors: Table.interceptedDelegateSelectors())
     #if canImport(AppKit)
     /// The table view’s delegate.
     public var delegate: NSTableViewDelegate? {
