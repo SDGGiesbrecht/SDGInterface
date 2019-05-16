@@ -23,6 +23,17 @@ public typealias NSTextView = UITextView
 
 extension NSTextView {
 
+    // MARK: - Selection
+
+    public func selectionRectangle() -> CGRect? {
+        guard let range = selectedTextRange else {
+            return nil
+        }
+        return selectionRects(for: range).first?.rect
+    }
+
+    // MARK: - Editing
+
     private func attemptToModifySelection(_ modify: (_ previousValue: NSAttributedString) -> NSAttributedString) {
         let possibleStorage: NSTextStorage? = textStorage
         guard let storage = possibleStorage else {
@@ -104,7 +115,9 @@ extension NSTextView {
         possibleString = textStorage.attributedSubstring(from: selectedRange)
         #endif
         if let string = possibleString {
-            CharacterInformation.display(for: string.string, sender: self)
+            CharacterInformation.display(
+                for: string.string,
+                origin: (view: self, selection: selectionRectangle()))
         }
     }
 

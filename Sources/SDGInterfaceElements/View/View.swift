@@ -344,17 +344,16 @@ extension View {
 
     // MARK: - Pop‐overs
 
-    public func displayPopOver(_ view: View) {
+    public func displayPopOver(_ view: View, sourceRectangle: CGRect? = nil) {
         let controller = UIViewController()
         controller.modalPresentationStyle = .popover
+        controller.view = view
 
         let popOver = controller.popoverPresentationController
         popOver?.delegate = PopOverDelegate.delegate
         popOver?.sourceView = self
-        popOver?.sourceRect = CGRect(x: 150, y: 300, width: 1, height: 1)
+        popOver?.sourceRect = sourceRectangle ?? frame
         popOver?.permittedArrowDirections = .any
-
-        controller.view = view
 
         self.controller?.present(controller, animated: true, completion: nil)
     }

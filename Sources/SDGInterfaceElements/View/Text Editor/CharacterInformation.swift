@@ -25,7 +25,7 @@ public class CharacterInformation : NSObject {
     ///
     /// - Parameters:
     ///     - characters: The string whose characters should be described.
-    public static func display(for characters: String, sender: View?) {
+    public static func display(for characters: String, origin: (view: View, selection: CGRect?)) {
         var details: [CharacterInformation] = []
         details.reserveCapacity(characters.scalars.count)
         for scalar in characters.scalars {
@@ -75,7 +75,7 @@ public class CharacterInformation : NSObject {
 
         let view = View()
         view.fill(with: Label(text: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "Test" }))))
-        sender?.displayPopOver(view)
+        origin.view.displayPopOver(view, sourceRectangle: origin.selection)
         #endif
     }
 
