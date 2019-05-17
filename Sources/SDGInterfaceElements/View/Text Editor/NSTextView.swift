@@ -317,6 +317,12 @@ extension NSTextView {
             }
         }
         if action ∈ NSTextView.actionsRequiringEditability {
+            let isEditable: Bool
+            #if os(tvOS)
+            isEditable = false
+            #else
+            isEditable = self.isEditable
+            #endif
             if ¬isEditable {
                 return false // Not editable
             }

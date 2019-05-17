@@ -349,11 +349,17 @@ extension View {
     public func displayPopOver(_ view: View, sourceRectangle: CGRect? = nil) {
         #if canImport(UIKit)
         let controller = UIViewController()
+        #if os(tvOS)
+        controller.modalPresentationStyle = .overCurrentContext
+        #else
         controller.modalPresentationStyle = .popover
+        #endif
         controller.view = view
 
         let popOver = controller.popoverPresentationController
+        #if !os(tvOS)
         popOver?.delegate = PopOverDelegate.delegate
+        #endif
         popOver?.sourceView = self
         popOver?.sourceRect = sourceRectangle ?? frame
         popOver?.permittedArrowDirections = .any
