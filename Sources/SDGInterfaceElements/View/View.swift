@@ -367,7 +367,7 @@ extension View {
         popOver?.delegate = PopOverDelegate.delegate
         #endif
         popOver?.sourceView = self
-        popOver?.sourceRect = sourceRectangle ?? frame
+        popOver?.sourceRect = sourceRectangle ?? frame // @exempt(from: tests) tvOS quirk.
         popOver?.permittedArrowDirections = .any
 
         self.controller?.present(controller, animated: true, completion: nil)
