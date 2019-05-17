@@ -400,6 +400,10 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             compatibilityTextView.text.append(characters)
             #endif
             compatibilityTextView.selectAll(nil)
+            #if canImport(AppKit)
+            let window = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "" })), size: CGSize.zero)
+            window.contentView!.fill(with: compatibilityTextView)
+            #endif
             compatibilityTextView.showCharacterInformation(nil)
 
             textView.selectAll(nil)
