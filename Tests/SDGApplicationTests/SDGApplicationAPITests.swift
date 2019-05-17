@@ -408,6 +408,19 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         _ = table.tableView(table, numberOfRowsInSection: 0)
         _ = table.tableView(table, cellForRowAt: IndexPath(item: 0, section: 0))
         #endif
+        #if canImport(UIKit)
+        class DataSource : NSObject, UITableViewDataSource {
+            func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+                return 1
+            }
+            func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+                return UITableViewCell()
+            }
+        }
+        table.dataSource = DataSource()
+        table.dataSource?.tableView(table, numberOfRowsInSection: 0)
+        table.dataSource?.tableView(table, cellForRowAt: IndexPath(item: 0, section: 1))
+        #endif
     }
 
     func testTextEditor() {
