@@ -282,12 +282,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
 
     func testPopOver() {
         let window = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in ""})), size: CGSize.zero)
-        #if canImport(AppKit)
-        let view = window.contentView!
-        #else
-        let view = window.rootViewController!.view!
-        #endif
-        view.displayPopOver(View())
+        window.contentView!.displayPopOver(View())
     }
 
     func testPreferences() {

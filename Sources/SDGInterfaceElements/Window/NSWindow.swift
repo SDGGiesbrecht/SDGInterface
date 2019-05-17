@@ -136,6 +136,11 @@ extension NSWindow {
     // MARK: - NSWindow
 
     #if canImport(UIKit)
+    /// The window’s content view.
+    public var contentView: View? {
+        return rootViewController?.view
+    }
+
     // @documentation(makeKeyAndOrderFront(_:))
     /// Displays the window, moving it in front of other windows and making it the key window.
     ///

@@ -106,6 +106,12 @@ open class AbstractWindow : NSWindow, WindowConformances {
         setContentBorderThickness(0, for: NSRectEdge.minY)
         #endif
 
+        #if canImport(UIKit)
+        if rootViewController == nil {
+            rootViewController = UIViewController()
+        }
+        #endif
+
         randomizeLocation()
     }
 
