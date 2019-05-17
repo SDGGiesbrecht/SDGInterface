@@ -136,6 +136,29 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         _ = interceptor.forwardingTarget(for: #selector(UIApplicationDelegate.applicationWillResignActive(_:)))
         applicationDelegate.applicationWillResignActive?(UIApplication.shared)
         #endif
+
+        #if canImport(UIKit)
+        class TableViewDataSource : NSObject, UITableViewDataSource {
+            func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+                return 0
+            }
+            func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+                return UITableViewCell()
+            }
+        }
+        let dataSourceDelegate = TableViewDataSource()
+        var dataSource = DelegationInterceptor(delegate: dataSourceDelegate, listener: dataSourceDelegate, selectors: [
+            #selector(UITableViewDataSource.tableView(_:numberOfRowsInSection:)),
+            #selector(UITableViewDataSource.tableView(_:cellForRowAt:))
+            ])
+        _ = dataSource.tableView(Table(content: [NSObject()]), numberOfRowsInSection: 0)
+        _ = dataSource.tableView(Table(content: [NSObject()]), cellForRowAt: IndexPath(item: 0, section: 0))
+        dataSource = DelegationInterceptor(delegate: dataSourceDelegate, listener: NSObject(), selectors: [
+            #selector(UITableViewDataSource.tableView(_:numberOfRowsInSection:)),
+            #selector(UITableViewDataSource.tableView(_:cellForRowAt:))
+            ])
+        _ = dataSource.tableView(Table(content: [NSObject()]), numberOfRowsInSection: 0)
+        #endif
     }
 
     func testLabel() {
