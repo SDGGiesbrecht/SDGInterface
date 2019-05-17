@@ -42,6 +42,10 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertEqual(ProcessInfo.applicationName(.ελληνικά(.γενική)), "του Παραδείγματος")
     }
 
+    func testArrayController() {
+        _ = NSArrayController()
+    }
+
     func testAttributedString() {
         var mutable = NSMutableAttributedString(string: "...")
         mutable.addAttribute(NSAttributedString.Key.font, value: Font.systemFont(ofSize: 24), range: NSRange(0 ..< 3))
@@ -278,7 +282,12 @@ final class SDGApplicationAPITests : ApplicationTestCase {
 
     func testPopOver() {
         let window = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in ""})), size: CGSize.zero)
-        window.contentView!.displayPopOver(View())
+        #if canImport(AppKit)
+        let view = window.contentView!
+        #else
+        let view = window.rootViewController!.view!
+        #endif
+        view.displayPopOver(View())
     }
 
     func testPreferences() {
