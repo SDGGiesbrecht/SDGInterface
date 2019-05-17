@@ -35,7 +35,7 @@ extension NSTextView {
         return layout.boundingRect(forGlyphRange: range, in: text)
         #else
         guard let range = selectedTextRange else {
-            return nil
+            return nil // @exempt(from: tests)
         }
         return selectionRects(for: range).first?.rect
         #endif

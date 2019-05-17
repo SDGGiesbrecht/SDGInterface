@@ -537,6 +537,18 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             #if canImport(UIKit)
             textView.insertText("...")
             #endif
+
+            #if canImport(UIKit)
+            textView.insertText("...")
+            textView.selectAll(nil)
+            XCTAssert(textView.canPerformAction(#selector(NSTextView.showCharacterInformation(_:)), withSender: nil))
+            XCTAssert(textView.canPerformAction(#selector(NSTextView.normalizeText(_:)), withSender: nil))
+            XCTAssert(textView.canPerformAction(#selector(NSTextView.makeSuperscript(_:)), withSender: nil))
+            textView.isEditable = false
+            XCTAssertFalse(textView.canPerformAction(#selector(NSTextView.normalizeText(_:)), withSender: nil))
+            textView.text = ""
+            XCTAssertFalse(textView.canPerformAction(#selector(NSTextView.showCharacterInformation(_:)), withSender: nil))
+            #endif
         }
     }
 
