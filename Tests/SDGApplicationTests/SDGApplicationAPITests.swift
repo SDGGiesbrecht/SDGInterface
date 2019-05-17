@@ -276,6 +276,11 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertEqual(font.resized(to: 12).pointSize, 12)
     }
 
+    func testPopOver() {
+        let window = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in ""})), size: CGSize.zero)
+        window.contentView!.displayPopOver(View())
+    }
+
     func testPreferences() {
         ApplicationDelegate().openPreferences(nil)
         SampleApplicationDelegate().openPreferences(nil)

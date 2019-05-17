@@ -29,7 +29,7 @@ extension NSTextView {
         #if canImport(AppKit)
         guard let layout = layoutManager,
             let text = textContainer else {
-            return nil
+                return nil // @exempt(from: tests)
         }
         let range = layout.glyphRange(forCharacterRange: selectedRange(), actualCharacterRange: nil)
         return layout.boundingRect(forGlyphRange: range, in: text)
