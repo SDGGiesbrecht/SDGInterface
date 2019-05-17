@@ -78,6 +78,10 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         #endif
     }
 
+    func testCharacterInformation() {
+        CharacterInformation.display(for: "abc", origin: nil)
+    }
+
     func testDelegationInterceptor() {
 
         #if canImport(AppKit)
