@@ -133,9 +133,14 @@ open class Table : _TableSuperclass {
     #if canImport(AppKit)
     private var viewGenerators: [NSUserInterfaceItemIdentifier: () -> NSTableCellView] = [:]
     #else
+    /// The style of table cell.
     public var cellStyle: UITableViewCell.CellStyle = .default
     /// A closure used to update a cell according to its value.
-    public var cellUpdator: (UITableViewCell, NSObject) -> Void = { _, _ in }
+    ///
+    /// - Parameters:
+    ///     - cell: The cell to update.
+    ///     - value: The value the cell should represent.
+    public var cellUpdator: (_ cell: UITableViewCell, _ value: NSObject) -> Void = { _, _ in }
     #endif
 
     // MARK: - Delegation

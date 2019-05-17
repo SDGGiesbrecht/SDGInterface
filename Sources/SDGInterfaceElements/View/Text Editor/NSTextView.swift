@@ -25,6 +25,7 @@ extension NSTextView {
 
     // MARK: - Selection
 
+    /// The rectangle of the current selection.
     public func selectionRectangle() -> CGRect? {
         #if canImport(AppKit)
         guard let layout = layoutManager,

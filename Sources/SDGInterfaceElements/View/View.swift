@@ -332,6 +332,7 @@ extension View {
     // MARK: - Responder Chain
 
     #if canImport(UIKit)
+    /// The view controller associated with the view.
     public var controller: UIViewController? {
         var responder: UIResponder? = self
         while responder ≠ nil {
@@ -346,6 +347,11 @@ extension View {
 
     // MARK: - Pop‐overs
 
+    /// Displays a pop‐over view.
+    ///
+    /// - Parameters:
+    ///     - view: The view to display as a pop‐over.
+    ///     - sourceRectangle: A rectangle within `self` that should be considered the origin of the pop‐over.
     public func displayPopOver(_ view: View, sourceRectangle: CGRect? = nil) {
         #if canImport(UIKit)
         let controller = UIViewController()
