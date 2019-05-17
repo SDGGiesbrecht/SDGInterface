@@ -281,7 +281,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testPopOver() {
-        let window = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in ""})), size: CGSize.zero)
+        let window = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "" })), size: CGSize.zero)
         window.contentView!.displayPopOver(View())
     }
 
