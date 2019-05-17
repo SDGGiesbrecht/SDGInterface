@@ -21,6 +21,7 @@ public class CharacterInformation : NSObject {
 
     // MARK: - Static Methods
 
+    #if !os(watchOS)
     /// Displays information to the user about the characters in a string.
     ///
     /// - Precondition: In UIKit environments, `origin` must not be `nil`.
@@ -96,6 +97,7 @@ public class CharacterInformation : NSObject {
             #endif
         }
     }
+    #endif
 
     // MARK: - Initialization
 
