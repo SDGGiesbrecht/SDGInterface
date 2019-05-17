@@ -66,6 +66,7 @@ public class CharacterInformation : NSObject {
         #else
         table.cellStyle = .value1
         table.cellUpdator = { cell, value in
+            // @exempt(from: tests) The operating system skips this call when the table is off‐screen.
             if let characterInformation = value as? CharacterInformation {
                 cell.textLabel?.text = characterInformation.codePoint + " " + characterInformation.character
                 cell.textLabel?.textColor = characterInformation.warningColour
