@@ -343,11 +343,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
 
     func testTable() {
         let table: Table
-        #if canImport(AppKit)
-        table = Table(contentController: NSArrayController())
-        #else
-        table = Table(content: [])
-        #endif
+        table = Table(contentController: NSArrayController(content: [NSObject()]))
         let delegate = DelegationInterceptor(delegate: nil, listener: nil, selectors: [])
         table.delegate = delegate
         XCTAssertNotNil(table.delegate as? DelegationInterceptor)
@@ -371,6 +367,10 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         #endif
         #if canImport(AppKit)
         XCTAssertNotNil(NSTableColumn().header)
+        #endif
+        #if canImport(UIKit)
+        _ = table.tableView(table, numberOfRowsInSection: 0)
+        _ = table.tableView(table, cellForRowAt: IndexPath(item: 0, section: 0))
         #endif
     }
 

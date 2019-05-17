@@ -4,6 +4,10 @@ public class NSArrayController : NSObject {
 
     // MARK: - Initialization
 
+    public override init() {
+        self.content = []
+    }
+
     public init(content: [NSObject]) {
         self.content = content
     }
