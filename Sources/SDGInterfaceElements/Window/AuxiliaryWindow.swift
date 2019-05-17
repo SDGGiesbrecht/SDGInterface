@@ -18,7 +18,7 @@ open class AuxiliaryWindow<L> : Window<L> where L : Localization {
 
     // MARK: - Initialization
 
-    private static var defaultSize: NSSize {
+    internal static var defaultSize: NSSize {
         return NSSize(width: 480, height: 270)
     }
 

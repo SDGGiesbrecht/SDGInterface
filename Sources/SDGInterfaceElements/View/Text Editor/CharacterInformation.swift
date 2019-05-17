@@ -23,21 +23,17 @@ public class CharacterInformation : NSObject {
 
     /// Displays information to the user about the characters in a string.
     ///
+    /// - Precondition: In UIKit environments, `origin` must not be `nil`.
+    ///
     /// - Parameters:
     ///     - characters: The string whose characters should be described.
-    public static func display(for characters: String, origin: (view: View, selection: CGRect?)) {
+    ///     - origin: The view and selection the characters originate from. If provided, the information will be shown in a pop‐up view instead of a separate window.
+    public static func display(for characters: String, origin: (view: View, selection: CGRect?)?) {
         var details: [CharacterInformation] = []
         details.reserveCapacity(characters.scalars.count)
         for scalar in characters.scalars {
             details.append(CharacterInformation(scalar))
         }
-
-        // #workaround(Unify?)
-        #if canImport(AppKit)
-        let window = AuxiliaryWindow(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in StrictString(characters) })))
-        #else
-        let view = View()
-        #endif
 
         let table = Table(content: details)
 
@@ -84,17 +80,20 @@ public class CharacterInformation : NSObject {
         #endif
         table.allowsSelection = false
 
-        #if canImport(AppKit)
-        window.contentView!.fill(with: table)
-        #else
-        view.fill(with: table)
-        #endif
-
-        #if canImport(AppKit)
-        window.makeKeyAndOrderFront(nil)
-        #else
-        origin.view.displayPopOver(view, sourceRectangle: origin.selection)
-        #endif
+        if let origin = origin {
+            let view = View()
+            #if canImport(AppKit)
+            view.frame.size = AuxiliaryWindow<InterfaceLocalization>.defaultSize
+            #endif
+            view.fill(with: table)
+            origin.view.displayPopOver(view, sourceRectangle: origin.selection)
+        } else {
+            #if canImport(AppKit)
+            let window = AuxiliaryWindow(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in StrictString(characters) })))
+            window.contentView!.fill(with: table)
+            window.makeKeyAndOrderFront(nil)
+            #endif
+        }
     }
 
     // MARK: - Initialization

@@ -48,7 +48,7 @@ extension View {
     /// - Parameters:
     ///     - size: The minimum size.
     ///     - axis: The axis to constrain.
-    public func setMinimumSize(size: Double, axis: Axis) {
+    public func setMinimumSize(size: CGFloat, axis: Axis) {
         let format = "\(axis.string)[view(\u{3E}=\(size))]"
         let constraints = NSLayoutConstraint.constraints(withVisualFormat: format, options: [], metrics: nil, views: ["view": self])
         addConstraints(constraints)
@@ -360,7 +360,13 @@ extension View {
 
         self.controller?.present(controller, animated: true, completion: nil)
         #else
-        #warning("macOS?")
+        let controller = NSViewController()
+        controller.view = view
+
+        let popOver = NSPopover()
+        popOver.contentViewController = controller
+        popOver.behavior = .transient
+        popOver.show(relativeTo: sourceRectangle ?? frame, of: self, preferredEdge: .maxX)
         #endif
     }
 }
