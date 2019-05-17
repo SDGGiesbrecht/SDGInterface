@@ -2263,6 +2263,7 @@ public class MenuBar : Menu<InterfaceLocalization> {
 
 #endif
 
+#if !os(tvOS)
 internal enum MenuLabels {
 
     static let normalizeText = Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
@@ -2281,3 +2282,4 @@ internal enum MenuLabels {
         }
     }))
 }
+#endif
