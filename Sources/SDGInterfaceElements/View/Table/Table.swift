@@ -16,6 +16,7 @@
 
 import SDGLogic
 import SDGMathematics
+import SDGCollections
 import SDGLocalization
 
 import SDGInterfaceLocalizations
@@ -36,11 +37,7 @@ open class Table : _TableSuperclass {
     /// - Parameters:
     ///     - content: An array of data for the table. Each element of the array reperestents the data for one row of the table.
     public init(content: [NSObject]) {
-        #if canImport(AppKit)
-        controller = NSArrayController(content: content)
-        #else
-        // #workaround(iOS?)
-        #endif
+        contentController = NSArrayController(content: content)
         #if canImport(AppKit)
         super.init(frame: CGRect.zero)
         #else
@@ -49,40 +46,67 @@ open class Table : _TableSuperclass {
         finishInitialization()
     }
 
-    #if canImport(AppKit)
     /// Creates a table managed by an array controller.
     ///
     /// - Parameters:
     ///     - contentController: An array controller representing the table content.
     public init(contentController: NSArrayController) {
-        controller = contentController
-        super.init(frame: NSRect.zero)
+        self.contentController = contentController
+        #if canImport(AppKit)
+        super.init(frame: CGRect.zero)
+        #else
+        super.init(frame: CGRect.zero, style: .plain)
+        #endif
         finishInitialization()
     }
-    #endif
 
     private func finishInitialization() {
         #if canImport(AppKit)
-        interceptor.delegate = table.delegate
-        interceptor.listener = self
-        table.delegate = interceptor
+        delegateInterceptor.delegate = table.delegate
+        #else
+        delegateInterceptor.delegate = super.delegate
+        #endif
+        delegateInterceptor.listener = self
+        #if canImport(AppKit)
+        table.delegate = delegateInterceptor
+        #else
+        super.delegate = delegateInterceptor
+        #endif
 
+        #if canImport(UIKit)
+        dataSourceInterceptor.delegate = super.dataSource
+        dataSourceInterceptor.listener = self
+        super.dataSource = dataSourceInterceptor
+        #endif
+
+        #if canImport(AppKit)
         borderType = .bezelBorder
+        #endif
+        #if canImport(AppKit)
         hasHorizontalScroller = true
         hasVerticalScroller = true
-
-        table.usesAlternatingRowBackgroundColors = true
-
-        table.columnAutoresizingStyle = .sequentialColumnAutoresizingStyle
-
-        documentView = table
-
-        controller.automaticallyRearrangesObjects = true
-        table.bind(.content, to: controller, withKeyPath: #keyPath(NSArrayController.arrangedObjects), options: nil)
-        table.bind(.selectionIndexes, to: controller, withKeyPath: NSBindingName.selectionIndexes.rawValue, options: nil)
-        table.bind(.sortDescriptors, to: controller, withKeyPath: NSBindingName.sortDescriptors.rawValue, options: nil)
         #else
-        // #workaround(iOS?)
+        showsHorizontalScrollIndicator = true
+        showsVerticalScrollIndicator = true
+        #endif
+
+        #if canImport(AppKit)
+        table.usesAlternatingRowBackgroundColors = true
+        #endif
+
+        #if canImport(AppKit)
+        table.columnAutoresizingStyle = .sequentialColumnAutoresizingStyle
+        #endif
+
+        #if canImport(AppKit)
+        documentView = table
+        #endif
+
+        contentController.automaticallyRearrangesObjects = true
+        #if canImport(AppKit)
+        table.bind(.content, to: contentController, withKeyPath: #keyPath(NSArrayController.arrangedObjects), options: nil)
+        table.bind(.selectionIndexes, to: contentController, withKeyPath: NSBindingName.selectionIndexes.rawValue, options: nil)
+        table.bind(.sortDescriptors, to: contentController, withKeyPath: NSBindingName.sortDescriptors.rawValue, options: nil)
         #endif
     }
 
@@ -101,32 +125,74 @@ open class Table : _TableSuperclass {
     #if canImport(AppKit)
     /// The actual `NSTableView` instance.
     public let table: NSTableView = NSTableView(frame: NSRect.zero)
-    /// The array controller which manages the content.
-    public let controller: NSArrayController
-    private var viewGenerators: [NSUserInterfaceItemIdentifier: () -> NSTableCellView] = [:]
-    #else
-    // #workaround(iOS?)
     #endif
 
+    /// The array controller which manages the content.
+    public let contentController: NSArrayController
+
     #if canImport(AppKit)
+    private var viewGenerators: [NSUserInterfaceItemIdentifier: () -> NSTableCellView] = [:]
+    #else
+    /// The style of table cell.
+    public var cellStyle: UITableViewCell.CellStyle = .default
+    /// A closure used to update a cell according to its value.
+    ///
+    /// - Parameters:
+    ///     - cell: The cell to update.
+    ///     - value: The value the cell should represent.
+    public var cellUpdator: (_ cell: UITableViewCell, _ value: NSObject) -> Void = { _, _ in }
+    #endif
+
     // MARK: - Delegation
 
-    private let interceptor = DelegationInterceptor(selectors: [
-        #selector(NSTableViewDelegate.tableView(_:viewFor:row:)),
-        #selector(NSTableViewDelegate.tableView(_:sizeToFitWidthOfColumn:))
-        ])
+    private static func interceptedDelegateSelectors() -> Set<Selector> {
+        var selectors: Set<Selector> = []
+        #if canImport(AppKit)
+        selectors ∪= [
+            #selector(NSTableViewDelegate.tableView(_:viewFor:row:)),
+            #selector(NSTableViewDelegate.tableView(_:sizeToFitWidthOfColumn:))
+            ]
+        #endif
+        return selectors
+    }
+    private let delegateInterceptor = DelegationInterceptor(selectors: Table.interceptedDelegateSelectors())
+    #if canImport(AppKit)
     /// The table view’s delegate.
     public var delegate: NSTableViewDelegate? {
         get {
-            return interceptor.delegate as? NSTableViewDelegate
+            return delegateInterceptor.delegate as? NSTableViewDelegate
         }
         set {
-            interceptor.delegate = newValue
-            table.delegate = interceptor
+            delegateInterceptor.delegate = newValue
+            table.delegate = delegateInterceptor
         }
     }
     #else
-    // #workaround(iOS?)
+    open override var delegate: UITableViewDelegate? {
+        get {
+            return delegateInterceptor.delegate as? UITableViewDelegate
+        }
+        set {
+            delegateInterceptor.delegate = newValue
+            super.delegate = delegateInterceptor
+        }
+    }
+    #endif
+
+    #if canImport(UIKit)
+    private let dataSourceInterceptor = DelegationInterceptor(selectors: [
+        #selector(UITableViewDataSource.tableView(_:numberOfRowsInSection:)),
+        #selector(UITableViewDataSource.tableView(_:cellForRowAt:))
+        ])
+    open override var dataSource: UITableViewDataSource? {
+        get {
+            return dataSourceInterceptor.delegate as? UITableViewDataSource
+        }
+        set {
+            dataSourceInterceptor.delegate = newValue
+            super.dataSource = dataSourceInterceptor
+        }
+    }
     #endif
 
     #if canImport(AppKit)
@@ -199,10 +265,10 @@ open class Table : _TableSuperclass {
     /// The sort order for the table.
     public var sortOrder: [NSSortDescriptor] {
         get {
-            return controller.sortDescriptors
+            return contentController.sortDescriptors
         }
         set {
-            controller.sortDescriptors = newValue
+            contentController.sortDescriptors = newValue
         }
     }
     #endif
@@ -319,6 +385,23 @@ extension Table : NSTableViewDelegate {
             }
         }
         return width
+    }
+}
+#else
+extension Table : UITableViewDataSource {
+
+    // MARK: - UITableViewDataSource
+
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return contentController.arrangedObjects.count
+    }
+
+    private static let reUseIdentifier = "SDGReUseIdentifier"
+
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = dequeueReusableCell(withIdentifier: Table.reUseIdentifier) ?? UITableViewCell(style: cellStyle, reuseIdentifier: Table.reUseIdentifier)
+        cellUpdator(cell, contentController.arrangedObjects[indexPath.row])
+        return cell
     }
 }
 #endif

@@ -48,7 +48,7 @@ extension View {
     /// - Parameters:
     ///     - size: The minimum size.
     ///     - axis: The axis to constrain.
-    public func setMinimumSize(size: Double, axis: Axis) {
+    public func setMinimumSize(size: CGFloat, axis: Axis) {
         let format = "\(axis.string)[view(\u{3E}=\(size))]"
         let constraints = NSLayoutConstraint.constraints(withVisualFormat: format, options: [], metrics: nil, views: ["view": self])
         addConstraints(constraints)
@@ -327,6 +327,59 @@ extension View {
             let constraint = NSLayoutConstraint(item: self, attribute: attribute, relatedBy: .equal, toItem: view, attribute: attribute, multiplier: coefficient, constant: 0)
             addConstraint(constraint)
         }
+    }
+
+    // MARK: - Responder Chain
+
+    #if canImport(UIKit)
+    /// The view controller associated with the view.
+    public var controller: UIViewController? {
+        var responder: UIResponder? = self
+        while responder ≠ nil {
+            responder = responder!.next
+            if let cast = responder as? UIViewController {
+                return cast
+            }
+        }
+        return nil
+    }
+    #endif
+
+    // MARK: - Pop‐overs
+
+    /// Displays a pop‐over view.
+    ///
+    /// - Parameters:
+    ///     - view: The view to display as a pop‐over.
+    ///     - sourceRectangle: A rectangle within `self` that should be considered the origin of the pop‐over.
+    public func displayPopOver(_ view: View, sourceRectangle: CGRect? = nil) {
+        #if canImport(UIKit)
+        let controller = UIViewController()
+        #if os(tvOS)
+        controller.modalPresentationStyle = .overCurrentContext
+        #else
+        controller.modalPresentationStyle = .popover
+        #endif
+        controller.view = view
+
+        let popOver = controller.popoverPresentationController
+        #if !os(tvOS)
+        popOver?.delegate = PopOverDelegate.delegate
+        #endif
+        popOver?.sourceView = self
+        popOver?.sourceRect = sourceRectangle ?? frame // @exempt(from: tests) tvOS quirk.
+        popOver?.permittedArrowDirections = .any
+
+        self.controller?.present(controller, animated: true, completion: nil)
+        #else
+        let controller = NSViewController()
+        controller.view = view
+
+        let popOver = NSPopover()
+        popOver.contentViewController = controller
+        popOver.behavior = .transient
+        popOver.show(relativeTo: sourceRectangle ?? frame, of: self, preferredEdge: .maxX)
+        #endif
     }
 }
 

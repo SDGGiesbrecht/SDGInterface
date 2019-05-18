@@ -12,9 +12,9 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit)
-
 import SDGInterfaceLocalizations
+
+#if canImport(AppKit)
 
 /// An application’s menu bar.
 ///
@@ -1106,14 +1106,7 @@ public class MenuBar : Menu<InterfaceLocalization> {
             }
         })))
 
-        transformations.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishUnitedKingdom:
-                return "Normalise Text"
-            case .englishUnitedStates, .englishCanada:
-                return "Normalize Text"
-            }
-        })), action: #selector(NSTextView.normalizeText(_:)))
+        transformations.newEntry(labelled: MenuLabels.normalizeText, action: #selector(NSTextView.normalizeText(_:)))
 
         // “Make Upper Case” does not belong here. Upper‐case‐only is a font style, not a semantic aspect of the text. Attempting to fake it by switching to capital letters (a) results in semantically incorrect text, and (b) is irreversable. A font‐based version is available under the “Font” menu instead.
 
@@ -1121,12 +1114,7 @@ public class MenuBar : Menu<InterfaceLocalization> {
 
         // “Capitalize” is just not possible for a machine to do properly in any language.
 
-        edit.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Show Character Information"
-            }
-        })), action: #selector(NSTextView.showCharacterInformation(_:)))
+        edit.newEntry(labelled: MenuLabels.showCharacterInformation, action: #selector(NSTextView.showCharacterInformation(_:)))
 
         let speech = edit.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -2273,4 +2261,25 @@ public class MenuBar : Menu<InterfaceLocalization> {
     }
 }
 
+#endif
+
+#if !os(tvOS)
+internal enum MenuLabels {
+
+    static let normalizeText = Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        switch localization {
+        case .englishUnitedKingdom:
+            return "Normalise Text"
+        case .englishUnitedStates, .englishCanada:
+            return "Normalize Text"
+        }
+    }))
+
+    static let showCharacterInformation = Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        switch localization {
+        case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Show Character Information"
+        }
+    }))
+}
 #endif

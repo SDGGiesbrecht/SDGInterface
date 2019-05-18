@@ -165,89 +165,11 @@ internal class TextView : NSTextView {
     #if canImport(AppKit)
     // MARK: - NSMenuItemValidation
 
-    private func actionRequiresSelection(_ action: Selector) -> Bool {
-        switch action {
-        case #selector(NSTextView.normalizeText(_:)),
-             #selector(NSTextView.showCharacterInformation(_:)),
-             #selector(NSTextView.makeSuperscript(_:)),
-             #selector(NSTextView.makeSubscript(_:)),
-             #selector(NSTextView.resetBaseline(_:)),
-             #selector(NSTextView.resetCasing(_:)),
-             #selector(NSTextView.makeLatinateUpperCase(_:)),
-             #selector(NSTextView.makeTurkicUpperCase(_:)),
-             #selector(NSTextView.makeLatinateSmallCaps(_:)),
-             #selector(NSTextView.makeTurkicSmallCaps(_:)),
-             #selector(NSTextView.makeLatinateLowerCase(_:)),
-             #selector(NSTextView.makeTurkicLowerCase(_:)):
-            return true
-        default:
-            return false
-        }
-    }
-
-    private func actionRequiresEditability(_ action: Selector) -> Bool {
-        switch action {
-        case #selector(NSTextView.normalizeText(_:)),
-             #selector(NSTextView.makeSuperscript(_:)),
-             #selector(NSTextView.makeSubscript(_:)),
-             #selector(NSTextView.resetBaseline(_:)),
-             #selector(NSTextView.resetCasing(_:)),
-             #selector(NSTextView.makeLatinateUpperCase(_:)),
-             #selector(NSTextView.makeTurkicUpperCase(_:)),
-             #selector(NSTextView.makeLatinateSmallCaps(_:)),
-             #selector(NSTextView.makeTurkicSmallCaps(_:)),
-             #selector(NSTextView.makeLatinateLowerCase(_:)),
-             #selector(NSTextView.makeTurkicLowerCase(_:)):
-            return true
-        default:
-            return false
-        }
-    }
-
-    private func actionRequiresRichEditability(_ action: Selector) -> Bool {
-        switch action {
-        case #selector(NSTextView.makeSuperscript(_:)),
-             #selector(NSTextView.makeSubscript(_:)),
-             #selector(NSTextView.resetBaseline(_:)),
-             #selector(NSTextView.resetCasing(_:)),
-             #selector(NSTextView.makeLatinateUpperCase(_:)),
-             #selector(NSTextView.makeTurkicUpperCase(_:)),
-             #selector(NSTextView.makeLatinateSmallCaps(_:)),
-             #selector(NSTextView.makeTurkicSmallCaps(_:)),
-             #selector(NSTextView.makeLatinateLowerCase(_:)),
-             #selector(NSTextView.makeTurkicLowerCase(_:)):
-            return true
-        default:
-            return false
-        }
-    }
-
     override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-
-        if let action = menuItem.action {
-            if actionRequiresSelection(action) {
-                if let selection = Range<Int>(selectedRange()) {
-                    if ¬selection.isEmpty {
-                        // Next test.
-                    } else {
-                        return false // Empty selection.
-                    }
-                } else {
-                    return false // No selection available. // @exempt(from: tests) Always empty instead.
-                }
-            }
-            if actionRequiresEditability(action) {
-                if ¬isEditable {
-                    return false // Not editable
-                }
-            }
-            if actionRequiresRichEditability(action) {
-                if isFieldEditor {
-                    return false // Attributes locked.
-                }
-            }
+        if let action = menuItem.action,
+            let known = canPerform(action: action) {
+            return known
         }
-
         return super.validateMenuItem(menuItem)
     }
     #endif

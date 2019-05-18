@@ -12,7 +12,6 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit) // #workaround(Temporary.)
 import SDGLogic
 
 import SDGInterfaceLocalizations
@@ -22,21 +21,26 @@ public class CharacterInformation : NSObject {
 
     // MARK: - Static Methods
 
+    #if !os(watchOS)
     /// Displays information to the user about the characters in a string.
+    ///
+    /// - Precondition: In UIKit environments, `origin` must not be `nil`.
     ///
     /// - Parameters:
     ///     - characters: The string whose characters should be described.
-    public static func display(for characters: String) {
+    ///     - origin: The view and selection the characters originate from. If provided, the information will be shown in a pop‐up view instead of a separate window.
+    ///     - view: The view the characters originate from.
+    ///     - selection: The rectangle the characters originate from.
+    public static func display(for characters: String, origin: (view: View, selection: CGRect?)?) {
         var details: [CharacterInformation] = []
         details.reserveCapacity(characters.scalars.count)
         for scalar in characters.scalars {
             details.append(CharacterInformation(scalar))
         }
 
-        #if canImport(AppKit)
-        let window = AuxiliaryWindow(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in StrictString(characters) })))
         let table = Table(content: details)
 
+        #if canImport(AppKit)
         table.newColumn(header: "", viewGenerator: {
             let view = LabelCell<InterfaceLocalization>()
             view.bindText(contentKeyPath: CharacterInformation.codePointKeyPath)
@@ -59,20 +63,43 @@ public class CharacterInformation : NSObject {
 
         table.newColumn(header: "", viewGenerator: {
             let view = LabelCell<InterfaceLocalization>()
-            view.bindText(contentKeyPath: CharacterInformation.normalizedCharacters)
+            view.bindText(contentKeyPath: CharacterInformation.normalizedCharactersPath)
             return view
         })
+        #else
+        table.cellStyle = .value1
+        table.cellUpdator = { cell, value in
+            // @exempt(from: tests) The operating system skips this call when the table is off‐screen.
+            if let characterInformation = value as? CharacterInformation {
+                cell.textLabel?.text = characterInformation.codePoint + " " + characterInformation.character
+                cell.textLabel?.textColor = characterInformation.warningColour
+                cell.detailTextLabel?.text = characterInformation.normalizedCodePoints + " " + characterInformation.normalizedCharacters
+                cell.detailTextLabel?.textColor = Colour.black
+            }
+        }
+        #endif
 
+        #if canImport(AppKit)
         table.hasHeader = false
+        #endif
         table.allowsSelection = false
 
-        window.contentView!.fill(with: table)
-
-        window.makeKeyAndOrderFront(nil)
-        #else
-        // #workaround(iOS?)
-        #endif
+        if let origin = origin {
+            let view = View()
+            #if canImport(AppKit)
+            view.frame.size = AuxiliaryWindow<InterfaceLocalization>.defaultSize
+            #endif
+            view.fill(with: table)
+            origin.view.displayPopOver(view, sourceRectangle: origin.selection)
+        } else {
+            #if canImport(AppKit)
+            let window = AuxiliaryWindow(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in StrictString(characters) })))
+            window.contentView!.fill(with: table)
+            window.makeKeyAndOrderFront(nil)
+            #endif
+        }
     }
+    #endif
 
     // MARK: - Initialization
 
@@ -128,10 +155,9 @@ public class CharacterInformation : NSObject {
     static let normalizedCodePointsPath = "normalizedCodePoints"
     @objc private var normalizedCodePoints: String
 
-    static let normalizedCharacters = "normalizedCharacters"
+    static let normalizedCharactersPath = "normalizedCharacters"
     @objc private var normalizedCharacters: String
 
     static let warningColourPath = "warningColour"
     @objc let warningColour: Colour
 }
-#endif

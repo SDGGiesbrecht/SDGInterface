@@ -42,6 +42,10 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertEqual(ProcessInfo.applicationName(.ελληνικά(.γενική)), "του Παραδείγματος")
     }
 
+    func testArrayController() {
+        _ = NSArrayController()
+    }
+
     func testAttributedString() {
         var mutable = NSMutableAttributedString(string: "...")
         mutable.addAttribute(NSAttributedString.Key.font, value: Font.systemFont(ofSize: 24), range: NSRange(0 ..< 3))
@@ -76,6 +80,10 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         türkçe.makeTurkicLowerCase(NSRange(0 ..< türkçe.length))
         XCTAssert(türkçe.attributes(at: 2, effectiveRange: nil).isEmpty)
         #endif
+    }
+
+    func testCharacterInformation() {
+        CharacterInformation.display(for: "abc", origin: nil)
     }
 
     func testDelegationInterceptor() {
@@ -135,6 +143,29 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         applicationDelegate.applicationDidEnterBackground?(UIApplication.shared)
         _ = interceptor.forwardingTarget(for: #selector(UIApplicationDelegate.applicationWillResignActive(_:)))
         applicationDelegate.applicationWillResignActive?(UIApplication.shared)
+        #endif
+
+        #if canImport(UIKit)
+        class TableViewDataSource : NSObject, UITableViewDataSource {
+            func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+                return 0
+            }
+            func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+                return UITableViewCell()
+            }
+        }
+        let dataSourceDelegate = TableViewDataSource()
+        var dataSource = DelegationInterceptor(delegate: dataSourceDelegate, listener: dataSourceDelegate, selectors: [
+            #selector(UITableViewDataSource.tableView(_:numberOfRowsInSection:)),
+            #selector(UITableViewDataSource.tableView(_:cellForRowAt:))
+            ])
+        _ = dataSource.tableView(Table(content: [NSObject()]), numberOfRowsInSection: 0)
+        _ = dataSource.tableView(Table(content: [NSObject()]), cellForRowAt: IndexPath(item: 0, section: 0))
+        dataSource = DelegationInterceptor(delegate: dataSourceDelegate, listener: NSObject(), selectors: [
+            #selector(UITableViewDataSource.tableView(_:numberOfRowsInSection:)),
+            #selector(UITableViewDataSource.tableView(_:cellForRowAt:))
+            ])
+        _ = dataSource.tableView(Table(content: [NSObject()]), numberOfRowsInSection: 0)
         #endif
     }
 
@@ -249,6 +280,11 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertEqual(font.resized(to: 12).pointSize, 12)
     }
 
+    func testPopOver() {
+        let window = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "" })), size: CGSize.zero)
+        window.contentView!.displayPopOver(View())
+    }
+
     func testPreferences() {
         ApplicationDelegate().openPreferences(nil)
         SampleApplicationDelegate().openPreferences(nil)
@@ -343,11 +379,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
 
     func testTable() {
         let table: Table
-        #if canImport(AppKit)
-        table = Table(contentController: NSArrayController())
-        #else
-        table = Table(content: [])
-        #endif
+        table = Table(contentController: NSArrayController(content: [NSObject()]))
         let delegate = DelegationInterceptor(delegate: nil, listener: nil, selectors: [])
         table.delegate = delegate
         XCTAssertNotNil(table.delegate as? DelegationInterceptor)
@@ -372,6 +404,23 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         #if canImport(AppKit)
         XCTAssertNotNil(NSTableColumn().header)
         #endif
+        #if canImport(UIKit)
+        _ = table.tableView(table, numberOfRowsInSection: 0)
+        _ = table.tableView(table, cellForRowAt: IndexPath(item: 0, section: 0))
+        #endif
+        #if canImport(UIKit)
+        class DataSource : NSObject, UITableViewDataSource {
+            func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+                return 1
+            }
+            func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+                return UITableViewCell()
+            }
+        }
+        table.dataSource = DataSource()
+        table.dataSource?.tableView(table, numberOfRowsInSection: 0)
+        table.dataSource?.tableView(table, cellForRowAt: IndexPath(item: 0, section: 1))
+        #endif
     }
 
     func testTextEditor() {
@@ -391,9 +440,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             let characters = "\u{20}\u{21}\u{22}\u{AA}\u{C0}"
             textEditor.append(RichText(rawText: StrictString(characters)))
             textView.selectAll(nil)
-            #if canImport(AppKit) // #workaround(Temporary.)
             textView.showCharacterInformation(nil)
-            #endif
 
             let compatibilityTextView = NSTextView(frame: CGRect.zero)
             #if canImport(AppKit)
@@ -402,9 +449,11 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             compatibilityTextView.text.append(characters)
             #endif
             compatibilityTextView.selectAll(nil)
-            #if canImport(AppKit) // #workaround(Temporary.)
-            compatibilityTextView.showCharacterInformation(nil)
+            #if canImport(AppKit)
+            let window = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "" })), size: CGSize.zero)
+            window.contentView!.fill(with: compatibilityTextView)
             #endif
+            compatibilityTextView.showCharacterInformation(nil)
 
             textView.selectAll(nil)
             textView.normalizeText(nil)
@@ -487,6 +536,25 @@ final class SDGApplicationAPITests : ApplicationTestCase {
 
             #if canImport(UIKit)
             textView.insertText("...")
+            #endif
+
+            #if canImport(UIKit)
+            textView.insertText("...")
+            textView.selectAll(nil)
+            XCTAssert(textView.canPerformAction(#selector(NSTextView.showCharacterInformation(_:)), withSender: nil))
+            #if os(tvOS)
+            XCTAssertFalse(textView.canPerformAction(#selector(NSTextView.normalizeText(_:)), withSender: nil))
+            XCTAssertFalse(textView.canPerformAction(#selector(NSTextView.makeSuperscript(_:)), withSender: nil))
+            #else
+            XCTAssert(textView.canPerformAction(#selector(NSTextView.normalizeText(_:)), withSender: nil))
+            XCTAssert(textView.canPerformAction(#selector(NSTextView.makeSuperscript(_:)), withSender: nil))
+            #endif
+            #if !os(tvOS)
+            textView.isEditable = false
+            #endif
+            XCTAssertFalse(textView.canPerformAction(#selector(NSTextView.normalizeText(_:)), withSender: nil))
+            textView.text = ""
+            XCTAssertFalse(textView.canPerformAction(#selector(NSTextView.showCharacterInformation(_:)), withSender: nil))
             #endif
         }
     }

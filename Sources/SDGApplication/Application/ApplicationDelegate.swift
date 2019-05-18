@@ -56,6 +56,11 @@ open class ApplicationDelegate : NSObject, _ApplicationDelegate {
     open func applicationDidFinishLaunching() {
         #if canImport(AppKit)
         Application.shared.menu = MenuBar.menuBar
+        #elseif !os(tvOS)
+        UIMenuController.shared.extend()
+        #endif
+
+        #if canImport(AppKit)
         Application.shared.activate(ignoringOtherApps: false)
         #endif
     }

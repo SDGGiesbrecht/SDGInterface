@@ -14,6 +14,7 @@
 
 #if !os(watchOS)
 import SDGLogic
+import SDGCollections
 
 #if canImport(UIKit)
 /// An `AppKit.NSTextView` or a `UITextView`.
@@ -21,6 +22,27 @@ public typealias NSTextView = UITextView
 #endif
 
 extension NSTextView {
+
+    // MARK: - Selection
+
+    /// The rectangle of the current selection.
+    public func selectionRectangle() -> CGRect? {
+        #if canImport(AppKit)
+        guard let layout = layoutManager,
+            let text = textContainer else {
+                return nil // @exempt(from: tests)
+        }
+        let range = layout.glyphRange(forCharacterRange: selectedRange(), actualCharacterRange: nil)
+        return layout.boundingRect(forGlyphRange: range, in: text)
+        #else
+        guard let range = selectedTextRange else {
+            return nil // @exempt(from: tests)
+        }
+        return selectionRects(for: range).first?.rect
+        #endif
+    }
+
+    // MARK: - Editing
 
     private func attemptToModifySelection(_ modify: (_ previousValue: NSAttributedString) -> NSAttributedString) {
         let possibleStorage: NSTextStorage? = textStorage
@@ -91,7 +113,6 @@ extension NSTextView {
 
     // MARK: - Displaying Character Information
 
-    #if canImport(AppKit) // #workaround(Temporary.)
     /// Displays a window with information about the Unicode code points present in the selection.
     ///
     /// - Parameters:
@@ -104,10 +125,11 @@ extension NSTextView {
         possibleString = textStorage.attributedSubstring(from: selectedRange)
         #endif
         if let string = possibleString {
-            CharacterInformation.display(for: string.string)
+            CharacterInformation.display(
+                for: string.string,
+                origin: (view: self, selection: selectionRectangle()))
         }
     }
-    #endif
 
     // MARK: - Superscripts & Subscripts
 
@@ -209,6 +231,122 @@ extension NSTextView {
         attemptToMutateSelection {
             $0.makeTurkicLowerCase(NSRange(0 ..< $0.length))
         }
+    }
+    #endif
+
+    // MARK: - Menu Validation
+
+    private static let actionsRequiringSelection: Set<Selector> = {
+        var result: Set<Selector> = [
+            #selector(NSTextView.normalizeText(_:)),
+            #selector(NSTextView.showCharacterInformation(_:)),
+            #selector(NSTextView.makeSuperscript(_:)),
+            #selector(NSTextView.makeSubscript(_:)),
+            #selector(NSTextView.resetBaseline(_:))
+            ]
+        #if canImport(AppKit)
+        result ∪= [
+            #selector(NSTextView.resetCasing(_:)),
+            #selector(NSTextView.makeLatinateUpperCase(_:)),
+            #selector(NSTextView.makeTurkicUpperCase(_:)),
+            #selector(NSTextView.makeLatinateSmallCaps(_:)),
+            #selector(NSTextView.makeTurkicSmallCaps(_:)),
+            #selector(NSTextView.makeLatinateLowerCase(_:)),
+            #selector(NSTextView.makeTurkicLowerCase(_:))
+        ]
+        #endif
+        return result
+    }()
+
+    private static let actionsRequiringEditability: Set<Selector> = {
+        var result: Set<Selector> = [
+            #selector(NSTextView.normalizeText(_:)),
+            #selector(NSTextView.makeSuperscript(_:)),
+            #selector(NSTextView.makeSubscript(_:)),
+            #selector(NSTextView.resetBaseline(_:))
+        ]
+        #if canImport(AppKit)
+        result ∪= [
+            #selector(NSTextView.resetCasing(_:)),
+            #selector(NSTextView.makeLatinateUpperCase(_:)),
+            #selector(NSTextView.makeTurkicUpperCase(_:)),
+            #selector(NSTextView.makeLatinateSmallCaps(_:)),
+            #selector(NSTextView.makeTurkicSmallCaps(_:)),
+            #selector(NSTextView.makeLatinateLowerCase(_:)),
+            #selector(NSTextView.makeTurkicLowerCase(_:))
+        ]
+        #endif
+        return result
+    }()
+
+    private static let actionsRequiringRichEditability: Set<Selector> = {
+        var result: Set<Selector> = [
+            #selector(NSTextView.makeSuperscript(_:)),
+            #selector(NSTextView.makeSubscript(_:)),
+            #selector(NSTextView.resetBaseline(_:))
+        ]
+        #if canImport(AppKit)
+        result ∪= [
+            #selector(NSTextView.resetCasing(_:)),
+            #selector(NSTextView.makeLatinateUpperCase(_:)),
+            #selector(NSTextView.makeTurkicUpperCase(_:)),
+            #selector(NSTextView.makeLatinateSmallCaps(_:)),
+            #selector(NSTextView.makeTurkicSmallCaps(_:)),
+            #selector(NSTextView.makeLatinateLowerCase(_:)),
+            #selector(NSTextView.makeTurkicLowerCase(_:))
+        ]
+        #endif
+        return result
+    }()
+
+    /// Returns `nil` if the action is not recognized and should be delegated to the operating system.
+    internal func canPerform(action: Selector) -> Bool? {
+        if action ∈ NSTextView.actionsRequiringSelection {
+            #if canImport(AppKit)
+            let selectionRange = Range<Int>(selectedRange())
+            #else
+            let selectionRange = selectedTextRange
+            #endif
+            if let selection = selectionRange {
+                if ¬selection.isEmpty {
+                    // Next test.
+                } else {
+                    return false // Empty selection.
+                }
+            } else {
+                return false // No selection available. // @exempt(from: tests) Always empty instead.
+            }
+        }
+        if action ∈ NSTextView.actionsRequiringEditability {
+            let isEditable: Bool
+            #if os(tvOS)
+            isEditable = false
+            #else
+            isEditable = self.isEditable
+            #endif
+            if ¬isEditable {
+                return false // Not editable
+            }
+        }
+        if action ∈ NSTextView.actionsRequiringRichEditability {
+            // @exempt(from: tests) Unreachable on tvOS.
+            #if canImport(AppKit)
+            if isFieldEditor {
+                return false // Attributes locked.
+            }
+            #endif
+        }
+        return nil
+    }
+
+    #if canImport(UIKit)
+    // MARK: - UIResponder
+
+    open override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if let known = canPerform(action: action) {
+            return known
+        }
+        return super.canPerformAction(action, withSender: sender)
     }
     #endif
 }
