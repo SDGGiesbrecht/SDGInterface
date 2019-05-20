@@ -2257,7 +2257,9 @@ public class MenuBar : Menu<InterfaceLocalization> {
         })), action: #selector(NSApplication.showHelp(_:)))
         helpItem.keyEquivalent = "?"
         helpItem.keyEquivalentModifierMask = .command
-        // #workaround(Should hide if the application does not have a help book.)
+        if Bundle.main.infoDictionary?["CFBundleHelpBookName"] == nil {
+            helpItem.isHidden = true
+        }
     }
 }
 
