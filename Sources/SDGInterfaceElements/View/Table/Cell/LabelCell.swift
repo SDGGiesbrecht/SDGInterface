@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit) // #workaround(Temporary.)
+#if canImport(AppKit)
 import SDGMathematics
 
 import SDGInterfaceLocalizations
@@ -29,19 +29,10 @@ open class LabelCell<L> : TableCellView where L : Localization {
     /// Creates a label table cell.
     public init() {
         label = Label(text: Shared(UserFacing<StrictString, L>({ _ in "" })))
-        #if canImport(AppKit)
         super.init(frame: CGRect.zero)
-        #else
-        // #workaround(Reuse identifier?)
-        super.init(style: .default, reuseIdentifier: nil)
-        #endif
 
-        #if canImport(AppKit)
         fill(with: label, on: .horizontal, margin: .specific(label.fittingSize.height ÷ 16))
         fill(with: label, on: .vertical, margin: .none)
-        #else
-        // #workaround(iOS?)
-        #endif
     }
 
     @available(*, unavailable) public required init?(coder decoder: NSCoder) { // @exempt(from: unicode)
@@ -54,15 +45,6 @@ open class LabelCell<L> : TableCellView where L : Localization {
         return nil
     }
 
-    #if canImport(UIKit)
-    // MARK: - UITableViewCell
-
-    open override var textLabel: UILabel? {
-        return label
-    }
-    #endif
-
-    #if canImport(AppKit)
     // MARK: - Binding
 
     /// Binds the text to a content property.
@@ -80,6 +62,5 @@ open class LabelCell<L> : TableCellView where L : Localization {
     public func bindTextColour(contentKeyPath: String) {
         bind(subview: label, keyPath: .textColor, to: contentKeyPath)
     }
-    #endif
 }
 #endif
