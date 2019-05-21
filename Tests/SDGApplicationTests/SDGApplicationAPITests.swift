@@ -82,6 +82,10 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         #endif
     }
 
+    func testButton() {
+        SampleApplicationDelegate().demonstrateButton()
+    }
+
     func testCharacterInformation() {
         CharacterInformation.display(for: "abc", origin: nil)
     }
