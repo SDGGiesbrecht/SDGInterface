@@ -32,6 +32,7 @@ public class Button<L>: NSButton, SharedValueObserver where L : Localization {
         font = Font.forLabels
 
         label.register(observer: self)
+        LocalizationSetting.current.register(observer: self)
     }
 
     @available(*, unavailable) public required init?(coder: NSCoder) { // @exempt(from: unicode)
