@@ -1,3 +1,5 @@
 
 "CFBundleDisplayName" = "Ejemplar";
 "CFBundleName" = "Ejemplar";
+
+"NSHumanReadableCopyright" = "©2019";

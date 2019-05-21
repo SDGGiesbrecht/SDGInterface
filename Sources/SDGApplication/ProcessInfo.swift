@@ -68,7 +68,7 @@ extension ProcessInfo {
             }
         }
         func assertExists<T>(_ a: (value: T?, key: String)) {
-            assert(a ≠ nil, UserFacing<StrictString, APILocalization>({ localization in
+            assert(a.value ≠ nil, UserFacing<StrictString, APILocalization>({ localization in
                 switch localization {
                 case .englishCanada:
                     return "Information missing: \(a.key)"
@@ -123,12 +123,14 @@ extension ProcessInfo {
                         }
                     }))
             }
-
-            let systemLocalizationsKey = "CFBundleAllowMixedLocalizations"
-            assertExists((
-                dictionary?[systemLocalizationsKey] as? Bool,
-                localization.code + ".InfoPlist.strings." + systemLocalizationsKey))
         }
+
+        let dictionary = applicationBundle.infoDictionary
+
+        let systemLocalizationsKey = "CFBundleAllowMixedLocalizations"
+        assertExists((
+            dictionary?[systemLocalizationsKey] as? Bool,
+            "Info.plist" + systemLocalizationsKey))
         #endif
     }
 }
