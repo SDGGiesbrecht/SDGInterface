@@ -23,22 +23,8 @@ extension NSAttributedString {
 
     // MARK: - Initialization
 
-    internal convenience init(html: String, font: Font) throws {
+    internal static func from(html: String, font: Font) throws -> NSAttributedString {
         let adjustedFont = font.resized(to: font.pointSize × NSAttributedString.htmlCorrection)
-
-        // #workaround(Share with SemanticMarkup?)
-        var modified = "<span style=\u{22}"
-
-        modified += "font\u{2D}family: &#x22;" + adjustedFont.fontName + "&#x22;;"
-        modified += "font\u{2D}size: \(adjustedFont.pointSize)pt;"
-
-        modified += "\u{22}>"
-        modified += html
-        modified += "</span>"
-
-        try self.init(data: modified.file, options: [
-            .characterEncoding: String.Encoding.utf8.rawValue,
-            .documentType: NSAttributedString.DocumentType.html
-            ], documentAttributes: nil)
+        return try SemanticMarkup._attributedString(from: html, in: adjustedFont)
     }
 }

@@ -16,7 +16,6 @@ public enum MenuBarLocalization : String, CaseIterable, InputLocalization {
 
     // MARK: - Cases
 
-    // #workaround(Extend this list.)
     case españolEspaña = "es\u{2D}ES"
 
     case englishUnitedKingdom = "en\u{2D}GB"
