@@ -309,19 +309,19 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             let placeholderText = "..."
             let font = Font.systemFont(ofSize: CGFloat(fontSize))
             let basicString = NSAttributedString(string: placeholderText, attributes: [.font: font])
-            let basicHTML = try NSAttributedString(html: placeholderText, font: font)
+            let basicHTML = try NSAttributedString.from(html: placeholderText, font: font)
             var ignored: [NSAttributedString.Key] = [.foregroundColor, .kern, .paragraphStyle, .strokeColor, .strokeWidth]
             if fontSize < 20 {
                 ignored.append(fontNameKey)
             }
             XCTAssertEqual(prepareForEqualityCheck(basicString, ignoring: ignored), prepareForEqualityCheck(basicHTML, ignoring: ignored))
 
-            let toFixSup = try NSAttributedString(html: "\u{B2}", font: font)
-            let alreadyCorrectSup = try NSAttributedString(html: "<sup>2</sup>", font: font)
+            let toFixSup = try NSAttributedString.from(html: "\u{B2}", font: font)
+            let alreadyCorrectSup = try NSAttributedString.from(html: "<sup>2</sup>", font: font)
             XCTAssertEqual(prepareForEqualityCheck(toFixSup), prepareForEqualityCheck(alreadyCorrectSup))
 
-            let toFixSub = try NSAttributedString(html: "\u{2082}", font: font)
-            let alreadyCorrectSub = try NSAttributedString(html: "<sub>2</sub>", font: font)
+            let toFixSub = try NSAttributedString.from(html: "\u{2082}", font: font)
+            let alreadyCorrectSub = try NSAttributedString.from(html: "<sub>2</sub>", font: font)
             XCTAssertEqual(prepareForEqualityCheck(toFixSub), prepareForEqualityCheck(alreadyCorrectSub))
 
             let mutable = basicHTML.mutableCopy() as! NSMutableAttributedString
