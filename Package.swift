@@ -89,7 +89,8 @@ let package = Package(
             "SDGInterfaceLocalizations",
             "SDGInterfaceElements",
             .product(name: "SDGLogic", package: "SDGCornerstone"),
-            .product(name: "SDGLocalization", package: "SDGCornerstone")
+            .product(name: "SDGLocalization", package: "SDGCornerstone"),
+            .product(name: "SDGCalendar", package: "SDGCornerstone")
             ], swiftSettings: [
                 .define("VALIDATION", .when(configuration: .debug))
             ]),

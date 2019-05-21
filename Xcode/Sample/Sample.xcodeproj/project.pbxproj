@@ -20,6 +20,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F0DF8762293AE4100504491 /* SDGCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0DF8752293AE4100504491 /* SDGCalendar.framework */; };
+		3F0DF8772293AE4100504491 /* SDGCalendar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0DF8752293AE4100504491 /* SDGCalendar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3F0DF9292293B0BD00504491 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3F0DF9212293B01D00504491 /* InfoPlist.strings */; };
 		3F94C153220B9BDC00B1E716 /* macOS_SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F94C152220B9BDC00B1E716 /* macOS_SampleTests.swift */; };
 		3F94C161220B9CD800B1E716 /* iOS_SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F94C160220B9CD800B1E716 /* iOS_SampleTests.swift */; };
 		3F94C16F220B9CE900B1E716 /* tvOS_SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F94C16E220B9CE900B1E716 /* tvOS_SampleTests.swift */; };
@@ -146,6 +149,7 @@
 				3FEFE25F21DEBC180076700B /* SDGInterfaceSample.framework in Embed Frameworks */,
 				3FEFE24121DEBC180076700B /* SDGInterfaceLocalizations.framework in Embed Frameworks */,
 				3FEFE25C21DEBC180076700B /* SDGPersistence.framework in Embed Frameworks */,
+				3F0DF8772293AE4100504491 /* SDGCalendar.framework in Embed Frameworks */,
 				3FEFE24A21DEBC180076700B /* SDGMathematics.framework in Embed Frameworks */,
 				3FEFE24721DEBC180076700B /* SDGLogic.framework in Embed Frameworks */,
 				3FEFE24D21DEBC180076700B /* SDGInterfaceElements.framework in Embed Frameworks */,
@@ -203,6 +207,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3F0DF8752293AE4100504491 /* SDGCalendar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDGCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F0DF9202293B01D00504491 /* en-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-CA"; path = "en-CA.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		3F0DF9222293B04100504491 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		3F0DF9232293B04200504491 /* en-US */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-US"; path = "en-US.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		3F0DF9242293B04700504491 /* fr-FR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-FR"; path = "fr-FR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		3F0DF9252293B04800504491 /* he-IL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "he-IL"; path = "he-IL.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		3F0DF9262293B04900504491 /* el-GR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "el-GR"; path = "el-GR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		3F0DF9272293B04A00504491 /* de-DE */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "de-DE"; path = "de-DE.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		3F0DF9282293B04A00504491 /* es-ES */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-ES"; path = "es-ES.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		3F94C150220B9BDC00B1E716 /* macOS SampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "macOS SampleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F94C152220B9BDC00B1E716 /* macOS_SampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = macOS_SampleTests.swift; sourceTree = "<group>"; };
 		3F94C154220B9BDC00B1E716 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -272,6 +285,7 @@
 				3FEFE25E21DEBC180076700B /* SDGInterfaceSample.framework in Frameworks */,
 				3FEFE24021DEBC180076700B /* SDGInterfaceLocalizations.framework in Frameworks */,
 				3FEFE25B21DEBC180076700B /* SDGPersistence.framework in Frameworks */,
+				3F0DF8762293AE4100504491 /* SDGCalendar.framework in Frameworks */,
 				3FEFE24921DEBC180076700B /* SDGMathematics.framework in Frameworks */,
 				3FEFE24621DEBC180076700B /* SDGLogic.framework in Frameworks */,
 				3FEFE24C21DEBC180076700B /* SDGInterfaceElements.framework in Frameworks */,
@@ -352,6 +366,7 @@
 		3FE4FAF921DD8009008026FB = {
 			isa = PBXGroup;
 			children = (
+				3F0DF8752293AE4100504491 /* SDGCalendar.framework */,
 				3FEFE25D21DEBC180076700B /* SDGInterfaceSample.framework */,
 				3FEFE25A21DEBC180076700B /* SDGPersistence.framework */,
 				3FEFE25721DEBC180076700B /* SDGText.framework */,
@@ -393,6 +408,7 @@
 			children = (
 				3FE4FB7221DD80AE008026FB /* main.swift */,
 				3FE4FB7921DD80AF008026FB /* Info.plist */,
+				3F0DF9212293B01D00504491 /* InfoPlist.strings */,
 				3FE4FB7A21DD80AF008026FB /* macOS_Sample.entitlements */,
 			);
 			path = "macOS Sample";
@@ -565,11 +581,18 @@
 			};
 			buildConfigurationList = 3FE4FAFD21DD8009008026FB /* Build configuration list for PBXProject "Sample" */;
 			compatibilityVersion = "Xcode 9.3";
-			developmentRegion = en;
+			developmentRegion = "en-CA";
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
+				"en-GB",
+				"en-US",
+				"en-CA",
+				"fr-FR",
+				"he-IL",
+				"el-GR",
+				"de-DE",
+				"es-ES",
 			);
 			mainGroup = 3FE4FAF921DD8009008026FB;
 			productRefGroup = 3FE4FB7021DD80AE008026FB /* Products */;
@@ -612,6 +635,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F0DF9292293B0BD00504491 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -699,6 +723,24 @@
 			targetProxy = 3F94C171220B9CE900B1E716 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		3F0DF9212293B01D00504491 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3F0DF9202293B01D00504491 /* en-CA */,
+				3F0DF9222293B04100504491 /* en-GB */,
+				3F0DF9232293B04200504491 /* en-US */,
+				3F0DF9242293B04700504491 /* fr-FR */,
+				3F0DF9252293B04800504491 /* he-IL */,
+				3F0DF9262293B04900504491 /* el-GR */,
+				3F0DF9272293B04A00504491 /* de-DE */,
+				3F0DF9282293B04A00504491 /* es-ES */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		3F94C157220B9BDC00B1E716 /* Debug */ = {

@@ -13,6 +13,7 @@
  */
 
 import SDGLogic
+import SDGCalendar
 
 import SDGInterfaceLocalizations
 
@@ -50,57 +51,86 @@ extension ProcessInfo {
     ///     - applicationBundle: The main application bundle.
     public static func validate(applicationBundle: Bundle) { // @exempt(from: tests)
         #if VALIDATION
-            var failing = false
-            defer {
-                SDGLocalization.assert(¬failing, UserFacing<StrictString, APILocalization>({ localization in
-                    switch localization {
-                    case .englishCanada:
-                        return "The application bundle fails validation."
-                    }
-                }))
-            }
-
-            func assert(_ condition: Bool, _ message: UserFacing<StrictString, APILocalization>) {
-                if ¬condition {
-                    failing = true
-                    print(message)
+        var failing = false
+        defer {
+            SDGLocalization.assert(¬failing, UserFacing<StrictString, APILocalization>({ localization in
+                switch localization {
+                case .englishCanada:
+                    return "The application bundle fails validation."
                 }
-            }
-            func assertEqual<T>(_ a: (value: T, key: String), _ b: (value: T, key: String)) where T : Equatable {
-                assert(a.value == b.value, UserFacing<StrictString, APILocalization>({ localization in
-                    switch localization {
-                    case .englishCanada:
-                        return "\(a.key) ≠ \(b.key); “\(arbitraryDescriptionOf: a.value)” ≠ “\(arbitraryDescriptionOf: b.value)”"
-                    }
-                }))
-            }
+            }))
+        }
 
-            for localization in MenuBarLocalization.allCases {
-                let infoPlist = applicationBundle.url(forResource: "InfoPlist", withExtension: "strings", subdirectory: nil, localization: localization.code)
-                let dictionary: NSDictionary? = (infoPlist.flatMap({ (url: URL) -> NSDictionary? in
-                    return try? NSDictionary(contentsOf: url, error: ())
-                }))
-                let nameKey = "CFBundleDisplayName"
-                let shortKey = "CFBundleName"
-                let systemName: String? = dictionary?[nameKey] as? String
-                let short: String? = dictionary?[shortKey] as? String
+        func assert(_ condition: Bool, _ message: UserFacing<StrictString, APILocalization>) {
+            if ¬condition {
+                failing = true
+                print(message)
+            }
+        }
+        func assertExists<T>(_ a: (value: T?, key: String)) {
+            assert(a.value ≠ nil, UserFacing<StrictString, APILocalization>({ localization in
+                switch localization {
+                case .englishCanada:
+                    return "Information missing: \(a.key)"
+                }
+            }))
+        }
+        func assertEqual<T>(_ a: (value: T, key: String), _ b: (value: T, key: String)) where T : Equatable {
+            assert(a.value == b.value, UserFacing<StrictString, APILocalization>({ localization in
+                switch localization {
+                case .englishCanada:
+                    return "\(a.key) ≠ \(b.key); “\(arbitraryDescriptionOf: a.value)” ≠ “\(arbitraryDescriptionOf: b.value)”"
+                }
+            }))
+        }
 
-                let form = ApplicationNameForm.isolatedForm(for: localization.code)
-                let name: String? = form.flatMap({ ProcessInfo.applicationName($0) }).flatMap({ String($0) })
+        for localization in MenuBarLocalization.allCases {
+            let infoPlist = applicationBundle.url(forResource: "InfoPlist", withExtension: "strings", subdirectory: nil, localization: localization.code)
+            let dictionary: NSDictionary? = (infoPlist.flatMap({ (url: URL) -> NSDictionary? in
+                return try? NSDictionary(contentsOf: url, error: ())
+            }))
+            let nameKey = "CFBundleDisplayName"
+            let shortKey = "CFBundleName"
+            let systemName: String? = dictionary?[nameKey] as? String
+            let short: String? = dictionary?[shortKey] as? String
+
+            let form = ApplicationNameForm.isolatedForm(for: localization.code)
+            let name: String? = form.flatMap({ ProcessInfo.applicationName($0) }).flatMap({ String($0) })
+            assertEqual(
+                (systemName, localization.code + ".InfoPlist.strings." + nameKey),
+                (name, "ProcessInfo.applicationName." + localization.code))
+            if let count = name?.utf16.count,
+                count < 16 {
                 assertEqual(
-                    (systemName, localization.code + ".InfoPlist.strings." + nameKey),
+                    (short, localization.code + ".InfoPlist.strings." + shortKey),
                     (name, "ProcessInfo.applicationName." + localization.code))
-                if let count = name?.utf16.count,
-                    count < 16 {
-                    assertEqual(
-                        (short, localization.code + ".InfoPlist.strings." + shortKey),
-                        (name, "ProcessInfo.applicationName." + localization.code))
-                } else if name == nil {
-                    assertEqual(
-                        (short, localization.code + ".InfoPlist.strings." + shortKey),
-                        (name, "ProcessInfo.applicationName." + localization.code))
-                }
+            } else if name == nil {
+                assertEqual(
+                    (short, localization.code + ".InfoPlist.strings." + shortKey),
+                    (name, "ProcessInfo.applicationName." + localization.code))
             }
+
+            let copyrightKey = "NSHumanReadableCopyright"
+            let copyright = dictionary?[copyrightKey] as? String
+            assertExists((copyright, localization.code + ".InfoPlist.strings." + copyrightKey))
+            if let text = copyright {
+                assert(
+                    text.contains(String(CalendarDate.gregorianNow().gregorianYear.inEnglishDigits())),
+                    UserFacing<StrictString, APILocalization>({ localization in
+                        switch localization {
+                        case .englishCanada:
+                            return "Copyright out of date: \(localization.code + ".InfoPlist.strings." + copyrightKey)"
+                        }
+                    }))
+            }
+        }
+
+        let dictionary = applicationBundle.infoDictionary
+
+        let systemLocalizationsKey = "CFBundleAllowMixedLocalizations"
+        assertExists((
+            dictionary?[systemLocalizationsKey] as? Bool,
+            "Info.plist" + systemLocalizationsKey))
         #endif
     }
 }
