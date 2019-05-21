@@ -25,11 +25,18 @@ public class Button<L>: NSButton, SharedValueObserver where L : Localization {
 
         self.label = label
 
-        super.init(frame: NSZeroRect)
+        super.init(frame: CGRect.zero)
 
+        #if canImport(AppKit)
         bezelStyle = .rounded
         setButtonType(.momentaryPushIn)
+        #endif
+
+        #if canImport(AppKit)
         font = Font.forLabels
+        #else
+        titleLabel?.font = Font.forLabels
+        #endif
 
         label.register(observer: self)
         LocalizationSetting.current.register(observer: self)
@@ -58,6 +65,10 @@ public class Button<L>: NSButton, SharedValueObserver where L : Localization {
     // MARK: - SharedValueObserver
 
     public func valueChanged(for identifier: String) {
+        #if canImport(AppKit)
         title = String(label.value.resolved())
+        #else
+        titleLabel?.text = String(label.value.resolved())
+        #endif
     }
 }
