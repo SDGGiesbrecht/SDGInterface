@@ -20,6 +20,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F0DF8762293AE4100504491 /* SDGCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0DF8752293AE4100504491 /* SDGCalendar.framework */; };
+		3F0DF8772293AE4100504491 /* SDGCalendar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0DF8752293AE4100504491 /* SDGCalendar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3F94C153220B9BDC00B1E716 /* macOS_SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F94C152220B9BDC00B1E716 /* macOS_SampleTests.swift */; };
 		3F94C161220B9CD800B1E716 /* iOS_SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F94C160220B9CD800B1E716 /* iOS_SampleTests.swift */; };
 		3F94C16F220B9CE900B1E716 /* tvOS_SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F94C16E220B9CE900B1E716 /* tvOS_SampleTests.swift */; };
@@ -146,6 +148,7 @@
 				3FEFE25F21DEBC180076700B /* SDGInterfaceSample.framework in Embed Frameworks */,
 				3FEFE24121DEBC180076700B /* SDGInterfaceLocalizations.framework in Embed Frameworks */,
 				3FEFE25C21DEBC180076700B /* SDGPersistence.framework in Embed Frameworks */,
+				3F0DF8772293AE4100504491 /* SDGCalendar.framework in Embed Frameworks */,
 				3FEFE24A21DEBC180076700B /* SDGMathematics.framework in Embed Frameworks */,
 				3FEFE24721DEBC180076700B /* SDGLogic.framework in Embed Frameworks */,
 				3FEFE24D21DEBC180076700B /* SDGInterfaceElements.framework in Embed Frameworks */,
@@ -203,6 +206,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3F0DF8752293AE4100504491 /* SDGCalendar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDGCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F94C150220B9BDC00B1E716 /* macOS SampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "macOS SampleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F94C152220B9BDC00B1E716 /* macOS_SampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = macOS_SampleTests.swift; sourceTree = "<group>"; };
 		3F94C154220B9BDC00B1E716 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -272,6 +276,7 @@
 				3FEFE25E21DEBC180076700B /* SDGInterfaceSample.framework in Frameworks */,
 				3FEFE24021DEBC180076700B /* SDGInterfaceLocalizations.framework in Frameworks */,
 				3FEFE25B21DEBC180076700B /* SDGPersistence.framework in Frameworks */,
+				3F0DF8762293AE4100504491 /* SDGCalendar.framework in Frameworks */,
 				3FEFE24921DEBC180076700B /* SDGMathematics.framework in Frameworks */,
 				3FEFE24621DEBC180076700B /* SDGLogic.framework in Frameworks */,
 				3FEFE24C21DEBC180076700B /* SDGInterfaceElements.framework in Frameworks */,
@@ -352,6 +357,7 @@
 		3FE4FAF921DD8009008026FB = {
 			isa = PBXGroup;
 			children = (
+				3F0DF8752293AE4100504491 /* SDGCalendar.framework */,
 				3FEFE25D21DEBC180076700B /* SDGInterfaceSample.framework */,
 				3FEFE25A21DEBC180076700B /* SDGPersistence.framework */,
 				3FEFE25721DEBC180076700B /* SDGText.framework */,
