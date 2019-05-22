@@ -20,7 +20,7 @@ public class ButtonSet<L>: NSSegmentedControl, SharedValueObserver where L : Loc
     // MARK: - Initialization
 
     /// Creates a button.
-    public init(segments: [(label: Shared<UserFacing<SegmentLabel, L>>, action: Selector, target: Any?)]) {
+    public init(segments: [(label: Shared<UserFacing<ButtonSetSegmentLabel, L>>, action: Selector?, target: Any?)]) {
 
         labels = segments.map { $0.label }
         actions = segments.map { ($0.action, $0.target) }
@@ -56,14 +56,16 @@ public class ButtonSet<L>: NSSegmentedControl, SharedValueObserver where L : Loc
 
     // MARK: - Properties
 
-    private let labels: [Shared<UserFacing<SegmentLabel, L>>]
-    private let actions: [(action: Selector, target: Any?)]
+    private let labels: [Shared<UserFacing<ButtonSetSegmentLabel, L>>]
+    private let actions: [(action: Selector?, target: Any?)]
 
     // MARK: - Action
 
     @objc private func performAction(_ sender: Any?) {
         let action = actions[selectedSegment]
-        NSApplication.shared.sendAction(action.action, to: action.target, from: sender)
+        if let selector = action.action {
+            NSApplication.shared.sendAction(selector, to: action.target, from: sender)
+        }
     }
 
     // MARK: - SharedValueObserver

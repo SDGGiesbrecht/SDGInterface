@@ -12,15 +12,12 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-extension ButtonSet {
+/// A segment label.
+public enum ButtonSetSegmentLabel {
 
-    /// A segment label.
-    public enum SegmentLabel {
+    /// A text label.
+    case text(StrictString)
 
-        /// A text label.
-        case text(StrictString)
-
-        /// An image label.
-        case image(NSImage)
-    }
+    /// An image label.
+    case image(NSImage)
 }
