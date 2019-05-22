@@ -241,8 +241,8 @@ extension SampleApplicationDelegate {
         let secondLabel: Shared<UserFacing<ButtonSetSegmentLabel, InterfaceLocalization>>
             = Shared(UserFacing({ _ in .image(NSImage()) }))
         demonstrate(ButtonSet<InterfaceLocalization>(segments: [
-            (label: firstLabel, action: nil, target: nil),
-            (label: secondLabel, action: nil, target: nil)
+            (label: firstLabel, action: #selector(SampleApplicationDelegate.doNothing), target: self),
+            (label: secondLabel, action: #selector(SampleApplicationDelegate.doNothing), target: self)
             ]), windowTitle: label)
     }
 
@@ -283,6 +283,8 @@ extension SampleApplicationDelegate {
         })), size: CGSize(width: 700, height: 300))
         demonstrate(window)
     }
+
+    @objc private func doNothing() {}
 }
 
 #endif

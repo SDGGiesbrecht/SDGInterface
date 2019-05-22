@@ -29,16 +29,42 @@ public class ButtonSet<L>: NSSegmentedControl, SharedValueObserver where L : Loc
 
         super.init(frame: CGRect.zero)
 
+        #if canImport(AppKit)
         (cell as? NSSegmentedCell)?.segmentStyle = .rounded
-        (cell as? NSSegmentedCell)?.trackingMode = .momentary
-        font = Font.forLabels
+        #endif
 
+        #if canImport(AppKit)
+        (cell as? NSSegmentedCell)?.trackingMode = .momentary
+        #else
+        isMomentary = true
+        #endif
+
+        #if canImport(AppKit)
+        font = Font.forLabels
+        #else
+        var attributes = titleTextAttributes(for: .normal) ?? [:]
+        attributes[.font] = Font.forLabels
+        setTitleTextAttributes(attributes, for: .normal)
+        #endif
+
+        #if canImport(AppKit)
         segmentCount = segments.count
+        #endif
         for index in segments.indices {
+            #if canImport(AppKit)
             (cell as? NSSegmentedCell)?.setTag(index, forSegment: index)
+            #else
+            let segment = segments[index]
+            insertSegment(withTitle: nil, at: index, animated: false)
+            if let selector = segment.action {
+                addTarget(segment.target, action: selector, for: .primaryActionTriggered)
+            }
+            #endif
         }
+        #if canImport(AppKit)
         (cell as? NSSegmentedCell)?.action = #selector(ButtonSet.performAction(_:))
         (cell as? NSSegmentedCell)?.target = self
+        #endif
 
         for label in labels {
             label.register(observer: self)
@@ -63,6 +89,7 @@ public class ButtonSet<L>: NSSegmentedControl, SharedValueObserver where L : Loc
 
     // MARK: - Action
 
+    #if canImport(AppKit)
     @objc private func performAction(_ sender: Any?) {
         // @exempt(from: tests) Impossible to select a segment without being displayed.
         if selectedSegment ∈ actions.indices {
@@ -72,6 +99,7 @@ public class ButtonSet<L>: NSSegmentedControl, SharedValueObserver where L : Loc
             }
         }
     }
+    #endif
 
     // MARK: - SharedValueObserver
 
@@ -79,10 +107,18 @@ public class ButtonSet<L>: NSSegmentedControl, SharedValueObserver where L : Loc
         for index in labels.indices {
             switch labels[index].value.resolved() {
             case .text(let label):
+                #if canImport(AppKit)
                 setLabel(String(label), forSegment: index)
+                #else
+                setTitle(String(label), forSegmentAt: index)
+                #endif
             case .image(let image):
+                #if canImport(AppKit)
                 setImage(image, forSegment: index)
                 setImageScaling(.scaleProportionallyDown, forSegment: index)
+                #else
+                setImage(image, forSegmentAt: index)
+                #endif
             }
         }
     }
