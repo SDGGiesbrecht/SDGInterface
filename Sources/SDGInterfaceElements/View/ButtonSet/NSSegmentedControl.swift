@@ -12,7 +12,11 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if !os(watchOS)
+
 #if !canImport(AppKit)
 /// An `AppKit.NSSegmentedControl` or a `UISegmentedControl`.
 public typealias NSSegmentedControl = UISegmentedControl
+#endif
+
 #endif

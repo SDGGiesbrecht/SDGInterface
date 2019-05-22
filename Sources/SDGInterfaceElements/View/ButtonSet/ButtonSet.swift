@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if !os(watchOS)
+
 import SDGCollections
 
 import SDGInterfaceLocalizations
@@ -123,3 +125,5 @@ public class ButtonSet<L>: NSSegmentedControl, SharedValueObserver where L : Loc
         }
     }
 }
+
+#endif
