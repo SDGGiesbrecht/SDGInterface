@@ -28,7 +28,7 @@ public class ButtonSet<L>: NSSegmentedControl, SharedValueObserver where L : Loc
     /// - Parameters:
     ///     - segments: The segments of the button set.
     ///     - label: The label of the segment.
-    /// 	- action: An action for the segment.
+    ///     - action: An action for the segment.
     ///     - target: A target for the segment.
     public init(segments: [(label: Shared<UserFacing<ButtonSetSegmentLabel, L>>, action: Selector?, target: Any?)]) {
 
