@@ -95,6 +95,10 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         button.label = Shared(UserFacing<StrictString, APILocalization>({ _ in "Changed again." }))
     }
 
+    func testButtonSet() {
+        SampleApplicationDelegate().demonstrateButtonSet()
+    }
+
     func testCharacterInformation() {
         CharacterInformation.display(for: "abc", origin: nil)
     }

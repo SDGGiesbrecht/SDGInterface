@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import SDGCollections
+
 import SDGInterfaceLocalizations
 
 /// A group of related buttons.
@@ -62,9 +64,12 @@ public class ButtonSet<L>: NSSegmentedControl, SharedValueObserver where L : Loc
     // MARK: - Action
 
     @objc private func performAction(_ sender: Any?) {
-        let action = actions[selectedSegment]
-        if let selector = action.action {
-            NSApplication.shared.sendAction(selector, to: action.target, from: sender)
+        // @exempt(from: tests) Impossible to select a segment without being displayed.
+        if selectedSegment ∈ actions.indices {
+            let action = actions[selectedSegment]
+            if let selector = action.action {
+                NSApplication.shared.sendAction(selector, to: action.target, from: sender)
+            }
         }
     }
 
