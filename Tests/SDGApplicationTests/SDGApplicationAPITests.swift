@@ -82,6 +82,19 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         #endif
     }
 
+    func testButton() {
+        SampleApplicationDelegate().demonstrateButton()
+        let label = Shared(UserFacing<StrictString, APILocalization>({ _ in "Button" }))
+        let button = Button(label: label)
+        label.value = UserFacing<StrictString, APILocalization>({ _ in "Changed" })
+        #if canImport(AppKit)
+        XCTAssertEqual(button.title, "Changed")
+        #else
+        XCTAssertEqual(button.titleLabel?.text, "Changed")
+        #endif
+        button.label = Shared(UserFacing<StrictString, APILocalization>({ _ in "Changed again." }))
+    }
+
     func testCharacterInformation() {
         CharacterInformation.display(for: "abc", origin: nil)
     }

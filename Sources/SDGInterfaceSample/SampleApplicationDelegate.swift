@@ -142,10 +142,18 @@ extension SampleApplicationDelegate {
         let label = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
+                return "Button"
+            }
+        })), action: #selector(SampleApplicationDelegate.demonstrateButton))
+        label.target = self
+
+        let button = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
                 return "Label"
             }
         })), action: #selector(SampleApplicationDelegate.demonstrateLabel))
-        label.target = self
+        button.target = self
 
         let textEditor = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
@@ -201,6 +209,16 @@ extension SampleApplicationDelegate {
         frame.view.fill(with: view)
         demonstrate(window)
         #endif
+    }
+
+    @objc public func demonstrateButton() {
+        let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Button"
+            }
+        })
+        demonstrate(Button(label: Shared(label)), windowTitle: label)
     }
 
     @objc public func demonstrateLabel() {
