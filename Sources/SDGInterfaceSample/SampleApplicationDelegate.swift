@@ -139,21 +139,29 @@ extension SampleApplicationDelegate {
             }
         })))
 
-        let label = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        let button = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Button"
             }
         })), action: #selector(SampleApplicationDelegate.demonstrateButton))
-        label.target = self
+        button.target = self
 
-        let button = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        let buttonSet = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Button Set"
+            }
+        })), action: #selector(SampleApplicationDelegate.demonstrateButtonSet))
+        buttonSet.target = self
+
+        let label = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Label"
             }
         })), action: #selector(SampleApplicationDelegate.demonstrateLabel))
-        button.target = self
+        label.target = self
 
         let textEditor = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
@@ -221,6 +229,23 @@ extension SampleApplicationDelegate {
         demonstrate(Button(label: Shared(label)), windowTitle: label)
     }
 
+    @objc public func demonstrateButtonSet() {
+        let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "ButtonSet"
+            }
+        })
+        let firstLabel: Shared<UserFacing<ButtonSetSegmentLabel, InterfaceLocalization>>
+            = Shared(UserFacing({ _ in .text("Segment") }))
+        let secondLabel: Shared<UserFacing<ButtonSetSegmentLabel, InterfaceLocalization>>
+            = Shared(UserFacing({ _ in .image(NSImage()) }))
+        demonstrate(ButtonSet<InterfaceLocalization>(segments: [
+            (label: firstLabel, action: #selector(SampleApplicationDelegate.doNothing), target: self),
+            (label: secondLabel, action: #selector(SampleApplicationDelegate.doNothing), target: self)
+            ]), windowTitle: label)
+    }
+
     @objc public func demonstrateLabel() {
         let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
@@ -257,6 +282,9 @@ extension SampleApplicationDelegate {
             }
         })), size: CGSize(width: 700, height: 300))
         demonstrate(window)
+    }
+
+    @objc private func doNothing() { // @exempt(from: tests)
     }
 }
 
