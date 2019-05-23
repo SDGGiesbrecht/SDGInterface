@@ -284,8 +284,7 @@ extension SampleApplicationDelegate {
         demonstrate(window)
     }
 
-    @objc private func doNothing() {
-        // @exempt(from: tests)
+    @objc private func doNothing() { // @exempt(from: tests)
     }
 }
 
