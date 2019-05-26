@@ -103,6 +103,19 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         CharacterInformation.display(for: "abc", origin: nil)
     }
 
+    func testCheckBox() {
+        SampleApplicationDelegate().demonstrateCheckBox()
+        let label = Shared(UserFacing<StrictString, APILocalization>({ _ in "Check Box" }))
+        let checkBox = Button(label: label)
+        label.value = UserFacing<StrictString, APILocalization>({ _ in "Changed" })
+        #if canImport(AppKit)
+        XCTAssertEqual(checkBox.title, "Changed")
+        #else
+        XCTAssertEqual(checkBox.titleLabel?.text, "Changed")
+        #endif
+        checkBox.label = Shared(UserFacing<StrictString, APILocalization>({ _ in "Changed again." }))
+    }
+
     func testDelegationInterceptor() {
 
         #if canImport(AppKit)
