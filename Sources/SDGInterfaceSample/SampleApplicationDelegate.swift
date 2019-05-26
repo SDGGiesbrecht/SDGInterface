@@ -254,6 +254,7 @@ extension SampleApplicationDelegate {
             ]), windowTitle: label)
     }
 
+    #if canImport(AppKit)
     @objc public func demonstrateCheckBox() {
         let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
@@ -263,6 +264,7 @@ extension SampleApplicationDelegate {
         })
         demonstrate(CheckBox(label: Shared(label)), windowTitle: label)
     }
+    #endif
 
     @objc public func demonstrateLabel() {
         let label = UserFacing<StrictString, InterfaceLocalization>({ localization in

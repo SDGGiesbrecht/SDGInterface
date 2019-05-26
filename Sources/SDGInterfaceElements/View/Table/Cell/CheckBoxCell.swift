@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(AppKit)
+
 import SDGMathematics
 
 import SDGInterfaceLocalizations
@@ -68,3 +70,5 @@ public class CheckBoxCell<L> : TableCellView where L : Localization {
         bind(subview: checkBox, keyPath: .value, to: contentKeyPath)
     }
 }
+
+#endif

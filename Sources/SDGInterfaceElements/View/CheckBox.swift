@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(AppKit)
+
 import SDGInterfaceLocalizations
 
 /// A check box.
@@ -62,10 +64,8 @@ public class CheckBox<L> : NSButton, SharedValueObserver where L : Localization 
     // MARK: - SharedValueObserver
 
     public func valueChanged(for identifier: String) {
-        #if canImport(AppKit)
         title = String(label.value.resolved())
-        #else
-        titleLabel?.text = String(label.value.resolved())
-        #endif
     }
 }
+
+#endif
