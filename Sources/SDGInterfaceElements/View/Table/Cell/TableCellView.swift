@@ -28,7 +28,7 @@ extension TableCellView {
 
     #if canImport(AppKit)
     /// Returns the minimum height necessary for the cell.
-    public var minimumHeight: CGFloat {
+    @objc public var minimumHeight: CGFloat {
         return fittingSize.height
     }
     #endif
