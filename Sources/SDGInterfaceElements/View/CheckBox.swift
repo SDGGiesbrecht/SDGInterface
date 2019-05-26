@@ -19,7 +19,7 @@ import SDGInterfaceLocalizations
 /// A check box.
 public class CheckBox<L> : NSButton, SharedValueObserver where L : Localization {
 
-    /// MARK: - Initialization
+    // MARK: - Initialization
 
     /// Creates a check box.
     ///
