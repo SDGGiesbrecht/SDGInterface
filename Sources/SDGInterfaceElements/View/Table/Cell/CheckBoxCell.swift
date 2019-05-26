@@ -59,7 +59,7 @@ public class CheckBoxCell<L> : TableCellView where L : Localization {
     /// - Parameters:
     ///     - contentKeyPath: The key path of the content’s property.
     public func bindLabel(contentKeyPath: String) {
-        bind(subview: checkBox, keyPath: .label, to: contentKeyPath)
+        bind(subview: checkBox, keyPath: .title, to: contentKeyPath)
     }
 
     /// Binds the state to a content property.

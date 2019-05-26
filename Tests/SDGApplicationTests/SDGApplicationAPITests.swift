@@ -107,10 +107,27 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         #if canImport(AppKit)
         SampleApplicationDelegate().demonstrateCheckBox()
         let label = Shared(UserFacing<StrictString, APILocalization>({ _ in "Check Box" }))
-        let checkBox = Button(label: label)
+        let checkBox = CheckBox(label: label)
         label.value = UserFacing<StrictString, APILocalization>({ _ in "Changed" })
         XCTAssertEqual(checkBox.title, "Changed")
         checkBox.label = Shared(UserFacing<StrictString, APILocalization>({ _ in "Changed again." }))
+        #endif
+    }
+
+    func testCheckBoxCell() {
+        #if canImport(AppKit)
+        class Object : NSObject {
+            @objc var label: String = ""
+            @objc var state: Bool = false
+        }
+        let table = Table(content: [Object()])
+        table.newColumn(header: "", viewGenerator: {
+            let checkBox = CheckBoxCell<APILocalization>()
+            _ = checkBox.minimumHeight
+            checkBox.bindLabel(contentKeyPath: "label")
+            checkBox.bindState(contentKeyPath: "state")
+            return checkBox
+        })
         #endif
     }
 
