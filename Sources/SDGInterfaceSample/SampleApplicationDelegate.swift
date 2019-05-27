@@ -13,6 +13,7 @@
  */
 
 import SDGMathematics
+import SDGLocalization
 
 #if !os(watchOS)
 
@@ -123,6 +124,14 @@ extension SampleApplicationDelegate {
             }
         })))
         submenu.newEntry(labelled: menuItemLabel)
+
+        let error = sample.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Error"
+            }
+        })), action: #selector(SampleApplicationDelegate.demonstrateError))
+        error.target = self
 
         let window = sample.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
@@ -265,6 +274,11 @@ extension SampleApplicationDelegate {
         demonstrate(CheckBox(label: Shared(label)), windowTitle: label)
     }
     #endif
+
+    @objc public func demonstrateError() {
+        let error = TextConvertibleNumberParseError.invalidDigit("π", entireString: "3π")
+        error.display()
+    }
 
     @objc public func demonstrateLabel() {
         let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
