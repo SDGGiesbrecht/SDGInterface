@@ -155,6 +155,14 @@ extension SampleApplicationDelegate {
         })), action: #selector(SampleApplicationDelegate.demonstrateButtonSet))
         buttonSet.target = self
 
+        let checkBox = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Check Box"
+            }
+        })), action: #selector(SampleApplicationDelegate.demonstrateCheckBox))
+        checkBox.target = self
+
         let label = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
@@ -245,6 +253,18 @@ extension SampleApplicationDelegate {
             (label: secondLabel, action: #selector(SampleApplicationDelegate.doNothing), target: self)
             ]), windowTitle: label)
     }
+
+    #if canImport(AppKit)
+    @objc public func demonstrateCheckBox() {
+        let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Check Box"
+            }
+        })
+        demonstrate(CheckBox(label: Shared(label)), windowTitle: label)
+    }
+    #endif
 
     @objc public func demonstrateLabel() {
         let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
