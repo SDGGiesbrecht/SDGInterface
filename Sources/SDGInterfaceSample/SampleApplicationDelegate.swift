@@ -275,7 +275,7 @@ extension SampleApplicationDelegate {
     }
     #endif
 
-    @objc public func demonstrateError() {
+    @objc public func demonstrateError() { // @exempt(from: tests) Requires user interaction.
         let error = TextConvertibleNumberParseError.invalidDigit("π", entireString: "3π")
         error.display()
     }
