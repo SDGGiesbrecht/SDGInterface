@@ -15,12 +15,14 @@
 /// A window that can serve as the primary window.
 public class PrimaryWindow<L>: Window<L> where L : Localization {
 
+    #if canImport(AppKit)
     /// Creates a window.
     ///
     /// - Parameters:
     ///     - title: The title.
     public init(title: Shared<UserFacing<StrictString, L>>) {
-        super.init(title: title, size: Screen.mainScreen.frame.size)
+        super.init(title: title, size: (Screen.main ?? Screen()).frame.size)
         collectionBehavior = .fullScreenPrimary
     }
+    #endif
 }

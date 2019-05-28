@@ -24,16 +24,4 @@ public typealias Screen = NSScreen
 public typealias Screen = UIScreen
 #endif
 
-extension Screen {
-
-    /// The main screen.
-    static var mainScreen: Screen {
-        #if canImport(AppKit)
-        return main ?? Screen()
-        #else
-        return main
-        #endif
-    }
-}
-
 #endif
