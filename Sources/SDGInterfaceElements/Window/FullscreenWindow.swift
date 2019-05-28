@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if !os(watchOS)
+
 /// A window that begins in fullscreen mode.
 public class FullscreenWindow<L>: PrimaryWindow<L> where L : Localization {
 
@@ -21,3 +23,5 @@ public class FullscreenWindow<L>: PrimaryWindow<L> where L : Localization {
         self.isFullscreen = true
     }
 }
+
+#endif

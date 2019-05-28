@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if !os(watchOS)
+
 /// A window that can serve as the primary window.
 public class PrimaryWindow<L>: Window<L> where L : Localization {
 
@@ -26,3 +28,5 @@ public class PrimaryWindow<L>: Window<L> where L : Localization {
     }
     #endif
 }
+
+#endif
