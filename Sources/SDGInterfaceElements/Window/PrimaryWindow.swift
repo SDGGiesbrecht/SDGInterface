@@ -23,7 +23,7 @@ public class PrimaryWindow<L>: Window<L> where L : Localization {
     /// - Parameters:
     ///     - title: The title.
     public init(title: Shared<UserFacing<StrictString, L>>) {
-        super.init(title: title, size: (Screen.main ?? Screen()).frame.size)
+        super.init(title: title, size: (Screen.main ?? Screen()).frame.size) // @exempt(from: tests) Screen never nil.
         collectionBehavior = .fullScreenPrimary
     }
     #endif
