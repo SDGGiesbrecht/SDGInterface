@@ -15,7 +15,7 @@
 #if !os(watchOS)
 
 /// A window that can serve as the primary window.
-public class PrimaryWindow<L>: Window<L> where L : Localization {
+public class PrimaryWindow<L> : Window<L> where L : Localization {
 
     #if canImport(AppKit)
     /// Creates a window.
