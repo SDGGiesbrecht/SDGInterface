@@ -133,13 +133,19 @@ extension SampleApplicationDelegate {
         })), action: #selector(SampleApplicationDelegate.demonstrateError))
         error.target = self
 
-        let window = sample.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        let window = sample.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Window"
             }
-        })), action: #selector(SampleApplicationDelegate.demonstrateWindow))
-        window.target = self
+        })))
+        let fullscreen = window.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Fullscreen"
+            }
+        })), action: #selector(SampleApplicationDelegate.demonstrateFullscreenWindow))
+        fullscreen.target = self
 
         let view = sample.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
@@ -308,13 +314,13 @@ extension SampleApplicationDelegate {
         }))
     }
 
-    @objc public func demonstrateWindow() {
-        let window = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+    @objc public func demonstrateFullscreenWindow() {
+        let window = FullscreenWindow(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
-                return "Window"
+                return "Fullscreen Window"
             }
-        })), size: CGSize(width: 700, height: 300))
+        })))
         demonstrate(window)
     }
 
