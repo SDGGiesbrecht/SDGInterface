@@ -24,6 +24,6 @@ extension NSLayoutConstraint.Priority {
 
     #if !canImport(AppKit)
     /// Priority level for the window’s current size.
-    public static let windowSizeStayPut = 500
+    public static let windowSizeStayPut: NSLayoutConstraint.Priority = NSLayoutConstraint.Priority(rawValue: 500)
     #endif
 }

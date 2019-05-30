@@ -270,7 +270,7 @@ extension SampleApplicationDelegate {
         let firstLabel: Shared<UserFacing<ButtonSetSegmentLabel, InterfaceLocalization>>
             = Shared(UserFacing({ _ in .text("Segment") }))
         let secondLabel: Shared<UserFacing<ButtonSetSegmentLabel, InterfaceLocalization>>
-            = Shared(UserFacing({ _ in .image(NSImage()) }))
+            = Shared(UserFacing({ _ in .image(Image()) }))
         demonstrate(ButtonSet<InterfaceLocalization>(segments: [
             (label: firstLabel, action: #selector(SampleApplicationDelegate.doNothing), target: self),
             (label: secondLabel, action: #selector(SampleApplicationDelegate.doNothing), target: self)
