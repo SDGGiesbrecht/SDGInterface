@@ -178,6 +178,14 @@ extension SampleApplicationDelegate {
         })), action: #selector(SampleApplicationDelegate.demonstrateCheckBox))
         checkBox.target = self
 
+        let image = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Image"
+            }
+        })), action: #selector(SampleApplicationDelegate.demonstrateImage))
+        image.target = self
+
         let label = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
@@ -284,6 +292,16 @@ extension SampleApplicationDelegate {
     @objc public func demonstrateError() { // @exempt(from: tests) Requires user interaction.
         let error = TextConvertibleNumberParseError.invalidDigit("π", entireString: "3π")
         error.display()
+    }
+
+    @objc public func demonstrateImage() {
+        let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Image"
+            }
+        })
+        demonstrate(Image(), windowTitle: label)
     }
 
     @objc public func demonstrateLabel() {

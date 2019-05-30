@@ -214,6 +214,10 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         #endif
     }
 
+    func testImage() {
+        SampleApplicationDelegate().demonstrateImage()
+    }
+
     func testLabel() {
         SampleApplicationDelegate().demonstrateLabel()
         forEachWindow { window in
