@@ -214,7 +214,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         #endif
     }
 
-    func testImage() {
+    func testImageView() {
         SampleApplicationDelegate().demonstrateImage()
     }
 

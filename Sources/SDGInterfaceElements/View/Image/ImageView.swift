@@ -1,5 +1,5 @@
 /*
- Image.swift
+ ImageView.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,32 +12,27 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-import AppKit
+import SDGInterfaceLocalizations
 
 /// An image view.
-public class Image: NSImageView {
+public class ImageView: NSImageView {
 
     // MARK: - Initialization
 
     /// Creates an image view.
     public init() {
         super.init(frame: CGRect.zero)
-        for constraint in [
-            .required,
-            .defaultHigh,
-            .dragThatCanResizeWindow,
-            .windowSizeStayPut,
-            .dragThatCannotResizeWindow,
-            .defaultLow,
-            .fittingSizeCompression
-            ] as [NSLayoutConstraint.Priority] {
-                print(constraint.rawValue)
-        }
         setContentCompressionResistancePriority(.windowSizeStayPut, for: .horizontal)
         setContentCompressionResistancePriority(.windowSizeStayPut, for: .vertical)
     }
 
-    public required init?(coder: NSCoder) {
-        super.init(coder: coder)
+    @available(*, unavailable) public required init?(coder: NSCoder) { // @exempt(from: unicode)
+        codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Image"
+            }
+        }))
+        return nil
     }
 }

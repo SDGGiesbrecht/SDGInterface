@@ -301,7 +301,7 @@ extension SampleApplicationDelegate {
                 return "Image"
             }
         })
-        demonstrate(Image(), windowTitle: label)
+        demonstrate(ImageView(), windowTitle: label)
     }
 
     @objc public func demonstrateLabel() {
