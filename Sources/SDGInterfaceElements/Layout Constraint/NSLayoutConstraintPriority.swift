@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if !os(watchOS)
+
 extension NSLayoutConstraint {
 
     #if !canImport(AppKit)
@@ -27,3 +29,5 @@ extension NSLayoutConstraint.Priority {
     public static let windowSizeStayPut: NSLayoutConstraint.Priority = NSLayoutConstraint.Priority(rawValue: 500)
     #endif
 }
+
+#endif
