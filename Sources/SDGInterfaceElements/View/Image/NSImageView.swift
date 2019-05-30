@@ -16,7 +16,7 @@
 
 #if !canImport(AppKit)
 /// An `AppKit.NSImageView` or a `UIImageView`.
-public typealias UIImage = UIImage
+public typealias NSImageView = UIImageView
 #endif
 
 #endif

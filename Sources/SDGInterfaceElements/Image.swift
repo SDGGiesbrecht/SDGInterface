@@ -13,9 +13,11 @@
  */
 
 #if canImport(AppKit)
+// @documentation(Image)
 /// An `NSImage` or a `UIImage`.
 public typealias Image = NSImage
 #else
+// #documentation(Image)
 /// An `NSImage` or a `UIImage`.
 public typealias Image = UIImage
 #endif

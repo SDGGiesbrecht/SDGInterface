@@ -19,5 +19,5 @@ public enum ButtonSetSegmentLabel {
     case text(StrictString)
 
     /// An image label.
-    case image(NSImage)
+    case image(Image)
 }
