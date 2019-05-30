@@ -236,6 +236,10 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         }
     }
 
+    func testLayoutConstraint() {
+        XCTAssertEqual(NSLayoutConstraint.Priority.windowSizeStayPut.rawValue, 500)
+    }
+
     func testMenu() {
         #if !os(tvOS)
 
