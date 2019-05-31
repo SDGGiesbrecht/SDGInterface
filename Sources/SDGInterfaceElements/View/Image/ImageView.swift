@@ -17,7 +17,7 @@
 import SDGInterfaceLocalizations
 
 /// An image view.
-public class ImageView: NSImageView {
+public class ImageView : NSImageView {
 
     // MARK: - Initialization
 
