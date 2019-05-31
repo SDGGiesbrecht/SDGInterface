@@ -1,5 +1,5 @@
 /*
- NSImage.swift
+ NSImageView.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,7 +12,11 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if !os(watchOS)
+
 #if !canImport(AppKit)
-/// An `AppKit.NSImage` or a `UIImage`.
-public typealias NSImage = UIImage
+/// An `AppKit.NSImageView` or a `UIImageView`.
+public typealias NSImageView = UIImageView
+#endif
+
 #endif

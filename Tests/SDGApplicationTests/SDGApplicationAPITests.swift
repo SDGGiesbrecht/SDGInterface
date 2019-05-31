@@ -214,6 +214,10 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         #endif
     }
 
+    func testImageView() {
+        SampleApplicationDelegate().demonstrateImage()
+    }
+
     func testLabel() {
         SampleApplicationDelegate().demonstrateLabel()
         forEachWindow { window in
@@ -230,6 +234,10 @@ final class SDGApplicationAPITests : ApplicationTestCase {
                 }
             }))
         }
+    }
+
+    func testLayoutConstraint() {
+        XCTAssertEqual(NSLayoutConstraint.Priority.windowSizeStayPut.rawValue, 500)
     }
 
     func testMenu() {

@@ -178,6 +178,14 @@ extension SampleApplicationDelegate {
         })), action: #selector(SampleApplicationDelegate.demonstrateCheckBox))
         checkBox.target = self
 
+        let image = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Image"
+            }
+        })), action: #selector(SampleApplicationDelegate.demonstrateImage))
+        image.target = self
+
         let label = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
@@ -262,7 +270,7 @@ extension SampleApplicationDelegate {
         let firstLabel: Shared<UserFacing<ButtonSetSegmentLabel, InterfaceLocalization>>
             = Shared(UserFacing({ _ in .text("Segment") }))
         let secondLabel: Shared<UserFacing<ButtonSetSegmentLabel, InterfaceLocalization>>
-            = Shared(UserFacing({ _ in .image(NSImage()) }))
+            = Shared(UserFacing({ _ in .image(Image()) }))
         demonstrate(ButtonSet<InterfaceLocalization>(segments: [
             (label: firstLabel, action: #selector(SampleApplicationDelegate.doNothing), target: self),
             (label: secondLabel, action: #selector(SampleApplicationDelegate.doNothing), target: self)
@@ -284,6 +292,16 @@ extension SampleApplicationDelegate {
     @objc public func demonstrateError() { // @exempt(from: tests) Requires user interaction.
         let error = TextConvertibleNumberParseError.invalidDigit("π", entireString: "3π")
         error.display()
+    }
+
+    @objc public func demonstrateImage() {
+        let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Image"
+            }
+        })
+        demonstrate(ImageView(), windowTitle: label)
     }
 
     @objc public func demonstrateLabel() {

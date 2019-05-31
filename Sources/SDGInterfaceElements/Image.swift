@@ -1,5 +1,5 @@
 /*
- ButtonSetSegmentAppearance.swift
+ Image.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,12 +12,12 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-/// A segment label.
-public enum ButtonSetSegmentLabel {
-
-    /// A text label.
-    case text(StrictString)
-
-    /// An image label.
-    case image(Image)
-}
+#if canImport(AppKit)
+// @documentation(Image)
+/// An `NSImage` or a `UIImage`.
+public typealias Image = NSImage
+#else
+// #documentation(Image)
+/// An `NSImage` or a `UIImage`.
+public typealias Image = UIImage
+#endif
