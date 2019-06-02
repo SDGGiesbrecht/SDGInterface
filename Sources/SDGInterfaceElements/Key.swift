@@ -12,7 +12,9 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(Carbon)
 import Carbon
+#endif
 
 import SDGLogic
 
@@ -295,6 +297,7 @@ public enum Key: CaseIterable {
 
     // MARK: - Key Codes
 
+    #if canImport(Carbon)
     private static let codeMapping: BijectiveMapping<Key, Int> = [
 
         .leftOutsideTopISO: kVK_ISO_Section,
@@ -438,9 +441,11 @@ public enum Key: CaseIterable {
         .unidentifiedCode46: 0x46,
         .unidentifiedCode4D: 0x4D,
         ]
+    #endif
 
     // MARK: - Initialization
 
+    #if canImport(Carbon)
     /// Creates a `Key` from a `CGKeyCode`.
     public init?(code: CGKeyCode) {
         if let key = Key.codeMapping[Int(code)] {
@@ -449,13 +454,16 @@ public enum Key: CaseIterable {
             return nil
         }
     }
+    #endif
 
     // MARK: - Properties
 
+    #if canImport(Carbon)
     /// The CGKeyCode for `self`.
     public var keyCode: CGKeyCode {
         return CGKeyCode(Key.codeMapping[self]!)
     }
+    #endif
 
     /// Returns `true` if `self` is located in the same position on every hardware layout.
     public var hasConsistentPosition: Bool {
@@ -483,6 +491,7 @@ public enum Key: CaseIterable {
 
     // MARK: - Usage
 
+    #if canImport(Carbon)
     /// Returns the character printed on the physical key. This is useful for describing controls to the user.
     ///
     /// - Note: This is accomplished by determining the key’s output, and modifing it to match keyboard labelling conventions (such as printing letters uppercase). Therefore, if the user’s virtual and physical keyboards do not match, the returned string will match the virtual layout, not the physical one.
@@ -541,4 +550,5 @@ public enum Key: CaseIterable {
 
         return NSString(characters: result, length: actualStringLength) as String
     }
+    #endif
 }
