@@ -218,6 +218,13 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         SampleApplicationDelegate().demonstrateImage()
     }
 
+    func testKey() {
+        XCTAssert(Key.rightIndexHome.hasConsistentPosition)
+        let name = String(Key.rightIndexHome.currentName)
+        XCTAssertEqual(name, name.uppercased())
+        XCTAssertFalse(name.isEmpty)
+    }
+
     func testLabel() {
         SampleApplicationDelegate().demonstrateLabel()
         forEachWindow { window in
