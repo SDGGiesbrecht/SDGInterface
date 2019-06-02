@@ -14,6 +14,8 @@
 
 import Carbon
 
+import SDGLogic
+
 /// Represents a physical key on the keyboard. These are useful for defining controls with a consistent arrangement.
 ///
 /// Text keys are named by their hand position in proper typing technique:
@@ -489,13 +491,13 @@ public enum Key: CaseIterable {
     ///
     /// - Returns: The character printed on the key.
     public var currentName: StrictString {
-        let output = self.output(modifiers: CGEventFlags(rawValue: 0)!)
+        let output = self.output(with: CGEventFlags(rawValue: 0))
 
-        if output.unicodeScalars.containsElementFromSet(CharacterSet(NSCharacterSet.lowercaseLetterCharacterSet())) {
-            let shifted = self.output(modifiers: CGEventFlags.MaskShift)
+        if output.scalars.contains(where: { $0.properties.changesWhenUppercased }) {
+            let shifted = self.output(with: .maskShift)
 
-            if shifted.lowercaseString == output
-                ∨ output.uppercaseString == shifted {
+            if shifted.lowercased() == output
+                ∨ output.uppercased() == shifted {
                 return StrictString(shifted)
             } else if output == "i" ∧ shifted == "İ" {
                 // Turkic
@@ -509,11 +511,13 @@ public enum Key: CaseIterable {
         return StrictString(output)
     }
 
-    private func output(modifiers modifiers: CGEventFlags) -> String {
+    private func output(with modifiers: CGEventFlags) -> String {
         let keyboard = TISCopyCurrentKeyboardLayoutInputSource().takeRetainedValue()
         let rawLayoutData = TISGetInputSourceProperty(keyboard, kTISPropertyUnicodeKeyLayoutData)
-        let layoutData = unsafeBitCast(rawLayoutData, CFDataRef.self)
-        let layout: UnsafePointer<UCKeyboardLayout> = unsafeBitCast(CFDataGetBytePtr(layoutData), UnsafePointer<UCKeyboardLayout>.self)
+        let layoutData = unsafeBitCast(rawLayoutData, to: CFData.self)
+        let layout: UnsafePointer<UCKeyboardLayout> = unsafeBitCast(
+            CFDataGetBytePtr(layoutData),
+            to: UnsafePointer<UCKeyboardLayout>.self)
         let action = UInt16(kUCKeyActionDisplay)
         let modifierKeyState = UInt32((modifiers.rawValue >> 16) & 0xFF)
         let keyboardType = UInt32(LMGetKbdType())
@@ -521,11 +525,19 @@ public enum Key: CaseIterable {
         var deadKeyState: UInt32 = 0
         let maxStringLength = 255
         var actualStringLength = 0
-        var result = [UniChar](count: maxStringLength, repeatedValue: 0)
+        var result = [UniChar](repeating: 0, count: maxStringLength)
 
-        let success = UCKeyTranslate(layout, keyCode, action, modifierKeyState, keyboardType, keyTranslateOptions, &deadKeyState, maxStringLength, &actualStringLength, &result)
-
-        assert(success == 0, "No output for key.")
+        _ = UCKeyTranslate(
+            layout,
+            keyCode,
+            action,
+            modifierKeyState,
+            keyboardType,
+            keyTranslateOptions,
+            &deadKeyState,
+            maxStringLength,
+            &actualStringLength,
+            &result)
 
         return NSString(characters: result, length: actualStringLength) as String
     }
