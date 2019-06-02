@@ -497,12 +497,12 @@ public enum Key: CaseIterable {
             let shifted = self.output(with: .maskShift)
 
             if shifted.lowercased() == output
-                ∨ output.uppercased() == shifted {
+                ∨ output.uppercased() == shifted { // @exempt(from: tests) Reachability depends on keyboard.
                 return StrictString(shifted)
-            } else if output == "i" ∧ shifted == "İ" {
+            } else if output == "i" ∧ shifted == "İ" { // @exempt(from: tests)
                 // Turkic
                 return StrictString(shifted)
-            } else if output == "ĸ" ∧ shifted == "Kʻ" {
+            } else if output == "ĸ" ∧ shifted == "Kʻ" { // @exempt(from: tests)
                 // Inuktitut
                 return StrictString(shifted)
             }

@@ -223,6 +223,12 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         let name = String(Key.rightIndexHome.currentName)
         XCTAssertEqual(name, name.uppercased())
         XCTAssertFalse(name.isEmpty)
+        XCTAssertEqual(Key(code: Key.rightIndexHome.keyCode), Key.rightIndexHome)
+        XCTAssertNil(Key(code: CGKeyCode.max))
+        XCTAssertFalse(Key.かなジス.hasConsistentPosition)
+        XCTAssert(Key.rightIndexHome.existsConsistently)
+        XCTAssertFalse(Key.かなジス.existsConsistently)
+        XCTAssert(Key.rightDoubleOutsideHomeISO_JIS_RightTripleOutsideUpperANSI.existsConsistently)
     }
 
     func testLabel() {
