@@ -29,7 +29,7 @@ import SDGLogic
 /// `thumbs` refers to what is commonly a space bar.
 ///
 /// The same key can represent many different characters depending on the user’s current virtual keyboard or input source.
-public enum Key: CaseIterable {
+public enum Key : CaseIterable {
 
     // MARK: - Cases
 
