@@ -218,6 +218,21 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         SampleApplicationDelegate().demonstrateImage()
     }
 
+    func testKey() {
+        XCTAssert(Key.rightIndexHome.hasConsistentPosition)
+        #if canImport(Carbon)
+        let name = String(Key.rightIndexHome.currentName)
+        XCTAssertEqual(name, name.uppercased())
+        XCTAssertFalse(name.isEmpty)
+        XCTAssertEqual(Key(code: Key.rightIndexHome.keyCode), Key.rightIndexHome)
+        XCTAssertNil(Key(code: CGKeyCode.max))
+        #endif
+        XCTAssertFalse(Key.かなジス.hasConsistentPosition)
+        XCTAssert(Key.rightIndexHome.existsConsistently)
+        XCTAssertFalse(Key.かなジス.existsConsistently)
+        XCTAssert(Key.rightDoubleOutsideHomeISO_JIS_RightTripleOutsideUpperANSI.existsConsistently)
+    }
+
     func testLabel() {
         SampleApplicationDelegate().demonstrateLabel()
         forEachWindow { window in
