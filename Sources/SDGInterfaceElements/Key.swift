@@ -447,6 +447,9 @@ public enum Key: CaseIterable {
 
     #if canImport(Carbon)
     /// Creates a `Key` from a `CGKeyCode`.
+    ///
+    /// - Parameters:
+    ///     - code: The `CGKeyCode`.
     public init?(code: CGKeyCode) {
         if let key = Key.codeMapping[Int(code)] {
             self = key
