@@ -88,7 +88,7 @@ open class Letterbox: View {
 
     // MARK: - Drawing
 
-    open override func draw(_ dirtyRect: CGRect) {
+    open override func draw(_ dirtyRect: CGRect) { // @exempt(from: tests) Crashes without active interface.
         if let colour = self.colour {
             colour.setFill()
             if colour.alphaComponent ≤ 1 {

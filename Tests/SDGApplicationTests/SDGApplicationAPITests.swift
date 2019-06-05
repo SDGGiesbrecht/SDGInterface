@@ -255,6 +255,12 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertEqual(NSLayoutConstraint.Priority.windowSizeStayPut.rawValue, 500)
     }
 
+    func testLetterbox() {
+        SampleApplicationDelegate().demonstrateLetterbox()
+        let letterbox = Letterbox(content: View(), aspectRatio: 1)
+        letterbox.colour = .red
+    }
+
     func testMenu() {
         #if !os(tvOS)
 
