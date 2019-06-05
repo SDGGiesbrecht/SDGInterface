@@ -202,13 +202,28 @@ extension SampleApplicationDelegate {
         })), action: #selector(SampleApplicationDelegate.demonstrateTextEditor))
         textEditor.target = self
 
-        let textField = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        let textField = view.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Text Field"
+            }
+        })))
+
+        let basicTextField = textField.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Text Field"
             }
         })), action: #selector(SampleApplicationDelegate.demonstrateTextField))
-        textField.target = self
+        basicTextField.target = self
+
+        let labelledTextField = textField.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Labelled Text Field"
+            }
+        })), action: #selector(SampleApplicationDelegate.demonstrateLabelledTextField))
+        labelledTextField.target = self
 
         #elseif canImport(UIKit)
 
@@ -312,6 +327,16 @@ extension SampleApplicationDelegate {
             }
         })
         demonstrate(Label(text: Shared(label)), windowTitle: label)
+    }
+
+    @objc public func demonstrateLabelledTextField() {
+        let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Labelled Text Field"
+            }
+        })
+        demonstrate(LabelledTextField(labelText: label), windowTitle: label)
     }
 
     @objc public func demonstrateTextEditor() {
