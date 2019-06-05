@@ -12,6 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if !os(watchOS)
 import SDGMathematics
 
 import SDGInterfaceLocalizations
@@ -92,11 +93,20 @@ open class Letterbox: View {
         if let colour = self.colour {
             colour.setFill()
             if colour.alphaComponent ≤ 1 {
+                #if canImport(UIKit)
+                UIRectFillUsingBlendMode(dirtyRect, .normal)
+                #else
                 dirtyRect.fill(using: .sourceOver)
+                #endif
             } else {
+                #if canImport(UIKit)
+                UIRectFill(dirtyRect)
+                #else
                 dirtyRect.fill()
+                #endif
             }
         }
         super.draw(dirtyRect)
     }
 }
+#endif
