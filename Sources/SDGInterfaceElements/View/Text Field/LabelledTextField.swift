@@ -17,13 +17,6 @@ import SDGInterfaceLocalizations
 /// A text field with a label.
 open class LabelledTextField<L> : View where L : Localization {
 
-    // MARK: - Components
-
-    /// The label.
-    public let label: Label<L>
-    /// The field.
-    public let field: TextField
-
     // MARK: - Initialization
 
     /// Creates a text field with label text.
@@ -64,4 +57,11 @@ open class LabelledTextField<L> : View where L : Localization {
         }))
         return nil
     }
+
+    // MARK: - Properties
+
+    /// The label.
+    public let label: Label<L>
+    /// The field.
+    public let field: TextField
 }
