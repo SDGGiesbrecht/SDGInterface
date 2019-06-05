@@ -26,19 +26,33 @@ open class LabelledTextField<L> : View where L : Localization {
 
     // MARK: - Initialization
 
-    /// Creates a text field with a `Label` and a `TextField`.
+    /// Creates a text field with label text.
+    ///
+    /// - Parameters:
+    /// 	- labelText: The text for the label.
+    public init(labelText: UserFacing<StrictString, L>) {
+        label = Label(text: Shared(labelText))
+        field = TextField()
+        super.init(frame: CGRect.zero)
+        finishInitialization()
+    }
+
+    /// Creates a text field with label and a text field instances.
     ///
     /// - Parameters:
     ///     - label: The label.
     ///     - field: Optional. A specific field.
     public init(label: Label<L>, field: TextField? = nil) {
-        let resolvedField = field ?? TextField()
         self.label = label
         self.field = field ?? TextField()
         super.init(frame: CGRect.zero)
-        position(subviews: [label, resolvedField], inSequenceAlong: .horizontal, padding: .system, margin: .none)
-        fill(with: resolvedField, on: .vertical, margin: .none)
-        alignLastBaselines(ofSubviews: [label, resolvedField])
+        finishInitialization()
+    }
+
+    private func finishInitialization() {
+        position(subviews: [label, field], inSequenceAlong: .horizontal, padding: .system, margin: .none)
+        fill(with: field, on: .vertical, margin: .none)
+        alignLastBaselines(ofSubviews: [label, field])
     }
 
     @available(*, unavailable) public required init?(coder: NSCoder) { // @exempt(from: unicode)
