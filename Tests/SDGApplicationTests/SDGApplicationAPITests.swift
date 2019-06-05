@@ -644,6 +644,9 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             textField.insertText("...")
             #endif
         }
+        SampleApplicationDelegate().demonstrateLabelledTextField()
+        _ = LabelledTextField(label: Label(
+            text: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "" }))))
     }
 
     func testView() {
