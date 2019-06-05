@@ -12,6 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if !os(watchOS)
 import SDGInterfaceLocalizations
 
 /// A text field with a label.
@@ -65,3 +66,4 @@ open class LabelledTextField<L> : View where L : Localization {
     /// The field.
     public let field: TextField
 }
+#endif
