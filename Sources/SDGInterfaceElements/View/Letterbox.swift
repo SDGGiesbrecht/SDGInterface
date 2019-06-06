@@ -18,7 +18,7 @@ import SDGMathematics
 import SDGInterfaceLocalizations
 
 /// A letterboxing view.
-open class Letterbox: View {
+open class Letterbox : View {
 
     // MARK: - Properties
 
@@ -77,7 +77,7 @@ open class Letterbox: View {
         addConstraints([maxWidth, maxHeight, desiredWidth, desiredHeight])
     }
 
-    public required init?(coder: NSCoder) { // @exempt(from: unicode)
+    @available(*, unavailable) public required init?(coder: NSCoder) { // @exempt(from: unicode)
         codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
             switch localization {
             case .englishCanada:
