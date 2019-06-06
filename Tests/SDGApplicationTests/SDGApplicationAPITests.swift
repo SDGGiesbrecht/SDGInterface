@@ -259,6 +259,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         SampleApplicationDelegate().demonstrateLetterbox()
         let letterbox = Letterbox(content: View(), aspectRatio: 1)
         letterbox.colour = .red
+        XCTAssertEqual(letterbox.colour?.alphaComponent, 1)
     }
 
     func testMenu() {
