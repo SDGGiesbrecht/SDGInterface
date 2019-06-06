@@ -194,6 +194,14 @@ extension SampleApplicationDelegate {
         })), action: #selector(SampleApplicationDelegate.demonstrateLabel))
         label.target = self
 
+        let letterbox = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Letterbox"
+            }
+        })), action: #selector(SampleApplicationDelegate.demonstrateLetterbox))
+        letterbox.target = self
+
         let textEditor = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
@@ -337,6 +345,16 @@ extension SampleApplicationDelegate {
             }
         })
         demonstrate(LabelledTextField(labelText: label), windowTitle: label)
+    }
+
+    @objc public func demonstrateLetterbox() {
+        let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Letterbox"
+            }
+        })
+        demonstrate(Letterbox(content: TextEditor(), aspectRatio: 1), windowTitle: label)
     }
 
     @objc public func demonstrateTextEditor() {
