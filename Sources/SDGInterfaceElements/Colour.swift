@@ -38,7 +38,8 @@ extension Colour {
     #endif
 
     #if !canImport(AppKit)
-    var alphaComponent: CGFloat {
+    /// The alpha component.
+    public var alphaComponent: CGFloat {
         var alpha: CGFloat = 1
         getRed(nil, green: nil, blue: nil, alpha: &alpha)
         return alpha
