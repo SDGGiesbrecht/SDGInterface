@@ -97,7 +97,7 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     }
 
     internal func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
-        return ¬(Application.shared.systemMediator?.reopen(ReopeningDetails(hasVisibleWindows: flag)) ?? false)
+        return ¬(Application.shared.systemMediator?.reopen(hasVisibleWindows: flag) ?? false)
     }
 
     internal func applicationDockMenu(_ sender: NSApplication) -> NSMenu? {

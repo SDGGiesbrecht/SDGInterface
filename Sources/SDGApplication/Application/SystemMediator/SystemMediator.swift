@@ -105,8 +105,11 @@ public protocol SystemMediator: AnyObject {
 
     /// Called by some systems when a user tries to open the application while it is already running.
     ///
+    /// - Parameters:
+    ///     - hasVisibleWindows: Some systems report whether or not they perceive the application to have visible windows.
+    ///
     /// - Returns: `true` if the reopen operation has been handled, `false` to request that the operating system handle it.
-    func reopen(_ details: ReopeningDetails) -> Bool
+    func reopen(hasVisibleWindows: Bool?) -> Bool
 
     /// Used by some systems as the dock menu.
     var dockMenu: NSMenu? { get }
@@ -200,7 +203,7 @@ extension SystemMediator {
     public func prepareToUpdateInterface(_ details: UpdateDetails) {}
     public func finishUpdatingInterface(_ details: UpdateDetails) {}
 
-    public func reopen(_ details: ReopeningDetails) -> Bool {
+    public func reopen(hasVisibleWindows: Bool?) -> Bool {
         return false
     }
 
