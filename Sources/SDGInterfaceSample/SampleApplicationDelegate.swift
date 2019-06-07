@@ -18,12 +18,7 @@ import SDGLocalization
 #if !os(watchOS)
 
 // @example(sample)
-public final class SampleApplicationDelegate : ApplicationDelegate {
-
-    public override func openPreferences(_ sender: Any?) {
-        print("Opening preferences...")
-    }
-}
+public final class SampleApplicationDelegate : ApplicationDelegate {}
 // @endExample
 
 extension SampleApplicationDelegate {

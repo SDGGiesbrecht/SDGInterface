@@ -40,6 +40,9 @@ public final class Application {
 
     internal var systemMediator: SystemMediator?
 
+    /// An object which manages the application’s preferences.
+    public var preferenceManager: PreferenceManager?
+
     // MARK: - Launching
 
     /// Starts the application’s main run loop.

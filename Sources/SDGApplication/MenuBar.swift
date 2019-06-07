@@ -140,7 +140,7 @@ public class MenuBar : Menu<InterfaceLocalization> {
                 return "העדפות..."
             }
         })))
-        preferences.action = #selector(ApplicationDelegate.openPreferences(_:))
+        preferences.action = #selector(NSApplicationDelegate.openPreferences(_:))
         preferences.keyEquivalent = ","
         preferences.keyEquivalentModifierMask = .command
 

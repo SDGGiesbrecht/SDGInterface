@@ -19,6 +19,7 @@ internal class SystemMediator: SDGApplication.SystemMediator {
     }
 
     private func setSamplesUp() {
+        Application.shared.preferenceManager = PreferenceManager()
         setMenuUp()
     }
 

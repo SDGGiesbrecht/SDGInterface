@@ -14,6 +14,8 @@
 
 #if !os(watchOS)
 
+import SDGLogic
+
 #if canImport(AppKit)
 public typealias _ApplicationDelegate = AppKit.NSApplicationDelegate
 #elseif canImport(UIKit)
@@ -24,14 +26,6 @@ public typealias _ApplicationDelegate = UIKit.UIApplicationDelegate
 ///
 /// This inherits from `NSApplicationDelegate` or `UIApplicationDelegate`, and provides several additional API unifications.
 open class ApplicationDelegate : NSObject, _ApplicationDelegate {
-
-    // MARK: - Preferences
-
-    /// This action method opens the application preferences. Override it to provide an implementation for the “Preferences...” menu item, which is otherwise hidden.
-    ///
-    /// - Parameters:
-    ///     - sender: The sender.
-    @objc open func openPreferences(_ sender: Any?) {}
 
     // MARK: - NSApplicationDelegate & UIApplicationDelegate
 
@@ -57,12 +51,9 @@ extension ApplicationDelegate : NSMenuItemValidation {
     /// - Parameters:
     ///     - menuItem: The menu item.
     open func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        let openPreferencesSelector = #selector(ApplicationDelegate.openPreferences)
-        if menuItem.action == openPreferencesSelector,
-            method(for: openPreferencesSelector) == ApplicationDelegate.instanceMethod(for: openPreferencesSelector) {
-            // Primitive method not overridden.
-            menuItem.isHidden = true
-            return false
+        #warning("Verify this still works!")
+        if menuItem.action == #selector(NSApplicationDelegate.openPreferences(_:)) {
+            return Application.shared.preferenceManager ≠ nil
         }
         if let action = menuItem.action {
             return responds(to: action)

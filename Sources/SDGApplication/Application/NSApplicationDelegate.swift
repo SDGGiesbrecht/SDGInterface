@@ -14,9 +14,19 @@
 
 #if canImport(AppKit)
 internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate {
+
+    // MARK: - Top Responder
+
+    @objc internal func openPreferences(_ sender: Any?) {
+        Application.shared.preferenceManager?.openPreferences()
+    }
+
+    // MARK: - NSApplicationDelegate
+
     internal func applicationWillFinishLaunching(_ notification: Notification) {
         Application.shared.systemMediator?.applicationWillLaunch(SystemEventDetails(notification: notification))
     }
+
     internal func applicationDidFinishLaunching(_ notification: Notification) {
 
         NSApplication.shared.menu = MenuBar.menuBar
