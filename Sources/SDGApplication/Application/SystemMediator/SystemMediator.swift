@@ -183,7 +183,6 @@ public protocol SystemMediator: AnyObject {
 
 extension SystemMediator {
 
-    #warning("Log what is going on.")
     public func prepareToLaunch(_ details: LaunchDetails) -> Bool {
         return true
     }
