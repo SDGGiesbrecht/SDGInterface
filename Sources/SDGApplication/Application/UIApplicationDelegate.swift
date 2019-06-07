@@ -35,19 +35,19 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
     }
 
     internal func applicationDidBecomeActive(_ application: UIApplication) {
-        Application.shared.systemMediator?.finishAcquiringFocus(FocusChangeDetails())
+        Application.shared.systemMediator?.finishAcquiringFocus(nil)
     }
 
     internal func applicationWillResignActive(_ application: UIApplication) {
-        Application.shared.systemMediator?.prepareToResignFocus(FocusChangeDetails())
+        Application.shared.systemMediator?.prepareToResignFocus(nil)
     }
 
     internal func applicationDidEnterBackground(_ application: UIApplication) {
-        Application.shared.systemMediator?.finishResigningFocus(FocusChangeDetails())
+        Application.shared.systemMediator?.finishResigningFocus(nil)
     }
 
     internal func applicationWillEnterForeground(_ application: UIApplication) {
-        Application.shared.systemMediator?.prepareToAcquireFocus(FocusChangeDetails())
+        Application.shared.systemMediator?.prepareToAcquireFocus(nil)
     }
 
     internal func applicationWillTerminate(_ application: UIApplication) {

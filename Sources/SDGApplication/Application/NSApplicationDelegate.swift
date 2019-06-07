@@ -38,19 +38,19 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     }
 
     internal func applicationWillBecomeActive(_ notification: Notification) {
-        Application.shared.systemMediator?.prepareToAcquireFocus(FocusChangeDetails(notification: notification))
+        Application.shared.systemMediator?.prepareToAcquireFocus(notification)
     }
 
     internal func applicationDidBecomeActive(_ notification: Notification) {
-        Application.shared.systemMediator?.finishAcquiringFocus(FocusChangeDetails(notification: notification))
+        Application.shared.systemMediator?.finishAcquiringFocus(notification)
     }
 
     internal func applicationWillResignActive(_ notification: Notification) {
-        Application.shared.systemMediator?.prepareToResignFocus(FocusChangeDetails(notification: notification))
+        Application.shared.systemMediator?.prepareToResignFocus(notification)
     }
 
     internal func applicationDidResignActive(_ notification: Notification) {
-        Application.shared.systemMediator?.finishResigningFocus(FocusChangeDetails(notification: notification))
+        Application.shared.systemMediator?.finishResigningFocus(notification)
     }
 
     internal func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
@@ -145,7 +145,7 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     internal func application(
         _ application: NSApplication,
         didReceiveRemoteNotification userInfo: [String : Any]) {
-        Application.shared.systemMediator?.acceptRemoteNotification(details: RemoteNotificationDetails(
+        _ = Application.shared.systemMediator?.acceptRemoteNotification(details: RemoteNotificationDetails(
             userInformation: userInfo))
     }
 

@@ -34,26 +34,26 @@ public protocol SystemMediator: AnyObject {
     /// Called by some systems before the application acquires the system focus.
     ///
     /// - Parameters:
-    ///     - details: Details provided by the system.
-    func prepareToAcquireFocus(_ details: FocusChangeDetails)
+    ///     - notification: The notification if the system provided one.
+    func prepareToAcquireFocus(_ notification: Notification?)
 
     /// Called by some systems as the application finishes acquiring the system focus.
     ///
     /// - Parameters:
-    ///     - details: Details provided by the system.
-    func finishAcquiringFocus(_ details: FocusChangeDetails)
+    ///     - notification: The notification if the system provided one.
+    func finishAcquiringFocus(_ notification: Notification?)
 
     /// Called by some systems before the application resigns the system focus.
     ///
     /// - Parameters:
-    ///     - details: Details provided by the system.
-    func prepareToResignFocus(_ details: FocusChangeDetails)
+    ///     - notification: The notification if the system provided one.
+    func prepareToResignFocus(_ notification: Notification?)
 
     /// Called by some systems as the application finishes resigning the system focus.
     ///
     /// - Parameters:
-    ///     - details: Details provided by the system.
-    func finishResigningFocus(_ details: FocusChangeDetails)
+    ///     - notification: The notification if the system provided one.
+    func finishResigningFocus(_ notification: Notification?)
 
     /// Called by some systems to request that the application terminate.
     ///
@@ -179,10 +179,10 @@ extension SystemMediator {
         return true
     }
 
-    public func prepareToAcquireFocus(_ details: FocusChangeDetails) {}
-    public func finishAcquiringFocus(_ details: FocusChangeDetails) {}
-    public func prepareToResignFocus(_ details: FocusChangeDetails) {}
-    public func finishResigningFocus(_ details: FocusChangeDetails) {}
+    public func prepareToAcquireFocus(_ notification: Notification?) {}
+    public func finishAcquiringFocus(_ notification: Notification?) {}
+    public func prepareToResignFocus(_ notification: Notification?) {}
+    public func finishResigningFocus(_ notification: Notification?) {}
 
     public func terminate() -> TerminationResponse {
         return .now
