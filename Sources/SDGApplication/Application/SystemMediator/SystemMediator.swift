@@ -212,6 +212,12 @@ public protocol SystemMediator: AnyObject {
     ///
     /// - Returns: `false` if the application cannot continue. Otherwise `true`.
     func updateAccordingToOcclusionChange(_ notification: Notification?)
+
+    /// Called by some systems when memory is low.
+    func purgeUnnecessaryMemory()
+
+    /// Called by some systems when certain time changes occur.
+    func updateAccordingToTimeChange()
 }
 
 extension SystemMediator {
@@ -315,4 +321,8 @@ extension SystemMediator {
     public func prepareToEncodeRestorableState(coder: NSCoder) {}
 
     public func updateAccordingToOcclusionChange(_ notification: Notification?) {}
+
+    public func purgeUnnecessaryMemory() {}
+
+    public func updateAccordingToTimeChange() {}
 }

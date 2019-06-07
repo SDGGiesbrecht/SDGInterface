@@ -63,11 +63,11 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
     }
 
     internal func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
-        #warning("Not yet implemented.")
+        Application.shared.systemMediator?.purgeUnnecessaryMemory()
     }
 
     internal func applicationSignificantTimeChange(_ application: UIApplication) {
-        #warning("Not yet implemented.")
+        Application.shared.systemMediator?.updateAccordingToTimeChange()
     }
 
     internal func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
