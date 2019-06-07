@@ -119,7 +119,16 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
         _ application: UIApplication,
         didReceiveRemoteNotification userInfo: [AnyHashable : Any],
         fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        #warning("Not yet implemented.")
+        let result = Application.shared.systemMediator?.acceptRemoteNotification(
+            details: RemoteNotificationDetails(userInformation: userInfo)) ?? .noData
+        switch result {
+        case .newData:
+            completionHandler(.newData)
+        case .noData:
+            completionHandler(.noData)
+        case .failed:
+            completionHandler(.failed)
+        }
     }
 
     internal func application(_ application: UIApplication, willContinueUserActivityWithType userActivityType: String) -> Bool {

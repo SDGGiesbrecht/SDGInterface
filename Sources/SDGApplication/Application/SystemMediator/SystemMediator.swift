@@ -167,7 +167,9 @@ public protocol SystemMediator: AnyObject {
     ///
     /// - Parameters:
     ///     - details: Details provided by the system.
-    func acceptRemoteNotification(details: RemoteNotificationDetails)
+    ///
+    /// - Returns: The result of the fetch operation.
+    func acceptRemoteNotification(details: RemoteNotificationDetails) -> FetchResult
 }
 
 extension SystemMediator {
@@ -228,5 +230,7 @@ extension SystemMediator {
 
     public func finishRegistrationForRemoteNotifications(deviceToken: Data) {}
     public func reportFailedRegistrationForRemoteNotifications(error: Error) {}
-    public func acceptRemoteNotification(details: RemoteNotificationDetails) {}
+    public func acceptRemoteNotification(details: RemoteNotificationDetails) -> FetchResult {
+        return .noData
+    }
 }

@@ -1,5 +1,5 @@
 /*
- RemoteNotificationDetails.swift
+ FetchResult.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,9 +12,15 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-/// Details about a remote notification.
-public struct RemoteNotificationDetails {
+/// A fetch result.
+public enum FetchResult {
 
-    /// User information.
-    public let userInformation: [AnyHashable: Any]
+    /// New data was downloaded.
+    case newData
+
+    /// No new data to download.
+    case noData
+
+    /// A download attempt failed.
+    case failed
 }
