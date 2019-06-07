@@ -153,10 +153,26 @@ public protocol SystemMediator: AnyObject {
     /// - Parameters:
     ///     - handoff: The handoff activity.
     func preprocess(handoff: NSUserActivity)
+
+    /// Called by some systems as the remote notification registration finishes.
+    func finishRegistrationForRemoteNotifications(deviceToken: Data)
+
+    /// Called by some systems when remote notification registration fails.
+    ///
+    /// - Parameters:
+    ///     - error: The error.
+    func reportFailedRegistrationForRemoteNotifications(error: Error)
+
+    /// Called by some systems to request that a remote notification be accepted.
+    ///
+    /// - Parameters:
+    ///     - details: Details provided by the system.
+    func acceptRemoteNotification(details: RemoteNotificationDetails)
 }
 
 extension SystemMediator {
 
+    #warning("Log what is going on.")
     public func prepareToLaunch(_ details: LaunchDetails) -> Bool {
         return true
     }
@@ -209,4 +225,8 @@ extension SystemMediator {
         return false
     }
     public func preprocess(handoff: NSUserActivity) {}
+
+    public func finishRegistrationForRemoteNotifications(deviceToken: Data) {}
+    public func reportFailedRegistrationForRemoteNotifications(error: Error) {}
+    public func acceptRemoteNotification(details: RemoteNotificationDetails) {}
 }

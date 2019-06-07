@@ -106,11 +106,13 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
     internal func application(
         _ application: UIApplication,
         didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        #warning("Not yet implemented.")
+        Application.shared.systemMediator?.finishRegistrationForRemoteNotifications(deviceToken: deviceToken)
     }
 
-    internal func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        #warning("Not yet implemented.")
+    internal func application(
+        _ application: UIApplication,
+        didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        Application.shared.systemMediator?.reportFailedRegistrationForRemoteNotifications(error: error)
     }
 
     internal func application(
