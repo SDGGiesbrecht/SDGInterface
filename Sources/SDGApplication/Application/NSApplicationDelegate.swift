@@ -73,19 +73,19 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     }
 
     internal func applicationWillHide(_ notification: Notification) {
-        #warning("Not yet implemented.")
+        Application.shared.systemMediator?.prepareToHide(HidingDetails(notification: notification))
     }
 
     internal func applicationDidHide(_ notification: Notification) {
-        #warning("Not yet implemented.")
+        Application.shared.systemMediator?.finishHiding(HidingDetails(notification: notification))
     }
 
     internal func applicationWillUnhide(_ notification: Notification) {
-        #warning("Not yet implemented.")
+        Application.shared.systemMediator?.prepareToUnhide(HidingDetails(notification: notification))
     }
 
     internal func applicationDidUnhide(_ notification: Notification) {
-        #warning("Not yet implemented.")
+        Application.shared.systemMediator?.finishUnhiding(HidingDetails(notification: notification))
     }
 
     internal func applicationWillUpdate(_ notification: Notification) {

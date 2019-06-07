@@ -66,6 +66,30 @@ public protocol SystemMediator: AnyObject {
 
     /// Called by some systems before the application terminates.
     func prepareToTerminate(_ details: TerminationDetails)
+
+    /// Called by some systems before the application is hidden.
+    ///
+    /// - Parameters:
+    ///     - details: Details provided by the system.
+    func prepareToHide(_ details: HidingDetails)
+
+    /// Called by some systems as the application finishes being hidden.
+    ///
+    /// - Parameters:
+    ///     - details: Details provided by the system.
+    func finishHiding(_ details: HidingDetails)
+
+    /// Called by some systems before the application is unhidden.
+    ///
+    /// - Parameters:
+    ///     - details: Details provided by the system.
+    func prepareToUnhide(_ details: HidingDetails)
+
+    /// Called by some systems as the application finishes being unhidden.
+    ///
+    /// - Parameters:
+    ///     - details: Details provided by the system.
+    func finishUnhiding(_ details: HidingDetails)
 }
 
 extension SystemMediator {
@@ -86,4 +110,9 @@ extension SystemMediator {
         return false
     }
     public func prepareToTerminate(_ details: TerminationDetails) {}
+
+    public func prepareToHide(_ details: HidingDetails) {}
+    public func finishHiding(_ details: HidingDetails) {}
+    public func prepareToUnhide(_ details: HidingDetails) {}
+    public func finishUnhiding(_ details: HidingDetails) {}
 }
