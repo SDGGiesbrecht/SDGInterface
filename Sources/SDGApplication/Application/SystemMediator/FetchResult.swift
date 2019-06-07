@@ -15,6 +15,25 @@
 /// A fetch result.
 public enum FetchResult {
 
+    // MARK: - Initialization
+
+    #if canImport(UIKit)
+    public init(_ native: UIBackgroundFetchResult) {
+        switch native {
+        case .newData:
+            self = .newData
+        case .noData:
+            self = .noData
+        case .failed:
+            self = .failed
+        @unknown default:
+            self = .failed
+        }
+    }
+    #endif
+
+    // MARK: - Cases
+
     /// New data was downloaded.
     case newData
 
@@ -25,6 +44,7 @@ public enum FetchResult {
     case failed
 
     // MARK: - Properties
+
     #if canImport(UIKit)
     public var native: UIBackgroundFetchResult {
         switch self {
