@@ -69,7 +69,7 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     }
 
     internal func applicationWillTerminate(_ notification: Notification) {
-        #warning("Not yet implemented.")
+        Application.shared.systemMediator?.prepareToTerminate(TerminationDetails(notification: notification))
     }
 
     internal func applicationWillHide(_ notification: Notification) {

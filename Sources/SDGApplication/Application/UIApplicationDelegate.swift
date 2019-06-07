@@ -51,7 +51,7 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
     }
 
     internal func applicationWillTerminate(_ application: UIApplication) {
-        #warning("Not yet implemented.")
+        Application.shared.systemMediator?.prepareToTerminate(TerminationDetails())
     }
 
     internal func applicationProtectedDataDidBecomeAvailable(_ application: UIApplication) {
@@ -72,10 +72,12 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
 
     internal func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
         #warning("Not yet implemented.")
+        return false
     }
 
     internal func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
         #warning("Not yet implemented.")
+        return false
     }
 
     internal func application(
@@ -83,6 +85,7 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
         viewControllerWithRestorationIdentifierPath identifierComponents: [String],
         coder: NSCoder) -> UIViewController? {
         #warning("Not yet implemented.")
+        return nil
     }
 
     internal func application(_ application: UIApplication, willEncodeRestorableStateWith coder: NSCoder) {
@@ -119,6 +122,7 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
 
     internal func application(_ application: UIApplication, willContinueUserActivityWithType userActivityType: String) -> Bool {
         #warning("Not yet implemented.")
+        return false
     }
 
     internal func application(
@@ -126,6 +130,7 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
         continue userActivity: NSUserActivity,
         restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
         #warning("Not yet implemented.")
+        return false
     }
 
     internal func application(_ application: UIApplication, didUpdate userActivity: NSUserActivity) {
@@ -162,6 +167,7 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
         open url: URL,
         options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         #warning("Not yet implemented.")
+        return false
     }
 
     internal func application(
@@ -169,12 +175,14 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
         shouldAllowExtensionPointIdentifier extensionPointIdentifier: UIApplication.ExtensionPointIdentifier
         ) -> Bool {
         #warning("Not yet implemented.")
+        return true
     }
 
     internal func application(
         _ application: UIApplication,
         supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         #warning("Not yet implemented.")
+        return .all
     }
 }
 #endif

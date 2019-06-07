@@ -63,6 +63,9 @@ public protocol SystemMediator: AnyObject {
 
     /// Some systems will terminate the application automatically when the last window closes. Returning `false` requests that the application remain running.
     var remainsRunningWithNoWindows: Bool { get }
+
+    /// Called by some systems before the application terminates.
+    func prepareToTerminate(_ details: TerminationDetails)
 }
 
 extension SystemMediator {
@@ -79,8 +82,8 @@ extension SystemMediator {
     public func terminate() -> TerminationResponse {
         return .now
     }
-
     public var remainsRunningWithNoWindows: Bool {
         return false
     }
+    public func prepareToTerminate(_ details: TerminationDetails) {}
 }
