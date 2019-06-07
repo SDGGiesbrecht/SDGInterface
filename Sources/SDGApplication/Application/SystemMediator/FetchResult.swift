@@ -23,4 +23,18 @@ public enum FetchResult {
 
     /// A download attempt failed.
     case failed
+
+    // MARK: - Properties
+    #if canImport(UIKit)
+    public var native: UIBackgroundFetchResult {
+        switch self {
+        case .newData:
+            return .newData
+        case .noData:
+            return .noData
+        case .failed:
+            return .failed
+        }
+    }
+    #endif
 }

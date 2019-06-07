@@ -121,14 +121,7 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
         fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         let result = Application.shared.systemMediator?.acceptRemoteNotification(
             details: RemoteNotificationDetails(userInformation: userInfo)) ?? .noData
-        switch result {
-        case .newData:
-            completionHandler(.newData)
-        case .noData:
-            completionHandler(.noData)
-        case .failed:
-            completionHandler(.failed)
-        }
+        completionHandler(result.native)
     }
 
     internal func application(_ application: UIApplication, willContinueUserActivityWithType userActivityType: String) -> Bool {
@@ -172,7 +165,10 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
         options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         return Application.shared.systemMediator?.open(
             files: [url],
-            details: OpeningDetails(options: options)) ?? false
+            details: OpeningDetails(
+                withoutUserInterface: false,
+                asTemporaryFile: false,
+                options: options)) ?? false
     }
 
     internal func application(
