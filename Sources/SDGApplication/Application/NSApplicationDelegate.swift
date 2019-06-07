@@ -167,17 +167,15 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
         return Application.shared.systemMediator?.shouldCreateNewBlankFile() ?? true
     }
 
-    internal func application(_ sender: NSApplication, printFile filename: String) -> Bool {
-        return Application.shared.systemMediator?.print(file: URL(fileURLWithPath: filename)) ?? false
-    }
-
     internal func application(
         _ application: NSApplication,
         printFiles fileNames: [String],
         withSettings printSettings: [NSPrintInfo.AttributeKey : Any],
         showPrintPanels: Bool) -> NSApplication.PrintReply {
-        #warning("Not yet implemented.")
-        return .printingFailure
+        let result = Application.shared.systemMediator?.print(
+            files: fileNames.map({ URL(fileURLWithPath: $0) }),
+            details: PrintingDetails(settings: printSettings, displayPanels: showPrintPanels)) ?? .failure
+        return result.native
     }
 
     internal func application(_ app: NSApplication, didDecodeRestorableState coder: NSCoder) {

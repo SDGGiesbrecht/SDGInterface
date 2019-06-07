@@ -194,9 +194,7 @@ public protocol SystemMediator: AnyObject {
     func createNewBlankFile() -> Bool
 
     /// Called by some systems to request that a file be printed.
-    ///
-    /// - Returns: Whether or not the files could be printed successfully.
-    func print(file: URL) -> Bool
+    func print(files: [URL], details: PrintingDetails) -> PrintingResponse
 }
 
 extension SystemMediator {
@@ -289,10 +287,10 @@ extension SystemMediator {
         return true
     }
 
-    public func print(file: URL) -> Bool {
+    public func print(files: [URL], details: PrintingDetails) -> PrintingResponse {
         #if UNHANDLED_SYSTEM_EVENT_LOGGING
         Swift.print(#function)
         #endif
-        return false
+        return .failure
     }
 }
