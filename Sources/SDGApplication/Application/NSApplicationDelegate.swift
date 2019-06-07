@@ -109,7 +109,8 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     }
 
     internal func applicationDidChangeScreenParameters(_ notification: Notification) {
-        #warning("Not yet implemented.")
+        Application.shared.systemMediator?.updateAccordingToScreenChange(ScreenChangeDetails(
+            notification: notification))
     }
 
     internal func application(_ application: NSApplication, willContinueUserActivityWithType userActivityType: String) -> Bool {

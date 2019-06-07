@@ -114,6 +114,9 @@ public protocol SystemMediator: AnyObject {
     /// Called by some systems before displaying an error to the user.
     func preprocessErrorForDisplay(_ error: Error) -> Error
 
+    /// Called by some systems when the screen changes.
+    func updateAccordingToScreenChange(_ details: ScreenChangeDetails)
+
     /// Called by some systems as access to protected data is granted.
     func finishGainingAccessToProtectedData()
 
@@ -159,6 +162,8 @@ extension SystemMediator {
     public func preprocessErrorForDisplay(_ error: Error) -> Error {
         return error
     }
+
+    public func updateAccordingToScreenChange(_ details: ScreenChangeDetails) {}
 
     public func finishGainingAccessToProtectedData() {}
     public func prepareToLoseAccessToProtectedData() {}
