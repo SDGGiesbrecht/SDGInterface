@@ -64,4 +64,13 @@ extension SystemMediator {
     public func prepareToLaunch(_ details: LaunchDetails) -> Bool {
         return true
     }
+
+    public func prepareToAcquireFocus(_ details: FocusChangeDetails) {}
+    public func finishAcquiringFocus(_ details: FocusChangeDetails) {}
+    public func prepareToResignFocus(_ details: FocusChangeDetails) {}
+    public func finishResigningFocus(_ details: FocusChangeDetails) {}
+
+    public func terminate() -> TerminationResponse {
+        return .now
+    }
 }
