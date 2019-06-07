@@ -117,6 +117,12 @@ public protocol SystemMediator: AnyObject {
     /// Called by some systems when the screen changes.
     func updateAccordingToScreenChange(_ details: ScreenChangeDetails)
 
+    /// Called by some systems as access to protected data is granted.
+    func finishGainingAccessToProtectedData()
+
+    /// Called by some systems before access to protected data is revoked.
+    func prepareToLoseAccessToProtectedData()
+
     /// Called by some systems when an activity handoff begins.
     ///
     /// - Parameters:
@@ -125,11 +131,28 @@ public protocol SystemMediator: AnyObject {
     /// - Returns: `true` if the user was notified, or `false` to request that the system notify the user.
     func notifyHandoffBegan(_ identifier: String) -> Bool
 
-    /// Called by some systems as access to protected data is granted.
-    func finishGainingAccessToProtectedData()
+    /// Called by some systems to request a handoff from another device.
+    ///
+    /// - Parameters:
+    ///     - handoff: The handoff activity.
+    /// 	- restorationHandler: A handler to call on extra objects needed for restoration.
+    ///
+    /// - Returns: `true` if the handoff has been accepted, `false` to request that the system accept the handoff.
+    func accept(handoff: NSUserActivity, details: HandoffDetails) -> Bool
 
-    /// Called by some systems before access to protected data is revoked.
-    func prepareToLoseAccessToProtectedData()
+    /// Called by some systems when an activity handoff fails.
+    ///
+    /// - Parameters:
+    ///     - identifier: The activity identifier.
+    ///
+    /// - Returns: `true` if the user was notified, or `false` to request that the system notify the user.
+    func notifyHandoffFailed(_ identifier: String, error: Error) -> Bool
+
+    /// Called by some systems to allow preprocessing of the handoff before it is sent to another device.
+    ///
+    /// - Parameters:
+    ///     - handoff: The handoff activity.
+    func preprocess(handoff: NSUserActivity)
 }
 
 extension SystemMediator {
@@ -173,10 +196,17 @@ extension SystemMediator {
 
     public func updateAccordingToScreenChange(_ details: ScreenChangeDetails) {}
 
+    public func finishGainingAccessToProtectedData() {}
+    public func prepareToLoseAccessToProtectedData() {}
+
     public func notifyHandoffBegan(_ identifier: String) -> Bool {
         return false
     }
-
-    public func finishGainingAccessToProtectedData() {}
-    public func prepareToLoseAccessToProtectedData() {}
+    public func accept(handoff: NSUserActivity, details: HandoffDetails) -> Bool {
+        return false
+    }
+    public func notifyHandoffFailed(_ identifier: String, error: Error) -> Bool {
+        return false
+    }
+    public func preprocess(handoff: NSUserActivity) {}
 }

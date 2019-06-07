@@ -1,5 +1,5 @@
 /*
- ScreenChangeDetails.swift
+ HandoffDetails.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,11 +12,16 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-/// Details about a screen change.
-public struct ScreenChangeDetails {
+/// Details about an activity handoff.
+public struct HandoffDetails {
 
     #if canImport(AppKit)
-    /// The notification.
-    public let notification: Notification
+    /// The restoration handler.
+    public let restorationHandler: ([NSUserActivityRestoring]) -> Void
+    #endif
+
+    #if canImport(UIKit)
+    /// The restoration handler.
+    public let restorationHandler: ([UIUserActivityRestoring]) -> Void
     #endif
 }

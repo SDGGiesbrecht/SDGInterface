@@ -128,19 +128,13 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
         _ application: UIApplication,
         continue userActivity: NSUserActivity,
         restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
-        #warning("Not yet implemented.")
-        return false
+        return Application.shared.systemMediator?.accept(
+            handoff: userActivity,
+            details: HandoffDetails(restorationHandler: restorationHandler)) ?? false
     }
 
     internal func application(_ application: UIApplication, didUpdate userActivity: NSUserActivity) {
-        #warning("Not yet implemented.")
-    }
-
-    internal func application(
-        _ application: UIApplication,
-        didFailToContinueUserActivityWithType userActivityType: String,
-        error: Error) {
-        #warning("Not yet implemented.")
+        Application.shared.systemMediator?.preprocess(handoff: userActivity)
     }
 
     internal func application(
