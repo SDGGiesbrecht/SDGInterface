@@ -16,7 +16,12 @@
 public protocol SystemMediator: AnyObject {
 
     /// Called before the application launches.
-    func applicationWillLaunch(_ details: LaunchDetails)
+    ///
+    /// - Parameters:
+    ///     - details: Details provided by the system.
+    ///
+    /// - Returns: `false` if the application cannot continue. Otherwise `true`.
+    func applicationWillLaunch(_ details: LaunchDetails) -> Bool
 
     /// Called when the application finishes launching.
     ///
