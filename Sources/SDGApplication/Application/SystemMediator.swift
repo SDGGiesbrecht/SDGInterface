@@ -91,6 +91,18 @@ public protocol SystemMediator: AnyObject {
     ///     - details: Details provided by the system.
     func finishUnhiding(_ details: HidingDetails)
 
+    /// Called by some systems before the interface update cycle begins.
+    ///
+    /// - Parameters:
+    ///     - details: Details provided by the system.
+    func prepareToUpdateInterface(_ details: UpdateDetails)
+
+    /// Called by some systems as the interface update cycle finishes.
+    ///
+    /// - Parameters:
+    ///     - details: Details provided by the system.
+    func finishUpdatingInterface(_ details: UpdateDetails)
+
     /// Called by some systems as access to protected data is granted.
     func finishGainingAccessToProtectedData()
 
@@ -121,6 +133,9 @@ extension SystemMediator {
     public func finishHiding(_ details: HidingDetails) {}
     public func prepareToUnhide(_ details: HidingDetails) {}
     public func finishUnhiding(_ details: HidingDetails) {}
+
+    public func prepareToUpdateInterface(_ details: UpdateDetails) {}
+    public func finishUpdatingInterface(_ details: UpdateDetails) {}
 
     public func finishGainingAccessToProtectedData() {}
     public func prepareToLoseAccessToProtectedData() {}

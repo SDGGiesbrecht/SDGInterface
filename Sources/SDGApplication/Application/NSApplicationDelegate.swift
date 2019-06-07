@@ -89,11 +89,11 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     }
 
     internal func applicationWillUpdate(_ notification: Notification) {
-        #warning("Not yet implemented.")
+        Application.shared.systemMediator?.prepareToUpdateInterface(UpdateDetails(notification: notification))
     }
 
     internal func applicationDidUpdate(_ notification: Notification) {
-        #warning("Not yet implemented.")
+        Application.shared.systemMediator?.finishUpdatingInterface(UpdateDetails(notification: notification))
     }
 
     internal func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {

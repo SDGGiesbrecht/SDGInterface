@@ -1,5 +1,5 @@
 /*
- TerminationDetails.swift
+ UpdateDetails.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,8 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-/// Details about a termination.
-public struct TerminationDetails {
+/// Details about an interface update cycle.
+public struct UpdateDetails {
 
     #if canImport(AppKit)
     /// The notification.
