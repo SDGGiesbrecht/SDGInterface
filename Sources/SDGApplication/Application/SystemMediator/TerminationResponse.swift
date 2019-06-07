@@ -15,6 +15,25 @@
 /// A response to a request to terminate.
 public enum TerminationResponse {
 
+    // MARK: - Initialization
+
+    #if canImport(AppKit)
+    public init(_ native: NSApplication.TerminateReply) {
+        switch native {
+        case .terminateNow:
+            self = .now
+        case .terminateLater:
+            self = .later
+        case .terminateCancel:
+            self = .cancel
+        @unknown default:
+            self = .now
+        }
+    }
+    #endif
+
+    // MARK: - Cases
+
     /// Terminate now.
     case now
 
@@ -25,4 +44,19 @@ public enum TerminationResponse {
 
     /// Cancel termination.
     case cancel
+
+    // MARK: - Properties
+
+    #if canImport(AppKit)
+    public var native: NSApplication.TerminateReply {
+        switch self {
+        case .now:
+            return .terminateNow
+        case .later:
+            return .terminateLater
+        case .cancel:
+            return .terminateCancel
+        }
+    }
+    #endif
 }
