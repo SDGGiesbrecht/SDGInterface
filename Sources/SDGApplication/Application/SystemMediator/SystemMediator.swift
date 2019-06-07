@@ -237,9 +237,20 @@ extension SystemMediator {
     }
     public func preprocess(handoff: NSUserActivity) {}
 
-    public func finishRegistrationForRemoteNotifications(deviceToken: Data) {}
-    public func reportFailedRegistrationForRemoteNotifications(error: Error) {}
+    public func finishRegistrationForRemoteNotifications(deviceToken: Data) {
+        #if UNHANDLED_SYSTEM_EVENT_LOGGING
+        print(#function)
+        #endif
+    }
+    public func reportFailedRegistrationForRemoteNotifications(error: Error) {
+        #if UNHANDLED_SYSTEM_EVENT_LOGGING
+        print(#function)
+        #endif
+    }
     public func acceptRemoteNotification(details: RemoteNotificationDetails) -> FetchResult {
+        #if UNHANDLED_SYSTEM_EVENT_LOGGING
+        print(#function)
+        #endif
         return .noData
     }
 }
