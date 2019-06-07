@@ -73,19 +73,19 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     }
 
     internal func applicationWillHide(_ notification: Notification) {
-        Application.shared.systemMediator?.prepareToHide(HidingDetails(notification: notification))
+        Application.shared.systemMediator?.prepareToHide(notification)
     }
 
     internal func applicationDidHide(_ notification: Notification) {
-        Application.shared.systemMediator?.finishHiding(HidingDetails(notification: notification))
+        Application.shared.systemMediator?.finishHiding(notification)
     }
 
     internal func applicationWillUnhide(_ notification: Notification) {
-        Application.shared.systemMediator?.prepareToUnhide(HidingDetails(notification: notification))
+        Application.shared.systemMediator?.prepareToUnhide(notification)
     }
 
     internal func applicationDidUnhide(_ notification: Notification) {
-        Application.shared.systemMediator?.finishUnhiding(HidingDetails(notification: notification))
+        Application.shared.systemMediator?.finishUnhiding(notification)
     }
 
     internal func applicationWillUpdate(_ notification: Notification) {

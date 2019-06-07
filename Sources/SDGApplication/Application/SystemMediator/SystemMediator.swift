@@ -70,26 +70,26 @@ public protocol SystemMediator: AnyObject {
     /// Called by some systems before the application is hidden.
     ///
     /// - Parameters:
-    ///     - details: Details provided by the system.
-    func prepareToHide(_ details: HidingDetails)
+    ///     - notification: The notification if the system provided one.
+    func prepareToHide(_ notification: Notification?)
 
     /// Called by some systems as the application finishes being hidden.
     ///
     /// - Parameters:
-    ///     - details: Details provided by the system.
-    func finishHiding(_ details: HidingDetails)
+    ///     - notification: The notification if the system provided one.
+    func finishHiding(_ notification: Notification?)
 
     /// Called by some systems before the application is unhidden.
     ///
     /// - Parameters:
-    ///     - details: Details provided by the system.
-    func prepareToUnhide(_ details: HidingDetails)
+    ///     - notification: The notification if the system provided one.
+    func prepareToUnhide(_ notification: Notification?)
 
     /// Called by some systems as the application finishes being unhidden.
     ///
     /// - Parameters:
-    ///     - details: Details provided by the system.
-    func finishUnhiding(_ details: HidingDetails)
+    ///     - notification: The notification if the system provided one.
+    func finishUnhiding(_ notification: Notification?)
 
     /// Called by some systems before the interface update cycle begins.
     ///
@@ -192,10 +192,10 @@ extension SystemMediator {
     }
     public func prepareToTerminate(_ details: TerminationDetails) {}
 
-    public func prepareToHide(_ details: HidingDetails) {}
-    public func finishHiding(_ details: HidingDetails) {}
-    public func prepareToUnhide(_ details: HidingDetails) {}
-    public func finishUnhiding(_ details: HidingDetails) {}
+    public func prepareToHide(_ notification: Notification?) {}
+    public func finishHiding(_ notification: Notification?) {}
+    public func prepareToUnhide(_ notification: Notification?) {}
+    public func finishUnhiding(_ notification: Notification?) {}
 
     public func prepareToUpdateInterface(_ details: UpdateDetails) {}
     public func finishUpdatingInterface(_ details: UpdateDetails) {}
