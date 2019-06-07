@@ -179,11 +179,11 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     }
 
     internal func application(_ app: NSApplication, didDecodeRestorableState coder: NSCoder) {
-        #warning("Not yet implemented.")
+        Application.shared.systemMediator?.finishRestoring(coder: coder)
     }
 
     internal func application(_ app: NSApplication, willEncodeRestorableState coder: NSCoder) {
-        #warning("Not yet implemented.")
+        Application.shared.systemMediator?.prepareToEncodeRestorableState(coder: coder)
     }
 
     internal func applicationDidChangeOcclusionState(_ notification: Notification) {

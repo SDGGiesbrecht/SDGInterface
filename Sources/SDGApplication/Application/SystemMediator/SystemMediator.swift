@@ -195,6 +195,18 @@ public protocol SystemMediator: AnyObject {
 
     /// Called by some systems to request that a file be printed.
     func print(files: [URL], details: PrintingDetails) -> PrintingResponse
+
+    /// Called by some systems as restoration finishes.
+    ///
+    /// - Parameters:
+    ///     - coder: The coder.
+    func finishRestoring(coder: NSCoder)
+
+    /// Called by some systems before encoding a restorable state.
+    ///
+    /// - Parameters:
+    ///     - coder: The coder.
+    func prepareToEncodeRestorableState(coder: NSCoder)
 }
 
 extension SystemMediator {
@@ -293,4 +305,7 @@ extension SystemMediator {
         #endif
         return .failure
     }
+
+    public func finishRestoring(coder: NSCoder) {}
+    public func prepareToEncodeRestorableState(coder: NSCoder) {}
 }

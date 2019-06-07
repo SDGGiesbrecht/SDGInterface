@@ -89,11 +89,11 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
     }
 
     internal func application(_ application: UIApplication, willEncodeRestorableStateWith coder: NSCoder) {
-        #warning("Not yet implemented.")
+        Application.shared.systemMediator?.prepareToEncodeRestorableState(coder: coder)
     }
 
     internal func application(_ application: UIApplication, didDecodeRestorableStateWith coder: NSCoder) {
-        #warning("Not yet implemented.")
+        Application.shared.systemMediator?.finishRestoring(coder: coder)
     }
 
     internal func application(
