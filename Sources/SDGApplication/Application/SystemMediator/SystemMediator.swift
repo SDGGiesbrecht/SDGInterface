@@ -192,6 +192,11 @@ public protocol SystemMediator: AnyObject {
     ///
     /// - Returns: Whether or not a file should be created.
     func createNewBlankFile() -> Bool
+
+    /// Called by some systems to request that a file be printed.
+    ///
+    /// - Returns: Whether or not the files could be printed successfully.
+    func print(file: URL) -> Bool
 }
 
 extension SystemMediator {
@@ -251,36 +256,43 @@ extension SystemMediator {
 
     public func finishRegistrationForRemoteNotifications(deviceToken: Data) {
         #if UNHANDLED_SYSTEM_EVENT_LOGGING
-        print(#function)
+        Swift.print(#function)
         #endif
     }
     public func reportFailedRegistrationForRemoteNotifications(error: Error) {
         #if UNHANDLED_SYSTEM_EVENT_LOGGING
-        print(#function)
+        Swift.print(#function)
         #endif
     }
     public func acceptRemoteNotification(details: RemoteNotificationDetails) -> FetchResult {
         #if UNHANDLED_SYSTEM_EVENT_LOGGING
-        print(#function)
+        Swift.print(#function)
         #endif
         return .noData
     }
 
     public func open(files: [URL], details: OpeningDetails) -> Bool {
         #if UNHANDLED_SYSTEM_EVENT_LOGGING
-        print(#function)
+        Swift.print(#function)
         #endif
         return false
     }
 
     public func createNewBlankFile() -> Bool {
         #if UNHANDLED_SYSTEM_EVENT_LOGGING
-        print(#function)
+        Swift.print(#function)
         #endif
         return false
     }
 
     public func shouldCreateNewBlankFile() -> Bool {
         return true
+    }
+
+    public func print(file: URL) -> Bool {
+        #if UNHANDLED_SYSTEM_EVENT_LOGGING
+        Swift.print(#function)
+        #endif
+        return false
     }
 }

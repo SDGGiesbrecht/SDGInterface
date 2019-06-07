@@ -175,8 +175,7 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     }
 
     internal func application(_ sender: NSApplication, printFile filename: String) -> Bool {
-        #warning("Not yet implemented.")
-        return false
+        return Application.shared.systemMediator?.print(file: URL(fileURLWithPath: filename)) ?? false
     }
 
     internal func application(
