@@ -34,25 +34,25 @@ public protocol SystemMediator: AnyObject {
     /// Called by some systems before the application acquires the system focus.
     ///
     /// - Parameters:
-    ///     - notification: The notification if the system provided one.
+    ///     - notification: Some systems provide an accompanying notification.
     func prepareToAcquireFocus(_ notification: Notification?)
 
     /// Called by some systems as the application finishes acquiring the system focus.
     ///
     /// - Parameters:
-    ///     - notification: The notification if the system provided one.
+    ///     - notification: Some systems provide an accompanying notification.
     func finishAcquiringFocus(_ notification: Notification?)
 
     /// Called by some systems before the application resigns the system focus.
     ///
     /// - Parameters:
-    ///     - notification: The notification if the system provided one.
+    ///     - notification: Some systems provide an accompanying notification.
     func prepareToResignFocus(_ notification: Notification?)
 
     /// Called by some systems as the application finishes resigning the system focus.
     ///
     /// - Parameters:
-    ///     - notification: The notification if the system provided one.
+    ///     - notification: Some systems provide an accompanying notification.
     func finishResigningFocus(_ notification: Notification?)
 
     /// Called by some systems to request that the application terminate.
@@ -65,30 +65,33 @@ public protocol SystemMediator: AnyObject {
     var remainsRunningWithNoWindows: Bool { get }
 
     /// Called by some systems before the application terminates.
-    func prepareToTerminate(_ details: TerminationDetails)
+    ///
+    /// - Parameters:
+    ///     - notification: Some systems provide an accompanying notification.
+    func prepareToTerminate(_ notification: Notification?)
 
     /// Called by some systems before the application is hidden.
     ///
     /// - Parameters:
-    ///     - notification: The notification if the system provided one.
+    ///     - notification: Some systems provide an accompanying notification.
     func prepareToHide(_ notification: Notification?)
 
     /// Called by some systems as the application finishes being hidden.
     ///
     /// - Parameters:
-    ///     - notification: The notification if the system provided one.
+    ///     - notification: Some systems provide an accompanying notification.
     func finishHiding(_ notification: Notification?)
 
     /// Called by some systems before the application is unhidden.
     ///
     /// - Parameters:
-    ///     - notification: The notification if the system provided one.
+    ///     - notification: Some systems provide an accompanying notification.
     func prepareToUnhide(_ notification: Notification?)
 
     /// Called by some systems as the application finishes being unhidden.
     ///
     /// - Parameters:
-    ///     - notification: The notification if the system provided one.
+    ///     - notification: Some systems provide an accompanying notification.
     func finishUnhiding(_ notification: Notification?)
 
     /// Called by some systems before the interface update cycle begins.
@@ -118,7 +121,10 @@ public protocol SystemMediator: AnyObject {
     func preprocessErrorForDisplay(_ error: Error) -> Error
 
     /// Called by some systems when the screen changes.
-    func updateAccordingToScreenChange(_ details: ScreenChangeDetails)
+    ///
+    /// - Parameters:
+    ///     - notification: Some systems provide an accompanying notification.
+    func updateAccordingToScreenChange(_ notification: Notification?)
 
     /// Called by some systems as access to protected data is granted.
     func finishGainingAccessToProtectedData()
@@ -138,7 +144,7 @@ public protocol SystemMediator: AnyObject {
     ///
     /// - Parameters:
     ///     - handoff: The handoff activity.
-    /// 	- restorationHandler: A handler to call on extra objects needed for restoration.
+    /// 	- details: Details about the handoff.
     ///
     /// - Returns: `true` if the handoff has been accepted, `false` to request that the system accept the handoff.
     func accept(handoff: NSUserActivity, details: HandoffDetails) -> Bool
@@ -193,7 +199,7 @@ extension SystemMediator {
     public var remainsRunningWithNoWindows: Bool {
         return false
     }
-    public func prepareToTerminate(_ details: TerminationDetails) {}
+    public func prepareToTerminate(_ notification: Notification?) {}
 
     public func prepareToHide(_ notification: Notification?) {}
     public func finishHiding(_ notification: Notification?) {}
@@ -215,7 +221,7 @@ extension SystemMediator {
         return error
     }
 
-    public func updateAccordingToScreenChange(_ details: ScreenChangeDetails) {}
+    public func updateAccordingToScreenChange(_ notification: Notification?) {}
 
     public func finishGainingAccessToProtectedData() {}
     public func prepareToLoseAccessToProtectedData() {}

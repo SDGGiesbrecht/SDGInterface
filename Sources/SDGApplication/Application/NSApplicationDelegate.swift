@@ -69,7 +69,7 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     }
 
     internal func applicationWillTerminate(_ notification: Notification) {
-        Application.shared.systemMediator?.prepareToTerminate(TerminationDetails(notification: notification))
+        Application.shared.systemMediator?.prepareToTerminate(notification)
     }
 
     internal func applicationWillHide(_ notification: Notification) {
@@ -109,8 +109,7 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     }
 
     internal func applicationDidChangeScreenParameters(_ notification: Notification) {
-        Application.shared.systemMediator?.updateAccordingToScreenChange(ScreenChangeDetails(
-            notification: notification))
+        Application.shared.systemMediator?.updateAccordingToScreenChange(notification)
     }
 
     internal func application(_ application: NSApplication, willContinueUserActivityWithType userActivityType: String) -> Bool {
