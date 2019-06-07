@@ -97,14 +97,14 @@ public protocol SystemMediator: AnyObject {
     /// Called by some systems before the interface update cycle begins.
     ///
     /// - Parameters:
-    ///     - details: Details provided by the system.
-    func prepareToUpdateInterface(_ details: UpdateDetails)
+    ///     - notification: Some systems provide an accompanying notification.
+    func prepareToUpdateInterface(_ notification: Notification?)
 
     /// Called by some systems as the interface update cycle finishes.
     ///
     /// - Parameters:
-    ///     - details: Details provided by the system.
-    func finishUpdatingInterface(_ details: UpdateDetails)
+    ///     - notification: Some systems provide an accompanying notification.
+    func finishUpdatingInterface(_ notification: Notification?)
 
     /// Called by some systems when a user tries to open the application while it is already running.
     ///
@@ -207,6 +207,11 @@ public protocol SystemMediator: AnyObject {
     /// - Parameters:
     ///     - coder: The coder.
     func prepareToEncodeRestorableState(coder: NSCoder)
+
+    /// Called by some systems when the application’s occlusion changes.
+    ///
+    /// - Returns: `false` if the application cannot continue. Otherwise `true`.
+    func updateAccordingToOcclusionChange(_ notification: Notification?)
 }
 
 extension SystemMediator {
@@ -233,8 +238,8 @@ extension SystemMediator {
     public func prepareToUnhide(_ notification: Notification?) {}
     public func finishUnhiding(_ notification: Notification?) {}
 
-    public func prepareToUpdateInterface(_ details: UpdateDetails) {}
-    public func finishUpdatingInterface(_ details: UpdateDetails) {}
+    public func prepareToUpdateInterface(_ notification: Notification?) {}
+    public func finishUpdatingInterface(_ notification: Notification?) {}
 
     public func reopen(hasVisibleWindows: Bool?) -> Bool {
         return false
@@ -308,4 +313,6 @@ extension SystemMediator {
 
     public func finishRestoring(coder: NSCoder) {}
     public func prepareToEncodeRestorableState(coder: NSCoder) {}
+
+    public func updateAccordingToOcclusionChange(_ notification: Notification?) {}
 }

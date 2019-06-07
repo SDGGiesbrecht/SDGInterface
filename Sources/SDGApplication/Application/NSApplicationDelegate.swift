@@ -82,11 +82,11 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     }
 
     internal func applicationWillUpdate(_ notification: Notification) {
-        Application.shared.systemMediator?.prepareToUpdateInterface(UpdateDetails(notification: notification))
+        Application.shared.systemMediator?.prepareToUpdateInterface(notification)
     }
 
     internal func applicationDidUpdate(_ notification: Notification) {
-        Application.shared.systemMediator?.finishUpdatingInterface(UpdateDetails(notification: notification))
+        Application.shared.systemMediator?.finishUpdatingInterface(notification)
     }
 
     internal func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
@@ -187,7 +187,7 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     }
 
     internal func applicationDidChangeOcclusionState(_ notification: Notification) {
-        #warning("Not yet implemented.")
+        Application.shared.systemMediator?.updateAccordingToOcclusionChange(notification)
     }
 
     // MARK: - NSMenuItemValidation
