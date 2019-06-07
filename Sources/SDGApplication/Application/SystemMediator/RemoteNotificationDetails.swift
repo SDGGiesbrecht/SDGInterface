@@ -15,6 +15,13 @@
 /// Details about a remote notification.
 public struct RemoteNotificationDetails {
 
+    #if canImport(AppKit)
+    /// User information.
+    public let userInformation: [String: Any]
+    #endif
+
+    #if canImport(UIKit)
     /// User information.
     public let userInformation: [AnyHashable: Any]
+    #endif
 }
