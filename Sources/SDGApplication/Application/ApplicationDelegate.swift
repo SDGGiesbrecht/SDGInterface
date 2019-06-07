@@ -29,17 +29,6 @@ open class ApplicationDelegate : NSObject, _ApplicationDelegate {
 
     // Permanent strong storage for the delegate.
     private static var mainDelegate: ApplicationDelegate?
-    /// Starts the application’s main run loop.
-    public class func main() -> Never { // @exempt(from: tests)
-        #if canImport(AppKit)
-        let delegate = self.init()
-        mainDelegate = delegate
-        Application.shared.delegate = delegate
-        exit(NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv))
-        #elseif canImport(UIKit)
-        exit(UIApplicationMain(CommandLine.argc, CommandLine.unsafeArgv, nil, NSStringFromClass(self)))
-        #endif
-    }
 
     // MARK: - Initialization
 
@@ -55,13 +44,13 @@ open class ApplicationDelegate : NSObject, _ApplicationDelegate {
     /// This is a unification of `applicationDidFinishLaunching(_:)` and `application(_:didFinishLaunchingWithOptions:)`. The default implementations of each redirect to this method.
     open func applicationDidFinishLaunching() {
         #if canImport(AppKit)
-        Application.shared.menu = MenuBar.menuBar
+        NSApplication.shared.menu = MenuBar.menuBar
         #elseif !os(tvOS)
         UIMenuController.shared.extend()
         #endif
 
         #if canImport(AppKit)
-        Application.shared.activate(ignoringOtherApps: false)
+        NSApplication.shared.activate(ignoringOtherApps: false)
         #endif
     }
 

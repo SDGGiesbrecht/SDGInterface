@@ -12,28 +12,13 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if !os(watchOS)
-
-#if canImport(AppKit)
-// @documentation(SDGInterface.Application)
-/// An alias for `NSApplication` or `UIApplication`.
-public typealias Application = NSApplication
-#elseif canImport(UIKit)
-// #documentation(SDGInterface.Application)
-/// An alias for `NSApplication` or `UIApplication`.
-public typealias Application = UIApplication
-#endif
-
-#endif
-
-#warning("Remove prefix.")
 /// The application.
-public final class SDGApplication {
+public final class Application {
 
     // MARK: - Static Properties
 
     /// The application.
-    public static let shared = SDGApplication()
+    public static let shared = Application()
 
     // MARK: - Initialization
 
@@ -69,22 +54,3 @@ public final class SDGApplication {
         #endif
     }
 }
-
-#warning("Move.")
-#if canImport(AppKit)
-internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate {
-    func applicationDidFinishLaunching(_ notification: Notification) {
-        #warning("Not implemented yet.")
-        print("Launched.")
-    }
-}
-#endif
-
-#if canImport(UIKit)
-internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
-    func applicationDidFinishLaunching(_ application: UIApplication) {
-        #warning("Not implemented yet.")
-        print("Launched.")
-    }
-}
-#endif

@@ -78,8 +78,7 @@ extension SampleApplicationDelegate {
 
     public class func setUpAndMain() { // @exempt(from: tests)
         setUp()
-        SDGApplication.main()
-        //super.main()
+        Application.main()
     }
 
     private func setSamplesUp() {
