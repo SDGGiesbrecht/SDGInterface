@@ -20,7 +20,7 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
     internal func application(
         _ application: UIApplication,
         willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        return Application.shared.systemMediator?.applicationWillLaunch(LaunchDetails(
+        return Application.shared.systemMediator?.prepareToLaunch(LaunchDetails(
             options: launchOptions)) ?? false
     }
 
@@ -30,24 +30,24 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
 
         UIMenuController.shared.extend()
 
-        return Application.shared.systemMediator?.applicationDidLaunch(LaunchDetails(
+        return Application.shared.systemMediator?.finishLaunching(LaunchDetails(
             options: launchOptions)) ?? false
     }
 
     internal func applicationDidBecomeActive(_ application: UIApplication) {
-        <#code#>
+        Application.shared.systemMediator?.finishAcquiringFocus(FocusChangeDetails())
     }
 
     internal func applicationWillResignActive(_ application: UIApplication) {
-        <#code#>
+        Application.shared.systemMediator?.prepareToResignFocus(FocusChangeDetails())
     }
 
     internal func applicationDidEnterBackground(_ application: UIApplication) {
-        <#code#>
+        Application.shared.systemMediator?.finishResigningFocus(FocusChangeDetails())
     }
 
     internal func applicationWillEnterForeground(_ application: UIApplication) {
-        <#code#>
+        Application.shared.systemMediator?.prepareToAcquireFocus(FocusChangeDetails())
     }
 
     internal func applicationWillTerminate(_ application: UIApplication) {

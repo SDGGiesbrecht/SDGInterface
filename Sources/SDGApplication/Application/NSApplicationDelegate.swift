@@ -26,7 +26,7 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     // MARK: - NSApplicationDelegate
 
     internal func applicationWillFinishLaunching(_ notification: Notification) {
-        Application.shared.systemMediator?.applicationWillLaunch(LaunchDetails(notification: notification))
+        _ = Application.shared.systemMediator?.prepareToLaunch(LaunchDetails(notification: notification))
     }
 
     internal func applicationDidFinishLaunching(_ notification: Notification) {
@@ -34,23 +34,23 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
         NSApplication.shared.menu = MenuBar.menuBar
         NSApplication.shared.activate(ignoringOtherApps: false)
 
-        _ = Application.shared.systemMediator?.applicationDidLaunch(LaunchDetails(notification: notification))
+        _ = Application.shared.systemMediator?.finishLaunching(LaunchDetails(notification: notification))
     }
 
     internal func applicationWillBecomeActive(_ notification: Notification) {
-        <#code#>
+        Application.shared.systemMediator?.prepareToAcquireFocus(FocusChangeDetails(notification: notification))
     }
 
     internal func applicationDidBecomeActive(_ notification: Notification) {
-        <#code#>
+        Application.shared.systemMediator?.finishAcquiringFocus(FocusChangeDetails(notification: notification))
     }
 
     internal func applicationWillResignActive(_ notification: Notification) {
-        <#code#>
+        Application.shared.systemMediator?.prepareToResignFocus(FocusChangeDetails(notification: notification))
     }
 
     internal func applicationDidResignActive(_ notification: Notification) {
-        <#code#>
+        Application.shared.systemMediator?.finishResigningFocus(FocusChangeDetails(notification: notification))
     }
 
     internal func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {

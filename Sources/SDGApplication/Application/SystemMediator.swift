@@ -21,17 +21,44 @@ public protocol SystemMediator: AnyObject {
     ///     - details: Details provided by the system.
     ///
     /// - Returns: `false` if the application cannot continue. Otherwise `true`.
-    func applicationWillLaunch(_ details: LaunchDetails) -> Bool
+    func prepareToLaunch(_ details: LaunchDetails) -> Bool
 
-    /// Called when the application finishes launching.
+    /// Called as application finishes launching.
     ///
     /// - Parameters:
     ///     - details: Details provided by the system.
     ///
     /// - Returns: `false` if the application cannot continue. Otherwise `true`.
-    func applicationDidLaunch(_ details: LaunchDetails) -> Bool
+    func finishLaunching(_ details: LaunchDetails) -> Bool
+
+    /// Called before the application acquires the system focus.
+    ///
+    /// - Parameters:
+    ///     - details: Details provided by the system.
+    func prepareToAcquireFocus(_ details: FocusChangeDetails)
+
+    /// Called as the application finishes acquiring the system focus.
+    ///
+    /// - Parameters:
+    ///     - details: Details provided by the system.
+    func finishAcquiringFocus(_ details: FocusChangeDetails)
+
+    /// Called before the application resigns the system focus.
+    ///
+    /// - Parameters:
+    ///     - details: Details provided by the system.
+    func prepareToResignFocus(_ details: FocusChangeDetails)
+
+    /// Called as the application finishes resigning the system focus.
+    ///
+    /// - Parameters:
+    ///     - details: Details provided by the system.
+    func finishResigningFocus(_ details: FocusChangeDetails)
 }
 
 extension SystemMediator {
-    public func applicationWillLaunch(_ details: LaunchDetails) {}
+
+    public func prepareToLaunch(_ details: LaunchDetails) -> Bool {
+        return true
+    }
 }

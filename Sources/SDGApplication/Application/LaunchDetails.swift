@@ -16,10 +16,12 @@
 public struct LaunchDetails {
 
     #if canImport(AppKit)
+    /// The notification.
     public let notification: Notification
     #endif
 
     #if canImport(UIKit)
+    /// The options.
     public let options: [UIApplication.LaunchOptionsKey: Any]?
     #endif
 }
