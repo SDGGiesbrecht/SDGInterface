@@ -45,11 +45,26 @@ public final class Application {
 
     // MARK: - Launching
 
-    /// Starts the application’s main run loop.
-    public class func main(mediator: SystemMediator) -> Never { // @exempt(from: tests)
+    /// Preforms the same preparatory actions taken by `main(mediator:)`, but without triggering the system’s main loop.
+    ///
+    /// This method is useful for setting up a portion of the application when helpful for tests, but it should only be called once. Do not call it separately before `main(mediator)`.
+    ///
+    /// - Parameters:
+    ///     - mediator: An object which will mediate between the application and system events.
+    public class func prepareForMain(mediator: SystemMediator) {
         Application.shared.systemMediator = mediator
         #if canImport(AppKit)
         NSApplication.shared.delegate = shared.nativeDelegate
+        #endif
+    }
+
+    /// Starts the application’s main run loop.
+    ///
+    /// - Parameters:
+    ///     - mediator: An object which will mediate between the application and system events.
+    public class func main(mediator: SystemMediator) -> Never { // @exempt(from: tests)
+        prepareForMain(mediator: mediator)
+        #if canImport(AppKit)
         exit(NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv))
         #elseif canImport(UIKit)
         exit(UIApplicationMain(
