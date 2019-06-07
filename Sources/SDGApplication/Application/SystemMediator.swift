@@ -108,6 +108,9 @@ public protocol SystemMediator: AnyObject {
     /// - Returns: `true` if the reopen operation has been handled, `false` to request that the operating system handle it.
     func reopen(_ details: ReopeningDetails) -> Bool
 
+    /// Used by some systems as the dock menu.
+    var dockMenu: NSMenu? { get }
+
     /// Called by some systems as access to protected data is granted.
     func finishGainingAccessToProtectedData()
 
@@ -144,6 +147,10 @@ extension SystemMediator {
 
     public func reopen(_ details: ReopeningDetails) -> Bool {
         return false
+    }
+
+    public var dockMenu: NSMenu? {
+        return nil
     }
 
     public func finishGainingAccessToProtectedData() {}

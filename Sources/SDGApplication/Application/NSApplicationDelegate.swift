@@ -101,8 +101,7 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     }
 
     internal func applicationDockMenu(_ sender: NSApplication) -> NSMenu? {
-        #warning("Not yet implemented.")
-        return nil
+        return Application.shared.systemMediator?.dockMenu
     }
 
     internal func application(_ application: NSApplication, willPresentError error: Error) -> Error {
