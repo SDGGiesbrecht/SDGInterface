@@ -82,8 +82,9 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
         _ application: UIApplication,
         viewControllerWithRestorationIdentifierPath identifierComponents: [String],
         coder: NSCoder) -> UIViewController? {
-        #warning("Not yet implemented.")
-        return nil
+        return Application.shared.systemMediator?.viewController(
+            forRestorationIdentifierPath: identifierComponents,
+            coder: coder)
     }
 
     internal func application(_ application: UIApplication, willEncodeRestorableStateWith coder: NSCoder) {

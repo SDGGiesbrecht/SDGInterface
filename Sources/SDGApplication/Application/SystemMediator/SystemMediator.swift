@@ -220,6 +220,15 @@ public protocol SystemMediator: AnyObject {
     ///     - coder: The coder.
     func finishRestoring(coder: NSCoder)
 
+    #if canImport(UIKit)
+    /// Returns the controller for a particular restoration identifier path.
+    ///
+    /// - Parameters:
+    ///     - path: The path.
+    ///     - coder: The coder.
+    func viewController(forRestorationIdentifierPath path: [String], coder: NSCoder) -> UIViewController?
+    #endif
+
     /// Called by some systems when the application’s occlusion changes.
     ///
     /// - Returns: `false` if the application cannot continue. Otherwise `true`.
@@ -340,6 +349,14 @@ extension SystemMediator {
         return false
     }
     public func finishRestoring(coder: NSCoder) {}
+    #if canImport(UIKit)
+    public func viewController(forRestorationIdentifierPath path: [String], coder: NSCoder) -> UIViewController? {
+        #if UNHANDLED_SYSTEM_EVENT_LOGGING
+        Swift.print(#function)
+        #endif
+        return nil
+    }
+    #endif
 
     public func updateAccordingToOcclusionChange(_ notification: Notification?) {}
 
