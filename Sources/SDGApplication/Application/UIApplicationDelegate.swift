@@ -51,130 +51,130 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
     }
 
     internal func applicationWillTerminate(_ application: UIApplication) {
-        <#code#>
+        #warning("Not yet implemented.")
     }
 
     internal func applicationProtectedDataDidBecomeAvailable(_ application: UIApplication) {
-        <#code#>
+        #warning("Not yet implemented.")
     }
 
     internal func applicationProtectedDataWillBecomeUnavailable(_ application: UIApplication) {
-        <#code#>
+        #warning("Not yet implemented.")
     }
 
     internal func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
-        <#code#>
+        #warning("Not yet implemented.")
     }
 
     internal func applicationSignificantTimeChange(_ application: UIApplication) {
-        <#code#>
+        #warning("Not yet implemented.")
     }
 
     internal func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
-        <#code#>
+        #warning("Not yet implemented.")
     }
 
     internal func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
-        <#code#>
+        #warning("Not yet implemented.")
     }
 
     internal func application(
         _ application: UIApplication,
         viewControllerWithRestorationIdentifierPath identifierComponents: [String],
         coder: NSCoder) -> UIViewController? {
-        <#code#>
+        #warning("Not yet implemented.")
     }
 
     internal func application(_ application: UIApplication, willEncodeRestorableStateWith coder: NSCoder) {
-        <#code#>
+        #warning("Not yet implemented.")
     }
 
     internal func application(_ application: UIApplication, didDecodeRestorableStateWith coder: NSCoder) {
-        <#code#>
+        #warning("Not yet implemented.")
     }
 
     internal func application(
         _ application: UIApplication,
         handleEventsForBackgroundURLSession identifier: String,
         completionHandler: @escaping () -> Void) {
-        <#code#>
+        #warning("Not yet implemented.")
     }
 
     internal func application(
         _ application: UIApplication,
         didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        <#code#>
+        #warning("Not yet implemented.")
     }
 
     internal func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        <#code#>
+        #warning("Not yet implemented.")
     }
 
     internal func application(
         _ application: UIApplication,
         didReceiveRemoteNotification userInfo: [AnyHashable : Any],
         fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        <#code#>
+        #warning("Not yet implemented.")
     }
 
     internal func application(_ application: UIApplication, willContinueUserActivityWithType userActivityType: String) -> Bool {
-        <#code#>
+        #warning("Not yet implemented.")
     }
 
     internal func application(
         _ application: UIApplication,
         continue userActivity: NSUserActivity,
         restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
-        <#code#>
+        #warning("Not yet implemented.")
     }
 
     internal func application(_ application: UIApplication, didUpdate userActivity: NSUserActivity) {
-        <#code#>
+        #warning("Not yet implemented.")
     }
 
     internal func application(
         _ application: UIApplication,
         didFailToContinueUserActivityWithType userActivityType: String,
         error: Error) {
-        <#code#>
+        #warning("Not yet implemented.")
     }
 
     internal func application(
         _ application: UIApplication,
         performActionFor shortcutItem: UIApplicationShortcutItem,
         completionHandler: @escaping (Bool) -> Void) {
-        <#code#>
+        #warning("Not yet implemented.")
     }
 
     internal func application(
         _ application: UIApplication,
         handleWatchKitExtensionRequest userInfo: [AnyHashable : Any]?,
         reply: @escaping ([AnyHashable : Any]?) -> Void) {
-        <#code#>
+        #warning("Not yet implemented.")
     }
 
     internal func applicationShouldRequestHealthAuthorization(_ application: UIApplication) {
-        <#code#>
+        #warning("Not yet implemented.")
     }
 
     internal func application(
         _ app: UIApplication,
         open url: URL,
         options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        <#code#>
+        #warning("Not yet implemented.")
     }
 
     internal func application(
         _ application: UIApplication,
         shouldAllowExtensionPointIdentifier extensionPointIdentifier: UIApplication.ExtensionPointIdentifier
         ) -> Bool {
-        <#code#>
+        #warning("Not yet implemented.")
     }
 
     internal func application(
         _ application: UIApplication,
         supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
-        <#code#>
+        #warning("Not yet implemented.")
     }
 }
 #endif
