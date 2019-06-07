@@ -171,8 +171,7 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     }
 
     internal func applicationShouldOpenUntitledFile(_ sender: NSApplication) -> Bool {
-        #warning("Not yet implemented.")
-        return true
+        return Application.shared.systemMediator?.shouldCreateNewBlankFile() ?? true
     }
 
     internal func application(_ sender: NSApplication, printFile filename: String) -> Bool {
