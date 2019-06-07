@@ -25,3 +25,66 @@ public typealias Application = UIApplication
 #endif
 
 #endif
+
+#warning("Remove prefix.")
+/// The application.
+public final class SDGApplication {
+
+    // MARK: - Static Properties
+
+    /// The application.
+    public static let shared = SDGApplication()
+
+    // MARK: - Initialization
+
+    private init() {
+        #if canImport(AppKit)
+        nativeDelegate = NSApplicationDelegate()
+        #elseif canImport(UIKit)
+        nativeDelegate = UIApplicationDelegate()
+        #endif
+    }
+
+    // MARK: - Properties
+
+    #if canImport(AppKit)
+    private var nativeDelegate: NSApplicationDelegate
+    #elseif canImport(UIKit)
+    private var nativeDelegate: UIApplicationDelegate
+    #endif
+
+    // MARK: - Launching
+
+    /// Starts the application’s main run loop.
+    public class func main() -> Never { // @exempt(from: tests)
+        #if canImport(AppKit)
+        NSApplication.shared.delegate = shared.nativeDelegate
+        exit(NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv))
+        #elseif canImport(UIKit)
+        exit(UIApplicationMain(
+            CommandLine.argc,
+            CommandLine.unsafeArgv,
+            nil,
+            NSStringFromClass(UIApplicationDelegate.self)))
+        #endif
+    }
+}
+
+#warning("Move.")
+#if canImport(AppKit)
+internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate {
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        #warning("Not implemented yet.")
+        print("Launched.")
+    }
+}
+#endif
+
+#if canImport(UIKit)
+internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
+    func applicationDidFinishLaunching(_ application: UIApplication) {
+        #warning("Not implemented yet.")
+        print("Launched.")
+    }
+}
+#endif

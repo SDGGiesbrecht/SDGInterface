@@ -15,9 +15,9 @@
 #if !os(watchOS)
 
 #if canImport(AppKit)
-public typealias _ApplicationDelegate = NSApplicationDelegate
+public typealias _ApplicationDelegate = AppKit.NSApplicationDelegate
 #elseif canImport(UIKit)
-public typealias _ApplicationDelegate = UIApplicationDelegate
+public typealias _ApplicationDelegate = UIKit.UIApplicationDelegate
 #endif
 
 /// An application delegate.
