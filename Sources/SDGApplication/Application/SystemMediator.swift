@@ -56,7 +56,13 @@ public protocol SystemMediator: AnyObject {
     func finishResigningFocus(_ details: FocusChangeDetails)
 
     /// Called by some systems to request that the application terminate.
+    ///
+    /// - Parameters:
+    ///     - lastWindowClosed: `true` if the termination request was triggered by the last window closing.
     func terminate() -> TerminationResponse
+
+    /// Some systems will terminate the application automatically when the last window closes. Returning `false` requests that the application remain running.
+    var remainsRunningWithNoWindows: Bool { get }
 }
 
 extension SystemMediator {
@@ -72,5 +78,9 @@ extension SystemMediator {
 
     public func terminate() -> TerminationResponse {
         return .now
+    }
+
+    public var remainsRunningWithNoWindows: Bool {
+        return false
     }
 }

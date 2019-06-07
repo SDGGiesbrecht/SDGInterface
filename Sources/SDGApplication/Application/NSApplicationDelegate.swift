@@ -65,8 +65,7 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     }
 
     internal func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-        #warning("Not yet implemented.")
-        return true
+        return ¬(Application.shared.systemMediator?.remainsRunningWithNoWindows ?? false)
     }
 
     internal func applicationWillTerminate(_ notification: Notification) {
