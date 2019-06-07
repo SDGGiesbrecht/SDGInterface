@@ -71,13 +71,11 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
     }
 
     internal func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
-        #warning("Not yet implemented.")
-        return false
+        return Application.shared.systemMediator?.shouldEncodeRestorableState(coder: coder) ?? false
     }
 
     internal func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
-        #warning("Not yet implemented.")
-        return false
+        return Application.shared.systemMediator?.shouldRestorePreviousState(coder: coder) ?? false
     }
 
     internal func application(

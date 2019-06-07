@@ -196,17 +196,29 @@ public protocol SystemMediator: AnyObject {
     /// Called by some systems to request that a file be printed.
     func print(files: [URL], details: PrintingDetails) -> PrintingResponse
 
-    /// Called by some systems as restoration finishes.
+    /// Called by some systems to ask whether to encode a restorable state.
     ///
     /// - Parameters:
     ///     - coder: The coder.
-    func finishRestoring(coder: NSCoder)
+    func shouldEncodeRestorableState(coder: NSCoder) -> Bool
 
     /// Called by some systems before encoding a restorable state.
     ///
     /// - Parameters:
     ///     - coder: The coder.
     func prepareToEncodeRestorableState(coder: NSCoder)
+
+    /// Called by some systems to ask whether to restore a previous state.
+    ///
+    /// - Parameters:
+    ///     - coder: The coder.
+    func shouldRestorePreviousState(coder: NSCoder) -> Bool
+
+    /// Called by some systems as restoration finishes.
+    ///
+    /// - Parameters:
+    ///     - coder: The coder.
+    func finishRestoring(coder: NSCoder)
 
     /// Called by some systems when the application’s occlusion changes.
     ///
@@ -317,8 +329,17 @@ extension SystemMediator {
         return .failure
     }
 
-    public func finishRestoring(coder: NSCoder) {}
+    public func prepareToEncodeRestorableState(coder: NSCoder) -> Bool {
+        return false
+    }
     public func prepareToEncodeRestorableState(coder: NSCoder) {}
+    public func shouldRestorePreviousState(coder: NSCoder) -> Bool {
+        #if UNHANDLED_SYSTEM_EVENT_LOGGING
+        Swift.print(#function)
+        #endif
+        return false
+    }
+    public func finishRestoring(coder: NSCoder) {}
 
     public func updateAccordingToOcclusionChange(_ notification: Notification?) {}
 
