@@ -54,7 +54,14 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     }
 
     internal func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
-        <#code#>
+        switch Application.shared.systemMediator?.terminate() ?? .now {
+        case .now:
+            return .terminateNow
+        case .later:
+            return .terminateLater
+        case .cancel:
+            return .terminateCancel
+        }
     }
 
     internal func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {

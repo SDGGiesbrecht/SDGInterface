@@ -15,7 +15,7 @@
 /// An object which mediates between the application and system events.
 public protocol SystemMediator: AnyObject {
 
-    /// Called before the application launches.
+    /// Called by some systems before the application launches.
     ///
     /// - Parameters:
     ///     - details: Details provided by the system.
@@ -23,7 +23,7 @@ public protocol SystemMediator: AnyObject {
     /// - Returns: `false` if the application cannot continue. Otherwise `true`.
     func prepareToLaunch(_ details: LaunchDetails) -> Bool
 
-    /// Called as application finishes launching.
+    /// Called by some systems as the application finishes launching.
     ///
     /// - Parameters:
     ///     - details: Details provided by the system.
@@ -31,29 +31,32 @@ public protocol SystemMediator: AnyObject {
     /// - Returns: `false` if the application cannot continue. Otherwise `true`.
     func finishLaunching(_ details: LaunchDetails) -> Bool
 
-    /// Called before the application acquires the system focus.
+    /// Called by some systems before the application acquires the system focus.
     ///
     /// - Parameters:
     ///     - details: Details provided by the system.
     func prepareToAcquireFocus(_ details: FocusChangeDetails)
 
-    /// Called as the application finishes acquiring the system focus.
+    /// Called by some systems as the application finishes acquiring the system focus.
     ///
     /// - Parameters:
     ///     - details: Details provided by the system.
     func finishAcquiringFocus(_ details: FocusChangeDetails)
 
-    /// Called before the application resigns the system focus.
+    /// Called by some systems before the application resigns the system focus.
     ///
     /// - Parameters:
     ///     - details: Details provided by the system.
     func prepareToResignFocus(_ details: FocusChangeDetails)
 
-    /// Called as the application finishes resigning the system focus.
+    /// Called by some systems as the application finishes resigning the system focus.
     ///
     /// - Parameters:
     ///     - details: Details provided by the system.
     func finishResigningFocus(_ details: FocusChangeDetails)
+
+    /// Called by some systems to request that the application terminate.
+    func terminate() -> TerminationResponse
 }
 
 extension SystemMediator {
