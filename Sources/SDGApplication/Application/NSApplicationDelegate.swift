@@ -97,8 +97,7 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     }
 
     internal func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
-        #warning("Not yet implemented.")
-        return true
+        return ¬(Application.shared.systemMediator?.reopen(ReopeningDetails(hasVisibleWindows: flag)) ?? false)
     }
 
     internal func applicationDockMenu(_ sender: NSApplication) -> NSMenu? {

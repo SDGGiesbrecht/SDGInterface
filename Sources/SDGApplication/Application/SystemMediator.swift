@@ -103,6 +103,11 @@ public protocol SystemMediator: AnyObject {
     ///     - details: Details provided by the system.
     func finishUpdatingInterface(_ details: UpdateDetails)
 
+    /// Called by some systems when a user tries to open the application while it is already running.
+    ///
+    /// - Returns: `true` if the reopen operation has been handled, `false` to request that the operating system handle it.
+    func reopen(_ details: ReopeningDetails) -> Bool
+
     /// Called by some systems as access to protected data is granted.
     func finishGainingAccessToProtectedData()
 
@@ -136,6 +141,10 @@ extension SystemMediator {
 
     public func prepareToUpdateInterface(_ details: UpdateDetails) {}
     public func finishUpdatingInterface(_ details: UpdateDetails) {}
+
+    public func reopen(_ details: ReopeningDetails) -> Bool {
+        return false
+    }
 
     public func finishGainingAccessToProtectedData() {}
     public func prepareToLoseAccessToProtectedData() {}
