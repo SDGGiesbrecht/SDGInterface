@@ -47,7 +47,7 @@ public final class Application {
 
     /// Preforms the same preparatory actions taken by `main(mediator:)`, but without triggering the system’s main loop.
     ///
-    /// This method is useful for setting up a portion of the application when helpful for tests, but it should only be called once. Do not call it separately before `main(mediator)`.
+    /// This method can set up a portion of the application when helpful for tests, but it should only be called once. Do not call it separately before `main(mediator)`.
     ///
     /// - Parameters:
     ///     - mediator: An object which will mediate between the application and system events.
