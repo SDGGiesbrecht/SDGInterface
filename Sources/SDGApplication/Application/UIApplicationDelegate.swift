@@ -170,8 +170,9 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
         _ app: UIApplication,
         open url: URL,
         options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        #warning("Not yet implemented.")
-        return false
+        return Application.shared.systemMediator?.open(
+            files: [url],
+            details: OpeningDetails(options: options)) ?? false
     }
 
     internal func application(

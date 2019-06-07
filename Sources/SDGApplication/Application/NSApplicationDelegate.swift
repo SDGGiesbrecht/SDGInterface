@@ -149,12 +149,7 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     }
 
     internal func application(_ application: NSApplication, open urls: [URL]) {
-        #warning("Not yet implemented.")
-    }
-
-    internal func application(_ sender: NSApplication, openFile filename: String) -> Bool {
-        #warning("Not yet implemented.")
-        return false
+        _ = Application.shared.systemMediator?.open(files: urls, details: OpeningDetails())
     }
 
     internal func application(_ sender: Any, openFileWithoutUI filename: String) -> Bool {
@@ -165,10 +160,6 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     internal func application(_ sender: NSApplication, openTempFile filename: String) -> Bool {
         #warning("Not yet implemented.")
         return false
-    }
-
-    internal func application(_ sender: NSApplication, openFiles filenames: [String]) {
-        #warning("Not yet implemented.")
     }
 
     internal func applicationOpenUntitledFile(_ sender: NSApplication) -> Bool {

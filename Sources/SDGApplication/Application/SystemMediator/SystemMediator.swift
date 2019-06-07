@@ -179,6 +179,14 @@ public protocol SystemMediator: AnyObject {
     ///
     /// - Returns: The result of the fetch operation.
     func acceptRemoteNotification(details: RemoteNotificationDetails) -> FetchResult
+
+    /// Called by some systems to request that one or more files be opened.
+    ///
+    /// - Parameters:
+    ///     - details: Details provided by the system.
+    ///
+    /// - Returns: Whether or not the files could be opened successfully.
+    func open(files: [URL], details: OpeningDetails) -> Bool
 }
 
 extension SystemMediator {
@@ -251,5 +259,12 @@ extension SystemMediator {
         print(#function)
         #endif
         return .noData
+    }
+
+    public func open(files: [URL], details: OpeningDetails) -> Bool {
+        #if UNHANDLED_SYSTEM_EVENT_LOGGING
+        print(#function)
+        #endif
+        return false
     }
 }
