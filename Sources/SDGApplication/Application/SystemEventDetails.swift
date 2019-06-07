@@ -1,5 +1,5 @@
 /*
- UIApplicationDelegate.swift
+ SystemEventDetails.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,12 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(UIKit)
-internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
-    func applicationDidFinishLaunching(_ application: UIApplication) {
-        UIMenuController.shared.extend()
-        #warning("Not implemented yet.")
-        print("Launched.")
-    }
+/// Detals about a system event.
+public struct SystemEventDetails {
+
+    #if canImport(AppKit)
+    public let notification: Notification
+    #endif
 }
-#endif

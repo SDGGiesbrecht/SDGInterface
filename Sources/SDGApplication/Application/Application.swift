@@ -38,10 +38,13 @@ public final class Application {
     private var nativeDelegate: UIApplicationDelegate
     #endif
 
+    internal var systemMediator: SystemMediator?
+
     // MARK: - Launching
 
     /// Starts the application’s main run loop.
-    public class func main() -> Never { // @exempt(from: tests)
+    public class func main(mediator: SystemMediator) -> Never { // @exempt(from: tests)
+        Application.shared.systemMediator = mediator
         #if canImport(AppKit)
         NSApplication.shared.delegate = shared.nativeDelegate
         exit(NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv))
