@@ -51,7 +51,7 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
     }
 
     internal func applicationWillTerminate(_ application: UIApplication) {
-        Application.shared.systemMediator?.prepareToTerminate(TerminationDetails())
+        Application.shared.systemMediator?.prepareToTerminate(nil)
     }
 
     internal func applicationProtectedDataDidBecomeAvailable(_ application: UIApplication) {
