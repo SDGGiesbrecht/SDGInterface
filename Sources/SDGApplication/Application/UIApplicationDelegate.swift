@@ -55,11 +55,11 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
     }
 
     internal func applicationProtectedDataDidBecomeAvailable(_ application: UIApplication) {
-        #warning("Not yet implemented.")
+        Application.shared.systemMediator?.finishGainingAccessToProtectedData()
     }
 
     internal func applicationProtectedDataWillBecomeUnavailable(_ application: UIApplication) {
-        #warning("Not yet implemented.")
+        Application.shared.systemMediator?.prepareToLoseAccessToProtectedData()
     }
 
     internal func applicationDidReceiveMemoryWarning(_ application: UIApplication) {

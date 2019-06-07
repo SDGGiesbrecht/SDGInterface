@@ -90,6 +90,12 @@ public protocol SystemMediator: AnyObject {
     /// - Parameters:
     ///     - details: Details provided by the system.
     func finishUnhiding(_ details: HidingDetails)
+
+    /// Called by some systems as access to protected data is granted.
+    func finishGainingAccessToProtectedData()
+
+    /// Called by some systems before access to protected data is revoked.
+    func prepareToLoseAccessToProtectedData()
 }
 
 extension SystemMediator {
@@ -115,4 +121,7 @@ extension SystemMediator {
     public func finishHiding(_ details: HidingDetails) {}
     public func prepareToUnhide(_ details: HidingDetails) {}
     public func finishUnhiding(_ details: HidingDetails) {}
+
+    public func finishGainingAccessToProtectedData() {}
+    public func prepareToLoseAccessToProtectedData() {}
 }
