@@ -22,5 +22,6 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
         return Application.shared.systemMediator?.applicationDidLaunch(
             LaunchDetails(options: launchOptions)) ?? false
     }
+    #warning("Fill out this list.")
 }
 #endif

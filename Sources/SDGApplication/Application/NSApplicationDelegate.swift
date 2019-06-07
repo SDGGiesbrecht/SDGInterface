@@ -13,7 +13,9 @@
  */
 
 #if canImport(AppKit)
-internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate {
+import SDGLogic
+
+internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NSMenuItemValidation {
 
     // MARK: - Top Responder
 
@@ -35,5 +37,19 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate {
         _ = Application.shared.systemMediator?.applicationDidLaunch(LaunchDetails(notification: notification))
     }
     #warning("Fill out this list.")
+
+    // MARK: - NSMenuItemValidation
+
+    internal func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        #warning("Verify this still works!")
+        if menuItem.action == #selector(NSApplicationDelegate.openPreferences(_:)) {
+            return Application.shared.preferenceManager ≠ nil
+        }
+        if let action = menuItem.action {
+            return responds(to: action)
+        } else {
+            return false
+        }
+    }
 }
 #endif

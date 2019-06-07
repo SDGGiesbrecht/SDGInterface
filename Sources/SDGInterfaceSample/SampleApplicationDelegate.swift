@@ -17,8 +17,9 @@ import SDGLocalization
 
 #if !os(watchOS)
 
+#warning("Verify examples.")
 // @example(sample)
-public final class SampleApplicationDelegate : ApplicationDelegate {}
+public final class SampleApplicationDelegate {}
 // @endExample
 
 extension SampleApplicationDelegate {
