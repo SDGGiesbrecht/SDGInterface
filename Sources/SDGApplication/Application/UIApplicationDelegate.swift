@@ -121,8 +121,7 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
     }
 
     internal func application(_ application: UIApplication, willContinueUserActivityWithType userActivityType: String) -> Bool {
-        #warning("Not yet implemented.")
-        return false
+        return Application.shared.systemMediator?.notifyHandoffBegan(userActivityType) ?? false
     }
 
     internal func application(

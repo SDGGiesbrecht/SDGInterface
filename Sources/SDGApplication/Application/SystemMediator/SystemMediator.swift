@@ -117,6 +117,14 @@ public protocol SystemMediator: AnyObject {
     /// Called by some systems when the screen changes.
     func updateAccordingToScreenChange(_ details: ScreenChangeDetails)
 
+    /// Called by some systems when an activity handoff begins.
+    ///
+    /// - Parameters:
+    ///     - identifier: The activity identifier.
+    ///
+    /// - Returns: `true` if the user was notified, or `false` to request that the system notify the user.
+    func notifyHandoffBegan(_ identifier: String) -> Bool
+
     /// Called by some systems as access to protected data is granted.
     func finishGainingAccessToProtectedData()
 
@@ -164,6 +172,10 @@ extension SystemMediator {
     }
 
     public func updateAccordingToScreenChange(_ details: ScreenChangeDetails) {}
+
+    public func notifyHandoffBegan(_ identifier: String) -> Bool {
+        return false
+    }
 
     public func finishGainingAccessToProtectedData() {}
     public func prepareToLoseAccessToProtectedData() {}
