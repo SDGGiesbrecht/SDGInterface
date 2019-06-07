@@ -329,7 +329,7 @@ extension SystemMediator {
         return .failure
     }
 
-    public func prepareToEncodeRestorableState(coder: NSCoder) -> Bool {
+    public func shouldEncodeRestorableState(coder: NSCoder) -> Bool {
         return false
     }
     public func prepareToEncodeRestorableState(coder: NSCoder) {}
