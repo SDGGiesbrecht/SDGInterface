@@ -105,8 +105,7 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     }
 
     internal func application(_ application: NSApplication, willPresentError error: Error) -> Error {
-        #warning("Not yet implemented.")
-        return error
+        return Application.shared.systemMediator?.preprocessErrorForDisplay(error) ?? error
     }
 
     internal func applicationDidChangeScreenParameters(_ notification: Notification) {

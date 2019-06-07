@@ -111,6 +111,9 @@ public protocol SystemMediator: AnyObject {
     /// Used by some systems as the dock menu.
     var dockMenu: NSMenu? { get }
 
+    /// Called by some systems before displaying an error to the user.
+    func preprocessErrorForDisplay(_ error: Error) -> Error
+
     /// Called by some systems as access to protected data is granted.
     func finishGainingAccessToProtectedData()
 
@@ -151,6 +154,10 @@ extension SystemMediator {
 
     public var dockMenu: NSMenu? {
         return nil
+    }
+
+    public func preprocessErrorForDisplay(_ error: Error) -> Error {
+        return error
     }
 
     public func finishGainingAccessToProtectedData() {}
