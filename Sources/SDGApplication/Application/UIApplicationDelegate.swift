@@ -14,10 +14,13 @@
 
 #if canImport(UIKit)
 internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
-    func applicationDidFinishLaunching(_ application: UIApplication) {
+
+    // MARK: - UIApplicationDelegate
+
+    internal func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         UIMenuController.shared.extend()
-        #warning("Not implemented yet.")
-        print("Launched.")
+        return Application.shared.systemMediator?.applicationDidLaunch(
+            LaunchDetails(options: launchOptions)) ?? false
     }
 }
 #endif

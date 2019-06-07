@@ -24,7 +24,7 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate {
     // MARK: - NSApplicationDelegate
 
     internal func applicationWillFinishLaunching(_ notification: Notification) {
-        Application.shared.systemMediator?.applicationWillLaunch(SystemEventDetails(notification: notification))
+        Application.shared.systemMediator?.applicationWillLaunch(LaunchDetails(notification: notification))
     }
 
     internal func applicationDidFinishLaunching(_ notification: Notification) {
@@ -32,7 +32,7 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate {
         NSApplication.shared.menu = MenuBar.menuBar
         NSApplication.shared.activate(ignoringOtherApps: false)
 
-        Application.shared.systemMediator?.applicationDidLaunch(SystemEventDetails(notification: notification))
+        _ = Application.shared.systemMediator?.applicationDidLaunch(LaunchDetails(notification: notification))
     }
     #warning("Fill out this list.")
 }

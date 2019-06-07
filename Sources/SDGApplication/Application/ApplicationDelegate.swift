@@ -35,10 +35,7 @@ open class ApplicationDelegate : NSObject, _ApplicationDelegate {
     /// - Parameters:
     ///     - application: The application object.
     ///     - launchOptions: A dictionary indicating the reason the application was launched.
-    open func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-        #warning("No longer connected.")
-        return true
-    }
+
     #endif
 }
 #endif

@@ -12,10 +12,14 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-/// Detals about a system event.
-public struct SystemEventDetails {
+/// Details about the launch.
+public struct LaunchDetails {
 
     #if canImport(AppKit)
     public let notification: Notification
+    #endif
+
+    #if canImport(UIKit)
+    public let options: [UIApplication.LaunchOptionsKey: Any]?
     #endif
 }
