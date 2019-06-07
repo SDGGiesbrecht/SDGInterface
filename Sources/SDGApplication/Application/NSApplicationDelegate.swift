@@ -149,22 +149,25 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     }
 
     internal func application(_ application: NSApplication, open urls: [URL]) {
-        _ = Application.shared.systemMediator?.open(files: urls, details: OpeningDetails())
+        _ = Application.shared.systemMediator?.open(
+            files: urls,
+            details: OpeningDetails(withoutUserInterface: false, asTemporaryFile: false))
     }
 
     internal func application(_ sender: Any, openFileWithoutUI filename: String) -> Bool {
-        #warning("Not yet implemented.")
-        return false
+        return Application.shared.systemMediator?.open(
+            files: [URL(fileURLWithPath: filename)],
+            details: OpeningDetails(withoutUserInterface: true, asTemporaryFile: false)) ?? false
     }
 
     internal func application(_ sender: NSApplication, openTempFile filename: String) -> Bool {
-        #warning("Not yet implemented.")
-        return false
+        return Application.shared.systemMediator?.open(
+            files: [URL(fileURLWithPath: filename)],
+            details: OpeningDetails(withoutUserInterface: false, asTemporaryFile: true)) ?? false
     }
 
     internal func applicationOpenUntitledFile(_ sender: NSApplication) -> Bool {
-        #warning("Not yet implemented.")
-        return false
+        return Application.shared.systemMediator?.createNewBlankFile() ?? false
     }
 
     internal func applicationShouldOpenUntitledFile(_ sender: NSApplication) -> Bool {

@@ -187,6 +187,11 @@ public protocol SystemMediator: AnyObject {
     ///
     /// - Returns: Whether or not the files could be opened successfully.
     func open(files: [URL], details: OpeningDetails) -> Bool
+
+    /// Called by some systems to request that a new, blank file be created.
+    ///
+    /// - Returns: Whether or not the file was created successfully.
+    func createNewBlankFile() -> Bool
 }
 
 extension SystemMediator {
@@ -262,6 +267,13 @@ extension SystemMediator {
     }
 
     public func open(files: [URL], details: OpeningDetails) -> Bool {
+        #if UNHANDLED_SYSTEM_EVENT_LOGGING
+        print(#function)
+        #endif
+        return false
+    }
+
+    public func createNewBlankFile() -> Bool {
         #if UNHANDLED_SYSTEM_EVENT_LOGGING
         print(#function)
         #endif
