@@ -14,7 +14,7 @@
 
 internal class SystemMediator: SDGApplication.SystemMediator {
 
-    internal func finishLaunching(_ details: LaunchDetails) -> Bool {
+    internal func finishLaunching(_ details: SystemMediatorLaunchDetails) -> Bool {
         setSamplesUp()
         return true
     }

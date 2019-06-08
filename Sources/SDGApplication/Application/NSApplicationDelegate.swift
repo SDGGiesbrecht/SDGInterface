@@ -26,7 +26,7 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     // MARK: - NSApplicationDelegate
 
     internal func applicationWillFinishLaunching(_ notification: Notification) {
-        _ = Application.shared.systemMediator?.prepareToLaunch(LaunchDetails(notification: notification))
+        _ = Application.shared.systemMediator?.prepareToLaunch(SystemMediatorLaunchDetails(notification: notification))
     }
 
     internal func applicationDidFinishLaunching(_ notification: Notification) {
@@ -34,7 +34,7 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
         NSApplication.shared.menu = MenuBar.menuBar
         NSApplication.shared.activate(ignoringOtherApps: false)
 
-        _ = Application.shared.systemMediator?.finishLaunching(LaunchDetails(notification: notification))
+        _ = Application.shared.systemMediator?.finishLaunching(SystemMediatorLaunchDetails(notification: notification))
     }
 
     internal func applicationWillBecomeActive(_ notification: Notification) {
@@ -115,7 +115,7 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
         restorationHandler: @escaping ([NSUserActivityRestoring]) -> Void) -> Bool {
         return Application.shared.systemMediator?.accept(
             handoff: userActivity,
-            details: HandoffDetails(restorationHandler: restorationHandler)) ?? false
+            details: SystemMediatorHandoffDetails(restorationHandler: restorationHandler)) ?? false
     }
 
     internal func application(_ application: NSApplication, didUpdate userActivity: NSUserActivity) {
@@ -137,26 +137,31 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     internal func application(
         _ application: NSApplication,
         didReceiveRemoteNotification userInfo: [String : Any]) {
-        _ = Application.shared.systemMediator?.acceptRemoteNotification(details: RemoteNotificationDetails(
-            userInformation: userInfo))
+        _ = Application.shared.systemMediator?.acceptRemoteNotification(
+            details: SystemMediatorRemoteNotificationDetails(
+                userInformation: userInfo))
     }
 
     internal func application(_ application: NSApplication, open urls: [URL]) {
         _ = Application.shared.systemMediator?.open(
             files: urls,
-            details: OpeningDetails(withoutUserInterface: false, asTemporaryFile: false))
+            details: SystemMediatorOpeningDetails(withoutUserInterface: false, asTemporaryFile: false))
     }
 
     internal func application(_ sender: Any, openFileWithoutUI filename: String) -> Bool {
         return Application.shared.systemMediator?.open(
             files: [URL(fileURLWithPath: filename)],
-            details: OpeningDetails(withoutUserInterface: true, asTemporaryFile: false)) ?? false
+            details: SystemMediatorOpeningDetails(
+                withoutUserInterface: true,
+                asTemporaryFile: false)) ?? false
     }
 
     internal func application(_ sender: NSApplication, openTempFile filename: String) -> Bool {
         return Application.shared.systemMediator?.open(
             files: [URL(fileURLWithPath: filename)],
-            details: OpeningDetails(withoutUserInterface: false, asTemporaryFile: true)) ?? false
+            details: SystemMediatorOpeningDetails(
+                withoutUserInterface: false,
+                asTemporaryFile: true)) ?? false
     }
 
     internal func applicationOpenUntitledFile(_ sender: NSApplication) -> Bool {
@@ -174,7 +179,9 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
         showPrintPanels: Bool) -> NSApplication.PrintReply {
         let result = Application.shared.systemMediator?.print(
             files: fileNames.map({ URL(fileURLWithPath: $0) }),
-            details: PrintingDetails(settings: printSettings, displayPanels: showPrintPanels)) ?? .failure
+            details: SystemMediatorPrintingDetails(
+                settings: printSettings,
+                displayPanels: showPrintPanels)) ?? .failure
         return result.native
     }
 

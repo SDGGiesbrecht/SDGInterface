@@ -20,7 +20,7 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
     internal func application(
         _ application: UIApplication,
         willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        return Application.shared.systemMediator?.prepareToLaunch(LaunchDetails(
+        return Application.shared.systemMediator?.prepareToLaunch(SystemMediatorLaunchDetails(
             options: launchOptions)) ?? false
     }
 
@@ -30,7 +30,7 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
 
         UIMenuController.shared.extend()
 
-        return Application.shared.systemMediator?.finishLaunching(LaunchDetails(
+        return Application.shared.systemMediator?.finishLaunching(SystemMediatorLaunchDetails(
             options: launchOptions)) ?? false
     }
 
@@ -120,7 +120,7 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
         didReceiveRemoteNotification userInfo: [AnyHashable : Any],
         fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         let result = Application.shared.systemMediator?.acceptRemoteNotification(
-            details: RemoteNotificationDetails(userInformation: userInfo)) ?? .noData
+            details: SystemMediatorRemoteNotificationDetails(userInformation: userInfo)) ?? .noData
         completionHandler(result.native)
     }
 
@@ -134,7 +134,7 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
         restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
         return Application.shared.systemMediator?.accept(
             handoff: userActivity,
-            details: HandoffDetails(restorationHandler: restorationHandler)) ?? false
+            details: SystemMediatorHandoffDetails(restorationHandler: restorationHandler)) ?? false
     }
 
     internal func application(_ application: UIApplication, didUpdate userActivity: NSUserActivity) {
@@ -165,7 +165,7 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
         options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         return Application.shared.systemMediator?.open(
             files: [url],
-            details: OpeningDetails(
+            details: SystemMediatorOpeningDetails(
                 withoutUserInterface: false,
                 asTemporaryFile: false,
                 options: options)) ?? false

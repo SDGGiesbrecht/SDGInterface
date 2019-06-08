@@ -1,5 +1,5 @@
 /*
- PrintingResponse.swift
+ SystemMediatorPrintingResponse.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -13,7 +13,7 @@
  */
 
 /// A response to a request to print.
-public enum PrintingResponse {
+public enum SystemMediatorPrintingResponse {
 
     // MARK: - Initialization
 

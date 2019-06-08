@@ -1,5 +1,5 @@
 /*
- LaunchDetails.swift
+ SystemMediatorPrintingDetails.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,16 +12,16 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-/// Details about the launch.
-public struct LaunchDetails {
+/// Details about printing.
+public struct SystemMediatorPrintingDetails {
 
     #if canImport(AppKit)
-    /// The notification.
-    public let notification: Notification
+    /// The settings.
+    public var settings: [NSPrintInfo.AttributeKey : Any]
     #endif
 
-    #if canImport(UIKit)
-    /// The options.
-    public let options: [UIApplication.LaunchOptionsKey: Any]?
+    #if canImport(AppKit)
+    /// Whether or not to display customization panels.
+    public var displayPanels: Bool
     #endif
 }
