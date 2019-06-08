@@ -17,7 +17,7 @@ public enum FetchResult {
 
     // MARK: - Initialization
 
-    #if canImport(UIKit)
+    #if canImport(UIKit) && !os(watchOS)
     public init(_ native: UIBackgroundFetchResult) {
         switch native {
         case .newData:
@@ -45,7 +45,7 @@ public enum FetchResult {
 
     // MARK: - Properties
 
-    #if canImport(UIKit)
+    #if canImport(UIKit) && !os(watchOS)
     public var native: UIBackgroundFetchResult {
         switch self {
         case .newData:

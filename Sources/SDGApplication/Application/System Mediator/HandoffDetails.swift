@@ -27,7 +27,7 @@ public struct HandoffDetails {
     public var restorationHandler: (([NSUserActivityRestoring]) -> Void)?
     #endif
 
-    #if canImport(UIKit)
+    #if canImport(UIKit) && !os(watchOS)
     /// Some systems provide a restoration handler.
     public var restorationHandler: (([UIUserActivityRestoring]) -> Void)?
     #endif

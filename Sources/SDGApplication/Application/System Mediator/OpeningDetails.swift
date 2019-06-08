@@ -28,7 +28,7 @@ public struct OpeningDetails {
     /// Some systems specify whether the application should remove the file when it is done with it.
     public var asTemporaryFile: Bool?
 
-    #if canImport(UIKit)
+    #if canImport(UIKit) && !os(watchOS)
     /// Some systems specify options.
     public var options: [UIApplication.OpenURLOptionsKey : Any] = [:]
     #endif

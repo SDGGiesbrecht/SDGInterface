@@ -22,7 +22,7 @@ public struct ViewControllerRestorationResponse {
 
     // MARK: - Properties
 
-    #if canImport(UIKit)
+    #if canImport(UIKit) && !os(watchOS)
     /// The controller.
     public var viewController: UIViewController?
     #endif

@@ -15,8 +15,6 @@
 import SDGMathematics
 import SDGLocalization
 
-#if !os(watchOS)
-
 extension Application {
 
     public static func setUp() {
@@ -62,12 +60,14 @@ extension Application {
         }
     }
 
+    #if !os(watchOS)
     public class func setUpAndMain() -> Never { // @exempt(from: tests)
         setUp()
         // @example(main)
         Application.main(mediator: SystemMediator())
         // @endExample
     }
+    #endif
 
     internal static func setSamplesUp() {
         Application.shared.preferenceManager = PreferenceManager()
@@ -226,7 +226,7 @@ extension Application {
 
         #if os(tvOS)
         _ = menuItemLabel.value.resolved()
-        #else
+        #elseif !os(watchOS)
         let window = Window(title: Shared(ApplicationNameForm.localizedIsolatedForm))
         let view = UIViewController()
         window.rootViewController = view
@@ -245,6 +245,7 @@ extension Application {
         #endif
     }
 
+    #if !os(watchOS)
     private func demonstrate(_ window: NSWindow) {
         window.makeKeyAndOrderFront(nil)
     }
@@ -373,9 +374,8 @@ extension Application {
         })))
         demonstrate(window)
     }
+    #endif
 
     @objc private func doNothing() { // @exempt(from: tests)
     }
 }
-
-#endif

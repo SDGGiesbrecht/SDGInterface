@@ -22,7 +22,7 @@ public struct ExtensionDetails {
 
     // MARK: - Properties
 
-    #if canImport(UIKit)
+    #if canImport(UIKit) && !os(watchOS)
     /// Some systems provide the point identifier.
     public var pointIdentifier: UIApplication.ExtensionPointIdentifier?
     #endif

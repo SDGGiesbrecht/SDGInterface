@@ -25,7 +25,7 @@ public struct LaunchDetails {
     /// Some systems provide an accompanying notification.
     public var notification: Notification?
 
-    #if canImport(UIKit)
+    #if canImport(UIKit) && !os(watchOS)
     /// Some systems specify options.
     public var options: [UIApplication.LaunchOptionsKey: Any]?
     #endif

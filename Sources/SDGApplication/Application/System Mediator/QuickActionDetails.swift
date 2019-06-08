@@ -22,7 +22,7 @@ public struct QuickActionDetails {
 
     // MARK: - Properties
 
-    #if canImport(UIKit) && !os(tvOS)
+    #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
     /// Some systems specify the shortcut item.
     public var shortcutItem: UIApplicationShortcutItem?
     #endif

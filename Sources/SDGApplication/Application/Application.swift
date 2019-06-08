@@ -25,7 +25,7 @@ public final class Application {
     private init() {
         #if canImport(AppKit)
         nativeDelegate = NSApplicationDelegate()
-        #elseif canImport(UIKit)
+        #elseif canImport(UIKit) && !os(watchOS)
         nativeDelegate = UIApplicationDelegate()
         #endif
     }
@@ -34,7 +34,7 @@ public final class Application {
 
     #if canImport(AppKit)
     private var nativeDelegate: NSApplicationDelegate
-    #elseif canImport(UIKit)
+    #elseif canImport(UIKit) && !os(watchOS)
     private var nativeDelegate: UIApplicationDelegate
     #endif
 
@@ -58,6 +58,7 @@ public final class Application {
         #endif
     }
 
+    #if !os(watchOS)
     /// Starts the application’s main run loop.
     ///
     /// - Parameters:
@@ -74,20 +75,21 @@ public final class Application {
             NSStringFromClass(UIApplicationDelegate.self)))
         #endif
     }
+    #endif
 
     internal class func postLaunchSetUp() {
         #if canImport(AppKit)
         NSApplication.shared.mainMenu = MenuBar.menuBar
         NSApplication.shared.activate(ignoringOtherApps: false)
         #endif
-        #if canImport(UIKit) && !os(tvOS)
+        #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
         UIMenuController.shared.extend()
         #endif
     }
 
     /// Preforms the same preparatory actions taken by `main(mediator:)`, but without triggering the system’s main loop.
     ///
-    /// This method can set up a portion of the application when helpful for tests, but it should only be called once. Do not call it separately before `main(mediator)`.
+    /// This method can set up a portion of the application when helpful for tests, but it should only be called once. Do not call it separately before `main(mediator:)`.
     ///
     /// - Parameters:
     ///     - mediator: An object which will mediate between the application and system events.
