@@ -84,7 +84,7 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
         coder: NSCoder) -> UIViewController? {
         return Application.shared.systemMediator?.viewController(
             forRestorationIdentifierPath: identifierComponents,
-            coder: coder)
+            coder: coder).viewController
     }
 
     internal func application(_ application: UIApplication, willEncodeRestorableStateWith coder: NSCoder) {
