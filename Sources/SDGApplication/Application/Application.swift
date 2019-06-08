@@ -51,7 +51,7 @@ public final class Application {
     ///
     /// - Parameters:
     ///     - mediator: An object which will mediate between the application and system events.
-    public class func prepareForMain(mediator: SystemMediator) {
+    private class func prepareForMain(mediator: SystemMediator) {
         Application.shared.systemMediator = mediator
         #if canImport(AppKit)
         NSApplication.shared.delegate = shared.nativeDelegate
@@ -73,5 +73,23 @@ public final class Application {
             nil,
             NSStringFromClass(UIApplicationDelegate.self)))
         #endif
+    }
+
+    internal class func postLaunchSetUp() {
+        #if canImport(AppKit)
+        NSApplication.shared.mainMenu = MenuBar.menuBar
+        NSApplication.shared.activate(ignoringOtherApps: false)
+        #endif
+    }
+
+    /// Preforms the same preparatory actions taken by `main(mediator:)`, but without triggering the system’s main loop.
+    ///
+    /// This method can set up a portion of the application when helpful for tests, but it should only be called once. Do not call it separately before `main(mediator)`.
+    ///
+    /// - Parameters:
+    ///     - mediator: An object which will mediate between the application and system events.
+    public class func setUpWithoutMain(mediator: SystemMediator) {
+        prepareForMain(mediator: mediator)
+        postLaunchSetUp()
     }
 }
