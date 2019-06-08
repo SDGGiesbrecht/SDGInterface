@@ -1,5 +1,5 @@
 /*
- QuickActionDetails.swift
+ DockMenu.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,18 +12,20 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-/// Details about a quick action.
-public struct QuickActionDetails {
+/// A dock menu.
+public final class DockMenu {
 
     // MARK: - Initialization
 
-    /// Creates empty details.
-    public init() {}
+    #if canImport(AppKit)
+    /// Creates a dock menu from a native dock menu.
+    public init(_ native: NSMenu) {
+        self.native = native
+    }
+    #endif
 
-    // MARK: - Properties
-
-    #if canImport(UIKit)
-    /// Some systems specify the shortcut item.
-    public var shortcutItem: UIApplicationShortcutItem?
+    #if canImport(AppKit)
+    /// The native dock menu.
+    public let native = NSMenu
     #endif
 }
