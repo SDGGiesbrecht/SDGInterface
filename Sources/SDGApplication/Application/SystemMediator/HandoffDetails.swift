@@ -15,13 +15,20 @@
 /// Details about an activity handoff.
 public struct HandoffDetails {
 
+    // MARK: - Initialization
+
+    /// Creates empty details.
+    public init() {}
+
+    // MARK: - Properties
+
     #if canImport(AppKit)
-    /// The restoration handler.
-    public let restorationHandler: ([NSUserActivityRestoring]) -> Void
+    /// Some systems provide a restoration handler.
+    public var restorationHandler: (([NSUserActivityRestoring]) -> Void)?
     #endif
 
     #if canImport(UIKit)
-    /// The restoration handler.
-    public let restorationHandler: ([UIUserActivityRestoring]) -> Void
+    /// Some systems provide a restoration handler.
+    public var restorationHandler: (([UIUserActivityRestoring]) -> Void)?
     #endif
 }

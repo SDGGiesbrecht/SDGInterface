@@ -15,8 +15,15 @@
 /// Details about an extension.
 public struct ExtensionDetails {
 
+    // MARK: - Initialization
+
+    /// Creates empty details.
+    public init() {}
+
+    // MARK: - Properties
+
     #if canImport(UIKit)
-    /// The point identifier.
-    public let pointIdentifier: UIApplication.ExtensionPointIdentifier
+    /// Some systems provide the point identifier.
+    public var pointIdentifier: UIApplication.ExtensionPointIdentifier?
     #endif
 }

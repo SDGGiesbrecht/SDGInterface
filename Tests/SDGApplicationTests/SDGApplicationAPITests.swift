@@ -83,7 +83,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testButton() {
-        SampleApplicationDelegate().demonstrateButton()
+        Application.shared.demonstrateButton()
         let label = Shared(UserFacing<StrictString, APILocalization>({ _ in "Button" }))
         let button = Button(label: label)
         label.value = UserFacing<StrictString, APILocalization>({ _ in "Changed" })
@@ -96,7 +96,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testButtonSet() {
-        SampleApplicationDelegate().demonstrateButtonSet()
+        Application.shared.demonstrateButtonSet()
     }
 
     func testCharacterInformation() {
@@ -105,7 +105,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
 
     func testCheckBox() {
         #if canImport(AppKit)
-        SampleApplicationDelegate().demonstrateCheckBox()
+        Application.shared.demonstrateCheckBox()
         let label = Shared(UserFacing<StrictString, APILocalization>({ _ in "Check Box" }))
         let checkBox = CheckBox(label: label)
         label.value = UserFacing<StrictString, APILocalization>({ _ in "Changed" })
@@ -215,7 +215,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testImageView() {
-        SampleApplicationDelegate().demonstrateImage()
+        Application.shared.demonstrateImage()
     }
 
     func testKey() {
@@ -234,7 +234,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testLabel() {
-        SampleApplicationDelegate().demonstrateLabel()
+        Application.shared.demonstrateLabel()
         forEachWindow { window in
             let label: Label<SDGInterfaceSample.InterfaceLocalization>
             #if canImport(AppKit)
@@ -256,7 +256,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testLetterbox() {
-        SampleApplicationDelegate().demonstrateLetterbox()
+        Application.shared.demonstrateLetterbox()
         let letterbox = Letterbox(content: View(), aspectRatio: 1)
         letterbox.colour = .red
         XCTAssertEqual(letterbox.colour?.alphaComponent, 1)
@@ -268,7 +268,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         _ = MenuItem(label: Shared(UserFacing<StrictString, APILocalization>({ _ in "..." })))
 
         #if canImport(AppKit)
-        let menuBar = Application.shared.mainMenu
+        let menuBar = NSApplication.shared.mainMenu
         XCTAssertNotNil(menuBar)
         let itemWithSubmenu = menuBar?.items.first(where: { $0.submenu ≠ nil })
         let submenu = itemWithSubmenu?.submenu
@@ -323,12 +323,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         testAllLocalizations()
 
         #if canImport(AppKit)
-        let preferencesMenuItem = MenuBar.menuBar.items.first!.submenu!.items.first(where: { $0.action == #selector(ApplicationDelegate.openPreferences) })!
-        XCTAssert(SampleApplicationDelegate().validateMenuItem(preferencesMenuItem))
-        XCTAssertFalse(ApplicationDelegate().validateMenuItem(preferencesMenuItem))
-
-        XCTAssertFalse(SampleApplicationDelegate().validateMenuItem(MenuBar.menuBar.items.first!)) // Application
-        XCTAssertFalse(SampleApplicationDelegate().validateMenuItem(NSMenuItem(title: "", action: nil, keyEquivalent: "")))
+        let preferencesMenuItem = MenuBar.menuBar.items.first!.submenu!.items.first(where: { $0.action == MenuBar.Action.openPreferences.selector })!
         #endif
     }
 
@@ -361,8 +356,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testPreferences() {
-        ApplicationDelegate().openPreferences(nil)
-        SampleApplicationDelegate().openPreferences(nil)
+        Application.shared.preferenceManager?.openPreferences()
     }
 
     func testRichText() throws {
@@ -500,7 +494,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
 
     func testTextEditor() {
 
-        SampleApplicationDelegate().demonstrateTextEditor()
+        Application.shared.demonstrateTextEditor()
         forEachWindow { window in
             let textEditor: TextEditor
             let textView: NSTextView
@@ -635,7 +629,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testTextField() {
-        SampleApplicationDelegate().demonstrateTextField()
+        Application.shared.demonstrateTextField()
         forEachWindow { window in
             #if canImport(AppKit)
             let fieldEditor = window.fieldEditor(true, for: window.contentView!.subviews[0]) as! NSTextView
@@ -651,7 +645,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             textField.insertText("...")
             #endif
         }
-        SampleApplicationDelegate().demonstrateLabelledTextField()
+        Application.shared.demonstrateLabelledTextField()
         _ = LabelledTextField(label: Label(
             text: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "" }))))
     }
@@ -673,7 +667,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testWindow() {
-        SampleApplicationDelegate().demonstrateFullscreenWindow()
+        Application.shared.demonstrateFullscreenWindow()
 
         let window = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "Title" })), size: CGSize(width: 700, height: 300))
         #if canImport(AppKit) // UIKit raises an exception during tests.

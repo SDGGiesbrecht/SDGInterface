@@ -15,13 +15,18 @@
 /// Details about the launch.
 public struct LaunchDetails {
 
-    #if canImport(AppKit)
-    /// The notification.
-    public let notification: Notification
-    #endif
+    // MARK: - Initialization
+
+    /// Creates empty details.
+    public init() {}
+
+    // MARK: - Properties
+
+    /// Some systems provide an accompanying notification.
+    public var notification: Notification?
 
     #if canImport(UIKit)
-    /// The options.
-    public let options: [UIApplication.LaunchOptionsKey: Any]?
+    /// Some systems specify options.
+    public var options: [UIApplication.LaunchOptionsKey: Any]?
     #endif
 }

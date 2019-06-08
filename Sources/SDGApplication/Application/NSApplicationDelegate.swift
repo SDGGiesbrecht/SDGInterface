@@ -26,7 +26,9 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     // MARK: - NSApplicationDelegate
 
     internal func applicationWillFinishLaunching(_ notification: Notification) {
-        _ = Application.shared.systemMediator?.prepareToLaunch(LaunchDetails(notification: notification))
+        var details = LaunchDetails()
+        details.notification = notification
+        _ = Application.shared.systemMediator?.prepareToLaunch(details)
     }
 
     internal func applicationDidFinishLaunching(_ notification: Notification) {
@@ -34,7 +36,9 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
         NSApplication.shared.menu = MenuBar.menuBar
         NSApplication.shared.activate(ignoringOtherApps: false)
 
-        _ = Application.shared.systemMediator?.finishLaunching(LaunchDetails(notification: notification))
+        var details = LaunchDetails()
+        details.notification = notification
+        _ = Application.shared.systemMediator?.finishLaunching(details)
     }
 
     internal func applicationWillBecomeActive(_ notification: Notification) {
@@ -113,9 +117,11 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
         _ application: NSApplication,
         continue userActivity: NSUserActivity,
         restorationHandler: @escaping ([NSUserActivityRestoring]) -> Void) -> Bool {
+        var details = HandoffDetails()
+        details.restorationHandler = restorationHandler
         return Application.shared.systemMediator?.accept(
             handoff: userActivity,
-            details: HandoffDetails(restorationHandler: restorationHandler)) ?? false
+            details: details) ?? false
     }
 
     internal func application(_ application: NSApplication, didUpdate userActivity: NSUserActivity) {
@@ -137,31 +143,37 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     internal func application(
         _ application: NSApplication,
         didReceiveRemoteNotification userInfo: [String : Any]) {
+        var details = RemoteNotificationDetails()
+        details.userInformation = userInfo
         _ = Application.shared.systemMediator?.acceptRemoteNotification(
-            details: RemoteNotificationDetails(
-                userInformation: userInfo))
+            details: details)
     }
 
     internal func application(_ application: NSApplication, open urls: [URL]) {
+        var details = OpeningDetails()
+        details.withoutUserInterface = false
+        details.asTemporaryFile = false
         _ = Application.shared.systemMediator?.open(
             files: urls,
-            details: OpeningDetails(withoutUserInterface: false, asTemporaryFile: false))
+            details: details)
     }
 
     internal func application(_ sender: Any, openFileWithoutUI filename: String) -> Bool {
+        var details = OpeningDetails()
+        details.withoutUserInterface = true
+        details.asTemporaryFile = false
         return Application.shared.systemMediator?.open(
             files: [URL(fileURLWithPath: filename)],
-            details: OpeningDetails(
-                withoutUserInterface: true,
-                asTemporaryFile: false)) ?? false
+            details: details) ?? false
     }
 
     internal func application(_ sender: NSApplication, openTempFile filename: String) -> Bool {
+        var details = OpeningDetails()
+        details.withoutUserInterface = false
+        details.asTemporaryFile = true
         return Application.shared.systemMediator?.open(
             files: [URL(fileURLWithPath: filename)],
-            details: OpeningDetails(
-                withoutUserInterface: false,
-                asTemporaryFile: true)) ?? false
+            details: details) ?? false
     }
 
     internal func applicationOpenUntitledFile(_ sender: NSApplication) -> Bool {
@@ -177,11 +189,12 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
         printFiles fileNames: [String],
         withSettings printSettings: [NSPrintInfo.AttributeKey : Any],
         showPrintPanels: Bool) -> NSApplication.PrintReply {
+        var details = PrintingDetails()
+        details.settings = printSettings
+        details.displayPanels = showPrintPanels
         let result = Application.shared.systemMediator?.print(
             files: fileNames.map({ URL(fileURLWithPath: $0) }),
-            details: PrintingDetails(
-                settings: printSettings,
-                displayPanels: showPrintPanels)) ?? .failure
+            details: details) ?? .failure
         return result.native
     }
 

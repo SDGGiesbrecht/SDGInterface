@@ -26,12 +26,12 @@ class ApplicationTestCase : TestCase {
         launch
     }
     let launch: Void = {
-        SampleApplicationDelegate.setUp()
-        let delegate = SampleApplicationDelegate()
+        Application.setUp()
+        let mediator = getSystemMediator()
         #if canImport(AppKit)
-        delegate.applicationDidFinishLaunching(Notification(name: Application.didFinishLaunchingNotification))
+        _ = mediator.finishLaunching(LaunchDetails())
         #elseif canImport(UIKit)
-        _ = delegate.application(Application.shared)
+        _ = mediator.application(Application.shared)
         #endif
     }()
 }

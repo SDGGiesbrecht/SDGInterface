@@ -15,14 +15,21 @@
 /// Details about opening a file.
 public struct OpeningDetails {
 
-    /// The system is requesting that no user interface be presented.
-    public let withoutUserInterface: Bool
+    // MARK: - Initialization
 
-    /// The system is requesting that the application remove the file when it is done with it.
-    public let asTemporaryFile: Bool
+    /// Creates empty details.
+    public init() {}
+
+    // MARK: - Properties
+
+    /// Some systems specify whether a user interface should be presented.
+    public var withoutUserInterface: Bool?
+
+    /// Some systems specify whether the application should remove the file when it is done with it.
+    public var asTemporaryFile: Bool?
 
     #if canImport(UIKit)
-    /// The options.
-    public let options: [UIApplication.OpenURLOptionsKey : Any]
+    /// Some systems specify options.
+    public var options: [UIApplication.OpenURLOptionsKey : Any] = [:]
     #endif
 }

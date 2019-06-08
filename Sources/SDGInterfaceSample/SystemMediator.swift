@@ -21,3 +21,7 @@ internal class SystemMediator: SDGApplication.SystemMediator {
     }
 }
 // @endExample
+
+public func getSystemMediator() -> SDGApplication.SystemMediator {
+    return SystemMediator()
+}

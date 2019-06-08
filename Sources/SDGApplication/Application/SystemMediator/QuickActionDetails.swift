@@ -15,8 +15,15 @@
 /// Details about a quick action.
 public struct QuickActionDetails {
 
+    // MARK: - Initialization
+
+    /// Creates empty details.
+    public init() {}
+
+    // MARK: - Properties
+
     #if canImport(UIKit)
-    /// The shortcut item.
-    public let shortcutItem: UIApplicationShortcutItem
+    /// Some systems specify the shortcut item.
+    public let shortcutItem: UIApplicationShortcutItem?
     #endif
 }

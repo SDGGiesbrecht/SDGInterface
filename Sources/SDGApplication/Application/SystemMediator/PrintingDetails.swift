@@ -15,13 +15,18 @@
 /// Details about printing.
 public struct PrintingDetails {
 
-    #if canImport(AppKit)
-    /// The settings.
-    public let settings: [NSPrintInfo.AttributeKey : Any]
-    #endif
+    // MARK: - Initialization
+
+    /// Creates empty details.
+    public init() {}
+
+    // MARK: - Properties
 
     #if canImport(AppKit)
-    /// Whether or not to display customization panels.
-    public let displayPanels: Bool
+    /// Some systems specify settings.
+    public var settings: [NSPrintInfo.AttributeKey: Any] = [:]
     #endif
+
+    /// Some systems may specify whether or not to display customization panels.
+    public var displayPanels: Bool? = nil
 }
