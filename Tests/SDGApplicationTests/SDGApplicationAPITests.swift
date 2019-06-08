@@ -214,6 +214,15 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         #endif
     }
 
+    func testFont() {
+        let font = Font.default
+        _ = Font.forLabels
+        _ = Font.forTextEditing
+        _ = font.bold
+        _ = font.italic
+        XCTAssertEqual(font.resized(to: 12).pointSize, 12)
+    }
+
     func testImageView() {
         Application.shared.demonstrateImage()
     }
@@ -339,15 +348,6 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         menuLabel.value = UserFacing<StrictString, APILocalization>({ _ in "unrelated" })
         XCTAssertEqual(menu.title, String(separateMenuLabel.value.resolved()))
         #endif
-    }
-
-    func testFont() {
-        let font = Font.default
-        _ = Font.forLabels
-        _ = Font.forTextEditing
-        _ = font.bold
-        _ = font.italic
-        XCTAssertEqual(font.resized(to: 12).pointSize, 12)
     }
 
     func testPopOver() {
