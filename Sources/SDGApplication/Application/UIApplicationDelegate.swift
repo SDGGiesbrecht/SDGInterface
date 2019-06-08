@@ -154,11 +154,12 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
         _ application: UIApplication,
         handleWatchKitExtensionRequest userInfo: [AnyHashable : Any]?,
         reply: @escaping ([AnyHashable : Any]?) -> Void) {
-        #warning("Not yet implemented.")
+        let result = Application.shared.systemMediator?.handleWatchRequest(userInformation: userInfo)
+        reply(result)
     }
 
     internal func applicationShouldRequestHealthAuthorization(_ application: UIApplication) {
-        #warning("Not yet implemented.")
+        Application.shared.systemMediator?.requestHealthAuthorization()
     }
 
     internal func application(

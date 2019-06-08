@@ -254,6 +254,15 @@ public protocol SystemMediator: AnyObject {
     ///
     /// - Returns: Whether or not the action succeeded.
     func performQuickAction(details: QuickActionDetails) -> Bool
+
+    /// Called by some systems to request that a watch request be handled.
+    ///
+    /// - Parameters:
+    ///     - userInformation: The user information.
+    func handleWatchRequest(userInformation: [AnyHashable: Any]?) -> [AnyHashable: Any]?
+
+    /// Called by some systems when the application should request health authorization.
+    func requestHealthAuthorization()
 }
 
 extension SystemMediator {
@@ -387,5 +396,18 @@ extension SystemMediator {
         Swift.print(#function)
         #endif
         return false
+    }
+
+    public func handleWatchRequest(userInformation: [AnyHashable: Any]?) -> [AnyHashable: Any]? {
+        #if UNHANDLED_SYSTEM_EVENT_LOGGING
+        Swift.print(#function)
+        #endif
+        return nil
+    }
+
+    public func requestHealthAuthorization() {
+        #if UNHANDLED_SYSTEM_EVENT_LOGGING
+        Swift.print(#function)
+        #endif
     }
 }
