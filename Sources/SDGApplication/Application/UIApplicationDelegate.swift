@@ -99,7 +99,8 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
         _ application: UIApplication,
         handleEventsForBackgroundURLSession identifier: String,
         completionHandler: @escaping () -> Void) {
-        #warning("Not yet implemented.")
+        Application.shared.systemMediator?.handleEventsForBackgroundURLSession(identifier)
+        completionHandler()
     }
 
     internal func application(

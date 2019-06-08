@@ -239,6 +239,12 @@ public protocol SystemMediator: AnyObject {
 
     /// Called by some systems when certain time changes occur.
     func updateAccordingToTimeChange()
+
+    /// Called by some systems to request that a background URL session event be handled.
+    ///
+    /// - Parameters:
+    ///     - identifier: The session identifier.
+    func handleEventsForBackgroundURLSession(_ identifier: String)
 }
 
 extension SystemMediator {
@@ -363,4 +369,6 @@ extension SystemMediator {
     public func purgeUnnecessaryMemory() {}
 
     public func updateAccordingToTimeChange() {}
+
+    public func handleEventsForBackgroundURLSession(_ identifier: String) {}
 }
