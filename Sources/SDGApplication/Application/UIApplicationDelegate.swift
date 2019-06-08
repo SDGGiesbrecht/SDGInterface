@@ -20,18 +20,20 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
     internal func application(
         _ application: UIApplication,
         willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        return Application.shared.systemMediator?.prepareToLaunch(LaunchDetails(
-            options: launchOptions)) ?? false
+        var details = LaunchDetails()
+        details.options = launchOptions
+        return Application.shared.systemMediator?.prepareToLaunch(details) ?? false
     }
 
     internal func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
 
-        UIMenuController.shared.extend()
+        Application.postLaunchSetUp()
 
-        return Application.shared.systemMediator?.finishLaunching(LaunchDetails(
-            options: launchOptions)) ?? false
+        var details = LaunchDetails()
+        details.options = launchOptions
+        return Application.shared.systemMediator?.finishLaunching(details) ?? false
     }
 
     internal func applicationDidBecomeActive(_ application: UIApplication) {
@@ -119,8 +121,10 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
         _ application: UIApplication,
         didReceiveRemoteNotification userInfo: [AnyHashable : Any],
         fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        var details = RemoteNotificationDetails()
+        details.userInformation = userInfo
         let result = Application.shared.systemMediator?.acceptRemoteNotification(
-            details: RemoteNotificationDetails(userInformation: userInfo)) ?? .noData
+            details: details) ?? .noData
         completionHandler(result.native)
     }
 
@@ -132,9 +136,11 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
         _ application: UIApplication,
         continue userActivity: NSUserActivity,
         restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+        var details = HandoffDetails()
+        details.restorationHandler = restorationHandler
         return Application.shared.systemMediator?.accept(
             handoff: userActivity,
-            details: HandoffDetails(restorationHandler: restorationHandler)) ?? false
+            details: details) ?? false
     }
 
     internal func application(_ application: UIApplication, didUpdate userActivity: NSUserActivity) {
@@ -145,8 +151,10 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
         _ application: UIApplication,
         performActionFor shortcutItem: UIApplicationShortcutItem,
         completionHandler: @escaping (Bool) -> Void) {
+        var details = QuickActionDetails()
+        details.shortcutItem = shortcutItem
         let result = Application.shared.systemMediator?.performQuickAction(
-            details: QuickActionDetails(shortcutItem: shortcutItem)) ?? false
+            details: details) ?? false
         completionHandler(result)
     }
 
@@ -166,20 +174,21 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
         _ app: UIApplication,
         open url: URL,
         options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        var details = OpeningDetails()
+        details.options = options
         return Application.shared.systemMediator?.open(
             files: [url],
-            details: OpeningDetails(
-                withoutUserInterface: false,
-                asTemporaryFile: false,
-                options: options)) ?? false
+            details: details) ?? false
     }
 
     internal func application(
         _ application: UIApplication,
         shouldAllowExtensionPointIdentifier extensionPointIdentifier: UIApplication.ExtensionPointIdentifier
         ) -> Bool {
+        var details = ExtensionDetails()
+        details.pointIdentifier = extensionPointIdentifier
         return Application.shared.systemMediator?.shouldAllowExtension(
-            details: ExtensionDetails(pointIdentifier: extensionPointIdentifier)) ?? true
+            details: details) ?? true
     }
 }
 #endif

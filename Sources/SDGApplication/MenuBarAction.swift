@@ -12,6 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(AppKit)
 extension MenuBar {
 
     public struct Action {
@@ -38,3 +39,4 @@ extension MenuBar {
         public let selector: Selector
     }
 }
+#endif

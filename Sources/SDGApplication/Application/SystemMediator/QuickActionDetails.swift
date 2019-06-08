@@ -24,6 +24,6 @@ public struct QuickActionDetails {
 
     #if canImport(UIKit)
     /// Some systems specify the shortcut item.
-    public let shortcutItem: UIApplicationShortcutItem?
+    public var shortcutItem: UIApplicationShortcutItem?
     #endif
 }

@@ -80,6 +80,9 @@ public final class Application {
         NSApplication.shared.mainMenu = MenuBar.menuBar
         NSApplication.shared.activate(ignoringOtherApps: false)
         #endif
+        #if canImport(UIKit)
+        UIMenuController.shared.extend()
+        #endif
     }
 
     /// Preforms the same preparatory actions taken by `main(mediator:)`, but without triggering the system’s main loop.

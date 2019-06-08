@@ -32,7 +32,7 @@ class ApplicationTestCase : TestCase {
         #if canImport(AppKit)
         _ = mediator.finishLaunching(LaunchDetails())
         #elseif canImport(UIKit)
-        _ = mediator.application(Application.shared)
+        _ = mediator.finishLaunching(LaunchDetails())
         #endif
     }()
 }
