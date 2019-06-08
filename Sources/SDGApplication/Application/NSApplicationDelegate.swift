@@ -33,7 +33,7 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
 
     internal func applicationDidFinishLaunching(_ notification: Notification) {
 
-        NSApplication.shared.menu = MenuBar.menuBar
+        NSApplication.shared.mainMenu = MenuBar.menuBar
         NSApplication.shared.activate(ignoringOtherApps: false)
 
         var details = LaunchDetails()
