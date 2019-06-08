@@ -268,13 +268,13 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         _ = MenuItem(label: Shared(UserFacing<StrictString, APILocalization>({ _ in "..." })))
 
         #if canImport(AppKit)
-        let menuBar = NSApplication.shared.mainMenu
+        let menuBar = MenuBar.menuBar
         XCTAssertNotNil(menuBar)
-        let itemWithSubmenu = menuBar?.items.first(where: { $0.submenu ≠ nil })
+        let itemWithSubmenu = menuBar.items.first(where: { $0.submenu ≠ nil })
         let submenu = itemWithSubmenu?.submenu
         XCTAssertNotNil(submenu)
         XCTAssertEqual(submenu?.parentMenuItem, itemWithSubmenu)
-        XCTAssertNil(menuBar?.parentMenuItem)
+        XCTAssertNil(menuBar.parentMenuItem)
 
         let menuLabel = Shared(UserFacing<StrictString, APILocalization>({ _ in "initial" }))
         let menu = Menu(label: menuLabel)
