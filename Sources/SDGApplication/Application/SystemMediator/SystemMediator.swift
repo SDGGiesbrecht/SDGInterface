@@ -263,6 +263,12 @@ public protocol SystemMediator: AnyObject {
 
     /// Called by some systems when the application should request health authorization.
     func requestHealthAuthorization()
+
+    /// Called by some systems to ask whether an extension should be allowed.
+    ///
+    /// - Parameters:
+    ///     - details: Details provided by the system.
+    func shouldAllowExtension(details: ExtensionDetails) -> Bool
 }
 
 extension SystemMediator {
@@ -409,5 +415,9 @@ extension SystemMediator {
         #if UNHANDLED_SYSTEM_EVENT_LOGGING
         Swift.print(#function)
         #endif
+    }
+
+    public func shouldAllowExtension(details: ExtensionDetails) -> Bool {
+        return true
     }
 }

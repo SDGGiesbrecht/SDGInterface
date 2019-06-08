@@ -181,12 +181,5 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
         #warning("Not yet implemented.")
         return true
     }
-
-    internal func application(
-        _ application: UIApplication,
-        supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
-        #warning("Not yet implemented.")
-        return .all
-    }
 }
 #endif
