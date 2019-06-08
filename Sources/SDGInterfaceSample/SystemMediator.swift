@@ -12,6 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+// @example(mediator)
 internal class SystemMediator: SDGApplication.SystemMediator {
 
     internal func finishLaunching(_ details: LaunchDetails) -> Bool {
@@ -19,3 +20,4 @@ internal class SystemMediator: SDGApplication.SystemMediator {
         return true
     }
 }
+// @endExample
