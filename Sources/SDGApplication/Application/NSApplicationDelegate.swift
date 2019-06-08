@@ -200,9 +200,10 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     // MARK: - NSMenuItemValidation
 
     internal func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        #warning("Verify this still works!")
-        if menuItem.action == #selector(NSApplicationDelegate.openPreferences(_:)) {
-            return Application.shared.preferenceManager ≠ nil
+        if menuItem.action == #selector(NSApplicationDelegate.openPreferences(_:)),
+            Application.shared.preferenceManager == nil {
+            menuItem.isHidden = true
+            return false
         }
         if let action = menuItem.action {
             return responds(to: action)

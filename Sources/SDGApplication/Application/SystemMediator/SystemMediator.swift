@@ -352,9 +352,6 @@ extension SystemMediator {
     }
 
     public func createNewBlankFile() -> Bool {
-        #if UNHANDLED_SYSTEM_EVENT_LOGGING
-        Swift.print(#function)
-        #endif
         return false
     }
 
