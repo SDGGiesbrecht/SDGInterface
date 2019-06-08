@@ -62,9 +62,11 @@ extension Application {
         }
     }
 
-    public class func setUpAndMain() { // @exempt(from: tests)
+    public class func setUpAndMain() -> Never { // @exempt(from: tests)
         setUp()
+        // @example(main)
         Application.main(mediator: SystemMediator())
+        // @endExample
     }
 
     internal static func setSamplesUp() {
