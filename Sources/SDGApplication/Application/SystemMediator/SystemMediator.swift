@@ -246,6 +246,14 @@ public protocol SystemMediator: AnyObject {
     /// - Parameters:
     ///     - identifier: The session identifier.
     func handleEventsForBackgroundURLSession(_ identifier: String)
+
+    /// Called by some systems to request that a quick action from the home screen be performed.
+    ///
+    /// - Parameters:
+    ///     - details: Details provided by the system.
+    ///
+    /// - Returns: Whether or not the action succeeded.
+    func performQuickAction(details: SystemMediatorQuickActionDetails) -> Bool
 }
 
 extension SystemMediator {
@@ -371,4 +379,11 @@ extension SystemMediator {
     public func updateAccordingToTimeChange() {}
 
     public func handleEventsForBackgroundURLSession(_ identifier: String) {}
+
+    public func performQuickAction(details: SystemMediatorQuickActionDetails) -> Bool {
+        #if UNHANDLED_SYSTEM_EVENT_LOGGING
+        Swift.print(#function)
+        #endif
+        return false
+    }
 }
