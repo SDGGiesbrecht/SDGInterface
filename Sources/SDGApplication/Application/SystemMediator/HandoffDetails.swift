@@ -1,5 +1,5 @@
 /*
- SystemMediatorHandoffDetails.swift
+ HandoffDetails.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -13,7 +13,7 @@
  */
 
 /// Details about an activity handoff.
-public struct SystemMediatorHandoffDetails {
+public struct HandoffDetails {
 
     #if canImport(AppKit)
     /// The restoration handler.

@@ -1,5 +1,5 @@
 /*
- SystemMediatorQuickActionDetails.swift
+ PrintingDetails.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,11 +12,16 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-/// Details about a quick action.
-public struct SystemMediatorQuickActionDetails {
+/// Details about printing.
+public struct PrintingDetails {
 
     #if canImport(AppKit)
-    /// The shortcut item.
-    public let shortcutItem: UIApplicationShortcutItem
+    /// The settings.
+    public let settings: [NSPrintInfo.AttributeKey : Any]
+    #endif
+
+    #if canImport(AppKit)
+    /// Whether or not to display customization panels.
+    public let displayPanels: Bool
     #endif
 }

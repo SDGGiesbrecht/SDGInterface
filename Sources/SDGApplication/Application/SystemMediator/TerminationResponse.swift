@@ -1,5 +1,5 @@
 /*
- SystemMediatorTerminationResponse.swift
+ TerminationResponse.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -13,7 +13,7 @@
  */
 
 /// A response to a request to terminate.
-public enum SystemMediatorTerminationResponse {
+public enum TerminationResponse {
 
     // MARK: - Initialization
 

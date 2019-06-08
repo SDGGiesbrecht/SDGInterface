@@ -1,5 +1,5 @@
 /*
- SystemMediatorViewControllerRestorationResponse.swift
+ LaunchDetails.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,18 +12,16 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-/// A response to a request for a view controller during state restoration.
-public struct SystemMediatorViewControllerRestorationResponse {
+/// Details about the launch.
+public struct LaunchDetails {
 
-    // MARK: - Initialization
-
-    /// Creates a response.
-    public init() {}
-
-    // MARK: - Properties
+    #if canImport(AppKit)
+    /// The notification.
+    public let notification: Notification
+    #endif
 
     #if canImport(UIKit)
-    /// The controller.
-    public var viewController: UIViewController?
+    /// The options.
+    public let options: [UIApplication.LaunchOptionsKey: Any]?
     #endif
 }

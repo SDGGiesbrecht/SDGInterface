@@ -1,5 +1,5 @@
 /*
- SystemMediatorPrintingDetails.swift
+ RemoteNotificationDetails.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,16 +12,16 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-/// Details about printing.
-public struct SystemMediatorPrintingDetails {
+/// Details about a remote notification.
+public struct RemoteNotificationDetails {
 
     #if canImport(AppKit)
-    /// The settings.
-    public let settings: [NSPrintInfo.AttributeKey : Any]
+    /// User information.
+    public let userInformation: [String: Any]
     #endif
 
-    #if canImport(AppKit)
-    /// Whether or not to display customization panels.
-    public let displayPanels: Bool
+    #if canImport(UIKit)
+    /// User information.
+    public let userInformation: [AnyHashable: Any]
     #endif
 }

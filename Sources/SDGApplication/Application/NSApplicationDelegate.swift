@@ -26,7 +26,7 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     // MARK: - NSApplicationDelegate
 
     internal func applicationWillFinishLaunching(_ notification: Notification) {
-        _ = Application.shared.systemMediator?.prepareToLaunch(SystemMediatorLaunchDetails(notification: notification))
+        _ = Application.shared.systemMediator?.prepareToLaunch(LaunchDetails(notification: notification))
     }
 
     internal func applicationDidFinishLaunching(_ notification: Notification) {
@@ -34,7 +34,7 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
         NSApplication.shared.menu = MenuBar.menuBar
         NSApplication.shared.activate(ignoringOtherApps: false)
 
-        _ = Application.shared.systemMediator?.finishLaunching(SystemMediatorLaunchDetails(notification: notification))
+        _ = Application.shared.systemMediator?.finishLaunching(LaunchDetails(notification: notification))
     }
 
     internal func applicationWillBecomeActive(_ notification: Notification) {
@@ -115,7 +115,7 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
         restorationHandler: @escaping ([NSUserActivityRestoring]) -> Void) -> Bool {
         return Application.shared.systemMediator?.accept(
             handoff: userActivity,
-            details: SystemMediatorHandoffDetails(restorationHandler: restorationHandler)) ?? false
+            details: HandoffDetails(restorationHandler: restorationHandler)) ?? false
     }
 
     internal func application(_ application: NSApplication, didUpdate userActivity: NSUserActivity) {
@@ -138,20 +138,20 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
         _ application: NSApplication,
         didReceiveRemoteNotification userInfo: [String : Any]) {
         _ = Application.shared.systemMediator?.acceptRemoteNotification(
-            details: SystemMediatorRemoteNotificationDetails(
+            details: RemoteNotificationDetails(
                 userInformation: userInfo))
     }
 
     internal func application(_ application: NSApplication, open urls: [URL]) {
         _ = Application.shared.systemMediator?.open(
             files: urls,
-            details: SystemMediatorOpeningDetails(withoutUserInterface: false, asTemporaryFile: false))
+            details: OpeningDetails(withoutUserInterface: false, asTemporaryFile: false))
     }
 
     internal func application(_ sender: Any, openFileWithoutUI filename: String) -> Bool {
         return Application.shared.systemMediator?.open(
             files: [URL(fileURLWithPath: filename)],
-            details: SystemMediatorOpeningDetails(
+            details: OpeningDetails(
                 withoutUserInterface: true,
                 asTemporaryFile: false)) ?? false
     }
@@ -159,7 +159,7 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     internal func application(_ sender: NSApplication, openTempFile filename: String) -> Bool {
         return Application.shared.systemMediator?.open(
             files: [URL(fileURLWithPath: filename)],
-            details: SystemMediatorOpeningDetails(
+            details: OpeningDetails(
                 withoutUserInterface: false,
                 asTemporaryFile: true)) ?? false
     }
@@ -179,7 +179,7 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
         showPrintPanels: Bool) -> NSApplication.PrintReply {
         let result = Application.shared.systemMediator?.print(
             files: fileNames.map({ URL(fileURLWithPath: $0) }),
-            details: SystemMediatorPrintingDetails(
+            details: PrintingDetails(
                 settings: printSettings,
                 displayPanels: showPrintPanels)) ?? .failure
         return result.native

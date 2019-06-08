@@ -1,5 +1,5 @@
 /*
- SystemMediatorFetchResult.swift
+ FetchResult.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -13,7 +13,7 @@
  */
 
 /// A fetch result.
-public enum SystemMediatorFetchResult {
+public enum FetchResult {
 
     // MARK: - Initialization
 

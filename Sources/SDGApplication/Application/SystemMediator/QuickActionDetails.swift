@@ -1,5 +1,5 @@
 /*
- SystemMediatorLaunchDetails.swift
+ QuickActionDetails.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,16 +12,11 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-/// Details about the launch.
-public struct SystemMediatorLaunchDetails {
-
-    #if canImport(AppKit)
-    /// The notification.
-    public let notification: Notification
-    #endif
+/// Details about a quick action.
+public struct QuickActionDetails {
 
     #if canImport(UIKit)
-    /// The options.
-    public let options: [UIApplication.LaunchOptionsKey: Any]?
+    /// The shortcut item.
+    public let shortcutItem: UIApplicationShortcutItem
     #endif
 }

@@ -21,7 +21,7 @@ public protocol SystemMediator: AnyObject {
     ///     - details: Details provided by the system.
     ///
     /// - Returns: `false` if the application cannot continue. Otherwise `true`.
-    func prepareToLaunch(_ details: SystemMediatorLaunchDetails) -> Bool
+    func prepareToLaunch(_ details: LaunchDetails) -> Bool
 
     /// Called by some systems as the application finishes launching.
     ///
@@ -29,7 +29,7 @@ public protocol SystemMediator: AnyObject {
     ///     - details: Details provided by the system.
     ///
     /// - Returns: `false` if the application cannot continue. Otherwise `true`.
-    func finishLaunching(_ details: SystemMediatorLaunchDetails) -> Bool
+    func finishLaunching(_ details: LaunchDetails) -> Bool
 
     /// Called by some systems before the application acquires the system focus.
     ///
@@ -59,7 +59,7 @@ public protocol SystemMediator: AnyObject {
     ///
     /// - Parameters:
     ///     - lastWindowClosed: `true` if the termination request was triggered by the last window closing.
-    func terminate() -> SystemMediatorTerminationResponse
+    func terminate() -> TerminationResponse
 
     /// Some systems will terminate the application automatically when the last window closes. Returning `false` requests that the application remain running.
     var remainsRunningWithNoWindows: Bool { get }
@@ -147,7 +147,7 @@ public protocol SystemMediator: AnyObject {
     /// 	- details: Details about the handoff.
     ///
     /// - Returns: `true` if the handoff has been accepted, `false` to request that the system accept the handoff.
-    func accept(handoff: NSUserActivity, details: SystemMediatorHandoffDetails) -> Bool
+    func accept(handoff: NSUserActivity, details: HandoffDetails) -> Bool
 
     /// Called by some systems when an activity handoff fails.
     ///
@@ -179,7 +179,7 @@ public protocol SystemMediator: AnyObject {
     ///
     /// - Returns: The result of the fetch operation.
     func acceptRemoteNotification(
-        details: SystemMediatorRemoteNotificationDetails) -> SystemMediatorFetchResult
+        details: RemoteNotificationDetails) -> FetchResult
 
     /// Called by some systems to request that one or more files be opened.
     ///
@@ -187,7 +187,7 @@ public protocol SystemMediator: AnyObject {
     ///     - details: Details provided by the system.
     ///
     /// - Returns: Whether or not the files could be opened successfully.
-    func open(files: [URL], details: SystemMediatorOpeningDetails) -> Bool
+    func open(files: [URL], details: OpeningDetails) -> Bool
 
     /// Called by some systems to ask whether a new, blank file be created.
     ///
@@ -195,7 +195,7 @@ public protocol SystemMediator: AnyObject {
     func createNewBlankFile() -> Bool
 
     /// Called by some systems to request that a file be printed.
-    func print(files: [URL], details: SystemMediatorPrintingDetails) -> SystemMediatorPrintingResponse
+    func print(files: [URL], details: PrintingDetails) -> PrintingResponse
 
     /// Called by some systems to ask whether to encode a restorable state.
     ///
@@ -228,7 +228,7 @@ public protocol SystemMediator: AnyObject {
     ///     - coder: The coder.
     func viewController(
         forRestorationIdentifierPath path: [String],
-        coder: NSCoder) -> SystemMediatorViewControllerRestorationResponse
+        coder: NSCoder) -> ViewControllerRestorationResponse
 
     /// Called by some systems when the application’s occlusion changes.
     ///
@@ -253,12 +253,12 @@ public protocol SystemMediator: AnyObject {
     ///     - details: Details provided by the system.
     ///
     /// - Returns: Whether or not the action succeeded.
-    func performQuickAction(details: SystemMediatorQuickActionDetails) -> Bool
+    func performQuickAction(details: QuickActionDetails) -> Bool
 }
 
 extension SystemMediator {
 
-    public func prepareToLaunch(_ details: SystemMediatorLaunchDetails) -> Bool {
+    public func prepareToLaunch(_ details: LaunchDetails) -> Bool {
         return true
     }
 
@@ -267,7 +267,7 @@ extension SystemMediator {
     public func prepareToResignFocus(_ notification: Notification?) {}
     public func finishResigningFocus(_ notification: Notification?) {}
 
-    public func terminate() -> SystemMediatorTerminationResponse {
+    public func terminate() -> TerminationResponse {
         return .now
     }
     public var remainsRunningWithNoWindows: Bool {
@@ -303,7 +303,7 @@ extension SystemMediator {
     public func notifyHandoffBegan(_ identifier: String) -> Bool {
         return false
     }
-    public func accept(handoff: NSUserActivity, details: SystemMediatorHandoffDetails) -> Bool {
+    public func accept(handoff: NSUserActivity, details: HandoffDetails) -> Bool {
         return false
     }
     public func notifyHandoffFailed(_ identifier: String, error: Error) -> Bool {
@@ -322,14 +322,14 @@ extension SystemMediator {
         #endif
     }
     public func acceptRemoteNotification(
-        details: SystemMediatorRemoteNotificationDetails) -> SystemMediatorFetchResult {
+        details: RemoteNotificationDetails) -> FetchResult {
         #if UNHANDLED_SYSTEM_EVENT_LOGGING
         Swift.print(#function)
         #endif
         return .noData
     }
 
-    public func open(files: [URL], details: SystemMediatorOpeningDetails) -> Bool {
+    public func open(files: [URL], details: OpeningDetails) -> Bool {
         #if UNHANDLED_SYSTEM_EVENT_LOGGING
         Swift.print(#function)
         #endif
@@ -347,7 +347,7 @@ extension SystemMediator {
         return true
     }
 
-    public func print(files: [URL], details: SystemMediatorPrintingDetails) -> SystemMediatorPrintingResponse {
+    public func print(files: [URL], details: PrintingDetails) -> PrintingResponse {
         #if UNHANDLED_SYSTEM_EVENT_LOGGING
         Swift.print(#function)
         #endif
@@ -365,11 +365,13 @@ extension SystemMediator {
         return false
     }
     public func finishRestoring(coder: NSCoder) {}
-    public func viewController(forRestorationIdentifierPath path: [String], coder: NSCoder) -> SystemMediatorViewControllerRestorationResponse {
+    public func viewController(
+        forRestorationIdentifierPath path: [String],
+        coder: NSCoder) -> ViewControllerRestorationResponse {
         #if UNHANDLED_SYSTEM_EVENT_LOGGING
         Swift.print(#function)
         #endif
-        return SystemMediatorViewControllerRestorationResponse()
+        return ViewControllerRestorationResponse()
     }
 
     public func updateAccordingToOcclusionChange(_ notification: Notification?) {}
@@ -380,7 +382,7 @@ extension SystemMediator {
 
     public func handleEventsForBackgroundURLSession(_ identifier: String) {}
 
-    public func performQuickAction(details: SystemMediatorQuickActionDetails) -> Bool {
+    public func performQuickAction(details: QuickActionDetails) -> Bool {
         #if UNHANDLED_SYSTEM_EVENT_LOGGING
         Swift.print(#function)
         #endif

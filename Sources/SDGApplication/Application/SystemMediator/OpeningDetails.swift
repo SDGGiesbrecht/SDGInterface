@@ -1,5 +1,5 @@
 /*
- SystemMediatorOpeningDetails.swift
+ OpeningDetails.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -13,7 +13,7 @@
  */
 
 /// Details about opening a file.
-public struct SystemMediatorOpeningDetails {
+public struct OpeningDetails {
 
     /// The system is requesting that no user interface be presented.
     public let withoutUserInterface: Bool
