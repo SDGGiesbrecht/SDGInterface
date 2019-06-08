@@ -147,6 +147,7 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
         Application.shared.systemMediator?.preprocess(handoff: userActivity)
     }
 
+    #if !os(tvOS)
     internal func application(
         _ application: UIApplication,
         performActionFor shortcutItem: UIApplicationShortcutItem,
@@ -157,6 +158,7 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
             details: details) ?? false
         completionHandler(result)
     }
+    #endif
 
     internal func application(
         _ application: UIApplication,

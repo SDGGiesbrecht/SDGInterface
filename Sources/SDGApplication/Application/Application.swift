@@ -80,7 +80,7 @@ public final class Application {
         NSApplication.shared.mainMenu = MenuBar.menuBar
         NSApplication.shared.activate(ignoringOtherApps: false)
         #endif
-        #if canImport(UIKit)
+        #if canImport(UIKit) && !os(tvOS)
         UIMenuController.shared.extend()
         #endif
     }

@@ -115,7 +115,7 @@ public protocol SystemMediator: AnyObject {
     func reopen(hasVisibleWindows: Bool?) -> Bool
 
     /// Used by some systems as the dock menu.
-    var dockMenu: NSMenu? { get }
+    var dockMenu: DockMenu? { get }
 
     /// Called by some systems before displaying an error to the user.
     func preprocessErrorForDisplay(_ error: Error) -> Error
@@ -302,7 +302,7 @@ extension SystemMediator {
         return false
     }
 
-    public var dockMenu: NSMenu? {
+    public var dockMenu: DockMenu? {
         return nil
     }
 
