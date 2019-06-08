@@ -178,8 +178,8 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
         _ application: UIApplication,
         shouldAllowExtensionPointIdentifier extensionPointIdentifier: UIApplication.ExtensionPointIdentifier
         ) -> Bool {
-        #warning("Not yet implemented.")
-        return true
+        return Application.shared.systemMediator?.shouldAllowExtension(
+            details: ExtensionDetails(pointIdentifier: extensionPointIdentifier)) ?? true
     }
 }
 #endif
