@@ -214,6 +214,15 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         #endif
     }
 
+    func testFetchResult() {
+        #if canImport(UIKit)
+        for result in FetchResult.allCases {
+            let native = result.native
+            XCTAssertEqual(result, FetchResult(native))
+        }
+        #endif
+    }
+
     func testFont() {
         let font = Font.default
         _ = Font.forLabels
@@ -445,6 +454,59 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertEqual(richText.rawText(), "abcdefghi")
 
         XCTAssertEqual(("..." as RichText).rawText(), "...")
+    }
+
+    func testSystemMediator() {
+        class Mediator: SystemMediator, Error {
+            func finishLaunching(_ details: LaunchDetails) -> Bool {
+                return true
+            }
+        }
+        let mediator = Mediator()
+        _ = mediator.prepareToLaunch(LaunchDetails())
+        _ = mediator.finishLaunching(LaunchDetails())
+        mediator.prepareToAcquireFocus(nil)
+        mediator.finishAcquiringFocus(nil)
+        mediator.prepareToResignFocus(nil)
+        mediator.finishResigningFocus(nil)
+        _ = mediator.terminate()
+        _ = mediator.remainsRunningWithNoWindows
+        mediator.prepareToTerminate(nil)
+        mediator.prepareToHide(nil)
+        mediator.finishHiding(nil)
+        mediator.prepareToUnhide(nil)
+        mediator.finishUnhiding(nil)
+        mediator.prepareToUpdateInterface(nil)
+        mediator.finishUpdatingInterface(nil)
+        _ = mediator.reopen(hasVisibleWindows: nil)
+        _ = mediator.dockMenu
+        _ = mediator.preprocessErrorForDisplay(mediator)
+        mediator.updateAccordingToScreenChange(nil)
+        mediator.finishGainingAccessToProtectedData()
+        mediator.prepareToLoseAccessToProtectedData()
+        _ = mediator.notifyHandoffBegan("")
+        _ = mediator.accept(handoff: NSUserActivity(activityType: " "), details: HandoffDetails())
+        _ = mediator.notifyHandoffFailed("", error: mediator)
+        mediator.preprocess(handoff: NSUserActivity(activityType: " "))
+        mediator.finishRegistrationForRemoteNotifications(deviceToken: Data())
+        mediator.reportFailedRegistrationForRemoteNotifications(error: mediator)
+        _ = mediator.acceptRemoteNotification(details: RemoteNotificationDetails())
+        _ = mediator.open(files: [], details: OpeningDetails())
+        _ = mediator.createNewBlankFile()
+        _ = mediator.print(files: [], details: PrintingDetails())
+        _ = mediator.shouldEncodeRestorableState(coder: NSCoder())
+        mediator.prepareToEncodeRestorableState(coder: NSCoder())
+        _ = mediator.shouldRestorePreviousState(coder: NSCoder())
+        mediator.finishRestoring(coder: NSCoder())
+        _ = mediator.viewController(forRestorationIdentifierPath: [], coder: NSCoder())
+        mediator.updateAccordingToOcclusionChange(nil)
+        mediator.purgeUnnecessaryMemory()
+        mediator.updateAccordingToTimeChange()
+        mediator.handleEventsForBackgroundURLSession("")
+        _ = mediator.performQuickAction(details: QuickActionDetails())
+        _ = mediator.handleWatchRequest(userInformation: nil)
+        mediator.requestHealthAuthorization()
+        _ = mediator.shouldAllowExtension(details: ExtensionDetails())
     }
 
     func testTable() {

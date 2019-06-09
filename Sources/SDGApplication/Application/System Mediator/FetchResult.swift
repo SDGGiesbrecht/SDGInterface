@@ -13,7 +13,7 @@
  */
 
 /// A fetch result.
-public enum FetchResult {
+public enum FetchResult : CaseIterable {
 
     // MARK: - Initialization
 
