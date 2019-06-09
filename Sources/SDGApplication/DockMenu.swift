@@ -19,6 +19,9 @@ public final class DockMenu {
 
     #if canImport(AppKit)
     /// Creates a dock menu from a native dock menu.
+    ///
+    /// - Parameters:
+    ///     - native: The native menu.
     public init(_ native: NSMenu) {
         self.native = native
     }

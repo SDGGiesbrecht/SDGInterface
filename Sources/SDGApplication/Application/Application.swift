@@ -18,7 +18,7 @@ public final class Application {
     // MARK: - Static Properties
 
     /// The application.
-    public static let shared = Application()
+    public static let shared: Application = Application()
 
     // MARK: - Initialization
 

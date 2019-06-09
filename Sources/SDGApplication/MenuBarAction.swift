@@ -15,6 +15,7 @@
 #if canImport(AppKit)
 extension MenuBar {
 
+    /// A menu bar action.
     public struct Action {
 
         // MARK: - Static Properties

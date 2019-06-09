@@ -56,9 +56,6 @@ public protocol SystemMediator : AnyObject {
     func finishResigningFocus(_ notification: Notification?)
 
     /// Called by some systems to request that the application terminate.
-    ///
-    /// - Parameters:
-    ///     - lastWindowClosed: `true` if the termination request was triggered by the last window closing.
     func terminate() -> TerminationResponse
 
     /// Some systems will terminate the application automatically when the last window closes. Returning `false` requests that the application remain running.
@@ -118,6 +115,9 @@ public protocol SystemMediator : AnyObject {
     var dockMenu: DockMenu? { get }
 
     /// Called by some systems before displaying an error to the user.
+    ///
+    /// - Parameters:
+    ///     - error: The error.
     func preprocessErrorForDisplay(_ error: Error) -> Error
 
     /// Called by some systems when the screen changes.
@@ -153,6 +153,7 @@ public protocol SystemMediator : AnyObject {
     ///
     /// - Parameters:
     ///     - identifier: The activity identifier.
+    ///     - error: The error that occurred.
     ///
     /// - Returns: `true` if the user was notified, or `false` to request that the system notify the user.
     func notifyHandoffFailed(_ identifier: String, error: Error) -> Bool
@@ -164,6 +165,9 @@ public protocol SystemMediator : AnyObject {
     func preprocess(handoff: NSUserActivity)
 
     /// Called by some systems as the remote notification registration finishes.
+    ///
+    /// - Parameters:
+    ///     - deviceToken: The device token
     func finishRegistrationForRemoteNotifications(deviceToken: Data)
 
     /// Called by some systems when remote notification registration fails.
@@ -184,17 +188,27 @@ public protocol SystemMediator : AnyObject {
     /// Called by some systems to request that one or more files be opened.
     ///
     /// - Parameters:
+    ///     - files: The files to open.
     ///     - details: Details provided by the system.
     ///
     /// - Returns: Whether or not the files could be opened successfully.
     func open(files: [URL], details: OpeningDetails) -> Bool
 
-    /// Called by some systems to ask whether a new, blank file be created.
+    /// Called by some systems to request that a new, blank file be created.
     ///
-    /// - Returns: Whether or not a file should be created.
+    /// - Returns: Whether or not the file was successfully created.
     func createNewBlankFile() -> Bool
 
+    /// Called by some systems to ask whether a new, blank file should be created.
+    ///
+    /// - Returns: Whether or not a file should be created.
+    func shouldCreateNewBlankFile() -> Bool
+
     /// Called by some systems to request that a file be printed.
+    ///
+    /// - Parameters:
+    ///     - files: The files to open.
+    ///     - details: Details provided by the system.
     func print(files: [URL], details: PrintingDetails) -> PrintingResponse
 
     /// Called by some systems to ask whether to encode a restorable state.
@@ -232,7 +246,8 @@ public protocol SystemMediator : AnyObject {
 
     /// Called by some systems when the application’s occlusion changes.
     ///
-    /// - Returns: `false` if the application cannot continue. Otherwise `true`.
+    /// - Parameters:
+    ///     - notification: Some systems provide an accompanying notification.
     func updateAccordingToOcclusionChange(_ notification: Notification?)
 
     /// Called by some systems when memory is low.

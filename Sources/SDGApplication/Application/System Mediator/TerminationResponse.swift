@@ -18,6 +18,10 @@ public enum TerminationResponse {
     // MARK: - Initialization
 
     #if canImport(AppKit)
+    /// Creates a termination response from a native response.
+    ///
+    /// - Parameters:
+    ///     - native: The native termination response.
     public init(_ native: NSApplication.TerminateReply) {
         switch native {
         case .terminateNow:
@@ -48,6 +52,7 @@ public enum TerminationResponse {
     // MARK: - Properties
 
     #if canImport(AppKit)
+    /// The native termination response.
     public var native: NSApplication.TerminateReply {
         switch self {
         case .now:

@@ -24,11 +24,17 @@ public struct HandoffDetails {
 
     #if canImport(AppKit)
     /// Some systems provide a restoration handler.
-    public var restorationHandler: (([NSUserActivityRestoring]) -> Void)?
+    ///
+    /// - Parameters:
+    ///     - restorableObjects: Interface objects to restore state to.
+    public var restorationHandler: ((_ restorableObjects: [NSUserActivityRestoring]) -> Void)?
     #endif
 
     #if canImport(UIKit) && !os(watchOS)
     /// Some systems provide a restoration handler.
-    public var restorationHandler: (([UIUserActivityRestoring]) -> Void)?
+    ///
+    /// - Parameters:
+    ///     - restorableObjects: Interface objects to restore state to.
+    public var restorationHandler: ((_ restorableObjects: [UIUserActivityRestoring]) -> Void)?
     #endif
 }

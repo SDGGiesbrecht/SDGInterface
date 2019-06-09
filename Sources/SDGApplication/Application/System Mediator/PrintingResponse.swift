@@ -18,6 +18,10 @@ public enum PrintingResponse {
     // MARK: - Initialization
 
     #if canImport(AppKit)
+    /// Creates a printing response from a native response.
+    ///
+    /// - Parameters:
+    ///     - native: The native printing response.
     public init(_ native: NSApplication.PrintReply) {
         switch native {
         case .printingSuccess:
@@ -53,6 +57,7 @@ public enum PrintingResponse {
     // MARK: - Properties
 
     #if canImport(AppKit)
+    /// The native response.
     public var native: NSApplication.PrintReply {
         switch self {
         case .success:
