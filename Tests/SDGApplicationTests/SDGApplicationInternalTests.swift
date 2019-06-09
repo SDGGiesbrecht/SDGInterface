@@ -52,7 +52,7 @@ final class SDGApplicationInternalTests : ApplicationTestCase {
     }
 
     func testNSApplicationDelegate() {
-        struct Error: Swift.Error {}
+        struct Error : Swift.Error {}
         #if canImport(AppKit)
         let delegate = SDGApplication.NSApplicationDelegate()
         let notification = Notification(name: Notification.Name(""))
@@ -97,7 +97,7 @@ final class SDGApplicationInternalTests : ApplicationTestCase {
     }
 
     func testUIApplicationDelegate() {
-        struct Error: Swift.Error {}
+        struct Error : Swift.Error {}
         #if canImport(UIKit)
         let delegate = SDGApplication.UIApplicationDelegate()
         _ = delegate.application(UIApplication.shared, willFinishLaunchingWithOptions: nil)

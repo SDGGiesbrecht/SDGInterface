@@ -457,7 +457,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testSystemMediator() {
-        class Mediator: SystemMediator, Error {
+        class Mediator : SystemMediator, Error {
             func finishLaunching(_ details: LaunchDetails) -> Bool {
                 return true
             }

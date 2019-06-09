@@ -13,13 +13,13 @@
  */
 
 #if canImport(UIKit) && !os(watchOS)
-internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
+internal class UIApplicationDelegate : NSObject, UIKit.UIApplicationDelegate {
 
     // MARK: - UIApplicationDelegate
 
     internal func application(
         _ application: UIApplication,
-        willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         var details = LaunchDetails()
         details.options = launchOptions
         return Application.shared.systemMediator?.prepareToLaunch(details) ?? false
@@ -27,7 +27,7 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
 
     internal func application(
         _ application: UIApplication,
-        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
 
         Application.postLaunchSetUp()
 
@@ -119,7 +119,7 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
 
     internal func application(
         _ application: UIApplication,
-        didReceiveRemoteNotification userInfo: [AnyHashable : Any],
+        didReceiveRemoteNotification userInfo: [AnyHashable: Any],
         fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         var details = RemoteNotificationDetails()
         details.userInformation = userInfo
@@ -162,8 +162,8 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
 
     internal func application(
         _ application: UIApplication,
-        handleWatchKitExtensionRequest userInfo: [AnyHashable : Any]?,
-        reply: @escaping ([AnyHashable : Any]?) -> Void) {
+        handleWatchKitExtensionRequest userInfo: [AnyHashable: Any]?,
+        reply: @escaping ([AnyHashable: Any]?) -> Void) {
         let result = Application.shared.systemMediator?.handleWatchRequest(userInformation: userInfo)
         reply(result)
     }
@@ -175,7 +175,7 @@ internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
     internal func application(
         _ app: UIApplication,
         open url: URL,
-        options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         var details = OpeningDetails()
         details.options = options
         return Application.shared.systemMediator?.open(

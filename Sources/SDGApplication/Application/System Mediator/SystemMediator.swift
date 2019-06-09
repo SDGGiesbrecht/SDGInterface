@@ -13,7 +13,7 @@
  */
 
 /// An object which mediates between the application and system events.
-public protocol SystemMediator: AnyObject {
+public protocol SystemMediator : AnyObject {
 
     /// Called by some systems before the application launches.
     ///

@@ -30,6 +30,6 @@ public struct OpeningDetails {
 
     #if canImport(UIKit) && !os(watchOS)
     /// Some systems specify options.
-    public var options: [UIApplication.OpenURLOptionsKey : Any] = [:]
+    public var options: [UIApplication.OpenURLOptionsKey: Any] = [:]
     #endif
 }

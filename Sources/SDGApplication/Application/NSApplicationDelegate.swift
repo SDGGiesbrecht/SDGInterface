@@ -15,7 +15,7 @@
 #if canImport(AppKit)
 import SDGLogic
 
-internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NSMenuItemValidation {
+internal class NSApplicationDelegate : NSObject, AppKit.NSApplicationDelegate, NSMenuItemValidation {
 
     // MARK: - Top Responder
 
@@ -141,7 +141,7 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
 
     internal func application(
         _ application: NSApplication,
-        didReceiveRemoteNotification userInfo: [String : Any]) {
+        didReceiveRemoteNotification userInfo: [String: Any]) {
         var details = RemoteNotificationDetails()
         details.userInformation = userInfo
         _ = Application.shared.systemMediator?.acceptRemoteNotification(
@@ -186,7 +186,7 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     internal func application(
         _ application: NSApplication,
         printFiles fileNames: [String],
-        withSettings printSettings: [NSPrintInfo.AttributeKey : Any],
+        withSettings printSettings: [NSPrintInfo.AttributeKey: Any],
         showPrintPanels: Bool) -> NSApplication.PrintReply {
         var details = PrintingDetails()
         details.settings = printSettings
