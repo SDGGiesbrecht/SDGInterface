@@ -51,6 +51,51 @@ final class SDGApplicationInternalTests : ApplicationTestCase {
         testAllLocalizations()
     }
 
+    func testNSApplicationDelegate() {
+        struct Error: Swift.Error {}
+        #if canImport(AppKit)
+        let delegate = SDGApplication.NSApplicationDelegate()
+        let notification = Notification(name: Notification.Name(""))
+        delegate.applicationWillFinishLaunching(notification)
+        delegate.applicationDidFinishLaunching(notification)
+        delegate.applicationWillBecomeActive(notification)
+        delegate.applicationDidBecomeActive(notification)
+        delegate.applicationWillResignActive(notification)
+        delegate.applicationDidResignActive(notification)
+        _ = delegate.applicationShouldTerminate(NSApplication.shared)
+        _ = delegate.applicationShouldTerminateAfterLastWindowClosed(NSApplication.shared)
+        delegate.applicationWillTerminate(notification)
+        delegate.applicationWillHide(notification)
+        delegate.applicationDidHide(notification)
+        delegate.applicationWillUnhide(notification)
+        delegate.applicationDidUnhide(notification)
+        delegate.applicationWillUpdate(notification)
+        delegate.applicationDidUpdate(notification)
+        _ = delegate.applicationShouldHandleReopen(NSApplication.shared, hasVisibleWindows: false)
+        _ = delegate.applicationDockMenu(NSApplication.shared)
+        _ = delegate.application(NSApplication.shared, willPresentError: Error())
+        delegate.applicationDidChangeScreenParameters(notification)
+        _ = delegate.application(NSApplication.shared, willContinueUserActivityWithType: "")
+        _ = delegate.application(
+            NSApplication.shared,
+            continue: NSUserActivity(activityType: " "),
+            restorationHandler: { _ in })
+        delegate.application(NSApplication.shared, didUpdate: NSUserActivity(activityType: " "))
+        delegate.application(NSApplication.shared, didRegisterForRemoteNotificationsWithDeviceToken: Data())
+        delegate.application(NSApplication.shared, didFailToRegisterForRemoteNotificationsWithError: Error())
+        delegate.application(NSApplication.shared, didReceiveRemoteNotification: [:])
+        delegate.application(NSApplication.shared, open: [])
+        _ = delegate.application(NSApplication.shared, openFileWithoutUI: "")
+        _ = delegate.application(NSApplication.shared, openTempFile: "")
+        _ = delegate.applicationOpenUntitledFile(NSApplication.shared)
+        _ = delegate.applicationShouldOpenUntitledFile(NSApplication.shared)
+        _ = delegate.application(NSApplication.shared, printFiles: [], withSettings: [:], showPrintPanels: false)
+        delegate.application(NSApplication.shared, didDecodeRestorableState: NSCoder())
+        delegate.application(NSApplication.shared, willEncodeRestorableState: NSCoder())
+        delegate.applicationDidChangeOcclusionState(notification)
+        #endif
+    }
+
     func testUIApplicationDelegate() {
         struct Error: Swift.Error {}
         #if canImport(UIKit)
