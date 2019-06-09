@@ -332,7 +332,8 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         testAllLocalizations()
 
         #if canImport(AppKit)
-        let preferencesMenuItem = MenuBar.menuBar.items.first!.submenu!.items.first(where: { $0.action == MenuBar.Action.openPreferences.selector })!
+        let preferencesMenuItem = NSApplication.shared.mainMenu?.items.first?.submenu?.items.first(where: { $0.action == MenuBar.Action.openPreferences.selector })
+        XCTAssertNotNil(preferencesMenuItem)
         #endif
     }
 
