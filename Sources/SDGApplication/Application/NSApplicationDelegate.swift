@@ -97,7 +97,7 @@ internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate, NS
     }
 
     internal func applicationDockMenu(_ sender: NSApplication) -> NSMenu? {
-        return Application.shared.systemMediator?.dockMenu
+        return Application.shared.systemMediator?.dockMenu?.native
     }
 
     internal func application(_ application: NSApplication, willPresentError error: Error) -> Error {

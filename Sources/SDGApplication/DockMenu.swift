@@ -26,6 +26,6 @@ public final class DockMenu {
 
     #if canImport(AppKit)
     /// The native dock menu.
-    public let native = NSMenu
+    public let native: NSMenu
     #endif
 }
