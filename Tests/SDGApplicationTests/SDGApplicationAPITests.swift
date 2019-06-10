@@ -492,6 +492,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         mediator.reportFailedRegistrationForRemoteNotifications(error: mediator)
         _ = mediator.acceptRemoteNotification(details: RemoteNotificationDetails())
         _ = mediator.open(files: [], details: OpeningDetails())
+        _ = mediator.shouldCreateNewBlankFile()
         _ = mediator.createNewBlankFile()
         _ = mediator.print(files: [], details: PrintingDetails())
         _ = mediator.shouldEncodeRestorableState(coder: NSCoder())
