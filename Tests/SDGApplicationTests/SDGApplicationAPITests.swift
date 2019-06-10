@@ -507,6 +507,22 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         _ = mediator.handleWatchRequest(userInformation: nil)
         mediator.requestHealthAuthorization()
         _ = mediator.shouldAllowExtension(details: ExtensionDetails())
+
+        for response in PrintingResponse.allCases {
+            #if canImport(AppKit)
+            let native = response.native
+            XCTAssertEqual(PrintingResponse(native), response)
+            #endif
+        }
+        for response in TerminationResponse.allCases {
+            #if canImport(AppKit)
+            let native = response.native
+            XCTAssertEqual(TerminationResponse(native), response)
+            #endif
+        }
+        #if canImport(AppKit)
+        _ = DockMenu(NSMenu())
+        #endif
     }
 
     func testTable() {

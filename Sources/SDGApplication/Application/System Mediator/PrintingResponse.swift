@@ -13,7 +13,7 @@
  */
 
 /// A response to a request to print.
-public enum PrintingResponse {
+public enum PrintingResponse : CaseIterable {
 
     // MARK: - Initialization
 
@@ -32,7 +32,7 @@ public enum PrintingResponse {
             self = .cancel
         case .printingFailure:
             self = .failure
-        @unknown default:
+        @unknown default: // @exempt(from: tests)
             self = .failure
         }
     }

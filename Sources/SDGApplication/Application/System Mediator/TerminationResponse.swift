@@ -13,7 +13,7 @@
  */
 
 /// A response to a request to terminate.
-public enum TerminationResponse {
+public enum TerminationResponse : CaseIterable {
 
     // MARK: - Initialization
 
@@ -30,7 +30,7 @@ public enum TerminationResponse {
             self = .later
         case .terminateCancel:
             self = .cancel
-        @unknown default:
+        @unknown default: // @exempt(from: tests)
             self = .now
         }
     }
