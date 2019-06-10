@@ -54,8 +54,8 @@ final class SDGApplicationInternalTests : ApplicationTestCase {
     func testNSApplicationDelegate() {
         struct Error : Swift.Error {}
         #if canImport(AppKit)
+        let delegate = SDGApplication.NSApplicationDelegate()
         func testSystemInteraction() {
-            let delegate = SDGApplication.NSApplicationDelegate()
             let notification = Notification(name: Notification.Name(""))
             delegate.applicationWillFinishLaunching(notification)
             delegate.applicationDidFinishLaunching(notification)
@@ -90,26 +90,46 @@ final class SDGApplicationInternalTests : ApplicationTestCase {
             _ = delegate.application(NSApplication.shared, openTempFile: "")
             _ = delegate.applicationOpenUntitledFile(NSApplication.shared)
             _ = delegate.applicationShouldOpenUntitledFile(NSApplication.shared)
-            _ = delegate.application(NSApplication.shared, printFiles: [], withSettings: [:], showPrintPanels: false)
+            _ = delegate.application(
+                NSApplication.shared,
+                printFiles: [""],
+                withSettings: [:],
+                showPrintPanels: false)
             delegate.application(NSApplication.shared, didDecodeRestorableState: NSCoder())
             delegate.application(NSApplication.shared, willEncodeRestorableState: NSCoder())
             delegate.applicationDidChangeOcclusionState(notification)
             delegate.openPreferences(nil)
-            _ = delegate.validateMenuItem(NSMenuItem(title: "", action: MenuBar.Action.openPreferences.selector, keyEquivalent: ""))
+            _ = delegate.validateMenuItem(NSMenuItem(
+                title: "",
+                action: MenuBar.Action.openPreferences.selector,
+                keyEquivalent: ""))
         }
         let mediator = Application.shared.systemMediator
         Application.shared.systemMediator = nil
         testSystemInteraction()
         Application.shared.systemMediator = mediator
         testSystemInteraction()
+
+        let preferenceManager = Application.shared.preferenceManager
+        Application.shared.preferenceManager = nil
+        XCTAssertFalse(delegate.validateMenuItem(NSMenuItem(
+            title: "",
+            action: MenuBar.Action.openPreferences.selector,
+            keyEquivalent: "")))
+        Application.shared.preferenceManager = preferenceManager
+        XCTAssert(delegate.validateMenuItem(NSMenuItem(
+            title: "",
+            action: MenuBar.Action.openPreferences.selector,
+            keyEquivalent: "")))
+        XCTAssertFalse(delegate.validateMenuItem(NSMenuItem(title: "", action: nil, keyEquivalent: "")))
         #endif
     }
 
     func testUIApplicationDelegate() {
         struct Error : Swift.Error {}
         #if canImport(UIKit)
+        let delegate = SDGApplication.UIApplicationDelegate()
         func testSystemInteraction() {
-            let delegate = SDGApplication.UIApplicationDelegate()
             _ = delegate.application(UIApplication.shared, willFinishLaunchingWithOptions: nil)
             _ = delegate.application(UIApplication.shared, didFinishLaunchingWithOptions: nil)
             delegate.applicationDidBecomeActive(UIApplication.shared)
