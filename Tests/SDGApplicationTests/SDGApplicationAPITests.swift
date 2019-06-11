@@ -83,7 +83,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testButton() {
-        SampleApplicationDelegate().demonstrateButton()
+        Application.shared.demonstrateButton()
         let label = Shared(UserFacing<StrictString, APILocalization>({ _ in "Button" }))
         let button = Button(label: label)
         label.value = UserFacing<StrictString, APILocalization>({ _ in "Changed" })
@@ -96,7 +96,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testButtonSet() {
-        SampleApplicationDelegate().demonstrateButtonSet()
+        Application.shared.demonstrateButtonSet()
     }
 
     func testCharacterInformation() {
@@ -105,7 +105,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
 
     func testCheckBox() {
         #if canImport(AppKit)
-        SampleApplicationDelegate().demonstrateCheckBox()
+        Application.shared.demonstrateCheckBox()
         let label = Shared(UserFacing<StrictString, APILocalization>({ _ in "Check Box" }))
         let checkBox = CheckBox(label: label)
         label.value = UserFacing<StrictString, APILocalization>({ _ in "Changed" })
@@ -214,8 +214,26 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         #endif
     }
 
+    func testFetchResult() {
+        #if canImport(UIKit)
+        for result in FetchResult.allCases {
+            let native = result.native
+            XCTAssertEqual(result, FetchResult(native))
+        }
+        #endif
+    }
+
+    func testFont() {
+        let font = Font.default
+        _ = Font.forLabels
+        _ = Font.forTextEditing
+        _ = font.bold
+        _ = font.italic
+        XCTAssertEqual(font.resized(to: 12).pointSize, 12)
+    }
+
     func testImageView() {
-        SampleApplicationDelegate().demonstrateImage()
+        Application.shared.demonstrateImage()
     }
 
     func testKey() {
@@ -234,7 +252,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testLabel() {
-        SampleApplicationDelegate().demonstrateLabel()
+        Application.shared.demonstrateLabel()
         forEachWindow { window in
             let label: Label<SDGInterfaceSample.InterfaceLocalization>
             #if canImport(AppKit)
@@ -256,7 +274,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testLetterbox() {
-        SampleApplicationDelegate().demonstrateLetterbox()
+        Application.shared.demonstrateLetterbox()
         let letterbox = Letterbox(content: View(), aspectRatio: 1)
         letterbox.colour = .red
         XCTAssertEqual(letterbox.colour?.alphaComponent, 1)
@@ -268,13 +286,13 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         _ = MenuItem(label: Shared(UserFacing<StrictString, APILocalization>({ _ in "..." })))
 
         #if canImport(AppKit)
-        let menuBar = Application.shared.mainMenu
+        let menuBar = MenuBar.menuBar
         XCTAssertNotNil(menuBar)
-        let itemWithSubmenu = menuBar?.items.first(where: { $0.submenu ≠ nil })
+        let itemWithSubmenu = menuBar.items.first(where: { $0.submenu ≠ nil })
         let submenu = itemWithSubmenu?.submenu
         XCTAssertNotNil(submenu)
         XCTAssertEqual(submenu?.parentMenuItem, itemWithSubmenu)
-        XCTAssertNil(menuBar?.parentMenuItem)
+        XCTAssertNil(menuBar.parentMenuItem)
 
         let menuLabel = Shared(UserFacing<StrictString, APILocalization>({ _ in "initial" }))
         let menu = Menu(label: menuLabel)
@@ -323,12 +341,8 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         testAllLocalizations()
 
         #if canImport(AppKit)
-        let preferencesMenuItem = MenuBar.menuBar.items.first!.submenu!.items.first(where: { $0.action == #selector(ApplicationDelegate.openPreferences) })!
-        XCTAssert(SampleApplicationDelegate().validateMenuItem(preferencesMenuItem))
-        XCTAssertFalse(ApplicationDelegate().validateMenuItem(preferencesMenuItem))
-
-        XCTAssertFalse(SampleApplicationDelegate().validateMenuItem(MenuBar.menuBar.items.first!)) // Application
-        XCTAssertFalse(SampleApplicationDelegate().validateMenuItem(NSMenuItem(title: "", action: nil, keyEquivalent: "")))
+        let preferencesMenuItem = NSApplication.shared.mainMenu?.items.first?.submenu?.items.first(where: { $0.action == MenuBar.Action.openPreferences.selector })
+        XCTAssertNotNil(preferencesMenuItem)
         #endif
     }
 
@@ -346,23 +360,13 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         #endif
     }
 
-    func testFont() {
-        let font = Font.default
-        _ = Font.forLabels
-        _ = Font.forTextEditing
-        _ = font.bold
-        _ = font.italic
-        XCTAssertEqual(font.resized(to: 12).pointSize, 12)
-    }
-
     func testPopOver() {
         let window = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "" })), size: CGSize.zero)
         window.contentView!.displayPopOver(View())
     }
 
     func testPreferences() {
-        ApplicationDelegate().openPreferences(nil)
-        SampleApplicationDelegate().openPreferences(nil)
+        Application.shared.preferenceManager?.openPreferences()
     }
 
     func testRichText() throws {
@@ -452,6 +456,76 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertEqual(("..." as RichText).rawText(), "...")
     }
 
+    func testSystemMediator() {
+        class Mediator : SystemMediator, Error {
+            func finishLaunching(_ details: LaunchDetails) -> Bool {
+                return true
+            }
+        }
+        let mediator = Mediator()
+        _ = mediator.prepareToLaunch(LaunchDetails())
+        _ = mediator.finishLaunching(LaunchDetails())
+        mediator.prepareToAcquireFocus(nil)
+        mediator.finishAcquiringFocus(nil)
+        mediator.prepareToResignFocus(nil)
+        mediator.finishResigningFocus(nil)
+        _ = mediator.terminate()
+        _ = mediator.remainsRunningWithNoWindows
+        mediator.prepareToTerminate(nil)
+        mediator.prepareToHide(nil)
+        mediator.finishHiding(nil)
+        mediator.prepareToUnhide(nil)
+        mediator.finishUnhiding(nil)
+        mediator.prepareToUpdateInterface(nil)
+        mediator.finishUpdatingInterface(nil)
+        _ = mediator.reopen(hasVisibleWindows: nil)
+        _ = mediator.dockMenu
+        _ = mediator.preprocessErrorForDisplay(mediator)
+        mediator.updateAccordingToScreenChange(nil)
+        mediator.finishGainingAccessToProtectedData()
+        mediator.prepareToLoseAccessToProtectedData()
+        _ = mediator.notifyHandoffBegan("")
+        _ = mediator.accept(handoff: NSUserActivity(activityType: " "), details: HandoffDetails())
+        _ = mediator.notifyHandoffFailed("", error: mediator)
+        mediator.preprocess(handoff: NSUserActivity(activityType: " "))
+        mediator.finishRegistrationForRemoteNotifications(deviceToken: Data())
+        mediator.reportFailedRegistrationForRemoteNotifications(error: mediator)
+        _ = mediator.acceptRemoteNotification(details: RemoteNotificationDetails())
+        _ = mediator.open(files: [], details: OpeningDetails())
+        _ = mediator.shouldCreateNewBlankFile()
+        _ = mediator.createNewBlankFile()
+        _ = mediator.print(files: [], details: PrintingDetails())
+        _ = mediator.shouldEncodeRestorableState(coder: NSCoder())
+        mediator.prepareToEncodeRestorableState(coder: NSCoder())
+        _ = mediator.shouldRestorePreviousState(coder: NSCoder())
+        mediator.finishRestoring(coder: NSCoder())
+        _ = mediator.viewController(forRestorationIdentifierPath: [], coder: NSCoder())
+        mediator.updateAccordingToOcclusionChange(nil)
+        mediator.purgeUnnecessaryMemory()
+        mediator.updateAccordingToTimeChange()
+        mediator.handleEventsForBackgroundURLSession("")
+        _ = mediator.performQuickAction(details: QuickActionDetails())
+        _ = mediator.handleWatchRequest(userInformation: nil)
+        mediator.requestHealthAuthorization()
+        _ = mediator.shouldAllowExtension(details: ExtensionDetails())
+
+        for response in PrintingResponse.allCases {
+            #if canImport(AppKit)
+            let native = response.native
+            XCTAssertEqual(PrintingResponse(native), response)
+            #endif
+        }
+        for response in TerminationResponse.allCases {
+            #if canImport(AppKit)
+            let native = response.native
+            XCTAssertEqual(TerminationResponse(native), response)
+            #endif
+        }
+        #if canImport(AppKit)
+        _ = DockMenu(NSMenu())
+        #endif
+    }
+
     func testTable() {
         let table: Table
         table = Table(contentController: NSArrayController(content: [NSObject()]))
@@ -500,7 +574,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
 
     func testTextEditor() {
 
-        SampleApplicationDelegate().demonstrateTextEditor()
+        Application.shared.demonstrateTextEditor()
         forEachWindow { window in
             let textEditor: TextEditor
             let textView: NSTextView
@@ -635,7 +709,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testTextField() {
-        SampleApplicationDelegate().demonstrateTextField()
+        Application.shared.demonstrateTextField()
         forEachWindow { window in
             #if canImport(AppKit)
             let fieldEditor = window.fieldEditor(true, for: window.contentView!.subviews[0]) as! NSTextView
@@ -651,7 +725,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             textField.insertText("...")
             #endif
         }
-        SampleApplicationDelegate().demonstrateLabelledTextField()
+        Application.shared.demonstrateLabelledTextField()
         _ = LabelledTextField(label: Label(
             text: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "" }))))
     }
@@ -673,7 +747,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testWindow() {
-        SampleApplicationDelegate().demonstrateFullscreenWindow()
+        Application.shared.demonstrateFullscreenWindow()
 
         let window = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "Title" })), size: CGSize(width: 700, height: 300))
         #if canImport(AppKit) // UIKit raises an exception during tests.

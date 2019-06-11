@@ -92,7 +92,8 @@ let package = Package(
             .product(name: "SDGLocalization", package: "SDGCornerstone"),
             .product(name: "SDGCalendar", package: "SDGCornerstone")
             ], swiftSettings: [
-                .define("VALIDATION", .when(configuration: .debug))
+                .define("VALIDATION", .when(configuration: .debug)),
+                .define("UNHANDLED_SYSTEM_EVENT_LOGGING", .when(configuration: .debug))
             ]),
 
         // Internal modules.

@@ -119,7 +119,7 @@ public class MenuBar : Menu<InterfaceLocalization> {
                     ?? MenuBar.fallbackApplicationName(quotationMarks: ("”", "“")))
                 return "אותות \(היישום)"
             }
-        })), action: #selector(Application.orderFrontStandardAboutPanel(_:)))
+        })), action: #selector(NSApplication.orderFrontStandardAboutPanel(_:)))
 
         application.newSeparator()
 
@@ -140,7 +140,7 @@ public class MenuBar : Menu<InterfaceLocalization> {
                 return "העדפות..."
             }
         })))
-        preferences.action = #selector(ApplicationDelegate.openPreferences(_:))
+        preferences.action = Action.openPreferences.selector
         preferences.keyEquivalent = ","
         preferences.keyEquivalentModifierMask = .command
 
@@ -161,7 +161,7 @@ public class MenuBar : Menu<InterfaceLocalization> {
                 return "שירותים"
             }
         })))
-        Application.shared.servicesMenu = services
+        NSApplication.shared.servicesMenu = services
 
         application.newSeparator()
 
@@ -200,7 +200,7 @@ public class MenuBar : Menu<InterfaceLocalization> {
                     ?? MenuBar.fallbackApplicationName(quotationMarks: ("”", "“"))
                 return "הסתר את \(היישום)"
             }
-        })), action: #selector(Application.hide(_:)))
+        })), action: #selector(NSApplication.hide(_:)))
         hide.keyEquivalent = "h"
         hide.keyEquivalentModifierMask = .command
 
@@ -219,7 +219,7 @@ public class MenuBar : Menu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "הסתר אחרים"
             }
-        })), action: #selector(Application.hideOtherApplications(_:)))
+        })), action: #selector(NSApplication.hideOtherApplications(_:)))
         hideOthers.keyEquivalent = "h"
         hideOthers.keyEquivalentModifierMask = [.option, .command]
 
@@ -238,7 +238,7 @@ public class MenuBar : Menu<InterfaceLocalization> {
             case .עברית־ישראל:
                 return "הצג הכול"
             }
-        })), action: #selector(Application.unhideAllApplications(_:)))
+        })), action: #selector(NSApplication.unhideAllApplications(_:)))
 
         application.newSeparator()
 
@@ -279,7 +279,7 @@ public class MenuBar : Menu<InterfaceLocalization> {
                     ?? MenuBar.fallbackApplicationName(quotationMarks: ("”", "“"))
                 return "סיים את \(היישום)"
             }
-        })), action: #selector(Application.terminate(_:)))
+        })), action: #selector(NSApplication.terminate(_:)))
         quit.keyEquivalent = "q"
         quit.keyEquivalentModifierMask = .command
     }
@@ -2135,7 +2135,7 @@ public class MenuBar : Menu<InterfaceLocalization> {
                 return "חלון"
             }
         })))
-        defer { Application.shared.windowsMenu = window }
+        defer { NSApplication.shared.windowsMenu = window }
         endOfCustomMenuSection = window.parentMenuItem
 
         let minimize = window.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
@@ -2215,7 +2215,7 @@ public class MenuBar : Menu<InterfaceLocalization> {
                 return "עזרה"
             }
         })))
-        defer { Application.shared.helpMenu = helpMenu }
+        defer { NSApplication.shared.helpMenu = helpMenu }
 
         let helpItem = helpMenu.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {

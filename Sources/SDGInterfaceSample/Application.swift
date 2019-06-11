@@ -1,5 +1,5 @@
 /*
- SampleApplicationDelegate.swift
+ Application.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -15,23 +15,7 @@
 import SDGMathematics
 import SDGLocalization
 
-#if !os(watchOS)
-
-// @example(sample)
-public final class SampleApplicationDelegate : ApplicationDelegate {
-
-    public override func applicationDidFinishLaunching() {
-        super.applicationDidFinishLaunching()
-        setSamplesUp()
-    }
-
-    public override func openPreferences(_ sender: Any?) {
-        print("Opening preferences...")
-    }
-}
-// @endExample
-
-extension SampleApplicationDelegate {
+extension Application {
 
     public static func setUp() {
         ProcessInfo.applicationName = { form in
@@ -76,16 +60,21 @@ extension SampleApplicationDelegate {
         }
     }
 
-    public class func setUpAndMain() { // @exempt(from: tests)
+    #if !os(watchOS)
+    public class func setUpAndMain() -> Never { // @exempt(from: tests)
         setUp()
-        super.main()
+        // @example(main)
+        Application.main(mediator: SystemMediator())
+        // @endExample
     }
+    #endif
 
-    private func setSamplesUp() {
+    internal static func setSamplesUp() {
+        Application.shared.preferenceManager = PreferenceManager()
         setMenuUp()
     }
 
-    private func setMenuUp() {
+    private static func setMenuUp() {
         let menuItemLabel = Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
@@ -130,7 +119,7 @@ extension SampleApplicationDelegate {
             case .englishCanada:
                 return "Error"
             }
-        })), action: #selector(SampleApplicationDelegate.demonstrateError))
+        })), action: #selector(Application.demonstrateError))
         error.target = self
 
         let window = sample.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
@@ -144,7 +133,7 @@ extension SampleApplicationDelegate {
             case .englishCanada:
                 return "Fullscreen"
             }
-        })), action: #selector(SampleApplicationDelegate.demonstrateFullscreenWindow))
+        })), action: #selector(Application.demonstrateFullscreenWindow))
         fullscreen.target = self
 
         let view = sample.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
@@ -159,7 +148,7 @@ extension SampleApplicationDelegate {
             case .englishCanada:
                 return "Button"
             }
-        })), action: #selector(SampleApplicationDelegate.demonstrateButton))
+        })), action: #selector(Application.demonstrateButton))
         button.target = self
 
         let buttonSet = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
@@ -167,7 +156,7 @@ extension SampleApplicationDelegate {
             case .englishCanada:
                 return "Button Set"
             }
-        })), action: #selector(SampleApplicationDelegate.demonstrateButtonSet))
+        })), action: #selector(Application.demonstrateButtonSet))
         buttonSet.target = self
 
         let checkBox = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
@@ -175,7 +164,7 @@ extension SampleApplicationDelegate {
             case .englishCanada:
                 return "Check Box"
             }
-        })), action: #selector(SampleApplicationDelegate.demonstrateCheckBox))
+        })), action: #selector(Application.demonstrateCheckBox))
         checkBox.target = self
 
         let image = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
@@ -183,7 +172,7 @@ extension SampleApplicationDelegate {
             case .englishCanada:
                 return "Image"
             }
-        })), action: #selector(SampleApplicationDelegate.demonstrateImage))
+        })), action: #selector(Application.demonstrateImage))
         image.target = self
 
         let label = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
@@ -191,7 +180,7 @@ extension SampleApplicationDelegate {
             case .englishCanada:
                 return "Label"
             }
-        })), action: #selector(SampleApplicationDelegate.demonstrateLabel))
+        })), action: #selector(Application.demonstrateLabel))
         label.target = self
 
         let letterbox = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
@@ -199,7 +188,7 @@ extension SampleApplicationDelegate {
             case .englishCanada:
                 return "Letterbox"
             }
-        })), action: #selector(SampleApplicationDelegate.demonstrateLetterbox))
+        })), action: #selector(Application.demonstrateLetterbox))
         letterbox.target = self
 
         let textEditor = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
@@ -207,7 +196,7 @@ extension SampleApplicationDelegate {
             case .englishCanada:
                 return "Text Editor"
             }
-        })), action: #selector(SampleApplicationDelegate.demonstrateTextEditor))
+        })), action: #selector(Application.demonstrateTextEditor))
         textEditor.target = self
 
         let textField = view.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
@@ -222,7 +211,7 @@ extension SampleApplicationDelegate {
             case .englishCanada:
                 return "Text Field"
             }
-        })), action: #selector(SampleApplicationDelegate.demonstrateTextField))
+        })), action: #selector(Application.demonstrateTextField))
         basicTextField.target = self
 
         let labelledTextField = textField.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
@@ -230,14 +219,14 @@ extension SampleApplicationDelegate {
             case .englishCanada:
                 return "Labelled Text Field"
             }
-        })), action: #selector(SampleApplicationDelegate.demonstrateLabelledTextField))
+        })), action: #selector(Application.demonstrateLabelledTextField))
         labelledTextField.target = self
 
         #elseif canImport(UIKit)
 
         #if os(tvOS)
         _ = menuItemLabel.value.resolved()
-        #else
+        #elseif !os(watchOS)
         let window = Window(title: Shared(ApplicationNameForm.localizedIsolatedForm))
         let view = UIViewController()
         window.rootViewController = view
@@ -256,6 +245,7 @@ extension SampleApplicationDelegate {
         #endif
     }
 
+    #if !os(watchOS)
     private func demonstrate(_ window: NSWindow) {
         window.makeKeyAndOrderFront(nil)
     }
@@ -295,8 +285,8 @@ extension SampleApplicationDelegate {
         let secondLabel: Shared<UserFacing<ButtonSetSegmentLabel, InterfaceLocalization>>
             = Shared(UserFacing({ _ in .image(Image()) }))
         demonstrate(ButtonSet<InterfaceLocalization>(segments: [
-            (label: firstLabel, action: #selector(SampleApplicationDelegate.doNothing), target: self),
-            (label: secondLabel, action: #selector(SampleApplicationDelegate.doNothing), target: self)
+            (label: firstLabel, action: #selector(Application.doNothing), target: self),
+            (label: secondLabel, action: #selector(Application.doNothing), target: self)
             ]), windowTitle: label)
     }
 
@@ -384,9 +374,8 @@ extension SampleApplicationDelegate {
         })))
         demonstrate(window)
     }
+    #endif
 
     @objc private func doNothing() { // @exempt(from: tests)
     }
 }
-
-#endif

@@ -63,17 +63,16 @@ import SDGApplication
 ## Example Usage
 
 ```swift
-public final class SampleApplicationDelegate : ApplicationDelegate {
+internal class SystemMediator : SDGApplication.SystemMediator {
 
-    public override func applicationDidFinishLaunching() {
-        super.applicationDidFinishLaunching()
-        setSamplesUp()
-    }
-
-    public override func openPreferences(_ sender: Any?) {
-        print("Opening preferences...")
+    internal func finishLaunching(_ details: LaunchDetails) -> Bool {
+        Application.setSamplesUp()
+        return true
     }
 }
+```
+```swift
+Application.main(mediator: SystemMediator())
 ```
 
 ## About
