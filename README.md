@@ -63,7 +63,7 @@ import SDGApplication
 ## Example Usage
 
 ```swift
-internal class SystemMediator: SDGApplication.SystemMediator {
+internal class SystemMediator : SDGApplication.SystemMediator {
 
     internal func finishLaunching(_ details: LaunchDetails) -> Bool {
         Application.setSamplesUp()
