@@ -17,6 +17,7 @@ import Carbon
 #endif
 
 import SDGLogic
+import SDGCollections
 
 /// Represents a physical key on the keyboard. These are useful for defining controls with a consistent arrangement.
 ///

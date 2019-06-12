@@ -15,6 +15,7 @@
 import Foundation
 
 import SDGControlFlow
+import SDGLogic
 import SDGMathematics
 import SDGText
 
