@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import Foundation
+
 #if !canImport(AppKit)
 /// A drop‐in replacement for some uses of `AppKit`’s `NSArrayController` in `UIKit` environments.
 public class NSArrayController : NSObject {

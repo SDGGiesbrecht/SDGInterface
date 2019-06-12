@@ -13,6 +13,8 @@
  */
 
 #if canImport(UIKit) && !os(watchOS)
+import UIKit
+
 internal class UIApplicationDelegate : NSObject, UIKit.UIApplicationDelegate {
 
     // MARK: - UIApplicationDelegate

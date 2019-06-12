@@ -13,6 +13,7 @@
  */
 
 import Foundation
+import CoreGraphics
 
 import SDGControlFlow
 import SDGLogic

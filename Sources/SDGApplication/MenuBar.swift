@@ -14,6 +14,7 @@
 
 #if canImport(AppKit)
 import AppKit
+#endif
 
 import SDGControlFlow
 import SDGText
@@ -23,6 +24,7 @@ import SDGInterfaceElements
 
 import SDGInterfaceLocalizations
 
+#if canImport(AppKit)
 /// An application’s menu bar.
 ///
 /// `MenuBar` is a fully localized version of Interface Builder’s template with several useful additions.

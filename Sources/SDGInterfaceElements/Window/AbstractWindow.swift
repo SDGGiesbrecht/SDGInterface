@@ -21,6 +21,7 @@ import UIKit
 #endif
 
 import SDGText
+import SDGLocalization
 
 import SDGInterfaceLocalizations
 

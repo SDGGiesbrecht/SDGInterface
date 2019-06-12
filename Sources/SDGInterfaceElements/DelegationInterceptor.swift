@@ -14,11 +14,15 @@
 
 #if canImport(AppKit)
 import AppKit
+#elseif canImport(UIKit)
+import UIKit
 #endif
 
 import Foundation
 
 import SDGCollections
+import SDGText
+import SDGLocalization
 
 import SDGInterfaceLocalizations
 
