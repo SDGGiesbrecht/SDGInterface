@@ -15,6 +15,12 @@
 #if !os(watchOS)
 
 #if canImport(AppKit)
+import AppKit
+#elseif canImport(UIKit)
+import UIKit
+#endif
+
+#if canImport(AppKit)
 // @documentation(Screen)
 /// An alias for `NSScreen` or `UIScreen`.
 public typealias Screen = NSScreen

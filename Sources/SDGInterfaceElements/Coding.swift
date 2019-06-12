@@ -12,6 +12,9 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import SDGText
+import SDGLocalization
+
 import SDGInterfaceLocalizations
 
 /// A precondition failure with a message stating that the type does not support coding.

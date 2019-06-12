@@ -13,6 +13,8 @@
  */
 
 #if canImport(AppKit)
+import AppKit
+
 extension MenuBar {
 
     /// A menu bar action.

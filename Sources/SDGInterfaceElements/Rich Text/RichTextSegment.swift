@@ -15,22 +15,23 @@
 import Foundation
 
 import SDGLogic
+import SDGText
 
 extension RichText {
 
-    private struct Segment : Equatable, Hashable {
+    internal struct Segment : Equatable, Hashable {
 
         // MARK: - Initialization
 
-        private init(rawText: StrictString, attributes: [NSAttributedString.Key: Any] = [:]) {
+        internal init(rawText: StrictString, attributes: [NSAttributedString.Key: Any] = [:]) {
             self.rawText = rawText
             self.attributes = attributes
         }
 
         // MARK: - Properties
 
-        private var rawText: StrictString
-        private var attributes: [NSAttributedString.Key: Any]
+        internal var rawText: StrictString
+        internal var attributes: [NSAttributedString.Key: Any]
 
         private var attributesProxy: NSAttributedString {
             return NSAttributedString(string: " ", attributes: attributes)
@@ -44,13 +45,13 @@ extension RichText {
 
         // MARK: - Equatable
 
-        private static func == (precedingValue: Segment, followingValue: Segment) -> Bool {
+        internal static func == (precedingValue: Segment, followingValue: Segment) -> Bool {
             return precedingValue.rawText == followingValue.rawText ∧ precedingValue.attributesEqual(followingValue)
         }
 
         // MARK: - Hashable
 
-        private func hash(into hasher: inout Hasher) {
+        internal func hash(into hasher: inout Hasher) {
             hasher.combine(rawText)
             hasher.combine(attributesProxy)
         }

@@ -12,8 +12,16 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import Foundation
+
+#if canImport(AppKit)
+import AppKit
+#endif
+
+import SDGControlFlow
 import SDGLogic
 import SDGMathematics
+import SDGText
 
 extension NSAttributedString.Key {
     internal static let smallCaps = NSAttributedString.Key(rawValue: "SDGSmallCaps")

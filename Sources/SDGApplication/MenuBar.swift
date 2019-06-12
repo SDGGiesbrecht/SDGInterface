@@ -12,9 +12,16 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-import SDGInterfaceLocalizations
-
 #if canImport(AppKit)
+import AppKit
+
+import SDGControlFlow
+import SDGText
+import SDGLocalization
+
+import SDGInterfaceElements
+
+import SDGInterfaceLocalizations
 
 /// An application’s menu bar.
 ///

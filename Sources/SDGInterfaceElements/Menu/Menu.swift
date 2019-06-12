@@ -13,7 +13,10 @@
  */
 
 #if canImport(AppKit)
+import AppKit
 
+import SDGControlFlow
+import SDGText
 import SDGLocalization
 import SDGInterfaceLocalizations
 

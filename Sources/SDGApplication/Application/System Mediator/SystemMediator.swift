@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import Foundation
+
 /// An object which mediates between the application and system events.
 public protocol SystemMediator : AnyObject {
 

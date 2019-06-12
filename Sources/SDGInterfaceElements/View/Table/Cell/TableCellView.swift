@@ -15,6 +15,12 @@
 #if !os(watchOS)
 
 #if canImport(AppKit)
+import AppKit
+#elseif canImport(UIKit)
+import UIKit
+#endif
+
+#if canImport(AppKit)
 // @documentation(TableCellView)
 /// An alias for `NSTableCellView` or `UITableViewCell`.
 public typealias TableCellView = NSTableCellView

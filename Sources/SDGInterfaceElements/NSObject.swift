@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import Foundation
+
 extension NSObject {
     @objc internal func _placeholderMethod() {} // @exempt(from: tests)
 }

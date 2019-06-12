@@ -13,6 +13,11 @@
  */
 
 #if canImport(AppKit)
+import AppKit
+
+import SDGText
+import SDGLocalization
+
 import SDGInterfaceLocalizations
 
 extension TextField {

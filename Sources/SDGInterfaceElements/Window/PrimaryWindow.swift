@@ -14,6 +14,16 @@
 
 #if !os(watchOS)
 
+#if canImport(AppKit)
+import AppKit
+#elseif canImport(UIKit)
+import UIKit
+#endif
+
+import SDGControlFlow
+import SDGText
+import SDGLocalization
+
 /// A window that can serve as the primary window.
 public class PrimaryWindow<L> : Window<L> where L : Localization {
 

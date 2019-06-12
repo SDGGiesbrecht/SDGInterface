@@ -15,6 +15,12 @@
 #if !os(watchOS) && !os(tvOS)
 
 #if canImport(AppKit)
+import AppKit
+#elseif canImport(UIKit)
+import UIKit
+#endif
+
+#if canImport(AppKit)
 // @documentation(Pasteboard)
 /// An alias for `NSPasteboard` or `UIPasteboard`.
 public typealias Pasteboard = NSPasteboard

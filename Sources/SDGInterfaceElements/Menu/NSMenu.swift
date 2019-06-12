@@ -14,6 +14,16 @@
 
 #if !os(watchOS) && !os(tvOS)
 
+#if canImport(AppKit)
+import AppKit
+#elseif canImport(UIKit)
+import UIKit
+#endif
+
+import SDGControlFlow
+import SDGText
+import SDGLocalization
+
 #if !canImport(AppKit)
 /// An `AppKit.NSMenu` or a `UIMenuController`.
 public typealias NSMenu = UIMenuController

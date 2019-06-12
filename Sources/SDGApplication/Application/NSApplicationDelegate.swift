@@ -13,6 +13,8 @@
  */
 
 #if canImport(AppKit)
+import AppKit
+
 import SDGLogic
 
 internal class NSApplicationDelegate : NSObject, AppKit.NSApplicationDelegate, NSMenuItemValidation {

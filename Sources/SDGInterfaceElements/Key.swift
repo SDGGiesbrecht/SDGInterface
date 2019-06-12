@@ -18,6 +18,7 @@ import Carbon
 
 import SDGLogic
 import SDGCollections
+import SDGText
 
 /// Represents a physical key on the keyboard. These are useful for defining controls with a consistent arrangement.
 ///

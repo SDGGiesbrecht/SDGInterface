@@ -14,7 +14,11 @@
 
 #if !os(watchOS)
 
+import Foundation
 import Dispatch
+#if canImport(AppKit)
+import AppKit
+#endif
 
 import SDGLocalization
 

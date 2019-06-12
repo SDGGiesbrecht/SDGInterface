@@ -13,6 +13,7 @@
  */
 
 #if !os(watchOS)
+import CoreGraphics
 
 extension View {
 

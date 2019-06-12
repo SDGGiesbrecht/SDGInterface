@@ -14,6 +14,7 @@
 
 import Foundation
 
+import SDGText
 import SDGLocalization
 
 /// A dynamic localization set based on the provided forms of the application’s name.

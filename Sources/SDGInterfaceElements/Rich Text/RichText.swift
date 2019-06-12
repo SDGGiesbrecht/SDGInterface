@@ -13,6 +13,9 @@
  */
 
 import Foundation
+#if canImport(AppKit)
+import AppKit
+#endif
 
 import SDGControlFlow
 import SDGLogic

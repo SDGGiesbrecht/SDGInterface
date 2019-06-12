@@ -14,7 +14,16 @@
 
 #if !os(watchOS)
 
+#if canImport(AppKit)
+import AppKit
+#elseif canImport(UIKit)
+import UIKit
+#endif
+
+import SDGControlFlow
 import SDGCollections
+import SDGText
+import SDGLocalization
 
 import SDGInterfaceLocalizations
 
