@@ -12,6 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(AppKit)
+import AppKit
+#endif
+
 /// A response to a request to print.
 public enum PrintingResponse : CaseIterable {
 

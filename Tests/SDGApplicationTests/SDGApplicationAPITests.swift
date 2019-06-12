@@ -13,16 +13,24 @@
  */
 
 import Foundation
-import XCTest
 
+import SDGControlFlow
 import SDGLogic
 import SDGMathematics
-import SDGXCTestUtilities
+import SDGText
+import SDGLocalization
+
+import SDGInterfaceElements
+import SDGApplication
+
+import SDGInterfaceLocalizations
+
 import SDGLogicTestUtilities
 import SDGLocalizationTestUtilities
+import SDGXCTestUtilities
 
-import SDGInterface
-import SDGInterfaceLocalizations
+import XCTest
+
 import SDGInterfaceSample
 
 final class SDGApplicationAPITests : ApplicationTestCase {

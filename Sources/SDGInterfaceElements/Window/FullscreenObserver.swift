@@ -15,6 +15,7 @@
 #if canImport(AppKit)
 
 import Dispatch
+import AppKit
 
 import SDGLogic
 

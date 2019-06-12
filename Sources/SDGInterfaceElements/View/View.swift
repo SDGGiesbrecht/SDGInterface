@@ -12,12 +12,20 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if !os(watchOS)
+
+#if canImport(AppKit)
+import AppKit
+#elseif canImport(UIKit)
+import UIKit
+#endif
+
 import SDGLogic
 import SDGMathematics
+import SDGText
+import SDGLocalization
 
 import SDGInterfaceLocalizations
-
-#if !os(watchOS)
 
 #if canImport(AppKit)
 // @documentation(View)

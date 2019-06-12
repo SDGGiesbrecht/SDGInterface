@@ -13,8 +13,14 @@
  */
 
 import Foundation
+#if canImport(AppKit)
+import AppKit
+#elseif canImport(UIKit)
+import UIKit
+#endif
 
 import SDGControlFlow
+import SDGLogic
 import SDGMathematics
 import SDGText
 
@@ -44,7 +50,7 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
         self.init(semanticMarkup.richText(font: font))
     }
 
-    @usableFromInline internal init(segments: [Segment]) {
+    private init(segments: [Segment]) {
         self.segments = segments
     }
 
@@ -94,7 +100,7 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
     // MARK: - Properties
 
     private var _segments: [Segment] = []
-    @usableFromInline internal var segments: [Segment] {
+    private var segments: [Segment] {
         get {
             return _segments
         }
@@ -171,7 +177,7 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
 
     // MARK: - Attributes
 
-    @inlinable internal mutating func set<R>(attribute key: NSAttributedString.Key, to value: Any?, forRange range: R) where R : RangeExpression, R.Bound == Index {
+    internal mutating func set<R>(attribute key: NSAttributedString.Key, to value: Any?, forRange range: R) where R : RangeExpression, R.Bound == Index {
         var changedSegments: [Segment] = []
         for segment in RichText(self[range]).segments {
             var copy = segment
@@ -194,7 +200,7 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
     ///
     /// - Parameters:
     ///     - range: The range.
-    @inlinable public mutating func superscript<R>(range: R) where R : RangeExpression, R.Bound == Index {
+    public mutating func superscript<R>(range: R) where R : RangeExpression, R.Bound == Index {
         var change = RichText(self[range])
         change.superscript()
         replaceSubrange(range, with: change)
@@ -213,7 +219,7 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
     ///
     /// - Parameters:
     ///     - range: The range.
-    @inlinable public mutating func `subscript`<R>(range: R) where R : RangeExpression, R.Bound == Index {
+    public mutating func `subscript`<R>(range: R) where R : RangeExpression, R.Bound == Index {
         var change = RichText(self[range])
         change.`subscript`()
         replaceSubrange(range, with: change)
@@ -231,7 +237,7 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
     /// - Parameters:
     ///     - font: The font.
     ///     - range: The range.
-    @inlinable public mutating func set<R>(font: Font?, forRange range: R) where R : RangeExpression, R.Bound == Index {
+    public mutating func set<R>(font: Font?, forRange range: R) where R : RangeExpression, R.Bound == Index {
         set(attribute: NSAttributedString.Key.font, to: font, forRange: range)
     }
 
@@ -247,7 +253,7 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
     /// - Parameters:
     ///     - colour: The colour.
     /// 	- range: The range.
-    @inlinable public mutating func set<R>(colour: Colour?, forRange range: R) where R : RangeExpression, R.Bound == Index {
+    public mutating func set<R>(colour: Colour?, forRange range: R) where R : RangeExpression, R.Bound == Index {
         set(attribute: NSAttributedString.Key.foregroundColor, to: colour, forRange: range)
     }
 
@@ -263,7 +269,7 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
     /// - Parameters:
     ///     - paragraphStyle: The paragraph style.
     ///     - range: The range.
-    @inlinable public mutating func set<R>(paragraphStyle: NSParagraphStyle?, forRange range: R) where R : RangeExpression, R.Bound == Index {
+    public mutating func set<R>(paragraphStyle: NSParagraphStyle?, forRange range: R) where R : RangeExpression, R.Bound == Index {
         set(attribute: NSAttributedString.Key.paragraphStyle, to: paragraphStyle, forRange: range)
     }
 
@@ -358,7 +364,7 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
 
     public init() {}
 
-    @inlinable public init<S>(_ elements: S) where S : Sequence, S.Element == RichText.Scalar {
+    public init<S>(_ elements: S) where S : Sequence, S.Element == RichText.Scalar {
         if let rich = elements as? RichText {
             self = rich
         } else if let slice = elements as? RichText.SubSequence {
@@ -394,7 +400,7 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
         }
     }
 
-    @usableFromInline internal static func concatenateRichText(_ first: RichText, _ second: RichText) -> RichText {
+    private static func concatenateRichText(_ first: RichText, _ second: RichText) -> RichText {
         if first.isEmpty {
             return second
         } else if second.isEmpty {
@@ -411,15 +417,15 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
         }
     }
 
-    @inlinable public mutating func append<S>(contentsOf newElements: S) where S : Sequence, S.Element == RichText.Scalar {
+    public mutating func append<S>(contentsOf newElements: S) where S : Sequence, S.Element == RichText.Scalar {
         self = RichText.concatenateRichText(self, RichText(newElements))
     }
 
-    @inlinable public mutating func insert<S>(contentsOf newElements: S, at i: Index) where S : Sequence, S.Element == RichText.Scalar {
+    public mutating func insert<S>(contentsOf newElements: S, at i: Index) where S : Sequence, S.Element == RichText.Scalar {
         replaceSubrange(i ..< i, with: newElements)
     }
 
-    @inlinable public mutating func replaceSubrange<S>(_ subrange: Range<RichText.Index>, with newElements: S) where S : Sequence, S.Element == RichText.Scalar {
+    public mutating func replaceSubrange<S>(_ subrange: Range<RichText.Index>, with newElements: S) where S : Sequence, S.Element == RichText.Scalar {
         let preceding = RichText(self[..<subrange.lowerBound])
         let following = RichText(self[subrange.upperBound...])
         var result = RichText.concatenateRichText(preceding, RichText(newElements))

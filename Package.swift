@@ -37,36 +37,32 @@ let package = Package(
         .tvOS(.v11)
     ],
     products: [
-        // The entire package.
-
-        // @documentation(SDGInterface)
-        /// A module representing the entire `SDGInterface` package. All the other modules can be used from this single import.
-        .library(name: "SDGInterface", targets: ["SDGInterface"]),
-
-        // Individual component modules.
+        // @documentation(SDGApplication)
+        /// Specific, application‐level elements, such as the application delegate and menu bar.
+        .library(name: "SDGApplication", targets: ["SDGApplication"]),
 
         // @documentation(SDGInterfaceElements)
         /// Re‐usable interface elements, such as views, windows and menus.
-        .library(name: "SDGInterfaceElements", targets: ["SDGInterfaceElements"]),
-
-        // @documentation(SDGApplication)
-        /// Specific, application‐level elements, such as the application delegate and menu bar.
-        .library(name: "SDGApplication", targets: ["SDGApplication"])
+        .library(name: "SDGInterfaceElements", targets: ["SDGInterfaceElements"])
     ],
     dependencies: [
-        .package(url: "https://github.com/SDGGiesbrecht/SDGCornerstone", .upToNextMinor(from: Version(0, 18, 1)))
+        .package(url: "https://github.com/SDGGiesbrecht/SDGCornerstone", from: Version(1, 0, 0))
     ],
     targets: [
-        // The entire package.
-
-        // #documentation(SDGInterface)
-        /// A module representing the entire `SDGInterface` package. All the other modules can be used from this single import.
-        .target(name: "SDGInterface", dependencies: [
+        // #documentation(SDGApplication)
+        /// Specific, application‐level elements, such as the application delegate and menu bar.
+        .target(name: "SDGApplication", dependencies: [
+            "SDGInterfaceLocalizations",
             "SDGInterfaceElements",
-            "SDGApplication"
+            .product(name: "SDGControlFlow", package: "SDGCornerstone"),
+            .product(name: "SDGLogic", package: "SDGCornerstone"),
+            .product(name: "SDGText", package: "SDGCornerstone"),
+            .product(name: "SDGLocalization", package: "SDGCornerstone"),
+            .product(name: "SDGCalendar", package: "SDGCornerstone")
+            ], swiftSettings: [
+                .define("VALIDATION", .when(configuration: .debug)),
+                .define("UNHANDLED_SYSTEM_EVENT_LOGGING", .when(configuration: .debug))
             ]),
-
-        // Individual component modules.
 
         // #documentation(SDGInterfaceElements)
         /// Re‐usable interface elements, such as views, windows and menus.
@@ -81,19 +77,6 @@ let package = Package(
             ], swiftSettings: [
                 .define("UNIDENTIFIED_PASTEBOARD_WARNINGS", .when(configuration: .debug)),
                 .define("SCREEN_LOCATION_WARNINGS", .when(configuration: .debug))
-            ]),
-
-        // #documentation(SDGApplication)
-        /// Specific, application‐level elements, such as the application delegate and menu bar.
-        .target(name: "SDGApplication", dependencies: [
-            "SDGInterfaceLocalizations",
-            "SDGInterfaceElements",
-            .product(name: "SDGLogic", package: "SDGCornerstone"),
-            .product(name: "SDGLocalization", package: "SDGCornerstone"),
-            .product(name: "SDGCalendar", package: "SDGCornerstone")
-            ], swiftSettings: [
-                .define("VALIDATION", .when(configuration: .debug)),
-                .define("UNHANDLED_SYSTEM_EVENT_LOGGING", .when(configuration: .debug))
             ]),
 
         // Internal modules.
@@ -117,16 +100,22 @@ let package = Package(
             "SDGApplication",
             "SDGInterfaceLocalizations",
             "SDGInterfaceSample",
+            .product(name: "SDGControlFlow", package: "SDGCornerstone"),
             .product(name: "SDGLogic", package: "SDGCornerstone"),
             .product(name: "SDGMathematics", package: "SDGCornerstone"),
             .product(name: "SDGText", package: "SDGCornerstone"),
+            .product(name: "SDGLocalization", package: "SDGCornerstone"),
             .product(name: "SDGXCTestUtilities", package: "SDGCornerstone"),
             .product(name: "SDGLogicTestUtilities", package: "SDGCornerstone"),
             .product(name: "SDGLocalizationTestUtilities", package: "SDGCornerstone")
             ]),
 
         .target(name: "SDGInterfaceSample", dependencies: [
-            "SDGInterface"
+            "SDGApplication",
+            .product(name: "SDGControlFlow", package: "SDGCornerstone"),
+            .product(name: "SDGMathematics", package: "SDGCornerstone"),
+            .product(name: "SDGText", package: "SDGCornerstone"),
+            .product(name: "SDGLocalization", package: "SDGCornerstone")
             ])
     ]
 )

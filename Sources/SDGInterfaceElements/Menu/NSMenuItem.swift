@@ -14,6 +14,10 @@
 
 #if !os(watchOS) && !os(tvOS)
 
+#if canImport(UIKit)
+import UIKit
+#endif
+
 #if !canImport(AppKit)
 /// An `AppKit.NSMenuItem` or a `UIMenuItem`.
 public typealias NSMenuItem = UIMenuItem

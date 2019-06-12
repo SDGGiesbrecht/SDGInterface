@@ -14,6 +14,10 @@
 
 #if !os(watchOS)
 
+#if canImport(UIKit)
+import UIKit
+#endif
+
 #if !canImport(AppKit)
 /// An `AppKit.NSSegmentedControl` or a `UISegmentedControl`.
 public typealias NSSegmentedControl = UISegmentedControl

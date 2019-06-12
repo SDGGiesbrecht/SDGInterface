@@ -13,6 +13,9 @@
  */
 
 #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
+import UIKit
+
+import SDGInterfaceElements
 
 import SDGInterfaceLocalizations
 

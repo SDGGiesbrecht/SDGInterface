@@ -12,6 +12,9 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import SDGText
+import SDGLocalization
+
 import SDGInterfaceLocalizations
 
 /// A key form a particular grammatical form of the application’s name.

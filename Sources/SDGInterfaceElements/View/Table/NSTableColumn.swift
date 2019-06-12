@@ -13,6 +13,10 @@
  */
 
 #if canImport(AppKit)
+import AppKit
+
+import SDGText
+
 extension NSTableColumn {
 
     // MARK: - Properties

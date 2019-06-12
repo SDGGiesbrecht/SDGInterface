@@ -13,7 +13,16 @@
  */
 
 #if !os(watchOS)
+
+#if canImport(AppKit)
+import AppKit
+#elseif canImport(UIKit)
+import UIKit
+#endif
+
 import SDGMathematics
+import SDGText
+import SDGLocalization
 
 import SDGInterfaceLocalizations
 

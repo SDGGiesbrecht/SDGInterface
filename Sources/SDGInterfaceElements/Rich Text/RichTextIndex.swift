@@ -13,6 +13,7 @@
  */
 
 import SDGLogic
+import SDGText
 
 extension RichText {
 
@@ -27,8 +28,8 @@ extension RichText {
 
         // MARK: - Properties
 
-        @usableFromInline internal var segment: Array<Segment>.Index
-        @usableFromInline internal var scalar: StrictString.Index
+        internal var segment: Array<Segment>.Index
+        internal var scalar: StrictString.Index
 
         // MARK: - Comparable
 

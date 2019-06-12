@@ -13,6 +13,7 @@
  */
 
 #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
+import UIKit
 
 internal class PopOverDelegate : NSObject, UIPopoverPresentationControllerDelegate {
 

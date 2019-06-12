@@ -15,6 +15,10 @@
 #if !os(watchOS)
 
 #if canImport(UIKit)
+import UIKit
+#endif
+
+#if canImport(UIKit)
 /// An `AppKit.NSTextField` or a `UITextField`.
 public typealias NSTextField = UITextField
 #endif

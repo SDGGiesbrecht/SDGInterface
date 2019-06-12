@@ -13,6 +13,8 @@
  */
 
 // @example(mediator)
+import SDGApplication
+
 internal class SystemMediator : SDGApplication.SystemMediator {
 
     internal func finishLaunching(_ details: LaunchDetails) -> Bool {

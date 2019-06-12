@@ -12,8 +12,20 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import Foundation
+#if canImport(AppKit)
+import AppKit
+#elseif canImport(UIKit)
+import UIKit
+#endif
+
+import SDGControlFlow
 import SDGMathematics
+import SDGText
 import SDGLocalization
+
+import SDGApplication
+import SDGInterfaceElements
 
 extension Application {
 

@@ -13,6 +13,12 @@
  */
 
 #if canImport(AppKit)
+import AppKit
+
+import SDGControlFlow
+import SDGText
+import SDGLocalization
+
 /// An window which plays a supporting role to another window.
 open class AuxiliaryWindow<L> : Window<L> where L : Localization {
 

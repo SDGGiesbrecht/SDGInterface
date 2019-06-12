@@ -13,9 +13,19 @@
  */
 
 #if !os(watchOS)
+
+import Foundation
+#if canImport(AppKit)
+import AppKit
+#elseif canImport(UIKit)
+import UIKit
+#endif
+
 import SDGControlFlow
 import SDGLogic
 import SDGMathematics
+import SDGText
+import SDGLocalization
 
 import SDGInterfaceLocalizations
 
