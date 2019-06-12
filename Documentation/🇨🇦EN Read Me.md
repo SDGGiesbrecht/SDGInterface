@@ -44,9 +44,8 @@ let package = Package(
     ],
     targets: [
         .target(name: "MyTarget", dependencies: [
-            .productItem(name: "SDGInterface", package: "SDGInterface"),
-            .productItem(name: "SDGInterfaceElements", package: "SDGInterface"),
             .productItem(name: "SDGApplication", package: "SDGInterface"),
+            .productItem(name: "SDGInterfaceElements", package: "SDGInterface"),
         ])
     ]
 )
@@ -55,14 +54,15 @@ let package = Package(
 The libraries’ modules can then be imported in source files:
 
 ```swift
-import SDGInterface
-import SDGInterfaceElements
 import SDGApplication
+import SDGInterfaceElements
 ```
 
 ## Example Usage
 
 ```swift
+import SDGApplication
+
 internal class SystemMediator : SDGApplication.SystemMediator {
 
     internal func finishLaunching(_ details: LaunchDetails) -> Bool {
