@@ -13,11 +13,14 @@
  */
 
 import Foundation
+
+import SDGApplication
+
+import SDGInterfaceSample
+
 import XCTest
 
 import SDGXCTestUtilities
-
-import SDGInterfaceSample
 
 class ApplicationTestCase : TestCase {
 

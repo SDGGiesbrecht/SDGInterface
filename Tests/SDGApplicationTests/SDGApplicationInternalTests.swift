@@ -16,11 +16,14 @@ import Foundation
 import XCTest
 
 import SDGLogic
-import SDGXCTestUtilities
+import SDGLocalization
 
 @testable import SDGApplication
-import SDGInterface
+
 import SDGInterfaceLocalizations
+
+import SDGXCTestUtilities
+
 import SDGInterfaceSample
 
 final class SDGApplicationInternalTests : ApplicationTestCase {
