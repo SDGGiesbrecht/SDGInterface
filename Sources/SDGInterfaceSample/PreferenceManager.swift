@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import SDGApplication
+
 internal class PreferenceManager : SDGApplication.PreferenceManager {
     func openPreferences() {
         print("Opening preferences...")

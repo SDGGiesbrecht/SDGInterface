@@ -128,7 +128,11 @@ let package = Package(
             ]),
 
         .target(name: "SDGInterfaceSample", dependencies: [
-            "SDGInterface"
+            "SDGApplication",
+            .product(name: "SDGControlFlow", package: "SDGCornerstone"),
+            .product(name: "SDGMathematics", package: "SDGCornerstone"),
+            .product(name: "SDGText", package: "SDGCornerstone"),
+            .product(name: "SDGLocalization", package: "SDGCornerstone")
             ])
     ]
 )
