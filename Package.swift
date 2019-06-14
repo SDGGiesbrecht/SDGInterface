@@ -33,9 +33,19 @@ import PackageDescription
 /// ### Example Usage
 ///
 /// ```swift
+/// import SDGApplication
+///
+/// internal class SystemMediator : SDGApplication.SystemMediator {
+///
+///     internal func finishLaunching(_ details: LaunchDetails) -> Bool {
+///         Application.setSamplesUp()
+///         return true
+///     }
+/// }
 /// ```
 ///
 /// ```swift
+/// Application.main(mediator: SystemMediator())
 /// ```
 let package = Package(
     name: "SDGInterface",
