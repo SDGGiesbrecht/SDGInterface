@@ -53,7 +53,8 @@ extension ProcessInfo {
     ///
     /// - Parameters:
     ///     - applicationBundle: The main application bundle.
-    public static func validate(applicationBundle: Bundle) { // @exempt(from: tests)
+    ///     - localizations: The localizations to validate.
+    public static func validate<L>(applicationBundle: Bundle, localizations: L.Type) where L : InputLocalization { // @exempt(from: tests)
         #if VALIDATION
         var failing = false
         defer {
@@ -88,7 +89,7 @@ extension ProcessInfo {
             }))
         }
 
-        for localization in MenuBarLocalization.allCases {
+        for localization in localizations.allCases {
             let infoPlist = applicationBundle.url(forResource: "InfoPlist", withExtension: "strings", subdirectory: nil, localization: localization.code)
             let dictionary: NSDictionary? = (infoPlist.flatMap({ (url: URL) -> NSDictionary? in
                 return try? NSDictionary(contentsOf: url, error: ())
