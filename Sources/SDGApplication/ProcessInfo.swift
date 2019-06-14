@@ -53,6 +53,7 @@ extension ProcessInfo {
     ///
     /// - Parameters:
     ///     - applicationBundle: The main application bundle.
+    ///     - localizations: The localizations to validate.
     public static func validate<L>(applicationBundle: Bundle, localizations: L.Type) where L : InputLocalization { // @exempt(from: tests)
         #if VALIDATION
         var failing = false
