@@ -16,6 +16,7 @@
 
 import PackageDescription
 
+// #example(1, mediator) #example(2, main)
 /// SDGInterface provides tools for implementing a graphical user interface.
 ///
 /// > [Καὶ ὁ Λόγος σὰρξ ἐγένετο καὶ ἐσκήνωσεν ἐν ἡμῖν, καὶ ἐθεασάμεθα τὴν δόξαν αὐτοῦ, δόξαν ὡς μονογενοῦς παρὰ πατρός, πλήρης χάριτος καὶ ἀληθείας.](https://www.biblegateway.com/passage/?search=John+1&version=SBLGNT;NIV)
@@ -28,6 +29,14 @@ import PackageDescription
 ///
 /// - API unification accross platforms.
 /// - Localized menu bar.
+///
+/// ### Example Usage
+///
+/// ```swift
+/// ```
+///
+/// ```swift
+/// ```
 let package = Package(
     name: "SDGInterface",
     platforms: [
