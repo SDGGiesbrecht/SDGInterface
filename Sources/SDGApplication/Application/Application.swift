@@ -101,6 +101,8 @@ public final class Application {
     ///     - mediator: An object which will mediate between the application and system events.
     public class func setUpWithoutMain(mediator: SystemMediator) {
         prepareForMain(mediator: mediator)
+        _ = mediator.prepareToLaunch(LaunchDetails())
         postLaunchSetUp()
+        _ = mediator.finishLaunching(LaunchDetails())
     }
 }
