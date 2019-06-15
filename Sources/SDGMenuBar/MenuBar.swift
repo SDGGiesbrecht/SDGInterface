@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import SDGMenus
+
 /// An application’s menu bar.
 ///
 /// `MenuBar` is a fully localized version of Interface Builder’s template with several useful additions.

@@ -93,6 +93,7 @@ let package = Package(
         // #documentation(SDGMenuBar)
         /// A menu bar.
         .target(name: "SDGMenuBar", dependencies: [
+            "SDGMenus"
             ]),
 
         // #documentation(SDGMenus)
