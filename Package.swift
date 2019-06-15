@@ -64,6 +64,10 @@ let package = Package(
         /// A menu bar.
         .library(name: "SDGMenuBar", targets: ["SDGMenuBar"]),
 
+        // @documentation(SDGMenus)
+        /// Menus.
+        .library(name: "SDGMenus", targets: ["SDGMenus"]),
+
         // @documentation(SDGInterfaceElements)
         /// Re‐usable interface elements, such as views, windows and menus.
         .library(name: "SDGInterfaceElements", targets: ["SDGInterfaceElements"])
@@ -89,6 +93,11 @@ let package = Package(
         // #documentation(SDGMenuBar)
         /// A menu bar.
         .target(name: "SDGMenuBar", dependencies: [
+            ]),
+
+        // #documentation(SDGMenus)
+        /// Menus.
+        .target(name: "SDGMenus", dependencies: [
             ]),
 
         // #documentation(SDGInterfaceElements)
