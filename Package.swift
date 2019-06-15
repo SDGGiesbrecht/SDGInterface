@@ -57,8 +57,12 @@ let package = Package(
     ],
     products: [
         // @documentation(SDGApplication)
-        /// Specific, application‐level elements, such as the application delegate and menu bar.
+        /// Application‐level functionality and system interaction.
         .library(name: "SDGApplication", targets: ["SDGApplication"]),
+
+        // @documentation(SDGMenuBar)
+        /// A menu bar.
+        .library(name: "SDGMenuBar", targets: ["SDGMenuBar"]),
 
         // @documentation(SDGInterfaceElements)
         /// Re‐usable interface elements, such as views, windows and menus.
@@ -69,7 +73,7 @@ let package = Package(
     ],
     targets: [
         // #documentation(SDGApplication)
-        /// Specific, application‐level elements, such as the application delegate and menu bar.
+        /// Application‐level functionality and system interaction.
         .target(name: "SDGApplication", dependencies: [
             "SDGInterfaceLocalizations",
             "SDGInterfaceElements",
@@ -81,6 +85,11 @@ let package = Package(
             ], swiftSettings: [
                 .define("VALIDATION", .when(configuration: .debug)),
                 .define("UNHANDLED_SYSTEM_EVENT_LOGGING", .when(configuration: .debug))
+            ]),
+
+        // #documentation(SDGMenuBar)
+        /// A menu bar.
+        .target(name: "SDGMenuBar", dependencies: [
             ]),
 
         // #documentation(SDGInterfaceElements)
