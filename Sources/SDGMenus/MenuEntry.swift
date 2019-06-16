@@ -18,48 +18,77 @@ import AppKit
 import UIKit
 #endif
 
+import SDGControlFlow
+import SDGText
+import SDGLocalization
+
 /// A menu entry.
-public final class MenuEntry {
+public final class MenuEntry<L> : SharedValueObserver where L : Localization {
 
     // MARK: - Initialization
 
-    #if canImport(NSMenu)
-    /// Creates a menu from a native menu item.
+    /// Creates a menu.
     ///
     /// - Parameters:
-    ///     - native: The native menu item.
-    public init(native: NSMenuItem) {
-        self.native = native
-    }
-    #endif
-
-    #if canImport(UIKit)
-    /// Creates a menu from a native menu item.
-    ///
-    /// - Parameters:
-    ///     - native: The native menu item.
-    public init(native: UIMenuItem) {
-        self.native = native
-    }
-    #endif
-
-    public init() {
+    ///     - label: The label.
+    public init(label: Binding<StrictString, L>) {
         #if canImport(AppKit)
         native = NSMenuItem()
         #elseif canImport(UIKit)
         native = UIMenuItem()
         #endif
+
+        self.label = label
+        LocalizationSetting.current.register(observer: self)
     }
 
     // MARK: - Properties
 
     #if canImport(AppKit)
     /// The native menu item.
-    public let native: NSMenuItem
+    public var native: NSMenuItem {
+        didSet {
+            refresh()
+        }
+    }
     #endif
 
     #if canImport(UIKit)
     /// The native menu item.
-    public let native: UIMenuItem
+    public var native: UIMenuItem {
+        didSet {
+            refresh()
+        }
+    }
     #endif
+
+    /// The label.
+    public var label: Binding<StrictString, L> {
+        willSet {
+            label.shared?.cancel(observer: self)
+        }
+        didSet {
+            label.shared?.register(observer: self)
+        }
+    }
+
+    /// The action.
+    public var action: Selector? {
+        get {
+            return native.action
+        }
+        set {
+            native.action = newValue
+        }
+    }
+
+    private func refresh() {
+        native.title = String(label.resolved())
+    }
+
+    // MARK: - SharedValueObserver
+
+    public func valueChanged(for identifier: String) {
+        refresh()
+    }
 }
