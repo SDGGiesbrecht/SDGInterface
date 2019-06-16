@@ -21,7 +21,7 @@ public final class Menu {
 
     // MARK: - Initialization
 
-    #if canImport(NSMenu)
+    #if canImport(AppKit)
     /// Creates a menu from a native menu.
     ///
     /// - Parameters:

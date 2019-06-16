@@ -99,6 +99,9 @@ let package = Package(
         // #documentation(SDGMenus)
         /// Menus.
         .target(name: "SDGMenus", dependencies: [
+            .product(name: "SDGControlFlow", package: "SDGCornerstone"),
+            .product(name: "SDGText", package: "SDGCornerstone"),
+            .product(name: "SDGLocalization", package: "SDGCornerstone")
             ]),
 
         // #documentation(SDGInterfaceElements)
