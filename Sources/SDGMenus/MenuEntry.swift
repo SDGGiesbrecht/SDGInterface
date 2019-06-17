@@ -23,44 +23,21 @@ import SDGText
 import SDGLocalization
 
 /// A menu entry.
-public final class MenuEntry<L> : SharedValueObserver where L : Localization {
+public final class MenuEntry<L> : AnyMenuEntry, SharedValueObserver where L : Localization {
 
     // MARK: - Initialization
 
-    /// Creates a menu.
+    /// Creates a menu entry.
     ///
     /// - Parameters:
     ///     - label: The label.
     public init(label: Binding<StrictString, L>) {
-        #if canImport(AppKit)
-        native = NSMenuItem()
-        #elseif canImport(UIKit)
-        native = UIMenuItem()
-        #endif
-
         self.label = label
+        labelDidSet()
         LocalizationSetting.current.register(observer: self)
     }
 
     // MARK: - Properties
-
-    #if canImport(AppKit)
-    /// The native menu item.
-    public var native: NSMenuItem {
-        didSet {
-            refresh()
-        }
-    }
-    #endif
-
-    #if canImport(UIKit)
-    /// The native menu item.
-    public var native: UIMenuItem {
-        didSet {
-            refresh()
-        }
-    }
-    #endif
 
     /// The label.
     public var label: Binding<StrictString, L> {
@@ -68,27 +45,41 @@ public final class MenuEntry<L> : SharedValueObserver where L : Localization {
             label.shared?.cancel(observer: self)
         }
         didSet {
-            label.shared?.register(observer: self)
+            labelDidSet()
         }
     }
-
-    /// The action.
-    public var action: Selector? {
-        get {
-            return native.action
-        }
-        set {
-            native.action = newValue
-        }
+    private func labelDidSet() {
+        label.shared?.register(observer: self)
     }
 
-    private func refresh() {
+    // MARK: - Refreshing
+
+    private func refreshNative() {
+        refreshLabel()
+    }
+    private func refreshLabel() {
         native.title = String(label.resolved())
     }
+
+    // MARK: - AnyMenuItem
+
+    #if canImport(AppKit)
+    public var native: NSMenuItem = NSMenuItem() {
+        didSet {
+            refreshNative()
+        }
+    }
+    #elseif canImport(UIKit)
+    public var native: UIMenuItem = UIMenuItem() {
+        didSet {
+            refreshNative()
+        }
+    }
+    #endif
 
     // MARK: - SharedValueObserver
 
     public func valueChanged(for identifier: String) {
-        refresh()
+        refreshLabel()
     }
 }
