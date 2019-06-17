@@ -22,6 +22,8 @@ import SDGControlFlow
 import SDGText
 import SDGLocalization
 
+import SDGInterfaceBasics
+
 /// A menu entry.
 public final class MenuEntry<L> : AnyMenuEntry, SharedValueObserver where L : Localization {
 
