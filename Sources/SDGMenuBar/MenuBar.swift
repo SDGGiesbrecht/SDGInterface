@@ -140,8 +140,8 @@ public final class MenuBar {
                 return "חדש"
             }
         })), action: #selector(NSDocumentController.newDocument(_:)))
-        new.keyEquivalent = "n"
-        new.keyEquivalentModifierMask = .command
+        new.native.keyEquivalent = "n"
+        new.native.keyEquivalentModifierMask = .command
 
         let open = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -160,8 +160,8 @@ public final class MenuBar {
                 return "פתח..."
             }
         })), action: #selector(NSDocumentController.openDocument(_:)))
-        open.keyEquivalent = "o"
-        open.keyEquivalentModifierMask = .command
+        open.native.keyEquivalent = "o"
+        open.native.keyEquivalentModifierMask = .command
 
         let openRecent = file.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -215,8 +215,8 @@ public final class MenuBar {
                 return "סגור"
             }
         })), action: #selector(NSWindow.performClose(_:)))
-        close.keyEquivalent = "w"
-        close.keyEquivalentModifierMask = .command
+        close.native.keyEquivalent = "w"
+        close.native.keyEquivalentModifierMask = .command
 
         let save = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -234,8 +234,8 @@ public final class MenuBar {
                 return "שמור"
             }
         })), action: #selector(NSDocument.save(_:)))
-        save.keyEquivalent = "s"
-        save.keyEquivalentModifierMask = .command
+        save.native.keyEquivalent = "s"
+        save.native.keyEquivalentModifierMask = .command
 
         let duplicate = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -254,8 +254,8 @@ public final class MenuBar {
                 return "שכפל"
             }
         })), action: #selector(NSDocument.duplicate(_:)))
-        duplicate.keyEquivalent = "S"
-        duplicate.keyEquivalentModifierMask = .command
+        duplicate.native.keyEquivalent = "S"
+        duplicate.native.keyEquivalentModifierMask = .command
 
         file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -298,8 +298,8 @@ public final class MenuBar {
                 return "Revert to Saved"
             }
         })), action: #selector(NSDocument.revertToSaved(_:)))
-        revertToSaved.keyEquivalent = "r"
-        revertToSaved.keyEquivalentModifierMask = .command
+        revertToSaved.native.keyEquivalent = "r"
+        revertToSaved.native.keyEquivalentModifierMask = .command
 
         file.newSeparator()
 
@@ -319,8 +319,8 @@ public final class MenuBar {
                 return "הגדרת עמוד..."
             }
         })), action: #selector(NSDocument.runPageLayout(_:)))
-        pageSetUp.keyEquivalent = "P"
-        pageSetUp.keyEquivalentModifierMask = .command
+        pageSetUp.native.keyEquivalent = "P"
+        pageSetUp.native.keyEquivalentModifierMask = .command
 
         let print = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -338,8 +338,8 @@ public final class MenuBar {
                 return "הדפס..."
             }
         })), action: #selector(NSView.printView(_:)))
-        print.keyEquivalent = "p"
-        print.keyEquivalentModifierMask = .command
+        print.native.keyEquivalent = "p"
+        print.native.keyEquivalentModifierMask = .command
     }
 
     private func initializeEditMenu() {
@@ -381,8 +381,8 @@ public final class MenuBar {
                 return "בטל"
             }
         })), action: #selector(Responder.undo(_:)))
-        undo.keyEquivalent = "z"
-        undo.keyEquivalentModifierMask = .command
+        undo.native.keyEquivalent = "z"
+        undo.native.keyEquivalentModifierMask = .command
 
         let redo = edit.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -400,8 +400,8 @@ public final class MenuBar {
                 return "חזור על הפעולה האחרונה"
             }
         })), action: #selector(Responder.redo(_:)))
-        redo.keyEquivalent = "Z"
-        redo.keyEquivalentModifierMask = .command
+        redo.native.keyEquivalent = "Z"
+        redo.native.keyEquivalentModifierMask = .command
 
         edit.newSeparator()
 
@@ -421,8 +421,8 @@ public final class MenuBar {
                 return "גזור"
             }
         })), action: #selector(NSText.cut(_:)))
-        cut.keyEquivalent = "x"
-        cut.keyEquivalentModifierMask = .command
+        cut.native.keyEquivalent = "x"
+        cut.native.keyEquivalentModifierMask = .command
 
         let copy = edit.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -441,8 +441,8 @@ public final class MenuBar {
                 return "העתק"
             }
         })), action: #selector(NSText.copy(_:)))
-        copy.keyEquivalent = "c"
-        copy.keyEquivalentModifierMask = .command
+        copy.native.keyEquivalent = "c"
+        copy.native.keyEquivalentModifierMask = .command
 
         let paste = edit.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -462,8 +462,8 @@ public final class MenuBar {
                 return "הדבק"
             }
         })), action: #selector(NSText.paste(_:)))
-        paste.keyEquivalent = "v"
-        paste.keyEquivalentModifierMask = .command
+        paste.native.keyEquivalent = "v"
+        paste.native.keyEquivalentModifierMask = .command
 
         let pasteAndMatchStyle = edit.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -481,8 +481,8 @@ public final class MenuBar {
                 return "הדבק והתאם לסגנון"
             }
         })), action: #selector(NSTextView.pasteAsPlainText(_:)))
-        pasteAndMatchStyle.keyEquivalent = "V"
-        pasteAndMatchStyle.keyEquivalentModifierMask = [.command, .option]
+        pasteAndMatchStyle.native.keyEquivalent = "V"
+        pasteAndMatchStyle.native.keyEquivalentModifierMask = [.command, .option]
 
         edit.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -517,8 +517,8 @@ public final class MenuBar {
                 return "בחר הכל"
             }
         })), action: #selector(NSResponder.selectAll(_:)))
-        selectAll.keyEquivalent = "a"
-        selectAll.keyEquivalentModifierMask = .command
+        selectAll.native.keyEquivalent = "a"
+        selectAll.native.keyEquivalentModifierMask = .command
 
         edit.newSeparator()
 
@@ -556,8 +556,8 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.performFindPanelAction(_:)))
         findEntry.tag = 1
-        findEntry.keyEquivalent = "f"
-        findEntry.keyEquivalentModifierMask = .command
+        findEntry.native.keyEquivalent = "f"
+        findEntry.native.keyEquivalentModifierMask = .command
 
         let replace = findMenu.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -576,8 +576,8 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.performFindPanelAction(_:)))
         replace.tag = 12
-        replace.keyEquivalent = "f"
-        replace.keyEquivalentModifierMask = [.command, .option]
+        replace.native.keyEquivalent = "f"
+        replace.native.keyEquivalentModifierMask = [.command, .option]
 
         let findNext = findMenu.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -596,8 +596,8 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.performFindPanelAction(_:)))
         findNext.tag = 2
-        findNext.keyEquivalent = "g"
-        findNext.keyEquivalentModifierMask = [.command]
+        findNext.native.keyEquivalent = "g"
+        findNext.native.keyEquivalentModifierMask = [.command]
 
         let findPrevious = findMenu.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -616,8 +616,8 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.performFindPanelAction(_:)))
         findPrevious.tag = 3
-        findPrevious.keyEquivalent = "G"
-        findPrevious.keyEquivalentModifierMask = [.command]
+        findPrevious.native.keyEquivalent = "G"
+        findPrevious.native.keyEquivalentModifierMask = [.command]
 
         let useSelectionForFind = findMenu.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -636,8 +636,8 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.performFindPanelAction(_:)))
         useSelectionForFind.tag = 7
-        useSelectionForFind.keyEquivalent = "e"
-        useSelectionForFind.keyEquivalentModifierMask = .command
+        useSelectionForFind.native.keyEquivalent = "e"
+        useSelectionForFind.native.keyEquivalentModifierMask = .command
 
         let jumpToSelection = findMenu.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -655,8 +655,8 @@ public final class MenuBar {
                 return "עבור על הקטע הנבחר"
             }
         })), action: #selector(NSResponder.centerSelectionInVisibleArea(_:)))
-        jumpToSelection.keyEquivalent = "j"
-        jumpToSelection.keyEquivalentModifierMask = [.command]
+        jumpToSelection.native.keyEquivalent = "j"
+        jumpToSelection.native.keyEquivalentModifierMask = [.command]
 
         let spellingAndGrammar = edit.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -692,8 +692,8 @@ public final class MenuBar {
                 return "הצג איות ודקדוק"
             }
         })), action: #selector(NSText.showGuessPanel(_:)))
-        showSpellingAndGrammar.keyEquivalent = ":"
-        showSpellingAndGrammar.keyEquivalentModifierMask = .command
+        showSpellingAndGrammar.native.keyEquivalent = ":"
+        showSpellingAndGrammar.native.keyEquivalentModifierMask = .command
 
         let checkDocumentNow = spellingAndGrammar.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -711,8 +711,8 @@ public final class MenuBar {
                 return "בדוק את המסמך כעת"
             }
         })), action: #selector(NSText.checkSpelling(_:)))
-        checkDocumentNow.keyEquivalent = ";"
-        checkDocumentNow.keyEquivalentModifierMask = .command
+        checkDocumentNow.native.keyEquivalent = ";"
+        checkDocumentNow.native.keyEquivalentModifierMask = .command
 
         spellingAndGrammar.newSeparator()
 
@@ -1041,8 +1041,8 @@ public final class MenuBar {
             }
         })), action: #selector(NSFontManager.orderFrontFontPanel(_:)))
         showFonts.target = NSFontManager.shared
-        showFonts.keyEquivalent = "t"
-        showFonts.keyEquivalentModifierMask = .command
+        showFonts.native.keyEquivalent = "t"
+        showFonts.native.keyEquivalentModifierMask = .command
 
         let bold = font.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1062,8 +1062,8 @@ public final class MenuBar {
         })), action: #selector(NSFontManager.addFontTrait(_:)))
         bold.target = NSFontManager.shared
         bold.tag = 2
-        bold.keyEquivalent = "b"
-        bold.keyEquivalentModifierMask = .command
+        bold.native.keyEquivalent = "b"
+        bold.native.keyEquivalentModifierMask = .command
 
         let italic = font.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1085,8 +1085,8 @@ public final class MenuBar {
         })), action: #selector(NSFontManager.addFontTrait(_:)))
         italic.target = NSFontManager.shared
         italic.tag = 1
-        italic.keyEquivalent = "i"
-        italic.keyEquivalentModifierMask = .command
+        italic.native.keyEquivalent = "i"
+        italic.native.keyEquivalentModifierMask = .command
 
         let underline = font.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1104,8 +1104,8 @@ public final class MenuBar {
                 return "קו תחתון"
             }
         })), action: #selector(NSText.underline(_:)))
-        underline.keyEquivalent = "u"
-        underline.keyEquivalentModifierMask = .command
+        underline.native.keyEquivalent = "u"
+        underline.native.keyEquivalentModifierMask = .command
 
         font.newSeparator()
 
@@ -1129,8 +1129,8 @@ public final class MenuBar {
         })), action: #selector(NSFontManager.modifyFont(_:)))
         bigger.target = NSFontManager.shared
         bigger.tag = 3
-        bigger.keyEquivalent = "+"
-        bigger.keyEquivalentModifierMask = .command
+        bigger.native.keyEquivalent = "+"
+        bigger.native.keyEquivalentModifierMask = .command
 
         let smaller = font.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1151,8 +1151,8 @@ public final class MenuBar {
         })), action: #selector(NSFontManager.modifyFont(_:)))
         smaller.target = NSFontManager.shared
         smaller.tag = 4
-        smaller.keyEquivalent = "\u{2D}"
-        smaller.keyEquivalentModifierMask = .command
+        smaller.native.keyEquivalent = "\u{2D}"
+        smaller.native.keyEquivalentModifierMask = .command
 
         font.newSeparator()
 
@@ -1510,8 +1510,8 @@ public final class MenuBar {
                 return "הצג צבעים"
             }
         })), action: #selector(NSApplication.orderFrontColorPanel(_:)))
-        showColours.keyEquivalent = "C"
-        showColours.keyEquivalentModifierMask = .command
+        showColours.native.keyEquivalent = "C"
+        showColours.native.keyEquivalentModifierMask = .command
 
         font.newSeparator()
 
@@ -1532,8 +1532,8 @@ public final class MenuBar {
                 return "העתק סגנון"
             }
         })), action: #selector(NSText.copyFont(_:)))
-        copyStyle.keyEquivalent = "c"
-        copyStyle.keyEquivalentModifierMask = [.command, .option]
+        copyStyle.native.keyEquivalent = "c"
+        copyStyle.native.keyEquivalentModifierMask = [.command, .option]
 
         let pasteStyle = font.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1551,8 +1551,8 @@ public final class MenuBar {
                 return "הדבק סגנון"
             }
         })), action: #selector(NSText.pasteFont(_:)))
-        pasteStyle.keyEquivalent = "v"
-        pasteStyle.keyEquivalentModifierMask = [.command, .option]
+        pasteStyle.native.keyEquivalent = "v"
+        pasteStyle.native.keyEquivalentModifierMask = [.command, .option]
 
         let text = format.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1586,8 +1586,8 @@ public final class MenuBar {
                 return "יישר לימין"
             }
         })), action: #selector(NSText.alignRight(_:)))
-        alignRight.keyEquivalent = "}"
-        alignRight.keyEquivalentModifierMask = .command
+        alignRight.native.keyEquivalent = "}"
+        alignRight.native.keyEquivalentModifierMask = .command
 
         let centre = text.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1608,8 +1608,8 @@ public final class MenuBar {
                 return "מרכז"
             }
         })), action: #selector(NSText.alignCenter(_:)))
-        centre.keyEquivalent = "|"
-        centre.keyEquivalentModifierMask = .command
+        centre.native.keyEquivalent = "|"
+        centre.native.keyEquivalentModifierMask = .command
 
         text.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1645,8 +1645,8 @@ public final class MenuBar {
                 return "יישר לשמאל"
             }
         })), action: #selector(NSText.alignLeft(_:)))
-        alignLeft.keyEquivalent = "{"
-        alignLeft.keyEquivalentModifierMask = .command
+        alignLeft.native.keyEquivalent = "{"
+        alignLeft.native.keyEquivalentModifierMask = .command
 
         text.newSeparator()
 
@@ -1811,8 +1811,8 @@ public final class MenuBar {
                 return "העתק סרגל"
             }
         })), action: #selector(NSText.copyRuler(_:)))
-        copyRuler.keyEquivalent = "c"
-        copyRuler.keyEquivalentModifierMask = [.command, .control]
+        copyRuler.native.keyEquivalent = "c"
+        copyRuler.native.keyEquivalentModifierMask = [.command, .control]
 
         let pasteRuler = text.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1830,8 +1830,8 @@ public final class MenuBar {
                 return "הדבק סרגל"
             }
         })), action: #selector(NSText.pasteRuler(_:)))
-        pasteRuler.keyEquivalent = "v"
-        pasteRuler.keyEquivalentModifierMask = [.command, .control]
+        pasteRuler.native.keyEquivalent = "v"
+        pasteRuler.native.keyEquivalentModifierMask = [.command, .control]
     }
 
     private func initializeViewMenu() {
@@ -1872,8 +1872,8 @@ public final class MenuBar {
                 return "הצג את סרגל הכלים"
             }
         })), action: #selector(NSWindow.toggleToolbarShown(_:)))
-        showToolbar.keyEquivalent = "t"
-        showToolbar.keyEquivalentModifierMask = [.command, .option]
+        showToolbar.native.keyEquivalent = "t"
+        showToolbar.native.keyEquivalentModifierMask = [.command, .option]
 
         view.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1912,8 +1912,8 @@ public final class MenuBar {
                 return "הצג את סרגל הצד"
             }
         })), action: #selector(Responder.toggleSourceList(_:)))
-        showSideBar.keyEquivalent = "s"
-        showSideBar.keyEquivalentModifierMask = [.command, .control]
+        showSideBar.native.keyEquivalent = "s"
+        showSideBar.native.keyEquivalentModifierMask = [.command, .control]
 
         let enterFullScreen = view.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -1931,8 +1931,8 @@ public final class MenuBar {
                 return "עבור למסך מלא"
             }
         })), action: #selector(NSWindow.toggleFullScreen(_:)))
-        enterFullScreen.keyEquivalent = "f"
-        enterFullScreen.keyEquivalentModifierMask = [.command, .control]
+        enterFullScreen.native.keyEquivalent = "f"
+        enterFullScreen.native.keyEquivalentModifierMask = [.command, .control]
     }
 
     private func initializeWindowMenu() {
@@ -1975,8 +1975,8 @@ public final class MenuBar {
                 return "מזער"
             }
         })), action: #selector(NSWindow.performMiniaturize(_:)))
-        minimize.keyEquivalent = "m"
-        minimize.keyEquivalentModifierMask = .command
+        minimize.native.keyEquivalent = "m"
+        minimize.native.keyEquivalentModifierMask = .command
 
         window.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -2074,8 +2074,8 @@ public final class MenuBar {
                 return "עזרה עבור \(היישום)"
             }
         })), action: #selector(NSApplication.showHelp(_:)))
-        helpItem.keyEquivalent = "?"
-        helpItem.keyEquivalentModifierMask = .command
+        helpItem.native.keyEquivalent = "?"
+        helpItem.native.keyEquivalentModifierMask = .command
         if Bundle.main.infoDictionary?["CFBundleHelpBookName"] == nil {
             helpItem.isHidden = true
         }

@@ -43,4 +43,14 @@ extension AnyMenuEntry {
             native.action = newValue
         }
     }
+
+    /// The hotkey.
+    public var hotKey: String {
+        get {
+            return native.keyEquivalent
+        }
+        set {
+            native.keyEquivalent = newValue
+        }
+    }
 }

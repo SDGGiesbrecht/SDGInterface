@@ -84,22 +84,14 @@ extension MenuBar {
                 return "העדפות..."
             }
         })))
-        preferences.action = Action.openPreferences.selector
-        preferences.keyEquivalent = ","
-        preferences.keyEquivalentModifierMask = .command
+        preferences.action = Selector.openPreferences
+        preferences.native.keyEquivalent = ","
+        preferences.native.keyEquivalentModifierMask = .command
         return preferences
     }
 
-    private static func applicationMenu() -> Menu<ApplicationNameLocalization> {
-        let application = Menu(label: .static(ApplicationNameForm.localizedIsolatedForm))
-        application.entries = [
-            .entry(about()),
-            .separator,
-            .entry(preferences()),
-            .separator,
-        ]
-
-        let services = application.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+    private static func services() -> AnyMenu {
+        let services = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Servicios"
@@ -114,11 +106,12 @@ extension MenuBar {
                 return "שירותים"
             }
         })))
-        NSApplication.shared.servicesMenu = services
+        NSApplication.shared.servicesMenu = services.native
+        return services
+    }
 
-        application.newSeparator()
-
-        let hide = application.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+    private static func hide() -> AnyMenuEntry {
+        let hide = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 let laAplicación = ProcessInfo.applicationName(.español(.ninguna))
@@ -154,10 +147,13 @@ extension MenuBar {
                 return "הסתר את \(היישום)"
             }
         })), action: #selector(NSApplication.hide(_:)))
-        hide.keyEquivalent = "h"
-        hide.keyEquivalentModifierMask = .command
+        hide.native.keyEquivalent = "h"
+        hide.native.keyEquivalentModifierMask = .command
+        return hide
+    }
 
-        let hideOthers = application.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+    private static func hideOthers() -> AnyMenuEntry {
+        let hideOthers = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Ocultar otros"
@@ -173,10 +169,29 @@ extension MenuBar {
                 return "הסתר אחרים"
             }
         })), action: #selector(NSApplication.hideOtherApplications(_:)))
-        hideOthers.keyEquivalent = "h"
-        hideOthers.keyEquivalentModifierMask = [.option, .command]
+        hideOthers.native.keyEquivalent = "h"
+        hideOthers.native.keyEquivalentModifierMask = [.option, .command]
+        return hideOthers
+    }
 
-        application.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+    private static func applicationMenu() -> Menu<ApplicationNameLocalization> {
+        let application = Menu(label: .static(ApplicationNameForm.localizedIsolatedForm))
+        application.entries = [
+            .entry(about()),
+            .separator,
+            .entry(preferences()),
+            .separator,
+            .submenu(services()),
+            .separator,
+            .entry(hide()),
+            .entry(hideOthers())
+        ]
+
+
+
+
+
+        Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Mostrar todo"
@@ -195,7 +210,7 @@ extension MenuBar {
 
         application.newSeparator()
 
-        let quit = application.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let quit = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 let deLaAplicación = ProcessInfo.applicationName(.español(.de))
@@ -233,7 +248,7 @@ extension MenuBar {
                 return "סיים את \(היישום)"
             }
         })), action: #selector(NSApplication.terminate(_:)))
-        quit.keyEquivalent = "q"
-        quit.keyEquivalentModifierMask = .command
+        quit.native.keyEquivalent = "q"
+        quit.native.keyEquivalentModifierMask = .command
     }
 }

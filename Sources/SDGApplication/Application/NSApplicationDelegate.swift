@@ -17,7 +17,7 @@ import AppKit
 
 import SDGLogic
 
-internal class NSApplicationDelegate : NSObject, AppKit.NSApplicationDelegate, NSMenuItemValidation {
+internal class NSApplicationDelegate : NSObject, AppKit.NSApplicationDelegate, _NSApplicationDelegateProtocol, NSMenuItemValidation {
 
     // MARK: - Top Responder
 
