@@ -132,7 +132,7 @@ let package = Package(
             ]),
 
         // #documentation(SDGInterfaceBasics)
-        /// Basic interface building blocks.
+        /// A menu bar.
         .target(name: "SDGInterfaceBasics", dependencies: [
             "SDGInterfaceLocalizations",
             .product(name: "SDGControlFlow", package: "SDGCornerstone"),

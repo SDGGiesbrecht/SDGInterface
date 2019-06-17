@@ -85,8 +85,8 @@ extension MenuBar {
             }
         })))
         preferences.action = Selector.openPreferences
-        preferences.native.keyEquivalent = ","
-        preferences.native.keyEquivalentModifierMask = .command
+        preferences.hotKey = ","
+        preferences.keyEquivalentModifierMask = .command
         return preferences
     }
 
@@ -147,8 +147,8 @@ extension MenuBar {
                 return "הסתר את \(היישום)"
             }
         })), action: #selector(NSApplication.hide(_:)))
-        hide.native.keyEquivalent = "h"
-        hide.native.keyEquivalentModifierMask = .command
+        hide.hotKey = "h"
+        hide.keyEquivalentModifierMask = .command
         return hide
     }
 
@@ -169,8 +169,8 @@ extension MenuBar {
                 return "הסתר אחרים"
             }
         })), action: #selector(NSApplication.hideOtherApplications(_:)))
-        hideOthers.native.keyEquivalent = "h"
-        hideOthers.native.keyEquivalentModifierMask = [.option, .command]
+        hideOthers.hotKey = "h"
+        hideOthers.keyEquivalentModifierMask = [.option, .command]
         return hideOthers
     }
 
@@ -248,7 +248,7 @@ extension MenuBar {
                 return "סיים את \(היישום)"
             }
         })), action: #selector(NSApplication.terminate(_:)))
-        quit.native.keyEquivalent = "q"
-        quit.native.keyEquivalentModifierMask = .command
+        quit.hotKey = "q"
+        quit.keyEquivalentModifierMask = .command
     }
 }

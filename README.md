@@ -64,7 +64,10 @@ let package = Package(
     targets: [
         .target(name: "MyTarget", dependencies: [
             .productItem(name: "SDGApplication", package: "SDGInterface"),
+            .productItem(name: "SDGMenuBar", package: "SDGInterface"),
+            .productItem(name: "SDGMenus", package: "SDGInterface"),
             .productItem(name: "SDGInterfaceElements", package: "SDGInterface"),
+            .productItem(name: "SDGInterfaceBasics", package: "SDGInterface"),
         ])
     ]
 )
@@ -74,7 +77,10 @@ The libraries’ modules can then be imported in source files:
 
 ```swift
 import SDGApplication
+import SDGMenuBar
+import SDGMenus
 import SDGInterfaceElements
+import SDGInterfaceBasics
 ```
 
 ## About
