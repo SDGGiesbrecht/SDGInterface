@@ -85,6 +85,7 @@ let package = Package(
         .target(name: "SDGApplication", dependencies: [
             "SDGInterfaceLocalizations",
             "SDGInterfaceElements",
+            "SDGMenuBar",
             .product(name: "SDGLogic", package: "SDGCornerstone"),
             .product(name: "SDGText", package: "SDGCornerstone"),
             .product(name: "SDGLocalization", package: "SDGCornerstone"),
@@ -97,8 +98,10 @@ let package = Package(
         // #documentation(SDGMenuBar)
         /// A menu bar.
         .target(name: "SDGMenuBar", dependencies: [
+            "SDGInterfaceBasics",
             "SDGMenus",
             "SDGInterfaceLocalizations",
+            .product(name: "SDGMathematics", package: "SDGCornerstone"),
             .product(name: "SDGText", package: "SDGCornerstone"),
             .product(name: "SDGLocalization", package: "SDGCornerstone")
             ]),

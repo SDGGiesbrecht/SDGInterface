@@ -85,7 +85,7 @@ public final class Application {
 
     internal class func postLaunchSetUp() {
         #if canImport(AppKit)
-        NSApplication.shared.mainMenu = MenuBar.menuBar
+        _ = MenuBar.menuBar
         NSApplication.shared.activate(ignoringOtherApps: false)
         #endif
         #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
