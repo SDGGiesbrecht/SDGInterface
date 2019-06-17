@@ -70,7 +70,11 @@ let package = Package(
 
         // @documentation(SDGInterfaceElements)
         /// Re‐usable interface elements, such as views, windows and menus.
-        .library(name: "SDGInterfaceElements", targets: ["SDGInterfaceElements"])
+        .library(name: "SDGInterfaceElements", targets: ["SDGInterfaceElements"]),
+
+        // @documentation(SDGInterfaceBasics)
+        /// A menu bar.
+        .library(name: "SDGInterfaceBasics", targets: ["SDGInterfaceBasics"])
     ],
     dependencies: [
         .package(url: "https://github.com/SDGGiesbrecht/SDGCornerstone", from: Version(1, 0, 0))
@@ -93,7 +97,10 @@ let package = Package(
         // #documentation(SDGMenuBar)
         /// A menu bar.
         .target(name: "SDGMenuBar", dependencies: [
-            "SDGMenus"
+            "SDGMenus",
+            "SDGInterfaceLocalizations",
+            .product(name: "SDGText", package: "SDGCornerstone"),
+            .product(name: "SDGLocalization", package: "SDGCornerstone")
             ]),
 
         // #documentation(SDGMenus)
@@ -118,6 +125,14 @@ let package = Package(
             ], swiftSettings: [
                 .define("UNIDENTIFIED_PASTEBOARD_WARNINGS", .when(configuration: .debug)),
                 .define("SCREEN_LOCATION_WARNINGS", .when(configuration: .debug))
+            ]),
+
+        // #documentation(SDGInterfaceBasics)
+        /// Basic interface building blocks.
+        .target(name: "SDGInterfaceBasics", dependencies: [
+            "SDGInterfaceLocalizations",
+            .product(name: "SDGText", package: "SDGCornerstone"),
+            .product(name: "SDGLocalization", package: "SDGCornerstone")
             ]),
 
         // Internal modules.

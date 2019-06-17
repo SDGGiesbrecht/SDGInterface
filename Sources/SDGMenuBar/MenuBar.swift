@@ -12,16 +12,20 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import SDGText
+import SDGLocalization
 import SDGMenus
+
+import SDGInterfaceLocalizations
 
 /// An application’s menu bar.
 ///
 /// `MenuBar` is a fully localized version of Interface Builder’s template with several useful additions.
 ///
 /// Some menu items only appear if the application provides details they need to operate:
-/// - “Preferences...” appears if the application delegate overrides `openPreferences(_:)`.
+/// - “Preferences...” appears if the application has a preference manager.
 /// - “Help” appears if a help book is specified in the `Info.plist` file.
-public class MenuBar : Menu<InterfaceLocalization> {
+public final class MenuBar {
 
     // MARK: - Class Properties
 
@@ -31,7 +35,7 @@ public class MenuBar : Menu<InterfaceLocalization> {
     // MARK: - Initialization
 
     private init() {
-        super.init(label: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        menu = Menu(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Menu Bar"
@@ -48,6 +52,8 @@ public class MenuBar : Menu<InterfaceLocalization> {
     }
 
     // MARK: - Properties
+
+    public var menu: AnyMenu
 
     private var endOfPreferenceSection: NSMenuItem!
     private var endOfCustomMenuSection: NSMenuItem!
@@ -79,7 +85,7 @@ public class MenuBar : Menu<InterfaceLocalization> {
         return result
     }
 
-    private func initializeApplicationMenu() {
+    private static func initializeApplicationMenu() -> Menu<ApplicationNamelocalization> {
         let application = newSubmenu(labelled: Shared(ApplicationNameForm.localizedIsolatedForm))
 
         application.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
