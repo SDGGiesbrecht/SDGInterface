@@ -26,7 +26,7 @@ import SDGInterfaceLocalizations
 extension MenuBar {
 
     private static func helpEntry() -> MenuEntry<MenuBarLocalization> {
-        let helpItem = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let help = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 let deLaAplicación = ProcessInfo.applicationName(.español(.de))
