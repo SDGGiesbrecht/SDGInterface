@@ -225,7 +225,8 @@ extension MenuBar {
             .entry(pasteAndMatchStyle()),
             .entry(delete()),
             .entry(selectAll()),
-            .separator
+            .separator,
+            .submenu(find()),
         ]
         return edit
     }
@@ -234,115 +235,7 @@ extension MenuBar {
 
 
 
-        let spellingAndGrammar = edit.Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Ortografía y gramática"
-            case .françaisFrance:
-                return "Orthographe et grammaire"
-            case .ελληνικάΕλλάδα:
-                return "Ορθογραφία και γραμματική"
 
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Spelling & Grammar"
-            case .deutschDeutschland:
-                return "Rechtschreibung und Grammatik"
-            case .עברית־ישראל:
-                return "איות ודקדוק"
-            }
-        })))
-
-        let showSpellingAndGrammar = spellingAndGrammarMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Mostrar ortografía y gramática"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Show Spelling & Grammar"
-            case .deutschDeutschland:
-                return "Rechtschreibung und Grammatik einblenden"
-            case .françaisFrance:
-                return "Afficher l’orthographe et la grammaire"
-            case .ελληνικάΕλλάδα:
-                return "Εμφάνιση ορθογραφίας και γραμματικής"
-            case .עברית־ישראל:
-                return "הצג איות ודקדוק"
-            }
-        })), action: #selector(NSText.showGuessPanel(_:)))
-        showSpellingAndGrammar.hotKey = ":"
-        showSpellingAndGrammar.hotKeyModifiers = .command
-
-        let checkDocumentNow = spellingAndGrammarMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Comprobar documento ahora"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Check Document Now"
-            case .deutschDeutschland:
-                return "Dokument jetzt prüfen"
-            case .françaisFrance:
-                return "Vérifier le document maintenant"
-            case .ελληνικάΕλλάδα:
-                return "Έλεγχος εγγράφου τώρα"
-            case .עברית־ישראל:
-                return "בדוק את המסמך כעת"
-            }
-        })), action: #selector(NSText.checkSpelling(_:)))
-        checkDocumentNow.hotKey = ";"
-        checkDocumentNow.hotKeyModifiers = .command
-
-        spellingAndGrammar.newSeparator()
-
-        spellingAndGrammarMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Comprobar ortografía mientras se escribe"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Check Spelling While Typing"
-            case .deutschDeutschland:
-                return "Während der Texteingabe prüfen"
-            case .françaisFrance:
-                return "Vérifier l’orthographe lors de la saisie"
-            case .ελληνικάΕλλάδα:
-                return "Έλεγχος ορθογραφίας κατά την πληκτρολόγηση"
-            case .עברית־ישראל:
-                return "בדוק איות תוך כדי הקלדה"
-            }
-        })), action: #selector(NSTextView.toggleContinuousSpellChecking(_:)))
-
-        spellingAndGrammarMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Comprobar gramática con la ortografía"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Check Grammar with Spelling"
-            case .deutschDeutschland:
-                return "Rechtschreib‐ und Grammatikprüfung"
-            case .françaisFrance:
-                return "Vérifier la grammaire et l’orthographe"
-            case .ελληνικάΕλλάδα:
-                return "Έλεγχος γραμματικής και ορθογραφίας"
-            case .עברית־ישראל:
-                return "בדוק דקדוק ביחד עם איות"
-            }
-        })), action: #selector(NSTextView.toggleGrammarChecking(_:)))
-
-        spellingAndGrammarMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Corregir ortografía automáticamente"
-            case .françaisFrance:
-                return "Corriger l’orthographe automatiquement"
-
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Correct Spelling Automatically"
-            case .deutschDeutschland:
-                return "Rechtschreibung automatisch korrigieren"
-            case .ελληνικάΕλλάδα:
-                return "Αυτόματη διόρθωση ορθογραφίας"
-            case .עברית־ישראל:
-                return "תקן איות באופן אוטומטי"
-            }
-        })), action: #selector(NSTextView.toggleAutomaticSpellingCorrection(_:)))
 
         let substitutions = edit.Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {

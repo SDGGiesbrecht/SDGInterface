@@ -43,9 +43,7 @@ extension MenuBar {
             }
         })))
         find.action = #selector(NSTextView.performFindPanelAction(_:))
-        #if canImport(AppKit)
-        find.native.tag = 1
-        #endif
+        find.tag = 1
         find.hotKey = "f"
         find.hotKeyModifiers = .command
         return find
@@ -69,9 +67,7 @@ extension MenuBar {
             }
         })))
         replace.action = #selector(NSTextView.performFindPanelAction(_:))
-        #if canImport(AppKit)
-        replace.native.tag = 12
-        #endif
+        replace.tag = 12
         replace.hotKey = "f"
         replace.hotKeyModifiers = [.command, .option]
     }
@@ -94,9 +90,7 @@ extension MenuBar {
             }
         })))
         findNext.action = #selector(NSTextView.performFindPanelAction(_:))
-        #if canImport(AppKit)
-        findNext.native.tag = 2
-        #endif
+        findNext.tag = 2
         findNext.hotKey = "g"
         findNext.hotKeyModifiers = [.command]
     }
@@ -119,9 +113,7 @@ extension MenuBar {
             }
         })))
         findPrevious.action = #selector(NSTextView.performFindPanelAction(_:))
-        #if canImport(AppKit)
-        findPrevious.native.tag = 3
-        #endif
+        findPrevious.tag = 3
         findPrevious.hotKey = "G"
         findPrevious.hotKeyModifiers = [.command]
     }
@@ -144,9 +136,7 @@ extension MenuBar {
             }
         })))
         useSelectionForFind.action = #selector(NSTextView.performFindPanelAction(_:))
-        #if canImport(AppKit)
-        useSelectionForFind.native.tag = 7
-        #endif
+        useSelectionForFind.tag = 7
         useSelectionForFind.hotKey = "e"
         useSelectionForFind.hotKeyModifiers = .command
     }
