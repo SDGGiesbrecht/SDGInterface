@@ -70,6 +70,7 @@ extension MenuBar {
         if Bundle.main.infoDictionary?["CFBundleHelpBookName"] == nil {
             help.isHidden = true
         }
+        return help
     }
 
     internal static func help() -> Menu<MenuBarLocalization> {
