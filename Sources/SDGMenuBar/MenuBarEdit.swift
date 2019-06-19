@@ -92,6 +92,7 @@ extension MenuBar {
         cut.action = #selector(NSText.cut(_:))
         cut.hotKey = "x"
         cut.hotKeyModifiers = .command
+        return cut
     }
 
     private static func copy() -> MenuEntry<MenuBarLocalization> {
@@ -115,6 +116,7 @@ extension MenuBar {
         copy.action = #selector(NSText.copy(_:))
         copy.hotKey = "c"
         copy.hotKeyModifiers = .command
+        return copy
     }
 
     private static func paste() -> MenuEntry<MenuBarLocalization> {
@@ -162,6 +164,7 @@ extension MenuBar {
         pasteAndMatchStyle.action = #selector(NSTextView.pasteAsPlainText(_:))
         pasteAndMatchStyle.hotKey = "V"
         pasteAndMatchStyle.hotKeyModifiers = [.command, .option]
+        return pasteAndMatchStyle
     }
 
     private static func delete() -> MenuEntry<MenuBarLocalization> {
@@ -182,6 +185,7 @@ extension MenuBar {
             }
         })))
         delete.action = #selector(NSText.delete(_:))
+        return delete
     }
 
     private static func selectAll() -> MenuEntry<MenuBarLocalization> {
@@ -204,6 +208,7 @@ extension MenuBar {
         selectAll.action = #selector(NSResponder.selectAll(_:))
         selectAll.hotKey = "a"
         selectAll.hotKeyModifiers = .command
+        return selectAll
     }
 
     private static func showCharacterInformation() -> MenuEntry<InterfaceLocalization> {
