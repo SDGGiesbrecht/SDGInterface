@@ -90,7 +90,7 @@ extension MenuBar {
         return preferences
     }
 
-    private static func services() -> MenuEntry<MenuBarLocalization> {
+    private static func services() -> Menu<MenuBarLocalization> {
         let services = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
