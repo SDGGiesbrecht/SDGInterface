@@ -26,7 +26,7 @@ import SDGInterfaceLocalizations
 extension MenuBar {
 
     private static func showFonts() -> MenuEntry<MenuBarLocalization> {
-        let showFonts = fontMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let showFonts = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Mostrar tipos de letra"
@@ -41,14 +41,15 @@ extension MenuBar {
             case .עברית־ישראל:
                 return "הצג גופנים"
             }
-        })), action: #selector(NSFontManager.orderFrontFontPanel(_:)))
+        })))
+        showFonts.action = #selector(NSFontManager.orderFrontFontPanel(_:))
         showFonts.target = NSFontManager.shared
         showFonts.hotKey = "t"
         showFonts.hotKeyModifiers = .command
     }
 
-    private static func bold() -> Menu<MenuBarLocalization> {
-        let bold = fontMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+    private static func bold() -> MenuEntry<MenuBarLocalization> {
+        let bold = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Negrita"
@@ -63,7 +64,8 @@ extension MenuBar {
             case .עברית־ישראל:
                 return "עבה"
             }
-        })), action: #selector(NSFontManager.addFontTrait(_:)))
+        })))
+        bold.action = #selector(NSFontManager.addFontTrait(_:))
         bold.target = NSFontManager.shared
         bold.tag = 2
         bold.hotKey = "b"
@@ -71,7 +73,7 @@ extension MenuBar {
     }
 
     private static func italic() -> MenuEntry<MenuBarLocalization> {
-        let italic = fontMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let italic = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Cursiva"
@@ -88,35 +90,38 @@ extension MenuBar {
             case .עברית־ישראל:
                 return "נטוי"
             }
-        })), action: #selector(NSFontManager.addFontTrait(_:)))
+        })))
+        italic.action = #selector(NSFontManager.addFontTrait(_:))
         italic.target = NSFontManager.shared
         italic.tag = 1
         italic.hotKey = "i"
         italic.hotKeyModifiers = .command
     }
 
-    private static func underline() -> MenuEntry<MenuBarLocalization> {let underline = fontMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
-        switch localization {
-        case .españolEspaña:
-            return "Subrayado"
-        case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-            return "Underline"
-        case .deutschDeutschland:
-            return "Unterstrichen"
-        case .françaisFrance:
-            return "Souligné"
-        case .ελληνικάΕλλάδα:
-            return "Υπογράμμιση"
-        case .עברית־ישראל:
-            return "קו תחתון"
-        }
-    })), action: #selector(NSText.underline(_:)))
+    private static func underline() -> MenuEntry<MenuBarLocalization> {
+        let underline = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+            switch localization {
+            case .españolEspaña:
+                return "Subrayado"
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+                return "Underline"
+            case .deutschDeutschland:
+                return "Unterstrichen"
+            case .françaisFrance:
+                return "Souligné"
+            case .ελληνικάΕλλάδα:
+                return "Υπογράμμιση"
+            case .עברית־ישראל:
+                return "קו תחתון"
+            }
+        })))
+        underline.action = #selector(NSText.underline(_:))
         underline.hotKey = "u"
         underline.hotKeyModifiers = .command
     }
 
     private static func bigger() -> MenuEntry<MenuBarLocalization> {
-        let bigger = fontMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let bigger = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Más grande"
@@ -133,7 +138,8 @@ extension MenuBar {
             case .עברית־ישראל:
                 return "גדול יותר"
             }
-        })), action: #selector(NSFontManager.modifyFont(_:)))
+        })))
+        bigger.action = #selector(NSFontManager.modifyFont(_:))
         bigger.target = NSFontManager.shared
         bigger.tag = 3
         bigger.hotKey = "+"
@@ -141,7 +147,7 @@ extension MenuBar {
     }
 
     private static func smaller() -> MenuEntry<MenuBarLocalization> {
-        let smaller = fontMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let smaller = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Más pequeño"
@@ -157,7 +163,8 @@ extension MenuBar {
             case .עברית־ישראל:
                 return "קטן יותר"
             }
-        })), action: #selector(NSFontManager.modifyFont(_:)))
+        })))
+        smaller.action = #selector(NSFontManager.modifyFont(_:))
         smaller.target = NSFontManager.shared
         smaller.tag = 4
         smaller.hotKey = "\u{2D}"
@@ -165,7 +172,7 @@ extension MenuBar {
     }
 
     private static func showColours() -> MenuEntry<MenuBarLocalization> {
-        let showColours = fontMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let showColours = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Mostrar colores"
@@ -182,13 +189,14 @@ extension MenuBar {
             case .עברית־ישראל:
                 return "הצג צבעים"
             }
-        })), action: #selector(NSApplication.orderFrontColorPanel(_:)))
+        })))
+        showColours.action = #selector(NSApplication.orderFrontColorPanel(_:))
         showColours.hotKey = "C"
         showColours.hotKeyModifiers = .command
     }
 
     private static func copyStyle() -> Menu<MenuBarLocalization> {
-        let copyStyle = fontMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let copyStyle = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Copiar estilo"
@@ -204,13 +212,14 @@ extension MenuBar {
             case .עברית־ישראל:
                 return "העתק סגנון"
             }
-        })), action: #selector(NSText.copyFont(_:)))
+        })))
+        copyStyle.action = #selector(NSText.copyFont(_:))
         copyStyle.hotKey = "c"
         copyStyle.hotKeyModifiers = [.command, .option]
     }
 
     private static func pasteStyle() -> Menu<MenuBarLocalization> {
-        let pasteStyle = fontMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let pasteStyle = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Pegar estilo"
@@ -225,7 +234,8 @@ extension MenuBar {
             case .עברית־ישראל:
                 return "הדבק סגנון"
             }
-        })), action: #selector(NSText.pasteFont(_:)))
+        })))
+        pasteStyle.action = #selector(NSText.pasteFont(_:))
         pasteStyle.hotKey = "v"
         pasteStyle.hotKeyModifiers = [.command, .option]
     }
