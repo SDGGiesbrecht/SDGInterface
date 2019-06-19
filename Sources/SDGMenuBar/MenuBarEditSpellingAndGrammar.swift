@@ -41,7 +41,8 @@ extension MenuBar {
             case .עברית־ישראל:
                 return "הצג איות ודקדוק"
             }
-        })), action: #selector(NSText.showGuessPanel(_:)))
+        })))
+        showSpellingAndGrammar.action = #selector(NSText.showGuessPanel(_:))
         showSpellingAndGrammar.hotKey = ":"
         showSpellingAndGrammar.hotKeyModifiers = .command
     }
@@ -62,13 +63,14 @@ extension MenuBar {
             case .עברית־ישראל:
                 return "בדוק את המסמך כעת"
             }
-        })), action: #selector(NSText.checkSpelling(_:)))
+        })))
+        checkDocumentNow.action = action: #selector(NSText.checkSpelling(_:))
         checkDocumentNow.hotKey = ";"
         checkDocumentNow.hotKeyModifiers = .command
     }
 
     private static func checkSpellingWhileTyping() -> MenuEntry<MenuBarLocalization> {
-        MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let checkSpellingWhileTyping = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Comprobar ortografía mientras se escribe"
@@ -83,11 +85,12 @@ extension MenuBar {
             case .עברית־ישראל:
                 return "בדוק איות תוך כדי הקלדה"
             }
-        })), action: #selector(NSTextView.toggleContinuousSpellChecking(_:)))
+        })))
+        checkSpellingWhileTyping.action = #selector(NSTextView.toggleContinuousSpellChecking(_:))
     }
 
     private static func checkGrammarWithSpelling() -> MenuEntry<MenuBarLocalization> {
-        MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let checkGrammarWithSpelling = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Comprobar gramática con la ortografía"
@@ -102,11 +105,12 @@ extension MenuBar {
             case .עברית־ישראל:
                 return "בדוק דקדוק ביחד עם איות"
             }
-        })), action: #selector(NSTextView.toggleGrammarChecking(_:)))
+        })))
+        checkGrammarWithSpelling.action = #selector(NSTextView.toggleGrammarChecking(_:))
     }
 
     private static func correctSpellingAutomatically() -> MenuEntry<MenuBarLocalization> {
-        MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let correctSpellingAutomatically = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Corregir ortografía automáticamente"
@@ -122,7 +126,8 @@ extension MenuBar {
             case .עברית־ישראל:
                 return "תקן איות באופן אוטומטי"
             }
-        })), action: #selector(NSTextView.toggleAutomaticSpellingCorrection(_:)))
+        })))
+        correctSpellingAutomatically.action = #selector(NSTextView.toggleAutomaticSpellingCorrection(_:))
     }
 
     internal static func spellingAndGrammar() -> Menu<MenuBarLocalization> {
