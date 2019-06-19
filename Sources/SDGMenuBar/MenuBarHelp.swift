@@ -25,27 +25,7 @@ import SDGInterfaceLocalizations
 
 extension MenuBar {
 
-    internal static func help() -> Menu<MenuBarLocalization> {
-        let helpMenu = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Ayuda"
-            case .françaisFrance:
-                return "Aide"
-
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Help"
-            case .deutschDeutschland:
-                return "Hilfe"
-
-            case .ελληνικάΕλλάδα:
-                return "Βοήθεια"
-            case .עברית־ישראל:
-                return "עזרה"
-            }
-        })))
-        defer { NSApplication.shared.helpMenu = helpMenu }
-
+    private static func helpEntry() -> MenuEntry<MenuBarLocalization> {
         let helpItem = helpMenuMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
@@ -89,5 +69,31 @@ extension MenuBar {
         if Bundle.main.infoDictionary?["CFBundleHelpBookName"] == nil {
             helpItem.isHidden = true
         }
+    }
+
+    internal static func help() -> Menu<MenuBarLocalization> {
+        let help = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+            switch localization {
+            case .españolEspaña:
+                return "Ayuda"
+            case .françaisFrance:
+                return "Aide"
+
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+                return "Help"
+            case .deutschDeutschland:
+                return "Hilfe"
+
+            case .ελληνικάΕλλάδα:
+                return "Βοήθεια"
+            case .עברית־ישראל:
+                return "עזרה"
+            }
+        })))
+        help.entries = [
+            .entry(helpEntry())
+        ]
+        NSApplication.shared.helpMenu = helpMenu.native
+        return help
     }
 }
