@@ -63,4 +63,14 @@ extension AnyMenuEntry {
             native.keyEquivalentModifierMask = newValue.native
         }
     }
+
+    /// A tag to identify the menu entry.
+    public var tag: Int {
+        get {
+            return native.tag
+        }
+        set {
+            native.tag = newValue
+        }
+    }
 }
