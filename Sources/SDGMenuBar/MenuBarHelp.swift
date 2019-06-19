@@ -94,7 +94,7 @@ extension MenuBar {
         help.entries = [
             .entry(helpEntry())
         ]
-        NSApplication.shared.helpMenu = helpMenu.native
+        NSApplication.shared.helpMenu = help.native
         return help
     }
 }

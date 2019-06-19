@@ -46,6 +46,7 @@ extension MenuBar {
         showFonts.target = NSFontManager.shared
         showFonts.hotKey = "t"
         showFonts.hotKeyModifiers = .command
+        return showFonts
     }
 
     private static func bold() -> MenuEntry<MenuBarLocalization> {
@@ -70,6 +71,7 @@ extension MenuBar {
         bold.tag = 2
         bold.hotKey = "b"
         bold.hotKeyModifiers = .command
+        return bold
     }
 
     private static func italic() -> MenuEntry<MenuBarLocalization> {
@@ -96,6 +98,7 @@ extension MenuBar {
         italic.tag = 1
         italic.hotKey = "i"
         italic.hotKeyModifiers = .command
+        return italic
     }
 
     private static func underline() -> MenuEntry<MenuBarLocalization> {
@@ -118,6 +121,7 @@ extension MenuBar {
         underline.action = #selector(NSText.underline(_:))
         underline.hotKey = "u"
         underline.hotKeyModifiers = .command
+        return underline
     }
 
     private static func bigger() -> MenuEntry<MenuBarLocalization> {
@@ -144,6 +148,7 @@ extension MenuBar {
         bigger.tag = 3
         bigger.hotKey = "+"
         bigger.hotKeyModifiers = .command
+        return bigger
     }
 
     private static func smaller() -> MenuEntry<MenuBarLocalization> {
@@ -169,6 +174,7 @@ extension MenuBar {
         smaller.tag = 4
         smaller.hotKey = "\u{2D}"
         smaller.hotKeyModifiers = .command
+        return smaller
     }
 
     private static func showColours() -> MenuEntry<MenuBarLocalization> {
@@ -193,9 +199,10 @@ extension MenuBar {
         showColours.action = #selector(NSApplication.orderFrontColorPanel(_:))
         showColours.hotKey = "C"
         showColours.hotKeyModifiers = .command
+        return showColours
     }
 
-    private static func copyStyle() -> Menu<MenuBarLocalization> {
+    private static func copyStyle() -> MenuEntry<MenuBarLocalization> {
         let copyStyle = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
@@ -216,9 +223,10 @@ extension MenuBar {
         copyStyle.action = #selector(NSText.copyFont(_:))
         copyStyle.hotKey = "c"
         copyStyle.hotKeyModifiers = [.command, .option]
+        return copyStyle
     }
 
-    private static func pasteStyle() -> Menu<MenuBarLocalization> {
+    private static func pasteStyle() -> MenuEntry<MenuBarLocalization> {
         let pasteStyle = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
@@ -238,6 +246,7 @@ extension MenuBar {
         pasteStyle.action = #selector(NSText.pasteFont(_:))
         pasteStyle.hotKey = "v"
         pasteStyle.hotKeyModifiers = [.command, .option]
+        return pasteStyle
     }
 
     internal static func font() -> Menu<MenuBarLocalization> {
