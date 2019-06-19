@@ -24,28 +24,8 @@ import SDGMenus
 import SDGInterfaceLocalizations
 
 extension MenuBar {
-    internal static func window() -> Menu<MenuBarLocalization> {
-        let window = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Ventana"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Window"
 
-            case .deutschDeutschland:
-                return "Fenster"
-            case .françaisFrance:
-                return "Fenêtre"
-
-            case .ελληνικάΕλλάδα:
-                return "Παράθυρο"
-            case .עברית־ישראל:
-                return "חלון"
-            }
-        })))
-        defer { NSApplication.shared.windowsMenu = window }
-        endOfCustomMenuSection = window.parentMenuItem
-
+    private static func minimize() -> MenuEntry<MenuBarLocalization> {
         let minimize = windowMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
@@ -66,7 +46,9 @@ extension MenuBar {
         })), action: #selector(NSWindow.performMiniaturize(_:)))
         minimize.hotKey = "m"
         minimize.hotKeyModifiers = .command
+    }
 
+    private static func zoom() -> MenuEntry<MenuBarLocalization> {
         windowMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña,
@@ -83,9 +65,9 @@ extension MenuBar {
                 return "הגדל/הקטן"
             }
         })), action: #selector(NSWindow.performZoom(_:)))
+    }
 
-        window.newSeparator()
-
+    private static func bringAllToFront() -> MenuEntry<MenuBarLocalization> {
         windowMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
@@ -102,5 +84,36 @@ extension MenuBar {
                 return "הבא הכל קדימה"
             }
         })), action: #selector(NSApplication.arrangeInFront(_:)))
+    }
+
+    internal static func window() -> Menu<MenuBarLocalization> {
+        let window = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+            switch localization {
+            case .españolEspaña:
+                return "Ventana"
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+                return "Window"
+
+            case .deutschDeutschland:
+                return "Fenster"
+            case .françaisFrance:
+                return "Fenêtre"
+
+            case .ελληνικάΕλλάδα:
+                return "Παράθυρο"
+            case .עברית־ישראל:
+                return "חלון"
+            }
+        })))
+        window.entries = [
+            .entry(minimize()),
+            .entry(zoom()),
+            .separator,
+            .entry(bringAllToFront())
+        ]
+        #if canImport(AppKit)
+        NSApplication.shared.windowsMenu = window.native
+        #endif
+        return window
     }
 }
