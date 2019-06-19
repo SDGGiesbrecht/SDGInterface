@@ -26,7 +26,7 @@ import SDGInterfaceLocalizations
 extension MenuBar {
 
     private static func helpEntry() -> MenuEntry<MenuBarLocalization> {
-        let helpItem = helpMenuMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let helpItem = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 let deLaAplicación = ProcessInfo.applicationName(.español(.de))
@@ -63,11 +63,12 @@ extension MenuBar {
                     ?? MenuBar.fallbackApplicationName(quotationMarks: ("”", "“"))
                 return "עזרה עבור \(היישום)"
             }
-        })), action: #selector(NSApplication.showHelp(_:)))
-        helpItem.hotKey = "?"
-        helpItem.hotKeyModifiers = .command
+        })))
+        help.action = #selector(NSApplication.showHelp(_:))
+        help.hotKey = "?"
+        help.hotKeyModifiers = .command
         if Bundle.main.infoDictionary?["CFBundleHelpBookName"] == nil {
-            helpItem.isHidden = true
+            help.isHidden = true
         }
     }
 
