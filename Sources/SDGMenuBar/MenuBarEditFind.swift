@@ -70,6 +70,7 @@ extension MenuBar {
         replace.tag = 12
         replace.hotKey = "f"
         replace.hotKeyModifiers = [.command, .option]
+        return replace
     }
 
     private static func findNext() -> MenuEntry<MenuBarLocalization> {
@@ -93,6 +94,7 @@ extension MenuBar {
         findNext.tag = 2
         findNext.hotKey = "g"
         findNext.hotKeyModifiers = [.command]
+        return findNext
     }
 
     private static func findPrevious() -> MenuEntry<MenuBarLocalization> {
@@ -116,6 +118,7 @@ extension MenuBar {
         findPrevious.tag = 3
         findPrevious.hotKey = "G"
         findPrevious.hotKeyModifiers = [.command]
+        return findPrevious
     }
 
     private static func useSelectionForFind() -> MenuEntry<MenuBarLocalization> {
@@ -139,6 +142,7 @@ extension MenuBar {
         useSelectionForFind.tag = 7
         useSelectionForFind.hotKey = "e"
         useSelectionForFind.hotKeyModifiers = .command
+        return useSelectionForFind
     }
 
     private static func jumpToSelection() -> MenuEntry<MenuBarLocalization> {
@@ -161,6 +165,7 @@ extension MenuBar {
         jumpToSelection.action = #selector(NSResponder.centerSelectionInVisibleArea(_:))
         jumpToSelection.hotKey = "j"
         jumpToSelection.hotKeyModifiers = [.command]
+        return jumpToSelection
     }
 
     internal static func find() -> Menu<MenuBarLocalization> {
