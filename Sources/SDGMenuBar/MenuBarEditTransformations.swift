@@ -26,7 +26,7 @@ import SDGInterfaceLocalizations
 extension MenuBar {
 
     internal static func transformations() -> Menu<MenuBarLocalization> {
-        let transformations = edit.Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let transformations = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Transformaciones"
