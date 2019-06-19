@@ -28,10 +28,7 @@ extension Selector {
         @objc fileprivate func redo(_ sender: Any?) {}
         @objc fileprivate func toggleSourceList(_ sender: Any?) {}
     }
-    /// The undo action.
-    public static let undo: Selector = #selector(Responder.undo(_:))
-    /// The redo action.
-    public static let redo: Selector = #selector(Responder.redo(_:))
-    /// The action which toggles the sidebar.
-    public static let toggleSourceList: Selector = #selector(Responder.toggleSourceList(_:))
+    internal static let undo: Selector = #selector(Responder.undo(_:))
+    internal static let redo: Selector = #selector(Responder.redo(_:))
+    internal static let toggleSourceList: Selector = #selector(Responder.toggleSourceList(_:))
 }
