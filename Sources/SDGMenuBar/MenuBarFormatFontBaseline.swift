@@ -1,0 +1,133 @@
+/*
+ MenuBarFormatFontBaseline.swift
+
+ This source file is part of the SDGInterface open source project.
+ https://sdggiesbrecht.github.io/SDGInterface
+
+ Copyright ©2019 Jeremy David Giesbrecht and the SDGInterface project contributors.
+
+ Soli Deo gloria.
+
+ Licensed under the Apache Licence, Version 2.0.
+ See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
+ */
+
+#if canImport(AppKit)
+import AppKit
+#endif
+
+import SDGText
+import SDGLocalization
+
+import SDGMenus
+
+import SDGInterfaceLocalizations
+
+extension MenuBar {
+
+    internal static func baseline() -> Menu<MenuBarLocalization> {
+        let baseline = font.Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+            switch localization {
+            case .españolEspaña:
+                return "Línea base"
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+                return "Baseline"
+            case .françaisFrance:
+                return "Ligne de base"
+
+            case .deutschDeutschland:
+                return "Schriftlinie"
+            case .ελληνικάΕλλάδα:
+                return "Γραμμή βάσης"
+            case .עברית־ישראל:
+                return "קו בסיס"
+            }
+        })))
+
+        baselineMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+            switch localization {
+            case .españolEspaña:
+                return "Valor por omisión"
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+                return "Use Default"
+            case .deutschDeutschland:
+                return "Normal"
+            case .françaisFrance:
+                return "Valeur par défaut"
+            case .ελληνικάΕλλάδα:
+                return "Χρήση προεπιλογής"
+            case .עברית־ישראל:
+                return "השתמש בברירת המחדל"
+            }
+        })), action: #selector(NSTextView.resetBaseline(_:)))
+
+        baselineMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+            switch localization {
+            case .españolEspaña:
+                return "Superíndice"
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+                return "Superscript"
+            case .deutschDeutschland:
+                return "Hochgestellt"
+            case .françaisFrance:
+                return "Exposant"
+            case .ελληνικάΕλλάδα:
+                return "Εκθέτης"
+            case .עברית־ישראל:
+                return "כתב עילי"
+            }
+        })), action: #selector(NSTextView.makeSuperscript(_:)))
+
+        baselineMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+            switch localization {
+            case .españolEspaña:
+                return "Subíndice"
+            case .françaisFrance:
+                return "Indice"
+
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+                return "Subscript"
+            case .deutschDeutschland:
+                return "Tiefgestellt"
+            case .ελληνικάΕλλάδα:
+                return "Δεικτής"
+            case .עברית־ישראל:
+                return "כתב תחתי"
+            }
+        })), action: #selector(NSTextView.makeSubscript(_:)))
+
+        baselineMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+            switch localization {
+            case .españolEspaña:
+                return "Subir"
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+                return "Raise"
+            case .deutschDeutschland:
+                return "Höher"
+            case .françaisFrance:
+                return "Élever"
+            case .ελληνικάΕλλάδα:
+                return "Ανύψωση"
+            case .עברית־ישראל:
+                return "הגבה"
+            }
+        })), action: #selector(NSTextView.raiseBaseline(_:)))
+
+        baselineMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+            switch localization {
+            case .españolEspaña:
+                return "Bajar"
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+                return "Lower"
+            case .deutschDeutschland:
+                return "Niedriger"
+            case .françaisFrance:
+                return "Abaisser"
+            case .ελληνικάΕλλάδα:
+                return "Χαμήλωμα"
+            case .עברית־ישראל:
+                return "נמוך יותר"
+            }
+        })), action: #selector(NSTextView.lowerBaseline(_:)))
+    }
+}
