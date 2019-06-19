@@ -26,7 +26,7 @@ import SDGInterfaceLocalizations
 extension MenuBar {
 
     private static func minimize() -> MenuEntry<MenuBarLocalization> {
-        let minimize = windowMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let minimize = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Minimizar"
@@ -43,13 +43,15 @@ extension MenuBar {
             case .עברית־ישראל:
                 return "מזער"
             }
-        })), action: #selector(NSWindow.performMiniaturize(_:)))
+        })))
+        minimize.action = #selector(NSWindow.performMiniaturize(_:))
         minimize.hotKey = "m"
         minimize.hotKeyModifiers = .command
+        return minimize
     }
 
     private static func zoom() -> MenuEntry<MenuBarLocalization> {
-        windowMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let zoom = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña,
                  .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
@@ -64,11 +66,13 @@ extension MenuBar {
             case .עברית־ישראל:
                 return "הגדל/הקטן"
             }
-        })), action: #selector(NSWindow.performZoom(_:)))
+        })))
+        zoom.action = #selector(NSWindow.performZoom(_:))
+        return zoom
     }
 
     private static func bringAllToFront() -> MenuEntry<MenuBarLocalization> {
-        windowMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let bringAllToFront = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Traer todo al frente"
@@ -83,7 +87,9 @@ extension MenuBar {
             case .עברית־ישראל:
                 return "הבא הכל קדימה"
             }
-        })), action: #selector(NSApplication.arrangeInFront(_:)))
+        })))
+        bringAllToFront.action = #selector(NSApplication.arrangeInFront(_:))
+        return bringAllToFront
     }
 
     internal static func window() -> Menu<MenuBarLocalization> {
