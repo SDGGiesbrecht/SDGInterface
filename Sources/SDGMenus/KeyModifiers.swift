@@ -43,7 +43,7 @@ public struct KeyModifiers : OptionSet {
 
     #if canImport(AppKit)
     /// Creates key modifiers from native flags.
-    public init(native: NSEvent.ModifierFlags) {
+    public init(_ native: NSEvent.ModifierFlags) {
         self.init()
         if native.contains(.command) {
             insert(.command)

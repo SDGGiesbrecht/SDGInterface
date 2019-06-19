@@ -44,13 +44,23 @@ extension AnyMenuEntry {
         }
     }
 
-    /// The hotkey.
+    /// The hot key.
     public var hotKey: String {
         get {
             return native.keyEquivalent
         }
         set {
             native.keyEquivalent = newValue
+        }
+    }
+
+    /// The hot key modifiers.
+    public var hotKeyModifiers: KeyModifiers {
+        get {
+            return KeyModifiers(native.keyEquivalentModifierMask)
+        }
+        set {
+            native.keyEquivalentModifierMask = newValue.native
         }
     }
 }
