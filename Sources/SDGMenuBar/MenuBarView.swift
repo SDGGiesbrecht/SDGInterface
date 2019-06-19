@@ -45,10 +45,11 @@ extension MenuBar {
         showToolbar.action = #selector(NSWindow.toggleToolbarShown(_:))
         showToolbar.hotKey = "t"
         showToolbar.hotKeyModifiers = [.command, .option]
+        return showToolbar
     }
 
-    private static func customizeToolBar() -> MenuEntry<MenuBarLocalization> {
-        let customizeToolBar = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+    private static func customizeToolbar() -> MenuEntry<MenuBarLocalization> {
+        let customizeToolbar = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Personalizar barra de herramientas..."
@@ -66,8 +67,8 @@ extension MenuBar {
                 return "התאמה אישית של סרגל הכלים..."
             }
         })))
-        customizeToolBar.action = #selector(NSWindow.runToolbarCustomizationPalette(_:))
-        return customizeToolBar
+        customizeToolbar.action = #selector(NSWindow.runToolbarCustomizationPalette(_:))
+        return customizeToolbar
     }
 
     private static func showSideBar() -> MenuEntry<MenuBarLocalization> {
@@ -90,6 +91,7 @@ extension MenuBar {
         showSideBar.action = Selector.toggleSourceList
         showSideBar.hotKey = "s"
         showSideBar.hotKeyModifiers = [.command, .control]
+        return showSideBar
     }
 
     private static func enterFullScreen() -> Menu<MenuBarLocalization> {
@@ -112,6 +114,7 @@ extension MenuBar {
         enterFullScreen.action = #selector(NSWindow.toggleFullScreen(_:))
         enterFullScreen.hotKey = "f"
         enterFullScreen.hotKeyModifiers = [.command, .control]
+        return enterFullScreen
     }
 
     internal static func view() -> Menu<MenuBarLocalization> {
