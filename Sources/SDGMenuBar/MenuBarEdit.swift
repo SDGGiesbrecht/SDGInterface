@@ -64,7 +64,8 @@ extension MenuBar {
             case .עברית־ישראל:
                 return "חזור על הפעולה האחרונה"
             }
-        })), action: #selector(Responder.redo(_:)))
+        })))
+        redo.action = Selector.redo
         redo.hotKey = "Z"
         redo.hotKeyModifiers = .command
         return redo
