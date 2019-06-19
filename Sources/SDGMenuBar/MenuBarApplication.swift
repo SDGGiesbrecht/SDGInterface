@@ -84,7 +84,7 @@ extension MenuBar {
                 return "העדפות..."
             }
         })))
-        preferences.action = Selector.openPreferences
+        preferences.action = #selector(_NSApplicationDelegateProtocol.openPreferences(_:))
         preferences.hotKey = ","
         preferences.hotKeyModifiers = .command
         return preferences

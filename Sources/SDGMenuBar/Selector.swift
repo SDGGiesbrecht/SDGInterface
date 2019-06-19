@@ -17,12 +17,6 @@ import AppKit
 #endif
 
 extension Selector {
-
-    // MARK: - Static Properties
-
-    /// The action which opens the preferences.
-    public static let openPreferences: Selector = #selector(_NSApplicationDelegateProtocol.openPreferences(_:))
-
     private class Responder : NSObject {
         @objc fileprivate func undo(_ sender: Any?) {}
         @objc fileprivate func redo(_ sender: Any?) {}
