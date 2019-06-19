@@ -25,6 +25,19 @@ import SDGInterfaceLocalizations
 
 extension MenuBar {
 
+    private static func normalizeText() -> MenuEntry<InterfaceLocalization> {
+        let normalizeText = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishUnitedKingdom:
+                return "Normalise Text"
+            case .englishUnitedStates, .englishCanada:
+                return "Normalize Text"
+            }
+        })))
+        normalizeText.action = #selector(NSTextView.normalizeText(_:))
+        return normalizeText
+    }
+
     internal static func transformations() -> Menu<MenuBarLocalization> {
         let transformations = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -42,20 +55,15 @@ extension MenuBar {
                 return "המרות"
             }
         })))
+        transformations.entries = [
+            .entry(normalizeText())
 
-        transformations.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishUnitedKingdom:
-                return "Normalise Text"
-            case .englishUnitedStates, .englishCanada:
-                return "Normalize Text"
-            }
-        })), action: #selector(NSTextView.normalizeText(_:)))
+            // “Make Upper Case” does not belong here. Upper‐case‐only is a font style, not a semantic aspect of the text. Attempting to fake it by switching to capital letters (a) results in semantically incorrect text, and (b) is irreversable. A font‐based version is available under the “Font” menu instead.
 
-        // “Make Upper Case” does not belong here. Upper‐case‐only is a font style, not a semantic aspect of the text. Attempting to fake it by switching to capital letters (a) results in semantically incorrect text, and (b) is irreversable. A font‐based version is available under the “Font” menu instead.
+            // “Make Lower Case” is never useful. Instead, reversion from an upper‐case‐only font style to normally cased font—which preserves true capitals—is available under the “Font” menu.
 
-        // “Make Lower Case” is never useful. Instead, reversion from an upper‐case‐only font style to normally cased font—which preserves true capitals—is available under the “Font” menu.
-
-        // “Capitalize” is just not possible for a machine to do properly in any language.
+            // “Capitalize” is just not possible for a machine to do properly in any language.
+        ]
+        return transformations
     }
 }
