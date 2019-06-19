@@ -26,7 +26,7 @@ import SDGInterfaceLocalizations
 extension MenuBar {
 
     private static func showSpellingAndGrammar() -> MenuEntry<MenuBarLocalization> {
-        let showSpellingAndGrammar = spellingAndGrammarMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let showSpellingAndGrammar = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Mostrar ortografía y gramática"
@@ -47,7 +47,7 @@ extension MenuBar {
     }
 
     private static func checkDocumentNow() -> MenuEntry<MenuBarLocalization> {
-        let checkDocumentNow = spellingAndGrammarMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let checkDocumentNow = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Comprobar documento ahora"
@@ -68,7 +68,7 @@ extension MenuBar {
     }
 
     private static func checkSpellingWhileTyping() -> MenuEntry<MenuBarLocalization> {
-        spellingAndGrammarMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Comprobar ortografía mientras se escribe"
@@ -87,7 +87,7 @@ extension MenuBar {
     }
 
     private static func checkGrammarWithSpelling() -> MenuEntry<MenuBarLocalization> {
-        spellingAndGrammarMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Comprobar gramática con la ortografía"
@@ -106,7 +106,7 @@ extension MenuBar {
     }
 
     private static func correctSpellingAutomatically() -> MenuEntry<MenuBarLocalization> {
-        spellingAndGrammarMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Corregir ortografía automáticamente"
