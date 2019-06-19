@@ -48,6 +48,9 @@ public final class MenuBar {
                 return "Menu Bar"
             }
         })))
+        menu.entries = [
+            .submenu(application())
+        ]
 
         initializeApplicationMenu()
         initializeFileMenu()

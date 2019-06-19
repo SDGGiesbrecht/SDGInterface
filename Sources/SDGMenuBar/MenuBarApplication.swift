@@ -241,7 +241,7 @@ extension MenuBar {
         quit.hotKeyModifiers = .command
     }
 
-    private static func applicationMenu() -> Menu<ApplicationNameLocalization> {
+    internal static func application() -> Menu<ApplicationNameLocalization> {
         let application = Menu(label: .static(ApplicationNameForm.localizedIsolatedForm))
         application.entries = [
             .entry(about()),
