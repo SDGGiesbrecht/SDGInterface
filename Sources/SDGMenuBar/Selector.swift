@@ -22,4 +22,11 @@ extension Selector {
 
     /// The action which opens the preferences.
     public static let openPreferences: Selector = #selector(_NSApplicationDelegateProtocol.openPreferences(_:))
+
+    private class Responder : NSObject {
+        @objc fileprivate func undo(_ sender: Any?) {}
+        @objc fileprivate func redo(_ sender: Any?) {}
+    }
+    public static let undo: Selector = #selector(Responder.undo(_:))
+    public static let redo: Selector = #selector(Responder.redo(_:))
 }
