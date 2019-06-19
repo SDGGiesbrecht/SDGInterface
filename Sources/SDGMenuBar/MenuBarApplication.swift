@@ -25,7 +25,7 @@ import SDGMenus
 import SDGInterfaceLocalizations
 
 extension MenuBar {
-    private static func about() -> AnyMenuEntry {
+    private static func about() -> MenuEntry<MenuBarLocalization> {
         let about = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
@@ -66,7 +66,7 @@ extension MenuBar {
         return about
     }
 
-    private static func preferences() -> AnyMenuEntry {
+    private static func preferences() -> MenuEntry<MenuBarLocalization> {
         let preferences = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
@@ -86,11 +86,11 @@ extension MenuBar {
         })))
         preferences.action = Selector.openPreferences
         preferences.hotKey = ","
-        preferences.keyEquivalentModifierMask = .command
+        preferences.hotKeyModifiers = .command
         return preferences
     }
 
-    private static func services() -> AnyMenu {
+    private static func services() -> MenuEntry<MenuBarLocalization> {
         let services = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
@@ -110,8 +110,8 @@ extension MenuBar {
         return services
     }
 
-    private static func hide() -> AnyMenuEntry {
-        let hide = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+    private static func hide() -> MenuEntry<MenuBarLocalization> {
+        let hide = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 let laAplicación = ProcessInfo.applicationName(.español(.ninguna))
@@ -146,14 +146,15 @@ extension MenuBar {
                     ?? MenuBar.fallbackApplicationName(quotationMarks: ("”", "“"))
                 return "הסתר את \(היישום)"
             }
-        })), action: #selector(NSApplication.hide(_:)))
+        })))
+        hide.action = #selector(NSApplication.hide(_:))
         hide.hotKey = "h"
-        hide.keyEquivalentModifierMask = .command
+        hide.hotKeyModifiers = .command
         return hide
     }
 
-    private static func hideOthers() -> AnyMenuEntry {
-        let hideOthers = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+    private static func hideOthers() -> MenuEntry<MenuBarLocalization> {
+        let hideOthers = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Ocultar otros"
@@ -168,30 +169,15 @@ extension MenuBar {
             case .עברית־ישראל:
                 return "הסתר אחרים"
             }
-        })), action: #selector(NSApplication.hideOtherApplications(_:)))
+        })))
+        hideOthers.action = #selector(NSApplication.hideOtherApplications(_:))
         hideOthers.hotKey = "h"
-        hideOthers.keyEquivalentModifierMask = [.option, .command]
+        hideOthers.hotKeyModifiers = [.option, .command]
         return hideOthers
     }
 
-    private static func applicationMenu() -> Menu<ApplicationNameLocalization> {
-        let application = Menu(label: .static(ApplicationNameForm.localizedIsolatedForm))
-        application.entries = [
-            .entry(about()),
-            .separator,
-            .entry(preferences()),
-            .separator,
-            .submenu(services()),
-            .separator,
-            .entry(hide()),
-            .entry(hideOthers())
-        ]
-
-
-
-
-
-        Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+    private static func showAll() -> MenuEntry<MenuBarLocalization> {
+        let showAll = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Mostrar todo"
@@ -206,11 +192,13 @@ extension MenuBar {
             case .עברית־ישראל:
                 return "הצג הכול"
             }
-        })), action: #selector(NSApplication.unhideAllApplications(_:)))
+        })))
+        showAll.action = #selector(NSApplication.unhideAllApplications(_:))
+        return showAll
+    }
 
-        application.newSeparator()
-
-        let quit = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+    private static func quit() -> MenuEntry<MenuBarLocalization> {
+        let quit = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 let deLaAplicación = ProcessInfo.applicationName(.español(.de))
@@ -247,8 +235,26 @@ extension MenuBar {
                     ?? MenuBar.fallbackApplicationName(quotationMarks: ("”", "“"))
                 return "סיים את \(היישום)"
             }
-        })), action: #selector(NSApplication.terminate(_:)))
+        })))
+        quit.action = #selector(NSApplication.terminate(_:))
         quit.hotKey = "q"
-        quit.keyEquivalentModifierMask = .command
+        quit.hotKeyModifiers = .command
+    }
+
+    private static func applicationMenu() -> Menu<ApplicationNameLocalization> {
+        let application = Menu(label: .static(ApplicationNameForm.localizedIsolatedForm))
+        application.entries = [
+            .entry(about()),
+            .separator,
+            .entry(preferences()),
+            .separator,
+            .submenu(services()),
+            .separator,
+            .entry(hide()),
+            .entry(hideOthers()),
+            .entry(showAll()),
+            .separator,
+        ]
+        return application
     }
 }
