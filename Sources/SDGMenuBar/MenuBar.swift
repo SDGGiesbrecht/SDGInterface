@@ -57,7 +57,6 @@ public final class MenuBar {
             .submenu(MenuBar.window()),
             .submenu(MenuBar.help())
         ]
-
         menuDidSet()
     }
 
@@ -73,9 +72,6 @@ public final class MenuBar {
         NSApplication.shared.mainMenu = menu.native
         #endif
     }
-
-    private var endOfPreferenceSection: NSMenuItem!
-    private var endOfCustomMenuSection: NSMenuItem!
 
     // MARK: - Modification
 
@@ -103,26 +99,4 @@ public final class MenuBar {
         result.append(contentsOf: quotationMarks.trailing)
         return result
     }
-}
-
-#endif
-
-#if !os(tvOS)
-internal enum MenuLabels {
-
-    static let normalizeText = Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-        switch localization {
-        case .englishUnitedKingdom:
-            return "Normalise Text"
-        case .englishUnitedStates, .englishCanada:
-            return "Normalize Text"
-        }
-    }))
-
-    static let showCharacterInformation = Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-        switch localization {
-        case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-            return "Show Character Information"
-        }
-    }))
 }

@@ -394,7 +394,14 @@ extension MenuBar {
             }
         })))
 
-        transformations.newEntry(labelled: MenuLabels.normalizeText, action: #selector(NSTextView.normalizeText(_:)))
+        transformations.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishUnitedKingdom:
+                return "Normalise Text"
+            case .englishUnitedStates, .englishCanada:
+                return "Normalize Text"
+            }
+        })), action: #selector(NSTextView.normalizeText(_:)))
 
         // “Make Upper Case” does not belong here. Upper‐case‐only is a font style, not a semantic aspect of the text. Attempting to fake it by switching to capital letters (a) results in semantically incorrect text, and (b) is irreversable. A font‐based version is available under the “Font” menu instead.
 
@@ -402,7 +409,12 @@ extension MenuBar {
 
         // “Capitalize” is just not possible for a machine to do properly in any language.
 
-        edit.newEntry(labelled: MenuLabels.showCharacterInformation, action: #selector(NSTextView.showCharacterInformation(_:)))
+        edit.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+                return "Show Character Information"
+            }
+        })), action: #selector(NSTextView.showCharacterInformation(_:)))
 
         let speech = edit.Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
