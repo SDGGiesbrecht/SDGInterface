@@ -25,23 +25,7 @@ import SDGInterfaceLocalizations
 
 extension MenuBar {
 
-    internal static func text() -> Menu<MenuBarLocalization> {
-        let text = format.Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Texto"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada,
-                 .deutschDeutschland:
-                return "Text"
-            case .françaisFrance:
-                return "Texte"
-            case .ελληνικάΕλλάδα:
-                return "Κείμενο"
-            case .עברית־ישראל:
-                return "מלל"
-            }
-        })))
-
+    private static func alignRight() -> MenuEntry<MenuBarLocalization> {
         let alignRight = textMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
@@ -60,7 +44,9 @@ extension MenuBar {
         })), action: #selector(NSText.alignRight(_:)))
         alignRight.hotKey = "}"
         alignRight.hotKeyModifiers = .command
+    }
 
+    private static func centre() -> MenuEntry<MenuBarLocalization> {
         let centre = textMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
@@ -82,7 +68,9 @@ extension MenuBar {
         })), action: #selector(NSText.alignCenter(_:)))
         centre.hotKey = "|"
         centre.hotKeyModifiers = .command
+    }
 
+    private static func justify() -> MenuEntry<MenuBarLocalization> {
         textMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
@@ -100,7 +88,9 @@ extension MenuBar {
                 return "יישר לשני הצדדים"
             }
         })), action: #selector(NSTextView.alignJustified(_:)))
+    }
 
+    private static func alignLeft() -> MenuEntry<MenuBarLocalization> {
         let alignLeft = textMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
@@ -119,136 +109,9 @@ extension MenuBar {
         })), action: #selector(NSText.alignLeft(_:)))
         alignLeft.hotKey = "{"
         alignLeft.hotKeyModifiers = .command
+    }
 
-        text.newSeparator()
-
-        let writingDirection = text.Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Sentido de la escritura"
-            case .françaisFrance:
-                return "Sens de l’écriture"
-
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Writing Direction"
-            case .deutschDeutschland:
-                return "Richtung beim Schreiben"
-            case .ελληνικάΕλλάδα:
-                return "Κατεύθυνση γραφής"
-            case .עברית־ישראל:
-                return "כיווניות הכתיבה"
-            }
-        })))
-
-        writingDirectionMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Párrafo"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Paragraph"
-            case .françaisFrance:
-                return "Paragraphe"
-            case .ελληνικάΕλλάδα:
-                return "Παράγραφος"
-
-            case .deutschDeutschland:
-                return "Absatz"
-            case .עברית־ישראל:
-                return "פיסקה"
-            }
-        })))
-
-        let `default` = UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Por omisión"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Default"
-            case .françaisFrance:
-                return "Par défaut"
-            case .deutschDeutschland:
-                return "Standard"
-            case .ελληνικάΕλλάδα:
-                return "Προεπιλογή"
-            case .עברית־ישראל:
-                return "ברירת־המחדל"
-            }
-        })
-
-        let rightToLeft = UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "De derecha a izquierda"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Right to Left"
-            case .deutschDeutschland:
-                return "Von rechts nach links"
-            case .françaisFrance:
-                return "De droite à gauche"
-            case .ελληνικάΕλλάδα:
-                return "Δεξιά προς αριστερά"
-            case .עברית־ישראל:
-                return "מימין לשמאל"
-            }
-        })
-
-        let leftToRight = UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "De izquierda a derecha"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Left to Right"
-            case .deutschDeutschland:
-                return "Von links nach rechts"
-            case .françaisFrance:
-                return "De gauche à droite"
-            case .ελληνικάΕλλάδα:
-                return "Αριστερά προς δεξιά"
-            case .עברית־ישראל:
-                return "משמאל לימין"
-            }
-        })
-
-        let paragraphDefault = writingDirectionMenuEntry(label: .static(`default`), action: #selector(NSResponder.makeBaseWritingDirectionNatural(_:)))
-        paragraphDefault.indentationLevel = 1
-
-        let paragraphRightToLeft = writingDirectionMenuEntry(label: .static(rightToLeft), action: #selector(NSResponder.makeBaseWritingDirectionRightToLeft(_:)))
-        paragraphRightToLeft.indentationLevel = 1
-
-        let paragraphLeftToRight = writingDirectionMenuEntry(label: .static(leftToRight), action: #selector(NSResponder.makeBaseWritingDirectionLeftToRight(_:)))
-        paragraphLeftToRight.indentationLevel = 1
-
-        writingDirection.newSeparator()
-
-        writingDirectionMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Selección"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Selection"
-            case .françaisFrance:
-                return "Sélection"
-
-            case .deutschDeutschland:
-                return "Auswahl"
-            case .ελληνικάΕλλάδα:
-                return "Επιλογή"
-            case .עברית־ישראל:
-                return "בחירה"
-            }
-        })))
-
-        let selectionDefault = writingDirectionMenuEntry(label: .static(`default`), action: #selector(NSResponder.makeTextWritingDirectionNatural(_:)))
-        selectionDefault.indentationLevel = 1
-
-        let selectionRightToLeft = writingDirectionMenuEntry(label: .static(rightToLeft), action: #selector(NSResponder.makeTextWritingDirectionRightToLeft(_:)))
-        selectionRightToLeft.indentationLevel = 1
-
-        let selectionLeftToRight = writingDirectionMenuEntry(label: .static(leftToRight), action: #selector(NSResponder.makeTextWritingDirectionLeftToRight(_:)))
-        selectionLeftToRight.indentationLevel = 1
-
-        text.newSeparator()
-
+    private static func showRuler() -> MenuEntry<MenuBarLocalization> {
         textMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
@@ -265,7 +128,9 @@ extension MenuBar {
                 return "הצג סרגל"
             }
         })), action: #selector(NSText.toggleRuler(_:)))
+    }
 
+    private static func copyRuler() -> MenuEntry<MenuBarLocalization> {
         let copyRuler = textMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
@@ -285,7 +150,9 @@ extension MenuBar {
         })), action: #selector(NSText.copyRuler(_:)))
         copyRuler.hotKey = "c"
         copyRuler.hotKeyModifiers = [.command, .control]
+    }
 
+    private static func pasteRuler() -> MenuEntry<MenuBarLocalization> {
         let pasteRuler = textMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
@@ -304,5 +171,36 @@ extension MenuBar {
         })), action: #selector(NSText.pasteRuler(_:)))
         pasteRuler.hotKey = "v"
         pasteRuler.hotKeyModifiers = [.command, .control]
+    }
+
+    internal static func text() -> Menu<MenuBarLocalization> {
+        let text = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+            switch localization {
+            case .españolEspaña:
+                return "Texto"
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada,
+                 .deutschDeutschland:
+                return "Text"
+            case .françaisFrance:
+                return "Texte"
+            case .ελληνικάΕλλάδα:
+                return "Κείμενο"
+            case .עברית־ישראל:
+                return "מלל"
+            }
+        })))
+        text.entries = [
+            .entry(alignRight()),
+            .entry(centre()),
+            .entry(justify())
+            .entry(alignLeft()),
+            .separator,
+            .submenu(writingDirection()),
+            .separator,
+            .entry(showRuler()),
+            .entry(copyRuler()),
+            .entry(pasteRuler())
+        ]
+        return text
     }
 }
