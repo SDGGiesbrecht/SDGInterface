@@ -206,12 +206,14 @@ extension MenuBar {
     }
 
     private static func showCharacterInformation() -> MenuEntry<InterfaceLocalization> {
-        edit.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        let showCharacterInformation = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Show Character Information"
             }
-        })), action: #selector(NSTextView.showCharacterInformation(_:)))
+        })))
+        showCharacterInformation.action = #selector(NSTextView.showCharacterInformation(_:))
+        return showCharacterInformation
     }
 
     internal static func edit() -> Menu<MenuBarLocalization> {
@@ -245,7 +247,8 @@ extension MenuBar {
             .submenu(find()),
             .submenu(spellingAndGrammar()),
             .submenu(substitutions()),
-            .entry(showCharacterInformation())
+            .entry(showCharacterInformation()),
+            .submenu(speech())
         ]
         return edit
     }
