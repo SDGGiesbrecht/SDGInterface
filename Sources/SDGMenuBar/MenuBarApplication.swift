@@ -239,6 +239,7 @@ extension MenuBar {
         quit.action = #selector(NSApplication.terminate(_:))
         quit.hotKey = "q"
         quit.hotKeyModifiers = .command
+        return quit
     }
 
     internal static func application() -> Menu<ApplicationNameLocalization> {
