@@ -49,10 +49,9 @@ public final class MenuBar {
             }
         })))
         menu.entries = [
-            .submenu(application())
+            .submenu(MenuBar.application())
         ]
 
-        initializeApplicationMenu()
         initializeFileMenu()
         initializeEditMenu()
         initializeFormatMenu()
@@ -106,252 +105,13 @@ public final class MenuBar {
         return result
     }
 
-    private func initializeFileMenu() {
-
-        let file = newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Archivo"
-            case .ελληνικάΕλλάδα:
-                return "Αρχείο"
-
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "File"
-            case .deutschDeutschland:
-                return "Ablage"
-            case .françaisFrance:
-                return "Fichier"
-            case .עברית־ישראל:
-                return "קובץ"
-            }
-        })))
-
-        let new = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Nuevo"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "New"
-            case .deutschDeutschland:
-                return "Neu"
-            case .françaisFrance:
-                return "Nouveau"
-
-            case .ελληνικάΕλλάδα:
-                return "Δημιουργία"
-            case .עברית־ישראל:
-                return "חדש"
-            }
-        })), action: #selector(NSDocumentController.newDocument(_:)))
-        new.native.keyEquivalent = "n"
-        new.native.keyEquivalentModifierMask = .command
-
-        let open = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Abrir..."
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Open..."
-            case .deutschDeutschland:
-                return "Öffnen ..."
-
-            case .françaisFrance:
-                return "Ouvrir..."
-            case .ελληνικάΕλλάδα:
-                return "Άνοιγμα..."
-            case .עברית־ישראל:
-                return "פתח..."
-            }
-        })), action: #selector(NSDocumentController.openDocument(_:)))
-        open.native.keyEquivalent = "o"
-        open.native.keyEquivalentModifierMask = .command
-
-        let openRecent = file.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Abrir recientes"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Open Recent"
-            case .deutschDeutschland:
-                return "Benutzte Dokumente"
-            case .françaisFrance:
-                return "Ouvrir l’élément récent"
-            case .ελληνικάΕλλάδα:
-                return "Άνοιγμα προσφάτου"
-            case .עברית־ישראל:
-                return "פתח אחרונים"
-            }
-        })))
-
-        openRecent.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Vaciar menú"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Clear Menu"
-            case .deutschDeutschland:
-                return "Einträge löschen"
-            case .françaisFrance:
-                return "Effacer le menu"
-            case .ελληνικάΕλλάδα:
-                return "Εκκαθάριση μενού"
-            case .עברית־ישראל:
-                return "נקה תפריט"
-            }
-        })), action: #selector(NSDocumentController.clearRecentDocuments(_:)))
-
-        file.newSeparator()
-
-        let close = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Cerrar"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Close"
-            case .deutschDeutschland:
-                return "Schließen"
-            case .françaisFrance:
-                return "Fermer"
-            case .ελληνικάΕλλάδα:
-                return "Κλείσιμο"
-            case .עברית־ישראל:
-                return "סגור"
-            }
-        })), action: #selector(NSWindow.performClose(_:)))
-        close.native.keyEquivalent = "w"
-        close.native.keyEquivalentModifierMask = .command
-
-        let save = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Guardar"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Save"
-            case .deutschDeutschland:
-                return "Sichern"
-            case .françaisFrance:
-                return "Enregistrer"
-            case .ελληνικάΕλλάδα:
-                return "Αποθήκευση"
-            case .עברית־ישראל:
-                return "שמור"
-            }
-        })), action: #selector(NSDocument.save(_:)))
-        save.native.keyEquivalent = "s"
-        save.native.keyEquivalentModifierMask = .command
-
-        let duplicate = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Duplicar"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Duplicate"
-            case .deutschDeutschland:
-                return "Duplizieren"
-            case .françaisFrance:
-                return "Dupliquer"
-
-            case .ελληνικάΕλλάδα:
-                return "Διπλότυπο"
-            case .עברית־ישראל:
-                return "שכפל"
-            }
-        })), action: #selector(NSDocument.duplicate(_:)))
-        duplicate.native.keyEquivalent = "S"
-        duplicate.native.keyEquivalentModifierMask = .command
-
-        file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Renombrar..."
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Rename..."
-            case .françaisFrance:
-                return "Renommer..."
-
-            case .deutschDeutschland:
-                return "Umbenennen ..."
-            case .ελληνικάΕλλάδα:
-                return "Μετανομασία..."
-            case .עברית־ישראל:
-                return "שינוי שם..."
-            }
-        })), action: #selector(NSDocument.rename(_:)))
-
-        file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Trasladar a..."
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Move to..."
-            case .deutschDeutschland:
-                return "Bewegen ..."
-            case .françaisFrance:
-                return "Déplacer vers..."
-            case .ελληνικάΕλλάδα:
-                return "Μετακίνηση σε..."
-            case .עברית־ישראל:
-                return "העבר אל..."
-            }
-        })), action: #selector(NSDocument.move(_:)))
-
-        let revertToSaved = file.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Revert to Saved"
-            }
-        })), action: #selector(NSDocument.revertToSaved(_:)))
-        revertToSaved.native.keyEquivalent = "r"
-        revertToSaved.native.keyEquivalentModifierMask = .command
-
-        file.newSeparator()
-
-        let pageSetUp = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Ajustar página..."
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Page Set‐Up..."
-            case .deutschDeutschland:
-                return "Papierformat ..."
-            case .françaisFrance:
-                return "Format d’impression..."
-            case .ελληνικάΕλλάδα:
-                return "Διαμόρφωση σελίδας..."
-            case .עברית־ישראל:
-                return "הגדרת עמוד..."
-            }
-        })), action: #selector(NSDocument.runPageLayout(_:)))
-        pageSetUp.native.keyEquivalent = "P"
-        pageSetUp.native.keyEquivalentModifierMask = .command
-
-        let print = file.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Imprimir..."
-            case .françaisFrance:
-                return "Imprimer..."
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Print..."
-            case .deutschDeutschland:
-                return "Drucken ..."
-            case .ελληνικάΕλλάδα:
-                return "Εκτύπωση..."
-            case .עברית־ישראל:
-                return "הדפס..."
-            }
-        })), action: #selector(NSView.printView(_:)))
-        print.native.keyEquivalent = "p"
-        print.native.keyEquivalentModifierMask = .command
-    }
-
     private func initializeEditMenu() {
         class Responder : NSObject {
             @objc func undo(_ sender: Any?) {}
             @objc func redo(_ sender: Any?) {}
         }
 
-        let edit = newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let edit = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Edición"
@@ -368,7 +128,7 @@ public final class MenuBar {
             }
         })))
 
-        let undo = edit.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let undo = editMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Deshacer"
@@ -384,10 +144,10 @@ public final class MenuBar {
                 return "בטל"
             }
         })), action: #selector(Responder.undo(_:)))
-        undo.native.keyEquivalent = "z"
-        undo.native.keyEquivalentModifierMask = .command
+        undo.hotKey = "z"
+        undo.hotKeyModifiers = .command
 
-        let redo = edit.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let redo = editMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Rehacer"
@@ -403,12 +163,12 @@ public final class MenuBar {
                 return "חזור על הפעולה האחרונה"
             }
         })), action: #selector(Responder.redo(_:)))
-        redo.native.keyEquivalent = "Z"
-        redo.native.keyEquivalentModifierMask = .command
+        redo.hotKey = "Z"
+        redo.hotKeyModifiers = .command
 
         edit.newSeparator()
 
-        let cut = edit.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let cut = editMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Cortar"
@@ -424,10 +184,10 @@ public final class MenuBar {
                 return "גזור"
             }
         })), action: #selector(NSText.cut(_:)))
-        cut.native.keyEquivalent = "x"
-        cut.native.keyEquivalentModifierMask = .command
+        cut.hotKey = "x"
+        cut.hotKeyModifiers = .command
 
-        let copy = edit.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let copy = editMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Copiar"
@@ -444,10 +204,10 @@ public final class MenuBar {
                 return "העתק"
             }
         })), action: #selector(NSText.copy(_:)))
-        copy.native.keyEquivalent = "c"
-        copy.native.keyEquivalentModifierMask = .command
+        copy.hotKey = "c"
+        copy.hotKeyModifiers = .command
 
-        let paste = edit.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let paste = editMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Pegar"
@@ -465,10 +225,10 @@ public final class MenuBar {
                 return "הדבק"
             }
         })), action: #selector(NSText.paste(_:)))
-        paste.native.keyEquivalent = "v"
-        paste.native.keyEquivalentModifierMask = .command
+        paste.hotKey = "v"
+        paste.hotKeyModifiers = .command
 
-        let pasteAndMatchStyle = edit.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let pasteAndMatchStyle = editMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Pegar con el mismo estilo"
@@ -484,10 +244,10 @@ public final class MenuBar {
                 return "הדבק והתאם לסגנון"
             }
         })), action: #selector(NSTextView.pasteAsPlainText(_:)))
-        pasteAndMatchStyle.native.keyEquivalent = "V"
-        pasteAndMatchStyle.native.keyEquivalentModifierMask = [.command, .option]
+        pasteAndMatchStyle.hotKey = "V"
+        pasteAndMatchStyle.hotKeyModifiers = [.command, .option]
 
-        edit.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        editMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Eliminar"
@@ -504,7 +264,7 @@ public final class MenuBar {
             }
         })), action: #selector(NSText.delete(_:)))
 
-        let selectAll = edit.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let selectAll = editMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Seleccionar todo"
@@ -520,12 +280,12 @@ public final class MenuBar {
                 return "בחר הכל"
             }
         })), action: #selector(NSResponder.selectAll(_:)))
-        selectAll.native.keyEquivalent = "a"
-        selectAll.native.keyEquivalentModifierMask = .command
+        selectAll.hotKey = "a"
+        selectAll.hotKeyModifiers = .command
 
         edit.newSeparator()
 
-        let findMenu = edit.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let findMenu = edit.Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Buscar"
@@ -542,7 +302,7 @@ public final class MenuBar {
             }
         })))
 
-        let findEntry = findMenu.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let findEntry = findMenuMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Buscar..."
@@ -559,10 +319,10 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.performFindPanelAction(_:)))
         findEntry.tag = 1
-        findEntry.native.keyEquivalent = "f"
-        findEntry.native.keyEquivalentModifierMask = .command
+        findEntry.hotKey = "f"
+        findEntry.hotKeyModifiers = .command
 
-        let replace = findMenu.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let replace = findMenuMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Buscar y reemplazar..."
@@ -579,10 +339,10 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.performFindPanelAction(_:)))
         replace.tag = 12
-        replace.native.keyEquivalent = "f"
-        replace.native.keyEquivalentModifierMask = [.command, .option]
+        replace.hotKey = "f"
+        replace.hotKeyModifiers = [.command, .option]
 
-        let findNext = findMenu.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let findNext = findMenuMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Buscar siguiente"
@@ -599,10 +359,10 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.performFindPanelAction(_:)))
         findNext.tag = 2
-        findNext.native.keyEquivalent = "g"
-        findNext.native.keyEquivalentModifierMask = [.command]
+        findNext.hotKey = "g"
+        findNext.hotKeyModifiers = [.command]
 
-        let findPrevious = findMenu.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let findPrevious = findMenuMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Buscar antetior"
@@ -619,10 +379,10 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.performFindPanelAction(_:)))
         findPrevious.tag = 3
-        findPrevious.native.keyEquivalent = "G"
-        findPrevious.native.keyEquivalentModifierMask = [.command]
+        findPrevious.hotKey = "G"
+        findPrevious.hotKeyModifiers = [.command]
 
-        let useSelectionForFind = findMenu.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let useSelectionForFind = findMenuMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Usar selección para buscar"
@@ -639,10 +399,10 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.performFindPanelAction(_:)))
         useSelectionForFind.tag = 7
-        useSelectionForFind.native.keyEquivalent = "e"
-        useSelectionForFind.native.keyEquivalentModifierMask = .command
+        useSelectionForFind.hotKey = "e"
+        useSelectionForFind.hotKeyModifiers = .command
 
-        let jumpToSelection = findMenu.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let jumpToSelection = findMenuMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Ir a la selección"
@@ -658,10 +418,10 @@ public final class MenuBar {
                 return "עבור על הקטע הנבחר"
             }
         })), action: #selector(NSResponder.centerSelectionInVisibleArea(_:)))
-        jumpToSelection.native.keyEquivalent = "j"
-        jumpToSelection.native.keyEquivalentModifierMask = [.command]
+        jumpToSelection.hotKey = "j"
+        jumpToSelection.hotKeyModifiers = [.command]
 
-        let spellingAndGrammar = edit.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let spellingAndGrammar = edit.Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Ortografía y gramática"
@@ -679,7 +439,7 @@ public final class MenuBar {
             }
         })))
 
-        let showSpellingAndGrammar = spellingAndGrammar.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let showSpellingAndGrammar = spellingAndGrammarMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Mostrar ortografía y gramática"
@@ -695,10 +455,10 @@ public final class MenuBar {
                 return "הצג איות ודקדוק"
             }
         })), action: #selector(NSText.showGuessPanel(_:)))
-        showSpellingAndGrammar.native.keyEquivalent = ":"
-        showSpellingAndGrammar.native.keyEquivalentModifierMask = .command
+        showSpellingAndGrammar.hotKey = ":"
+        showSpellingAndGrammar.hotKeyModifiers = .command
 
-        let checkDocumentNow = spellingAndGrammar.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let checkDocumentNow = spellingAndGrammarMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Comprobar documento ahora"
@@ -714,12 +474,12 @@ public final class MenuBar {
                 return "בדוק את המסמך כעת"
             }
         })), action: #selector(NSText.checkSpelling(_:)))
-        checkDocumentNow.native.keyEquivalent = ";"
-        checkDocumentNow.native.keyEquivalentModifierMask = .command
+        checkDocumentNow.hotKey = ";"
+        checkDocumentNow.hotKeyModifiers = .command
 
         spellingAndGrammar.newSeparator()
 
-        spellingAndGrammar.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        spellingAndGrammarMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Comprobar ortografía mientras se escribe"
@@ -736,7 +496,7 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.toggleContinuousSpellChecking(_:)))
 
-        spellingAndGrammar.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        spellingAndGrammarMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Comprobar gramática con la ortografía"
@@ -753,7 +513,7 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.toggleGrammarChecking(_:)))
 
-        spellingAndGrammar.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        spellingAndGrammarMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Corregir ortografía automáticamente"
@@ -771,7 +531,7 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.toggleAutomaticSpellingCorrection(_:)))
 
-        let substitutions = edit.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let substitutions = edit.Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Sustituciones"
@@ -789,7 +549,7 @@ public final class MenuBar {
             }
         })))
 
-        substitutions.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        substitutionsMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Mostrar sustituciones"
@@ -808,7 +568,7 @@ public final class MenuBar {
 
         substitutions.newSeparator()
 
-        substitutions.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        substitutionsMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Copiado/pegado inteligente"
@@ -825,7 +585,7 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.toggleSmartInsertDelete(_:)))
 
-        substitutions.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        substitutionsMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Comillas tipográficas"
@@ -842,7 +602,7 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.toggleAutomaticQuoteSubstitution(_:)))
 
-        substitutions.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        substitutionsMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Guiones inteligentes"
@@ -859,7 +619,7 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.toggleAutomaticDashSubstitution(_:)))
 
-        substitutions.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        substitutionsMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Enlaces inteligentes"
@@ -876,7 +636,7 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.toggleAutomaticLinkDetection(_:)))
 
-        substitutions.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        substitutionsMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Detectores de datos"
@@ -894,7 +654,7 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.toggleAutomaticDataDetection(_:)))
 
-        substitutions.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        substitutionsMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Reemplazar texto"
@@ -911,7 +671,7 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.toggleAutomaticTextReplacement(_:)))
 
-        let transformations = edit.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let transformations = edit.Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Transformaciones"
@@ -938,7 +698,7 @@ public final class MenuBar {
 
         edit.newEntry(labelled: MenuLabels.showCharacterInformation, action: #selector(NSTextView.showCharacterInformation(_:)))
 
-        let speech = edit.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let speech = edit.Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Habla"
@@ -957,7 +717,7 @@ public final class MenuBar {
             }
         })))
 
-        speech.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        speechMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Iniciar locución"
@@ -974,7 +734,7 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.startSpeaking(_:)))
 
-        speech.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        speechMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Detener locución"
@@ -994,7 +754,7 @@ public final class MenuBar {
 
     private func initializeFormatMenu() {
 
-        let format = newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let format = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Formato"
@@ -1010,7 +770,7 @@ public final class MenuBar {
             }
         })))
 
-        let font = format.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let font = format.Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Tipe de letra"
@@ -1027,7 +787,7 @@ public final class MenuBar {
             }
         })))
 
-        let showFonts = font.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let showFonts = fontMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Mostrar tipos de letra"
@@ -1044,10 +804,10 @@ public final class MenuBar {
             }
         })), action: #selector(NSFontManager.orderFrontFontPanel(_:)))
         showFonts.target = NSFontManager.shared
-        showFonts.native.keyEquivalent = "t"
-        showFonts.native.keyEquivalentModifierMask = .command
+        showFonts.hotKey = "t"
+        showFonts.hotKeyModifiers = .command
 
-        let bold = font.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let bold = fontMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Negrita"
@@ -1065,10 +825,10 @@ public final class MenuBar {
         })), action: #selector(NSFontManager.addFontTrait(_:)))
         bold.target = NSFontManager.shared
         bold.tag = 2
-        bold.native.keyEquivalent = "b"
-        bold.native.keyEquivalentModifierMask = .command
+        bold.hotKey = "b"
+        bold.hotKeyModifiers = .command
 
-        let italic = font.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let italic = fontMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Cursiva"
@@ -1088,10 +848,10 @@ public final class MenuBar {
         })), action: #selector(NSFontManager.addFontTrait(_:)))
         italic.target = NSFontManager.shared
         italic.tag = 1
-        italic.native.keyEquivalent = "i"
-        italic.native.keyEquivalentModifierMask = .command
+        italic.hotKey = "i"
+        italic.hotKeyModifiers = .command
 
-        let underline = font.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let underline = fontMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Subrayado"
@@ -1107,12 +867,12 @@ public final class MenuBar {
                 return "קו תחתון"
             }
         })), action: #selector(NSText.underline(_:)))
-        underline.native.keyEquivalent = "u"
-        underline.native.keyEquivalentModifierMask = .command
+        underline.hotKey = "u"
+        underline.hotKeyModifiers = .command
 
         font.newSeparator()
 
-        let bigger = font.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let bigger = fontMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Más grande"
@@ -1132,10 +892,10 @@ public final class MenuBar {
         })), action: #selector(NSFontManager.modifyFont(_:)))
         bigger.target = NSFontManager.shared
         bigger.tag = 3
-        bigger.native.keyEquivalent = "+"
-        bigger.native.keyEquivalentModifierMask = .command
+        bigger.hotKey = "+"
+        bigger.hotKeyModifiers = .command
 
-        let smaller = font.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let smaller = fontMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Más pequeño"
@@ -1154,12 +914,12 @@ public final class MenuBar {
         })), action: #selector(NSFontManager.modifyFont(_:)))
         smaller.target = NSFontManager.shared
         smaller.tag = 4
-        smaller.native.keyEquivalent = "\u{2D}"
-        smaller.native.keyEquivalentModifierMask = .command
+        smaller.hotKey = "\u{2D}"
+        smaller.hotKeyModifiers = .command
 
         font.newSeparator()
 
-        let kern = font.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let kern = font.Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Interletraje"
@@ -1178,7 +938,7 @@ public final class MenuBar {
             }
         })))
 
-        kern.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        kernMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Valor por omisión"
@@ -1195,7 +955,7 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.useStandardKerning(_:)))
 
-        kern.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        kernMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Ninguno"
@@ -1212,7 +972,7 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.turnOffKerning(_:)))
 
-        kern.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        kernMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Reducir"
@@ -1229,7 +989,7 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.tightenKerning(_:)))
 
-        kern.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        kernMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Aumentar"
@@ -1246,7 +1006,7 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.loosenKerning(_:)))
 
-        let ligatures = font.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let ligatures = font.Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Ligaduras"
@@ -1263,7 +1023,7 @@ public final class MenuBar {
             }
         })))
 
-        ligatures.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        ligaturesMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Valor por omisión"
@@ -1280,7 +1040,7 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.useStandardLigatures(_:)))
 
-        ligatures.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        ligaturesMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Ninguna"
@@ -1297,7 +1057,7 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.turnOffLigatures(_:)))
 
-        ligatures.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        ligaturesMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Todas"
@@ -1314,7 +1074,7 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.useAllLigatures(_:)))
 
-        let baseline = font.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let baseline = font.Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Línea base"
@@ -1332,7 +1092,7 @@ public final class MenuBar {
             }
         })))
 
-        baseline.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        baselineMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Valor por omisión"
@@ -1349,7 +1109,7 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.resetBaseline(_:)))
 
-        baseline.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        baselineMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Superíndice"
@@ -1366,7 +1126,7 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.makeSuperscript(_:)))
 
-        baseline.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        baselineMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Subíndice"
@@ -1384,7 +1144,7 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.makeSubscript(_:)))
 
-        baseline.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        baselineMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Subir"
@@ -1401,7 +1161,7 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.raiseBaseline(_:)))
 
-        baseline.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        baselineMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Bajar"
@@ -1418,14 +1178,14 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.lowerBaseline(_:)))
 
-        let casing = font.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        let casing = font.Menu(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Casing"
             }
         })))
 
-        casing.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        casingMenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Use Default"
@@ -1455,7 +1215,7 @@ public final class MenuBar {
 
         casing.newSeparator()
 
-        casing.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        casingMenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             var latinate: StrictString
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
@@ -1464,18 +1224,18 @@ public final class MenuBar {
             return latinate + " (I ↔ i)"
         })))
 
-        let latinateUpperCase = casing.newEntry(labelled: Shared(upperCase), action: #selector(NSTextView.makeLatinateUpperCase(_:)))
+        let latinateUpperCase = casingMenuEntry(label: .static(upperCase), action: #selector(NSTextView.makeLatinateUpperCase(_:)))
         latinateUpperCase.indentationLevel = 1
 
-        let latinateSmallUpperCase = casing.newEntry(labelled: Shared(smallUpperCase), action: #selector(NSTextView.makeLatinateSmallCaps(_:)))
+        let latinateSmallUpperCase = casingMenuEntry(label: .static(smallUpperCase), action: #selector(NSTextView.makeLatinateSmallCaps(_:)))
         latinateSmallUpperCase.indentationLevel = 1
 
-        let latinateLowerCase = casing.newEntry(labelled: Shared(lowerCase), action: #selector(NSTextView.makeLatinateLowerCase(_:)))
+        let latinateLowerCase = casingMenuEntry(label: .static(lowerCase), action: #selector(NSTextView.makeLatinateLowerCase(_:)))
         latinateLowerCase.indentationLevel = 1
 
         casing.newSeparator()
 
-        casing.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        casingMenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             var turkic: StrictString
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
@@ -1484,18 +1244,18 @@ public final class MenuBar {
             return turkic + " (I ↔ ı, İ ↔ i)"
         })))
 
-        let turkicUpperCase = casing.newEntry(labelled: Shared(upperCase), action: #selector(NSTextView.makeTurkicUpperCase(_:)))
+        let turkicUpperCase = casingMenuEntry(label: .static(upperCase), action: #selector(NSTextView.makeTurkicUpperCase(_:)))
         turkicUpperCase.indentationLevel = 1
 
-        let turkicSmallUpperCase = casing.newEntry(labelled: Shared(smallUpperCase), action: #selector(NSTextView.makeTurkicSmallCaps(_:)))
+        let turkicSmallUpperCase = casingMenuEntry(label: .static(smallUpperCase), action: #selector(NSTextView.makeTurkicSmallCaps(_:)))
         turkicSmallUpperCase.indentationLevel = 1
 
-        let turkicLowerCase = casing.newEntry(labelled: Shared(lowerCase), action: #selector(NSTextView.makeTurkicLowerCase(_:)))
+        let turkicLowerCase = casingMenuEntry(label: .static(lowerCase), action: #selector(NSTextView.makeTurkicLowerCase(_:)))
         turkicLowerCase.indentationLevel = 1
 
         font.newSeparator()
 
-        let showColours = font.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let showColours = fontMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Mostrar colores"
@@ -1513,12 +1273,12 @@ public final class MenuBar {
                 return "הצג צבעים"
             }
         })), action: #selector(NSApplication.orderFrontColorPanel(_:)))
-        showColours.native.keyEquivalent = "C"
-        showColours.native.keyEquivalentModifierMask = .command
+        showColours.hotKey = "C"
+        showColours.hotKeyModifiers = .command
 
         font.newSeparator()
 
-        let copyStyle = font.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let copyStyle = fontMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Copiar estilo"
@@ -1535,10 +1295,10 @@ public final class MenuBar {
                 return "העתק סגנון"
             }
         })), action: #selector(NSText.copyFont(_:)))
-        copyStyle.native.keyEquivalent = "c"
-        copyStyle.native.keyEquivalentModifierMask = [.command, .option]
+        copyStyle.hotKey = "c"
+        copyStyle.hotKeyModifiers = [.command, .option]
 
-        let pasteStyle = font.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let pasteStyle = fontMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Pegar estilo"
@@ -1554,10 +1314,10 @@ public final class MenuBar {
                 return "הדבק סגנון"
             }
         })), action: #selector(NSText.pasteFont(_:)))
-        pasteStyle.native.keyEquivalent = "v"
-        pasteStyle.native.keyEquivalentModifierMask = [.command, .option]
+        pasteStyle.hotKey = "v"
+        pasteStyle.hotKeyModifiers = [.command, .option]
 
-        let text = format.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let text = format.Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Texto"
@@ -1573,7 +1333,7 @@ public final class MenuBar {
             }
         })))
 
-        let alignRight = text.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let alignRight = textMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Alinear a la derecha"
@@ -1589,10 +1349,10 @@ public final class MenuBar {
                 return "יישר לימין"
             }
         })), action: #selector(NSText.alignRight(_:)))
-        alignRight.native.keyEquivalent = "}"
-        alignRight.native.keyEquivalentModifierMask = .command
+        alignRight.hotKey = "}"
+        alignRight.hotKeyModifiers = .command
 
-        let centre = text.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let centre = textMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Centrar"
@@ -1611,10 +1371,10 @@ public final class MenuBar {
                 return "מרכז"
             }
         })), action: #selector(NSText.alignCenter(_:)))
-        centre.native.keyEquivalent = "|"
-        centre.native.keyEquivalentModifierMask = .command
+        centre.hotKey = "|"
+        centre.hotKeyModifiers = .command
 
-        text.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        textMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Justificar"
@@ -1632,7 +1392,7 @@ public final class MenuBar {
             }
         })), action: #selector(NSTextView.alignJustified(_:)))
 
-        let alignLeft = text.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let alignLeft = textMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Alinear a la izquierda"
@@ -1648,12 +1408,12 @@ public final class MenuBar {
                 return "יישר לשמאל"
             }
         })), action: #selector(NSText.alignLeft(_:)))
-        alignLeft.native.keyEquivalent = "{"
-        alignLeft.native.keyEquivalentModifierMask = .command
+        alignLeft.hotKey = "{"
+        alignLeft.hotKeyModifiers = .command
 
         text.newSeparator()
 
-        let writingDirection = text.newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let writingDirection = text.Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Sentido de la escritura"
@@ -1671,7 +1431,7 @@ public final class MenuBar {
             }
         })))
 
-        writingDirection.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        writingDirectionMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Párrafo"
@@ -1740,18 +1500,18 @@ public final class MenuBar {
             }
         })
 
-        let paragraphDefault = writingDirection.newEntry(labelled: Shared(`default`), action: #selector(NSResponder.makeBaseWritingDirectionNatural(_:)))
+        let paragraphDefault = writingDirectionMenuEntry(label: .static(`default`), action: #selector(NSResponder.makeBaseWritingDirectionNatural(_:)))
         paragraphDefault.indentationLevel = 1
 
-        let paragraphRightToLeft = writingDirection.newEntry(labelled: Shared(rightToLeft), action: #selector(NSResponder.makeBaseWritingDirectionRightToLeft(_:)))
+        let paragraphRightToLeft = writingDirectionMenuEntry(label: .static(rightToLeft), action: #selector(NSResponder.makeBaseWritingDirectionRightToLeft(_:)))
         paragraphRightToLeft.indentationLevel = 1
 
-        let paragraphLeftToRight = writingDirection.newEntry(labelled: Shared(leftToRight), action: #selector(NSResponder.makeBaseWritingDirectionLeftToRight(_:)))
+        let paragraphLeftToRight = writingDirectionMenuEntry(label: .static(leftToRight), action: #selector(NSResponder.makeBaseWritingDirectionLeftToRight(_:)))
         paragraphLeftToRight.indentationLevel = 1
 
         writingDirection.newSeparator()
 
-        writingDirection.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        writingDirectionMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Selección"
@@ -1769,18 +1529,18 @@ public final class MenuBar {
             }
         })))
 
-        let selectionDefault = writingDirection.newEntry(labelled: Shared(`default`), action: #selector(NSResponder.makeTextWritingDirectionNatural(_:)))
+        let selectionDefault = writingDirectionMenuEntry(label: .static(`default`), action: #selector(NSResponder.makeTextWritingDirectionNatural(_:)))
         selectionDefault.indentationLevel = 1
 
-        let selectionRightToLeft = writingDirection.newEntry(labelled: Shared(rightToLeft), action: #selector(NSResponder.makeTextWritingDirectionRightToLeft(_:)))
+        let selectionRightToLeft = writingDirectionMenuEntry(label: .static(rightToLeft), action: #selector(NSResponder.makeTextWritingDirectionRightToLeft(_:)))
         selectionRightToLeft.indentationLevel = 1
 
-        let selectionLeftToRight = writingDirection.newEntry(labelled: Shared(leftToRight), action: #selector(NSResponder.makeTextWritingDirectionLeftToRight(_:)))
+        let selectionLeftToRight = writingDirectionMenuEntry(label: .static(leftToRight), action: #selector(NSResponder.makeTextWritingDirectionLeftToRight(_:)))
         selectionLeftToRight.indentationLevel = 1
 
         text.newSeparator()
 
-        text.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        textMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Mostrar regla"
@@ -1797,7 +1557,7 @@ public final class MenuBar {
             }
         })), action: #selector(NSText.toggleRuler(_:)))
 
-        let copyRuler = text.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let copyRuler = textMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Copiar regla"
@@ -1814,10 +1574,10 @@ public final class MenuBar {
                 return "העתק סרגל"
             }
         })), action: #selector(NSText.copyRuler(_:)))
-        copyRuler.native.keyEquivalent = "c"
-        copyRuler.native.keyEquivalentModifierMask = [.command, .control]
+        copyRuler.hotKey = "c"
+        copyRuler.hotKeyModifiers = [.command, .control]
 
-        let pasteRuler = text.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let pasteRuler = textMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Pegar regla"
@@ -1833,8 +1593,8 @@ public final class MenuBar {
                 return "הדבק סרגל"
             }
         })), action: #selector(NSText.pasteRuler(_:)))
-        pasteRuler.native.keyEquivalent = "v"
-        pasteRuler.native.keyEquivalentModifierMask = [.command, .control]
+        pasteRuler.hotKey = "v"
+        pasteRuler.hotKeyModifiers = [.command, .control]
     }
 
     private func initializeViewMenu() {
@@ -1842,7 +1602,7 @@ public final class MenuBar {
             @objc func toggleSourceList(_ sender: Any?) {}
         }
 
-        let view = newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let view = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Visualización"
@@ -1859,7 +1619,7 @@ public final class MenuBar {
             }
         })))
 
-        let showToolbar = view.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let showToolbar = viewMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Mostrar barra de herramientas"
@@ -1875,10 +1635,10 @@ public final class MenuBar {
                 return "הצג את סרגל הכלים"
             }
         })), action: #selector(NSWindow.toggleToolbarShown(_:)))
-        showToolbar.native.keyEquivalent = "t"
-        showToolbar.native.keyEquivalentModifierMask = [.command, .option]
+        showToolbar.hotKey = "t"
+        showToolbar.hotKeyModifiers = [.command, .option]
 
-        view.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        viewMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Personalizar barra de herramientas..."
@@ -1899,7 +1659,7 @@ public final class MenuBar {
 
         view.newSeparator()
 
-        let showSideBar = view.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let showSideBar = viewMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Mostrar barra lateral"
@@ -1915,10 +1675,10 @@ public final class MenuBar {
                 return "הצג את סרגל הצד"
             }
         })), action: #selector(Responder.toggleSourceList(_:)))
-        showSideBar.native.keyEquivalent = "s"
-        showSideBar.native.keyEquivalentModifierMask = [.command, .control]
+        showSideBar.hotKey = "s"
+        showSideBar.hotKeyModifiers = [.command, .control]
 
-        let enterFullScreen = view.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let enterFullScreen = viewMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Usar pantalla completa"
@@ -1934,12 +1694,12 @@ public final class MenuBar {
                 return "עבור למסך מלא"
             }
         })), action: #selector(NSWindow.toggleFullScreen(_:)))
-        enterFullScreen.native.keyEquivalent = "f"
-        enterFullScreen.native.keyEquivalentModifierMask = [.command, .control]
+        enterFullScreen.hotKey = "f"
+        enterFullScreen.hotKeyModifiers = [.command, .control]
     }
 
     private func initializeWindowMenu() {
-        let window = newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let window = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Ventana"
@@ -1960,7 +1720,7 @@ public final class MenuBar {
         defer { NSApplication.shared.windowsMenu = window }
         endOfCustomMenuSection = window.parentMenuItem
 
-        let minimize = window.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let minimize = windowMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Minimizar"
@@ -1978,10 +1738,10 @@ public final class MenuBar {
                 return "מזער"
             }
         })), action: #selector(NSWindow.performMiniaturize(_:)))
-        minimize.native.keyEquivalent = "m"
-        minimize.native.keyEquivalentModifierMask = .command
+        minimize.hotKey = "m"
+        minimize.hotKeyModifiers = .command
 
-        window.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        windowMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña,
                  .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
@@ -2000,7 +1760,7 @@ public final class MenuBar {
 
         window.newSeparator()
 
-        window.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        windowMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Traer todo al frente"
@@ -2019,7 +1779,7 @@ public final class MenuBar {
     }
 
     private func initializeHelpMenu() {
-        let helpMenu = newSubmenu(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let helpMenu = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Ayuda"
@@ -2039,7 +1799,7 @@ public final class MenuBar {
         })))
         defer { NSApplication.shared.helpMenu = helpMenu }
 
-        let helpItem = helpMenu.newEntry(labelled: Shared(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let helpItem = helpMenuMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 let deLaAplicación = ProcessInfo.applicationName(.español(.de))
@@ -2077,8 +1837,8 @@ public final class MenuBar {
                 return "עזרה עבור \(היישום)"
             }
         })), action: #selector(NSApplication.showHelp(_:)))
-        helpItem.native.keyEquivalent = "?"
-        helpItem.native.keyEquivalentModifierMask = .command
+        helpItem.hotKey = "?"
+        helpItem.hotKeyModifiers = .command
         if Bundle.main.infoDictionary?["CFBundleHelpBookName"] == nil {
             helpItem.isHidden = true
         }
