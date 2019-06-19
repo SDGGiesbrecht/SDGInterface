@@ -87,7 +87,8 @@ extension MenuBar {
             case .עברית־ישראל:
                 return "גזור"
             }
-        })), action: #selector(NSText.cut(_:)))
+        })))
+        cut.action = #selector(NSText.cut(_:))
         cut.hotKey = "x"
         cut.hotKeyModifiers = .command
     }
@@ -109,7 +110,8 @@ extension MenuBar {
             case .עברית־ישראל:
                 return "העתק"
             }
-        })), action: #selector(NSText.copy(_:)))
+        })))
+        copy.action = #selector(NSText.copy(_:))
         copy.hotKey = "c"
         copy.hotKeyModifiers = .command
     }
@@ -132,7 +134,8 @@ extension MenuBar {
             case .עברית־ישראל:
                 return "הדבק"
             }
-        })), action: #selector(NSText.paste(_:)))
+        })))
+        paste.action = #selector(NSText.paste(_:))
         paste.hotKey = "v"
         paste.hotKeyModifiers = .command
         return paste
@@ -154,13 +157,14 @@ extension MenuBar {
             case .עברית־ישראל:
                 return "הדבק והתאם לסגנון"
             }
-        })), action: #selector(NSTextView.pasteAsPlainText(_:)))
+        })))
+        pasteAndMatchStyle.action = #selector(NSTextView.pasteAsPlainText(_:))
         pasteAndMatchStyle.hotKey = "V"
         pasteAndMatchStyle.hotKeyModifiers = [.command, .option]
     }
 
     private static func delete() -> MenuEntry<MenuBarLocalization> {
-        MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let delete = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Eliminar"
@@ -175,7 +179,8 @@ extension MenuBar {
             case .עברית־ישראל:
                 return "מחק"
             }
-        })), action: #selector(NSText.delete(_:)))
+        })))
+        delete.action = #selector(NSText.delete(_:))
     }
 
     private static func selectAll() -> MenuEntry<MenuBarLocalization> {
@@ -194,9 +199,19 @@ extension MenuBar {
             case .עברית־ישראל:
                 return "בחר הכל"
             }
-        })), action: #selector(NSResponder.selectAll(_:)))
+        })))
+        selectAll.action = #selector(NSResponder.selectAll(_:))
         selectAll.hotKey = "a"
         selectAll.hotKeyModifiers = .command
+    }
+
+    private static func showCharacterInformation() -> MenuEntry<InterfaceLocalization> {
+        edit.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+                return "Show Character Information"
+            }
+        })), action: #selector(NSTextView.showCharacterInformation(_:)))
     }
 
     internal static func edit() -> Menu<MenuBarLocalization> {
@@ -228,246 +243,10 @@ extension MenuBar {
             .entry(selectAll()),
             .separator,
             .submenu(find()),
+            .submenu(spellingAndGrammar()),
+            .submenu(substitutions()),
+            .entry(showCharacterInformation())
         ]
         return edit
-    }
-
-    private func initializeEditMenu() {
-
-
-
-
-
-        let substitutions = edit.Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Sustituciones"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Substitutions"
-            case .françaisFrance:
-                return "Substitutions"
-
-            case .deutschDeutschland:
-                return "Ersetzungen"
-            case .ελληνικάΕλλάδα:
-                return "Υποκαταστάσεις"
-            case .עברית־ישראל:
-                return "החלפות"
-            }
-        })))
-
-        substitutionsMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Mostrar sustituciones"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Show Substitutions"
-            case .deutschDeutschland:
-                return "Ersetzungen einblenden"
-            case .françaisFrance:
-                return "Afficher les substitutions"
-            case .ελληνικάΕλλάδα:
-                return "Εμφάνιση υποκαταστάσεων"
-            case .עברית־ישראל:
-                return "הצג החלפות"
-            }
-        })), action: #selector(NSTextView.orderFrontSubstitutionsPanel(_:)))
-
-        substitutions.newSeparator()
-
-        substitutionsMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Copiado/pegado inteligente"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Smart Copy/Paste"
-            case .deutschDeutschland:
-                return "Intelligentes Kopieren/Einsetzen"
-            case .françaisFrance:
-                return "Copier–coller intelligent"
-            case .ελληνικάΕλλάδα:
-                return "Έξυπνη αντιγραφή/επικόλληση"
-            case .עברית־ישראל:
-                return "העתקה והדבקה חכמות"
-            }
-        })), action: #selector(NSTextView.toggleSmartInsertDelete(_:)))
-
-        substitutionsMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Comillas tipográficas"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Smart Quotes"
-            case .deutschDeutschland:
-                return "Intelligente Anführungszeichen"
-            case .françaisFrance:
-                return "Guillemets courbes"
-            case .ελληνικάΕλλάδα:
-                return "Έξυπνα εισαγωγικά"
-            case .עברית־ישראל:
-                return "מרכאות חכמות"
-            }
-        })), action: #selector(NSTextView.toggleAutomaticQuoteSubstitution(_:)))
-
-        substitutionsMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Guiones inteligentes"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Smart Dashes"
-            case .deutschDeutschland:
-                return "Intelligente Bindestriche"
-            case .françaisFrance:
-                return "Tirets intelligents"
-            case .ελληνικάΕλλάδα:
-                return "Έξυπνες παύλες"
-            case .עברית־ישראל:
-                return "מיקוף חכם"
-            }
-        })), action: #selector(NSTextView.toggleAutomaticDashSubstitution(_:)))
-
-        substitutionsMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Enlaces inteligentes"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Smart Links"
-            case .deutschDeutschland:
-                return "Intellingente Links"
-            case .françaisFrance:
-                return "Liens intelligents"
-            case .ελληνικάΕλλάδα:
-                return "Έξυπνοι σύνδεσμοι"
-            case .עברית־ישראל:
-                return "קישורים חכמים"
-            }
-        })), action: #selector(NSTextView.toggleAutomaticLinkDetection(_:)))
-
-        substitutionsMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Detectores de datos"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Data Detectors"
-
-            case .deutschDeutschland:
-                return "Datenerkennung"
-            case .françaisFrance:
-                return "Détection de données"
-            case .ελληνικάΕλλάδα:
-                return "Ανίχνευση δεδομένων"
-            case .עברית־ישראל:
-                return "גלאי נתונים"
-            }
-        })), action: #selector(NSTextView.toggleAutomaticDataDetection(_:)))
-
-        substitutionsMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Reemplazar texto"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Text Replacement"
-            case .françaisFrance:
-                return "Remplacement de texte"
-            case .deutschDeutschland:
-                return "Text ersetzen"
-            case .ελληνικάΕλλάδα:
-                return "Αντικατάσταση κειμένου"
-            case .עברית־ישראל:
-                return "החלפת מלל"
-            }
-        })), action: #selector(NSTextView.toggleAutomaticTextReplacement(_:)))
-
-        let transformations = edit.Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Transformaciones"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada,
-                 .françaisFrance:
-                return "Transformations"
-            case .deutschDeutschland:
-                return "Transformationen"
-
-            case .ελληνικάΕλλάδα:
-                return "Μετασχηματισμοί"
-            case .עברית־ישראל:
-                return "המרות"
-            }
-        })))
-
-        transformations.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishUnitedKingdom:
-                return "Normalise Text"
-            case .englishUnitedStates, .englishCanada:
-                return "Normalize Text"
-            }
-        })), action: #selector(NSTextView.normalizeText(_:)))
-
-        // “Make Upper Case” does not belong here. Upper‐case‐only is a font style, not a semantic aspect of the text. Attempting to fake it by switching to capital letters (a) results in semantically incorrect text, and (b) is irreversable. A font‐based version is available under the “Font” menu instead.
-
-        // “Make Lower Case” is never useful. Instead, reversion from an upper‐case‐only font style to normally cased font—which preserves true capitals—is available under the “Font” menu.
-
-        // “Capitalize” is just not possible for a machine to do properly in any language.
-
-        edit.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Show Character Information"
-            }
-        })), action: #selector(NSTextView.showCharacterInformation(_:)))
-
-        let speech = edit.Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Habla"
-
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Speech"
-            case .deutschDeutschland:
-                return "Sprachausgabe"
-
-            case .françaisFrance:
-                return "Parole"
-            case .ελληνικάΕλλάδα:
-                return "Εκφώνηση"
-            case .עברית־ישראל:
-                return "דיבור"
-            }
-        })))
-
-        speechMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Iniciar locución"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Start Speaking"
-            case .deutschDeutschland:
-                return "Sprachausgabe starten"
-            case .françaisFrance:
-                return "Commencer la lecture"
-            case .ελληνικάΕλλάδα:
-                return "Έναρξη εκφώνησης"
-            case .עברית־ישראל:
-                return "התחל לדבר"
-            }
-        })), action: #selector(NSTextView.startSpeaking(_:)))
-
-        speechMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Detener locución"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Stop Speaking"
-            case .deutschDeutschland:
-                return "Sprachausgabe stoppen"
-            case .françaisFrance:
-                return "Arrêter la lecture"
-            case .ελληνικάΕλλάδα:
-                return "Διακοπή εκφώνησης"
-            case .עברית־ישראל:
-                return "הפסק לדבר"
-            }
-        })), action: #selector(NSTextView.stopSpeaking(_:)))
     }
 }
