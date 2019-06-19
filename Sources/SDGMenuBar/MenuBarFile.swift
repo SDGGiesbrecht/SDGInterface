@@ -186,7 +186,7 @@ extension MenuBar {
         return moveTo
     }
 
-    private static func revertToSaved() -> MenuEntry<MenuBarLocalization> {
+    private static func revertToSaved() -> MenuEntry<InterfaceLocalization> {
         let revertToSaved = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
