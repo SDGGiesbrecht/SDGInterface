@@ -100,6 +100,7 @@ let package = Package(
         .target(name: "SDGMenuBar", dependencies: [
             "SDGInterfaceBasics",
             "SDGMenus",
+            "SDGInterfaceElements",
             "SDGInterfaceLocalizations",
             .product(name: "SDGMathematics", package: "SDGCornerstone"),
             .product(name: "SDGText", package: "SDGCornerstone"),

@@ -20,6 +20,7 @@ import SDGText
 import SDGLocalization
 
 import SDGMenus
+import SDGInterfaceElements
 
 import SDGInterfaceLocalizations
 
