@@ -45,6 +45,7 @@ extension MenuBar {
         showSpellingAndGrammar.action = #selector(NSText.showGuessPanel(_:))
         showSpellingAndGrammar.hotKey = ":"
         showSpellingAndGrammar.hotKeyModifiers = .command
+        return showSpellingAndGrammar
     }
 
     private static func checkDocumentNow() -> MenuEntry<MenuBarLocalization> {
@@ -64,9 +65,10 @@ extension MenuBar {
                 return "בדוק את המסמך כעת"
             }
         })))
-        checkDocumentNow.action = action: #selector(NSText.checkSpelling(_:))
+        checkDocumentNow.action = #selector(NSText.checkSpelling(_:))
         checkDocumentNow.hotKey = ";"
         checkDocumentNow.hotKeyModifiers = .command
+        return checkDocumentNow
     }
 
     private static func checkSpellingWhileTyping() -> MenuEntry<MenuBarLocalization> {
@@ -87,6 +89,7 @@ extension MenuBar {
             }
         })))
         checkSpellingWhileTyping.action = #selector(NSTextView.toggleContinuousSpellChecking(_:))
+        return checkSpellingWhileTyping
     }
 
     private static func checkGrammarWithSpelling() -> MenuEntry<MenuBarLocalization> {
@@ -107,6 +110,7 @@ extension MenuBar {
             }
         })))
         checkGrammarWithSpelling.action = #selector(NSTextView.toggleGrammarChecking(_:))
+        return checkGrammarWithSpelling
     }
 
     private static func correctSpellingAutomatically() -> MenuEntry<MenuBarLocalization> {
@@ -128,6 +132,7 @@ extension MenuBar {
             }
         })))
         correctSpellingAutomatically.action = #selector(NSTextView.toggleAutomaticSpellingCorrection(_:))
+        return correctSpellingAutomatically
     }
 
     internal static func spellingAndGrammar() -> Menu<MenuBarLocalization> {
