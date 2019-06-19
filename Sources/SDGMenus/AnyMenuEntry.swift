@@ -44,6 +44,16 @@ extension AnyMenuEntry {
         }
     }
 
+    /// The action target.
+    public var target: AnyObject? {
+        get {
+            return native.target
+        }
+        set {
+            native.target = newValue
+        }
+    }
+
     /// The hot key.
     public var hotKey: String {
         get {
