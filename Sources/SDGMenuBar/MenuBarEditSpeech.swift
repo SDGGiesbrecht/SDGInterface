@@ -26,7 +26,7 @@ import SDGInterfaceLocalizations
 extension MenuBar {
 
     private static func startSpeaking() -> MenuEntry<MenuBarLocalization> {
-        speechMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let startSpeaking = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Iniciar locución"
@@ -41,11 +41,13 @@ extension MenuBar {
             case .עברית־ישראל:
                 return "התחל לדבר"
             }
-        })), action: #selector(NSTextView.startSpeaking(_:)))
+        })))
+        startSpeaking.action = #selector(NSTextView.startSpeaking(_:))
+        return startSpeaking
     }
 
     private static func stopSpeaking() -> MenuEntry<MenuBarLocalization> {
-        speechMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+        let stopSpeaking = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Detener locución"
@@ -60,7 +62,9 @@ extension MenuBar {
             case .עברית־ישראל:
                 return "הפסק לדבר"
             }
-        })), action: #selector(NSTextView.stopSpeaking(_:)))
+        })))
+        stopSpeaking.action = #selector(NSTextView.stopSpeaking(_:))
+        return stopSpeaking
     }
 
     internal static func speech() -> Menu<MenuBarLocalization> {
