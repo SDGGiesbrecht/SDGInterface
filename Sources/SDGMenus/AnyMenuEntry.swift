@@ -64,6 +64,16 @@ extension AnyMenuEntry {
         }
     }
 
+    /// Whether or not the menu entry is hidden and inactive.
+    public var isHidden: Bool {
+        get {
+            return native.isHidden
+        }
+        set {
+            native.isHidden = newValue
+        }
+    }
+
     /// A tag to identify the menu entry.
     public var tag: Int {
         get {
