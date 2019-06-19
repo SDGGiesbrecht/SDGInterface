@@ -94,7 +94,7 @@ extension MenuBar {
         return showSideBar
     }
 
-    private static func enterFullScreen() -> Menu<MenuBarLocalization> {
+    private static func enterFullScreen() -> MenuEntry<MenuBarLocalization> {
         let enterFullScreen = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
@@ -137,7 +137,8 @@ extension MenuBar {
         view.entries = [
             .entry(showToolbar()),
             .entry(customizeToolbar()),
-            .separator
+            .separator,
+            .entry(enterFullScreen())
         ]
         return view
     }
