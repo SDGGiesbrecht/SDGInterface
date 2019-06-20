@@ -255,6 +255,7 @@ extension MenuBar {
             .entry(hideOthers()),
             .entry(showAll()),
             .separator,
+            .entry(quit())
         ]
         return application
     }

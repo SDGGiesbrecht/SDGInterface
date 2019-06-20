@@ -60,7 +60,7 @@ public final class Menu<L> : AnyMenu, SharedValueObserver where L : Localization
     }
     public func _refreshLabel() {
         native.title = String(label.resolved())
-        native.supermenu?.title = String(label.resolved())
+        native.parentItem()?.title = String(label.resolved())
     }
     private func refreshEntries() {
         native.items = entries.map { component in
