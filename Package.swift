@@ -173,6 +173,10 @@ let package = Package(
             ]),
 
         .target(name: "SDGInterfaceSample", dependencies: [
+            "SDGInterfaceLocalizations",
+            "SDGMenus",
+            "SDGInterfaceElements",
+            "SDGMenuBar",
             "SDGApplication",
             .product(name: "SDGControlFlow", package: "SDGCornerstone"),
             .product(name: "SDGMathematics", package: "SDGCornerstone"),
