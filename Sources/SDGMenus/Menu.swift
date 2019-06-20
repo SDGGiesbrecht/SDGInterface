@@ -68,6 +68,9 @@ public final class Menu<L> : AnyMenu, SharedValueObserver where L : Localization
             case .entry(let entry):
                 return entry.native
             case .submenu(let menu):
+                if let index = menu.native.supermenu?.indexOfItem(withSubmenu: menu.native) {
+                    menu.native.supermenu?.removeItem(at: index)
+                }
                 let entry = NSMenuItem()
                 entry.submenu = menu.native
                 menu.refreshLabel()
