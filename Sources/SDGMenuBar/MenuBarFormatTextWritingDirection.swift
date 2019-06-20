@@ -25,25 +25,7 @@ import SDGInterfaceLocalizations
 
 extension MenuBar {
 
-    internal static func writingDirection() -> Menu<MenuBarLocalization> {
-        let writingDirection = text.Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-                return "Sentido de la escritura"
-            case .françaisFrance:
-                return "Sens de l’écriture"
-
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Writing Direction"
-            case .deutschDeutschland:
-                return "Richtung beim Schreiben"
-            case .ελληνικάΕλλάδα:
-                return "Κατεύθυνση γραφής"
-            case .עברית־ישראל:
-                return "כיווניות הכתיבה"
-            }
-        })))
-
+    private static func paragraph() -> MenuEntry<MenuBarLocalization> {
         writingDirectionMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
@@ -61,8 +43,10 @@ extension MenuBar {
                 return "פיסקה"
             }
         })))
+    }
 
-        let `default` = UserFacing<StrictString, MenuBarLocalization>({ localization in
+    private static func defaultLabel() -> UserFacing<StrictString, MenuBarLocalization> {
+        return UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
                 return "Por omisión"
@@ -78,7 +62,13 @@ extension MenuBar {
                 return "ברירת־המחדל"
             }
         })
+    }
+    private static func paragraphDefault() -> MenuEntry<MenuBarLocalization> {
+        let paragraphDefault = writingDirectionMenuEntry(label: .static(`default`), action: #selector(NSResponder.makeBaseWritingDirectionNatural(_:)))
+        paragraphDefault.indentationLevel = 1
+    }
 
+    private static func rightToLeftLabel() -> UserFacing<StrictString, MenuBarLocalization> {
         let rightToLeft = UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
@@ -95,7 +85,13 @@ extension MenuBar {
                 return "מימין לשמאל"
             }
         })
+    }
+    private static func paragraphRightToLeft() -> MenuEntry<MenuBarLocalization> {
+        let paragraphRightToLeft = writingDirectionMenuEntry(label: .static(rightToLeft), action: #selector(NSResponder.makeBaseWritingDirectionRightToLeft(_:)))
+        paragraphRightToLeft.indentationLevel = 1
+    }
 
+    private static func leftToRightLabel() -> UserFacing<StrictString, MenuBarLocalization> {
         let leftToRight = UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
@@ -112,18 +108,13 @@ extension MenuBar {
                 return "משמאל לימין"
             }
         })
-
-        let paragraphDefault = writingDirectionMenuEntry(label: .static(`default`), action: #selector(NSResponder.makeBaseWritingDirectionNatural(_:)))
-        paragraphDefault.indentationLevel = 1
-
-        let paragraphRightToLeft = writingDirectionMenuEntry(label: .static(rightToLeft), action: #selector(NSResponder.makeBaseWritingDirectionRightToLeft(_:)))
-        paragraphRightToLeft.indentationLevel = 1
-
+    }
+    private static func paragraphLeftToRight() -> MenuEntry<MenuBarLocalization> {
         let paragraphLeftToRight = writingDirectionMenuEntry(label: .static(leftToRight), action: #selector(NSResponder.makeBaseWritingDirectionLeftToRight(_:)))
         paragraphLeftToRight.indentationLevel = 1
+    }
 
-        writingDirection.newSeparator()
-
+    private static func selection() -> MenuEntry<MenuBarLocalization> {
         writingDirectionMenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
@@ -141,14 +132,52 @@ extension MenuBar {
                 return "בחירה"
             }
         })))
+    }
 
+    private static func selectionDefault() -> MenuEntry<MenuBarLocalization> {
         let selectionDefault = writingDirectionMenuEntry(label: .static(`default`), action: #selector(NSResponder.makeTextWritingDirectionNatural(_:)))
         selectionDefault.indentationLevel = 1
+    }
 
+    private static func selectionRightToLeft() -> MenuEntry<MenuBarLocalization> {
         let selectionRightToLeft = writingDirectionMenuEntry(label: .static(rightToLeft), action: #selector(NSResponder.makeTextWritingDirectionRightToLeft(_:)))
         selectionRightToLeft.indentationLevel = 1
+    }
 
+    private static func selectionLeftToRight() -> MenuEntry<MenuBarLocalization> {
         let selectionLeftToRight = writingDirectionMenuEntry(label: .static(leftToRight), action: #selector(NSResponder.makeTextWritingDirectionLeftToRight(_:)))
         selectionLeftToRight.indentationLevel = 1
+    }
+
+    internal static func writingDirection() -> Menu<MenuBarLocalization> {
+        let writingDirection = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+            switch localization {
+            case .españolEspaña:
+                return "Sentido de la escritura"
+            case .françaisFrance:
+                return "Sens de l’écriture"
+
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+                return "Writing Direction"
+            case .deutschDeutschland:
+                return "Richtung beim Schreiben"
+            case .ελληνικάΕλλάδα:
+                return "Κατεύθυνση γραφής"
+            case .עברית־ישראל:
+                return "כיווניות הכתיבה"
+            }
+        })))
+        writingDirection.entries = [
+            .entry(paragraph()),
+            .entry(paragraphDefault()),
+            .entry(paragraphRightToLeft()),
+            .entry(paragraphLeftToRight()),
+            .separator,
+            .entry(selection()),
+            .entry(selectionDefault()),
+            .entry(selectionRightToLeft()),
+            .entry(selectionLeftToRight())
+        ]
+        return writingDirection
     }
 }
