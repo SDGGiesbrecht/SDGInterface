@@ -24,8 +24,9 @@ import SDGMathematics
 import SDGText
 import SDGLocalization
 
-import SDGApplication
 import SDGInterfaceElements
+import SDGMenuBar
+import SDGApplication
 
 extension Application {
 

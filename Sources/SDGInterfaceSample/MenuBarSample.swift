@@ -52,7 +52,7 @@ extension MenuBar {
         ]
         return sample
     }
-    internal func setUpSamples() {
+    internal func setSamplesUp() {
         addApplicationSpecificSubmenu(MenuBar.sample())
     }
 }
