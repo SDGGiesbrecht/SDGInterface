@@ -87,12 +87,7 @@ extension Application {
     }
 
     private static func setMenuUp() {
-        let menuItemLabel = Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "Menu Item"
-            }
-        }))
+        MenuBar.menuBar.setSamplesUp()
 
         #if canImport(UIKit)
 

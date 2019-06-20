@@ -22,29 +22,52 @@ import SDGInterfaceLocalizations
 
 extension MenuBar {
 
-    internal static func menu() -> Menu<InterfaceLocalization> {
-        let menu = sample.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+    private static func menuEntry() -> MenuEntry<InterfaceLocalization> {
+        return MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
-                return "Menu"
+                return "Menu Entry"
             }
         })))
+    }
 
-        menu.newEntry(labelled: menuItemLabel)
-        let indented = menu.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+    private static func indented() -> MenuEntry<InterfaceLocalization> {
+        let indented = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Indented"
             }
         })))
         indented.indentationLevel = 1
-        menu.newSeparator()
-        let submenu = menu.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        return indented
+    }
+
+    private static func submenu() -> Menu<InterfaceLocalization> {
+        let submenu = Menu(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Submenu"
             }
         })))
-        submenu.newEntry(labelled: menuItemLabel)
+        submenu.entries = [
+            .entry(menuEntry())
+        ]
+        return submenu
+    }
+
+    internal static func menu() -> Menu<InterfaceLocalization> {
+        let menu = Menu(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Menu"
+            }
+        })))
+        menu.entries = [
+            .entry(menuEntry()),
+            .entry(indented()),
+            .separator,
+            .submenu(submenu())
+        ]
+        return menu
     }
 }
