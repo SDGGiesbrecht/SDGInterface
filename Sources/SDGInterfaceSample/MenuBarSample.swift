@@ -23,12 +23,13 @@ import SDGInterfaceLocalizations
 extension MenuBar {
 
     private static func error() -> MenuEntry<InterfaceLocalization> {
-        let error = sample.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        let error = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Error"
             }
-        })), action: #selector(Application.demonstrateError))
+        })))
+        error.action = #selector(Application.demonstrateError)
         error.target = self
     }
 
