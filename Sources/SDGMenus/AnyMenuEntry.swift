@@ -84,6 +84,16 @@ extension AnyMenuEntry {
         }
     }
 
+    /// The indentation level.
+    public var indentationLevel: Int {
+        get {
+            return native.indentationLevel
+        }
+        set {
+            native.indentationLevel = newValue
+        }
+    }
+
     /// A tag to identify the menu entry.
     public var tag: Int {
         get {
