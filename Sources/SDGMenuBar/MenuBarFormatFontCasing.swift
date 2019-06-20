@@ -25,45 +25,17 @@ import SDGInterfaceLocalizations
 
 extension MenuBar {
 
-    internal static func casing() -> Menu<MenuBarLocalization> {
-        let casing = font.Menu(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Casing"
-            }
-        })))
-
-        casingMenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
+    private static func useDefault() -> MenuEntry<InterfaceLocalization> {
+        MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Use Default"
             }
         })), action: #selector(NSTextView.resetCasing(_:)))
+    }
 
-        let upperCase = UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Upper Case"
-            }
-        })
-
-        let smallUpperCase = UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Small Upper Case"
-            }
-        })
-
-        let lowerCase = UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Lower Case"
-            }
-        })
-
-        casing.newSeparator()
-
-        casingMenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
+    private static func latinate() -> MenuEntry<InterfaceLocalization> {
+        return MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             var latinate: StrictString
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
@@ -71,19 +43,50 @@ extension MenuBar {
             }
             return latinate + " (I ↔ i)"
         })))
+    }
 
-        let latinateUpperCase = casingMenuEntry(label: .static(upperCase), action: #selector(NSTextView.makeLatinateUpperCase(_:)))
+    private static func upperCaseLabel() -> UserFacing<StrictString, InterfaceLocalization> {
+        return UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+                return "Upper Case"
+            }
+        })
+    }
+    private static func latinateUpperCase() -> MenuEntry<InterfaceLocalization> {
+        let latinateUpperCase = MenuEntry(label: .static(upperCase), action: #selector(NSTextView.makeLatinateUpperCase(_:)))
         latinateUpperCase.indentationLevel = 1
+    }
 
-        let latinateSmallUpperCase = casingMenuEntry(label: .static(smallUpperCase), action: #selector(NSTextView.makeLatinateSmallCaps(_:)))
+    private static func smallUpperCaseLabel() -> UserFacing<StrictString, InterfaceLocalization> {
+        UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+                return "Small Upper Case"
+            }
+        })
+    }
+
+    private static func latinateSmallUpperCase() -> MenuEntry<InterfaceLocalization> {
+        let latinateSmallUpperCase = MenuEntry(label: .static(smallUpperCase), action: #selector(NSTextView.makeLatinateSmallCaps(_:)))
         latinateSmallUpperCase.indentationLevel = 1
+    }
 
-        let latinateLowerCase = casingMenuEntry(label: .static(lowerCase), action: #selector(NSTextView.makeLatinateLowerCase(_:)))
+    private static func lowerCaseLabel() -> UserFacing<StrictString, InterfaceLocalization> {
+        return UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+                return "Lower Case"
+            }
+        })
+    }
+    private static func latinateLowerCase() -> MenuEntry<InterfaceLocalization> {
+        let latinateLowerCase = MenuEntry(label: .static(lowerCase), action: #selector(NSTextView.makeLatinateLowerCase(_:)))
         latinateLowerCase.indentationLevel = 1
+    }
 
-        casing.newSeparator()
-
-        casingMenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
+    private static func turkic() -> MenuEntry<InterfaceLocalization> {
+        return MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             var turkic: StrictString
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
@@ -91,14 +94,43 @@ extension MenuBar {
             }
             return turkic + " (I ↔ ı, İ ↔ i)"
         })))
+    }
 
-        let turkicUpperCase = casingMenuEntry(label: .static(upperCase), action: #selector(NSTextView.makeTurkicUpperCase(_:)))
+    private static func turkicUpperCase() -> MenuEntry<InterfaceLocalization> {
+        let turkicUpperCase = MenuEntry(label: .static(upperCase), action: #selector(NSTextView.makeTurkicUpperCase(_:)))
         turkicUpperCase.indentationLevel = 1
+    }
 
-        let turkicSmallUpperCase = casingMenuEntry(label: .static(smallUpperCase), action: #selector(NSTextView.makeTurkicSmallCaps(_:)))
+    private static func turkicSmallUpperCase() -> MenuEntry<InterfaceLocalization> {
+        let turkicSmallUpperCase = MenuEntry(label: .static(smallUpperCase), action: #selector(NSTextView.makeTurkicSmallCaps(_:)))
         turkicSmallUpperCase.indentationLevel = 1
+    }
 
-        let turkicLowerCase = casingMenuEntry(label: .static(lowerCase), action: #selector(NSTextView.makeTurkicLowerCase(_:)))
+    private static func turkicLowerCase() -> MenuEntry<InterfaceLocalization> {
+        let turkicLowerCase = MenuEntry(label: .static(lowerCase), action: #selector(NSTextView.makeTurkicLowerCase(_:)))
         turkicLowerCase.indentationLevel = 1
+    }
+
+    internal static func casing() -> Menu<MenuBarLocalization> {
+        let casing = Menu(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+                return "Casing"
+            }
+        })))
+        casing.entries = [
+            .entry(useDefault()),
+            .separator,
+            .entry(latinate()),
+            .entry(latinateUpperCase()),
+            .entry(latinateSmallUpperCase()),
+            .entry(latinateLowerCase()),
+            .separator,
+            .entry(turkic()),
+            .entry(turkicUpperCase()),
+            .entry(turkicSmallUpperCase()),
+            .entry(turkicLowerCase()),
+        ]
+        return casing
     }
 }
