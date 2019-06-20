@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import ObjectiveC
+
 import SDGText
 import SDGLocalization
 
@@ -24,73 +26,87 @@ import SDGInterfaceLocalizations
 extension MenuBar {
 
     private static func button() -> MenuEntry<InterfaceLocalization> {
-        let button = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        let button = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Button"
             }
-        })), action: #selector(Application.demonstrateButton))
+        })))
+        button.action = #selector(Application.demonstrateButton)
         button.target = self
+        return button
     }
 
     private static func buttonSet() -> MenuEntry<InterfaceLocalization> {
-        let buttonSet = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        let buttonSet = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Button Set"
             }
-        })), action: #selector(Application.demonstrateButtonSet))
+        })))
+        buttonSet.action = #selector(Application.demonstrateButtonSet)
         buttonSet.target = self
+        return buttonSet
     }
 
     private static func checkBox() -> MenuEntry<InterfaceLocalization> {
-        let checkBox = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        let checkBox = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Check Box"
             }
-        })), action: #selector(Application.demonstrateCheckBox))
+        })))
+        checkBox.action = #selector(Application.demonstrateCheckBox)
         checkBox.target = self
+        return checkBox
     }
 
     private static func image() -> MenuEntry<InterfaceLocalization> {
-        let image = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        let image = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Image"
             }
-        })), action: #selector(Application.demonstrateImage))
+        })))
+        image.action = #selector(Application.demonstrateImage)
         image.target = self
+        return image
     }
 
     private static func label() -> MenuEntry<InterfaceLocalization> {
-        let label = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        let label = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Label"
             }
-        })), action: #selector(Application.demonstrateLabel))
+        })))
+        label.action = #selector(Application.demonstrateLabel)
         label.target = self
+        return label
     }
 
     private static func letterbox() -> MenuEntry<InterfaceLocalization> {
-        let letterbox = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        let letterbox = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Letterbox"
             }
-        })), action: #selector(Application.demonstrateLetterbox))
+        })))
+        letterbox.action = #selector(Application.demonstrateLetterbox)
         letterbox.target = self
+        return letterbox
     }
 
     private static func textEditor() -> MenuEntry<InterfaceLocalization> {
-        let textEditor = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        let textEditor = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Text Editor"
             }
-        })), action: #selector(Application.demonstrateTextEditor))
+        })))
+        textEditor.action = #selector(Application.demonstrateTextEditor)
         textEditor.target = self
+        return textEditor
     }
 
     internal static func view() -> Menu<InterfaceLocalization> {
