@@ -12,29 +12,41 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import ObjectiveC
+
 import SDGText
 import SDGLocalization
 
 import SDGMenus
 import SDGMenuBar
+import SDGApplication
 
 import SDGInterfaceLocalizations
 
 extension MenuBar {
 
-    internal static func window() -> MenuEntry<InterfaceLocalization> {
-        let window = sample.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+    private static func fullscreen() -> MenuEntry<InterfaceLocalization> {
+        let fullscreen = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Fullscreen"
+            }
+        })))
+        fullscreen.action = #selector(Application.demonstrateFullscreenWindow)
+        fullscreen.target = self
+        return fullscreen
+    }
+
+    internal static func window() -> Menu<InterfaceLocalization> {
+        let window = Menu(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Window"
             }
         })))
-        let fullscreen = window.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "Fullscreen"
-            }
-        })), action: #selector(Application.demonstrateFullscreenWindow))
-        fullscreen.target = self
+        window.entries = [
+            .entry(fullscreen())
+        ]
+        return window
     }
 }
