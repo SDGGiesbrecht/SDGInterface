@@ -19,6 +19,8 @@ import SDGText
 import SDGLocalization
 import SDGCalendar
 
+import SDGInterfaceBasics
+
 import SDGInterfaceLocalizations
 
 extension ProcessInfo {
@@ -75,7 +77,7 @@ extension ProcessInfo {
             let systemName: String? = dictionary?[nameKey] as? String
             let short: String? = dictionary?[shortKey] as? String
 
-            let form = ApplicationNameForm.isolatedForm(for: localization.code)
+            let form = ApplicationNameForm._isolatedForm(for: localization.code)
             let name: String? = form.flatMap({ ProcessInfo.applicationName($0) }).flatMap({ String($0) })
             assertEqual(
                 (systemName, localization.code + ".InfoPlist.strings." + nameKey),

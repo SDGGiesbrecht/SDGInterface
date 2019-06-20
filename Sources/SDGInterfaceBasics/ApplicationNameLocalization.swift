@@ -40,7 +40,7 @@ public struct ApplicationNameLocalization : Localization {
     // MARK: - Localization
 
     public init?(exactly code: String) {
-        guard let form = ApplicationNameForm.isolatedForm(for: code),
+        guard let form = ApplicationNameForm._isolatedForm(for: code),
             let name = ProcessInfo.applicationName(form) else {
             return nil
         }

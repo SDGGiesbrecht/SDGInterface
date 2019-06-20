@@ -18,6 +18,8 @@ import AppKit
 import UIKit
 #endif
 
+import SDGMenuBar
+
 /// The application.
 public final class Application {
 

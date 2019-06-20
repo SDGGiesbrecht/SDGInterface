@@ -17,7 +17,6 @@ import AppKit
 #endif
 
 extension Selector {
-    #warning("Remove again?")
     private class Responder : NSObject {
         @objc fileprivate func undo(_ sender: Any?) {}
         @objc fileprivate func redo(_ sender: Any?) {}
