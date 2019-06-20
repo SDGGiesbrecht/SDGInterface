@@ -47,8 +47,8 @@ extension MenuBar {
         sample.entries = [
             .entry(error()),
             .submenu(menu()),
-            .entry(view()),
-            .entry(window())
+            .submenu(view()),
+            .submenu(window())
         ]
         return sample
     }

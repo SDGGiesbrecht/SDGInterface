@@ -17,19 +17,13 @@ import SDGLocalization
 
 import SDGMenus
 import SDGMenuBar
+import SDGApplication
 
 import SDGInterfaceLocalizations
 
 extension MenuBar {
 
-    internal static func view() -> MenuEntry<InterfaceLocalization> {
-        let view = sample.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "View"
-            }
-        })))
-
+    private static func button() -> MenuEntry<InterfaceLocalization> {
         let button = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
@@ -37,7 +31,9 @@ extension MenuBar {
             }
         })), action: #selector(Application.demonstrateButton))
         button.target = self
+    }
 
+    private static func buttonSet() -> MenuEntry<InterfaceLocalization> {
         let buttonSet = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
@@ -45,7 +41,9 @@ extension MenuBar {
             }
         })), action: #selector(Application.demonstrateButtonSet))
         buttonSet.target = self
+    }
 
+    private static func checkBox() -> MenuEntry<InterfaceLocalization> {
         let checkBox = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
@@ -53,7 +51,9 @@ extension MenuBar {
             }
         })), action: #selector(Application.demonstrateCheckBox))
         checkBox.target = self
+    }
 
+    private static func image() -> MenuEntry<InterfaceLocalization> {
         let image = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
@@ -61,7 +61,9 @@ extension MenuBar {
             }
         })), action: #selector(Application.demonstrateImage))
         image.target = self
+    }
 
+    private static func label() -> MenuEntry<InterfaceLocalization> {
         let label = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
@@ -69,7 +71,9 @@ extension MenuBar {
             }
         })), action: #selector(Application.demonstrateLabel))
         label.target = self
+    }
 
+    private static func letterbox() -> MenuEntry<InterfaceLocalization> {
         let letterbox = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
@@ -77,7 +81,9 @@ extension MenuBar {
             }
         })), action: #selector(Application.demonstrateLetterbox))
         letterbox.target = self
+    }
 
+    private static func textEditor() -> MenuEntry<InterfaceLocalization> {
         let textEditor = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
@@ -85,28 +91,25 @@ extension MenuBar {
             }
         })), action: #selector(Application.demonstrateTextEditor))
         textEditor.target = self
+    }
 
-        let textField = view.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+    internal static func view() -> Menu<InterfaceLocalization> {
+        let view = Menu(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
-                return "Text Field"
+                return "View"
             }
         })))
-
-        let basicTextField = textField.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "Text Field"
-            }
-        })), action: #selector(Application.demonstrateTextField))
-        basicTextField.target = self
-
-        let labelledTextField = textField.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "Labelled Text Field"
-            }
-        })), action: #selector(Application.demonstrateLabelledTextField))
-        labelledTextField.target = self
+        view.entries = [
+            .entry(button()),
+            .entry(buttonSet()),
+            .entry(checkBox()),
+            .entry(image()),
+            .entry(label()),
+            .entry(letterbox()),
+            .entry(textEditor()),
+            .submenu(textField())
+        ]
+        return view
     }
 }
