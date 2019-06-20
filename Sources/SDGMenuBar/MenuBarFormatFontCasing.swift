@@ -60,6 +60,7 @@ extension MenuBar {
         let latinateUpperCase = MenuEntry(label: .static(upperCaseLabel()))
         latinateUpperCase.action = #selector(NSTextView.makeLatinateUpperCase(_:))
         latinateUpperCase.indentationLevel = 1
+        return latinateUpperCase
     }
 
     private static func smallUpperCaseLabel() -> UserFacing<StrictString, InterfaceLocalization> {
@@ -75,6 +76,7 @@ extension MenuBar {
         let latinateSmallUpperCase = MenuEntry(label: .static(smallUpperCaseLabel()))
         latinateSmallUpperCase.action = #selector(NSTextView.makeLatinateSmallCaps(_:))
         latinateSmallUpperCase.indentationLevel = 1
+        return latinateSmallUpperCase
     }
 
     private static func lowerCaseLabel() -> UserFacing<StrictString, InterfaceLocalization> {
@@ -89,6 +91,7 @@ extension MenuBar {
         let latinateLowerCase = MenuEntry(label: .static(lowerCaseLabel()))
         latinateLowerCase.action = #selector(NSTextView.makeLatinateLowerCase(_:))
         latinateLowerCase.indentationLevel = 1
+        return latinateLowerCase
     }
 
     private static func turkic() -> MenuEntry<InterfaceLocalization> {
@@ -106,18 +109,21 @@ extension MenuBar {
         let turkicUpperCase = MenuEntry(label: .static(upperCaseLabel()))
         turkicUpperCase.action = #selector(NSTextView.makeTurkicUpperCase(_:))
         turkicUpperCase.indentationLevel = 1
+        return turkicUpperCase
     }
 
     private static func turkicSmallUpperCase() -> MenuEntry<InterfaceLocalization> {
         let turkicSmallUpperCase = MenuEntry(label: .static(smallUpperCaseLabel()))
         turkicSmallUpperCase.action = #selector(NSTextView.makeTurkicSmallCaps(_:))
         turkicSmallUpperCase.indentationLevel = 1
+        return turkicSmallUpperCase
     }
 
     private static func turkicLowerCase() -> MenuEntry<InterfaceLocalization> {
         let turkicLowerCase = MenuEntry(label: .static(lowerCaseLabel()))
         turkicLowerCase.action = #selector(NSTextView.makeTurkicLowerCase(_:))
         turkicLowerCase.indentationLevel = 1
+        return turkicLowerCase
     }
 
     internal static func casing() -> Menu<InterfaceLocalization> {
