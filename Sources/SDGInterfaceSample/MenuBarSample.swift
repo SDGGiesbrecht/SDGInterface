@@ -12,11 +12,14 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import ObjectiveC
+
 import SDGText
 import SDGLocalization
 
 import SDGMenus
 import SDGMenuBar
+import SDGApplication
 
 import SDGInterfaceLocalizations
 
@@ -31,6 +34,7 @@ extension MenuBar {
         })))
         error.action = #selector(Application.demonstrateError)
         error.target = self
+        return error
     }
 
     private static func sample() -> Menu<InterfaceLocalization> {
