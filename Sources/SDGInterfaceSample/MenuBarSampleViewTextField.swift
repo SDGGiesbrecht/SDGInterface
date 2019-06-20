@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import ObjectiveC
+
 import SDGText
 import SDGLocalization
 
@@ -23,28 +25,41 @@ import SDGInterfaceLocalizations
 
 extension MenuBar {
 
-    internal static func textField() -> Menu<InterfaceLocalization> {
-        let textField = view.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+    private static func textFieldEntry() -> MenuEntry<InterfaceLocalization> {
+        let textField = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Text Field"
             }
         })))
+        textField.action = #selector(Application.demonstrateTextField)
+        textField.target = self
+        return textField
+    }
 
-        let basicTextField = textField.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "Text Field"
-            }
-        })), action: #selector(Application.demonstrateTextField))
-        basicTextField.target = self
-
-        let labelledTextField = textField.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+    private static func labelledTextField() -> MenuEntry<InterfaceLocalization> {
+        let labelledTextField = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Labelled Text Field"
             }
-        })), action: #selector(Application.demonstrateLabelledTextField))
+        })))
+        labelledTextField.action = #selector(Application.demonstrateLabelledTextField)
         labelledTextField.target = self
+        return labelledTextField
+    }
+
+    internal static func textField() -> Menu<InterfaceLocalization> {
+        let textField = Menu(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Text Field"
+            }
+        })))
+        textField.entries = [
+            .entry(textFieldEntry()),
+            .entry(labelledTextField())
+        ]
+        return textField
     }
 }
