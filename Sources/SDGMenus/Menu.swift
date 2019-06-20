@@ -73,10 +73,14 @@ public final class Menu<L> : AnyMenu, SharedValueObserver where L : Localization
                 }
                 let entry = NSMenuItem()
                 entry.submenu = menu.native
-                menu.refreshLabel()
                 return entry
             case .separator:
                 return NSMenuItem.separator()
+            }
+        }
+        for entry in entries {
+            if case .submenu(let menu) = entry {
+                menu.refreshLabel()
             }
         }
     }
