@@ -45,6 +45,7 @@ extension MenuBar {
         alignRight.action = #selector(NSText.alignRight(_:))
         alignRight.hotKey = "}"
         alignRight.hotKeyModifiers = .command
+        return alignRight
     }
 
     private static func centre() -> MenuEntry<MenuBarLocalization> {
@@ -70,6 +71,7 @@ extension MenuBar {
         centre.action = #selector(NSText.alignCenter(_:))
         centre.hotKey = "|"
         centre.hotKeyModifiers = .command
+        return centre
     }
 
     private static func justify() -> MenuEntry<MenuBarLocalization> {
@@ -91,6 +93,7 @@ extension MenuBar {
             }
         })))
         justify.action = #selector(NSTextView.alignJustified(_:))
+        return justify
     }
 
     private static func alignLeft() -> MenuEntry<MenuBarLocalization> {
@@ -113,6 +116,7 @@ extension MenuBar {
         alignLeft.hotKey = "{"
         alignLeft.hotKeyModifiers = .command
         alignLeft.action = #selector(NSText.alignLeft(_:))
+        return alignLeft
     }
 
     private static func showRuler() -> MenuEntry<MenuBarLocalization> {
@@ -133,6 +137,7 @@ extension MenuBar {
             }
         })))
         showRuler.action = #selector(NSText.toggleRuler(_:))
+        return showRuler
     }
 
     private static func copyRuler() -> MenuEntry<MenuBarLocalization> {
@@ -156,6 +161,7 @@ extension MenuBar {
         copyRuler.action = #selector(NSText.copyRuler(_:))
         copyRuler.hotKey = "c"
         copyRuler.hotKeyModifiers = [.command, .control]
+        return copyRuler
     }
 
     private static func pasteRuler() -> MenuEntry<MenuBarLocalization> {
@@ -178,6 +184,7 @@ extension MenuBar {
         pasteRuler.action = #selector(NSText.pasteRuler(_:))
         pasteRuler.hotKey = "v"
         pasteRuler.hotKeyModifiers = [.command, .control]
+        return pasteRuler
     }
 
     internal static func text() -> Menu<MenuBarLocalization> {
@@ -199,7 +206,7 @@ extension MenuBar {
         text.entries = [
             .entry(alignRight()),
             .entry(centre()),
-            .entry(justify())
+            .entry(justify()),
             .entry(alignLeft()),
             .separator,
             .submenu(writingDirection()),
