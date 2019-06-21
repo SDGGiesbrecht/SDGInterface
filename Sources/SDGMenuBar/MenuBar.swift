@@ -83,14 +83,14 @@ public final class MenuBar {
     ///
     /// - Parameters:
     ///     - label: A label for the new submenu.
-    public func addApplicationSpecificSubmenu(_ menu: AnyMenu) {
+    public func addApplicationSpecificSubmenu(_ submenu: AnyMenu) {
         let index: Int
         if menu.entries.count ≥ 2 {
             index = menu.entries.index(menu.entries.endIndex, offsetBy: −2)
         } else {
             index = 0
         }
-        menu.entries.insert(.submenu(menu), at: index)
+        menu.entries.insert(.submenu(submenu), at: index)
     }
 
     // MARK: - Items
