@@ -55,7 +55,7 @@ extension AnyMenuEntry {
 
     /// The desired action target.
     ///
-    /// Some platforms do not recognize the target, and may use the responder chain regardless of the value of this property.
+    /// The target may not be recognized by all platforms. Some may use the responder chain regardless of the value of this property.
     public var target: AnyObject? {
         get {
             #if canImport(AppKit)
