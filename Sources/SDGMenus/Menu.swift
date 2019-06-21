@@ -22,7 +22,6 @@ import SDGLocalization
 
 import SDGInterfaceBasics
 
-#warning("Hide observation.")
 /// A menu.
 public final class Menu<L> : AnyMenu, SharedValueObserver where L : Localization {
 
