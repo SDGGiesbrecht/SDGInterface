@@ -136,9 +136,7 @@ extension AnyMenuEntry {
         }
     }
 
-    /// The desired indentation level for when the menu is layed out vertically.
-    ///
-    /// - Note: Indentation may not be recognized on all platforms.
+    /// The indentation level to use if the menu is layed out vertically.
     public var indentationLevel: Int {
         get {
             #if canImport(AppKit)
