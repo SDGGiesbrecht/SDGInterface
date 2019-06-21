@@ -342,6 +342,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             for localization in MenuBarLocalization.allCases {
                 LocalizationSetting(orderOfPrecedence: [localization.code]).do {
                     _ = MenuBar._normalizeText().label.resolved()
+                    _ = (MenuBar.menuBar.menu as? MenuEntry<InterfaceLocalization>)?.label.resolved()
                 }
             }
         }
@@ -373,6 +374,8 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         let menu = MenuBar.menuBar.menu
         MenuBar.menuBar.menu = Menu<APILocalization>(label: .binding(Shared("")))
         MenuBar.menuBar.addApplicationSpecificSubmenu(Menu<APILocalization>(label: .binding(Shared(""))))
+        MenuBar.menuBar.addApplicationSpecificSubmenu(Menu<APILocalization>(label: .binding(Shared(""))))
+        MenuBar.menuBar.addApplicationSpecificSubmenu(Menu<APILocalization>(label: .binding(Shared(""))))
         MenuBar.menuBar.menu = menu
     }
 
@@ -391,34 +394,41 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertEqual(menu.action, action)
         let target = NSObject()
         menu.target = target
+        _ = menu.target
         #if canImport(AppKit)
         XCTAssertEqual(menu.target as? NSObject, target)
         #endif
         let hotKey = "A"
         menu.hotKey = hotKey
+        _ = menu.hotKey
         #if canImport(AppKit)
         XCTAssertEqual(menu.hotKey, hotKey)
         #endif
         let modifiers: KeyModifiers = .command
         menu.hotKeyModifiers = modifiers
+        _ = menu.hotKeyModifiers
         #if canImport(AppKit)
         XCTAssertEqual(menu.hotKeyModifiers, modifiers)
         #endif
         menu.isHidden = true
+        _ = menu.isHidden
         #if canImport(AppKit)
         XCTAssert(menu.isHidden)
         #endif
         menu.indentationLevel = 1
+        _ = menu.indentationLevel
         #if canImport(AppKit)
         XCTAssertEqual(menu.indentationLevel, 1)
         #endif
         menu.tag = 1
         XCTAssertEqual(menu.tag, 1)
-        #if canImport(AppKit)
         let title = menu.native.title
+        #if canImport(AppKit)
         menu.native = NSMenuItem()
-        XCTAssertEqual(menu.native.title, title)
+        #elseif canImport(UIKit)
+        menu.native = UIMenuItem()
         #endif
+        XCTAssertEqual(menu.native.title, title)
     }
 
     func testPopOver() {

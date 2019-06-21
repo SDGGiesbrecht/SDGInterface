@@ -157,13 +157,13 @@ extension Application {
     }
 
     @objc public func demonstrateCheckBox() {
+        #if canImport(AppKit)
         let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Check Box"
             }
         })
-        #if canImport(AppKit)
         demonstrate(CheckBox(label: Shared(label)), windowTitle: label)
         #endif
     }

@@ -19,7 +19,7 @@ import ObjectiveC
 
 extension Selector {
     private class Responder : NSObject {
-        @objc fileprivate func unimplementedSelector(_ sender: Any?) {}
+        @objc fileprivate func unimplementedSelector(_ sender: Any?) {} // @exmpt(from: tests)
     }
     internal static let none: Selector = #selector(Responder.unimplementedSelector(_:))
 }
