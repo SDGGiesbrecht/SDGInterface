@@ -24,6 +24,7 @@ import SDGMathematics
 import SDGText
 import SDGLocalization
 
+import SDGInterfaceBasics
 import SDGInterfaceElements
 import SDGMenuBar
 import SDGApplication
@@ -105,9 +106,6 @@ extension Application {
             // This call fails during tests.
             window.makeKeyAndVisible()
         }
-
-        UIMenuController.shared.newEntry(labelled: menuItemLabel)
-        UIMenuController.shared.update()
         #endif
 
         #endif

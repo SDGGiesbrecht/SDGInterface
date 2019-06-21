@@ -176,6 +176,7 @@ let package = Package(
 
         .target(name: "SDGInterfaceSample", dependencies: [
             "SDGInterfaceLocalizations",
+            "SDGInterfaceBasics",
             "SDGMenus",
             "SDGInterfaceElements",
             "SDGMenuBar",
