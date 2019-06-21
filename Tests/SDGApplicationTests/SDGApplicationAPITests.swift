@@ -291,6 +291,13 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertEqual(letterbox.colour?.alphaComponent, 1)
     }
 
+    func testKeyModifiers() {
+        let modifiers: KeyModifiers = [.command, .shift, .option, .control, .function, .capsLock]
+        #if canImport(AppKit)
+        XCTAssertEqual(KeyModifiers(modifiers.native), modifiers)
+        #endif
+    }
+
     func testMenu() {
         _ = MenuEntry(label: .static(UserFacing<StrictString, APILocalization>({ _ in "..." })))
 
@@ -370,6 +377,21 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertEqual(menu.label.resolved(), separateMenuLabel.value)
         menuLabel.value = "unrelated"
         XCTAssertEqual(menu.label.resolved(), separateMenuLabel.value)
+        let action = #selector(NSObject.isEqual(_:))
+        menu.action = action
+        XCTAssertEqual(menu.action, action)
+        let target = NSObject()
+        menu.target = target
+        XCTAssertEqual(menu.target as? NSObject, target)
+        let modifiers: KeyModifiers = .command
+        menu.hotKeyModifiers = modifiers
+        XCTAssertEqual(menu.hotKeyModifiers, modifiers)
+        menu.isHidden = true
+        XCTAssert(menu.isHidden)
+        menu.indentationLevel = 1
+        XCTAssertEqual(menu.indentationLevel, 1)
+        menu.tag = 1
+        XCTAssertEqual(menu.tag, 1)
     }
 
     func testPopOver() {
