@@ -158,7 +158,6 @@ extension Application {
             ]), windowTitle: label)
     }
 
-    #if canImport(AppKit)
     @objc public func demonstrateCheckBox() {
         let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
@@ -166,9 +165,10 @@ extension Application {
                 return "Check Box"
             }
         })
+        #if canImport(AppKit)
         demonstrate(CheckBox(label: Shared(label)), windowTitle: label)
+        #endif
     }
-    #endif
 
     @objc public func demonstrateError() { // @exempt(from: tests) Requires user interaction.
         let error = TextConvertibleNumberParseError.invalidDigit("π", entireString: "3π")

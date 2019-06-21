@@ -32,6 +32,8 @@ import SDGInterfaceLocalizations
 /// Some menu items only appear if the application provides details they need to operate:
 /// - “Preferences...” appears if the application has a preference manager.
 /// - “Help” appears if a help book is specified in the `Info.plist` file.
+///
+/// - Note: The menu bar will only appear on the screen for platforms which actually have a menu bar. To reduce the need for `#if` statements, the `MenuBar` type and its public interface still exist on the remaining platforms, but it is empty and does nothing.
 public final class MenuBar {
 
     // MARK: - Class Properties
