@@ -63,7 +63,7 @@ public final class MenuEntry<L> : AnyMenuEntry, SharedValueObserver where L : Lo
         native.title = String(label.resolved())
     }
 
-    // MARK: - AnyMenuItem
+    // MARK: - AnyMenuEntry
 
     #if canImport(AppKit)
     public var native: NSMenuItem = NSMenuItem() {
@@ -77,6 +77,12 @@ public final class MenuEntry<L> : AnyMenuEntry, SharedValueObserver where L : Lo
             refreshNative()
         }
     }
+    public var _target: AnyObject? = nil
+    public var _hotKey: String = ""
+    public var _hotKeyModifiers: KeyModifiers = []
+    public var _isHidden: Bool = false
+    public var _indentationLevel: Int = 0
+    public var _tag: Int = 0
     #endif
 
     // MARK: - SharedValueObserver
