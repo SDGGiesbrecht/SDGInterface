@@ -30,6 +30,11 @@ public protocol AnyMenuEntry : SharedValueObserver {
     /// The native menu item.
     var native: UIMenuItem { get set }
     var _target: AnyObject? { get set }
+    var _hotKey: String { get set }
+    var _hotKeyModifiers: KeyModifiers { get set }
+    var _isHidden: Bool { get set }
+    var _indentationLevel: Int { get set }
+    var _tag: Int { get set }
     #endif
 }
 
@@ -55,7 +60,7 @@ extension AnyMenuEntry {
 
     /// The desired action target.
     ///
-    /// The target may not be recognized by all platforms. Some may use the responder chain regardless of the value of this property.
+    /// - Note: The target may not be recognized by all platforms. Some may use the responder chain regardless of the value of this property.
     public var target: AnyObject? {
         get {
             #if canImport(AppKit)
@@ -73,53 +78,99 @@ extension AnyMenuEntry {
         }
     }
 
-    /// The hot key.
+    /// The desired hot key.
+    ///
+    /// - Note: Hot keys may not be recognized by all platforms.
     public var hotKey: String {
         get {
+            #if canImport(AppKit)
             return native.keyEquivalent
+            #elseif canImport(UIKit)
+            return _hotKey
+            #endif
         }
         set {
+            #if canImport(AppKit)
             native.keyEquivalent = newValue
+            #elseif canImport(UIKit)
+            _hotKey = newValue
+            #endif
         }
     }
 
-    /// The hot key modifiers.
+    /// The desired hot key modifiers.
+    ///
+    /// - Note: Hot keys may not be recognized by all platforms.
     public var hotKeyModifiers: KeyModifiers {
         get {
+            #if canImport(AppKit)
             return KeyModifiers(native.keyEquivalentModifierMask)
+            #elseif canImport(UIKit)
+            return _hotKeyModifiers
+            #endif
         }
         set {
+            #if canImport(AppKit)
             native.keyEquivalentModifierMask = newValue.native
+            #elseif canImport(UIKit)
+            _hotKeyModifiers = newValue
+            #endif
         }
     }
 
     /// Whether or not the menu entry is hidden and inactive.
     public var isHidden: Bool {
         get {
+            #if canImport(AppKit)
             return native.isHidden
+            #elseif canImport(UIKit)
+            return _isHidden
+            #endif
         }
         set {
+            #if canImport(AppKit)
             native.isHidden = newValue
+            #elseif canImport(UIKit)
+            _isHidden = newValue
+            #endif
         }
     }
 
-    /// The indentation level.
+    /// The desired indentation level for when the menu is layed out vertically.
+    ///
+    /// - Note: Indentation may not be recognized on all platforms.
     public var indentationLevel: Int {
         get {
+            #if canImport(AppKit)
             return native.indentationLevel
+            #elseif canImport(UIKit)
+            return _indentationLevel
+            #endif
         }
         set {
+            #if canImport(AppKit)
             native.indentationLevel = newValue
+            #elseif canImport(UIKit)
+            _indentationLevel = newValue
+            #endif
         }
     }
 
     /// A tag to identify the menu entry.
     public var tag: Int {
         get {
+            #if canImport(AppKit)
             return native.tag
+            #elseif canImport(UIKit)
+            return _tag
+            #endif
         }
         set {
+            #if canImport(AppKit)
             native.tag = newValue
+            #elseif canImport(UIKit)
+            _tag = newValue
+            #endif
         }
     }
 }

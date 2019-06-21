@@ -68,6 +68,7 @@ public final class Menu<L> : AnyMenu, SharedValueObserver where L : Localization
         native.items = entries.map { component in
             switch component {
             case .entry(let entry):
+                #warning("Hide hidden ones.")
                 return entry.native
             case .submenu(let menu):
                 if let index = menu.native.supermenu?.indexOfItem(withSubmenu: menu.native) {
