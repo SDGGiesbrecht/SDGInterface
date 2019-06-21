@@ -26,9 +26,9 @@ class ApplicationTestCase : TestCase {
 
     override func setUp() {
         super.setUp()
-        launch
+        ApplicationTestCase.launch
     }
-    let launch: Void = {
+    static let launch: Void = {
         Application.setUp()
         let mediator = getSystemMediator()
         Application.setUpWithoutMain(mediator: mediator)
