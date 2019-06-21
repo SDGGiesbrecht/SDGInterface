@@ -324,6 +324,11 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertEqual(menu.label.resolved(), separateMenuLabel.value)
         menuLabel.value = "unrelated"
         XCTAssertEqual(menu.label.resolved(), separateMenuLabel.value)
+        #if canImport(AppKit)
+        let title = menu.native.title
+        menu.native = NSMenu()
+        XCTAssertEqual(menu.native.title, title)
+        #endif
     }
 
     func testMenuBar() {
@@ -367,7 +372,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         MenuBar.menuBar.menu = menu
     }
 
-    func testMenuItem() {
+    func testMenuEntry() {
         let menuLabel = Shared<StrictString>("initial")
         let menu = MenuEntry<APILocalization>(label: .binding(menuLabel))
         menuLabel.value = "changed"
@@ -383,6 +388,9 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         let target = NSObject()
         menu.target = target
         XCTAssertEqual(menu.target as? NSObject, target)
+        let hotKey = "A"
+        menu.hotKey = hotKey
+        XCTAssertEqual(menu.hotKey, hotKey)
         let modifiers: KeyModifiers = .command
         menu.hotKeyModifiers = modifiers
         XCTAssertEqual(menu.hotKeyModifiers, modifiers)
@@ -392,6 +400,11 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertEqual(menu.indentationLevel, 1)
         menu.tag = 1
         XCTAssertEqual(menu.tag, 1)
+        #if canImport(AppKit)
+        let title = menu.native.title
+        menu.native = NSMenuItem()
+        XCTAssertEqual(menu.native.title, title)
+        #endif
     }
 
     func testPopOver() {
