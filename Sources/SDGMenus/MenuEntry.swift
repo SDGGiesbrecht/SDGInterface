@@ -56,9 +56,11 @@ public final class MenuEntry<L> : AnyMenuEntry, SharedValueObserver where L : Lo
 
     // MARK: - Refreshing
 
+    #if !os(watchOS) && !os(tvOS)
     private func refreshNative() {
         refreshLabel()
     }
+    #endif
     private func refreshLabel() {
         #if !os(watchOS) && !os(tvOS)
         native.title = String(label.resolved())

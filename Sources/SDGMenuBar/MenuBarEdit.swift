@@ -216,7 +216,7 @@ extension MenuBar {
     }
     #endif
 
-    #if !os(watchOS)
+    #if !os(watchOS) && !os(tvOS)
     public static func _showCharacterInformation() -> MenuEntry<InterfaceLocalization> {
         let showCharacterInformation = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {

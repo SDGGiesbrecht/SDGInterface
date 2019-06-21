@@ -391,6 +391,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertEqual(menu.label.resolved(), separateMenuLabel.value)
         let action = #selector(NSObject.isEqual(_:))
         menu.action = action
+        _ = menu.action
         #if !os(watchOS) && !os(tvOS)
         XCTAssertEqual(menu.action, action)
         #endif
