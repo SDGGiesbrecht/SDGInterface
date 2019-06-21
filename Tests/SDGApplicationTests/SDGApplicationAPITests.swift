@@ -391,7 +391,9 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertEqual(menu.label.resolved(), separateMenuLabel.value)
         let action = #selector(NSObject.isEqual(_:))
         menu.action = action
+        #if !os(watchOS) && !os(tvOS)
         XCTAssertEqual(menu.action, action)
+        #endif
         menu.action = nil
         let target = NSObject()
         menu.target = target
@@ -423,13 +425,17 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         #endif
         menu.tag = 1
         XCTAssertEqual(menu.tag, 1)
+        #if !os(watchOS) && !os(tvOS)
         let title = menu.native.title
+        #endif
         #if canImport(AppKit)
         menu.native = NSMenuItem()
-        #elseif canImport(UIKit)
+        #elseif canImport(UIKit) && !os(watchOS) && !os(tvOS)
         menu.native = UIMenuItem()
         #endif
+        #if !os(watchOS) && !os(tvOS)
         XCTAssertEqual(menu.native.title, title)
+        #endif
     }
 
     func testPopOver() {
