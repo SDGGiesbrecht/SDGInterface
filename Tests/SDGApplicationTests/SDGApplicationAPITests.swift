@@ -389,17 +389,27 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertEqual(menu.action, action)
         let target = NSObject()
         menu.target = target
+        #if canImport(AppKit)
         XCTAssertEqual(menu.target as? NSObject, target)
+        #endif
         let hotKey = "A"
         menu.hotKey = hotKey
+        #if canImport(AppKit)
         XCTAssertEqual(menu.hotKey, hotKey)
+        #endif
         let modifiers: KeyModifiers = .command
         menu.hotKeyModifiers = modifiers
+        #if canImport(AppKit)
         XCTAssertEqual(menu.hotKeyModifiers, modifiers)
+        #endif
         menu.isHidden = true
+        #if canImport(AppKit)
         XCTAssert(menu.isHidden)
+        #endif
         menu.indentationLevel = 1
+        #if canImport(AppKit)
         XCTAssertEqual(menu.indentationLevel, 1)
+        #endif
         menu.tag = 1
         XCTAssertEqual(menu.tag, 1)
         #if canImport(AppKit)
