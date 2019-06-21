@@ -29,6 +29,7 @@ import SDGInterfaceLocalizations
 
 extension MenuBar {
 
+    #if !os(watchOS)
     public static func _normalizeText() -> MenuEntry<InterfaceLocalization> {
         let normalizeText = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
@@ -41,6 +42,7 @@ extension MenuBar {
         normalizeText.action = #selector(NSTextView.normalizeText(_:))
         return normalizeText
     }
+    #endif
 
     #if canImport(AppKit)
     internal static func transformations() -> Menu<MenuBarLocalization> {

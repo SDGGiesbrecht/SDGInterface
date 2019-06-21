@@ -216,6 +216,7 @@ extension MenuBar {
     }
     #endif
 
+    #if !os(watchOS)
     public static func _showCharacterInformation() -> MenuEntry<InterfaceLocalization> {
         let showCharacterInformation = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
@@ -226,6 +227,7 @@ extension MenuBar {
         showCharacterInformation.action = #selector(NSTextView.showCharacterInformation(_:))
         return showCharacterInformation
     }
+    #endif
 
     #if canImport(AppKit)
     internal static func edit() -> Menu<MenuBarLocalization> {
