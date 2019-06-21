@@ -23,7 +23,7 @@ import SDGLocalization
 import SDGInterfaceBasics
 
 #warning("Hide observation.")
-/// A menu if the platforms supports them.
+/// A menu.
 public final class Menu<L> : AnyMenu, SharedValueObserver where L : Localization {
 
     // MARK: - Initialization
