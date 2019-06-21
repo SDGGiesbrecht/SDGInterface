@@ -58,9 +58,7 @@ extension AnyMenuEntry {
         }
     }
 
-    /// The desired action target.
-    ///
-    /// - Note: The target may not be recognized by all platforms. Some may use the responder chain regardless of the value of this property.
+    /// The target for the action if the responder chain can be overridden.
     public var target: AnyObject? {
         get {
             #if canImport(AppKit)
@@ -78,9 +76,7 @@ extension AnyMenuEntry {
         }
     }
 
-    /// The desired hot key.
-    ///
-    /// - Note: Hot keys may not be recognized by all platforms.
+    /// The hot key to listen for if the menu is hooked up to keyboard event detection.
     public var hotKey: String {
         get {
             #if canImport(AppKit)
@@ -98,9 +94,7 @@ extension AnyMenuEntry {
         }
     }
 
-    /// The desired hot key modifiers.
-    ///
-    /// - Note: Hot keys may not be recognized by all platforms.
+    /// The hot key modifiers to listen for if the menu is hooked up to keyboard event detection.
     public var hotKeyModifiers: KeyModifiers {
         get {
             #if canImport(AppKit)
