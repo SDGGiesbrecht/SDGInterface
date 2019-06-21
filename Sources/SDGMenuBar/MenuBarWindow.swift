@@ -14,7 +14,6 @@
 
 #if canImport(AppKit)
 import AppKit
-#endif
 
 import SDGText
 import SDGLocalization
@@ -117,9 +116,8 @@ extension MenuBar {
             .separator,
             .entry(bringAllToFront())
         ]
-        #if canImport(AppKit)
         NSApplication.shared.windowsMenu = window.native
-        #endif
         return window
     }
 }
+#endif

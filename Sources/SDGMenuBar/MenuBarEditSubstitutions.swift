@@ -14,7 +14,6 @@
 
 #if canImport(AppKit)
 import AppKit
-#endif
 
 import SDGText
 import SDGLocalization
@@ -42,11 +41,7 @@ extension MenuBar {
                 return "הצג החלפות"
             }
         })))
-        #if canImport(AppKit)
         showSubstitutions.action = #selector(NSTextView.orderFrontSubstitutionsPanel(_:))
-        #else
-        showSubstitutions.isHidden = true
-        #endif
         return showSubstitutions
     }
 
@@ -67,11 +62,7 @@ extension MenuBar {
                 return "העתקה והדבקה חכמות"
             }
         })))
-        #if canImport(AppKit)
         smartCopyPaste.action = #selector(NSTextView.toggleSmartInsertDelete(_:))
-        #else
-        smartCopyPaste.isHidden = true
-        #endif
         return smartCopyPaste
     }
 
@@ -92,11 +83,7 @@ extension MenuBar {
                 return "מרכאות חכמות"
             }
         })))
-        #if canImport(AppKit)
         smartQuotes.action = #selector(NSTextView.toggleAutomaticQuoteSubstitution(_:))
-        #else
-        smartQuotes.isHidden = true
-        #endif
         return smartQuotes
     }
 
@@ -117,11 +104,7 @@ extension MenuBar {
                 return "מיקוף חכם"
             }
         })))
-        #if canImport(AppKit)
         smartDashes.action = #selector(NSTextView.toggleAutomaticDashSubstitution(_:))
-        #else
-        smartDashes.isHidden = true
-        #endif
         return smartDashes
     }
 
@@ -142,11 +125,7 @@ extension MenuBar {
                 return "קישורים חכמים"
             }
         })))
-        #if canImport(AppKit)
         smartLinks.action = #selector(NSTextView.toggleAutomaticLinkDetection(_:))
-        #else
-        smartLinks.isHidden = true
-        #endif
         return smartLinks
     }
 
@@ -168,11 +147,7 @@ extension MenuBar {
                 return "גלאי נתונים"
             }
         })))
-        #if canImport(AppKit)
         dataDetectors.action = #selector(NSTextView.toggleAutomaticDataDetection(_:))
-        #else
-        dataDetectors.isHidden = true
-        #endif
         return dataDetectors
     }
 
@@ -193,11 +168,7 @@ extension MenuBar {
                 return "החלפת מלל"
             }
         })))
-        #if canImport(AppKit)
         textReplacement.action = #selector(NSTextView.toggleAutomaticTextReplacement(_:))
-        #else
-        textReplacement.isHidden = true
-        #endif
         return textReplacement
     }
 
@@ -232,3 +203,4 @@ extension MenuBar {
         return substitutions
     }
 }
+#endif

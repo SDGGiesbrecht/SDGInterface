@@ -14,9 +14,6 @@
 
 #if canImport(AppKit)
 import AppKit
-#elseif canImport(UIKit)
-import UIKit
-#endif
 
 import SDGText
 import SDGLocalization
@@ -36,11 +33,7 @@ extension MenuBar {
                 return "Normalize Text"
             }
         })))
-        #if canImport(AppKit)
         normalizeText.action = #selector(NSTextView.normalizeText(_:))
-        #elseif canImport(UIKit)
-        normalizeText.action = #selector(UITextView.normalizeText(_:))
-        #endif
         return normalizeText
     }
 
@@ -73,3 +66,4 @@ extension MenuBar {
         return transformations
     }
 }
+#endif

@@ -14,7 +14,6 @@
 
 #if canImport(AppKit)
 import AppKit
-#endif
 
 import SDGText
 import SDGLocalization
@@ -218,3 +217,4 @@ extension MenuBar {
         return text
     }
 }
+#endif
