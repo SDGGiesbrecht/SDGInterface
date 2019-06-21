@@ -253,6 +253,7 @@ extension MenuBar {
             .submenu(find()),
             .submenu(spellingAndGrammar()),
             .submenu(substitutions()),
+            .submenu(transformations()),
             .entry(showCharacterInformation()),
             .submenu(speech())
         ]

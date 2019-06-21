@@ -138,6 +138,7 @@ extension MenuBar {
             .entry(showToolbar()),
             .entry(customizeToolbar()),
             .separator,
+            .entry(showSideBar()),
             .entry(enterFullScreen())
         ]
         return view

@@ -190,6 +190,7 @@ extension MenuBar {
             .entry(findAndReplace()),
             .entry(findNext()),
             .entry(findPrevious()),
+            .entry(jumpToSelection()),
             .entry(useSelectionForFind())
         ]
         return find

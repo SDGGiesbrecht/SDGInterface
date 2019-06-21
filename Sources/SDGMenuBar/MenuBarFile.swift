@@ -275,7 +275,8 @@ extension MenuBar {
             .entry(moveTo()),
             .entry(revertToSaved()),
             .separator,
-            .entry(pageSetUp())
+            .entry(pageSetUp()),
+            .entry(print())
         ]
         return file
     }

@@ -353,6 +353,11 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         let preferencesMenuItem = NSApplication.shared.mainMenu?.items.first?.submenu?.items.first(where: { $0.action == #selector(_NSApplicationDelegateProtocol.openPreferences(_:)) })
         XCTAssertNotNil(preferencesMenuItem)
         #endif
+
+        let menu = MenuBar.menuBar.menu
+        MenuBar.menuBar.menu = Menu<APILocalization>(label: .binding(Shared("")))
+        MenuBar.menuBar.addApplicationSpecificSubmenu(Menu<APILocalization>(label: .binding(Shared(""))))
+        MenuBar.menuBar.menu = menu
     }
 
     func testMenuItem() {
