@@ -95,6 +95,7 @@ public final class MenuBar {
 
     // MARK: - Items
 
+    #if canImport(AppKit)
     internal static func fallbackApplicationName(quotationMarks: (leading: StrictString, trailing: StrictString)) -> StrictString {
         var result = quotationMarks.leading
         result.append("\u{2068}")
@@ -103,4 +104,5 @@ public final class MenuBar {
         result.append(contentsOf: quotationMarks.trailing)
         return result
     }
+    #endif
 }

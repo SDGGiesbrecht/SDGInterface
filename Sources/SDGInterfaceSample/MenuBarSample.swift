@@ -25,6 +25,7 @@ import SDGInterfaceLocalizations
 
 extension MenuBar {
 
+    #if canImport(AppKit)
     private static func error() -> MenuEntry<InterfaceLocalization> {
         let error = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
@@ -52,7 +53,10 @@ extension MenuBar {
         ]
         return sample
     }
+    #endif
     internal func setSamplesUp() {
+        #if canImport(AppKit)
         addApplicationSpecificSubmenu(MenuBar.sample())
+        #endif
     }
 }

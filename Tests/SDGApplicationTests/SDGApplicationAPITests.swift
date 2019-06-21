@@ -115,8 +115,8 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testCheckBox() {
-        #if canImport(AppKit)
         Application.shared.demonstrateCheckBox()
+        #if canImport(AppKit)
         let label = Shared(UserFacing<StrictString, APILocalization>({ _ in "Check Box" }))
         let checkBox = CheckBox(label: label)
         label.value = UserFacing<StrictString, APILocalization>({ _ in "Changed" })
@@ -340,7 +340,9 @@ final class SDGApplicationAPITests : ApplicationTestCase {
                 ProcessInfo.applicationName = previous
             }
             for localization in MenuBarLocalization.allCases {
-                LocalizationSetting(orderOfPrecedence: [localization.code]).do {}
+                LocalizationSetting(orderOfPrecedence: [localization.code]).do {
+                    _ = MenuBar._normalizeText().label.resolved()
+                }
             }
         }
 
