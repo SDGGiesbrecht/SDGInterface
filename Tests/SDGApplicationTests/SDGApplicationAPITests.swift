@@ -313,7 +313,9 @@ final class SDGApplicationAPITests : ApplicationTestCase {
                 return false
             }
         })
+        #if canImport(AppKit)
         XCTAssertNotNil(submenu)
+        #endif
 
         let menuLabel = Shared<StrictString>("initial")
         let menu = Menu<APILocalization>(label: .binding(menuLabel))
