@@ -14,6 +14,10 @@
 
 #if canImport(AppKit)
 import AppKit
+#endif
+#if canImport(UIKit)
+import UIKit
+#endif
 
 import SDGText
 import SDGLocalization
@@ -25,6 +29,7 @@ import SDGInterfaceLocalizations
 
 extension MenuBar {
 
+    #if canImport(AppKit)
     private static func undo() -> MenuEntry<MenuBarLocalization> {
         let undo = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -209,8 +214,9 @@ extension MenuBar {
         selectAll.hotKeyModifiers = .command
         return selectAll
     }
+    #endif
 
-    private static func showCharacterInformation() -> MenuEntry<InterfaceLocalization> {
+    public static func _showCharacterInformation() -> MenuEntry<InterfaceLocalization> {
         let showCharacterInformation = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
@@ -221,6 +227,7 @@ extension MenuBar {
         return showCharacterInformation
     }
 
+    #if canImport(AppKit)
     internal static func edit() -> Menu<MenuBarLocalization> {
         let edit = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -258,5 +265,5 @@ extension MenuBar {
         ]
         return edit
     }
+    #endif
 }
-#endif
