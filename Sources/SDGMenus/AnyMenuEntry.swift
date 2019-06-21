@@ -27,7 +27,7 @@ public protocol AnyMenuEntry : SharedValueObserver {
     /// The native menu item.
     var native: NSMenuItem { get set }
     #elseif canImport(UIKit)
-    #if !os(watchOS)
+    #if !os(watchOS) && !os(tvOS)
     /// The native menu item.
     var native: UIMenuItem { get set }
     #endif
@@ -40,7 +40,7 @@ extension AnyMenuEntry {
     /// The action.
     public var action: Selector? {
         get {
-            #if os(watchOS)
+            #if os(watchOS) || os(tvOS)
             return nil
             #else
             return native.action
@@ -49,7 +49,7 @@ extension AnyMenuEntry {
         set {
             #if canImport(AppKit)
             native.action = newValue
-            #elseif canImport(UIKit) && !os(watchOS)
+            #elseif canImport(UIKit) && !os(watchOS) && !os(tvOS)
             if let new = newValue {
                 native.action = new
             } else {

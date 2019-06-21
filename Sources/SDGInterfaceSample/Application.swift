@@ -91,11 +91,7 @@ extension Application {
     private static func setMenuUp() {
         MenuBar.menuBar.setSamplesUp()
 
-        #if canImport(UIKit)
-
-        #if os(tvOS)
-        _ = menuItemLabel.value.resolved()
-        #elseif !os(watchOS)
+        #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
         let window = Window(title: Shared(ApplicationNameForm.localizedIsolatedForm))
         let view = UIViewController()
         window.rootViewController = view
@@ -106,8 +102,6 @@ extension Application {
             // This call fails during tests.
             window.makeKeyAndVisible()
         }
-        #endif
-
         #endif
     }
 

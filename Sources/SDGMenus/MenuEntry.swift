@@ -60,7 +60,7 @@ public final class MenuEntry<L> : AnyMenuEntry, SharedValueObserver where L : Lo
         refreshLabel()
     }
     private func refreshLabel() {
-        #if !os(watchOS)
+        #if !os(watchOS) && !os(tvOS)
         native.title = String(label.resolved())
         #endif
     }
@@ -74,7 +74,7 @@ public final class MenuEntry<L> : AnyMenuEntry, SharedValueObserver where L : Lo
         }
     }
     #elseif canImport(UIKit)
-    #if !os(watchOS)
+    #if !os(watchOS) && !os(tvOS)
     public var native: UIMenuItem = UIMenuItem() {
         didSet {
             refreshNative()
