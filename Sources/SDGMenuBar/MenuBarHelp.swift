@@ -12,6 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import Foundation
 #if canImport(AppKit)
 import AppKit
 #endif
@@ -64,7 +65,11 @@ extension MenuBar {
                 return "עזרה עבור \(היישום)"
             }
         })))
+        #if canImport(AppKit)
         help.action = #selector(NSApplication.showHelp(_:))
+        #else
+        help.isHidden = true
+        #endif
         help.hotKey = "?"
         help.hotKeyModifiers = .command
         if Bundle.main.infoDictionary?["CFBundleHelpBookName"] == nil {
@@ -95,7 +100,9 @@ extension MenuBar {
         help.entries = [
             .entry(helpEntry())
         ]
+        #if canImport(AppKit)
         NSApplication.shared.helpMenu = help.native
+        #endif
         return help
     }
 }
