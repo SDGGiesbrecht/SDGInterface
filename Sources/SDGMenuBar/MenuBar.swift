@@ -48,6 +48,7 @@ public final class MenuBar {
                 return "Menu Bar"
             }
         })))
+        #if canImport(AppKit)
         menu.entries = [
             .submenu(MenuBar.application()),
             .submenu(MenuBar.file()),
@@ -57,6 +58,7 @@ public final class MenuBar {
             .submenu(MenuBar.window()),
             .submenu(MenuBar.help())
         ]
+        #endif
         menuDidSet()
     }
 
