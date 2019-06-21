@@ -22,7 +22,8 @@ import SDGLocalization
 
 import SDGInterfaceBasics
 
-/// A menu.
+#warning("Hide observation.")
+/// A menu if the platforms supports them.
 public final class Menu<L> : AnyMenu, SharedValueObserver where L : Localization {
 
     // MARK: - Initialization
@@ -59,16 +60,18 @@ public final class Menu<L> : AnyMenu, SharedValueObserver where L : Localization
         refreshEntries()
     }
     public func _refreshLabel() {
+        #if canImport(AppKit)
         native.title = String(label.resolved())
         if let index = native.supermenu?.indexOfItem(withSubmenu: native) {
             native.supermenu?.item(at: index)?.title = String(label.resolved())
         }
+        #endif
     }
     private func refreshEntries() {
+        #if canImport(AppKit)
         native.items = entries.map { component in
             switch component {
             case .entry(let entry):
-                #warning("Hide hidden ones.")
                 return entry.native
             case .submenu(let menu):
                 if let index = menu.native.supermenu?.indexOfItem(withSubmenu: menu.native) {
@@ -81,6 +84,7 @@ public final class Menu<L> : AnyMenu, SharedValueObserver where L : Localization
                 return NSMenuItem.separator()
             }
         }
+        #endif
         for entry in entries {
             if case .submenu(let menu) = entry {
                 menu.refreshLabel()
