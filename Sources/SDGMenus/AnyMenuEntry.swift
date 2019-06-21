@@ -29,6 +29,7 @@ public protocol AnyMenuEntry : SharedValueObserver {
     #elseif canImport(UIKit)
     /// The native menu item.
     var native: UIMenuItem { get set }
+    var _target: AnyObject? { get set }
     #endif
 }
 
@@ -40,17 +41,35 @@ extension AnyMenuEntry {
             return native.action
         }
         set {
+            #if canImport(AppKit)
             native.action = newValue
+            #elseif canImport(UIKit)
+            if let new = newValue {
+                native.action = new
+            } else {
+                native.action = Selector.none
+            }
+            #endif
         }
     }
 
-    /// The action target.
+    /// The desired action target.
+    ///
+    /// Some platforms do not recognize the target, and may use the responder chain regardless of the value of this property.
     public var target: AnyObject? {
         get {
+            #if canImport(AppKit)
             return native.target
+            #elseif canImport(UIKit)
+            return _target
+            #endif
         }
         set {
+            #if canImport(AppKit)
             native.target = newValue
+            #elseif canImport(UIKit)
+            _target = newValue
+            #endif
         }
     }
 
