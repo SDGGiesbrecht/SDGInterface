@@ -20,7 +20,10 @@ import SDGMathematics
 import SDGText
 import SDGLocalization
 
+import SDGInterfaceBasics
+import SDGMenus
 import SDGInterfaceElements
+import SDGMenuBar
 import SDGApplication
 
 import SDGInterfaceLocalizations
@@ -289,33 +292,31 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testMenu() {
-        #if !os(tvOS)
+        _ = MenuEntry(label: .static(UserFacing<StrictString, APILocalization>({ _ in "..." })))
 
-        _ = MenuItem(label: Shared(UserFacing<StrictString, APILocalization>({ _ in "..." })))
-
-        #if canImport(AppKit)
         let menuBar = MenuBar.menuBar
         XCTAssertNotNil(menuBar)
-        let itemWithSubmenu = menuBar.items.first(where: { $0.submenu ≠ nil })
-        let submenu = itemWithSubmenu?.submenu
+        var submenu: AnyMenu?
+        _ = menuBar.menu.entries.first(where: { entry in
+            switch entry {
+            case .submenu(let menu):
+                submenu = menu
+                return true
+            default:
+                return false
+            }
+        })
         XCTAssertNotNil(submenu)
-        XCTAssertEqual(submenu?.parentMenuItem, itemWithSubmenu)
-        XCTAssertNil(menuBar.parentMenuItem)
 
-        let menuLabel = Shared(UserFacing<StrictString, APILocalization>({ _ in "initial" }))
-        let menu = Menu(label: menuLabel)
-        menuLabel.value = UserFacing<StrictString, APILocalization>({ _ in "changed" })
-        XCTAssertEqual(menu.title, String(menuLabel.value.resolved()))
-        let separateMenuLabel = Shared(UserFacing<StrictString, APILocalization>({ _ in "separate" }))
-        menu.label = separateMenuLabel
-        XCTAssertEqual(menu.title, String(separateMenuLabel.value.resolved()))
-        menuLabel.value = UserFacing<StrictString, APILocalization>({ _ in "unrelated" })
-        XCTAssertEqual(menu.title, String(separateMenuLabel.value.resolved()))
-        #else
-        XCTAssertNil(NSMenu.shared.parentMenuItem)
-        #endif
-
-        #endif
+        let menuLabel = Shared<StrictString>("initial")
+        let menu = Menu<APILocalization>(label: .binding(menuLabel))
+        menuLabel.value = "changed"
+        XCTAssertEqual(menu.label.resolved(), menuLabel.value)
+        let separateMenuLabel = Shared<StrictString>("separate")
+        menu.label = .binding(separateMenuLabel)
+        XCTAssertEqual(menu.label.resolved(), separateMenuLabel.value)
+        menuLabel.value = "unrelated"
+        XCTAssertEqual(menu.label.resolved(), separateMenuLabel.value)
     }
 
     func testMenuBar() {
@@ -349,23 +350,21 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         testAllLocalizations()
 
         #if canImport(AppKit)
-        let preferencesMenuItem = NSApplication.shared.mainMenu?.items.first?.submenu?.items.first(where: { $0.action == MenuBar.Action.openPreferences.selector })
+        let preferencesMenuItem = NSApplication.shared.mainMenu?.items.first?.submenu?.items.first(where: { $0.action == #selector(_NSApplicationDelegateProtocol.openPreferences(_:)) })
         XCTAssertNotNil(preferencesMenuItem)
         #endif
     }
 
     func testMenuItem() {
-        #if !os(tvOS)
-        let menuLabel = Shared(UserFacing<StrictString, APILocalization>({ _ in "initial" }))
-        let menu = MenuItem(label: menuLabel)
-        menuLabel.value = UserFacing<StrictString, APILocalization>({ _ in "changed" })
-        XCTAssertEqual(menu.title, String(menuLabel.value.resolved()))
-        let separateMenuLabel = Shared(UserFacing<StrictString, APILocalization>({ _ in "separate" }))
-        menu.label = separateMenuLabel
-        XCTAssertEqual(menu.title, String(separateMenuLabel.value.resolved()))
-        menuLabel.value = UserFacing<StrictString, APILocalization>({ _ in "unrelated" })
-        XCTAssertEqual(menu.title, String(separateMenuLabel.value.resolved()))
-        #endif
+        let menuLabel = Shared<StrictString>("initial")
+        let menu = MenuEntry<APILocalization>(label: .binding(menuLabel))
+        menuLabel.value = "changed"
+        XCTAssertEqual(menu.label.resolved(), menuLabel.value)
+        let separateMenuLabel = Shared<StrictString>("separate")
+        menu.label = .binding(separateMenuLabel)
+        XCTAssertEqual(menu.label.resolved(), separateMenuLabel.value)
+        menuLabel.value = "unrelated"
+        XCTAssertEqual(menu.label.resolved(), separateMenuLabel.value)
     }
 
     func testPopOver() {

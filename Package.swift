@@ -159,6 +159,8 @@ let package = Package(
         // Internal tests.
 
         .testTarget(name: "SDGApplicationTests", dependencies: [
+            "SDGInterfaceBasics",
+            "SDGMenus",
             "SDGApplication",
             "SDGInterfaceLocalizations",
             "SDGInterfaceSample",

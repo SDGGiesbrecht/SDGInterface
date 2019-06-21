@@ -18,6 +18,8 @@ import XCTest
 import SDGLogic
 import SDGLocalization
 
+import SDGInterfaceBasics
+import SDGMenuBar
 @testable import SDGApplication
 
 import SDGInterfaceLocalizations
@@ -104,7 +106,7 @@ final class SDGApplicationInternalTests : ApplicationTestCase {
             delegate.openPreferences(nil)
             _ = delegate.validateMenuItem(NSMenuItem(
                 title: "",
-                action: MenuBar.Action.openPreferences.selector,
+                action: #selector(_NSApplicationDelegateProtocol.openPreferences(_:)),
                 keyEquivalent: ""))
         }
         let mediator = Application.shared.systemMediator
@@ -117,12 +119,12 @@ final class SDGApplicationInternalTests : ApplicationTestCase {
         Application.shared.preferenceManager = nil
         XCTAssertFalse(delegate.validateMenuItem(NSMenuItem(
             title: "",
-            action: MenuBar.Action.openPreferences.selector,
+            action: #selector(_NSApplicationDelegateProtocol.openPreferences(_:)),
             keyEquivalent: "")))
         Application.shared.preferenceManager = preferenceManager
         XCTAssert(delegate.validateMenuItem(NSMenuItem(
             title: "",
-            action: MenuBar.Action.openPreferences.selector,
+            action: #selector(_NSApplicationDelegateProtocol.openPreferences(_:)),
             keyEquivalent: "")))
         XCTAssertFalse(delegate.validateMenuItem(NSMenuItem(title: "", action: nil, keyEquivalent: "")))
         #endif
