@@ -55,10 +55,12 @@ public final class Menu<L> : AnyMenu, SharedValueObserver where L : Localization
 
     // MARK: - Refreshing
 
+    #if canImport(AppKit)
     private func refreshNative() {
         refreshLabel()
         refreshEntries()
     }
+    #endif
     public func _refreshLabel() {
         #if canImport(AppKit)
         native.title = String(label.resolved())

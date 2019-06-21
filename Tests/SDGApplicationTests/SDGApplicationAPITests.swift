@@ -392,6 +392,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         let action = #selector(NSObject.isEqual(_:))
         menu.action = action
         XCTAssertEqual(menu.action, action)
+        menu.action = nil
         let target = NSObject()
         menu.target = target
         _ = menu.target
