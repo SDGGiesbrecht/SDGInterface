@@ -1,10 +1,10 @@
 /*
- main.swift
+ NSApplicationDelegateProtocol.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
 
- Copyright ©2018–2019 Jeremy David Giesbrecht and the SDGInterface project contributors.
+ Copyright ©2019 Jeremy David Giesbrecht and the SDGInterface project contributors.
 
  Soli Deo gloria.
 
@@ -12,8 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-import SDGApplication
-import SDGInterfaceSample
+import Foundation
 
-class BundleClass {}
-Application.setUpAndMain()
+@objc public protocol _NSApplicationDelegateProtocol {
+    @objc func openPreferences(_ sender: Any?)
+}

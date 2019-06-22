@@ -24,8 +24,10 @@ import SDGMathematics
 import SDGText
 import SDGLocalization
 
-import SDGApplication
+import SDGInterfaceBasics
 import SDGInterfaceElements
+import SDGMenuBar
+import SDGApplication
 
 extension Application {
 
@@ -87,158 +89,9 @@ extension Application {
     }
 
     private static func setMenuUp() {
-        let menuItemLabel = Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "Menu Item"
-            }
-        }))
-        #if canImport(AppKit)
-        let menuBar = MenuBar.menuBar
-        let sample = menuBar.newApplicationSpecificSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "Sample"
-            }
-        })))
+        MenuBar.menuBar.setSamplesUp()
 
-        let menu = sample.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "Menu"
-            }
-        })))
-
-        menu.newEntry(labelled: menuItemLabel)
-        let indented = menu.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "Indented"
-            }
-        })))
-        indented.indentationLevel = 1
-        menu.newSeparator()
-        let submenu = menu.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "Submenu"
-            }
-        })))
-        submenu.newEntry(labelled: menuItemLabel)
-
-        let error = sample.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "Error"
-            }
-        })), action: #selector(Application.demonstrateError))
-        error.target = self
-
-        let window = sample.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "Window"
-            }
-        })))
-        let fullscreen = window.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "Fullscreen"
-            }
-        })), action: #selector(Application.demonstrateFullscreenWindow))
-        fullscreen.target = self
-
-        let view = sample.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "View"
-            }
-        })))
-
-        let button = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "Button"
-            }
-        })), action: #selector(Application.demonstrateButton))
-        button.target = self
-
-        let buttonSet = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "Button Set"
-            }
-        })), action: #selector(Application.demonstrateButtonSet))
-        buttonSet.target = self
-
-        let checkBox = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "Check Box"
-            }
-        })), action: #selector(Application.demonstrateCheckBox))
-        checkBox.target = self
-
-        let image = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "Image"
-            }
-        })), action: #selector(Application.demonstrateImage))
-        image.target = self
-
-        let label = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "Label"
-            }
-        })), action: #selector(Application.demonstrateLabel))
-        label.target = self
-
-        let letterbox = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "Letterbox"
-            }
-        })), action: #selector(Application.demonstrateLetterbox))
-        letterbox.target = self
-
-        let textEditor = view.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "Text Editor"
-            }
-        })), action: #selector(Application.demonstrateTextEditor))
-        textEditor.target = self
-
-        let textField = view.newSubmenu(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "Text Field"
-            }
-        })))
-
-        let basicTextField = textField.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "Text Field"
-            }
-        })), action: #selector(Application.demonstrateTextField))
-        basicTextField.target = self
-
-        let labelledTextField = textField.newEntry(labelled: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "Labelled Text Field"
-            }
-        })), action: #selector(Application.demonstrateLabelledTextField))
-        labelledTextField.target = self
-
-        #elseif canImport(UIKit)
-
-        #if os(tvOS)
-        _ = menuItemLabel.value.resolved()
-        #elseif !os(watchOS)
+        #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
         let window = Window(title: Shared(ApplicationNameForm.localizedIsolatedForm))
         let view = UIViewController()
         window.rootViewController = view
@@ -249,11 +102,6 @@ extension Application {
             // This call fails during tests.
             window.makeKeyAndVisible()
         }
-
-        UIMenuController.shared.newEntry(labelled: menuItemLabel)
-        UIMenuController.shared.update()
-        #endif
-
         #endif
     }
 
@@ -302,8 +150,8 @@ extension Application {
             ]), windowTitle: label)
     }
 
-    #if canImport(AppKit)
     @objc public func demonstrateCheckBox() {
+        #if canImport(AppKit)
         let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
@@ -311,8 +159,8 @@ extension Application {
             }
         })
         demonstrate(CheckBox(label: Shared(label)), windowTitle: label)
+        #endif
     }
-    #endif
 
     @objc public func demonstrateError() { // @exempt(from: tests) Requires user interaction.
         let error = TextConvertibleNumberParseError.invalidDigit("π", entireString: "3π")

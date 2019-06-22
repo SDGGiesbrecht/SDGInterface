@@ -19,33 +19,11 @@ import SDGText
 import SDGLocalization
 import SDGCalendar
 
+import SDGInterfaceBasics
+
 import SDGInterfaceLocalizations
 
 extension ProcessInfo {
-
-    /// A closure of type `(_ form: ApplicationNameForm) -> StrictString?` which resolves the application name for a particular localized grammatical form.
-    public typealias ApplicationNameResolver = (_ form: ApplicationNameForm) -> StrictString?
-
-    private static var _applicationName: ApplicationNameResolver?
-    /// A closure which produces the declined application name suitable for use in various gramatical contexts.
-    ///
-    /// Applications must assign this property a value at the very beginning of program execution. Failing to do so before the first attempt to read this property will trigger a precondition failure.
-    public static var applicationName: ApplicationNameResolver {
-        get {
-            guard let result = _applicationName else {
-                preconditionFailure(UserFacing<StrictString, APILocalization>({ localization in
-                    switch localization {
-                    case .englishCanada: // @exempt(from: tests)
-                        return "“ProcessInfo.applicationName” has not been set yet. (Import SDGInterface or SDGApplication.)"
-                    }
-                }))
-            }
-            return result
-        }
-        set {
-            _applicationName = newValue
-        }
-    }
 
     /// Validates the application bundle.
     ///
@@ -99,7 +77,7 @@ extension ProcessInfo {
             let systemName: String? = dictionary?[nameKey] as? String
             let short: String? = dictionary?[shortKey] as? String
 
-            let form = ApplicationNameForm.isolatedForm(for: localization.code)
+            let form = ApplicationNameForm._isolatedForm(for: localization.code)
             let name: String? = form.flatMap({ ProcessInfo.applicationName($0) }).flatMap({ String($0) })
             assertEqual(
                 (systemName, localization.code + ".InfoPlist.strings." + nameKey),

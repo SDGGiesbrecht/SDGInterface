@@ -20,7 +20,10 @@ import SDGMathematics
 import SDGText
 import SDGLocalization
 
+import SDGInterfaceBasics
+import SDGMenus
 import SDGInterfaceElements
+import SDGMenuBar
 import SDGApplication
 
 import SDGInterfaceLocalizations
@@ -112,8 +115,8 @@ final class SDGApplicationAPITests : ApplicationTestCase {
     }
 
     func testCheckBox() {
-        #if canImport(AppKit)
         Application.shared.demonstrateCheckBox()
+        #if canImport(AppKit)
         let label = Shared(UserFacing<StrictString, APILocalization>({ _ in "Check Box" }))
         let checkBox = CheckBox(label: label)
         label.value = UserFacing<StrictString, APILocalization>({ _ in "Changed" })
@@ -288,33 +291,45 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         XCTAssertEqual(letterbox.colour?.alphaComponent, 1)
     }
 
-    func testMenu() {
-        #if !os(tvOS)
-
-        _ = MenuItem(label: Shared(UserFacing<StrictString, APILocalization>({ _ in "..." })))
-
+    func testKeyModifiers() {
+        let modifiers: KeyModifiers = [.command, .shift, .option, .control, .function, .capsLock]
         #if canImport(AppKit)
+        XCTAssertEqual(KeyModifiers(modifiers.native), modifiers)
+        #endif
+    }
+
+    func testMenu() {
+        _ = MenuEntry(label: .static(UserFacing<StrictString, APILocalization>({ _ in "..." })))
+
         let menuBar = MenuBar.menuBar
         XCTAssertNotNil(menuBar)
-        let itemWithSubmenu = menuBar.items.first(where: { $0.submenu ≠ nil })
-        let submenu = itemWithSubmenu?.submenu
+        var submenu: AnyMenu?
+        _ = menuBar.menu.entries.first(where: { entry in
+            switch entry {
+            case .submenu(let menu):
+                submenu = menu
+                return true
+            default:
+                return false
+            }
+        })
+        #if canImport(AppKit)
         XCTAssertNotNil(submenu)
-        XCTAssertEqual(submenu?.parentMenuItem, itemWithSubmenu)
-        XCTAssertNil(menuBar.parentMenuItem)
-
-        let menuLabel = Shared(UserFacing<StrictString, APILocalization>({ _ in "initial" }))
-        let menu = Menu(label: menuLabel)
-        menuLabel.value = UserFacing<StrictString, APILocalization>({ _ in "changed" })
-        XCTAssertEqual(menu.title, String(menuLabel.value.resolved()))
-        let separateMenuLabel = Shared(UserFacing<StrictString, APILocalization>({ _ in "separate" }))
-        menu.label = separateMenuLabel
-        XCTAssertEqual(menu.title, String(separateMenuLabel.value.resolved()))
-        menuLabel.value = UserFacing<StrictString, APILocalization>({ _ in "unrelated" })
-        XCTAssertEqual(menu.title, String(separateMenuLabel.value.resolved()))
-        #else
-        XCTAssertNil(NSMenu.shared.parentMenuItem)
         #endif
 
+        let menuLabel = Shared<StrictString>("initial")
+        let menu = Menu<APILocalization>(label: .binding(menuLabel))
+        menuLabel.value = "changed"
+        XCTAssertEqual(menu.label.resolved(), menuLabel.value)
+        let separateMenuLabel = Shared<StrictString>("separate")
+        menu.label = .binding(separateMenuLabel)
+        XCTAssertEqual(menu.label.resolved(), separateMenuLabel.value)
+        menuLabel.value = "unrelated"
+        XCTAssertEqual(menu.label.resolved(), separateMenuLabel.value)
+        #if canImport(AppKit)
+        let title = menu.native.title
+        menu.native = NSMenu()
+        XCTAssertEqual(menu.native.title, title)
         #endif
     }
 
@@ -325,7 +340,10 @@ final class SDGApplicationAPITests : ApplicationTestCase {
                 ProcessInfo.applicationName = previous
             }
             for localization in MenuBarLocalization.allCases {
-                LocalizationSetting(orderOfPrecedence: [localization.code]).do {}
+                LocalizationSetting(orderOfPrecedence: [localization.code]).do {
+                    _ = MenuBar._normalizeText().label.resolved()
+                    _ = (MenuBar.menuBar.menu as? Menu<InterfaceLocalization>)?.label.resolved()
+                }
             }
         }
 
@@ -349,22 +367,75 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         testAllLocalizations()
 
         #if canImport(AppKit)
-        let preferencesMenuItem = NSApplication.shared.mainMenu?.items.first?.submenu?.items.first(where: { $0.action == MenuBar.Action.openPreferences.selector })
+        let preferencesMenuItem = NSApplication.shared.mainMenu?.items.first?.submenu?.items.first(where: { $0.action == #selector(_NSApplicationDelegateProtocol.openPreferences(_:)) })
         XCTAssertNotNil(preferencesMenuItem)
         #endif
+
+        let menu = MenuBar.menuBar.menu
+        MenuBar.menuBar.menu = Menu<APILocalization>(label: .binding(Shared("")))
+        MenuBar.menuBar.addApplicationSpecificSubmenu(Menu<APILocalization>(label: .binding(Shared(""))))
+        MenuBar.menuBar.addApplicationSpecificSubmenu(Menu<APILocalization>(label: .binding(Shared(""))))
+        MenuBar.menuBar.addApplicationSpecificSubmenu(Menu<APILocalization>(label: .binding(Shared(""))))
+        MenuBar.menuBar.menu = menu
     }
 
-    func testMenuItem() {
-        #if !os(tvOS)
-        let menuLabel = Shared(UserFacing<StrictString, APILocalization>({ _ in "initial" }))
-        let menu = MenuItem(label: menuLabel)
-        menuLabel.value = UserFacing<StrictString, APILocalization>({ _ in "changed" })
-        XCTAssertEqual(menu.title, String(menuLabel.value.resolved()))
-        let separateMenuLabel = Shared(UserFacing<StrictString, APILocalization>({ _ in "separate" }))
-        menu.label = separateMenuLabel
-        XCTAssertEqual(menu.title, String(separateMenuLabel.value.resolved()))
-        menuLabel.value = UserFacing<StrictString, APILocalization>({ _ in "unrelated" })
-        XCTAssertEqual(menu.title, String(separateMenuLabel.value.resolved()))
+    func testMenuEntry() {
+        let menuLabel = Shared<StrictString>("initial")
+        let menu = MenuEntry<APILocalization>(label: .binding(menuLabel))
+        menuLabel.value = "changed"
+        XCTAssertEqual(menu.label.resolved(), menuLabel.value)
+        let separateMenuLabel = Shared<StrictString>("separate")
+        menu.label = .binding(separateMenuLabel)
+        XCTAssertEqual(menu.label.resolved(), separateMenuLabel.value)
+        menuLabel.value = "unrelated"
+        XCTAssertEqual(menu.label.resolved(), separateMenuLabel.value)
+        let action = #selector(NSObject.isEqual(_:))
+        menu.action = action
+        _ = menu.action
+        #if !os(watchOS) && !os(tvOS)
+        XCTAssertEqual(menu.action, action)
+        #endif
+        menu.action = nil
+        let target = NSObject()
+        menu.target = target
+        _ = menu.target
+        #if canImport(AppKit)
+        XCTAssertEqual(menu.target as? NSObject, target)
+        #endif
+        let hotKey = "A"
+        menu.hotKey = hotKey
+        _ = menu.hotKey
+        #if canImport(AppKit)
+        XCTAssertEqual(menu.hotKey, hotKey)
+        #endif
+        let modifiers: KeyModifiers = .command
+        menu.hotKeyModifiers = modifiers
+        _ = menu.hotKeyModifiers
+        #if canImport(AppKit)
+        XCTAssertEqual(menu.hotKeyModifiers, modifiers)
+        #endif
+        menu.isHidden = true
+        _ = menu.isHidden
+        #if canImport(AppKit)
+        XCTAssert(menu.isHidden)
+        #endif
+        menu.indentationLevel = 1
+        _ = menu.indentationLevel
+        #if canImport(AppKit)
+        XCTAssertEqual(menu.indentationLevel, 1)
+        #endif
+        menu.tag = 1
+        XCTAssertEqual(menu.tag, 1)
+        #if !os(watchOS) && !os(tvOS)
+        let title = menu.native.title
+        #endif
+        #if canImport(AppKit)
+        menu.native = NSMenuItem()
+        #elseif canImport(UIKit) && !os(watchOS) && !os(tvOS)
+        menu.native = UIMenuItem()
+        #endif
+        #if !os(watchOS) && !os(tvOS)
+        XCTAssertEqual(menu.native.title, title)
         #endif
     }
 

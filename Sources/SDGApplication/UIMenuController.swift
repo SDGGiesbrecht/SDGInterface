@@ -16,6 +16,7 @@
 import UIKit
 
 import SDGInterfaceElements
+import SDGMenuBar
 
 import SDGInterfaceLocalizations
 
@@ -23,13 +24,12 @@ extension UIMenuController {
 
     internal func extend() {
 
-        UIMenuController.shared.newEntry(
-            labelled: MenuLabels.normalizeText,
-            action: #selector(NSTextView.normalizeText(_:)))
-
-        UIMenuController.shared.newEntry(
-            labelled: MenuLabels.showCharacterInformation,
-            action: #selector(NSTextView.showCharacterInformation(_:)))
+        var entries = UIMenuController.shared.menuItems ?? []
+        entries.append(contentsOf: [
+            MenuBar._normalizeText(),
+            MenuBar._showCharacterInformation()
+            ].map({ $0.native }))
+        UIMenuController.shared.menuItems = entries
 
         UIMenuController.shared.update()
     }

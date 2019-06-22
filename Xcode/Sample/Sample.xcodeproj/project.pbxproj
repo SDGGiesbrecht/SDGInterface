@@ -4,7 +4,7 @@
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
 
- Copyright ©2018–2019 Jeremy David Giesbrecht and the SDGInterface project contributors.
+ Copyright ©2019 Jeremy David Giesbrecht and the SDGInterface project contributors.
 
  Soli Deo gloria.
 
@@ -43,8 +43,6 @@
 		3FEFE24A21DEBC180076700B /* SDGMathematics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE24821DEBC180076700B /* SDGMathematics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3FEFE24C21DEBC180076700B /* SDGInterfaceElements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE24B21DEBC180076700B /* SDGInterfaceElements.framework */; };
 		3FEFE24D21DEBC180076700B /* SDGInterfaceElements.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE24B21DEBC180076700B /* SDGInterfaceElements.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3FEFE24F21DEBC180076700B /* SDGInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE24E21DEBC180076700B /* SDGInterface.framework */; };
-		3FEFE25021DEBC180076700B /* SDGInterface.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE24E21DEBC180076700B /* SDGInterface.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3FEFE25221DEBC180076700B /* SDGApplication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE25121DEBC180076700B /* SDGApplication.framework */; };
 		3FEFE25321DEBC180076700B /* SDGApplication.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE25121DEBC180076700B /* SDGApplication.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3FEFE25521DEBC180076700B /* SDGLocalization.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE25421DEBC180076700B /* SDGLocalization.framework */; };
@@ -141,7 +139,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				3FEFE23B21DEBC180076700B /* SDGCornerstoneLocalizations.framework in Embed Frameworks */,
-				3FEFE25021DEBC180076700B /* SDGInterface.framework in Embed Frameworks */,
 				3FEFE25621DEBC180076700B /* SDGLocalization.framework in Embed Frameworks */,
 				3FEFE24421DEBC180076700B /* SDGCollections.framework in Embed Frameworks */,
 				3FEFE25321DEBC180076700B /* SDGApplication.framework in Embed Frameworks */,
@@ -277,7 +274,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FEFE23A21DEBC180076700B /* SDGCornerstoneLocalizations.framework in Frameworks */,
-				3FEFE24F21DEBC180076700B /* SDGInterface.framework in Frameworks */,
 				3FEFE25521DEBC180076700B /* SDGLocalization.framework in Frameworks */,
 				3FEFE24321DEBC180076700B /* SDGCollections.framework in Frameworks */,
 				3FEFE25221DEBC180076700B /* SDGApplication.framework in Frameworks */,
