@@ -106,6 +106,7 @@ let package = Package(
             "SDGInterfaceBasics",
             "SDGMenus",
             "SDGInterfaceElements",
+            "SDGContextMenu",
             "SDGInterfaceLocalizations",
             .product(name: "SDGMathematics", package: "SDGCornerstone"),
             .product(name: "SDGText", package: "SDGCornerstone"),

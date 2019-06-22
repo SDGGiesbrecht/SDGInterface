@@ -14,13 +14,13 @@
 
 #if canImport(AppKit)
 import AppKit
-#endif
 
 import SDGText
 import SDGLocalization
 
 import SDGMenus
 import SDGInterfaceElements
+import SDGContextMenu
 
 import SDGInterfaceLocalizations
 
@@ -46,7 +46,7 @@ extension MenuBar {
             }
         })))
         transformations.entries = [
-            .entry(_normalizeText())
+            .entry(ContextMenu._normalizeText())
 
             // “Make Upper Case” does not belong here. Upper‐case‐only is a font style, not a semantic aspect of the text. Attempting to fake it by switching to capital letters (a) results in semantically incorrect text, and (b) is irreversable. A font‐based version is available under the “Font” menu instead.
 
@@ -56,5 +56,5 @@ extension MenuBar {
         ]
         return transformations
     }
-    #endif
 }
+#endif

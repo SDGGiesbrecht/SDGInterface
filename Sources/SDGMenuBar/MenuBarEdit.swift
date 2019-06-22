@@ -24,6 +24,7 @@ import SDGLocalization
 
 import SDGMenus
 import SDGInterfaceElements
+import SDGContextMenu
 
 import SDGInterfaceLocalizations
 
@@ -249,7 +250,7 @@ extension MenuBar {
             .submenu(spellingAndGrammar()),
             .submenu(substitutions()),
             .submenu(transformations()),
-            .entry(_showCharacterInformation()),
+            .entry(ContextMenu._showCharacterInformation()),
             .submenu(speech())
         ]
         return edit
