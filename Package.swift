@@ -84,6 +84,7 @@ let package = Package(
         /// Application‐level functionality and system interaction.
         .target(name: "SDGApplication", dependencies: [
             "SDGInterfaceLocalizations",
+            "SDGMenus",
             "SDGInterfaceElements",
             "SDGMenuBar",
             .product(name: "SDGLogic", package: "SDGCornerstone"),
