@@ -214,22 +214,9 @@ extension MenuBar {
         selectAll.hotKeyModifiers = .command
         return selectAll
     }
-    #endif
 
-    #if !os(watchOS) && !os(tvOS)
-    public static func _showCharacterInformation() -> MenuEntry<InterfaceLocalization> {
-        let showCharacterInformation = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Show Character Information"
-            }
-        })))
-        showCharacterInformation.action = #selector(NSTextView.showCharacterInformation(_:))
-        return showCharacterInformation
-    }
-    #endif
+    // Show Character Information (See context menu.)
 
-    #if canImport(AppKit)
     internal static func edit() -> Menu<MenuBarLocalization> {
         let edit = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {

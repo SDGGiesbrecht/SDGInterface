@@ -15,9 +15,6 @@
 #if canImport(AppKit)
 import AppKit
 #endif
-#if canImport(UIKit)
-import UIKit
-#endif
 
 import SDGText
 import SDGLocalization
@@ -29,22 +26,8 @@ import SDGInterfaceLocalizations
 
 extension MenuBar {
 
-    #if !os(watchOS)
-    public static func _normalizeText() -> MenuEntry<InterfaceLocalization> {
-        let normalizeText = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishUnitedKingdom:
-                return "Normalise Text"
-            case .englishUnitedStates, .englishCanada:
-                return "Normalize Text"
-            }
-        })))
-        normalizeText.action = #selector(NSTextView.normalizeText(_:))
-        return normalizeText
-    }
-    #endif
+    // Normalize Text (See context menu.)
 
-    #if canImport(AppKit)
     internal static func transformations() -> Menu<MenuBarLocalization> {
         let transformations = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {

@@ -64,6 +64,10 @@ let package = Package(
         /// A menu bar.
         .library(name: "SDGMenuBar", targets: ["SDGMenuBar"]),
 
+        // @documentation(SDGContextMenu)
+        /// A context menu.
+        .library(name: "SDGContextMenu", targets: ["SDGContextMenu"]),
+
         // @documentation(SDGMenus)
         /// Menus.
         .library(name: "SDGMenus", targets: ["SDGMenus"]),
@@ -104,6 +108,16 @@ let package = Package(
             "SDGInterfaceElements",
             "SDGInterfaceLocalizations",
             .product(name: "SDGMathematics", package: "SDGCornerstone"),
+            .product(name: "SDGText", package: "SDGCornerstone"),
+            .product(name: "SDGLocalization", package: "SDGCornerstone")
+            ]),
+
+        // #documentation(SDGContextMenu)
+        /// A context menu.
+        .target(name: "SDGContextMenu", dependencies: [
+            "SDGMenus",
+            "SDGInterfaceElements",
+            "SDGInterfaceLocalizations",
             .product(name: "SDGText", package: "SDGCornerstone"),
             .product(name: "SDGLocalization", package: "SDGCornerstone")
             ]),
