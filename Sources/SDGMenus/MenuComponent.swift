@@ -12,8 +12,15 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+/// A menu component.
 public enum MenuComponent {
+
+    /// A menu entry.
     case entry(AnyMenuEntry)
+
+    /// A submenu.
     case submenu(AnyMenu)
+
+    /// A group separator.
     case separator
 }

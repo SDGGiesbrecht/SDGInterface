@@ -66,6 +66,7 @@ public final class MenuBar {
 
     // MARK: - Properties
 
+    /// The root menu.
     public var menu: AnyMenu {
         didSet {
             menuDidSet()
@@ -79,10 +80,10 @@ public final class MenuBar {
 
     // MARK: - Modification
 
-    /// Creates a new menu in the application‐specific section. (Before the “Window” menu.)
+    /// Inserts a new submenu in the application‐specific section. (Before the “Window” menu.)
     ///
     /// - Parameters:
-    ///     - label: A label for the new submenu.
+    ///     - submenu: The submenu.
     public func addApplicationSpecificSubmenu(_ submenu: AnyMenu) {
         let index: Int
         if menu.entries.count ≥ 2 {

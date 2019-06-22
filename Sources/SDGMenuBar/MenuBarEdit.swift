@@ -262,7 +262,7 @@ extension MenuBar {
             .submenu(spellingAndGrammar()),
             .submenu(substitutions()),
             .submenu(transformations()),
-            .entry(showCharacterInformation()),
+            .entry(_showCharacterInformation()),
             .submenu(speech())
         ]
         return edit
