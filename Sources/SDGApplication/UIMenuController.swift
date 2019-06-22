@@ -24,6 +24,7 @@ extension UIMenuController {
 
     internal func extend() {
 
+        #warning("Redesign.")
         var entries = UIMenuController.shared.menuItems ?? []
         entries.append(contentsOf: [
             MenuBar._normalizeText(),
