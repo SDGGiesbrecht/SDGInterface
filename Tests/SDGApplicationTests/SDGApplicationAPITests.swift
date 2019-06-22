@@ -600,9 +600,6 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             XCTAssertEqual(TerminationResponse(native), response)
             #endif
         }
-        #if canImport(AppKit)
-        _ = DockMenu(NSMenu())
-        #endif
     }
 
     func testTable() {
