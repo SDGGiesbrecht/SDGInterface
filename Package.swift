@@ -90,6 +90,7 @@ let package = Package(
             "SDGInterfaceLocalizations",
             "SDGMenus",
             "SDGInterfaceElements",
+            "SDGContextMenu",
             "SDGMenuBar",
             .product(name: "SDGLogic", package: "SDGCornerstone"),
             .product(name: "SDGText", package: "SDGCornerstone"),

@@ -70,27 +70,7 @@ public final class ContextMenu {
             }
         }
         UIMenuController.shared.menuItems = flatten(menu)
+        UIMenuController.shared.update()
         #endif
     }
 }
-#if canImport(UIKit) && !os(watchOS) && !os(tvOS)
-import UIKit
-
-import SDGInterfaceLocalizations
-
-extension UIMenuController {
-
-    internal func extend() {
-
-        #warning("Redesign.")
-        var entries = UIMenuController.shared.menuItems ?? []
-        entries.append(contentsOf: [
-            MenuBar._normalizeText(),
-            MenuBar._showCharacterInformation()
-            ].map({ $0.native }))
-        UIMenuController.shared.menuItems = entries
-
-        UIMenuController.shared.update()
-    }
-}
-#endif

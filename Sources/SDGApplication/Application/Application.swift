@@ -18,6 +18,7 @@ import AppKit
 import UIKit
 #endif
 
+import SDGContextMenu
 import SDGMenuBar
 
 /// The application.
@@ -86,12 +87,14 @@ public final class Application {
     #endif
 
     internal class func postLaunchSetUp() {
+        _ = ContextMenu.contextMenu
+
         #if canImport(AppKit)
         _ = MenuBar.menuBar
-        NSApplication.shared.activate(ignoringOtherApps: false)
         #endif
-        #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
-        UIMenuController.shared.extend()
+
+        #if canImport(AppKit)
+        NSApplication.shared.activate(ignoringOtherApps: false)
         #endif
     }
 
