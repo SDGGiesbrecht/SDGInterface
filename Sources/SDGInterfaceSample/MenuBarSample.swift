@@ -34,7 +34,7 @@ extension MenuBar {
             }
         })))
         error.action = #selector(Application.demonstrateError)
-        error.target = self
+        error.target = Application.shared
         return error
     }
 
