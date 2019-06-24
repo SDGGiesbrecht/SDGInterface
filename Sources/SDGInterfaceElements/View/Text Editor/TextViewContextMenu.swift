@@ -43,16 +43,12 @@ extension TextView {
                     return "Context Menu"
                 }
             })))
-            var entries: [MenuComponent] = (NSTextView.defaultMenu ?? NSMenu()).items.map { item in
-                let wrapped = MenuEntry<InterfaceLocalization>(label: .binding(Shared(StrictString(item.title))))
-                wrapped.native = item
-                return .entry(wrapped)
-            }
-            entries += [
+            let systemMenu = Menu<InterfaceLocalization>(native: NSTextView.defaultMenu ?? NSMenu())
+            var adjustments: [MenuComponent] = [
                 .entry(SDGContextMenu.ContextMenu._normalizeText()),
                 .entry(SDGContextMenu.ContextMenu._showCharacterInformation())
             ]
-            menu.entries = entries
+            menu.entries = systemMenu.entries + adjustments
         }
 
         // MARK: - Properties
