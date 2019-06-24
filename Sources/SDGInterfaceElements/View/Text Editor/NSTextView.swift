@@ -108,36 +108,6 @@ extension NSTextView {
         }
     }
 
-    // MARK: - Manual Normalization
-
-    /// Normalizes the selection to NFKD.
-    ///
-    /// - Parameters:
-    ///     - sender: The sender.
-    @objc public func normalizeText(_ sender: Any?) {
-        attemptToModifySelection { NSAttributedString(RichText($0)) }
-    }
-
-    // MARK: - Displaying Character Information
-
-    /// Displays a window with information about the Unicode code points present in the selection.
-    ///
-    /// - Parameters:
-    ///     - sender: The sender.
-    @objc public func showCharacterInformation(_ sender: Any?) {
-        let possibleString: NSAttributedString?
-        #if canImport(AppKit)
-        possibleString = attributedSubstring(forProposedRange: selectedRange(), actualRange: nil)
-        #else
-        possibleString = textStorage.attributedSubstring(from: selectedRange)
-        #endif
-        if let string = possibleString {
-            CharacterInformation.display(
-                for: string.string,
-                origin: (view: self, selection: selectionRectangle()))
-        }
-    }
-
     // MARK: - Superscripts & Subscripts
 
     /// Superscripts the selection.
@@ -344,6 +314,36 @@ extension NSTextView {
             #endif
         }
         return nil
+    }
+
+    // MARK: - TextEditingResponder
+
+    /// Normalizes the selection to NFKD.
+    ///
+    /// - Parameters:
+    ///     - sender: The sender.
+    @objc public func normalizeText(_ sender: Any?) {
+        attemptToModifySelection { NSAttributedString(RichText($0)) }
+    }
+
+    // MARK: - TextDisplayResponder
+
+    /// Displays a window with information about the Unicode code points present in the selection.
+    ///
+    /// - Parameters:
+    ///     - sender: The sender.
+    @objc public func showCharacterInformation(_ sender: Any?) {
+        let possibleString: NSAttributedString?
+        #if canImport(AppKit)
+        possibleString = attributedSubstring(forProposedRange: selectedRange(), actualRange: nil)
+        #else
+        possibleString = textStorage.attributedSubstring(from: selectedRange)
+        #endif
+        if let string = possibleString {
+            CharacterInformation.display(
+                for: string.string,
+                origin: (view: self, selection: selectionRectangle()))
+        }
     }
 
     #if canImport(UIKit)

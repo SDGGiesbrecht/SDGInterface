@@ -136,8 +136,9 @@ let package = Package(
         // #documentation(SDGInterfaceElements)
         /// Re‐usable interface elements, such as views, windows and menus.
         .target(name: "SDGInterfaceElements", dependencies: [
-            "SDGInterfaceLocalizations",
+            "SDGInterfaceBasics",
             "SDGMenus",
+            "SDGInterfaceLocalizations",
             .product(name: "SDGControlFlow", package: "SDGCornerstone"),
             .product(name: "SDGLogic", package: "SDGCornerstone"),
             .product(name: "SDGMathematics", package: "SDGCornerstone"),

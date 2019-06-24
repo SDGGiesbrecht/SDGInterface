@@ -27,9 +27,11 @@ import SDGMathematics
 import SDGText
 import SDGLocalization
 
+import SDGInterfaceBasics
+
 import SDGInterfaceLocalizations
 
-internal class TextView : NSTextView {
+internal class TextView : NSTextView, TextEditingResponder {
 
     internal init() {
         let prototype = NSTextView()
