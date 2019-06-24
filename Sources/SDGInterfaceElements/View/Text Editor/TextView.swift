@@ -34,12 +34,6 @@ import SDGInterfaceLocalizations
 
 internal class TextView : NSTextView, TextEditingResponder {
 
-    // MARK: - Class properties.
-
-    public override class var defaultMenu: NSMenu? {
-        return ContextMenu.contextMenu.menu.native
-    }
-
     // MARK: - Initialization
 
     internal init() {
@@ -192,6 +186,14 @@ internal class TextView : NSTextView, TextEditingResponder {
             return known
         }
         return super.validateMenuItem(menuItem)
+    }
+    #endif
+
+    // MARK: - NSView
+
+    #if canImport(AppKit)
+    public override class var defaultMenu: NSMenu? {
+        return ContextMenu.contextMenu.menu.native
     }
     #endif
 }
