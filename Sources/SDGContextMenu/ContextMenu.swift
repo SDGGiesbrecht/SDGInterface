@@ -23,7 +23,9 @@ import SDGMenus
 
 import SDGInterfaceLocalizations
 
-/// The context menu.
+/// The global context menu.
+///
+/// - Note: The global context menu will only appear on the screen for platforms which actually have a global context menu. To reduce the need for `#if` statements, the `ContextMenu` type and its public interface still exist on the remaining platforms, but it is empty and does nothing.
 public final class ContextMenu {
 
     // MARK: - Class Properties
@@ -56,7 +58,7 @@ public final class ContextMenu {
         }
     }
     private func menuDidSet() {
-        #if canImport(UIKit)
+        #if canImport(UIKit) && !os(watchOS)
         func flatten(_ menu: AnyMenu) -> [UIMenuItem] {
             return menu.entries.flatMap { (entry) -> [UIMenuItem] in
                 switch entry {

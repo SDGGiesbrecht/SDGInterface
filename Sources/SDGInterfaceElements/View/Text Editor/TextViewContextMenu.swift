@@ -27,75 +27,77 @@ import SDGContextMenu
 
 import SDGInterfaceLocalizations
 
-extension TextView {
 
-    internal final class ContextMenu {
+/// The context menu used by text views.
+///
+/// - Note: This context menu will only appear on the screen for platforms which actually support context menus specific to particular views. To reduce the need for `#if` statements, the `ContextMenu` type and its public interface still exist on the remaining platforms, but it is empty and does nothing.
+public final class TextContextMenu {
 
-        // MARK: - Class Properties
+    // MARK: - Class Properties
 
-        /// The context menu.
-        internal static let contextMenu: ContextMenu = ContextMenu()
+    /// The context menu.
+    public static let contextMenu: TextContextMenu = TextContextMenu()
 
-        // MARK: - Initialization
+    // MARK: - Initialization
 
-        private init() {
-            menu = Menu(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
-                switch localization {
-                case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                    return "Context Menu"
-                }
-            })))
-            #if canImport(AppKit)
-            let systemMenu = Menu<InterfaceLocalization>(native: NSTextView.defaultMenu ?? NSMenu())
-            let adjustments: [MenuComponent] = [
-                .entry(SDGContextMenu.ContextMenu._normalizeText()),
-                .entry(SDGContextMenu.ContextMenu._showCharacterInformation())
-            ]
-            var appendix: [MenuComponent] = []
-            for adjustment in adjustments {
-                var handled = false
-                defer {
-                    if ¬handled {
-                        appendix.append(adjustment)
-                    }
-                }
-                switch adjustment {
-                case .entry(let entry):
-                    if entry.native.action == #selector(TextEditingResponder.normalizeText(_:)),
-                        let transformations = systemMenu.entries.lazy.compactMap({ $0.asSubmenu })
-                            .first(where: { $0.entries.contains(
-                                where: { $0.asEntry?.action == #selector(NSText.uppercaseWord(_:)) }) }) {
-                        transformations.entries = transformations.entries.filter({ entry in
-                            let action = entry.asEntry?.action
-                            if action == #selector(NSText.uppercaseWord(_:))
-                                ∨ action == #selector(NSText.lowercaseWord(_:))
-                                ∨ action == #selector(NSText.capitalizeWord(_:)) {
-                                return false
-                            }
-                            return true
-                        })
-                        transformations.entries.append(adjustment)
-                        handled = true
-                    } else if entry.native.action == #selector(TextDisplayResponder.showCharacterInformation(_:)),
-                        let transformations = systemMenu.entries.indices.lazy
-                            .first(where: { index in
-                                let submenu = systemMenu.entries[index].asSubmenu
-                                return submenu?.entries.contains(
-                                    where: { $0.asEntry?.action == #selector(NSText.uppercaseWord(_:)) }) ?? false
-                            }) {
-                        systemMenu.entries.insert(adjustment, at: transformations + 1)
-                        handled = true
-                    }
-                default:
-                    unreachable()
+    private init() {
+        menu = Menu(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+                return "Context Menu"
+            }
+        })))
+        #if canImport(AppKit)
+        let systemMenu = Menu<InterfaceLocalization>(native: NSTextView.defaultMenu ?? NSMenu())
+        let adjustments: [MenuComponent] = [
+            .entry(SDGContextMenu.ContextMenu._normalizeText()),
+            .entry(SDGContextMenu.ContextMenu._showCharacterInformation())
+        ]
+        var appendix: [MenuComponent] = []
+        for adjustment in adjustments {
+            var handled = false
+            defer {
+                if ¬handled {
+                    appendix.append(adjustment)
                 }
             }
-            menu.entries = systemMenu.entries + appendix
-            #endif
+            switch adjustment {
+            case .entry(let entry):
+                if entry.native.action == #selector(TextEditingResponder.normalizeText(_:)),
+                    let transformations = systemMenu.entries.lazy.compactMap({ $0.asSubmenu })
+                        .first(where: { $0.entries.contains(
+                            where: { $0.asEntry?.action == #selector(NSText.uppercaseWord(_:)) }) }) {
+                    transformations.entries = transformations.entries.filter({ entry in
+                        let action = entry.asEntry?.action
+                        if action == #selector(NSText.uppercaseWord(_:))
+                            ∨ action == #selector(NSText.lowercaseWord(_:))
+                            ∨ action == #selector(NSText.capitalizeWord(_:)) {
+                            return false
+                        }
+                        return true
+                    })
+                    transformations.entries.append(adjustment)
+                    handled = true
+                } else if entry.native.action == #selector(TextDisplayResponder.showCharacterInformation(_:)),
+                    let transformations = systemMenu.entries.indices.lazy
+                        .first(where: { index in
+                            let submenu = systemMenu.entries[index].asSubmenu
+                            return submenu?.entries.contains(
+                                where: { $0.asEntry?.action == #selector(NSText.uppercaseWord(_:)) }) ?? false
+                        }) {
+                    systemMenu.entries.insert(adjustment, at: transformations + 1)
+                    handled = true
+                }
+            default:
+                unreachable()
+            }
         }
-
-        // MARK: - Properties
-
-        internal var menu: AnyMenu
+        menu.entries = systemMenu.entries + appendix
+        #endif
     }
+
+    // MARK: - Properties
+
+    /// The menu.
+    public var menu: AnyMenu
 }
