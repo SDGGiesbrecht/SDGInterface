@@ -182,7 +182,7 @@ let package = Package(
             "SDGMenus",
             "SDGContextMenu",
             "SDGInterfaceElements",
-            "SDGContextMenuBar",
+            "SDGMenuBar",
             "SDGApplication",
             "SDGInterfaceLocalizations",
             "SDGInterfaceSample",
