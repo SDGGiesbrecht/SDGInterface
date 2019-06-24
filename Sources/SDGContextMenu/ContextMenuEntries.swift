@@ -22,8 +22,8 @@ import UIKit
 import SDGText
 import SDGLocalization
 
+import SDGInterfaceBasics
 import SDGMenus
-import SDGInterfaceElements
 
 import SDGInterfaceLocalizations
 
@@ -38,7 +38,7 @@ extension ContextMenu {
                 return "Normalize Text"
             }
         })))
-        normalizeText.action = #selector(NSTextView.normalizeText(_:))
+        normalizeText.action = #selector(TextEditingResponder.normalizeText(_:))
         return normalizeText
     }
 
@@ -49,7 +49,7 @@ extension ContextMenu {
                 return "Show Character Information"
             }
         })))
-        showCharacterInformation.action = #selector(NSTextView.showCharacterInformation(_:))
+        showCharacterInformation.action = #selector(TextDisplayResponder.showCharacterInformation(_:))
         return showCharacterInformation
     }
 }

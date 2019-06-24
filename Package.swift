@@ -118,7 +118,6 @@ let package = Package(
         /// A context menu.
         .target(name: "SDGContextMenu", dependencies: [
             "SDGMenus",
-            "SDGInterfaceElements",
             "SDGInterfaceLocalizations",
             .product(name: "SDGText", package: "SDGCornerstone"),
             .product(name: "SDGLocalization", package: "SDGCornerstone")
@@ -138,6 +137,7 @@ let package = Package(
         .target(name: "SDGInterfaceElements", dependencies: [
             "SDGInterfaceBasics",
             "SDGMenus",
+            "SDGContextMenu",
             "SDGInterfaceLocalizations",
             .product(name: "SDGControlFlow", package: "SDGCornerstone"),
             .product(name: "SDGLogic", package: "SDGCornerstone"),
