@@ -22,6 +22,7 @@ import SDGLocalization
 
 import SDGInterfaceBasics
 import SDGMenus
+import SDGContextMenu
 import SDGInterfaceElements
 import SDGMenuBar
 import SDGApplication
@@ -341,7 +342,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             }
             for localization in MenuBarLocalization.allCases {
                 LocalizationSetting(orderOfPrecedence: [localization.code]).do {
-                    _ = MenuBar._normalizeText().label.resolved()
+                    _ = ContextMenu._normalizeText().label.resolved()
                     _ = (MenuBar.menuBar.menu as? Menu<InterfaceLocalization>)?.label.resolved()
                 }
             }

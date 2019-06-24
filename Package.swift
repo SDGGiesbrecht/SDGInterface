@@ -180,6 +180,9 @@ let package = Package(
         .testTarget(name: "SDGApplicationTests", dependencies: [
             "SDGInterfaceBasics",
             "SDGMenus",
+            "SDGContextMenu",
+            "SDGInterfaceElements",
+            "SDGContextMenuBar",
             "SDGApplication",
             "SDGInterfaceLocalizations",
             "SDGInterfaceSample",

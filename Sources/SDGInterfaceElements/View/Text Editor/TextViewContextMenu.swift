@@ -94,7 +94,6 @@ extension TextView {
 
         // MARK: - Properties
 
-        /// The root menu.
-        public var menu: AnyMenu
+        internal var menu: AnyMenu
     }
 }
