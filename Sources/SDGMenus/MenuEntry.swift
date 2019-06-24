@@ -39,6 +39,21 @@ public final class MenuEntry<L> : AnyMenuEntry, SharedValueObserver where L : Lo
         LocalizationSetting.current.register(observer: self)
     }
 
+    #if canImport(AppKit)
+    /// Creates an unlocalized menu entry with a native menu item.
+    ///
+    /// - Parameters:
+    ///     - native: The native menu item.
+    public init(native: NSMenuItem) {
+        let title = native.title
+
+        self.native = native
+        defer { refreshNative() }
+        self.label = .binding(Shared(StrictString(title)))
+        labelDidSet()
+    }
+    #endif
+
     // MARK: - Properties
 
     /// The label.
