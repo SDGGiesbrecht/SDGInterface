@@ -58,7 +58,7 @@ public final class ContextMenu {
         }
     }
     private func menuDidSet() {
-        #if canImport(UIKit) && !os(watchOS)
+        #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
         func flatten(_ menu: AnyMenu) -> [UIMenuItem] {
             return menu.entries.flatMap { (entry) -> [UIMenuItem] in
                 switch entry {
