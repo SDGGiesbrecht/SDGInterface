@@ -73,6 +73,9 @@ public final class Menu<L> : AnyMenu, SharedValueObserver where L : Localization
         native.items = entries.map { component in
             switch component {
             case .entry(let entry):
+                if let index = entry.native.menu?.index(of: entry.native) {
+                    entry.native.menu?.removeItem(at: index)
+                }
                 return entry.native
             case .submenu(let menu):
                 if let index = menu.native.supermenu?.indexOfItem(withSubmenu: menu.native) {

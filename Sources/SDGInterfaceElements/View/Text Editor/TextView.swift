@@ -34,6 +34,14 @@ import SDGInterfaceLocalizations
 
 internal class TextView : NSTextView, TextEditingResponder {
 
+    // MARK: - Class properties.
+
+    public override class var defaultMenu: NSMenu? {
+        return ContextMenu.contextMenu.menu.native
+    }
+
+    // MARK: - Initialization
+
     internal init() {
         let prototype = NSTextView()
         super.init(frame: CGRect.zero, textContainer: prototype.textContainer)
