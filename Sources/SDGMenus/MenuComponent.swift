@@ -23,4 +23,26 @@ public enum MenuComponent {
 
     /// A group separator.
     case separator
+
+    // MARK: - Properties
+
+    /// Returns the associated value if the component is a entry.
+    public var asEntry: AnyMenuEntry? {
+        switch self {
+        case .entry(let entry):
+            return entry
+        case .submenu, .separator:
+            return nil
+        }
+    }
+
+    /// Returns the associated value if the component is a submenu.
+    public var asSubmenu: AnyMenu? {
+        switch self {
+        case .submenu(let submenu):
+            return submenu
+        case .entry, .separator:
+            return nil
+        }
+    }
 }
