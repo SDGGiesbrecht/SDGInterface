@@ -45,6 +45,7 @@ extension TextView {
                     return "Context Menu"
                 }
             })))
+            #if canImport(AppKit)
             let systemMenu = Menu<InterfaceLocalization>(native: NSTextView.defaultMenu ?? NSMenu())
             let adjustments: [MenuComponent] = [
                 .entry(SDGContextMenu.ContextMenu._normalizeText()),
@@ -90,6 +91,7 @@ extension TextView {
                 }
             }
             menu.entries = systemMenu.entries + appendix
+            #endif
         }
 
         // MARK: - Properties
