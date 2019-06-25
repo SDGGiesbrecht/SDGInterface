@@ -788,7 +788,9 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             textView.text = ""
             XCTAssertFalse(textView.canPerformAction(#selector(NSTextView.showCharacterInformation(_:)), withSender: nil))
             #endif
+            _ = textView.menu
         }
+        _ = TextContextMenu.contextMenu
     }
 
     func testTextField() {

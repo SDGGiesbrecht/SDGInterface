@@ -193,7 +193,7 @@ internal class TextView : NSTextView, TextEditingResponder {
 
     #if canImport(AppKit)
     public override class var defaultMenu: NSMenu? {
-        return ContextMenu.contextMenu.menu.native
+        return TextContextMenu.contextMenu.menu.native
     }
     #endif
 }

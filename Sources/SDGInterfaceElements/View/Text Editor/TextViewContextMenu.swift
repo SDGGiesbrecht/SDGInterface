@@ -48,7 +48,7 @@ public final class TextContextMenu {
             }
         })))
         #if canImport(AppKit)
-        let systemMenu = Menu<InterfaceLocalization>(native: NSTextView.defaultMenu ?? NSMenu())
+        let systemMenu = Menu<InterfaceLocalization>(native: NSTextView.defaultMenu ?? NSMenu()) // @exempt(from: tests) Never nil.
         let adjustments: [MenuComponent] = [
             .entry(SDGContextMenu.ContextMenu._normalizeText()),
             .entry(SDGContextMenu.ContextMenu._showCharacterInformation())
