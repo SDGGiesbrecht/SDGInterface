@@ -14,6 +14,12 @@
 
 import Foundation
 
+/// An object which responds to actions related to displayed text.
 @objc public protocol TextDisplayResponder : AnyObject {
+
+    /// Shows information about the selected characters.
+    ///
+    /// - Parameters:
+    ///     - sender: The sender.
     @objc func showCharacterInformation(_ sender: Any?)
 }

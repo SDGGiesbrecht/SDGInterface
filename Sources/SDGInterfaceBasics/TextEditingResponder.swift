@@ -14,6 +14,12 @@
 
 import Foundation
 
+/// An object which responds to actions related to editing text.
 @objc public protocol TextEditingResponder : TextDisplayResponder {
+
+    /// Normalizes the selection to NFKD.
+    ///
+    /// - Parameters:
+    ///     - sender: The sender.
     @objc func normalizeText(_ sender: Any?)
 }
