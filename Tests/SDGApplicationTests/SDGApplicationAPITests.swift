@@ -143,6 +143,12 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         #endif
     }
 
+    func testContextMenu() {
+        let contextMenu = ContextMenu.contextMenu
+        let original = contextMenu.menu
+        contextMenu.menu = original
+    }
+
     func testDelegationInterceptor() {
 
         #if canImport(AppKit)
