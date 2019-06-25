@@ -83,7 +83,7 @@ public final class TextContextMenu {
                         .first(where: { index in
                             let submenu = systemMenu.entries[index].asSubmenu
                             return submenu?.entries.contains(
-                                where: { $0.asEntry?.action == #selector(NSText.uppercaseWord(_:)) }) ?? false
+                                where: { $0.asEntry?.action == #selector(TextEditingResponder.normalizeText(_:)) }) ?? false
                         }) {
                     systemMenu.entries.insert(adjustment, at: transformations + 1)
                     handled = true
