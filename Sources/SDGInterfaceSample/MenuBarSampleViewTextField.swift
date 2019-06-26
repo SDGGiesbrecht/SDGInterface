@@ -34,7 +34,7 @@ extension MenuBar {
             }
         })))
         textField.action = #selector(Application.demonstrateTextField)
-        textField.target = self
+        textField.target = Application.shared
         return textField
     }
 
@@ -46,7 +46,7 @@ extension MenuBar {
             }
         })))
         labelledTextField.action = #selector(Application.demonstrateLabelledTextField)
-        labelledTextField.target = self
+        labelledTextField.target = Application.shared
         return labelledTextField
     }
 

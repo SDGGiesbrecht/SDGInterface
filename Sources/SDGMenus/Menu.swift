@@ -22,6 +22,8 @@ import SDGLocalization
 
 import SDGInterfaceBasics
 
+import SDGInterfaceLocalizations
+
 /// A menu.
 public final class Menu<L> : AnyMenu, SharedValueObserver where L : Localization {
 
@@ -36,6 +38,34 @@ public final class Menu<L> : AnyMenu, SharedValueObserver where L : Localization
         labelDidSet()
         LocalizationSetting.current.register(observer: self)
     }
+
+    #if canImport(AppKit)
+    /// Creates an unlocalized menu with a native menu.
+    ///
+    /// - Parameters:
+    ///     - native: The native menu.
+    public init(native: NSMenu) {
+        let title = native.title
+        let items = native.items
+
+        self.native = native
+        defer { refreshNative() }
+
+        self.label = .binding(Shared(StrictString(title)))
+        labelDidSet()
+
+        self.entries = items.map { item in
+            if item.isSeparatorItem {
+                return .separator
+            } else if let submenu = item.submenu {
+                return .submenu(Menu<InterfaceLocalization>(native: submenu))
+            } else {
+                return .entry(MenuEntry<InterfaceLocalization>(native: item))
+            }
+        }
+        refreshEntries()
+    }
+    #endif
 
     // MARK: - Properties
 
@@ -73,6 +103,9 @@ public final class Menu<L> : AnyMenu, SharedValueObserver where L : Localization
         native.items = entries.map { component in
             switch component {
             case .entry(let entry):
+                if let index = entry.native.menu?.index(of: entry.native) {
+                    entry.native.menu?.removeItem(at: index)
+                }
                 return entry.native
             case .submenu(let menu):
                 if let index = menu.native.supermenu?.indexOfItem(withSubmenu: menu.native) {

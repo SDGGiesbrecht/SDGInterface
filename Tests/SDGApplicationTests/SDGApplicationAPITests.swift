@@ -22,6 +22,7 @@ import SDGLocalization
 
 import SDGInterfaceBasics
 import SDGMenus
+import SDGContextMenu
 import SDGInterfaceElements
 import SDGMenuBar
 import SDGApplication
@@ -140,6 +141,12 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             return checkBox
         })
         #endif
+    }
+
+    func testContextMenu() {
+        let contextMenu = ContextMenu.contextMenu
+        let original = contextMenu.menu
+        contextMenu.menu = original
     }
 
     func testDelegationInterceptor() {
@@ -341,7 +348,8 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             }
             for localization in MenuBarLocalization.allCases {
                 LocalizationSetting(orderOfPrecedence: [localization.code]).do {
-                    _ = MenuBar._normalizeText().label.resolved()
+                    _ = ContextMenu._normalizeText().label.resolved()
+                    _ = ContextMenu._showCharacterInformation().label.resolved()
                     _ = (MenuBar.menuBar.menu as? Menu<InterfaceLocalization>)?.label.resolved()
                 }
             }
@@ -377,6 +385,13 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         MenuBar.menuBar.addApplicationSpecificSubmenu(Menu<APILocalization>(label: .binding(Shared(""))))
         MenuBar.menuBar.addApplicationSpecificSubmenu(Menu<APILocalization>(label: .binding(Shared(""))))
         MenuBar.menuBar.menu = menu
+    }
+
+    func testMenuComponent() {
+        XCTAssertNotNil(MenuComponent.entry(MenuEntry<InterfaceLocalization>(label: .binding(Shared("")))).asEntry)
+        XCTAssertNotNil(MenuComponent.submenu(Menu<InterfaceLocalization>(label: .binding(Shared("")))).asSubmenu)
+        XCTAssertNil(MenuComponent.submenu(Menu<InterfaceLocalization>(label: .binding(Shared("")))).asEntry)
+        XCTAssertNil(MenuComponent.entry(MenuEntry<InterfaceLocalization>(label: .binding(Shared("")))).asSubmenu)
     }
 
     func testMenuEntry() {
@@ -600,9 +615,6 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             XCTAssertEqual(TerminationResponse(native), response)
             #endif
         }
-        #if canImport(AppKit)
-        _ = DockMenu(NSMenu())
-        #endif
     }
 
     func testTable() {
@@ -784,7 +796,11 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             textView.text = ""
             XCTAssertFalse(textView.canPerformAction(#selector(NSTextView.showCharacterInformation(_:)), withSender: nil))
             #endif
+            #if canImport(AppKit)
+            _ = textView.menu
+            #endif
         }
+        _ = TextContextMenu.contextMenu
     }
 
     func testTextField() {

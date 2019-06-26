@@ -34,7 +34,7 @@ extension MenuBar {
             }
         })))
         button.action = #selector(Application.demonstrateButton)
-        button.target = self
+        button.target = Application.shared
         return button
     }
 
@@ -46,7 +46,7 @@ extension MenuBar {
             }
         })))
         buttonSet.action = #selector(Application.demonstrateButtonSet)
-        buttonSet.target = self
+        buttonSet.target = Application.shared
         return buttonSet
     }
 
@@ -58,7 +58,7 @@ extension MenuBar {
             }
         })))
         checkBox.action = #selector(Application.demonstrateCheckBox)
-        checkBox.target = self
+        checkBox.target = Application.shared
         return checkBox
     }
 
@@ -70,7 +70,7 @@ extension MenuBar {
             }
         })))
         image.action = #selector(Application.demonstrateImage)
-        image.target = self
+        image.target = Application.shared
         return image
     }
 
@@ -82,7 +82,7 @@ extension MenuBar {
             }
         })))
         label.action = #selector(Application.demonstrateLabel)
-        label.target = self
+        label.target = Application.shared
         return label
     }
 
@@ -94,7 +94,7 @@ extension MenuBar {
             }
         })))
         letterbox.action = #selector(Application.demonstrateLetterbox)
-        letterbox.target = self
+        letterbox.target = Application.shared
         return letterbox
     }
 
@@ -106,7 +106,7 @@ extension MenuBar {
             }
         })))
         textEditor.action = #selector(Application.demonstrateTextEditor)
-        textEditor.target = self
+        textEditor.target = Application.shared
         return textEditor
     }
 

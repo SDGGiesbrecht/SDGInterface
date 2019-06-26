@@ -27,9 +27,14 @@ import SDGMathematics
 import SDGText
 import SDGLocalization
 
+import SDGInterfaceBasics
+import SDGContextMenu
+
 import SDGInterfaceLocalizations
 
-internal class TextView : NSTextView {
+internal class TextView : NSTextView, TextEditingResponder {
+
+    // MARK: - Initialization
 
     internal init() {
         let prototype = NSTextView()
@@ -181,6 +186,14 @@ internal class TextView : NSTextView {
             return known
         }
         return super.validateMenuItem(menuItem)
+    }
+    #endif
+
+    // MARK: - NSView
+
+    #if canImport(AppKit)
+    public override class var defaultMenu: NSMenu? {
+        return TextContextMenu.contextMenu.menu.native
     }
     #endif
 }

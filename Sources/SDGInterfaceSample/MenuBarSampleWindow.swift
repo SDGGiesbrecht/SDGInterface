@@ -34,7 +34,7 @@ extension MenuBar {
             }
         })))
         fullscreen.action = #selector(Application.demonstrateFullscreenWindow)
-        fullscreen.target = self
+        fullscreen.target = Application.shared
         return fullscreen
     }
 

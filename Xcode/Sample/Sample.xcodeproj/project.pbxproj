@@ -67,8 +67,6 @@
 		3FEFE26C21DEBC300076700B /* SDGMathematics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE24821DEBC180076700B /* SDGMathematics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3FEFE26D21DEBC300076700B /* SDGInterfaceElements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE24B21DEBC180076700B /* SDGInterfaceElements.framework */; };
 		3FEFE26E21DEBC300076700B /* SDGInterfaceElements.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE24B21DEBC180076700B /* SDGInterfaceElements.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3FEFE26F21DEBC300076700B /* SDGInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE24E21DEBC180076700B /* SDGInterface.framework */; };
-		3FEFE27021DEBC300076700B /* SDGInterface.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE24E21DEBC180076700B /* SDGInterface.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3FEFE27121DEBC300076700B /* SDGApplication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE25121DEBC180076700B /* SDGApplication.framework */; };
 		3FEFE27221DEBC300076700B /* SDGApplication.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE25121DEBC180076700B /* SDGApplication.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3FEFE27321DEBC300076700B /* SDGLocalization.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE25421DEBC180076700B /* SDGLocalization.framework */; };
@@ -162,7 +160,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				3FEFE26221DEBC300076700B /* SDGCornerstoneLocalizations.framework in Embed Frameworks */,
-				3FEFE27021DEBC300076700B /* SDGInterface.framework in Embed Frameworks */,
 				3FEFE27421DEBC300076700B /* SDGLocalization.framework in Embed Frameworks */,
 				3FEFE26821DEBC300076700B /* SDGCollections.framework in Embed Frameworks */,
 				3FEFE27221DEBC300076700B /* SDGApplication.framework in Embed Frameworks */,
@@ -294,7 +291,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FEFE26121DEBC300076700B /* SDGCornerstoneLocalizations.framework in Frameworks */,
-				3FEFE26F21DEBC300076700B /* SDGInterface.framework in Frameworks */,
 				3FEFE27321DEBC300076700B /* SDGLocalization.framework in Frameworks */,
 				3FEFE26721DEBC300076700B /* SDGCollections.framework in Frameworks */,
 				3FEFE27121DEBC300076700B /* SDGApplication.framework in Frameworks */,

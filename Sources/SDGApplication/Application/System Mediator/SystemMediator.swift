@@ -14,6 +14,8 @@
 
 import Foundation
 
+import SDGMenus
+
 /// An object which mediates between the application and system events.
 public protocol SystemMediator : AnyObject {
 
@@ -114,7 +116,7 @@ public protocol SystemMediator : AnyObject {
     func reopen(hasVisibleWindows: Bool?) -> Bool
 
     /// Used by some systems as the dock menu.
-    var dockMenu: DockMenu? { get }
+    var dockMenu: AnyMenu? { get }
 
     /// Called by some systems before displaying an error to the user.
     ///
@@ -319,7 +321,7 @@ extension SystemMediator {
         return false
     }
 
-    public var dockMenu: DockMenu? {
+    public var dockMenu: AnyMenu? {
         return nil
     }
 

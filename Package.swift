@@ -64,6 +64,10 @@ let package = Package(
         /// A menu bar.
         .library(name: "SDGMenuBar", targets: ["SDGMenuBar"]),
 
+        // @documentation(SDGContextMenu)
+        /// A context menu.
+        .library(name: "SDGContextMenu", targets: ["SDGContextMenu"]),
+
         // @documentation(SDGMenus)
         /// Menus.
         .library(name: "SDGMenus", targets: ["SDGMenus"]),
@@ -84,7 +88,9 @@ let package = Package(
         /// Application‐level functionality and system interaction.
         .target(name: "SDGApplication", dependencies: [
             "SDGInterfaceLocalizations",
+            "SDGMenus",
             "SDGInterfaceElements",
+            "SDGContextMenu",
             "SDGMenuBar",
             .product(name: "SDGLogic", package: "SDGCornerstone"),
             .product(name: "SDGText", package: "SDGCornerstone"),
@@ -101,8 +107,18 @@ let package = Package(
             "SDGInterfaceBasics",
             "SDGMenus",
             "SDGInterfaceElements",
+            "SDGContextMenu",
             "SDGInterfaceLocalizations",
             .product(name: "SDGMathematics", package: "SDGCornerstone"),
+            .product(name: "SDGText", package: "SDGCornerstone"),
+            .product(name: "SDGLocalization", package: "SDGCornerstone")
+            ]),
+
+        // #documentation(SDGContextMenu)
+        /// A context menu.
+        .target(name: "SDGContextMenu", dependencies: [
+            "SDGMenus",
+            "SDGInterfaceLocalizations",
             .product(name: "SDGText", package: "SDGCornerstone"),
             .product(name: "SDGLocalization", package: "SDGCornerstone")
             ]),
@@ -111,6 +127,7 @@ let package = Package(
         /// Menus.
         .target(name: "SDGMenus", dependencies: [
             "SDGInterfaceBasics",
+            "SDGInterfaceLocalizations",
             .product(name: "SDGControlFlow", package: "SDGCornerstone"),
             .product(name: "SDGText", package: "SDGCornerstone"),
             .product(name: "SDGLocalization", package: "SDGCornerstone")
@@ -119,8 +136,10 @@ let package = Package(
         // #documentation(SDGInterfaceElements)
         /// Re‐usable interface elements, such as views, windows and menus.
         .target(name: "SDGInterfaceElements", dependencies: [
-            "SDGInterfaceLocalizations",
+            "SDGInterfaceBasics",
             "SDGMenus",
+            "SDGContextMenu",
+            "SDGInterfaceLocalizations",
             .product(name: "SDGControlFlow", package: "SDGCornerstone"),
             .product(name: "SDGLogic", package: "SDGCornerstone"),
             .product(name: "SDGMathematics", package: "SDGCornerstone"),
@@ -161,6 +180,9 @@ let package = Package(
         .testTarget(name: "SDGApplicationTests", dependencies: [
             "SDGInterfaceBasics",
             "SDGMenus",
+            "SDGContextMenu",
+            "SDGInterfaceElements",
+            "SDGMenuBar",
             "SDGApplication",
             "SDGInterfaceLocalizations",
             "SDGInterfaceSample",
