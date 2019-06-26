@@ -36,7 +36,7 @@ public final class ContextMenu {
     // MARK: - Initialization
 
     private init() {
-        menu = Menu(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        menu = Menu(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in // @exempt(from: tests) Unreachable on iOS.
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Context Menu"
@@ -65,9 +65,9 @@ public final class ContextMenu {
                 case .entry(let entry):
                     return [entry.native]
                 case .submenu(let submenu):
-                    return flatten(submenu)
+                    return flatten(submenu) // @exempt(from: tests) Currently unreachable.
                 case .separator:
-                    return []
+                    return [] // @exempt(from: tests) Currently unreachable.
                 }
             }
         }

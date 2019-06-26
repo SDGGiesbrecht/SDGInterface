@@ -386,6 +386,13 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         MenuBar.menuBar.menu = menu
     }
 
+    func testMenuComponent() {
+        XCTAssertNotNil(MenuComponent.entry(MenuEntry<InterfaceLocalization>(label: .binding(Shared("")))).asEntry)
+        XCTAssertNotNil(MenuComponent.submenu(Menu<InterfaceLocalization>(label: .binding(Shared("")))).asSubmenu)
+        XCTAssertNil(MenuComponent.submenu(Menu<InterfaceLocalization>(label: .binding(Shared("")))).asEntry)
+        XCTAssertNil(MenuComponent.entry(MenuEntry<InterfaceLocalization>(label: .binding(Shared("")))).asSubmenu)
+    }
+
     func testMenuEntry() {
         let menuLabel = Shared<StrictString>("initial")
         let menu = MenuEntry<APILocalization>(label: .binding(menuLabel))
