@@ -37,7 +37,7 @@ public final class ContextMenu {
 
     private init() {
         menu = Menu(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in // @exempt(from: tests) Unreachable on iOS.
-            switch localization {
+            switch localization { // @exempt(from: tests)
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Context Menu"
             }
