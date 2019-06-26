@@ -349,6 +349,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
             for localization in MenuBarLocalization.allCases {
                 LocalizationSetting(orderOfPrecedence: [localization.code]).do {
                     _ = ContextMenu._normalizeText().label.resolved()
+                    _ = ContextMenu._showCharacterInformation().label.resolved()
                     _ = (MenuBar.menuBar.menu as? Menu<InterfaceLocalization>)?.label.resolved()
                 }
             }

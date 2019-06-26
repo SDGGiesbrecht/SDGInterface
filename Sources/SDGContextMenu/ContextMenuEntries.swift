@@ -43,12 +43,13 @@ extension ContextMenu {
     }
 
     public static func _showCharacterInformation() -> MenuEntry<InterfaceLocalization> {
-        let showCharacterInformation = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Show Character Information"
-            }
-        })))
+        let showCharacterInformation = MenuEntry(
+            label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
+                switch localization {
+                case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+                    return "Show Character Information"
+                }
+            })))
         showCharacterInformation.action = #selector(TextDisplayResponder.showCharacterInformation(_:))
         return showCharacterInformation
     }
