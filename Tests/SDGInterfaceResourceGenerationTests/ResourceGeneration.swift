@@ -1,5 +1,5 @@
 /*
- ResourceGenerationTests.swift
+ ResourceGeneration.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -21,9 +21,11 @@ import SDGPersistence
 
 @testable import SDGInterfaceElements
 
-final class SDGInterfaceResourceGenerationTests : XCTestCase {
+final class SDGInterfaceResourceGeneration : XCTestCase {
 
-    func testRefreshUnicodeData() throws {
+    // Complete the word “test” to activate and run the generators.
+
+    func tesRefreshUnicodeData() throws {
         let ucd = URL(string: "https://www.unicode.org/Public/UCD/latest/ucd")!
         let unicodeDataURL = ucd.appendingPathComponent("UnicodeData.txt")
         let unicodeData = try String(from: unicodeDataURL)
