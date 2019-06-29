@@ -24,6 +24,8 @@ import SDGMathematics
 import SDGText
 import SDGLocalization
 
+import SDGInterfaceBasics
+
 import SDGInterfaceLocalizations
 
 /// A letterboxing view.
@@ -100,8 +102,9 @@ open class Letterbox : View {
 
     open override func draw(_ dirtyRect: CGRect) { // @exempt(from: tests) Crashes without active interface.
         if let colour = self.colour {
-            colour.setFill()
-            if colour.alphaComponent ≤ 1 {
+            let native = colour.native
+            native.setFill()
+            if native.alphaComponent ≤ 1 {
                 #if canImport(UIKit)
                 UIRectFillUsingBlendMode(dirtyRect, .normal)
                 #else

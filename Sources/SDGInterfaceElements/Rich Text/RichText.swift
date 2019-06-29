@@ -24,6 +24,8 @@ import SDGLogic
 import SDGMathematics
 import SDGText
 
+import SDGInterfaceBasics
+
 /// Rich text.
 ///
 /// Rich text is built on `StrictString` and maintains normalization form NFKD, except where canonical reordering would cause scalars to cross attribute boundaries.

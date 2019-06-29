@@ -14,6 +14,11 @@
 
 import Foundation
 import CoreGraphics
+#if canImport(AppKit)
+import AppKit
+#elseif canImport(UIKit)
+import UIKit
+#endif
 
 import SDGControlFlow
 import SDGLogic
@@ -165,5 +170,9 @@ public class CharacterInformation : NSObject {
     @objc private var normalizedCharacters: String
 
     static let warningColourPath = "warningColour"
-    @objc let warningColour: Colour
+    #if canImport(AppKit)
+    @objc let warningColour: NSColor
+    #elseif canImport(UIKit)
+    @objc let warningColour: UIColor
+    #endif
 }
