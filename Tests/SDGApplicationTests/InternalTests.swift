@@ -1,5 +1,5 @@
 /*
- SDGApplicationInternalTests.swift
+ InternalTests.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -26,9 +26,11 @@ import SDGInterfaceLocalizations
 
 import SDGXCTestUtilities
 
+import SDGApplicationTestUtilities
+
 import SDGInterfaceSample
 
-final class SDGApplicationInternalTests : ApplicationTestCase {
+final class InternalTests : ApplicationTestCase {
 
     func testApplicationName() {
         let previous = ProcessInfo.applicationName

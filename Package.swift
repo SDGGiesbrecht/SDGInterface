@@ -168,14 +168,46 @@ let package = Package(
 
         // Internal utilities.
 
-        .testTarget(name: "SDGInterfaceResourceGenerationTests", dependencies: [
+        .testTarget(name: "SDGInterfaceResourceGeneration", dependencies: [
             "SDGInterfaceElements",
             .product(name: "SDGText", package: "SDGCornerstone"),
             .product(name: "SDGLocalization", package: "SDGCornerstone"),
             .product(name: "SDGPersistence", package: "SDGCornerstone")
-            ]),
+            ], path: "Sources/SDGInterfaceResourceGeneration"),
 
         // Internal tests.
+
+        .target(name: "SDGApplicationTestUtilities", dependencies: [
+            "SDGApplication",
+            "SDGInterfaceSample",
+            .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
+            ], path: "Tests/SDGApplicationTestUtilities"),
+
+        .testTarget(name: "SDGInterfaceBasicsTests", dependencies: [
+            "SDGInterfaceBasics",
+            "SDGApplicationTestUtilities",
+            .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
+            ]),
+
+        .testTarget(name: "SDGMenusTests", dependencies: [
+            "SDGInterfaceLocalizations",
+            "SDGApplicationTestUtilities",
+            .product(name: "SDGControlFlow", package: "SDGCornerstone"),
+            .product(name: "SDGText", package: "SDGCornerstone"),
+            .product(name: "SDGLocalization", package: "SDGCornerstone"),
+            .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
+            ]),
+
+        .testTarget(name: "SDGMenuBarTests", dependencies: [
+            "SDGMenus",
+            "SDGContextMenu",
+            "SDGMenuBar",
+            "SDGInterfaceLocalizations",
+            "SDGApplicationTestUtilities",
+            .product(name: "SDGControlFlow", package: "SDGCornerstone"),
+            .product(name: "SDGLocalization", package: "SDGCornerstone"),
+            .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
+            ]),
 
         .testTarget(name: "SDGApplicationTests", dependencies: [
             "SDGInterfaceBasics",
@@ -186,6 +218,7 @@ let package = Package(
             "SDGApplication",
             "SDGInterfaceLocalizations",
             "SDGInterfaceSample",
+            "SDGApplicationTestUtilities",
             .product(name: "SDGControlFlow", package: "SDGCornerstone"),
             .product(name: "SDGLogic", package: "SDGCornerstone"),
             .product(name: "SDGMathematics", package: "SDGCornerstone"),

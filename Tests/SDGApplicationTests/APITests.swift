@@ -1,5 +1,5 @@
 /*
- SDGApplicationAPITests.swift
+ APITests.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -29,29 +29,22 @@ import SDGApplication
 
 import SDGInterfaceLocalizations
 
+import XCTest
+
 import SDGLogicTestUtilities
 import SDGLocalizationTestUtilities
 import SDGXCTestUtilities
 
-import XCTest
+import SDGApplicationTestUtilities
 
 import SDGInterfaceSample
 
-final class SDGApplicationAPITests : ApplicationTestCase {
+final class APITests : ApplicationTestCase {
 
     override func tearDown() {
         forEachWindow { window in
             window.close()
         }
-    }
-
-    func testApplicationName() {
-        XCTAssertEqual(ProcessInfo.applicationName(.español(.de)), "del Ejemplar")
-        XCTAssertEqual(ProcessInfo.applicationName(.deutsch(.akkusativ)), "Beispiel")
-        XCTAssertEqual(ProcessInfo.applicationName(.deutsch(.dativ)), "Beispiel")
-        XCTAssertEqual(ProcessInfo.applicationName(.français(.de)), "de l’Exemple")
-        XCTAssertEqual(ProcessInfo.applicationName(.ελληνικά(.αιτιατική)), "το Παράδειγμα")
-        XCTAssertEqual(ProcessInfo.applicationName(.ελληνικά(.γενική)), "του Παραδείγματος")
     }
 
     func testArrayController() {
@@ -302,155 +295,6 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         let modifiers: KeyModifiers = [.command, .shift, .option, .control, .function, .capsLock]
         #if canImport(AppKit)
         XCTAssertEqual(KeyModifiers(modifiers.native), modifiers)
-        #endif
-    }
-
-    func testMenu() {
-        _ = MenuEntry(label: .static(UserFacing<StrictString, APILocalization>({ _ in "..." })))
-
-        let menuBar = MenuBar.menuBar
-        XCTAssertNotNil(menuBar)
-        var submenu: AnyMenu?
-        _ = menuBar.menu.entries.first(where: { entry in
-            switch entry {
-            case .submenu(let menu):
-                submenu = menu
-                return true
-            default:
-                return false
-            }
-        })
-        #if canImport(AppKit)
-        XCTAssertNotNil(submenu)
-        #endif
-
-        let menuLabel = Shared<StrictString>("initial")
-        let menu = Menu<APILocalization>(label: .binding(menuLabel))
-        menuLabel.value = "changed"
-        XCTAssertEqual(menu.label.resolved(), menuLabel.value)
-        let separateMenuLabel = Shared<StrictString>("separate")
-        menu.label = .binding(separateMenuLabel)
-        XCTAssertEqual(menu.label.resolved(), separateMenuLabel.value)
-        menuLabel.value = "unrelated"
-        XCTAssertEqual(menu.label.resolved(), separateMenuLabel.value)
-        #if canImport(AppKit)
-        let title = menu.native.title
-        menu.native = NSMenu()
-        XCTAssertEqual(menu.native.title, title)
-        #endif
-    }
-
-    func testMenuBar() {
-        let previous = ProcessInfo.applicationName
-        func testAllLocalizations() {
-            defer {
-                ProcessInfo.applicationName = previous
-            }
-            for localization in MenuBarLocalization.allCases {
-                LocalizationSetting(orderOfPrecedence: [localization.code]).do {
-                    _ = ContextMenu._normalizeText().label.resolved()
-                    _ = ContextMenu._showCharacterInformation().label.resolved()
-                    _ = (MenuBar.menuBar.menu as? Menu<InterfaceLocalization>)?.label.resolved()
-                }
-            }
-        }
-
-        ProcessInfo.applicationName = { form in
-            switch form {
-            case .english(.canada):
-                return "..."
-            default:
-                return nil
-            }
-        }
-        testAllLocalizations()
-        ProcessInfo.applicationName = { form in
-            switch form {
-            case .english(.unitedKingdom):
-                return "..."
-            default:
-                return nil
-            }
-        }
-        testAllLocalizations()
-
-        #if canImport(AppKit)
-        let preferencesMenuItem = NSApplication.shared.mainMenu?.items.first?.submenu?.items.first(where: { $0.action == #selector(_NSApplicationDelegateProtocol.openPreferences(_:)) })
-        XCTAssertNotNil(preferencesMenuItem)
-        #endif
-
-        let menu = MenuBar.menuBar.menu
-        MenuBar.menuBar.menu = Menu<APILocalization>(label: .binding(Shared("")))
-        MenuBar.menuBar.addApplicationSpecificSubmenu(Menu<APILocalization>(label: .binding(Shared(""))))
-        MenuBar.menuBar.addApplicationSpecificSubmenu(Menu<APILocalization>(label: .binding(Shared(""))))
-        MenuBar.menuBar.addApplicationSpecificSubmenu(Menu<APILocalization>(label: .binding(Shared(""))))
-        MenuBar.menuBar.menu = menu
-    }
-
-    func testMenuComponent() {
-        XCTAssertNotNil(MenuComponent.entry(MenuEntry<InterfaceLocalization>(label: .binding(Shared("")))).asEntry)
-        XCTAssertNotNil(MenuComponent.submenu(Menu<InterfaceLocalization>(label: .binding(Shared("")))).asSubmenu)
-        XCTAssertNil(MenuComponent.submenu(Menu<InterfaceLocalization>(label: .binding(Shared("")))).asEntry)
-        XCTAssertNil(MenuComponent.entry(MenuEntry<InterfaceLocalization>(label: .binding(Shared("")))).asSubmenu)
-    }
-
-    func testMenuEntry() {
-        let menuLabel = Shared<StrictString>("initial")
-        let menu = MenuEntry<APILocalization>(label: .binding(menuLabel))
-        menuLabel.value = "changed"
-        XCTAssertEqual(menu.label.resolved(), menuLabel.value)
-        let separateMenuLabel = Shared<StrictString>("separate")
-        menu.label = .binding(separateMenuLabel)
-        XCTAssertEqual(menu.label.resolved(), separateMenuLabel.value)
-        menuLabel.value = "unrelated"
-        XCTAssertEqual(menu.label.resolved(), separateMenuLabel.value)
-        let action = #selector(NSObject.isEqual(_:))
-        menu.action = action
-        _ = menu.action
-        #if !os(watchOS) && !os(tvOS)
-        XCTAssertEqual(menu.action, action)
-        #endif
-        menu.action = nil
-        let target = NSObject()
-        menu.target = target
-        _ = menu.target
-        #if canImport(AppKit)
-        XCTAssertEqual(menu.target as? NSObject, target)
-        #endif
-        let hotKey = "A"
-        menu.hotKey = hotKey
-        _ = menu.hotKey
-        #if canImport(AppKit)
-        XCTAssertEqual(menu.hotKey, hotKey)
-        #endif
-        let modifiers: KeyModifiers = .command
-        menu.hotKeyModifiers = modifiers
-        _ = menu.hotKeyModifiers
-        #if canImport(AppKit)
-        XCTAssertEqual(menu.hotKeyModifiers, modifiers)
-        #endif
-        menu.isHidden = true
-        _ = menu.isHidden
-        #if canImport(AppKit)
-        XCTAssert(menu.isHidden)
-        #endif
-        menu.indentationLevel = 1
-        _ = menu.indentationLevel
-        #if canImport(AppKit)
-        XCTAssertEqual(menu.indentationLevel, 1)
-        #endif
-        menu.tag = 1
-        XCTAssertEqual(menu.tag, 1)
-        #if !os(watchOS) && !os(tvOS)
-        let title = menu.native.title
-        #endif
-        #if canImport(AppKit)
-        menu.native = NSMenuItem()
-        #elseif canImport(UIKit) && !os(watchOS) && !os(tvOS)
-        menu.native = UIMenuItem()
-        #endif
-        #if !os(watchOS) && !os(tvOS)
-        XCTAssertEqual(menu.native.title, title)
         #endif
     }
 

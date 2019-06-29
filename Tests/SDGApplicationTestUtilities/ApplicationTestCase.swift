@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(XCTest) && (!(os(iOS) || os(watchOS) || os(tvOS)) || targetEnvironment(simulator)) // XCTest does not contain bitcode.
+
 import Foundation
 
 import SDGApplication
@@ -22,9 +24,9 @@ import XCTest
 
 import SDGXCTestUtilities
 
-class ApplicationTestCase : TestCase {
+open class ApplicationTestCase : TestCase {
 
-    override func setUp() {
+    open override func setUp() {
         super.setUp()
         ApplicationTestCase.launch
     }
@@ -39,3 +41,5 @@ class ApplicationTestCase : TestCase {
         #endif
     }()
 }
+
+#endif
