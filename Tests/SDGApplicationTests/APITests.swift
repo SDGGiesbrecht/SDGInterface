@@ -29,11 +29,13 @@ import SDGApplication
 
 import SDGInterfaceLocalizations
 
+import XCTest
+
 import SDGLogicTestUtilities
 import SDGLocalizationTestUtilities
 import SDGXCTestUtilities
 
-import XCTest
+import SDGApplicationTestUtilities
 
 import SDGInterfaceSample
 
@@ -43,15 +45,6 @@ final class APITests : ApplicationTestCase {
         forEachWindow { window in
             window.close()
         }
-    }
-
-    func testApplicationName() {
-        XCTAssertEqual(ProcessInfo.applicationName(.español(.de)), "del Ejemplar")
-        XCTAssertEqual(ProcessInfo.applicationName(.deutsch(.akkusativ)), "Beispiel")
-        XCTAssertEqual(ProcessInfo.applicationName(.deutsch(.dativ)), "Beispiel")
-        XCTAssertEqual(ProcessInfo.applicationName(.français(.de)), "de l’Exemple")
-        XCTAssertEqual(ProcessInfo.applicationName(.ελληνικά(.αιτιατική)), "το Παράδειγμα")
-        XCTAssertEqual(ProcessInfo.applicationName(.ελληνικά(.γενική)), "του Παραδείγματος")
     }
 
     func testArrayController() {

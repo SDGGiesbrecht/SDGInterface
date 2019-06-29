@@ -16,9 +16,20 @@ import SDGInterfaceBasics
 
 import SDGXCTestUtilities
 
+import SDGApplicationTestUtilities
+
 import XCTest
 
-final class APITests : TestCase {
+final class APITests : ApplicationTestCase {
+
+    func testApplicationName() {
+        XCTAssertEqual(ProcessInfo.applicationName(.español(.de)), "del Ejemplar")
+        XCTAssertEqual(ProcessInfo.applicationName(.deutsch(.akkusativ)), "Beispiel")
+        XCTAssertEqual(ProcessInfo.applicationName(.deutsch(.dativ)), "Beispiel")
+        XCTAssertEqual(ProcessInfo.applicationName(.français(.de)), "de l’Exemple")
+        XCTAssertEqual(ProcessInfo.applicationName(.ελληνικά(.αιτιατική)), "το Παράδειγμα")
+        XCTAssertEqual(ProcessInfo.applicationName(.ελληνικά(.γενική)), "του Παραδείγματος")
+    }
 
     func testColour() {
         XCTAssertEqual(Colour.white.red, 1)

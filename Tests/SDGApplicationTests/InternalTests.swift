@@ -26,6 +26,8 @@ import SDGInterfaceLocalizations
 
 import SDGXCTestUtilities
 
+import SDGApplicationTestUtilities
+
 import SDGInterfaceSample
 
 final class InternalTests : ApplicationTestCase {

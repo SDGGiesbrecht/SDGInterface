@@ -22,9 +22,9 @@ import XCTest
 
 import SDGXCTestUtilities
 
-class ApplicationTestCase : TestCase {
+open class ApplicationTestCase : TestCase {
 
-    override func setUp() {
+    open override func setUp() {
         super.setUp()
         ApplicationTestCase.launch
     }
