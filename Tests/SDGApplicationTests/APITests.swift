@@ -1,5 +1,5 @@
 /*
- SDGApplicationAPITests.swift
+ APITests.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -37,7 +37,7 @@ import XCTest
 
 import SDGInterfaceSample
 
-final class SDGApplicationAPITests : ApplicationTestCase {
+final class APITests : ApplicationTestCase {
 
     override func tearDown() {
         forEachWindow { window in
