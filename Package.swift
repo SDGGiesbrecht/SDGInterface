@@ -168,12 +168,12 @@ let package = Package(
 
         // Internal utilities.
 
-        .testTarget(name: "SDGInterfaceResourceGenerationTests", dependencies: [
+        .testTarget(name: "SDGInterfaceResourceGeneration", dependencies: [
             "SDGInterfaceElements",
             .product(name: "SDGText", package: "SDGCornerstone"),
             .product(name: "SDGLocalization", package: "SDGCornerstone"),
             .product(name: "SDGPersistence", package: "SDGCornerstone")
-            ]),
+            ], path: "Sources/SDGInterfaceResourceGeneration"),
 
         // Internal tests.
 
