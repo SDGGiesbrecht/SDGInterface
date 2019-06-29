@@ -190,19 +190,22 @@ let package = Package(
             ]),
 
         .testTarget(name: "SDGMenusTests", dependencies: [
-            "SDGControlFlow",
-            "SDGText",
-            "SDGLocalization",
-            "SDGMenus",
             "SDGInterfaceLocalizations",
             "SDGApplicationTestUtilities",
+            .product(name: "SDGControlFlow", package: "SDGCornerstone"),
+            .product(name: "SDGText", package: "SDGCornerstone"),
+            .product(name: "SDGLocalization", package: "SDGCornerstone"),
             .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
             ]),
 
         .testTarget(name: "SDGMenuBarTests", dependencies: [
             "SDGMenus",
+            "SDGContextMenu",
             "SDGMenuBar",
+            "SDGInterfaceLocalizations",
             "SDGApplicationTestUtilities",
+            .product(name: "SDGControlFlow", package: "SDGCornerstone"),
+            .product(name: "SDGLocalization", package: "SDGCornerstone"),
             .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
             ]),
 
