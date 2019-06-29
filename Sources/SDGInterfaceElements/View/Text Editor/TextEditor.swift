@@ -24,6 +24,8 @@ import SDGLogic
 import SDGText
 import SDGLocalization
 
+import SDGInterfaceBasics
+
 import SDGInterfaceLocalizations
 
 #if canImport(AppKit)
@@ -54,7 +56,7 @@ public class TextEditor : _TextEditorSuperclass {
             #else
             if drawsTextBackground ≠ newValue {
                 if newValue {
-                    textView.backgroundColor = Colour(red: 1, green: 1, blue: 1, alpha: 1)
+                    textView.backgroundColor = .white
                 } else {
                     textView.backgroundColor = nil
                 }

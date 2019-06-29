@@ -85,7 +85,7 @@ public class CharacterInformation : NSObject {
                 cell.textLabel?.text = characterInformation.codePoint + " " + characterInformation.character
                 cell.textLabel?.textColor = characterInformation.warningColour
                 cell.detailTextLabel?.text = characterInformation.normalizedCodePoints + " " + characterInformation.normalizedCharacters
-                cell.detailTextLabel?.textColor = Colour.black
+                cell.detailTextLabel?.textColor = .black
             }
         }
         #endif

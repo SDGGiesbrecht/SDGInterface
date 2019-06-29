@@ -104,7 +104,7 @@ open class Letterbox : View {
         if let colour = self.colour {
             let native = colour.native
             native.setFill()
-            if native.alphaComponent ≤ 1 {
+            if colour.opacity < 1 {
                 #if canImport(UIKit)
                 UIRectFillUsingBlendMode(dirtyRect, .normal)
                 #else
