@@ -21,6 +21,42 @@ import UIKit
 /// A colour.
 public struct Colour {
 
+    // MARK: - Static Properties
+
+    /// Black.
+    public static var black: Colour {
+        return Colour(white: 0)
+    }
+    /// White.
+    public static var white: Colour {
+        return Colour(white: 1)
+    }
+
+    /// Blue.
+    public static var blue: Colour {
+        return Colour(red: 0, green: 0, blue: 1)
+    }
+    /// Green.
+    public static var green: Colour {
+        return Colour(red: 0, green: 1, blue: 0)
+    }
+    /// Cyan.
+    public static var cyan: Colour {
+        return Colour(red: 0, green: 1, blue: 1)
+    }
+    /// Red.
+    public static var red: Colour {
+        return Colour(red: 1, green: 0, blue: 0)
+    }
+    /// Magenta.
+    public static var magenta: Colour {
+        return Colour(red: 1, green: 0, blue: 1)
+    }
+    /// Yellow.
+    public static var yellow: Colour {
+        return Colour(red: 1, green: 1, blue: 0)
+    }
+
     // MARK: - Initialization
 
     /// Creates a colour.
@@ -34,6 +70,18 @@ public struct Colour {
         self.red = red
         self.green = green
         self.blue = blue
+        self.opacity = opacity
+    }
+
+    /// Creates a greyscale colour with zero saturation.
+    ///
+    /// - Parameters:
+    ///     - white: The brightness component. (0–1)
+    ///     - opacity: The opacity. (0–1)
+    public init(white: Double, opacity: Double = 1) {
+        self.red = white
+        self.green = white
+        self.blue = white
         self.opacity = opacity
     }
 

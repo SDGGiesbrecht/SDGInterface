@@ -295,7 +295,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
         Application.shared.demonstrateLetterbox()
         let letterbox = Letterbox(content: View(), aspectRatio: 1)
         letterbox.colour = .red
-        XCTAssertEqual(letterbox.colour?.alphaComponent, 1)
+        XCTAssertEqual(letterbox.colour?.opacity, 1)
     }
 
     func testKeyModifiers() {
@@ -509,7 +509,7 @@ final class SDGApplicationAPITests : ApplicationTestCase {
 
         var richText = RichText(rawText: "...")
         richText.superscript()
-        richText.set(colour: Colour(calibratedRed: 1, green: 1, blue: 1, alpha: 1))
+        richText.set(colour: Colour(red: 1, green: 1, blue: 1, opacity: 1))
         richText.superscript(range: richText.bounds)
         richText.subscript(range: richText.bounds)
         richText.set(font: Font.systemFont(ofSize: Font.systemSize))
