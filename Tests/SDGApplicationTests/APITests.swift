@@ -298,41 +298,6 @@ final class APITests : ApplicationTestCase {
         #endif
     }
 
-    func testMenu() {
-        _ = MenuEntry(label: .static(UserFacing<StrictString, APILocalization>({ _ in "..." })))
-
-        let menuBar = MenuBar.menuBar
-        XCTAssertNotNil(menuBar)
-        var submenu: AnyMenu?
-        _ = menuBar.menu.entries.first(where: { entry in
-            switch entry {
-            case .submenu(let menu):
-                submenu = menu
-                return true
-            default:
-                return false
-            }
-        })
-        #if canImport(AppKit)
-        XCTAssertNotNil(submenu)
-        #endif
-
-        let menuLabel = Shared<StrictString>("initial")
-        let menu = Menu<APILocalization>(label: .binding(menuLabel))
-        menuLabel.value = "changed"
-        XCTAssertEqual(menu.label.resolved(), menuLabel.value)
-        let separateMenuLabel = Shared<StrictString>("separate")
-        menu.label = .binding(separateMenuLabel)
-        XCTAssertEqual(menu.label.resolved(), separateMenuLabel.value)
-        menuLabel.value = "unrelated"
-        XCTAssertEqual(menu.label.resolved(), separateMenuLabel.value)
-        #if canImport(AppKit)
-        let title = menu.native.title
-        menu.native = NSMenu()
-        XCTAssertEqual(menu.native.title, title)
-        #endif
-    }
-
     func testMenuBar() {
         let previous = ProcessInfo.applicationName
         func testAllLocalizations() {

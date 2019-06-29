@@ -189,6 +189,23 @@ let package = Package(
             .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
             ]),
 
+        .testTarget(name: "SDGMenusTests", dependencies: [
+            "SDGControlFlow",
+            "SDGText",
+            "SDGLocalization",
+            "SDGMenus",
+            "SDGInterfaceLocalizations",
+            "SDGApplicationTestUtilities",
+            .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
+            ]),
+
+        .testTarget(name: "SDGMenuBarTests", dependencies: [
+            "SDGMenus",
+            "SDGMenuBar",
+            "SDGApplicationTestUtilities",
+            .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
+            ]),
+
         .testTarget(name: "SDGApplicationTests", dependencies: [
             "SDGInterfaceBasics",
             "SDGMenus",
