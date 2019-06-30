@@ -87,7 +87,9 @@ public final class Application {
     #endif
 
     internal class func postLaunchSetUp() {
+        #if !os(macOS) && !os(Linux) && !os(watchOS) && !os(tvOS)
         _ = ContextMenu.contextMenu
+        #endif
 
         #if canImport(AppKit)
         _ = MenuBar.menuBar
