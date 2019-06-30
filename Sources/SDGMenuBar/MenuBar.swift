@@ -12,9 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit)
+#if !os(Linux) && !os(iOS) && !os(watchOS) && !os(tvOS)
 import AppKit
-#endif
 
 import SDGMathematics
 import SDGText
@@ -32,8 +31,6 @@ import SDGInterfaceLocalizations
 /// Some menu items only appear if the application provides details they need to operate:
 /// - “Preferences...” appears if the application has a preference manager.
 /// - “Help” appears if a help book is specified in the `Info.plist` file.
-///
-/// - Note: The menu bar will only appear on the screen for platforms which actually have a menu bar. To reduce the need for `#if` statements, the `MenuBar` type and its public interface still exist on the remaining platforms, but it is empty and does nothing.
 public final class MenuBar {
 
     // MARK: - Class Properties
@@ -50,7 +47,6 @@ public final class MenuBar {
                 return "Menu Bar"
             }
         })))
-        #if canImport(AppKit)
         menu.entries = [
             .submenu(MenuBar.application()),
             .submenu(MenuBar.file()),
@@ -60,7 +56,6 @@ public final class MenuBar {
             .submenu(MenuBar.window()),
             .submenu(MenuBar.help())
         ]
-        #endif
         menuDidSet()
     }
 
@@ -73,9 +68,7 @@ public final class MenuBar {
         }
     }
     private func menuDidSet() {
-        #if canImport(AppKit)
         NSApplication.shared.mainMenu = menu.native
-        #endif
     }
 
     // MARK: - Modification
@@ -96,7 +89,6 @@ public final class MenuBar {
 
     // MARK: - Items
 
-    #if canImport(AppKit)
     internal static func fallbackApplicationName(quotationMarks: (leading: StrictString, trailing: StrictString)) -> StrictString {
         var result = quotationMarks.leading
         result.append("\u{2068}")
@@ -105,5 +97,5 @@ public final class MenuBar {
         result.append(contentsOf: quotationMarks.trailing)
         return result
     }
-    #endif
 }
+#endif

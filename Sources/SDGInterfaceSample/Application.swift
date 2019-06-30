@@ -89,7 +89,9 @@ extension Application {
     }
 
     private static func setMenuUp() {
+        #if !os(Linux) && !os(iOS) && !os(watchOS) && !os(tvOS)
         MenuBar.menuBar.setSamplesUp()
+        #endif
 
         #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
         let window = Window(title: Shared(ApplicationNameForm.localizedIsolatedForm))
