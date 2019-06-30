@@ -137,9 +137,11 @@ final class APITests : ApplicationTestCase {
     }
 
     func testContextMenu() {
+        #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
         let contextMenu = ContextMenu.contextMenu
         let original = contextMenu.menu
         contextMenu.menu = original
+        #endif
     }
 
     func testDelegationInterceptor() {
