@@ -117,6 +117,7 @@ let package = Package(
         // #documentation(SDGContextMenu)
         /// A context menu.
         .target(name: "SDGContextMenu", dependencies: [
+            "SDGLogic",
             "SDGMenus",
             "SDGInterfaceLocalizations",
             .product(name: "SDGText", package: "SDGCornerstone"),

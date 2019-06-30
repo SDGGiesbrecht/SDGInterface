@@ -12,17 +12,20 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS) && !os(tvOS)
 /// A menu component.
 public enum MenuComponent {
 
     /// A menu entry.
     case entry(AnyMenuEntry)
 
+    #if canImport(AppKit)
     /// A submenu.
     case submenu(AnyMenu)
 
     /// A group separator.
     case separator
+    #endif
 
     // MARK: - Properties
 
@@ -31,11 +34,14 @@ public enum MenuComponent {
         switch self {
         case .entry(let entry):
             return entry
+        #if canImport(AppKit)
         case .submenu, .separator:
             return nil
+        #endif
         }
     }
 
+    #if canImport(AppKit)
     /// Returns the associated value if the component is a submenu.
     public var asSubmenu: AnyMenu? {
         switch self {
@@ -45,4 +51,6 @@ public enum MenuComponent {
             return nil
         }
     }
+    #endif
 }
+#endif

@@ -12,6 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS) && !os(tvOS)
 #if canImport(AppKit)
 import AppKit
 #endif
@@ -120,9 +121,11 @@ public final class Menu<L> : AnyMenu, SharedValueObserver where L : Localization
         }
         #endif
         for entry in entries {
+            #if canImport(AppKit)
             if case .submenu(let menu) = entry {
                 menu.refreshLabel()
             }
+            #endif
         }
     }
 
@@ -148,3 +151,4 @@ public final class Menu<L> : AnyMenu, SharedValueObserver where L : Localization
         refreshLabel()
     }
 }
+#endif

@@ -16,6 +16,7 @@
 import UIKit
 #endif
 
+import SDGLogic
 import SDGText
 import SDGLocalization
 
@@ -61,11 +62,7 @@ public final class ContextMenu {
             return menu.entries.flatMap { (entry) -> [UIMenuItem] in
                 switch entry {
                 case .entry(let entry):
-                    return [entry.native]
-                case .submenu(let submenu):
-                    return flatten(submenu) // @exempt(from: tests) Currently unreachable.
-                case .separator:
-                    return [] // @exempt(from: tests) Currently unreachable.
+                    return entry.isHidden ? [] : [entry.native]
                 }
             }
         }
