@@ -89,7 +89,7 @@ extension Application {
     }
 
     private static func setMenuUp() {
-        #if !os(Linux) && !os(iOS) && !os(watchOS) && !os(tvOS)
+        #if os(macOS)
         MenuBar.menuBar.setSamplesUp()
         #endif
 

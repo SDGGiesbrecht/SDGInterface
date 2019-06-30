@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if !os(Linux) && !os(iOS) && !os(watchOS) && !os(tvOS)
+#if os(macOS)
 import ObjectiveC
 
 import SDGText
