@@ -48,9 +48,11 @@ final class APITests : ApplicationTestCase {
 
     func testMenuComponent() {
         XCTAssertNotNil(MenuComponent.entry(MenuEntry<InterfaceLocalization>(label: .binding(Shared("")))).asEntry)
+        #if canImport(AppKit)
         XCTAssertNotNil(MenuComponent.submenu(Menu<InterfaceLocalization>(label: .binding(Shared("")))).asSubmenu)
         XCTAssertNil(MenuComponent.submenu(Menu<InterfaceLocalization>(label: .binding(Shared("")))).asEntry)
         XCTAssertNil(MenuComponent.entry(MenuEntry<InterfaceLocalization>(label: .binding(Shared("")))).asSubmenu)
+        #endif
     }
 
     func testMenuEntry() {
@@ -71,31 +73,25 @@ final class APITests : ApplicationTestCase {
         #endif
         menu.action = nil
         let target = NSObject()
-        menu.target = target
-        _ = menu.target
         #if canImport(AppKit)
+        menu.target = target
         XCTAssertEqual(menu.target as? NSObject, target)
         #endif
         let hotKey = "A"
-        menu.hotKey = hotKey
-        _ = menu.hotKey
         #if canImport(AppKit)
+        menu.hotKey = hotKey
         XCTAssertEqual(menu.hotKey, hotKey)
         #endif
         let modifiers: KeyModifiers = .command
-        menu.hotKeyModifiers = modifiers
-        _ = menu.hotKeyModifiers
         #if canImport(AppKit)
+        menu.hotKeyModifiers = modifiers
         XCTAssertEqual(menu.hotKeyModifiers, modifiers)
         #endif
         menu.isHidden = true
         _ = menu.isHidden
-        #if canImport(AppKit)
         XCTAssert(menu.isHidden)
-        #endif
-        menu.indentationLevel = 1
-        _ = menu.indentationLevel
         #if canImport(AppKit)
+        menu.indentationLevel = 1
         XCTAssertEqual(menu.indentationLevel, 1)
         #endif
         menu.tag = 1

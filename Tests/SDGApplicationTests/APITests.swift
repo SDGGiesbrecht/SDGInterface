@@ -646,7 +646,9 @@ final class APITests : ApplicationTestCase {
             _ = textView.menu
             #endif
         }
+        #if canImport(AppKit)
         _ = TextContextMenu.contextMenu
+        #endif
     }
 
     func testTextField() {
