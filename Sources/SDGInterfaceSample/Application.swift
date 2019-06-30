@@ -89,7 +89,7 @@ extension Application {
     }
 
     private static func setMenuUp() {
-        #if os(macOS)
+        #if canImport(AppKit)
         MenuBar.menuBar.setSamplesUp()
         #endif
 
