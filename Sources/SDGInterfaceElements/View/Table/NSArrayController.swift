@@ -21,7 +21,7 @@ public class NSArrayController : NSObject {
     // MARK: - Initialization
 
     public override init() {
-        self.content = []
+        self.init(content: [])
     }
 
     /// Creates an array controller with a content array.

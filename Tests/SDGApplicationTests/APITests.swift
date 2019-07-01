@@ -50,7 +50,7 @@ final class APITests : ApplicationTestCase {
     }
 
     func testArrayController() {
-        _ = NSArrayController()
+        _ = NSArrayController().arrangedObjects
     }
 
     func testAttributedString() {
@@ -437,7 +437,11 @@ final class APITests : ApplicationTestCase {
         let half = RichText(rawText: "...", attributes: attributes)
         XCTAssertEqual(half + half, RichText(rawText: half.rawText() + half.rawText(), attributes: attributes))
         XCTAssert(RichText(rawText: "...").scalars().elementsEqual("...".scalars))
-        for _ in richText.reversed() {}
+        for _ in (half + RichText(rawText: "...")).reversed() {}
+        _ = RichText(NSAttributedString(string: "\u{B2}"))
+        _ = RichText(NSAttributedString(string: "\u{2082}"))
+        _ = RichText(richText[richText.bounds])
+        XCTAssertEqual(half + RichText(rawText: ""), half)
     }
 
     func testSystemMediator() {

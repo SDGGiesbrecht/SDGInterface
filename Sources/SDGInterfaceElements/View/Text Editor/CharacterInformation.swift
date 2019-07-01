@@ -32,12 +32,12 @@ import SDGInterfaceBasics
 
 import SDGInterfaceLocalizations
 
+#if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
 /// User‐presentable Unicode information about the characters in a string.
 public class CharacterInformation : NSObject {
 
     // MARK: - Static Methods
 
-    #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
     /// Displays information to the user about the characters in a string.
     ///
     /// - Precondition: In UIKit environments, `origin` must not be `nil`.
@@ -115,7 +115,6 @@ public class CharacterInformation : NSObject {
             #endif
         }
     }
-    #endif
 
     // MARK: - Initialization
 
@@ -183,3 +182,4 @@ public class CharacterInformation : NSObject {
     let warningColour: Colour
     #endif
 }
+#endif
