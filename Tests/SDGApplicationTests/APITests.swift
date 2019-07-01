@@ -51,6 +51,7 @@ final class APITests : ApplicationTestCase {
 
     func testArrayController() {
         _ = NSArrayController().arrangedObjects
+        _ = NSArrayController(content: [])
     }
 
     func testAttributedString() {
