@@ -432,6 +432,12 @@ final class APITests : ApplicationTestCase {
         XCTAssertEqual(richText.rawText(), "abcdefghi")
 
         XCTAssertEqual(("..." as RichText).rawText(), "...")
+        _ = RichText(NSAttributedString(string: "..."))
+        let attributes = [NSAttributedString.Key(rawValue: "Attribute"): 0]
+        let half = RichText(rawText: "...", attributes: attributes)
+        XCTAssertEqual(half + half, RichText(rawText: half.rawText() + half.rawText(), attributes: attributes))
+        XCTAssert(RichText(rawText: "...").scalars().elementsEqual("...".scalars))
+        for _ in richText.reversed() {}
     }
 
     func testSystemMediator() {
