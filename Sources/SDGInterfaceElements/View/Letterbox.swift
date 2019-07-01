@@ -103,7 +103,11 @@ open class Letterbox : View {
 
     open override func draw(_ dirtyRect: CGRect) { // @exempt(from: tests) Crashes without active interface.
         if let colour = self.colour {
-            let native = colour.native
+            #if canImport(AppKit)
+            let native = colour.nsColor
+            #elseif canImport(UIKit)
+            let native = colour.uiColor
+            #endif
             native.setFill()
             if colour.opacity < 1 {
                 #if canImport(UIKit)
