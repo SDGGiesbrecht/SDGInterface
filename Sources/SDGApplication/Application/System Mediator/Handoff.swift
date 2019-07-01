@@ -1,5 +1,5 @@
 /*
- HandoffDetails.swift
+ Handoff.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -18,8 +18,8 @@ import AppKit
 import UIKit
 #endif
 
-/// Details about an activity handoff.
-public struct HandoffDetails {
+/// An activity handoff.
+public struct Handoff {
 
     // MARK: - Initialization
 
@@ -30,6 +30,6 @@ public struct HandoffDetails {
 
     #if canImport(AppKit) || canImport(UIKit)
     /// The native activity.
-    public var handoffDetails: NSUserActivity?
+    public var activity: NSUserActivity?
     #endif
 }

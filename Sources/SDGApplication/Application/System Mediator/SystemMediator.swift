@@ -161,7 +161,7 @@ public protocol SystemMediator : AnyObject {
     /// 	- details: Details about the handoff.
     ///
     /// - Returns: `true` if the handoff has been accepted, `false` to request that the system accept the handoff.
-    func accept(handoff: NSUserActivity, details: HandoffDetails) -> Bool
+    func accept(handoff: Handoff, details: HandoffAcceptanceDetails) -> Bool
 
     /// Called by some systems when an activity handoff fails.
     ///
@@ -176,7 +176,7 @@ public protocol SystemMediator : AnyObject {
     ///
     /// - Parameters:
     ///     - handoff: The handoff activity.
-    func preprocess(handoff: NSUserActivity)
+    func preprocess(handoff: Handoff)
 
     /// Called by some systems as the remote notification registration finishes.
     ///
@@ -349,13 +349,13 @@ extension SystemMediator {
     public func notifyHandoffBegan(_ identifier: String) -> Bool {
         return false
     }
-    public func accept(handoff: NSUserActivity, details: HandoffDetails) -> Bool {
+    public func accept(handoff: Handoff, details: HandoffAcceptanceDetails) -> Bool {
         return false
     }
     public func notifyHandoffFailed(_ identifier: String, error: Error) -> Bool {
         return false
     }
-    public func preprocess(handoff: NSUserActivity) {}
+    public func preprocess(handoff: Handoff) {}
 
     public func finishRegistrationForRemoteNotifications(deviceToken: Data) {
         #if UNHANDLED_SYSTEM_EVENT_LOGGING

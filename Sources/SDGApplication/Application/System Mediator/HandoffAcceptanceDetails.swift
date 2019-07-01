@@ -28,9 +28,6 @@ public struct HandoffAcceptanceDetails {
 
     // MARK: - Properties
 
-    /// Details about the activity handoff.
-    public var handoffDetails: HandoffDetails?
-
     #if canImport(AppKit)
     /// Some systems provide a restoration handler.
     ///
