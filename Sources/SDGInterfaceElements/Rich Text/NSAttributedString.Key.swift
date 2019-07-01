@@ -16,7 +16,8 @@ import Foundation
 
 #if !(canImport(AppKit) || canImport(UIKit))
 extension NSAttributedString {
-    /// An alias currently missing on some platforms.
+    // #workaround(Swift 5.0.1, Until Foundation provides this itself.)
+    /// An alias for `NSAttributedStringKey` to mach other platforms.
     public typealias Key = NSAttributedStringKey
 }
 #endif
