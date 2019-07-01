@@ -14,7 +14,8 @@
 
 #if canImport(AppKit)
 import AppKit
-#elseif canImport(UIKit)
+#endif
+#if canImport(UIKit)
 import UIKit
 #endif
 
@@ -91,8 +92,8 @@ public struct Colour {
     ///
     /// - Parameters:
     ///     - native: The native colour.
-    public init(native: NSColor) {
-        self.native = native
+    public init(_ native: NSColor) {
+        self.nsColor = native
     }
     #endif
 
@@ -102,8 +103,8 @@ public struct Colour {
     ///
     /// - Parameters:
     ///     - native: The native colour.
-    public init(native: UIColor) {
-        self.native = native
+    public init(_ native: UIColor) {
+        self.uiColor = native
     }
     #endif
 
@@ -124,7 +125,7 @@ public struct Colour {
     #if canImport(AppKit)
     // @documentation(Colour.native)
     /// The native colour.
-    public var native: NSColor {
+    public var nsColor: NSColor {
         get {
             return NSColor(
                 calibratedRed: CGFloat(red),
@@ -146,7 +147,7 @@ public struct Colour {
     #if canImport(UIKit)
     // #documentation(Colour.native)
     /// The native colour.
-    public var native: UIColor {
+    public var uiColor: UIColor {
         get {
             return UIColor(red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: CGFloat(opacity))
         }
