@@ -316,6 +316,10 @@ final class APITests : ApplicationTestCase {
         #endif
     }
 
+    func testNotification() {
+        _ = SystemNotification()
+    }
+
     func testPopOver() {
         #if canImport(AppKit) || canImport(UIKit)
         let window = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "" })), size: CGSize.zero)
