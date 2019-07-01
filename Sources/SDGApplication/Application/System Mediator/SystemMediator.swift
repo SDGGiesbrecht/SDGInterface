@@ -115,8 +115,10 @@ public protocol SystemMediator : AnyObject {
     /// - Returns: `true` if the reopen operation has been handled, `false` to request that the operating system handle it.
     func reopen(hasVisibleWindows: Bool?) -> Bool
 
+    #if canImport(AppKit)
     /// Used by some systems as the dock menu.
     var dockMenu: AnyMenu? { get }
+    #endif
 
     /// Called by some systems before displaying an error to the user.
     ///
@@ -321,9 +323,11 @@ extension SystemMediator {
         return false
     }
 
+    #if canImport(AppKit)
     public var dockMenu: AnyMenu? {
         return nil
     }
+    #endif
 
     public func preprocessErrorForDisplay(_ error: Error) -> Error {
         return error

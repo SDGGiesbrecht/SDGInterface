@@ -419,7 +419,9 @@ final class APITests : ApplicationTestCase {
         mediator.prepareToUpdateInterface(nil)
         mediator.finishUpdatingInterface(nil)
         _ = mediator.reopen(hasVisibleWindows: nil)
+        #if canImport(AppKit)
         _ = mediator.dockMenu
+        #endif
         _ = mediator.preprocessErrorForDisplay(mediator)
         mediator.updateAccordingToScreenChange(nil)
         mediator.finishGainingAccessToProtectedData()
