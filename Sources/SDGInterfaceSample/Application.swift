@@ -107,7 +107,7 @@ extension Application {
         #endif
     }
 
-    #if (canImport(AppKit) && canImport(UIKit)) && !os(watchOS)
+    #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
     private func demonstrate(_ window: NSWindow) {
         window.makeKeyAndOrderFront(nil)
     }

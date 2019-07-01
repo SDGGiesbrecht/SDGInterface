@@ -84,9 +84,9 @@ public final class Application {
             nil,
             NSStringFromClass(UIApplicationDelegate.self)))
         #else
-        // #warning(Test.)
-        RunLoop.current.run()
-        exit(0)
+        while true {
+            RunLoop.current.run()
+        }
         #endif
     }
     #endif
