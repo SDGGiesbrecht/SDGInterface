@@ -14,7 +14,7 @@
 
 @testable import SDGInterfaceElements
 
-#if canImport(AppKit) && canImport(UIKit)
+#if canImport(AppKit) || canImport(UIKit)
 func forEachWindow(_ closure: (AbstractWindow) -> Void) {
     for window in Array(allWindows) {
         closure(window)

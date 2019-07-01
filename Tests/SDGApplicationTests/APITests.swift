@@ -330,7 +330,7 @@ final class APITests : ApplicationTestCase {
     func testRichText() throws {
         let fontNameKey = NSAttributedString.Key(rawValue: "SDGTestFontName")
         func prepareForEqualityCheck(_ string: NSAttributedString, ignoring ignored: [NSAttributedString.Key] = []) -> NSAttributedString {
-            #if canImport(AppKit) && canImport(UIKit)
+            #if canImport(AppKit) || canImport(UIKit)
             let processed = NSAttributedString(RichText(string))
             let font = processed.attribute(.font, at: 0, effectiveRange: nil) as! Font
             let mutable = processed.mutableCopy() as! NSMutableAttributedString
@@ -453,9 +453,9 @@ final class APITests : ApplicationTestCase {
         mediator.finishGainingAccessToProtectedData()
         mediator.prepareToLoseAccessToProtectedData()
         _ = mediator.notifyHandoffBegan("")
-        _ = mediator.accept(handoff: NSUserActivity(activityType: " "), details: HandoffDetails())
+        _ = mediator.accept(handoff: Handoff(), details: HandoffAcceptanceDetails())
         _ = mediator.notifyHandoffFailed("", error: mediator)
-        mediator.preprocess(handoff: NSUserActivity(activityType: " "))
+        mediator.preprocess(handoff: Handoff())
         mediator.finishRegistrationForRemoteNotifications(deviceToken: Data())
         mediator.reportFailedRegistrationForRemoteNotifications(error: mediator)
         _ = mediator.acceptRemoteNotification(details: RemoteNotificationDetails())
