@@ -42,9 +42,11 @@ import SDGInterfaceSample
 final class APITests : ApplicationTestCase {
 
     override func tearDown() {
+        #if canImport(AppKit) || canImport(UIKit)
         forEachWindow { window in
             window.close()
         }
+        #endif
     }
 
     func testArrayController() {
@@ -53,6 +55,7 @@ final class APITests : ApplicationTestCase {
 
     func testAttributedString() {
         var mutable = NSMutableAttributedString(string: "...")
+        #if canImport(AppKit) || canImport(UIKit)
         mutable.addAttribute(NSAttributedString.Key.font, value: Font.systemFont(ofSize: 24), range: NSRange(0 ..< 3))
         let attributed = mutable.copy() as! NSAttributedString
         mutable = attributed.mutableCopy() as! NSMutableAttributedString
@@ -61,6 +64,7 @@ final class APITests : ApplicationTestCase {
         mutable = attributed.mutableCopy() as! NSMutableAttributedString
         mutable.subscript(NSRange(0 ..< mutable.length))
         XCTAssert((mutable.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! Font).pointSize < 24, "\((mutable.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! Font).pointSize)")
+        #endif
 
         #if canImport(AppKit)
         var italiano = NSMutableAttributedString("Roma, Italia")
@@ -88,6 +92,7 @@ final class APITests : ApplicationTestCase {
     }
 
     func testButton() {
+        #if canImport(AppKit) || canImport(UIKit)
         Application.shared.demonstrateButton()
         let label = Shared(UserFacing<StrictString, APILocalization>({ _ in "Button" }))
         let button = Button(label: label)
@@ -98,17 +103,23 @@ final class APITests : ApplicationTestCase {
         XCTAssertEqual(button.titleLabel?.text, "Changed")
         #endif
         button.label = Shared(UserFacing<StrictString, APILocalization>({ _ in "Changed again." }))
+        #endif
     }
 
     func testButtonSet() {
+        #if canImport(AppKit) || canImport(UIKit)
         Application.shared.demonstrateButtonSet()
+        #endif
     }
 
     func testCharacterInformation() {
+        #if canImport(AppKit) || canImport(UIKit)
         CharacterInformation.display(for: "abc", origin: nil)
+        #endif
     }
 
     func testCheckBox() {
+        #if canImport(AppKit) || canImport(UIKit)
         Application.shared.demonstrateCheckBox()
         #if canImport(AppKit)
         let label = Shared(UserFacing<StrictString, APILocalization>({ _ in "Check Box" }))
@@ -116,6 +127,7 @@ final class APITests : ApplicationTestCase {
         label.value = UserFacing<StrictString, APILocalization>({ _ in "Changed" })
         XCTAssertEqual(checkBox.title, "Changed")
         checkBox.label = Shared(UserFacing<StrictString, APILocalization>({ _ in "Changed again." }))
+        #endif
         #endif
     }
 
@@ -137,6 +149,7 @@ final class APITests : ApplicationTestCase {
     }
 
     func testDelegationInterceptor() {
+        #if canImport(AppKit) || canImport(UIKit)
 
         #if canImport(AppKit)
         class Delegate : NSObject, NSWindowDelegate {
@@ -217,6 +230,7 @@ final class APITests : ApplicationTestCase {
             ])
         _ = dataSource.tableView(Table(content: [NSObject()]), numberOfRowsInSection: 0)
         #endif
+        #endif
     }
 
     func testFetchResult() {
@@ -229,16 +243,20 @@ final class APITests : ApplicationTestCase {
     }
 
     func testFont() {
+        #if canImport(AppKit) || canImport(UIKit)
         let font = Font.default
         _ = Font.forLabels
         _ = Font.forTextEditing
         _ = font.bold
         _ = font.italic
         XCTAssertEqual(font.resized(to: 12).pointSize, 12)
+        #endif
     }
 
     func testImageView() {
+        #if canImport(AppKit) || canImport(UIKit)
         Application.shared.demonstrateImage()
+        #endif
     }
 
     func testKey() {
@@ -257,6 +275,7 @@ final class APITests : ApplicationTestCase {
     }
 
     func testLabel() {
+        #if canImport(AppKit) || canImport(UIKit)
         Application.shared.demonstrateLabel()
         forEachWindow { window in
             let label: Label<SDGInterfaceSample.InterfaceLocalization>
@@ -272,17 +291,22 @@ final class APITests : ApplicationTestCase {
                 }
             }))
         }
+        #endif
     }
 
     func testLayoutConstraint() {
+        #if canImport(AppKit) || canImport(UIKit)
         XCTAssertEqual(NSLayoutConstraint.Priority.windowSizeStayPut.rawValue, 500)
+        #endif
     }
 
     func testLetterbox() {
+        #if canImport(AppKit) || canImport(UIKit)
         Application.shared.demonstrateLetterbox()
         let letterbox = Letterbox(content: View(), aspectRatio: 1)
         letterbox.colour = .red
         XCTAssertEqual(letterbox.colour?.opacity, 1)
+        #endif
     }
 
     func testKeyModifiers() {
@@ -293,8 +317,10 @@ final class APITests : ApplicationTestCase {
     }
 
     func testPopOver() {
+        #if canImport(AppKit) || canImport(UIKit)
         let window = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "" })), size: CGSize.zero)
         window.contentView!.displayPopOver(View())
+        #endif
     }
 
     func testPreferences() {
@@ -304,6 +330,7 @@ final class APITests : ApplicationTestCase {
     func testRichText() throws {
         let fontNameKey = NSAttributedString.Key(rawValue: "SDGTestFontName")
         func prepareForEqualityCheck(_ string: NSAttributedString, ignoring ignored: [NSAttributedString.Key] = []) -> NSAttributedString {
+            #if canImport(AppKit) && canImport(UIKit)
             let processed = NSAttributedString(RichText(string))
             let font = processed.attribute(.font, at: 0, effectiveRange: nil) as! Font
             let mutable = processed.mutableCopy() as! NSMutableAttributedString
@@ -315,8 +342,12 @@ final class APITests : ApplicationTestCase {
                 mutable.removeAttribute(attribute, range: all)
             }
             return mutable.copy() as! NSAttributedString
+            #else
+            return string
+            #endif
         }
         for fontSize in sequence(first: 0, next: { $0 + 1 }).prefix(10).map({ 2 ↑ $0 }) {
+            #if canImport(CoreGraphics)
             let placeholderText = "..."
             let font = Font.systemFont(ofSize: CGFloat(fontSize))
             let basicString = NSAttributedString(string: placeholderText, attributes: [.font: font])
@@ -339,8 +370,10 @@ final class APITests : ApplicationTestCase {
             mutable.superscript(NSRange(0 ..< mutable.length))
             mutable.resetBaseline(for: NSRange(0 ..< mutable.length))
             XCTAssertEqual(prepareForEqualityCheck(mutable), prepareForEqualityCheck(basicHTML))
+            #endif
         }
 
+        #if canImport(AppKit) || canImport(UIKit)
         let noAttributes = NSAttributedString(string: "...")
         (noAttributes.mutableCopy() as! NSMutableAttributedString).superscript(NSRange(0 ..< noAttributes.length))
         (noAttributes.mutableCopy() as! NSMutableAttributedString).resetBaseline(for: NSRange(0 ..< noAttributes.length))
@@ -384,6 +417,7 @@ final class APITests : ApplicationTestCase {
 
         richText = "abc\("def")ghi"
         XCTAssertEqual(richText.rawText(), "abcdefghi")
+        #endif
 
         XCTAssertEqual(("..." as RichText).rawText(), "...")
     }
@@ -458,6 +492,7 @@ final class APITests : ApplicationTestCase {
     }
 
     func testTable() {
+        #if canImport(AppKit) || canImport(UIKit)
         let table: Table
         table = Table(contentController: NSArrayController(content: [NSObject()]))
         let delegate = DelegationInterceptor(delegate: nil, listener: nil, selectors: [])
@@ -501,10 +536,11 @@ final class APITests : ApplicationTestCase {
         table.dataSource?.tableView(table, numberOfRowsInSection: 0)
         table.dataSource?.tableView(table, cellForRowAt: IndexPath(item: 0, section: 1))
         #endif
+        #endif
     }
 
     func testTextEditor() {
-
+        #if canImport(AppKit) || canImport(UIKit)
         Application.shared.demonstrateTextEditor()
         forEachWindow { window in
             let textEditor: TextEditor
@@ -643,9 +679,11 @@ final class APITests : ApplicationTestCase {
         #if canImport(AppKit)
         _ = TextContextMenu.contextMenu
         #endif
+        #endif
     }
 
     func testTextField() {
+        #if canImport(AppKit) || canImport(UIKit)
         Application.shared.demonstrateTextField()
         forEachWindow { window in
             #if canImport(AppKit)
@@ -665,9 +703,11 @@ final class APITests : ApplicationTestCase {
         Application.shared.demonstrateLabelledTextField()
         _ = LabelledTextField(label: Label(
             text: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "" }))))
+        #endif
     }
 
     func testView() {
+        #if canImport(AppKit) || canImport(UIKit)
         View().fill(with: View())
         View().setMinimumSize(size: 10, axis: .horizontal)
         View().position(subviews: [View(), View()], inSequenceAlong: .vertical)
@@ -681,9 +721,11 @@ final class APITests : ApplicationTestCase {
         View().alignLastBaselines(ofSubviews: [View(), View()])
         View().lockAspectRatio(to: 1)
         View().position(subviews: [View(), View()], inSequenceAlong: .horizontal, padding: .none, leadingMargin: .specific(8), trailingMargin: .unspecified)
+        #endif
     }
 
     func testWindow() {
+        #if canImport(AppKit) || canImport(UIKit)
         Application.shared.demonstrateFullscreenWindow()
 
         let window = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "Title" })), size: CGSize(width: 700, height: 300))
@@ -720,5 +762,6 @@ final class APITests : ApplicationTestCase {
         #endif
 
         window.localizedTitle = Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "Modified Title" }))
+        #endif
     }
 }

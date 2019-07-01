@@ -13,7 +13,9 @@
  */
 
 import Foundation
+#if canImport(CoreGraphics)
 import CoreGraphics
+#endif
 #if canImport(AppKit)
 import AppKit
 #elseif canImport(UIKit)
@@ -25,6 +27,8 @@ import SDGLogic
 import SDGText
 import SDGLocalization
 
+import SDGInterfaceBasics
+
 import SDGInterfaceLocalizations
 
 /// User‐presentable Unicode information about the characters in a string.
@@ -32,7 +36,7 @@ public class CharacterInformation : NSObject {
 
     // MARK: - Static Methods
 
-    #if !os(watchOS)
+    #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
     /// Displays information to the user about the characters in a string.
     ///
     /// - Precondition: In UIKit environments, `origin` must not be `nil`.
@@ -174,5 +178,7 @@ public class CharacterInformation : NSObject {
     @objc let warningColour: NSColor
     #elseif canImport(UIKit)
     @objc let warningColour: UIColor
+    #else
+    let warningColour: Colour
     #endif
 }

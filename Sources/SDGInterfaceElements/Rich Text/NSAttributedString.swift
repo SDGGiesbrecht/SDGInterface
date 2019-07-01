@@ -43,6 +43,7 @@ extension NSAttributedString {
 
     // MARK: - Superscript & Subscript
 
+    #if canImport(CoreGraphics)
     private static func superscriptPointSize(forBasePointSize baseSize: CGFloat) -> CGFloat {
         return baseSize × 5 ÷ 6
     }
@@ -103,6 +104,7 @@ extension NSAttributedString {
         attributes[.paragraphStyle] = paragraphStyle.copy() as! NSParagraphStyle
         attributes[.superscript] = nil
     }
+    #endif
 }
 
 extension NSMutableAttributedString {
@@ -196,6 +198,7 @@ extension NSMutableAttributedString {
 
     // MARK: - Superscript & Subscript
 
+    #if canImport(CoreGraphics)
     /// Superscripts a subrange.
     ///
     /// - Parameters:
@@ -219,6 +222,7 @@ extension NSMutableAttributedString {
     public func resetBaseline(for range: NSRange) {
         applyUniformChanges(to: range) { NSAttributedString.resetBaseline(for: &$0) }
     }
+    #endif
 
     #if canImport(AppKit)
     // MARK: - Case

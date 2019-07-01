@@ -12,6 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import Foundation
 #if canImport(AppKit)
 import AppKit
 #elseif canImport(UIKit)
@@ -82,6 +83,10 @@ public final class Application {
             CommandLine.unsafeArgv,
             nil,
             NSStringFromClass(UIApplicationDelegate.self)))
+        #else
+        // #warning(Test.)
+        RunLoop.current.run()
+        exit(0)
         #endif
     }
     #endif

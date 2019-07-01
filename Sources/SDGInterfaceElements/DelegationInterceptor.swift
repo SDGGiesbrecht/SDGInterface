@@ -12,6 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(ObjectiveC)
 #if canImport(AppKit)
 import AppKit
 #elseif canImport(UIKit)
@@ -105,5 +106,6 @@ extension DelegationInterceptor : UIApplicationDelegate, UITableViewDataSource, 
         return dataSource.tableView(tableView, cellForRowAt: indexPath)
     }
 }
+#endif
 #endif
 #endif

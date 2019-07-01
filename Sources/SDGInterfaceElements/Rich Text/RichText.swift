@@ -42,6 +42,7 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
         self.init(unsafeSegments: [Segment(rawText: rawText, attributes: attributes)])
     }
 
+    #if canImport(AppKit) || canImport(UIKit)
     /// Creates rich text from semantic markup.
     ///
     /// - Parameters:
@@ -51,6 +52,7 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
         let font = (attributes[NSAttributedString.Key.font] as? Font) ?? Font.default
         self.init(semanticMarkup.richText(font: font))
     }
+    #endif
 
     private init(segments: [Segment]) {
         self.segments = segments
@@ -82,9 +84,17 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
                     var modified = attributes
                     switch format {
                     case .superscript:
+                        #if canImport(AppKit) || canImport(UIKit)
                         NSAttributedString.addSuperscript(to: &modified)
+                        #else
+                        break
+                        #endif
                     case .subscript:
+                        #if canImport(AppKit) || canImport(UIKit)
                         NSAttributedString.addSubscript(to: &modified)
+                        #else
+                        break
+                        #endif
                     }
                     segments.append(Segment(rawText: StrictString(element), attributes: modified))
 
@@ -169,7 +179,7 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
 
     internal func attributedString() -> NSAttributedString {
         return cached(in: &cache.attributedString) {
-            let mutable = NSMutableAttributedString()
+            let mutable = NSMutableAttributedString(string: "")
             for segment in segments {
                 mutable.append(NSAttributedString(string: String(segment.rawText), attributes: segment.attributes))
             }
@@ -179,6 +189,7 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
 
     // MARK: - Attributes
 
+    #if canImport(AppKit) || canImport(UIKit)
     internal mutating func set<R>(attribute key: NSAttributedString.Key, to value: Any?, forRange range: R) where R : RangeExpression, R.Bound == Index {
         var changedSegments: [Segment] = []
         for segment in RichText(self[range]).segments {
@@ -274,6 +285,7 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
     public mutating func set<R>(paragraphStyle: NSParagraphStyle?, forRange range: R) where R : RangeExpression, R.Bound == Index {
         set(attribute: NSAttributedString.Key.paragraphStyle, to: paragraphStyle, forRange: range)
     }
+    #endif
 
     // MARK: - BidirectionalCollection
 
@@ -347,7 +359,11 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
     // MARK: - ExpressiblyByStringInterpolation
 
     public init(stringInterpolation: SemanticMarkup.StringInterpolation) {
+        #if canImport(AppKit) || canImport(UIKit)
         self.init(semanticMarkup: stringInterpolation.semanticMarkup)
+        #else
+        self.init(rawText: stringInterpolation.semanticMarkup.rawTextApproximation())
+        #endif
     }
 
     // MARK: - ExpressibleByStringLiteral
