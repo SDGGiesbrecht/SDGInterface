@@ -12,7 +12,12 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import SDGControlFlow
+import SDGLocalization
+
 import SDGInterfaceBasics
+
+import SDGInterfaceLocalizations
 
 import XCTest
 
@@ -29,6 +34,17 @@ final class APITests : ApplicationTestCase {
         XCTAssertEqual(ProcessInfo.applicationName(.français(.de)), "de l’Exemple")
         XCTAssertEqual(ProcessInfo.applicationName(.ελληνικά(.αιτιατική)), "το Παράδειγμα")
         XCTAssertEqual(ProcessInfo.applicationName(.ελληνικά(.γενική)), "του Παραδείγματος")
+    }
+
+    func testBinding() {
+        LocalizationSetting(orderOfPrecedence: ["zxx"]).do {
+            let localized = Binding<Bool, InterfaceLocalization>.static(UserFacing({ _ in true }))
+            XCTAssert(localized.resolved())
+            XCTAssertNil(localized.shared)
+            let bound = Binding<Bool, InterfaceLocalization>.binding(Shared(true))
+            XCTAssert(bound.resolved())
+            XCTAssertNotNil(bound.shared)
+        }
     }
 
     func testColour() {

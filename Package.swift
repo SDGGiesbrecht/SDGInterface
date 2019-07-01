@@ -186,7 +186,10 @@ let package = Package(
 
         .testTarget(name: "SDGInterfaceBasicsTests", dependencies: [
             "SDGInterfaceBasics",
+            "SDGInterfaceLocalizations",
             "SDGApplicationTestUtilities",
+            .product(name: "SDGControlFlow", package: "SDGCornerstone"),
+            .product(name: "SDGLocalization", package: "SDGCornerstone"),
             .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
             ]),
 
