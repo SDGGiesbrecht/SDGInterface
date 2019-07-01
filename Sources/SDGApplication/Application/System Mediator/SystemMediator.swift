@@ -14,9 +14,6 @@
 
 #if !(canImport(AppKit) || canImport(UIKit))
 // #warning(Remove.)
-public struct NSUserActivity {
-    public init(activityType: String) {}
-}
 public struct Notification {}
 #endif
 
