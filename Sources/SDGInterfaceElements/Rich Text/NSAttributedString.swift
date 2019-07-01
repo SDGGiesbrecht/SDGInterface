@@ -105,6 +105,7 @@ extension NSAttributedString {
 
 extension NSMutableAttributedString {
 
+    #if canImport(AppKit)
     private func applyChanges(to range: NSRange, modifySection: (_ sectionRange: NSRange, _ sectionAttributes: [NSAttributedString.Key: Any]) -> Void) {
         if range.length ≠ 0 {
             var index = range.lowerBound
@@ -133,7 +134,6 @@ extension NSMutableAttributedString {
         }
     }
 
-    #if canImport(AppKit)
     private func swapGlyphs(in range: NSRange, mapping performMap: (String) -> String, additionalChangesWhenTriggered makeAdditionalChanges: (inout [NSAttributedString.Key: Any]) -> Void) {
 
         applyChanges(to: range) { (sectionRange: NSRange, sectionAttributes: [NSAttributedString.Key: Any]) in

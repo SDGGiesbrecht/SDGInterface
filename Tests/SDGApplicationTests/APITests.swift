@@ -89,6 +89,8 @@ final class APITests : ApplicationTestCase {
         türkçe.makeTurkicLowerCase(NSRange(0 ..< türkçe.length))
         XCTAssert(türkçe.attributes(at: 2, effectiveRange: nil).isEmpty)
         #endif
+
+        _ = NSAttributedString(richText: RichText())
     }
 
     func testButton() {
@@ -381,8 +383,10 @@ final class APITests : ApplicationTestCase {
         let noAttributes = NSAttributedString(string: "...")
         (noAttributes.mutableCopy() as! NSMutableAttributedString).superscript(NSRange(0 ..< noAttributes.length))
         (noAttributes.mutableCopy() as! NSMutableAttributedString).resetBaseline(for: NSRange(0 ..< noAttributes.length))
+        #endif
 
         var richText = RichText(rawText: "...")
+        #if canImport(AppKit) || canImport(UIKit)
         richText.superscript()
         richText.set(colour: Colour(red: 1, green: 1, blue: 1, opacity: 1))
         richText.superscript(range: richText.bounds)
@@ -398,6 +402,7 @@ final class APITests : ApplicationTestCase {
         XCTAssertNotEqual(richText.index(before: richText.endIndex), richText.startIndex)
         XCTAssertEqual(richText.index(after: richText.index(before: richText.endIndex)), richText.endIndex)
         XCTAssertEqual(richText[richText.startIndex].rawScalar, ".")
+        #endif
         _ = richText.playgroundDescription
 
         testCustomStringConvertibleConformance(of: RichText(rawText: "..."), localizations: APILocalization.self, uniqueTestName: "Rich Text", overwriteSpecificationInsteadOfFailing: false)
@@ -421,7 +426,6 @@ final class APITests : ApplicationTestCase {
 
         richText = "abc\("def")ghi"
         XCTAssertEqual(richText.rawText(), "abcdefghi")
-        #endif
 
         XCTAssertEqual(("..." as RichText).rawText(), "...")
     }
