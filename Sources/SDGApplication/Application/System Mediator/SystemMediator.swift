@@ -44,25 +44,25 @@ public protocol SystemMediator : AnyObject {
     ///
     /// - Parameters:
     ///     - notification: Some systems provide an accompanying notification.
-    func prepareToAcquireFocus(_ notification: Notification?)
+    func prepareToAcquireFocus(_ notification: SystemNotification?)
 
     /// Called by some systems as the application finishes acquiring the system focus.
     ///
     /// - Parameters:
     ///     - notification: Some systems provide an accompanying notification.
-    func finishAcquiringFocus(_ notification: Notification?)
+    func finishAcquiringFocus(_ notification: SystemNotification?)
 
     /// Called by some systems before the application resigns the system focus.
     ///
     /// - Parameters:
     ///     - notification: Some systems provide an accompanying notification.
-    func prepareToResignFocus(_ notification: Notification?)
+    func prepareToResignFocus(_ notification: SystemNotification?)
 
     /// Called by some systems as the application finishes resigning the system focus.
     ///
     /// - Parameters:
     ///     - notification: Some systems provide an accompanying notification.
-    func finishResigningFocus(_ notification: Notification?)
+    func finishResigningFocus(_ notification: SystemNotification?)
 
     /// Called by some systems to request that the application terminate.
     func terminate() -> TerminationResponse
@@ -74,43 +74,43 @@ public protocol SystemMediator : AnyObject {
     ///
     /// - Parameters:
     ///     - notification: Some systems provide an accompanying notification.
-    func prepareToTerminate(_ notification: Notification?)
+    func prepareToTerminate(_ notification: SystemNotification?)
 
     /// Called by some systems before the application is hidden.
     ///
     /// - Parameters:
     ///     - notification: Some systems provide an accompanying notification.
-    func prepareToHide(_ notification: Notification?)
+    func prepareToHide(_ notification: SystemNotification?)
 
     /// Called by some systems as the application finishes being hidden.
     ///
     /// - Parameters:
     ///     - notification: Some systems provide an accompanying notification.
-    func finishHiding(_ notification: Notification?)
+    func finishHiding(_ notification: SystemNotification?)
 
     /// Called by some systems before the application is unhidden.
     ///
     /// - Parameters:
     ///     - notification: Some systems provide an accompanying notification.
-    func prepareToUnhide(_ notification: Notification?)
+    func prepareToUnhide(_ notification: SystemNotification?)
 
     /// Called by some systems as the application finishes being unhidden.
     ///
     /// - Parameters:
     ///     - notification: Some systems provide an accompanying notification.
-    func finishUnhiding(_ notification: Notification?)
+    func finishUnhiding(_ notification: SystemNotification?)
 
     /// Called by some systems before the interface update cycle begins.
     ///
     /// - Parameters:
     ///     - notification: Some systems provide an accompanying notification.
-    func prepareToUpdateInterface(_ notification: Notification?)
+    func prepareToUpdateInterface(_ notification: SystemNotification?)
 
     /// Called by some systems as the interface update cycle finishes.
     ///
     /// - Parameters:
     ///     - notification: Some systems provide an accompanying notification.
-    func finishUpdatingInterface(_ notification: Notification?)
+    func finishUpdatingInterface(_ notification: SystemNotification?)
 
     /// Called by some systems when a user tries to open the application while it is already running.
     ///
@@ -135,7 +135,7 @@ public protocol SystemMediator : AnyObject {
     ///
     /// - Parameters:
     ///     - notification: Some systems provide an accompanying notification.
-    func updateAccordingToScreenChange(_ notification: Notification?)
+    func updateAccordingToScreenChange(_ notification: SystemNotification?)
 
     /// Called by some systems as access to protected data is granted.
     func finishGainingAccessToProtectedData()
@@ -259,7 +259,7 @@ public protocol SystemMediator : AnyObject {
     ///
     /// - Parameters:
     ///     - notification: Some systems provide an accompanying notification.
-    func updateAccordingToOcclusionChange(_ notification: Notification?)
+    func updateAccordingToOcclusionChange(_ notification: SystemNotification?)
 
     /// Called by some systems when memory is low.
     func purgeUnnecessaryMemory()
@@ -303,10 +303,10 @@ extension SystemMediator {
         return true
     }
 
-    public func prepareToAcquireFocus(_ notification: Notification?) {}
-    public func finishAcquiringFocus(_ notification: Notification?) {}
-    public func prepareToResignFocus(_ notification: Notification?) {}
-    public func finishResigningFocus(_ notification: Notification?) {}
+    public func prepareToAcquireFocus(_ notification: SystemNotification?) {}
+    public func finishAcquiringFocus(_ notification: SystemNotification?) {}
+    public func prepareToResignFocus(_ notification: SystemNotification?) {}
+    public func finishResigningFocus(_ notification: SystemNotification?) {}
 
     public func terminate() -> TerminationResponse {
         return .now
@@ -314,15 +314,15 @@ extension SystemMediator {
     public var remainsRunningWithNoWindows: Bool {
         return false
     }
-    public func prepareToTerminate(_ notification: Notification?) {}
+    public func prepareToTerminate(_ notification: SystemNotification?) {}
 
-    public func prepareToHide(_ notification: Notification?) {}
-    public func finishHiding(_ notification: Notification?) {}
-    public func prepareToUnhide(_ notification: Notification?) {}
-    public func finishUnhiding(_ notification: Notification?) {}
+    public func prepareToHide(_ notification: SystemNotification?) {}
+    public func finishHiding(_ notification: SystemNotification?) {}
+    public func prepareToUnhide(_ notification: SystemNotification?) {}
+    public func finishUnhiding(_ notification: SystemNotification?) {}
 
-    public func prepareToUpdateInterface(_ notification: Notification?) {}
-    public func finishUpdatingInterface(_ notification: Notification?) {}
+    public func prepareToUpdateInterface(_ notification: SystemNotification?) {}
+    public func finishUpdatingInterface(_ notification: SystemNotification?) {}
 
     public func reopen(hasVisibleWindows: Bool?) -> Bool {
         return false
@@ -338,7 +338,7 @@ extension SystemMediator {
         return error
     }
 
-    public func updateAccordingToScreenChange(_ notification: Notification?) {}
+    public func updateAccordingToScreenChange(_ notification: SystemNotification?) {}
 
     public func finishGainingAccessToProtectedData() {}
     public func prepareToLoseAccessToProtectedData() {}
@@ -414,7 +414,7 @@ extension SystemMediator {
         return ViewControllerRestorationResponse()
     }
 
-    public func updateAccordingToOcclusionChange(_ notification: Notification?) {}
+    public func updateAccordingToOcclusionChange(_ notification: SystemNotification?) {}
 
     public func purgeUnnecessaryMemory() {}
 
