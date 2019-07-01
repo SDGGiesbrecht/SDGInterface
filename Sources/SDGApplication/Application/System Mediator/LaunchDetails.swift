@@ -29,7 +29,7 @@ public struct LaunchDetails {
     // MARK: - Properties
 
     /// Some systems provide an accompanying notification.
-    public var notification: Notification?
+    public var notification: SystemNotification?
 
     #if canImport(UIKit) && !os(watchOS)
     /// Some systems specify options.

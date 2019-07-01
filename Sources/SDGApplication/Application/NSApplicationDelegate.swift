@@ -30,8 +30,10 @@ internal class NSApplicationDelegate : NSObject, AppKit.NSApplicationDelegate, _
     // MARK: - NSApplicationDelegate
 
     internal func applicationWillFinishLaunching(_ notification: Notification) {
+        var system = SystemNotification()
+        system.native = notification
         var details = LaunchDetails()
-        details.notification = notification
+        details.notification = system
         _ = Application.shared.systemMediator?.prepareToLaunch(details)
     }
 
@@ -39,8 +41,10 @@ internal class NSApplicationDelegate : NSObject, AppKit.NSApplicationDelegate, _
 
         Application.postLaunchSetUp()
 
+        var system = SystemNotification()
+        system.native = notification
         var details = LaunchDetails()
-        details.notification = notification
+        details.notification = system
         _ = Application.shared.systemMediator?.finishLaunching(details)
     }
 
