@@ -77,18 +77,18 @@ final class APITests : ApplicationTestCase {
         XCTAssertEqual(menu.action, action)
         #endif
         menu.action = nil
-        let target = NSObject()
         #if canImport(AppKit)
+        let target = NSObject()
         menu.target = target
         XCTAssertEqual(menu.target as? NSObject, target)
         #endif
-        let hotKey = "A"
         #if canImport(AppKit)
+        let hotKey = "A"
         menu.hotKey = hotKey
         XCTAssertEqual(menu.hotKey, hotKey)
         #endif
-        let modifiers: KeyModifiers = .command
         #if canImport(AppKit)
+        let modifiers: KeyModifiers = .command
         menu.hotKeyModifiers = modifiers
         XCTAssertEqual(menu.hotKeyModifiers, modifiers)
         #endif

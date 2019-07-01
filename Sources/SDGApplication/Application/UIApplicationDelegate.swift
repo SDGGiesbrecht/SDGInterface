@@ -138,15 +138,19 @@ internal class UIApplicationDelegate : NSObject, UIKit.UIApplicationDelegate {
         _ application: UIApplication,
         continue userActivity: NSUserActivity,
         restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
-        var details = HandoffDetails()
+        var handoff = Handoff()
+        handoff.activity = userActivity
+        var details = HandoffAcceptanceDetails()
         details.restorationHandler = restorationHandler
         return Application.shared.systemMediator?.accept(
-            handoff: userActivity,
+            handoff: handoff,
             details: details) ?? false
     }
 
     internal func application(_ application: UIApplication, didUpdate userActivity: NSUserActivity) {
-        Application.shared.systemMediator?.preprocess(handoff: userActivity)
+        var handoff = Handoff()
+        handoff.activity = userActivity
+        Application.shared.systemMediator?.preprocess(handoff: handoff)
     }
 
     #if !os(tvOS)
