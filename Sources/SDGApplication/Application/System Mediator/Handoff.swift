@@ -12,11 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit)
-import AppKit
-#elseif canImport(UIKit)
-import UIKit
-#endif
+import Foundation
 
 /// An activity handoff.
 public struct Handoff {
@@ -28,7 +24,7 @@ public struct Handoff {
 
     // MARK: - Properties
 
-    #if canImport(AppKit) || canImport(UIKit)
+    #if !os(Linux)
     /// The native activity.
     public var activity: NSUserActivity?
     #endif

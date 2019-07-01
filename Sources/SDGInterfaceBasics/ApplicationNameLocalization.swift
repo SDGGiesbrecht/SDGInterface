@@ -31,7 +31,7 @@ public struct ApplicationNameLocalization : Localization {
         if let defined = _correspondingIsolatedName {
             return defined
         }
-        #if canImport(AppKit) || canImport(UIKit)
+        #if !os(Linux)
         if let infoPropertyList = Bundle.main.infoDictionary?[kCFBundleNameKey as String] as? String {
             return StrictString(infoPropertyList) // @exempt(from: tests)
         }

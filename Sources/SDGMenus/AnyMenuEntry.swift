@@ -15,7 +15,8 @@
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS) && !os(tvOS)
 #if canImport(AppKit)
 import AppKit
-#elseif canImport(UIKit)
+#endif
+#if canImport(UIKit)
 import UIKit
 #endif
 

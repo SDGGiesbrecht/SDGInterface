@@ -13,12 +13,8 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS) && !os(tvOS)
-#if canImport(AppKit)
-import AppKit
-#endif
-#if canImport(UIKit)
-import UIKit
-#endif
+import Foundation
+import ObjectiveC
 
 import SDGText
 import SDGLocalization

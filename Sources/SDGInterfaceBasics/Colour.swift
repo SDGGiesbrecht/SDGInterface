@@ -94,7 +94,9 @@ public struct Colour {
     public init(native: NSColor) {
         self.native = native
     }
-    #elseif canImport(UIKit)
+    #endif
+
+    #if canImport(UIKit)
     // #documentation(Colour.init(native:))
     /// Creates a colour from a native colour.
     ///
@@ -139,7 +141,9 @@ public struct Colour {
             }
         }
     }
-    #elseif canImport(UIKit)
+    #endif
+
+    #if canImport(UIKit)
     // #documentation(Colour.native)
     /// The native colour.
     public var native: UIColor {

@@ -14,8 +14,6 @@
 
 #if canImport(AppKit)
 import AppKit
-#elseif canImport(UIKit)
-import UIKit
 #endif
 
 /// A response to a request to terminate.
