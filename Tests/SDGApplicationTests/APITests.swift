@@ -410,7 +410,9 @@ final class APITests : ApplicationTestCase {
         XCTAssertEqual([richText: true][richText], true)
 
         richText = RichText(rawText: "......")
+        #if canImport(AppKit) || canImport(UIKit)
         richText.subscript(range: richText.index(richText.startIndex, offsetBy: 2) ..< richText.index(richText.endIndex, offsetBy: −2))
+        #endif
         XCTAssertEqual(RichText(richText[richText.index(after: richText.startIndex) ..< richText.index(before: richText.endIndex)]).count, 4)
         XCTAssert(RichText().isEmpty)
         let array = [RichText.Scalar(".", attributes: [:])]
