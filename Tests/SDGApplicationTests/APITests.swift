@@ -422,9 +422,11 @@ final class APITests : ApplicationTestCase {
         richText.insert(contentsOf: array, at: richText.startIndex)
         XCTAssertEqual(richText.count, 5)
 
+        #if canImport(AppKit) || canImport(UIKit)
         let copy = richText
         richText.superscript()
         XCTAssertNotEqual(richText, copy)
+        #endif
 
         richText = "abc\("def")ghi"
         XCTAssertEqual(richText.rawText(), "abcdefghi")
