@@ -13,7 +13,6 @@ extension APITests {
         ("testCharacterInformation", testCharacterInformation),
         ("testCheckBox", testCheckBox),
         ("testCheckBoxCell", testCheckBoxCell),
-        ("testContextMenu", testContextMenu),
         ("testDelegationInterceptor", testDelegationInterceptor),
         ("testFetchResult", testFetchResult),
         ("testFont", testFont),
