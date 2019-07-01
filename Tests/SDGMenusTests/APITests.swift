@@ -20,11 +20,11 @@ import SDGMenus
 
 import SDGInterfaceLocalizations
 
+import XCTest
+
 import SDGXCTestUtilities
 
 import SDGApplicationTestUtilities
-
-import XCTest
 
 final class APITests : ApplicationTestCase {
 

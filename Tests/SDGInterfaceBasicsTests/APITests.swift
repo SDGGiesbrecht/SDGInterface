@@ -14,11 +14,11 @@
 
 import SDGInterfaceBasics
 
+import XCTest
+
 import SDGXCTestUtilities
 
 import SDGApplicationTestUtilities
-
-import XCTest
 
 final class APITests : ApplicationTestCase {
 
