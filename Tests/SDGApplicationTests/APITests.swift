@@ -90,7 +90,7 @@ final class APITests : ApplicationTestCase {
         XCTAssert(türkçe.attributes(at: 2, effectiveRange: nil).isEmpty)
         #endif
 
-        _ = NSAttributedString(richText: RichText())
+        _ = NSAttributedString(RichText())
     }
 
     func testButton() {
