@@ -14,7 +14,6 @@
 
 #if canImport(AppKit)
 import AppKit
-#endif
 
 import SDGControlFlow
 import SDGLogic
@@ -29,8 +28,6 @@ import SDGInterfaceLocalizations
 
 
 /// The context menu used by text views.
-///
-/// - Note: This context menu will only appear on the screen for platforms which actually support context menus specific to particular views. To reduce the need for `#if` statements, the `ContextMenu` type and its public interface still exist on the remaining platforms, but it is empty and does nothing.
 public final class TextContextMenu {
 
     // MARK: - Class Properties
@@ -47,7 +44,6 @@ public final class TextContextMenu {
                 return "Context Menu"
             }
         })))
-        #if canImport(AppKit)
         let systemMenu = Menu<InterfaceLocalization>(native: NSTextView.defaultMenu ?? NSMenu()) // @exempt(from: tests) Never nil.
         let adjustments: [MenuComponent] = [
             .entry(SDGContextMenu.ContextMenu._normalizeText()),
@@ -93,7 +89,6 @@ public final class TextContextMenu {
             }
         }
         menu.entries = systemMenu.entries + appendix
-        #endif
     }
 
     // MARK: - Properties
@@ -101,3 +96,4 @@ public final class TextContextMenu {
     /// The menu.
     public var menu: AnyMenu
 }
+#endif

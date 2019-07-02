@@ -15,7 +15,8 @@
 import Foundation
 #if canImport(AppKit)
 import AppKit
-#elseif canImport(UIKit)
+#endif
+#if canImport(UIKit)
 import UIKit
 #endif
 
@@ -89,7 +90,9 @@ extension Application {
     }
 
     private static func setMenuUp() {
+        #if canImport(AppKit)
         MenuBar.menuBar.setSamplesUp()
+        #endif
 
         #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
         let window = Window(title: Shared(ApplicationNameForm.localizedIsolatedForm))
@@ -105,7 +108,7 @@ extension Application {
         #endif
     }
 
-    #if !os(watchOS)
+    #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
     private func demonstrate(_ window: NSWindow) {
         window.makeKeyAndOrderFront(nil)
     }

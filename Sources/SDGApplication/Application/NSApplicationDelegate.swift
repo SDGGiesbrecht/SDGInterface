@@ -30,8 +30,10 @@ internal class NSApplicationDelegate : NSObject, AppKit.NSApplicationDelegate, _
     // MARK: - NSApplicationDelegate
 
     internal func applicationWillFinishLaunching(_ notification: Notification) {
+        var system = SystemNotification()
+        system.native = notification
         var details = LaunchDetails()
-        details.notification = notification
+        details.notification = system
         _ = Application.shared.systemMediator?.prepareToLaunch(details)
     }
 
@@ -39,25 +41,35 @@ internal class NSApplicationDelegate : NSObject, AppKit.NSApplicationDelegate, _
 
         Application.postLaunchSetUp()
 
+        var system = SystemNotification()
+        system.native = notification
         var details = LaunchDetails()
-        details.notification = notification
+        details.notification = system
         _ = Application.shared.systemMediator?.finishLaunching(details)
     }
 
     internal func applicationWillBecomeActive(_ notification: Notification) {
-        Application.shared.systemMediator?.prepareToAcquireFocus(notification)
+        var system = SystemNotification()
+        system.native = notification
+        Application.shared.systemMediator?.prepareToAcquireFocus(system)
     }
 
     internal func applicationDidBecomeActive(_ notification: Notification) {
-        Application.shared.systemMediator?.finishAcquiringFocus(notification)
+        var system = SystemNotification()
+        system.native = notification
+        Application.shared.systemMediator?.finishAcquiringFocus(system)
     }
 
     internal func applicationWillResignActive(_ notification: Notification) {
-        Application.shared.systemMediator?.prepareToResignFocus(notification)
+        var system = SystemNotification()
+        system.native = notification
+        Application.shared.systemMediator?.prepareToResignFocus(system)
     }
 
     internal func applicationDidResignActive(_ notification: Notification) {
-        Application.shared.systemMediator?.finishResigningFocus(notification)
+        var system = SystemNotification()
+        system.native = notification
+        Application.shared.systemMediator?.finishResigningFocus(system)
     }
 
     internal func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
@@ -69,31 +81,45 @@ internal class NSApplicationDelegate : NSObject, AppKit.NSApplicationDelegate, _
     }
 
     internal func applicationWillTerminate(_ notification: Notification) {
-        Application.shared.systemMediator?.prepareToTerminate(notification)
+        var system = SystemNotification()
+        system.native = notification
+        Application.shared.systemMediator?.prepareToTerminate(system)
     }
 
     internal func applicationWillHide(_ notification: Notification) {
-        Application.shared.systemMediator?.prepareToHide(notification)
+        var system = SystemNotification()
+        system.native = notification
+        Application.shared.systemMediator?.prepareToHide(system)
     }
 
     internal func applicationDidHide(_ notification: Notification) {
-        Application.shared.systemMediator?.finishHiding(notification)
+        var system = SystemNotification()
+        system.native = notification
+        Application.shared.systemMediator?.finishHiding(system)
     }
 
     internal func applicationWillUnhide(_ notification: Notification) {
-        Application.shared.systemMediator?.prepareToUnhide(notification)
+        var system = SystemNotification()
+        system.native = notification
+        Application.shared.systemMediator?.prepareToUnhide(system)
     }
 
     internal func applicationDidUnhide(_ notification: Notification) {
-        Application.shared.systemMediator?.finishUnhiding(notification)
+        var system = SystemNotification()
+        system.native = notification
+        Application.shared.systemMediator?.finishUnhiding(system)
     }
 
     internal func applicationWillUpdate(_ notification: Notification) {
-        Application.shared.systemMediator?.prepareToUpdateInterface(notification)
+        var system = SystemNotification()
+        system.native = notification
+        Application.shared.systemMediator?.prepareToUpdateInterface(system)
     }
 
     internal func applicationDidUpdate(_ notification: Notification) {
-        Application.shared.systemMediator?.finishUpdatingInterface(notification)
+        var system = SystemNotification()
+        system.native = notification
+        Application.shared.systemMediator?.finishUpdatingInterface(system)
     }
 
     internal func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
@@ -109,7 +135,9 @@ internal class NSApplicationDelegate : NSObject, AppKit.NSApplicationDelegate, _
     }
 
     internal func applicationDidChangeScreenParameters(_ notification: Notification) {
-        Application.shared.systemMediator?.updateAccordingToScreenChange(notification)
+        var system = SystemNotification()
+        system.native = notification
+        Application.shared.systemMediator?.updateAccordingToScreenChange(system)
     }
 
     internal func application(_ application: NSApplication, willContinueUserActivityWithType userActivityType: String) -> Bool {
@@ -120,15 +148,17 @@ internal class NSApplicationDelegate : NSObject, AppKit.NSApplicationDelegate, _
         _ application: NSApplication,
         continue userActivity: NSUserActivity,
         restorationHandler: @escaping ([NSUserActivityRestoring]) -> Void) -> Bool {
-        var details = HandoffDetails()
+        var handoff = Handoff()
+        handoff.activity = userActivity
+        var details = HandoffAcceptanceDetails()
         details.restorationHandler = restorationHandler
-        return Application.shared.systemMediator?.accept(
-            handoff: userActivity,
-            details: details) ?? false
+        return Application.shared.systemMediator?.accept(handoff: handoff, details: details) ?? false
     }
 
     internal func application(_ application: NSApplication, didUpdate userActivity: NSUserActivity) {
-        Application.shared.systemMediator?.preprocess(handoff: userActivity)
+        var handoff = Handoff()
+        handoff.activity = userActivity
+        Application.shared.systemMediator?.preprocess(handoff: handoff)
     }
 
     internal func application(
@@ -210,7 +240,9 @@ internal class NSApplicationDelegate : NSObject, AppKit.NSApplicationDelegate, _
     }
 
     internal func applicationDidChangeOcclusionState(_ notification: Notification) {
-        Application.shared.systemMediator?.updateAccordingToOcclusionChange(notification)
+        var system = SystemNotification()
+        system.native = notification
+        Application.shared.systemMediator?.updateAccordingToOcclusionChange(system)
     }
 
     // MARK: - NSMenuItemValidation

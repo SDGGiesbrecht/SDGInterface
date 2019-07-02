@@ -30,11 +30,13 @@ public struct ApplicationNameLocalization : Localization {
     internal var correspondingIsolatedName: StrictString {
         if let defined = _correspondingIsolatedName {
             return defined
-        } else if let infoPropertyList = Bundle.main.infoDictionary?[kCFBundleNameKey as String] as? String {
-            return StrictString(infoPropertyList) // @exempt(from: tests)
-        } else { // @exempt(from: tests)
-            return StrictString(ProcessInfo.processInfo.processName) // @exempt(from: tests)
         }
+        #if !os(Linux)
+        if let infoPropertyList = Bundle.main.infoDictionary?[kCFBundleNameKey as String] as? String {
+            return StrictString(infoPropertyList) // @exempt(from: tests)
+        }
+        #endif // @exempt(from: tests)
+        return StrictString(ProcessInfo.processInfo.processName) // @exempt(from: tests)
     }
 
     // MARK: - Localization

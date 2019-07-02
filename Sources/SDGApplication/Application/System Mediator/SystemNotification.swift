@@ -1,5 +1,5 @@
 /*
- LaunchDetails.swift
+ SystemNotification.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,25 +12,20 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(UIKit)
-import UIKit
-#endif
+import Foundation
 
-/// Details about the launch.
-public struct LaunchDetails {
+/// A system notification.
+public struct SystemNotification {
 
     // MARK: - Initialization
 
-    /// Creates empty details.
+    /// Creates an empty notification.
     public init() {}
 
     // MARK: - Properties
 
-    /// Some systems provide an accompanying notification.
-    public var notification: SystemNotification?
-
-    #if canImport(UIKit) && !os(watchOS)
-    /// Some systems specify options.
-    public var options: [UIApplication.LaunchOptionsKey: Any]?
+    #if !os(Linux)
+    /// The native notification.
+    public var native: Notification?
     #endif
 }

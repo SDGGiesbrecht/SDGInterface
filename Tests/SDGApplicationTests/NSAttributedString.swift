@@ -23,8 +23,10 @@ extension NSAttributedString {
 
     // MARK: - Initialization
 
+    #if canImport(AppKit) || canImport(UIKit)
     internal static func from(html: String, font: Font) throws -> NSAttributedString {
         let adjustedFont = font.resized(to: font.pointSize × NSAttributedString.htmlCorrection)
         return try SemanticMarkup._attributedString(from: html, in: adjustedFont)
     }
+    #endif
 }

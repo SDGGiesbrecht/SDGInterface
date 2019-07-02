@@ -12,10 +12,9 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-import Foundation
 #if canImport(ObjectiveC)
+import Foundation
 import ObjectiveC
-#endif
 
 extension Selector {
     private class Responder : NSObject {
@@ -23,3 +22,4 @@ extension Selector {
     }
     internal static let none: Selector = #selector(Responder.unimplementedSelector(_:))
 }
+#endif

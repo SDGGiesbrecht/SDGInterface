@@ -20,15 +20,16 @@ import SDGMenus
 
 import SDGInterfaceLocalizations
 
+import XCTest
+
 import SDGXCTestUtilities
 
 import SDGApplicationTestUtilities
 
-import XCTest
-
 final class APITests : ApplicationTestCase {
 
     func testMenu() {
+        #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS) && !os(tvOS)
         _ = MenuEntry(label: .static(UserFacing<StrictString, APILocalization>({ _ in "..." })))
         let menuLabel = Shared<StrictString>("initial")
         let menu = Menu<APILocalization>(label: .binding(menuLabel))
@@ -44,16 +45,22 @@ final class APITests : ApplicationTestCase {
         menu.native = NSMenu()
         XCTAssertEqual(menu.native.title, title)
         #endif
+        #endif
     }
 
     func testMenuComponent() {
+        #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS) && !os(tvOS)
         XCTAssertNotNil(MenuComponent.entry(MenuEntry<InterfaceLocalization>(label: .binding(Shared("")))).asEntry)
+        #if canImport(AppKit)
         XCTAssertNotNil(MenuComponent.submenu(Menu<InterfaceLocalization>(label: .binding(Shared("")))).asSubmenu)
         XCTAssertNil(MenuComponent.submenu(Menu<InterfaceLocalization>(label: .binding(Shared("")))).asEntry)
         XCTAssertNil(MenuComponent.entry(MenuEntry<InterfaceLocalization>(label: .binding(Shared("")))).asSubmenu)
+        #endif
+        #endif
     }
 
     func testMenuEntry() {
+        #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS) && !os(tvOS)
         let menuLabel = Shared<StrictString>("initial")
         let menu = MenuEntry<APILocalization>(label: .binding(menuLabel))
         menuLabel.value = "changed"
@@ -70,32 +77,26 @@ final class APITests : ApplicationTestCase {
         XCTAssertEqual(menu.action, action)
         #endif
         menu.action = nil
+        #if canImport(AppKit)
         let target = NSObject()
         menu.target = target
-        _ = menu.target
-        #if canImport(AppKit)
         XCTAssertEqual(menu.target as? NSObject, target)
         #endif
+        #if canImport(AppKit)
         let hotKey = "A"
         menu.hotKey = hotKey
-        _ = menu.hotKey
-        #if canImport(AppKit)
         XCTAssertEqual(menu.hotKey, hotKey)
         #endif
+        #if canImport(AppKit)
         let modifiers: KeyModifiers = .command
         menu.hotKeyModifiers = modifiers
-        _ = menu.hotKeyModifiers
-        #if canImport(AppKit)
         XCTAssertEqual(menu.hotKeyModifiers, modifiers)
         #endif
         menu.isHidden = true
         _ = menu.isHidden
-        #if canImport(AppKit)
         XCTAssert(menu.isHidden)
-        #endif
-        menu.indentationLevel = 1
-        _ = menu.indentationLevel
         #if canImport(AppKit)
+        menu.indentationLevel = 1
         XCTAssertEqual(menu.indentationLevel, 1)
         #endif
         menu.tag = 1
@@ -110,6 +111,7 @@ final class APITests : ApplicationTestCase {
         #endif
         #if !os(watchOS) && !os(tvOS)
         XCTAssertEqual(menu.native.title, title)
+        #endif
         #endif
     }
 }

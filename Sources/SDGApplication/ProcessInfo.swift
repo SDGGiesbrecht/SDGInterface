@@ -68,6 +68,7 @@ extension ProcessInfo {
         }
 
         for localization in localizations.allCases {
+            #if !os(Linux)
             let infoPlist = applicationBundle.url(forResource: "InfoPlist", withExtension: "strings", subdirectory: nil, localization: localization.code)
             let dictionary: NSDictionary? = (infoPlist.flatMap({ (url: URL) -> NSDictionary? in
                 return try? NSDictionary(contentsOf: url, error: ())
@@ -106,6 +107,7 @@ extension ProcessInfo {
                         }
                     }))
             }
+            #endif
         }
 
         let dictionary = applicationBundle.infoDictionary

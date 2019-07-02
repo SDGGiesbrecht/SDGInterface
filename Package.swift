@@ -117,6 +117,7 @@ let package = Package(
         // #documentation(SDGContextMenu)
         /// A context menu.
         .target(name: "SDGContextMenu", dependencies: [
+            "SDGLogic",
             "SDGMenus",
             "SDGInterfaceLocalizations",
             .product(name: "SDGText", package: "SDGCornerstone"),
@@ -185,7 +186,10 @@ let package = Package(
 
         .testTarget(name: "SDGInterfaceBasicsTests", dependencies: [
             "SDGInterfaceBasics",
+            "SDGInterfaceLocalizations",
             "SDGApplicationTestUtilities",
+            .product(name: "SDGControlFlow", package: "SDGCornerstone"),
+            .product(name: "SDGLocalization", package: "SDGCornerstone"),
             .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
             ]),
 
@@ -194,6 +198,16 @@ let package = Package(
             "SDGApplicationTestUtilities",
             .product(name: "SDGControlFlow", package: "SDGCornerstone"),
             .product(name: "SDGText", package: "SDGCornerstone"),
+            .product(name: "SDGLocalization", package: "SDGCornerstone"),
+            .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
+            ]),
+
+        .testTarget(name: "SDGContextMenuTests", dependencies: [
+            "SDGMenus",
+            "SDGContextMenu",
+            "SDGInterfaceLocalizations",
+            "SDGApplicationTestUtilities",
+            .product(name: "SDGControlFlow", package: "SDGCornerstone"),
             .product(name: "SDGLocalization", package: "SDGCornerstone"),
             .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
             ]),

@@ -1,5 +1,5 @@
 /*
- LaunchDetails.swift
+ Handoff.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,12 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(UIKit)
-import UIKit
-#endif
+import Foundation
 
-/// Details about the launch.
-public struct LaunchDetails {
+/// An activity handoff.
+public struct Handoff {
 
     // MARK: - Initialization
 
@@ -26,11 +24,8 @@ public struct LaunchDetails {
 
     // MARK: - Properties
 
-    /// Some systems provide an accompanying notification.
-    public var notification: SystemNotification?
-
-    #if canImport(UIKit) && !os(watchOS)
-    /// Some systems specify options.
-    public var options: [UIApplication.LaunchOptionsKey: Any]?
+    #if !os(Linux)
+    /// The native activity.
+    public var activity: NSUserActivity?
     #endif
 }

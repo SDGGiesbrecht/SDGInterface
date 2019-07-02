@@ -16,7 +16,8 @@ import Foundation
 
 #if canImport(AppKit)
 import AppKit
-#elseif canImport(UIKit)
+#endif
+#if canImport(UIKit)
 import UIKit
 #endif
 
@@ -24,10 +25,6 @@ import SDGControlFlow
 import SDGLogic
 import SDGMathematics
 import SDGText
-
-extension NSAttributedString.Key {
-    internal static let smallCaps = NSAttributedString.Key(rawValue: "SDGSmallCaps")
-}
 
 extension NSAttributedString {
 
@@ -43,6 +40,7 @@ extension NSAttributedString {
 
     // MARK: - Superscript & Subscript
 
+    #if canImport(CoreGraphics)
     private static func superscriptPointSize(forBasePointSize baseSize: CGFloat) -> CGFloat {
         return baseSize × 5 ÷ 6
     }
@@ -103,10 +101,12 @@ extension NSAttributedString {
         attributes[.paragraphStyle] = paragraphStyle.copy() as! NSParagraphStyle
         attributes[.superscript] = nil
     }
+    #endif
 }
 
 extension NSMutableAttributedString {
 
+    #if canImport(AppKit) || canImport(UIKit)
     private func applyChanges(to range: NSRange, modifySection: (_ sectionRange: NSRange, _ sectionAttributes: [NSAttributedString.Key: Any]) -> Void) {
         if range.length ≠ 0 {
             var index = range.lowerBound
@@ -134,6 +134,7 @@ extension NSMutableAttributedString {
             setAttributes(sectionAttributes, range: sectionRange)
         }
     }
+    #endif
 
     #if canImport(AppKit)
     private func swapGlyphs(in range: NSRange, mapping performMap: (String) -> String, additionalChangesWhenTriggered makeAdditionalChanges: (inout [NSAttributedString.Key: Any]) -> Void) {
@@ -196,6 +197,7 @@ extension NSMutableAttributedString {
 
     // MARK: - Superscript & Subscript
 
+    #if canImport(CoreGraphics)
     /// Superscripts a subrange.
     ///
     /// - Parameters:
@@ -219,6 +221,7 @@ extension NSMutableAttributedString {
     public func resetBaseline(for range: NSRange) {
         applyUniformChanges(to: range) { NSAttributedString.resetBaseline(for: &$0) }
     }
+    #endif
 
     #if canImport(AppKit)
     // MARK: - Case

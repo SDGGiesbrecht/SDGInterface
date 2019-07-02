@@ -12,9 +12,11 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import Foundation
 #if canImport(AppKit)
 import AppKit
-#elseif canImport(UIKit)
+#endif
+#if canImport(UIKit)
 import UIKit
 #endif
 
@@ -82,12 +84,18 @@ public final class Application {
             CommandLine.unsafeArgv,
             nil,
             NSStringFromClass(UIApplicationDelegate.self)))
+        #else
+        while true {
+            RunLoop.current.run()
+        }
         #endif
     }
     #endif
 
     internal class func postLaunchSetUp() {
+        #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
         _ = ContextMenu.contextMenu
+        #endif
 
         #if canImport(AppKit)
         _ = MenuBar.menuBar

@@ -22,6 +22,7 @@ public enum Axis {
     /// Vertical.
     case vertical
 
+    #if canImport(AppKit) || canImport(UIKit)
     // MARK: - Layout Representation
 
     internal var string: String {
@@ -32,4 +33,5 @@ public enum Axis {
             return "V:"
         }
     }
+    #endif
 }

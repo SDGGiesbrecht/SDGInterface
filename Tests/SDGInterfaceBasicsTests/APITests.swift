@@ -12,13 +12,18 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import SDGControlFlow
+import SDGLocalization
+
 import SDGInterfaceBasics
+
+import SDGInterfaceLocalizations
+
+import XCTest
 
 import SDGXCTestUtilities
 
 import SDGApplicationTestUtilities
-
-import XCTest
 
 final class APITests : ApplicationTestCase {
 
@@ -31,6 +36,17 @@ final class APITests : ApplicationTestCase {
         XCTAssertEqual(ProcessInfo.applicationName(.ελληνικά(.γενική)), "του Παραδείγματος")
     }
 
+    func testBinding() {
+        LocalizationSetting(orderOfPrecedence: ["zxx"]).do {
+            let localized = Binding<Bool, InterfaceLocalization>.static(UserFacing({ _ in true }))
+            XCTAssert(localized.resolved())
+            XCTAssertNil(localized.shared)
+            let bound = Binding<Bool, InterfaceLocalization>.binding(Shared(true))
+            XCTAssert(bound.resolved())
+            XCTAssertNotNil(bound.shared)
+        }
+    }
+
     func testColour() {
         XCTAssertEqual(Colour.white.red, 1)
         XCTAssertEqual(Colour.black.green, 0)
@@ -41,10 +57,10 @@ final class APITests : ApplicationTestCase {
         XCTAssertEqual(Colour.magenta.blue, 1)
         XCTAssertEqual(Colour.yellow.opacity, 1)
         #if canImport(AppKit)
-        XCTAssertEqual(Colour.yellow.green, Colour(native: Colour.yellow.native).green)
+        XCTAssertEqual(Colour.yellow.green, Colour(Colour.yellow.nsColor).green)
         #endif
         #if canImport(UIKit)
-        XCTAssertEqual(Colour.cyan.blue, Colour(native: Colour.cyan.native).blue)
+        XCTAssertEqual(Colour.cyan.blue, Colour(Colour.cyan.uiColor).blue)
         #endif
     }
 }

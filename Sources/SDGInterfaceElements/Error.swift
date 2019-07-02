@@ -12,13 +12,12 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if !os(watchOS)
-
 import Foundation
 import Dispatch
 #if canImport(AppKit)
 import AppKit
-#elseif canImport(UIKit)
+#endif
+#if canImport(UIKit)
 import UIKit
 #endif
 
@@ -31,6 +30,7 @@ extension Error {
 
     // MARK: - Display
 
+    #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
     /// Displays the error to the user.
     public func display() { // @exempt(from: tests) Requires user interaction.
         #if canImport(AppKit)
@@ -53,6 +53,5 @@ extension Error {
         UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
         #endif
     }
+    #endif
 }
-
-#endif

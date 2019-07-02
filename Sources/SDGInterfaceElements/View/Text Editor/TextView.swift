@@ -12,12 +12,13 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if !os(watchOS)
+#if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
 
 import Foundation
 #if canImport(AppKit)
 import AppKit
-#elseif canImport(UIKit)
+#endif
+#if canImport(UIKit)
 import UIKit
 #endif
 

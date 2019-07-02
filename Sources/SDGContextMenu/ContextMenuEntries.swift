@@ -12,12 +12,9 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit)
-import AppKit
-#endif
-#if canImport(UIKit)
-import UIKit
-#endif
+#if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS) && !os(tvOS)
+import Foundation
+import ObjectiveC
 
 import SDGText
 import SDGLocalization
@@ -54,3 +51,4 @@ extension ContextMenu {
         return showCharacterInformation
     }
 }
+#endif

@@ -12,9 +12,11 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS) && !os(tvOS)
 #if canImport(AppKit)
 import AppKit
-#elseif canImport(UIKit)
+#endif
+#if canImport(UIKit)
 import UIKit
 #endif
 
@@ -71,15 +73,11 @@ public final class MenuEntry<L> : AnyMenuEntry, SharedValueObserver where L : Lo
 
     // MARK: - Refreshing
 
-    #if !os(watchOS) && !os(tvOS)
     private func refreshNative() {
         refreshLabel()
     }
-    #endif
     private func refreshLabel() {
-        #if !os(watchOS) && !os(tvOS)
         native.title = String(label.resolved())
-        #endif
     }
 
     // MARK: - AnyMenuEntry
@@ -91,13 +89,12 @@ public final class MenuEntry<L> : AnyMenuEntry, SharedValueObserver where L : Lo
         }
     }
     #elseif canImport(UIKit)
-    #if !os(watchOS) && !os(tvOS)
     public var native: UIMenuItem = UIMenuItem() {
         didSet {
             refreshNative()
         }
     }
-    #endif
+    public var _isHidden: Bool = false
     public var _tag: Int = 0
     #endif
 
@@ -107,3 +104,4 @@ public final class MenuEntry<L> : AnyMenuEntry, SharedValueObserver where L : Lo
         refreshLabel()
     }
 }
+#endif

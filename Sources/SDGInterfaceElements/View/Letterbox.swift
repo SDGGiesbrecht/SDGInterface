@@ -12,11 +12,12 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if !os(watchOS)
+#if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
 
 #if canImport(AppKit)
 import AppKit
-#elseif canImport(UIKit)
+#endif
+#if canImport(UIKit)
 import UIKit
 #endif
 
@@ -102,7 +103,11 @@ open class Letterbox : View {
 
     open override func draw(_ dirtyRect: CGRect) { // @exempt(from: tests) Crashes without active interface.
         if let colour = self.colour {
-            let native = colour.native
+            #if canImport(AppKit)
+            let native = colour.nsColor
+            #elseif canImport(UIKit)
+            let native = colour.uiColor
+            #endif
             native.setFill()
             if colour.opacity < 1 {
                 #if canImport(UIKit)

@@ -14,10 +14,6 @@
 
 #if canImport(AppKit)
 import AppKit
-#endif
-#if canImport(UIKit)
-import UIKit
-#endif
 
 import SDGText
 import SDGLocalization
@@ -30,7 +26,6 @@ import SDGInterfaceLocalizations
 
 extension MenuBar {
 
-    #if canImport(AppKit)
     private static func undo() -> MenuEntry<MenuBarLocalization> {
         let undo = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -255,5 +250,5 @@ extension MenuBar {
         ]
         return edit
     }
-    #endif
 }
+#endif
