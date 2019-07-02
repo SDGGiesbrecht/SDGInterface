@@ -22,6 +22,7 @@ extension APITests {
         ("testLabel", testLabel),
         ("testLayoutConstraint", testLayoutConstraint),
         ("testLetterbox", testLetterbox),
+        ("testNotification", testNotification),
         ("testPopOver", testPopOver),
         ("testPreferences", testPreferences),
         ("testRichText", testRichText),
