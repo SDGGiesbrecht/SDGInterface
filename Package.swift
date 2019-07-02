@@ -145,7 +145,8 @@ let package = Package(
         // #documentation(SDGWindows)
         /// Windows.
         .target(name: "SDGWindows", dependencies: [
-            "SDGViews"
+            "SDGViews",
+            .product(name: "SDGGeometry", package: "SDGCornerstone")
             ]),
 
         // #documentation(SDGInterfaceElements)
@@ -179,7 +180,8 @@ let package = Package(
             "SDGInterfaceLocalizations",
             .product(name: "SDGControlFlow", package: "SDGCornerstone"),
             .product(name: "SDGText", package: "SDGCornerstone"),
-            .product(name: "SDGLocalization", package: "SDGCornerstone")
+            .product(name: "SDGLocalization", package: "SDGCornerstone"),
+            .product(name: "SDGGeometry", package: "SDGCornerstone")
             ]),
 
         // Internal modules.

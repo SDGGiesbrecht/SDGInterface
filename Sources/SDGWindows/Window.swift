@@ -20,6 +20,7 @@ import AppKit
 import UIKit
 #endif
 
+import SDGGeometry
 import SDGViews
 
 /// A window.
@@ -92,23 +93,85 @@ public final class Window {
     // MARK: - Computed Properties
 
     /// The size of the window.
+    ///
+    /// Changing this value when the window is visible results in a smooth animation.
     public var size: Size {
         get {
-            #if canImport(AppKit)
-            return Size(native.frame.size)
-            #elseif canImport(UIKit)
-            return Size(native.frame.size)
-            #endif
+            return Size(frame.size)
+        }
+        set {
+            frame.size = newValue.native
+        }
+    }
+
+    // MARK: - Location
+
+    /// The location of the window.
+    ///
+    /// Changing this value when the window is visible results in a smooth animation.
+    public var location: TwoDimensionalPoint<Double> {
+        get {
+            return TwoDimensionalPoint(frame.size)
+        }
+        set {
+            frame.size = newValue.native
+        }
+    }
+
+    #if canImport(AppKit) || canImport(UIKit)
+    private var frame: NSRect {
+        get {
+            return native.frame
         }
         set {
             #if canImport(AppKit)
-            var frame = native.frame
-            frame.size = newValue.native
-            native.setFrame(frame, display: true, animate: true)
-            #else
-            native.frame.size = newValue.native
+            if native.isVisible {
+                native.setFrame(newValue, display: true, animate: true)
+            } else {
+                native.setFrame(newValue, display: true, animate: false)
+            }
+            #elseif canImport(UIKit)
+            native.frame = newValue
             #endif
         }
+    }
+    #endif
+
+    /// Moves the window smoothly to the centre of the screen.
+    public func centreInScreen() {
+        #if canImport(AppKit)
+        var windowRect = frame
+        let screenRect = nearestScreen.frame
+
+        windowRect.origin.x = ((screenRect.size.width − windowRect.size.width) ÷ 2)
+        windowRect.origin.y = ((screenRect.size.height − windowRect.size.height) × 2 ÷ 3)
+
+        move(to: windowRect)
+        #else
+        frame = nearestScreen.bounds
+        #endif
+    }
+
+    /// Moves the window smoothly to a random location on the screen.
+    ///
+    /// - Note: In a UIKit setting, windows always fill the entire screen.
+    public func randomizeLocation() {
+        #if canImport(AppKit)
+        var windowRect = frame
+        let screenRect = nearestScreen.frame
+
+        var rangeX = screenRect.size.width − windowRect.size.width
+        rangeX.increase(to: 0)
+        var rangeY = screenRect.size.height − windowRect.size.height
+        rangeY.increase(to: 0)
+
+        windowRect.origin.x = CGFloat.random(in: 0 ... rangeX)
+        windowRect.origin.y = CGFloat.random(in: 0 ... rangeY)
+
+        move(to: windowRect)
+        #else
+        frame = nearestScreen.bounds
+        #endif
     }
 }
 #endif

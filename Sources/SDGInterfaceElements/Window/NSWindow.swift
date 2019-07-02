@@ -87,59 +87,6 @@ extension NSWindow {
         #endif
     }
 
-    // MARK: - Location
-
-    /// Moves the window smoothly to the centre of the screen.
-    public func centreInScreen() {
-        #if canImport(AppKit)
-        var windowRect = frame
-        let screenRect = nearestScreen.frame
-
-        windowRect.origin.x = ((screenRect.size.width − windowRect.size.width) ÷ 2)
-        windowRect.origin.y = ((screenRect.size.height − windowRect.size.height) × 2 ÷ 3)
-
-        move(to: windowRect)
-        #else
-        frame = nearestScreen.bounds
-        #endif
-    }
-
-    /// Moves the window smoothly to a random location on the screen.
-    ///
-    /// - Note: In a UIKit setting, windows always fill the entire screen.
-    public func randomizeLocation() {
-        #if canImport(AppKit)
-        var windowRect = frame
-        let screenRect = nearestScreen.frame
-
-        var rangeX = screenRect.size.width − windowRect.size.width
-        rangeX.increase(to: 0)
-        var rangeY = screenRect.size.height − windowRect.size.height
-        rangeY.increase(to: 0)
-
-        windowRect.origin.x = CGFloat.random(in: 0 ... rangeX)
-        windowRect.origin.y = CGFloat.random(in: 0 ... rangeY)
-
-        move(to: windowRect)
-        #else
-        frame = nearestScreen.bounds
-        #endif
-    }
-
-    #if canImport(AppKit)
-    /// Moves the window smoothly to a specific location.
-    ///
-    /// - Parameters:
-    ///     - position: The new position for the window.
-    public func move(to position: NSRect) {
-        if isVisible {
-            setFrame(position, display: true, animate: true)
-        } else {
-            setFrame(position, display: true, animate: false)
-        }
-    }
-    #endif
-
     // MARK: - NSWindow
 
     #if canImport(UIKit)
