@@ -76,8 +76,12 @@ let package = Package(
         /// Re‐usable interface elements, such as views, windows and menus.
         .library(name: "SDGInterfaceElements", targets: ["SDGInterfaceElements"]),
 
+        // @documentation(SDGViews)
+        /// The view protocol.
+        .library(name: "SDGViews", targets: ["SDGViews"]),
+
         // @documentation(SDGInterfaceBasics)
-        /// A menu bar.
+        /// Basic interface building blocks.
         .library(name: "SDGInterfaceBasics", targets: ["SDGInterfaceBasics"])
     ],
     dependencies: [
@@ -152,8 +156,13 @@ let package = Package(
                 .define("SCREEN_LOCATION_WARNINGS", .when(configuration: .debug))
             ]),
 
+        // #documentation(SDGViews)
+        /// The view protocol.
+        .target(name: "SDGViews", dependencies: [
+            ]),
+
         // #documentation(SDGInterfaceBasics)
-        /// A menu bar.
+        /// Basic interface building blocks.
         .target(name: "SDGInterfaceBasics", dependencies: [
             "SDGInterfaceLocalizations",
             .product(name: "SDGControlFlow", package: "SDGCornerstone"),

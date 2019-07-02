@@ -68,6 +68,7 @@ let package = Package(
             .productItem(name: "SDGContextMenu", package: "SDGInterface"),
             .productItem(name: "SDGMenus", package: "SDGInterface"),
             .productItem(name: "SDGInterfaceElements", package: "SDGInterface"),
+            .productItem(name: "SDGViews", package: "SDGInterface"),
             .productItem(name: "SDGInterfaceBasics", package: "SDGInterface"),
         ])
     ]
@@ -82,6 +83,7 @@ import SDGMenuBar
 import SDGContextMenu
 import SDGMenus
 import SDGInterfaceElements
+import SDGViews
 import SDGInterfaceBasics
 ```
 
