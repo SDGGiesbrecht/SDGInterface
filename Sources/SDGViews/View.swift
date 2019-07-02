@@ -11,3 +11,20 @@
  Licensed under the Apache Licence, Version 2.0.
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
+
+#if canImport(AppKit) || canImport(UIKit)
+#if canImport(AppKit)
+import AppKit
+#elseif canImport(UIKit)
+import UIKit
+#endif
+
+/// A view.
+public protocol View : AnyObject {
+    #if canImport(AppKit)
+    var native: NSView { get }
+    #elseif canImport(UIKit)
+    var native: UIView { get }
+    #endif
+}
+#endif
