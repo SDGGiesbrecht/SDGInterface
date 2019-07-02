@@ -204,6 +204,22 @@ extension AnyWindow {
             observer.setFullscreenModeSettingAsSoonAsPossible(newValue)
         }
     }
+
+    /// Whether the window is considered an auxiliary window or not.
+    ///
+    /// Auxiliary windows can appear on top of another fullscreen window.
+    public var isAuxiliary: Bool {
+        get {
+            return native.collectionBehavior.contains(.fullScreenAuxiliary)
+        }
+        set {
+            if newValue {
+                native.collectionBehavior.insert(.fullScreenAuxiliary)
+            } else {
+                native.collectionBehavior.remove(.fullScreenAuxiliary)
+            }
+        }
+    }
     #endif
 }
 #endif
