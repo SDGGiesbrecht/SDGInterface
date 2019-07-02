@@ -22,6 +22,11 @@ import UIKit
 
 import SDGViews
 
+#if canImport(AppKit)
+#warning("Handle field editor.")
+public var _getFieldEditor: () -> NSTextView = { return NSTextView() }
+#endif
+
 /// A window.
 public final class Window : AnyWindow {
 
@@ -50,6 +55,13 @@ public final class Window : AnyWindow {
         #endif
 
         #if canImport(AppKit)
+        defer {
+            native.delegate = delegate
+            delegate.window = self
+        }
+        #endif
+
+        #if canImport(AppKit)
         native.isReleasedWhenClosed = false
         #endif
 
@@ -70,6 +82,8 @@ public final class Window : AnyWindow {
     #if canImport(AppKit)
     /// The native window.
     public var native: NSWindow
+    private let delegate = NSWindowDelegate()
+    public let _fieldEditor = _getFieldEditor()
     #elseif canImport(UIKit)
     /// The native window.
     public var native: UIWindow

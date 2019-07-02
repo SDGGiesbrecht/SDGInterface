@@ -27,6 +27,8 @@ import SDGViews
 
 import SDGInterfaceBasics
 
+private var allWindows = [ObjectIdentifier: AnyWindow]()
+
 /// A menu entry with no particular localization.
 public protocol AnyWindow : AnyObject {
 
@@ -39,6 +41,10 @@ public protocol AnyWindow : AnyObject {
     #elseif canImport(UIKit)
     /// The native window.
     var native: UIWindow { get set }
+    #endif
+
+    #if canImport(AppKit)
+    var _fieldEditor: NSTextView { get }
     #endif
 }
 
@@ -66,6 +72,7 @@ extension AnyWindow {
 
     /// Displays the window.
     public func display() {
+        allWindows[ObjectIdentifier(self)] = self
         #if canImport(AppKit)
         native.makeKeyAndOrderFront(nil)
         #elseif canImport(UIKit)
