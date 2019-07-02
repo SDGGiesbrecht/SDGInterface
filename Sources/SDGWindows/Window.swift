@@ -160,7 +160,7 @@ public final class Window {
         }
     }
 
-    private var frame: NSRect {
+    private var frame: CGRect {
         get {
             return native.frame
         }
@@ -189,7 +189,7 @@ public final class Window {
         }
         return screen.frame
         #elseif canImport(UIKit)
-        return native.screen.frame
+        return native.screen.bounds
         #endif
     }
 
