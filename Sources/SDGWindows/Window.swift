@@ -112,7 +112,29 @@ public final class Window {
         #endif
     }
 
-    // MARK: - Computed Properties
+    // MARK: - Display
+
+    /// Displays the window.
+    public func display() {
+        #if canImport(AppKit)
+        native.makeKeyAndOrderFront(nil)
+        #elseif canImport(UIKit)
+        native.makeKeyAndVisible()
+        #endif
+    }
+
+    /// Whether or not the window is visible. (It may still be obscured by other elements on the screen.)
+    public var isVisible: Bool {
+        get {
+            #if canImport(AppKit)
+            return native.isVisible
+            #elseif canImport(UIKit)
+            return native.isHidden
+            #endif
+        }
+    }
+
+    // MARK: - Size & Location
 
     /// The size of the window.
     ///
@@ -125,15 +147,6 @@ public final class Window {
             frame.size = newValue.native
         }
     }
-
-    /// Whether or not the window is visible. (It may still be obscured by other elements on the screen.)
-    public var isVisible: Bool {
-        get {
-            return native.isVisible
-        }
-    }
-
-    // MARK: - Location
 
     /// The location of the window’s origin.
     ///
