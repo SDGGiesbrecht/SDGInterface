@@ -29,7 +29,8 @@ public final class Window {
     ///
     /// - Parameters:
     ///     - view: The view.
-    public init(view: View, size: Size) {
+    ///     - size: The default size for the window.
+    public init(view: View) {
 
         #if canImport(AppKit)
         native = NSWindow(
@@ -86,6 +87,28 @@ public final class Window {
         }
         native.rootViewController?.view = view.native
         #endif
+    }
+
+    // MARK: - Computed Properties
+
+    /// The size of the window.
+    public var size: Size {
+        get {
+            #if canImport(AppKit)
+            return Size(native.frame.size)
+            #elseif canImport(UIKit)
+            return Size(native.frame.size)
+            #endif
+        }
+        set {
+            #if canImport(AppKit)
+            var frame = native.frame
+            frame.size = newValue.native
+            native.setFrame(frame, display: true, animate: true)
+            #else
+            native.frame.size = newValue.native
+            #endif
+        }
     }
 }
 #endif

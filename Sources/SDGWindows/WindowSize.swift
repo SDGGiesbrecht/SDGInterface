@@ -26,18 +26,23 @@ extension Window {
 
         // MARK: - Static Methods
 
+        #if canImport(AppKit) || canImport(UIKit)
         /// A size that fills the available space on the main screen, without obscuring menu bars, docks, etc.
         public static var fillingAvailable: Size {
             #if canImport(AppKit)
             return Size((NSScreen.main ?? NSScreen()).frame.size)
             #elseif canImport(UIKit)
+            return Size(UIScreen.main.bounds.size)
             #endif
         }
+        #endif
 
+        #if canImport(AppKit)
         /// The default size of an auxiliary window.
         public static var defaultAuxiliary: Size {
             return Size(width: 480, height: 270)
         }
+        #endif
 
         // MARK: - Initialization
 
@@ -57,7 +62,7 @@ extension Window {
             height = 0
         }
 
-        #if canImport(AppKit) || canImport(UIKit)
+        #if canImport(CoreGraphics)
         public init(_ native: CGSize) {
             self.init(width: Double(native.width), height: Double(native.height))
         }
@@ -70,5 +75,12 @@ extension Window {
 
         /// The height.
         var height: Double
+
+        #if canImport(CoreGraphics)
+        /// The native size.
+        public var native: CGSize {
+            return CGSize(width: CGFloat(width), height: CGFloat(height))
+        }
+        #endif
     }
 }

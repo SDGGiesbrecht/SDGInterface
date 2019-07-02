@@ -22,12 +22,6 @@ import SDGLocalization
 /// An window which plays a supporting role to another window.
 open class AuxiliaryWindow<L> : Window<L> where L : Localization {
 
-    // MARK: - Initialization
-
-    internal static var defaultSize: NSSize {
-        return NSSize(width: 480, height: 270)
-    }
-
     /// Creates an auxiliary window.
     public init(title: Shared<UserFacing<StrictString, L>>) {
         super.init(title: title, size: AuxiliaryWindow.defaultSize)
