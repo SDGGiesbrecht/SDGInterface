@@ -38,58 +38,6 @@ internal var allWindows = Set<AbstractWindow>()
 /// This superclass can be referenced in order to use functionality common to all `Window` instances regardless of their generic arguments.
 open class AbstractWindow : NSWindow, WindowConformances {
 
-    // MARK: - Initialization
-
-    private static func initializeContentRectangle(size: CGSize) -> CGRect {
-        var rectangle = CGRect.zero
-        rectangle.size = size
-        return rectangle
-    }
-
-    /// Creates a window.
-    ///
-    /// - Parameters:
-    ///     - title: The title of the window.
-    ///     - size: The size of the window.
-    ///     - additionalStyles: Window styles to opt into.
-    ///     - disabledStyles: Window styles to opt out of.
-    public init(
-        title: StrictString,
-        size: CGSize,
-        additionalStyles: NSWindow.StyleMask = [],
-        disabledStyles: NSWindow.StyleMask = []) {
-
-        finishInitialization()
-    }
-
-    #if canImport(UIKit)
-    /// Creates a window.
-    ///
-    /// - Parameters:
-    ///     - title: The title of the window.
-    public init(title: StrictString) {
-        super.init(frame: AbstractWindow.initializeContentRectangle(size: Screen.main.bounds.size))
-        finishInitialization()
-    }
-    #endif
-
-    private func finishInitialization() {
-
-        randomizeLocation()
-    }
-
-    #if canImport(UIKit)
-    @available(*, unavailable) public required init(coder decoder: NSCoder) { // @exempt(from: unicode)
-        codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "UserOwnedWindow"
-            }
-        }))
-        preconditionFailure()
-    }
-    #endif
-
     // MARK: - Properties
 
     #if canImport(AppKit)
@@ -97,21 +45,6 @@ open class AbstractWindow : NSWindow, WindowConformances {
     #endif
 
     // MARK: - NSWindow
-
-    #if canImport(AppKit)
-    private let interceptor = DelegationInterceptor(selectors: [
-        #selector(NSWindowDelegate.windowWillReturnFieldEditor(_:to:))
-        ])
-    open override var delegate: NSWindowDelegate? {
-        get {
-            return interceptor.delegate as? NSWindowDelegate
-        }
-        set {
-            interceptor.delegate = newValue
-            super.delegate = interceptor
-        }
-    }
-    #endif
 
     #if canImport(AppKit)
     open override func makeKeyAndOrderFront(_ sender: Any?) {

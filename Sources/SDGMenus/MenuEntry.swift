@@ -28,6 +28,7 @@ import SDGInterfaceBasics
 
 /// A menu entry.
 public final class MenuEntry<L> : AnyMenuEntry, SharedValueObserver where L : Localization {
+    #warning("Remove shared value observer.")
 
     // MARK: - Initialization
 

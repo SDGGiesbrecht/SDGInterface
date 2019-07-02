@@ -24,6 +24,7 @@ import SDGControlFlow
 
 /// A menu entry with no particular localization.
 public protocol AnyMenuEntry : SharedValueObserver {
+    #warning("Remove shared value observer.")
 
     #if canImport(AppKit)
     /// The native menu item.

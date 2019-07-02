@@ -22,13 +22,13 @@ internal class FullscreenObserver {
 
     // MARK: - Initialization
 
-    internal init(window: Window) {
+    internal init(window: AnyWindow) {
         self.window = window
     }
 
     // MARK: - Properties
 
-    private weak var window: Window?
+    private weak var window: AnyWindow?
 
     // MARK: - Fullscreen
 
