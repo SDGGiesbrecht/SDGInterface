@@ -145,7 +145,9 @@ let package = Package(
         // #documentation(SDGWindows)
         /// Windows.
         .target(name: "SDGWindows", dependencies: [
+            "SDGInterfaceBasics",
             "SDGViews",
+            .product(name: "SDGMathematics", package: "SDGCornerstone"),
             .product(name: "SDGGeometry", package: "SDGCornerstone")
             ]),
 
@@ -165,8 +167,7 @@ let package = Package(
             .product(name: "SDGText", package: "SDGCornerstone"),
             .product(name: "SDGLocalization", package: "SDGCornerstone")
             ], swiftSettings: [
-                .define("UNIDENTIFIED_PASTEBOARD_WARNINGS", .when(configuration: .debug)),
-                .define("SCREEN_LOCATION_WARNINGS", .when(configuration: .debug))
+                .define("UNIDENTIFIED_PASTEBOARD_WARNINGS", .when(configuration: .debug))
             ]),
 
         // #documentation(SDGViews)

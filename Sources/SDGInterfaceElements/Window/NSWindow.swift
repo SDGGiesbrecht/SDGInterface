@@ -69,24 +69,6 @@ extension NSWindow {
         }
     }
 
-    private var nearestScreen: Screen {
-        #if canImport(AppKit)
-        if let theScreen = screen {
-            return theScreen
-        } else if let theScreen = Screen.main {
-            return theScreen
-        } else { // @exempt(from: tests)
-            // @exempt(from: tests)
-            #if SCREEN_LOCATION_WARNINGS
-            print("Unable to locate any screen.")
-            #endif
-            return NSScreen()
-        }
-        #else
-        return screen
-        #endif
-    }
-
     // MARK: - NSWindow
 
     #if canImport(UIKit)
