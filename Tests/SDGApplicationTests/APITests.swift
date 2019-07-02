@@ -456,6 +456,7 @@ final class APITests : ApplicationTestCase {
         let text = RichText(richText[subrange]).rawText()
         richText.replaceSubrange(subrange, with: RichText(rawText: text, attributes: [NSAttributedString.Key(rawValue: "Key"): NSNumber(value: 0)]))
         XCTAssertEqual(RichText(richText[richText.index(after: richText.startIndex) ..< richText.index(before: richText.endIndex)]).count, 4)
+        XCTAssertNotEqual(RichText(rawText: "..."), RichText(rawText: "...", attributes: [NSAttributedString.Key(rawValue: "Key"): NSNumber(value: 0)]))
     }
 
     func testSystemMediator() {
