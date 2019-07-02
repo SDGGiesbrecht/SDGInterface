@@ -59,29 +59,6 @@ open class AbstractWindow : NSWindow, WindowConformances {
         additionalStyles: NSWindow.StyleMask = [],
         disabledStyles: NSWindow.StyleMask = []) {
 
-        #if canImport(AppKit)
-        var style: NSWindow.StyleMask = [
-            .titled,
-            .closable,
-            .miniaturizable,
-            .resizable,
-            .texturedBackground,
-            .unifiedTitleAndToolbar
-        ]
-        style.formUnion(additionalStyles)
-        style.subtract(disabledStyles)
-        #endif
-
-        #if canImport(AppKit)
-        super.init(
-            contentRect: AbstractWindow.initializeContentRectangle(size: size),
-            styleMask: style,
-            backing: .buffered,
-            defer: true)
-        #else
-        super.init(frame: AbstractWindow.initializeContentRectangle(size: size))
-        #endif
-
         finishInitialization()
     }
 
@@ -97,30 +74,6 @@ open class AbstractWindow : NSWindow, WindowConformances {
     #endif
 
     private func finishInitialization() {
-
-        #if canImport(AppKit)
-        interceptor.delegate = super.delegate
-        interceptor.listener = self
-        #endif
-
-        #if canImport(AppKit)
-        isReleasedWhenClosed = false
-        #endif
-
-        #if canImport(AppKit)
-        titleVisibility = .hidden
-        #endif
-
-        #if canImport(AppKit)
-        setAutorecalculatesContentBorderThickness(false, for: NSRectEdge.minY)
-        setContentBorderThickness(0, for: NSRectEdge.minY)
-        #endif
-
-        #if canImport(UIKit)
-        if rootViewController == nil {
-            rootViewController = UIViewController()
-        }
-        #endif
 
         randomizeLocation()
     }

@@ -72,6 +72,10 @@ let package = Package(
         /// Menus.
         .library(name: "SDGMenus", targets: ["SDGMenus"]),
 
+        // @documentation(SDGWindows)
+        /// Windows.
+        .library(name: "SDGWindows", targets: ["SDGWindows"]),
+
         // @documentation(SDGInterfaceElements)
         /// Re‐usable interface elements, such as views, windows and menus.
         .library(name: "SDGInterfaceElements", targets: ["SDGInterfaceElements"]),
@@ -136,6 +140,12 @@ let package = Package(
             .product(name: "SDGControlFlow", package: "SDGCornerstone"),
             .product(name: "SDGText", package: "SDGCornerstone"),
             .product(name: "SDGLocalization", package: "SDGCornerstone")
+            ]),
+
+        // #documentation(SDGWindows)
+        /// Windows.
+        .target(name: "SDGWindows", dependencies: [
+            "SDGViews"
             ]),
 
         // #documentation(SDGInterfaceElements)
