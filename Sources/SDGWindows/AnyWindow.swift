@@ -91,6 +91,18 @@ extension AnyWindow {
         }
     }
 
+    internal func release() {
+        allWindows[ObjectIdentifier(self)] = nil
+    }
+
+    /// Closes the window.
+    public func close() {
+        #if canImport(AppKit)
+        native.close()
+        #endif
+        release()
+    }
+
     // MARK: - Size & Location
 
     /// The size of the window.

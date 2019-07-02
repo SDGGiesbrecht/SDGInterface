@@ -31,12 +31,6 @@ import SDGInterfaceLocalizations
 /// This superclass can be referenced in order to use functionality common to all `Window` instances regardless of their generic arguments.
 open class AbstractWindow : NSWindow, WindowConformances {
 
-    // MARK: - Properties
-
-    #if canImport(AppKit)
-    private let fieldEditor = FieldEditor()
-    #endif
-
     // MARK: - NSWindow
 
     #if canImport(AppKit)

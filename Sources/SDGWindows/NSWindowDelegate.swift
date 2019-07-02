@@ -26,5 +26,9 @@ internal final class NSWindowDelegate : NSObject, AppKit.NSWindowDelegate {
     internal func windowWillReturnFieldEditor(_ sender: NSWindow, to client: Any?) -> Any? {
         return window?._fieldEditor
     }
+
+    internal func windowWillClose(_ notification: Notification) {
+        window?.release()
+    }
 }
 #endif
