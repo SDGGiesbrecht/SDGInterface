@@ -122,7 +122,7 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
             var new: [Segment] = []
             for segment in newValue where ¬segment.rawText.isEmpty { // Ignore empty segments.
                 if let previous = new.last {
-                    if previous.attributesEqual(segment) {
+                    if previous.attributesEqual(segment) { // @exempt(from: tests) Linux equality check unreliable.
                         // Matches previous, so combine.
 
                         new.removeLast()

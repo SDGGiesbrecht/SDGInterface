@@ -436,12 +436,17 @@ final class APITests : ApplicationTestCase {
         _ = RichText(NSAttributedString(string: "..."))
         let attributes = [NSAttributedString.Key(rawValue: "Attribute"): NSNumber(value: 0)]
         let half = RichText(rawText: "...", attributes: attributes)
-        XCTAssertEqual(half + half, RichText(rawText: half.rawText() + half.rawText(), attributes: attributes))
+        let doubled = half + half
+        let doubledSeparately = RichText(rawText: half.rawText() + half.rawText(), attributes: attributes)
+        #if !os(Linux)
+        XCTAssertEqual(doubled, doubledSeparately)
+        #endif
         XCTAssert(RichText(rawText: "...").scalars().elementsEqual("...".scalars))
         for _ in (half + RichText(rawText: "...")).reversed() {}
         _ = RichText(NSAttributedString(string: "\u{B2}"))
         _ = RichText(NSAttributedString(string: "\u{2082}"))
         _ = RichText(richText[richText.bounds])
+        XCTAssert(RichText(rawText: "").isEmpty)
         XCTAssertEqual(half + RichText(rawText: ""), half)
         richText = RichText(rawText: "......")
         let subrange = richText.index(richText.startIndex, offsetBy: 2) ..< richText.index(richText.endIndex, offsetBy: −2)
