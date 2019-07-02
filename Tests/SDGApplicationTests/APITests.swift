@@ -434,7 +434,7 @@ final class APITests : ApplicationTestCase {
 
         XCTAssertEqual(("..." as RichText).rawText(), "...")
         _ = RichText(NSAttributedString(string: "..."))
-        let attributes = [NSAttributedString.Key(rawValue: "Attribute"): 0]
+        let attributes = [NSAttributedString.Key(rawValue: "Attribute"): NSNumber(value: 0)]
         let half = RichText(rawText: "...", attributes: attributes)
         XCTAssertEqual(half + half, RichText(rawText: half.rawText() + half.rawText(), attributes: attributes))
         XCTAssert(RichText(rawText: "...").scalars().elementsEqual("...".scalars))
@@ -443,6 +443,11 @@ final class APITests : ApplicationTestCase {
         _ = RichText(NSAttributedString(string: "\u{2082}"))
         _ = RichText(richText[richText.bounds])
         XCTAssertEqual(half + RichText(rawText: ""), half)
+        richText = RichText(rawText: "......")
+        let subrange = richText.index(richText.startIndex, offsetBy: 2) ..< richText.index(richText.endIndex, offsetBy: −2)
+        let text = RichText(richText[subrange]).rawText()
+        richText.replaceSubrange(subrange, with: RichText(rawText: text, attributes: [NSAttributedString.Key(rawValue: "Key"): NSNumber(value: 0)]))
+        XCTAssertEqual(RichText(richText[richText.index(after: richText.startIndex) ..< richText.index(before: richText.endIndex)]).count, 4)
     }
 
     func testSystemMediator() {
