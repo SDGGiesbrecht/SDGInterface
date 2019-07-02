@@ -26,25 +26,7 @@ import SDGMathematics
 import SDGCollections
 import SDGInterfaceLocalizations
 
-#if !canImport(AppKit)
-/// An `AppKit.NSWindow` or a `UIWindow`.
-public typealias NSWindow = UIWindow
-#endif
-
 extension NSWindow {
-
-    // MARK: - Options
-
-    #if !canImport(AppKit)
-    /// A stand‐in for AppKit’s `StyleMask`.
-    public struct StyleMask : OptionSet {
-        // MARK: - OptionSet
-        public init(rawValue: UInt8) {
-            self.rawValue = rawValue
-        }
-        public let rawValue: UInt8
-    }
-    #endif
 
     // MARK: - Fullscreen
 

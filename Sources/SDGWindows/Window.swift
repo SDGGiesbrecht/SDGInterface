@@ -126,6 +126,13 @@ public final class Window {
         }
     }
 
+    /// Whether or not the window is visible. (It may still be obscured by other elements on the screen.)
+    public var isVisible: Bool {
+        get {
+            return native.isVisible
+        }
+    }
+
     // MARK: - Location
 
     /// The location of the window’s origin.
@@ -199,5 +206,22 @@ public final class Window {
 
         frame = windowFrame
     }
+
+    // MARK: - Fullscreen
+
+    #if canImport(AppKit)
+    /// Returns whether or not the window is in fullscreen mode.
+    ///
+    /// For a smoother transition, the effect of setting this property may be delayed until the window is ready to switch.
+    public var isFullscreen: Bool {
+        get {
+            return native.styleMask.contains(.fullScreen)
+        }
+        set {
+            let observer = FullscreenObserver(window: self)
+            observer.setFullscreenModeSettingAsSoonAsPossible(newValue)
+        }
+    }
+    #endif
 }
 #endif
