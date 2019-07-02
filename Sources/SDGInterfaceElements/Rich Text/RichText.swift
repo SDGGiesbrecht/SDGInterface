@@ -40,7 +40,8 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
     ///     - rawText: The raw text.
     ///     - attributes: The rich text attributes.
     public init(rawText: StrictString, attributes: [NSAttributedString.Key: Any] = [:]) {
-        self.init(unsafeSegments: [Segment(rawText: rawText, attributes: attributes)])
+        let segments: [Segment] = rawText.isEmpty ? [] : [Segment(rawText: rawText, attributes: attributes)]
+        self.init(unsafeSegments: segments)
     }
 
     #if canImport(AppKit) || canImport(UIKit)
