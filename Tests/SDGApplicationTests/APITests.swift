@@ -447,7 +447,10 @@ final class APITests : ApplicationTestCase {
         _ = RichText(NSAttributedString(string: "\u{2082}"))
         _ = RichText(richText[richText.bounds])
         XCTAssert(RichText(rawText: "").isEmpty)
-        XCTAssertEqual(half + RichText(rawText: ""), half)
+        let nothingConcatenated = half + RichText(rawText: "")
+        #if !os(Linux)
+        XCTAssertEqual(nothingConcatenated, half)
+        #endif
         richText = RichText(rawText: "......")
         let subrange = richText.index(richText.startIndex, offsetBy: 2) ..< richText.index(richText.endIndex, offsetBy: −2)
         let text = RichText(richText[subrange]).rawText()
