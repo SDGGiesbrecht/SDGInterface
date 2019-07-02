@@ -47,7 +47,7 @@ public class CharacterInformation : NSObject {
     ///     - origin: The view and selection the characters originate from. If provided, the information will be shown in a pop‐up view instead of a separate window.
     ///     - view: The view the characters originate from.
     ///     - selection: The rectangle the characters originate from.
-    public static func display(for characters: String, origin: (view: View, selection: CGRect?)?) {
+    public static func display(for characters: String, origin: (view: NativeView, selection: CGRect?)?) {
         var details: [CharacterInformation] = []
         details.reserveCapacity(characters.scalars.count)
         for scalar in characters.scalars {
@@ -101,7 +101,7 @@ public class CharacterInformation : NSObject {
         table.allowsSelection = false
 
         if let origin = origin {
-            let view = View()
+            let view = NativeView()
             #if canImport(AppKit)
             view.frame.size = AuxiliaryWindow<InterfaceLocalization>.defaultSize
             #endif

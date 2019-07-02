@@ -142,6 +142,7 @@ let package = Package(
         /// Re‐usable interface elements, such as views, windows and menus.
         .target(name: "SDGInterfaceElements", dependencies: [
             "SDGInterfaceBasics",
+            "SDGViews",
             "SDGMenus",
             "SDGContextMenu",
             "SDGInterfaceLocalizations",

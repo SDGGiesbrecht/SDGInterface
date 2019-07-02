@@ -44,7 +44,7 @@ internal class TextView : NSTextView, TextEditingResponder {
         #if canImport(AppKit)
         maxSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
         isVerticallyResizable = true
-        autoresizingMask = View.AutoresizingMask.width
+        autoresizingMask = NativeView.AutoresizingMask.width
 
         allowsUndo = true
         usesFindPanel = true

@@ -112,7 +112,7 @@ extension Application {
     private func demonstrate(_ window: NSWindow) {
         window.makeKeyAndOrderFront(nil)
     }
-    private func demonstrate<L>(_ view: View, windowTitle: UserFacing<StrictString, L>) {
+    private func demonstrate<L>(_ view: NativeView, windowTitle: UserFacing<StrictString, L>) {
         #if canImport(AppKit)
         let window = AuxiliaryWindow(title: Shared(windowTitle))
         window.contentView?.fill(with: view)

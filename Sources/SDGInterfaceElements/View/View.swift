@@ -26,21 +26,23 @@ import SDGMathematics
 import SDGText
 import SDGLocalization
 
+import SDGViews
+
 import SDGInterfaceLocalizations
 
 #if canImport(AppKit)
 // @documentation(View)
 /// An alias for `NSView` or `UIView`.
-public typealias View = NSView
+public typealias NativeView = NSView
 #elseif canImport(UIKit)
 // #documentation(View)
 /// An alias for `NSView` or `UIView`.
-public typealias View = UIView
+public typealias NativeView = UIView
 #endif
 
-extension View {
+extension NativeView : View {
 
-    private func addSubviewIfNecessary(_ subview: View) {
+    private func addSubviewIfNecessary(_ subview: NativeView) {
         subview.translatesAutoresizingMaskIntoConstraints = false
 
         if ¬subviews.contains(subview) {
@@ -72,7 +74,7 @@ extension View {
     /// - Parameters:
     ///     - subview: The subview with which to fill the view.
     ///     - margin: The size of the margins.
-    public func fill(with subview: View, margin: Margin = .system) {
+    public func fill(with subview: NativeView, margin: Margin = .system) {
         fill(with: subview, on: .horizontal, margin: margin)
         fill(with: subview, on: .vertical, margin: margin)
     }
@@ -85,7 +87,7 @@ extension View {
     ///     - subview: The subview with which to fill the view.
     ///     - axis: The axis to fill.
     ///     - margin: The size of the margins.
-    public func fill(with subview: View, on axis: Axis, margin: Margin = .system) {
+    public func fill(with subview: NativeView, on axis: Axis, margin: Margin = .system) {
         fill(with: subview, on: axis, leadingMargin: margin, trailingMargin: margin)
     }
 
@@ -98,7 +100,7 @@ extension View {
     ///     - axis: The axis to fill.
     ///     - leadingMargin: The size of the leading margin.
     ///     - trailingMargin: The size of the trailing margin.
-    public func fill(with subview: View, on axis: Axis, leadingMargin: Margin, trailingMargin: Margin) {
+    public func fill(with subview: NativeView, on axis: Axis, leadingMargin: Margin, trailingMargin: Margin) {
         position(subviews: [subview], inSequenceAlong: axis, padding: .system, leadingMargin: leadingMargin, trailingMargin: trailingMargin)
     }
 
@@ -115,7 +117,7 @@ extension View {
     ///     - axis: The axis along which to position the views.
     ///     - padding: The size of the padding between views.
     ///     - margin: The size of the margins.
-    public func position(subviews: [View], inSequenceAlong axis: Axis, padding: Margin = .system, margin: Margin = .system) {
+    public func position(subviews: [NativeView], inSequenceAlong axis: Axis, padding: Margin = .system, margin: Margin = .system) {
         position(subviews: subviews, inSequenceAlong: axis, padding: padding, leadingMargin: margin, trailingMargin: margin)
     }
 
@@ -133,7 +135,7 @@ extension View {
     ///     - padding: The size of the padding between views.
     ///     - leadingMargin: The size of the leading margin.
     ///     - trailingMargin: The size of the trailing margin.
-    public func position(subviews: [View], inSequenceAlong axis: Axis, padding: Margin = .system, leadingMargin: Margin, trailingMargin: Margin) {
+    public func position(subviews: [NativeView], inSequenceAlong axis: Axis, padding: Margin = .system, leadingMargin: Margin, trailingMargin: Margin) {
 
         for view in subviews {
             addSubviewIfNecessary(view)
@@ -187,7 +189,7 @@ extension View {
     ///
     /// - Parameters:
     ///     - subview: The subview to centre.
-    public func centre(subview: View) {
+    public func centre(subview: NativeView) {
         centre(subview: subview, on: .horizontal)
         centre(subview: subview, on: .vertical)
     }
@@ -199,7 +201,7 @@ extension View {
     /// - Parameters:
     ///     - subview: The subview to centre.
     ///     - axis: An axis along which to centre the subview.
-    public func centre(subview: View, on axis: Axis) {
+    public func centre(subview: NativeView, on axis: Axis) {
 
         addSubviewIfNecessary(subview)
 
@@ -224,7 +226,7 @@ extension View {
     /// - Parameters:
     ///     - subviews: The subviews to make the same size.
     ///     - axis: An axis along which to resize the subviews.
-    public func equalizeSize(amongSubviews subviews: [View], on axis: Axis) {
+    public func equalizeSize(amongSubviews subviews: [NativeView], on axis: Axis) {
         let attribute: NSLayoutConstraint.Attribute
         switch axis {
         case .horizontal:
@@ -243,7 +245,7 @@ extension View {
     ///     - subviews: The subviews to resize.
     ///     - coefficient: The size ratio.
     ///     - axis: An axis along which to resize the subviews.
-    public func lockSizeRatio(toSubviews subviews: [View], coefficient: CGFloat, axis: Axis) {
+    public func lockSizeRatio(toSubviews subviews: [NativeView], coefficient: CGFloat, axis: Axis) {
         let attribute: NSLayoutConstraint.Attribute
         switch axis {
         case .horizontal:
@@ -263,7 +265,7 @@ extension View {
     /// - Parameters:
     ///     - subviews: The subviews to align.
     ///     - axis: An axis along which to align the subviews.
-    public func alignCentres(ofSubviews subviews: [View], on axis: Axis) {
+    public func alignCentres(ofSubviews subviews: [NativeView], on axis: Axis) {
         let attribute: NSLayoutConstraint.Attribute
         switch axis {
         case .horizontal:
@@ -280,7 +282,7 @@ extension View {
     ///
     /// - Parameters:
     ///     - subviews: The subviews to align.
-    public func alignLastBaselines(ofSubviews subviews: [View]) {
+    public func alignLastBaselines(ofSubviews subviews: [NativeView]) {
         equalize(.lastBaseline, amongSubviews: subviews)
     }
 
@@ -304,7 +306,7 @@ extension View {
     /// - Parameters:
     ///     - attribute: The attribute to equalize.
     ///     - subviews: The subviews on whose attributes should be equalized.
-    public func equalize(_ attribute: NSLayoutConstraint.Attribute, amongSubviews subviews: [View]) {
+    public func equalize(_ attribute: NSLayoutConstraint.Attribute, amongSubviews subviews: [NativeView]) {
         for view in subviews {
             addSubviewIfNecessary(view)
         }
@@ -330,7 +332,7 @@ extension View {
     ///     - attribute: The attribute to lock.
     ///     - subviews: The subviews on whose attributes should be locked.
     ///     - coefficient: The ratio.
-    public func lock(_ attribute: NSLayoutConstraint.Attribute, ratioToSubviews subviews: [View], coefficient: CGFloat) {
+    public func lock(_ attribute: NSLayoutConstraint.Attribute, ratioToSubviews subviews: [NativeView], coefficient: CGFloat) {
         for view in subviews {
             addSubviewIfNecessary(view)
             let constraint = NSLayoutConstraint(item: self, attribute: attribute, relatedBy: .equal, toItem: view, attribute: attribute, multiplier: coefficient, constant: 0)
@@ -361,7 +363,7 @@ extension View {
     /// - Parameters:
     ///     - view: The view to display as a pop‐over.
     ///     - sourceRectangle: A rectangle within `self` that should be considered the origin of the pop‐over.
-    public func displayPopOver(_ view: View, sourceRectangle: CGRect? = nil) {
+    public func displayPopOver(_ view: NativeView, sourceRectangle: CGRect? = nil) {
         #if canImport(UIKit)
         let controller = UIViewController()
         #if os(tvOS)
@@ -389,6 +391,12 @@ extension View {
         popOver.behavior = .transient
         popOver.show(relativeTo: sourceRectangle ?? frame, of: self, preferredEdge: .maxX)
         #endif
+    }
+
+    // MARK: - View
+
+    public var native: NSView {
+        return self
     }
 }
 
