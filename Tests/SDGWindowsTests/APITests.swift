@@ -78,7 +78,7 @@ final class APITests : ApplicationTestCase {
         #endif
 
         #if canImport(AppKit)
-        let auxiliary = Window<InterfaceLocalization>.primaryWindow(name: .binding(Shared("...")), view: EmptyView())
+        let auxiliary = Window<InterfaceLocalization>.auxiliaryWindow(name: .binding(Shared("...")), view: EmptyView())
         XCTAssert(auxiliary.isAuxiliary)
         primary.isAuxiliary = false
         #endif
