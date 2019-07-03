@@ -21,6 +21,8 @@ import SDGText
 import SDGLocalization
 
 import SDGInterfaceBasics
+import SDGViews
+import SDGWindows
 import SDGMenus
 import SDGContextMenu
 import SDGInterfaceElements
@@ -283,7 +285,7 @@ final class APITests : ApplicationTestCase {
         forEachWindow { window in
             let label: Label<SDGInterfaceSample.InterfaceLocalization>
             #if canImport(AppKit)
-            label = window.contentView!.subviews[0] as! Label<SDGInterfaceSample.InterfaceLocalization>
+            label = window.view.native.subviews[0] as! Label<SDGInterfaceSample.InterfaceLocalization>
             #else
             label = window.rootViewController!.view.subviews[0] as! Label<SDGInterfaceSample.InterfaceLocalization>
             #endif
@@ -306,7 +308,7 @@ final class APITests : ApplicationTestCase {
     func testLetterbox() {
         #if canImport(AppKit) || canImport(UIKit)
         Application.shared.demonstrateLetterbox()
-        let letterbox = Letterbox(content: View(), aspectRatio: 1)
+        let letterbox = Letterbox(content: EmptyView().native, aspectRatio: 1)
         letterbox.colour = .red
         XCTAssertEqual(letterbox.colour?.opacity, 1)
         #endif
@@ -325,7 +327,7 @@ final class APITests : ApplicationTestCase {
 
     func testPopOver() {
         #if canImport(AppKit) || canImport(UIKit)
-        let window = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "" })), size: CGSize.zero)
+        let window = Window<InterfaceLocalization>(name: .binding(Shared("")), view: EmptyView())
         window.contentView!.displayPopOver(View())
         #endif
     }

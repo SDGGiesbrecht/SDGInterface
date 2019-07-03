@@ -253,6 +253,8 @@ let package = Package(
 
         .testTarget(name: "SDGApplicationTests", dependencies: [
             "SDGInterfaceBasics",
+            "SDGViews",
+            "SDGWindows",
             "SDGMenus",
             "SDGContextMenu",
             "SDGInterfaceElements",

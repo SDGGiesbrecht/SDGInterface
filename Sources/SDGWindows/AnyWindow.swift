@@ -27,7 +27,7 @@ import SDGViews
 
 import SDGInterfaceBasics
 
-private var allWindows = [ObjectIdentifier: AnyWindow]()
+internal var allWindows = [ObjectIdentifier: AnyWindow]()
 
 /// A menu entry with no particular localization.
 public protocol AnyWindow : AnyObject {

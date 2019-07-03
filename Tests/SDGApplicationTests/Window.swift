@@ -12,11 +12,11 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-@testable import SDGInterfaceElements
+@testable import SDGWindows
 
 #if canImport(AppKit) || canImport(UIKit)
-func forEachWindow(_ closure: (AbstractWindow) -> Void) {
-    for window in Array(allWindows) {
+func forEachWindow(_ closure: (AnyWindow) -> Void) {
+    for (_, window) in allWindows {
         closure(window)
     }
 }
