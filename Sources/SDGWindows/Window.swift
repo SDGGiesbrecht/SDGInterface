@@ -183,7 +183,7 @@ public final class Window<L> : AnyWindow where L : Localization {
 
     // MARK: - Refreshing
 
-    public func _refresh() {
+    public func _refreshBindings() {
         #if canImport(AppKit)
         native.title = String(name.resolved())
         #endif

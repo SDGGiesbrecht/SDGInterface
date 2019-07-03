@@ -47,10 +47,14 @@ public protocol AnyWindow : AnyObject {
     var _fieldEditor: NSTextView { get }
     #endif
 
-    func _refresh()
+    func _refreshBindings()
 }
 
 extension AnyWindow {
+
+    internal func refreshBindings() {
+        _refreshBindings()
+    }
 
     // MARK: - Static Properties
 

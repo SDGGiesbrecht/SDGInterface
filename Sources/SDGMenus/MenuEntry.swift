@@ -27,8 +27,7 @@ import SDGLocalization
 import SDGInterfaceBasics
 
 /// A menu entry.
-public final class MenuEntry<L> : AnyMenuEntry, SharedValueObserver where L : Localization {
-    #warning("Remove shared value observer.")
+public final class MenuEntry<L> : AnyMenuEntry where L : Localization {
 
     // MARK: - Initialization
 
@@ -38,8 +37,9 @@ public final class MenuEntry<L> : AnyMenuEntry, SharedValueObserver where L : Lo
     ///     - label: The label.
     public init(label: Binding<StrictString, L>) {
         self.label = label
+        bindingObserver.entry = self
         labelDidSet()
-        LocalizationSetting.current.register(observer: self)
+        LocalizationSetting.current.register(observer: bindingObserver)
     }
 
     #if canImport(AppKit)
@@ -62,15 +62,17 @@ public final class MenuEntry<L> : AnyMenuEntry, SharedValueObserver where L : Lo
     /// The label.
     public var label: Binding<StrictString, L> {
         willSet {
-            label.shared?.cancel(observer: self)
+            label.shared?.cancel(observer: bindingObserver)
         }
         didSet {
             labelDidSet()
         }
     }
     private func labelDidSet() {
-        label.shared?.register(observer: self)
+        label.shared?.register(observer: bindingObserver)
     }
+
+    private var bindingObserver = MenuEntryBindingObserver()
 
     // MARK: - Refreshing
 
@@ -79,6 +81,9 @@ public final class MenuEntry<L> : AnyMenuEntry, SharedValueObserver where L : Lo
     }
     private func refreshLabel() {
         native.title = String(label.resolved())
+    }
+    public func _refreshBindings() {
+        refreshLabel()
     }
 
     // MARK: - AnyMenuEntry
@@ -98,11 +103,5 @@ public final class MenuEntry<L> : AnyMenuEntry, SharedValueObserver where L : Lo
     public var _isHidden: Bool = false
     public var _tag: Int = 0
     #endif
-
-    // MARK: - SharedValueObserver
-
-    public func valueChanged(for identifier: String) {
-        refreshLabel()
-    }
 }
 #endif

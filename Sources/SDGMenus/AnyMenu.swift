@@ -20,8 +20,7 @@ import AppKit
 import SDGControlFlow
 
 /// A menu with no particular localization.
-public protocol AnyMenu : SharedValueObserver {
-    #warning("Remove shared value observer.")
+public protocol AnyMenu : AnyObject {
 
     #if canImport(AppKit)
     /// The native menu.
@@ -31,11 +30,15 @@ public protocol AnyMenu : SharedValueObserver {
     /// The entries.
     var entries: [MenuComponent] { get set }
 
+    func _refreshBindings()
     func _refreshLabel()
 }
 
 extension AnyMenu {
 
+    internal func refreshBindings() {
+        _refreshBindings()
+    }
     internal func refreshLabel() {
         _refreshLabel()
     }

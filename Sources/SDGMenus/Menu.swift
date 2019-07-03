@@ -26,8 +26,7 @@ import SDGInterfaceBasics
 import SDGInterfaceLocalizations
 
 /// A menu.
-public final class Menu<L> : AnyMenu, SharedValueObserver where L : Localization {
-    #warning("Remove shared value observer.")
+public final class Menu<L> : AnyMenu where L : Localization {
 
     // MARK: - Initialization
 
@@ -37,8 +36,9 @@ public final class Menu<L> : AnyMenu, SharedValueObserver where L : Localization
     ///     - label: The label.
     public init(label: Binding<StrictString, L>) {
         self.label = label
+        bindingObserver.menu = self
         labelDidSet()
-        LocalizationSetting.current.register(observer: self)
+        LocalizationSetting.current.register(observer: bindingObserver)
     }
 
     #if canImport(AppKit)
@@ -74,15 +74,17 @@ public final class Menu<L> : AnyMenu, SharedValueObserver where L : Localization
     /// The label.
     public var label: Binding<StrictString, L> {
         willSet {
-            label.shared?.cancel(observer: self)
+            label.shared?.cancel(observer: bindingObserver)
         }
         didSet {
             labelDidSet()
         }
     }
     private func labelDidSet() {
-        label.shared?.register(observer: self)
+        label.shared?.register(observer: bindingObserver)
     }
+
+    private var bindingObserver = MenuBindingObserver()
 
     // MARK: - Refreshing
 
@@ -129,6 +131,9 @@ public final class Menu<L> : AnyMenu, SharedValueObserver where L : Localization
             #endif
         }
     }
+    public func _refreshBindings() {
+        refreshLabel()
+    }
 
     // MARK: - AnyMenu
 
@@ -145,11 +150,5 @@ public final class Menu<L> : AnyMenu, SharedValueObserver where L : Localization
         }
     }
     #endif
-
-    // MARK: - SharedValueObserver
-
-    public func valueChanged(for identifier: String) {
-        refreshLabel()
-    }
 }
 #endif
