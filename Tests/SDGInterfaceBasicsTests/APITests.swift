@@ -63,4 +63,17 @@ final class APITests : ApplicationTestCase {
         XCTAssertEqual(Colour.cyan.blue, Colour(Colour.cyan.uiColor).blue)
         #endif
     }
+
+    func testPoint() {
+        #if canImport(CoreGraphics)
+        XCTAssertEqual(Point(CGPoint(x: 0, y: 0)), Point(0, 0))
+        #endif
+    }
+
+    func testSize() {
+        XCTAssertEqual(Size(), Size(width: 0, height: 0))
+        #if canImport(CoreGraphics)
+        XCTAssertEqual(Size(CGSize(width: 0, height: 0)), Size(width: 0, height: 0))
+        #endif
+    }
 }

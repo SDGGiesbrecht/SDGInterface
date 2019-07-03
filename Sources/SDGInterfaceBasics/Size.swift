@@ -17,7 +17,7 @@ import CoreGraphics
 #endif
 
 /// A window size.
-public struct Size {
+public struct Size : Equatable, Hashable {
 
     // MARK: - Initialization
 
