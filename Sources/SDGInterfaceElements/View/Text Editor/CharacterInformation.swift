@@ -29,6 +29,7 @@ import SDGText
 import SDGLocalization
 
 import SDGInterfaceBasics
+import SDGWindows
 
 import SDGInterfaceLocalizations
 
@@ -103,15 +104,18 @@ public class CharacterInformation : NSObject {
         if let origin = origin {
             let view = NativeView()
             #if canImport(AppKit)
-            view.frame.size = AuxiliaryWindow<InterfaceLocalization>.defaultSize
+            view.frame.size = Window<InterfaceLocalization>.auxiliarySize.native
             #endif
             view.fill(with: table)
             origin.view.displayPopOver(view, sourceRectangle: origin.selection)
         } else {
             #if canImport(AppKit)
-            let window = AuxiliaryWindow(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in StrictString(characters) })))
-            window.contentView!.fill(with: table)
-            window.makeKeyAndOrderFront(nil)
+            let view = NSView()
+            view.fill(with: table)
+            let window = Window<InterfaceLocalization>.auxiliaryWindow(
+                name: .binding(Shared(StrictString(characters))),
+                view: view)
+            window.display()
             #endif
         }
     }
