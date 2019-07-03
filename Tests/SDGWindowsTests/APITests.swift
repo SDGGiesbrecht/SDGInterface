@@ -76,6 +76,12 @@ final class APITests : ApplicationTestCase {
         XCTAssertFalse(primary.isFullscreen)
         primary.isFullscreen = false
         #endif
+
+        #if canImport(AppKit)
+        let auxiliary = Window<InterfaceLocalization>.primaryWindow(name: .binding(Shared("...")), view: EmptyView())
+        XCTAssert(auxiliary.isAuxiliary)
+        primary.isAuxiliary = false
+        #endif
         #endif
     }
 }
