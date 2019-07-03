@@ -287,7 +287,7 @@ final class APITests : ApplicationTestCase {
             #if canImport(AppKit)
             label = window.view.native.subviews[0] as! Label<SDGInterfaceSample.InterfaceLocalization>
             #else
-            label = window.rootViewController!.view.subviews[0] as! Label<SDGInterfaceSample.InterfaceLocalization>
+            label = window.view.native.subviews[0] as! Label<SDGInterfaceSample.InterfaceLocalization>
             #endif
             label.labelText = Shared(UserFacing<StrictString, SDGInterfaceSample.InterfaceLocalization>({ localization in
                 switch localization {
@@ -588,7 +588,7 @@ final class APITests : ApplicationTestCase {
             textEditor = window.view.native.subviews[0] as! TextEditor
             textView = textEditor.documentView as! NSTextView
             #else
-            textEditor = window.rootViewController!.view.subviews[0] as! TextEditor
+            textEditor = window.view.native.subviews[0] as! TextEditor
             textView = textEditor.subviews[0] as! NSTextView
             #endif
 

@@ -40,16 +40,16 @@ final class APITests : ApplicationTestCase {
         #endif
         defer { window.close() }
 
+        #if canImport(AppKit)
         window.isFullscreen = true
         _ = window.isFullscreen
         let fullscreenWindow = Window<InterfaceLocalization>(
             name: .binding(Shared("Fullscreen")),
             view: EmptyView())
         fullscreenWindow.isFullscreen = true
-        #if canImport(AppKit) // UIKit raises an exception during tests.
         fullscreenWindow.display()
-        #endif
         defer { fullscreenWindow.close() }
+        #endif
         RunLoop.main.run(until: Date() + 3)
 
         #if canImport(AppKit)
@@ -61,7 +61,7 @@ final class APITests : ApplicationTestCase {
         neverOnscreen.centreInScreen()
 
         #if canImport(UIKit)
-        _ = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "Title" })))
+        _ = Window<InterfaceLocalization>(name: .binding(Shared("Title")), view: EmptyView())
         #endif
 
         window.name = .static(UserFacing({ _ in "Modified Title" }))
