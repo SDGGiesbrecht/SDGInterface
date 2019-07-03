@@ -31,6 +31,7 @@ import SDGInterfaceLocalizations
 /// A text field.
 open class TextField : NSTextField {
 
+    #if canImport(AppKit)
     private static let setUpFieldEditor: Void = {
         _getFieldEditor = {
             return FieldEditor()
@@ -39,12 +40,15 @@ open class TextField : NSTextField {
             window._fieldEditor = FieldEditor()
         }
     }()
+    #endif
 
     // MARK: - Initialization
 
     /// Creates a text field.
     public init() {
+        #if canImport(AppKit)
         TextField.setUpFieldEditor
+        #endif
 
         super.init(frame: CGRect.zero)
         #if canImport(AppKit)

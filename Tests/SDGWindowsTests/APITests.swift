@@ -67,13 +67,12 @@ final class APITests : ApplicationTestCase {
         window.name = .static(UserFacing({ _ in "Modified Title" }))
 
         let primary = Window<InterfaceLocalization>.primaryWindow(name: .binding(Shared("...")), view: EmptyView())
-        XCTAssert(primary.isPrimary)
-        primary.isPrimary = false
         _ = primary.size
         _ = primary.location
         primary.view = EmptyView()
-
         #if canImport(AppKit)
+        XCTAssert(primary.isPrimary)
+        primary.isPrimary = false
         XCTAssertFalse(primary.isFullscreen)
         primary.isFullscreen = false
         #endif
