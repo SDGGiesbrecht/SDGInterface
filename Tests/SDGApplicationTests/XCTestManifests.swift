@@ -14,6 +14,7 @@ extension APITests {
         ("testCheckBox", testCheckBox),
         ("testCheckBoxCell", testCheckBoxCell),
         ("testDelegationInterceptor", testDelegationInterceptor),
+        ("testDemonstrations", testDemonstrations),
         ("testFetchResult", testFetchResult),
         ("testFont", testFont),
         ("testImageView", testImageView),
@@ -31,7 +32,6 @@ extension APITests {
         ("testTextEditor", testTextEditor),
         ("testTextField", testTextField),
         ("testView", testView),
-        ("testWindow", testWindow),
     ]
 }
 
