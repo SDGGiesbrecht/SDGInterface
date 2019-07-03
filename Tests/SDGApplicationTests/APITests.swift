@@ -238,6 +238,12 @@ final class APITests : ApplicationTestCase {
         #endif
     }
 
+    func testDemonstrations() {
+        #if canImport(AppKit)
+        Application.shared.demonstrateFullscreenWindow()
+        #endif
+    }
+
     func testFetchResult() {
         #if canImport(UIKit)
         for result in FetchResult.allCases {
