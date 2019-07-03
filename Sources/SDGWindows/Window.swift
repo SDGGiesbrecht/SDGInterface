@@ -37,8 +37,6 @@ public final class Window<L> : AnyWindow where L : Localization {
 
     // MARK: - Generators
 
-    #if canImport(AppKit)
-
     /// Creates a primary window.
     ///
     /// - Parameters:
@@ -47,10 +45,13 @@ public final class Window<L> : AnyWindow where L : Localization {
     public static func primaryWindow(name: Binding<StrictString, L>, view: View) -> Window {
         let window = Window(name: name, view: view)
         window.size = availableSize
+        #if canImport(AppKit)
         window.isPrimary = true
+        #endif
         return window
     }
 
+    #if canImport(AppKit)
     /// Creates an auxiliary window.
     ///
     /// - Parameters:
@@ -183,7 +184,9 @@ public final class Window<L> : AnyWindow where L : Localization {
     // MARK: - Refreshing
 
     public func _refresh() {
+        #if canImport(AppKit)
         native.title = String(name.resolved())
+        #endif
     }
 }
 #endif

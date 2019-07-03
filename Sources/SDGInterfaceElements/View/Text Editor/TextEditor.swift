@@ -32,7 +32,7 @@ import SDGInterfaceLocalizations
 #if canImport(AppKit)
 public typealias _TextEditorSuperclass = NSScrollView
 #else
-public typealias _TextEditorSuperclass = View
+public typealias _TextEditorSuperclass = UIView
 #endif
 
 /// An editor for multiline text.

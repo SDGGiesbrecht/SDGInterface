@@ -395,7 +395,7 @@ extension NativeView : View {
 
     // MARK: - View
 
-    public var native: NSView {
+    public var native: NativeView {
         return self
     }
 }
