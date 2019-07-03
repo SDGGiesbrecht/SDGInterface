@@ -35,7 +35,7 @@ open class TextField : NSTextField {
         _getFieldEditor = {
             return FieldEditor()
         }
-        for (_, window) in _allWindows {
+        for (_, window) in _allWindows { // @exempt(from: tests) Only reachable with a bungled set‐up.
             window._fieldEditor = FieldEditor()
         }
     }()

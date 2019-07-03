@@ -73,5 +73,10 @@ final class APITests : ApplicationTestCase {
         _ = primary.size
         _ = primary.location
         primary.view = EmptyView()
+
+        #if canImport(AppKit)
+        XCTAssertFalse(primary.isFullscreen)
+        primary.isFullscreen = false
+        #endif
     }
 }
