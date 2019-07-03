@@ -69,7 +69,9 @@ final class APITests : ApplicationTestCase {
 
         let primary = Window<InterfaceLocalization>.primaryWindow(name: .binding(Shared("...")), view: EmptyView())
         XCTAssert(primary.isPrimary)
+        primary.isPrimary = false
         _ = primary.size
         _ = primary.location
+        primary.view = EmptyView()
     }
 }
