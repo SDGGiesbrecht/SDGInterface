@@ -26,6 +26,7 @@ import SDGText
 import SDGLocalization
 
 import SDGInterfaceBasics
+import SDGWindows
 import SDGInterfaceElements
 import SDGMenuBar
 import SDGApplication
@@ -109,13 +110,14 @@ extension Application {
     }
 
     #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-    private func demonstrate(_ window: NSWindow) {
-        window.makeKeyAndOrderFront(nil)
+    private func demonstrate(_ window: AnyWindow) {
+        window.display()
     }
     private func demonstrate<L>(_ view: NativeView, windowTitle: UserFacing<StrictString, L>) {
         #if canImport(AppKit)
-        let window = AuxiliaryWindow(title: Shared(windowTitle))
-        window.contentView?.fill(with: view)
+        let contentView = NSView()
+        contentView.fill(with: view)
+        let window = Window<L>.auxiliaryWindow(name: .static(windowTitle), view: contentView)
         demonstrate(window)
         #else
         let window = Window(title: Shared(windowTitle))
@@ -229,12 +231,12 @@ extension Application {
     }
 
     @objc public func demonstrateFullscreenWindow() {
-        let window = FullscreenWindow(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        let window = Window<InterfaceLocalization>.fullscreenWindow(name: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Fullscreen Window"
             }
-        })))
+        })), view: NSView())
         demonstrate(window)
     }
     #endif
