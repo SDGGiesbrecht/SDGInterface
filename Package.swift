@@ -153,6 +153,8 @@ let package = Package(
             .product(name: "SDGText", package: "SDGCornerstone"),
             .product(name: "SDGLocalization", package: "SDGCornerstone"),
             .product(name: "SDGGeometry", package: "SDGCornerstone")
+            ], swiftSettings: [
+                .define("TEST_COVERAGE_AIDS", .when(configuration: .debug))
             ]),
 
         // #documentation(SDGInterfaceElements)

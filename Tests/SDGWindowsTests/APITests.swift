@@ -82,6 +82,9 @@ final class APITests : ApplicationTestCase {
         XCTAssert(auxiliary.isAuxiliary)
         primary.isAuxiliary = false
         #endif
+
+        _ = window.isVisible
+        window.location = Point(0, 0)
         #endif
     }
 }

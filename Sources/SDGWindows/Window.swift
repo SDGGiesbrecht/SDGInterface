@@ -188,6 +188,8 @@ public final class Window<L> : AnyWindow where L : Localization {
     public func _refreshBindings() {
         #if canImport(AppKit)
         native.title = String(name.resolved())
+        #elseif TEST_COVERAGE_AIDS
+        _ = name.resolved()
         #endif
     }
 }
