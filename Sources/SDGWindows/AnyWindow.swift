@@ -207,6 +207,22 @@ extension AnyWindow {
         }
     }
 
+    /// Whether the window is considered a primary window or not.
+    ///
+    /// Primary windows can be the main window of fullscreen mode.
+    public var isPrimary: Bool {
+        get {
+            return native.collectionBehavior.contains(.fullScreenPrimary)
+        }
+        set {
+            if newValue {
+                native.collectionBehavior.insert(.fullScreenPrimary)
+            } else {
+                native.collectionBehavior.remove(.fullScreenPrimary)
+            }
+        }
+    }
+
     /// Whether the window is considered an auxiliary window or not.
     ///
     /// Auxiliary windows can appear on top of another fullscreen window.

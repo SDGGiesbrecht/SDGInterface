@@ -38,10 +38,39 @@ public final class Window<L> : AnyWindow where L : Localization {
     // MARK: - Generators
 
     #if canImport(AppKit)
+
+    /// Creates a primary window.
+    ///
+    /// - Parameters:
+    ///     - name: The name of the window. (Used in places like the title bar or dock.)
+    ///     - view: The view.
+    public static func primaryWindow(name: Binding<StrictString, L>, view: View) -> Window {
+        let window = Window(name: name, view: view)
+        window.size = availableSize
+        window.isPrimary = true
+        return window
+    }
+
+    /// Creates an auxiliary window.
+    ///
+    /// - Parameters:
+    ///     - name: The name of the window. (Used in places like the title bar or dock.)
+    ///     - view: The view.
     public static func auxiliaryWindow(name: Binding<StrictString, L>, view: View) -> Window {
         let window = Window(name: name, view: view)
         window.size = auxiliarySize
         window.isAuxiliary = true
+        return window
+    }
+
+    /// Creates a fullscreen window.
+    ///
+    /// - Parameters:
+    ///     - name: The name of the window. (Used in places like the title bar or dock.)
+    ///     - view: The view.
+    public static func fullscreenWindow(name: Binding<StrictString, L>, view: View) -> Window {
+        let window = primaryWindow(name: name, view: view)
+        window.isFullscreen = true
         return window
     }
     #endif
@@ -106,8 +135,6 @@ public final class Window<L> : AnyWindow where L : Localization {
         native.setAutorecalculatesContentBorderThickness(false, for: NSRectEdge.minY)
         native.setContentBorderThickness(0, for: NSRectEdge.minY)
         #endif
-
-        randomizeLocation()
     }
 
     // MARK: - Properties
