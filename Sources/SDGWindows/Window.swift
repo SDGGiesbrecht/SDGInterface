@@ -20,6 +20,7 @@ import AppKit
 import UIKit
 #endif
 
+import SDGLogic
 import SDGText
 import SDGLocalization
 
