@@ -24,15 +24,28 @@ import UIKit
 import SDGText
 import SDGLocalization
 
+import SDGWindows
+
 import SDGInterfaceLocalizations
 
 /// A text field.
 open class TextField : NSTextField {
 
+    private static let setUpFieldEditor: Void = {
+        _getFieldEditor = {
+            return FieldEditor()
+        }
+        for (_, window) in _allWindows {
+            window._fieldEditor = FieldEditor()
+        }
+    }()
+
     // MARK: - Initialization
 
     /// Creates a text field.
     public init() {
+        TextField.setUpFieldEditor
+
         super.init(frame: CGRect.zero)
         #if canImport(AppKit)
         let cell = NormalizingCell()

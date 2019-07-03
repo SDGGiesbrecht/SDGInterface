@@ -28,8 +28,9 @@ import SDGInterfaceBasics
 import SDGViews
 
 #if canImport(AppKit)
-#warning("Handle field editor.")
-public var _getFieldEditor: () -> NSTextView = { return NSTextView() }
+public var _getFieldEditor: () -> NSTextView = {
+    return NSTextView()
+}
 #endif
 
 /// A window.
@@ -175,7 +176,7 @@ public final class Window<L> : AnyWindow where L : Localization {
     /// The native window.
     public var native: NSWindow
     private let delegate = NSWindowDelegate()
-    public let _fieldEditor = _getFieldEditor()
+    public var _fieldEditor = _getFieldEditor()
     #elseif canImport(UIKit)
     /// The native window.
     public var native: UIWindow

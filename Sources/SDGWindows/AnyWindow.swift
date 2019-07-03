@@ -28,6 +28,9 @@ import SDGViews
 import SDGInterfaceBasics
 
 internal var allWindows = [ObjectIdentifier: AnyWindow]()
+public var _allWindows: [ObjectIdentifier: AnyWindow] {
+    return allWindows
+}
 
 /// A menu entry with no particular localization.
 public protocol AnyWindow : AnyObject {
@@ -44,7 +47,7 @@ public protocol AnyWindow : AnyObject {
     #endif
 
     #if canImport(AppKit)
-    var _fieldEditor: NSTextView { get }
+    var _fieldEditor: NSTextView { get set }
     #endif
 
     func _refreshBindings()
