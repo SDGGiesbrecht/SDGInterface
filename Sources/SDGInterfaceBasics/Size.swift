@@ -39,6 +39,9 @@ public struct Size : Equatable, Hashable {
 
     #if canImport(CoreGraphics)
     /// Creates a size from a native size.
+    ///
+    /// - Parameters:
+    ///     - native: The native size.
     public init(_ native: CGSize) {
         self.init(width: Double(native.width), height: Double(native.height))
     }

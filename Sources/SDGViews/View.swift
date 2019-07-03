@@ -22,8 +22,10 @@ import UIKit
 /// A view.
 public protocol View : AnyObject {
     #if canImport(AppKit)
+    /// The native view.
     var native: NSView { get }
     #elseif canImport(UIKit)
+    /// The native view.
     var native: UIView { get }
     #endif
 }

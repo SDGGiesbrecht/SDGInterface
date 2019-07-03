@@ -143,6 +143,7 @@ public final class Window<L> : AnyWindow where L : Localization {
 
     private let bindingObserver = BindingObserver()
 
+    /// The name of the window. (Used in places like the title bar or dock.)
     public var name: Binding<StrictString, L> {
         willSet {
             name.shared?.cancel(observer: bindingObserver)
