@@ -12,6 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
 import SDGControlFlow
 
 internal final class BindingObserver : SharedValueObserver {
@@ -26,3 +27,4 @@ internal final class BindingObserver : SharedValueObserver {
         window?._refresh()
     }
 }
+#endif
