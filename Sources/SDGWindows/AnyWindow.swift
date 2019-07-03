@@ -46,6 +46,8 @@ public protocol AnyWindow : AnyObject {
     #if canImport(AppKit)
     var _fieldEditor: NSTextView { get }
     #endif
+
+    func _refresh()
 }
 
 extension AnyWindow {

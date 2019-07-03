@@ -147,7 +147,10 @@ let package = Package(
         .target(name: "SDGWindows", dependencies: [
             "SDGInterfaceBasics",
             "SDGViews",
+            .product(name: "SDGControlFlow", package: "SDGCornerstone"),
             .product(name: "SDGMathematics", package: "SDGCornerstone"),
+            .product(name: "SDGText", package: "SDGCornerstone"),
+            .product(name: "SDGLocalization", package: "SDGCornerstone"),
             .product(name: "SDGGeometry", package: "SDGCornerstone")
             ]),
 

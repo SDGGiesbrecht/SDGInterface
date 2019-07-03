@@ -20,6 +20,10 @@ import AppKit
 import UIKit
 #endif
 
+import SDGText
+import SDGLocalization
+
+import SDGInterfaceBasics
 import SDGViews
 
 #if canImport(AppKit)
@@ -28,14 +32,41 @@ public var _getFieldEditor: () -> NSTextView = { return NSTextView() }
 #endif
 
 /// A window.
-public final class Window : AnyWindow {
+public final class Window<L> : AnyWindow where L : Localization {
+
+    // MARK: - Generators
+
+    #if canImport(AppKit)
+    public static func auxiliaryWindow(name: Binding<StrictString, L>, view: View) -> Window {
+        let window = Window(name: name, view: view)
+        window.size = auxiliarySize
+        window.isAuxiliary = true
+        return window
+    }
+    #endif
+
+    // MARK: - Initialization
 
     /// Creates a window.
     ///
     /// - Parameters:
+    ///     - name: The name of the window. (Used in places like the title bar or dock.)
     ///     - view: The view.
-    ///     - size: The default size for the window.
-    public init(view: View) {
+    public init(name: Binding<StrictString, L>, view: View) {
+        defer {
+            randomizeLocation()
+        }
+
+        self.name = name
+        defer {
+            nameDidSet()
+            LocalizationSetting.current.register(observer: bindingObserver)
+        }
+
+        self.view = view
+        defer {
+            viewDidSet()
+        }
 
         #if canImport(AppKit)
         native = NSWindow(
@@ -54,6 +85,10 @@ public final class Window : AnyWindow {
         native = UIWindow(frame: CGRect.zero)
         #endif
 
+        defer {
+            bindingObserver.window = self
+        }
+
         #if canImport(AppKit)
         defer {
             native.delegate = delegate
@@ -71,23 +106,24 @@ public final class Window : AnyWindow {
         native.setContentBorderThickness(0, for: NSRectEdge.minY)
         #endif
 
-        self.view = view
-        viewDidSet()
-
         randomizeLocation()
     }
 
     // MARK: - Properties
 
-    #if canImport(AppKit)
-    /// The native window.
-    public var native: NSWindow
-    private let delegate = NSWindowDelegate()
-    public let _fieldEditor = _getFieldEditor()
-    #elseif canImport(UIKit)
-    /// The native window.
-    public var native: UIWindow
-    #endif
+    private let bindingObserver = BindingObserver()
+
+    public var name: Binding<StrictString, L> {
+        willSet {
+            name.shared?.cancel(observer: bindingObserver)
+        }
+        didSet {
+            nameDidSet()
+        }
+    }
+    private func nameDidSet() {
+        name.shared?.register(observer: bindingObserver)
+    }
 
     /// The root view.
     public var view: View {
@@ -104,6 +140,22 @@ public final class Window : AnyWindow {
         }
         native.rootViewController?.view = view.native
         #endif
+    }
+
+    #if canImport(AppKit)
+    /// The native window.
+    public var native: NSWindow
+    private let delegate = NSWindowDelegate()
+    public let _fieldEditor = _getFieldEditor()
+    #elseif canImport(UIKit)
+    /// The native window.
+    public var native: UIWindow
+    #endif
+
+    // MARK: - Refreshing
+
+    public func _refresh() {
+        native.title = String(name.resolved())
     }
 }
 #endif
