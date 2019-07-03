@@ -57,7 +57,7 @@ extension AnyWindow {
     /// A size that fills the available space on the main screen, without obscuring menu bars, docks, etc.
     public static var availableSize: Size {
         #if canImport(AppKit)
-        return Size((NSScreen.main ?? NSScreen()).frame.size)
+        return Size((NSScreen.main ?? NSScreen()).frame.size) // @exempt(from: tests) Screen should not be nil.
         #elseif canImport(UIKit)
         return Size(UIScreen.main.bounds.size)
         #endif
@@ -151,7 +151,7 @@ extension AnyWindow {
     private var nearestScreenFrame: CGRect {
         #if canImport(AppKit)
         let screen: NSScreen
-        if let theScreen = native.screen {
+        if let theScreen = native.screen { // @exempt(from: tests) Not on screen during tests.
             screen = theScreen
         } else if let theScreen = NSScreen.main {
             screen = theScreen

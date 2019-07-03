@@ -66,5 +66,10 @@ final class APITests : ApplicationTestCase {
 
         window.name = .static(UserFacing({ _ in "Modified Title" }))
         #endif
+
+        let primary = Window<InterfaceLocalization>.primaryWindow(name: .binding(Shared("...")), view: EmptyView())
+        XCTAssert(primary.isPrimary)
+        _ = primary.size
+        _ = primary.location
     }
 }
