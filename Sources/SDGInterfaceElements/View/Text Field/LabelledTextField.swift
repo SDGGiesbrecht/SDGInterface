@@ -28,7 +28,7 @@ import SDGLocalization
 import SDGInterfaceLocalizations
 
 /// A text field with a label.
-open class LabelledTextField<L> : View where L : Localization {
+open class LabelledTextField<L> : NativeView where L : Localization {
 
     // MARK: - Initialization
 

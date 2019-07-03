@@ -30,7 +30,7 @@ import SDGInterfaceBasics
 import SDGInterfaceLocalizations
 
 /// A letterboxing view.
-open class Letterbox : View {
+open class Letterbox : NativeView {
 
     // MARK: - Properties
 
@@ -44,7 +44,7 @@ open class Letterbox : View {
     /// - Parameters:
     ///     - content: The content view.
     ///     - widthToHeight: The intended aspect ratio.
-    public init(content: View, aspectRatio widthToHeight: CGFloat) {
+    public init(content: NativeView, aspectRatio widthToHeight: CGFloat) {
         super.init(frame: CGRect.zero)
 
         content.lockAspectRatio(to: widthToHeight)

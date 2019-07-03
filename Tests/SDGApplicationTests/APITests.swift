@@ -21,6 +21,8 @@ import SDGText
 import SDGLocalization
 
 import SDGInterfaceBasics
+import SDGViews
+import SDGWindows
 import SDGMenus
 import SDGContextMenu
 import SDGInterfaceElements
@@ -236,6 +238,12 @@ final class APITests : ApplicationTestCase {
         #endif
     }
 
+    func testDemonstrations() {
+        #if canImport(AppKit)
+        Application.shared.demonstrateFullscreenWindow()
+        #endif
+    }
+
     func testFetchResult() {
         #if canImport(UIKit)
         for result in FetchResult.allCases {
@@ -283,9 +291,9 @@ final class APITests : ApplicationTestCase {
         forEachWindow { window in
             let label: Label<SDGInterfaceSample.InterfaceLocalization>
             #if canImport(AppKit)
-            label = window.contentView!.subviews[0] as! Label<SDGInterfaceSample.InterfaceLocalization>
+            label = window.view.native.subviews[0] as! Label<SDGInterfaceSample.InterfaceLocalization>
             #else
-            label = window.rootViewController!.view.subviews[0] as! Label<SDGInterfaceSample.InterfaceLocalization>
+            label = window.view.native.subviews[0] as! Label<SDGInterfaceSample.InterfaceLocalization>
             #endif
             label.labelText = Shared(UserFacing<StrictString, SDGInterfaceSample.InterfaceLocalization>({ localization in
                 switch localization {
@@ -306,7 +314,7 @@ final class APITests : ApplicationTestCase {
     func testLetterbox() {
         #if canImport(AppKit) || canImport(UIKit)
         Application.shared.demonstrateLetterbox()
-        let letterbox = Letterbox(content: View(), aspectRatio: 1)
+        let letterbox = Letterbox(content: EmptyView().native, aspectRatio: 1)
         letterbox.colour = .red
         XCTAssertEqual(letterbox.colour?.opacity, 1)
         #endif
@@ -325,8 +333,8 @@ final class APITests : ApplicationTestCase {
 
     func testPopOver() {
         #if canImport(AppKit) || canImport(UIKit)
-        let window = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "" })), size: CGSize.zero)
-        window.contentView!.displayPopOver(View())
+        let window = Window<InterfaceLocalization>(name: .binding(Shared("")), view: EmptyView())
+        window.view.native.displayPopOver(EmptyView().native)
         #endif
     }
 
@@ -583,10 +591,10 @@ final class APITests : ApplicationTestCase {
             let textEditor: TextEditor
             let textView: NSTextView
             #if canImport(AppKit)
-            textEditor = window.contentView!.subviews[0] as! TextEditor
+            textEditor = window.view.native.subviews[0] as! TextEditor
             textView = textEditor.documentView as! NSTextView
             #else
-            textEditor = window.rootViewController!.view.subviews[0] as! TextEditor
+            textEditor = window.view.native.subviews[0] as! TextEditor
             textView = textEditor.subviews[0] as! NSTextView
             #endif
 
@@ -603,8 +611,7 @@ final class APITests : ApplicationTestCase {
             #endif
             compatibilityTextView.selectAll(nil)
             #if canImport(AppKit)
-            let window = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "" })), size: CGSize.zero)
-            window.contentView!.fill(with: compatibilityTextView)
+            let window = Window<InterfaceLocalization>(name: .binding(Shared("")), view: compatibilityTextView)
             #endif
             compatibilityTextView.showCharacterInformation(nil)
 
@@ -724,7 +731,7 @@ final class APITests : ApplicationTestCase {
         Application.shared.demonstrateTextField()
         forEachWindow { window in
             #if canImport(AppKit)
-            let fieldEditor = window.fieldEditor(true, for: window.contentView!.subviews[0]) as! NSTextView
+            let fieldEditor = window.native.fieldEditor(true, for: window.view.native.subviews[0]) as! NSTextView
             fieldEditor.insertText("...", replacementRange: NSRange(0 ..< 0))
             fieldEditor.insertText(NSAttributedString(string: "..."), replacementRange: NSRange(0 ..< 0))
             fieldEditor.insertText("...", replacementRange: NSRange(0 ..< 0))
@@ -745,60 +752,19 @@ final class APITests : ApplicationTestCase {
 
     func testView() {
         #if canImport(AppKit) || canImport(UIKit)
-        View().fill(with: View())
-        View().setMinimumSize(size: 10, axis: .horizontal)
-        View().position(subviews: [View(), View()], inSequenceAlong: .vertical)
-        View().centre(subview: View())
-        View().equalizeSize(amongSubviews: [View(), View()], on: .horizontal)
-        View().equalizeSize(amongSubviews: [View(), View()], on: .vertical)
-        View().lockSizeRatio(toSubviews: [View(), View()], coefficient: 1, axis: .horizontal)
-        View().lockSizeRatio(toSubviews: [View(), View()], coefficient: 1, axis: .vertical)
-        View().alignCentres(ofSubviews: [View(), View()], on: .horizontal)
-        View().alignCentres(ofSubviews: [View(), View()], on: .vertical)
-        View().alignLastBaselines(ofSubviews: [View(), View()])
-        View().lockAspectRatio(to: 1)
-        View().position(subviews: [View(), View()], inSequenceAlong: .horizontal, padding: .none, leadingMargin: .specific(8), trailingMargin: .unspecified)
-        #endif
-    }
-
-    func testWindow() {
-        #if canImport(AppKit) || canImport(UIKit)
-        Application.shared.demonstrateFullscreenWindow()
-
-        let window = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "Title" })), size: CGSize(width: 700, height: 300))
-        #if canImport(AppKit) // UIKit raises an exception during tests.
-        window.makeKeyAndOrderFront(nil)
-        window.move(to: CGRect(x: 100, y: 200, width: 300, height: 400))
-        #endif
-        defer { window.close() }
-
-        window.isFullscreen = true
-        _ = window.isFullscreen
-        let fullscreenWindow = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "Fullscreen" })), size: CGSize(width: 700, height: 300))
-        fullscreenWindow.isFullscreen = true
-        #if canImport(AppKit) // UIKit raises an exception during tests.
-        fullscreenWindow.makeKeyAndOrderFront(nil)
-        #endif
-        defer { fullscreenWindow.close() }
-        RunLoop.main.run(until: Date() + 3)
-
-        #if canImport(AppKit)
-        window.title = "Replaced Title"
-        XCTAssert(window.title == "Replaced Title")
-        #endif
-
-        #if canImport(AppKit)
-        XCTAssert((window as NSWindowDelegate).windowWillReturnFieldEditor?(window, to: nil) is NSTextView)
-        #endif
-
-        let neverOnscreen = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "Never Onscreen" })), size: CGSize.zero)
-        neverOnscreen.centreInScreen()
-
-        #if canImport(UIKit)
-        _ = Window(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "Title" })))
-        #endif
-
-        window.localizedTitle = Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "Modified Title" }))
+        EmptyView().native.fill(with: EmptyView().native)
+        EmptyView().native.setMinimumSize(size: 10, axis: .horizontal)
+        EmptyView().native.position(subviews: [EmptyView().native, EmptyView().native], inSequenceAlong: .vertical)
+        EmptyView().native.centre(subview: EmptyView().native)
+        EmptyView().native.equalizeSize(amongSubviews: [EmptyView().native, EmptyView().native], on: .horizontal)
+        EmptyView().native.equalizeSize(amongSubviews: [EmptyView().native, EmptyView().native], on: .vertical)
+        EmptyView().native.lockSizeRatio(toSubviews: [EmptyView().native, EmptyView().native], coefficient: 1, axis: .horizontal)
+        EmptyView().native.lockSizeRatio(toSubviews: [EmptyView().native, EmptyView().native], coefficient: 1, axis: .vertical)
+        EmptyView().native.alignCentres(ofSubviews: [EmptyView().native, EmptyView().native], on: .horizontal)
+        EmptyView().native.alignCentres(ofSubviews: [EmptyView().native, EmptyView().native], on: .vertical)
+        EmptyView().native.alignLastBaselines(ofSubviews: [EmptyView().native, EmptyView().native])
+        EmptyView().native.lockAspectRatio(to: 1)
+        EmptyView().native.position(subviews: [EmptyView().native, EmptyView().native], inSequenceAlong: .horizontal, padding: .none, leadingMargin: .specific(8), trailingMargin: .unspecified)
         #endif
     }
 }

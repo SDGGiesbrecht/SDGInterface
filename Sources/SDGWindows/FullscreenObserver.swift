@@ -13,7 +13,6 @@
  */
 
 #if canImport(AppKit)
-
 import Dispatch
 import AppKit
 
@@ -23,13 +22,13 @@ internal class FullscreenObserver {
 
     // MARK: - Initialization
 
-    internal init(window: NSWindow) {
+    internal init(window: AnyWindow) {
         self.window = window
     }
 
     // MARK: - Properties
 
-    private weak var window: NSWindow?
+    private weak var window: AnyWindow?
 
     // MARK: - Fullscreen
 
@@ -52,9 +51,8 @@ internal class FullscreenObserver {
 
     private func setFullscreenMode(setting: Bool) {
         if self.window?.isFullscreen ≠ setting {
-            self.window?.toggleFullScreen(self)
+            self.window?.native.toggleFullScreen(self)
         }
     }
 }
-
 #endif

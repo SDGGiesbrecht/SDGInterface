@@ -48,7 +48,7 @@ extension TableCellView {
     ///     - keyPath: The key path of the view’s property.
     ///     - contentKeyPath: The key path of the data objects property.
     ///     - options: Binding options.
-    public func bind(subview: View, keyPath: NSBindingName, to contentKeyPath: String, options: [NSBindingOption: Any]? = nil) {
+    public func bind(subview: NativeView, keyPath: NSBindingName, to contentKeyPath: String, options: [NSBindingOption: Any]? = nil) {
         subview.bind(keyPath, to: self, withKeyPath: #keyPath(NSTableCellView.objectValue) + "." + contentKeyPath, options: options)
     }
     #endif

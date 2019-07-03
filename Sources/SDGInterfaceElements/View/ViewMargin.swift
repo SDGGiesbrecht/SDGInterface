@@ -15,7 +15,7 @@
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
 import CoreGraphics
 
-extension View {
+extension NativeView {
 
     /// A layout margin size.
     public enum Margin : Equatable {

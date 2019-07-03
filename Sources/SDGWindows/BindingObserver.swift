@@ -1,5 +1,5 @@
 /*
- Window.swift
+ BindingObserver.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,12 +12,19 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-@testable import SDGWindows
+#if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
+import SDGControlFlow
 
-#if canImport(AppKit) || canImport(UIKit)
-func forEachWindow(_ closure: (AnyWindow) -> Void) {
-    for (_, window) in allWindows {
-        closure(window)
+internal final class BindingObserver : SharedValueObserver {
+
+    // MARK: - Properties
+
+    internal weak var window: AnyWindow?
+
+    // MARK: - SharedValueObserver
+
+    internal func valueChanged(for identifier: String) {
+        window?.refreshBindings()
     }
 }
 #endif

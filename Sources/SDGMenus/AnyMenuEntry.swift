@@ -23,7 +23,7 @@ import UIKit
 import SDGControlFlow
 
 /// A menu entry with no particular localization.
-public protocol AnyMenuEntry : SharedValueObserver {
+public protocol AnyMenuEntry : AnyObject {
 
     #if canImport(AppKit)
     /// The native menu item.
@@ -34,9 +34,15 @@ public protocol AnyMenuEntry : SharedValueObserver {
     var _isHidden: Bool { get set }
     var _tag: Int { get set }
     #endif
+
+    func _refreshBindings()
 }
 
 extension AnyMenuEntry {
+
+    internal func refreshBindings() {
+        _refreshBindings()
+    }
 
     /// The action.
     public var action: Selector? {

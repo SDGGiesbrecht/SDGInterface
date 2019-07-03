@@ -26,6 +26,7 @@ import SDGText
 import SDGLocalization
 
 import SDGInterfaceBasics
+import SDGWindows
 import SDGInterfaceElements
 import SDGMenuBar
 import SDGApplication
@@ -95,33 +96,28 @@ extension Application {
         #endif
 
         #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
-        let window = Window(title: Shared(ApplicationNameForm.localizedIsolatedForm))
-        let view = UIViewController()
-        window.rootViewController = view
-        let field = UITextView(frame: UIScreen.main.bounds)
-        field.backgroundColor = UIColor.white
-        view.view.addSubview(field)
+        let window = Window(name: .static(ApplicationNameForm.localizedIsolatedForm), view: TextEditor())
         if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil { // #exempt(from: tests)
             // This call fails during tests.
-            window.makeKeyAndVisible()
+            window.display()
         }
         #endif
     }
 
     #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-    private func demonstrate(_ window: NSWindow) {
-        window.makeKeyAndOrderFront(nil)
+    private func demonstrate(_ window: AnyWindow) {
+        window.display()
     }
-    private func demonstrate<L>(_ view: View, windowTitle: UserFacing<StrictString, L>) {
+    private func demonstrate<L>(_ view: NativeView, windowTitle: UserFacing<StrictString, L>) {
         #if canImport(AppKit)
-        let window = AuxiliaryWindow(title: Shared(windowTitle))
-        window.contentView?.fill(with: view)
+        let contentView = NSView()
+        contentView.fill(with: view)
+        let window = Window<L>.auxiliaryWindow(name: .static(windowTitle), view: contentView)
         demonstrate(window)
         #else
-        let window = Window(title: Shared(windowTitle))
-        let frame = UIViewController()
-        window.rootViewController = frame
-        frame.view.fill(with: view)
+        let contentView = UIView()
+        contentView.fill(with: view)
+        let window = Window(name: .static(windowTitle), view: contentView)
         demonstrate(window)
         #endif
     }
@@ -228,15 +224,17 @@ extension Application {
         }))
     }
 
+    #if canImport(AppKit)
     @objc public func demonstrateFullscreenWindow() {
-        let window = FullscreenWindow(title: Shared(UserFacing<StrictString, InterfaceLocalization>({ localization in
+        let window = Window<InterfaceLocalization>.fullscreenWindow(name: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Fullscreen Window"
             }
-        })))
+        })), view: NativeView())
         demonstrate(window)
     }
+    #endif
     #endif
 
     @objc private func doNothing() { // @exempt(from: tests)

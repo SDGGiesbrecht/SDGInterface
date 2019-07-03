@@ -1,5 +1,5 @@
 /*
- FullscreenWindow.swift
+ EmptyView.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -13,26 +13,26 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-
 #if canImport(AppKit)
 import AppKit
-#endif
-#if canImport(UIKit)
+#elseif canImport(UIKit)
 import UIKit
 #endif
 
-import SDGControlFlow
-import SDGText
-import SDGLocalization
+/// An empty view.
+public final class EmptyView : View {
 
-/// A window that begins in fullscreen mode.
-public class FullscreenWindow<L> : PrimaryWindow<L> where L : Localization {
+    // MARK: - Initialization
 
-    /// Creates a fullscreen window.
-    public override init(title: Shared<UserFacing<StrictString, L>>) {
-        super.init(title: title)
-        self.isFullscreen = true
-    }
+    /// Creates an empty view.
+    public init() {}
+
+    // MARK: - Properties
+
+    #if canImport(AppKit)
+    public let native: NSView = NSView()
+    #elseif canImport(UIKit)
+    public let native: UIView = UIView()
+    #endif
 }
-
 #endif
