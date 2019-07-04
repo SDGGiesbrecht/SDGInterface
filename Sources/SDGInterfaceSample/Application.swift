@@ -28,6 +28,7 @@ import SDGLocalization
 import SDGInterfaceBasics
 import SDGWindows
 import SDGInterfaceElements
+import SDGErrorMessages
 import SDGMenuBar
 import SDGApplication
 

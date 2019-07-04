@@ -68,6 +68,10 @@ let package = Package(
         /// A context menu.
         .library(name: "SDGContextMenu", targets: ["SDGContextMenu"]),
 
+        // @documentation(SDGErrorMessages)
+        /// Error messages.
+        .library(name: "SDGErrorMessages", targets: ["SDGErrorMessages"]),
+
         // @documentation(SDGMenus)
         /// Menus.
         .library(name: "SDGMenus", targets: ["SDGMenus"]),
@@ -127,6 +131,14 @@ let package = Package(
         .target(name: "SDGContextMenu", dependencies: [
             "SDGLogic",
             "SDGMenus",
+            "SDGInterfaceLocalizations",
+            .product(name: "SDGText", package: "SDGCornerstone"),
+            .product(name: "SDGLocalization", package: "SDGCornerstone")
+            ]),
+
+        // #documentation(SDGErrorMessages)
+        /// Error messages.
+        .target(name: "SDGErrorMessages", dependencies: [
             "SDGInterfaceLocalizations",
             .product(name: "SDGText", package: "SDGCornerstone"),
             .product(name: "SDGLocalization", package: "SDGCornerstone")
@@ -294,6 +306,7 @@ let package = Package(
             "SDGWindows",
             "SDGMenus",
             "SDGInterfaceElements",
+            "SDGErrorMessages",
             "SDGMenuBar",
             "SDGApplication",
             .product(name: "SDGControlFlow", package: "SDGCornerstone"),
