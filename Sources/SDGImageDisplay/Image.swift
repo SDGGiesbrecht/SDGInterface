@@ -12,6 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(AppKit) || canImport(UIKit)
 #if canImport(AppKit)
 import AppKit
 #endif
@@ -19,12 +20,37 @@ import AppKit
 import UIKit
 #endif
 
-#if canImport(AppKit)
-// @documentation(Image)
-/// An `NSImage` or a `UIImage`.
-public typealias Image = NSImage
-#elseif canImport(UIKit)
-// #documentation(Image)
-/// An `NSImage` or a `UIImage`.
-public typealias Image = UIImage
+/// An image.
+public struct Image {
+
+    // MARK: - Initialization
+
+    #if canImport(AppKit)
+    /// Creates an image from a native image.
+    ///
+    /// - Parameters:
+    ///     - native: The native image.
+    public init(_ native: NSImage) {
+        self.native = native
+    }
+    #elseif canImport(UIKit)
+    /// Creates an image from a native image.
+    ///
+    /// - Parameters:
+    ///     - native: The native image.
+    public init(_ native: UIImage) {
+        self.native = native
+    }
+    #endif
+
+    // MARK: - Properties
+
+    #if canImport(AppKit)
+    /// The native image.
+    public var native: NSImage
+    #elseif canImport(UIKit)
+    /// The native image.
+    public var native: UIImage
+    #endif
+}
 #endif
