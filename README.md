@@ -70,6 +70,7 @@ let package = Package(
             .productItem(name: "SDGMenus", package: "SDGInterface"),
             .productItem(name: "SDGWindows", package: "SDGInterface"),
             .productItem(name: "SDGInterfaceElements", package: "SDGInterface"),
+            .productItem(name: "SDGImageDisplay", package: "SDGInterface"),
             .productItem(name: "SDGViews", package: "SDGInterface"),
             .productItem(name: "SDGKeyboard", package: "SDGInterface"),
             .productItem(name: "SDGInterfaceBasics", package: "SDGInterface"),
@@ -88,6 +89,7 @@ import SDGErrorMessages
 import SDGMenus
 import SDGWindows
 import SDGInterfaceElements
+import SDGImageDisplay
 import SDGViews
 import SDGKeyboard
 import SDGInterfaceBasics
