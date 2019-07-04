@@ -88,6 +88,10 @@ let package = Package(
         /// The view protocol.
         .library(name: "SDGViews", targets: ["SDGViews"]),
 
+        // @documentation(SDGKeyboard)
+        /// Utilities for working with keyboard input.
+        .library(name: "SDGKeyboard", targets: ["SDGKeyboard"]),
+
         // @documentation(SDGInterfaceBasics)
         /// Basic interface building blocks.
         .library(name: "SDGInterfaceBasics", targets: ["SDGInterfaceBasics"])
@@ -193,6 +197,14 @@ let package = Package(
         .target(name: "SDGViews", dependencies: [
             ]),
 
+        // #documentation(SDGKeyboard)
+        /// Utilities for working with keyboard input.
+        .target(name: "SDGKeyboard", dependencies: [
+            .product(name: "SDGLogic", package: "SDGCornerstone"),
+            .product(name: "SDGCollections", package: "SDGCornerstone"),
+            .product(name: "SDGText", package: "SDGCornerstone"),
+            ]),
+
         // #documentation(SDGInterfaceBasics)
         /// Basic interface building blocks.
         .target(name: "SDGInterfaceBasics", dependencies: [
@@ -232,6 +244,12 @@ let package = Package(
             "SDGApplicationTestUtilities",
             .product(name: "SDGControlFlow", package: "SDGCornerstone"),
             .product(name: "SDGLocalization", package: "SDGCornerstone"),
+            .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
+            ]),
+
+        .testTarget(name: "SDGKeyboardTests", dependencies: [
+            "SDGKeyboard",
+            "SDGApplicationTestUtilities",
             .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
             ]),
 

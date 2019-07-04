@@ -18,7 +18,6 @@ extension APITests {
         ("testFetchResult", testFetchResult),
         ("testFont", testFont),
         ("testImageView", testImageView),
-        ("testKey", testKey),
         ("testKeyModifiers", testKeyModifiers),
         ("testLabel", testLabel),
         ("testLayoutConstraint", testLayoutConstraint),
