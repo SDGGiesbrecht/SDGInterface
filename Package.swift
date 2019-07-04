@@ -69,7 +69,7 @@ let package = Package(
         .library(name: "SDGContextMenu", targets: ["SDGContextMenu"]),
 
         // @documentation(SDGErrorMessages)
-        /// A context menu.
+        /// Error messages.
         .library(name: "SDGErrorMessages", targets: ["SDGErrorMessages"]),
 
         // @documentation(SDGMenus)

@@ -66,6 +66,7 @@ let package = Package(
             .productItem(name: "SDGApplication", package: "SDGInterface"),
             .productItem(name: "SDGMenuBar", package: "SDGInterface"),
             .productItem(name: "SDGContextMenu", package: "SDGInterface"),
+            .productItem(name: "SDGErrorMessages", package: "SDGInterface"),
             .productItem(name: "SDGMenus", package: "SDGInterface"),
             .productItem(name: "SDGWindows", package: "SDGInterface"),
             .productItem(name: "SDGInterfaceElements", package: "SDGInterface"),
@@ -82,6 +83,7 @@ The libraries’ modules can then be imported in source files:
 import SDGApplication
 import SDGMenuBar
 import SDGContextMenu
+import SDGErrorMessages
 import SDGMenus
 import SDGWindows
 import SDGInterfaceElements
