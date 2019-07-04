@@ -264,12 +264,6 @@ final class APITests : ApplicationTestCase {
         #endif
     }
 
-    func testImageView() {
-        #if canImport(AppKit) || canImport(UIKit)
-        Application.shared.demonstrateImage()
-        #endif
-    }
-
     func testLabel() {
         #if canImport(AppKit) || canImport(UIKit)
         Application.shared.demonstrateLabel()

@@ -2,6 +2,7 @@ import XCTest
 
 import SDGApplicationTests
 import SDGContextMenuTests
+import SDGImageDisplayTests
 import SDGInterfaceBasicsTests
 import SDGKeyboardTests
 import SDGMenuBarTests
@@ -11,6 +12,7 @@ import SDGWindowsTests
 var tests = [XCTestCaseEntry]()
 tests += SDGApplicationTests.__allTests()
 tests += SDGContextMenuTests.__allTests()
+tests += SDGImageDisplayTests.__allTests()
 tests += SDGInterfaceBasicsTests.__allTests()
 tests += SDGKeyboardTests.__allTests()
 tests += SDGMenuBarTests.__allTests()
