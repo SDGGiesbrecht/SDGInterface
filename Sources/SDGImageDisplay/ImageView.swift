@@ -24,7 +24,7 @@ import UIKit
 import SDGViews
 
 /// An image view.
-public class ImageView : View {
+public class ImageView : SpecificView {
 
     // MARK: - Initialization
 
@@ -35,14 +35,14 @@ public class ImageView : View {
     public init(image: Image) {
         self.image = image
         #if canImport(AppKit)
-        nativeImageView = NSImageView(image: image.native)
+        specificNative = NSImageView(image: image.native)
         #elseif canImport(UIKit)
-        nativeImageView = UIImageView(image: image.native)
+        specificNative = UIImageView(image: image.native)
         #endif
 
         #if canImport(AppKit)
-        nativeImageView.setContentCompressionResistancePriority(.windowSizeStayPut, for: .horizontal)
-        nativeImageView.setContentCompressionResistancePriority(.windowSizeStayPut, for: .vertical)
+        specificNative.setContentCompressionResistancePriority(.windowSizeStayPut, for: .horizontal)
+        specificNative.setContentCompressionResistancePriority(.windowSizeStayPut, for: .vertical)
         #endif
     }
 
@@ -51,18 +51,12 @@ public class ImageView : View {
     /// The image.
     public var image: Image
 
+    // MARK: - SpecificView
+
     #if canImport(AppKit)
-    /// The native image view.
-    public var nativeImageView: NSImageView
+    public var specificNative: NSImageView
     #elseif canImport(UIKit)
-    /// The native image view.
-    public var nativeImageView: UIImageView
+    public var specificNative: UIImageView
     #endif
-
-    // MARK: - View
-
-    public var native: NSView {
-        return nativeImageView
-    }
 }
 #endif
