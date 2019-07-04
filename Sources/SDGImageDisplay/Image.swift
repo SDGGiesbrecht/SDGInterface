@@ -23,6 +23,15 @@ import UIKit
 /// An image.
 public struct Image {
 
+    /// Returns an empty image.
+    public static var empty: Image {
+        #if canImport(AppKit)
+        return Image(NSImage())
+        #elseif canImport(UIKit)
+        return Image(UIImage())
+        #endif
+    }
+
     // MARK: - Initialization
 
     #if canImport(AppKit)

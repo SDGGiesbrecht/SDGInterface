@@ -132,10 +132,10 @@ public class ButtonSet<L> : NSSegmentedControl, SharedValueObserver where L : Lo
                 #endif
             case .image(let image):
                 #if canImport(AppKit)
-                setImage(image, forSegment: index)
+                setImage(image.native, forSegment: index)
                 setImageScaling(.scaleProportionallyDown, forSegment: index)
                 #else
-                setImage(image, forSegmentAt: index)
+                setImage(image.native, forSegmentAt: index)
                 #endif
             }
         }
