@@ -15,10 +15,7 @@
 #if canImport(AppKit)
 import AppKit
 
-import SDGText
-import SDGLocalization
-
-import SDGInterfaceLocalizations
+import SDGControlFlow
 
 extension TextField {
 
@@ -30,24 +27,26 @@ extension TextField {
             super.init(textCell: "")
         }
 
-        @available(*, unavailable) internal required init(coder: NSCoder) { // @exempt(from: unicode)
-            codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
-                switch localization {
-                case .englishCanada:
-                    return "TextField.NormalizingCell"
-                }
-            }))
-            preconditionFailure()
+        internal required init(coder: NSCoder) {
+            super.init(coder: coder)
         }
 
         // MARK: - Field Editor
 
-        private let fieldEditor = FieldEditor()
+        private var fieldEditor: FieldEditor?
 
         internal override func fieldEditor(for aControlView: NSView) -> NSTextView? {
-            // Solves (or at least mitigates) zombie problem, unknown whether it causes leaks.
-            let unmanaged = Unmanaged.passRetained(fieldEditor)
-            return unmanaged.takeUnretainedValue()
+            if let fromWindow = controlView?.window?.fieldEditor(true, for: self) as? FieldEditor {
+                return fromWindow
+            } else {
+                let fromCell = cached(in: &fieldEditor) {
+                    return FieldEditor()
+                }
+
+                // Solves (or at least mitigates) zombie problem, unknown whether it causes leaks.
+                let unmanaged = Unmanaged.passRetained(fromCell)
+                return unmanaged.takeUnretainedValue()
+            }
         }
     }
 }

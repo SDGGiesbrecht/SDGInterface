@@ -20,10 +20,15 @@ import AppKit
 import UIKit
 #endif
 
+import SDGText
+
 import SDGInterfaceBasics
+import SDGViews
 
 /// A text field.
-open class TextField : NSTextField {
+public final class TextField : SpecificView {
+
+    // MARK: - Static Set‐Up
 
     #if canImport(AppKit)
     private static let setUpFieldEditor: Void = {
@@ -42,45 +47,40 @@ open class TextField : NSTextField {
         TextField.setUpFieldEditor
         #endif
 
-        super.init(frame: CGRect.zero)
         #if canImport(AppKit)
-        let cell = NormalizingCell()
-        self.cell = cell
+        specificNative = NSTextField()
+        #else
+        specificNative = CocoaTextField()
         #endif
 
         #if canImport(AppKit)
-        isBordered = true
-        isBezeled = true
-        bezelStyle = .squareBezel
-        drawsBackground = true
-        lineBreakMode = .byClipping
+        let cell = NormalizingCell()
+        specificNative.cell = cell
+        #endif
+
+        #if canImport(AppKit)
+        specificNative.isBordered = true
+        specificNative.isBezeled = true
+        specificNative.bezelStyle = .squareBezel
+        specificNative.drawsBackground = true
+        specificNative.lineBreakMode = .byClipping
         cell.isScrollable = true
         cell.usesSingleLineMode = true
         cell.sendsActionOnEndEditing = true
-        isSelectable = true
-        isEditable = true
+        specificNative.isSelectable = true
+        specificNative.isEditable = true
         #endif
-        allowsEditingTextAttributes = false
+        specificNative.allowsEditingTextAttributes = false
 
-        font = Font.forLabels
+        specificNative.font = Font.forLabels
     }
 
-    @available(*, unavailable) public required init?(coder: NSCoder) { // @exempt(from: unicode)
-        codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "TextField"
-            }
-        }))
-        return nil
-    }
+    // MARK: - SpecificView
 
-    // MARK: - NSTextField
-
-    #if canImport(UIKit)
-    open override func insertText(_ text: String) {
-        super.insertText(String(StrictString(text)))
-    }
+    #if canImport(AppKit)
+    public var specificNative: NSTextField
+    #elseif canImport(UIKit)
+    public var specificNative: UITextField
     #endif
 }
 #endif
