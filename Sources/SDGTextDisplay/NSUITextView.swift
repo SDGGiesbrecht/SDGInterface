@@ -23,6 +23,7 @@ import UIKit
 import SDGLogic
 import SDGCollections
 
+import SDGViews
 import SDGInterfaceBasics
 
 #if canImport(AppKit)
@@ -343,12 +344,11 @@ extension NSUITextView : TextEditingResponder {
         #else
         possibleString = textStorage.attributedSubstring(from: selectedRange)
         #endif
-        #warning("Requires sinking.")
-        /*if let string = possibleString {
+        if let string = possibleString {
             CharacterInformation.display(
                 for: string.string,
-                origin: (view: self, selection: selectionRectangle()))
-        }*/
+                origin: (view: AnyNativeView(self), selection: selectionRectangle()))
+        }
     }
 
     #if canImport(UIKit)

@@ -12,6 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
 import Foundation
 #if canImport(CoreGraphics)
 import CoreGraphics
@@ -23,32 +24,25 @@ import AppKit
 import UIKit
 #endif
 
-import SDGControlFlow
 import SDGLogic
 import SDGText
-import SDGLocalization
 
 import SDGInterfaceBasics
-import SDGWindows
+import SDGViews
 
-import SDGInterfaceLocalizations
-
-#if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
 /// User‐presentable Unicode information about the characters in a string.
-public final class CharacterInformation : NSObject {
+public struct CharacterInformation {
 
     // MARK: - Static Methods
 
     /// Displays information to the user about the characters in a string.
-    ///
-    /// - Precondition: In UIKit environments, `origin` must not be `nil`.
     ///
     /// - Parameters:
     ///     - characters: The string whose characters should be described.
     ///     - origin: The view and selection the characters originate from. If provided, the information will be shown in a pop‐up view instead of a separate window.
     ///     - view: The view the characters originate from.
     ///     - selection: The rectangle the characters originate from.
-    public static func display(for characters: String, origin: (view: NativeView, selection: CGRect?)?) {
+    public static func display(for characters: String, origin: (view: View, selection: CGRect?)?) {
         var details: [CharacterInformation] = []
         details.reserveCapacity(characters.scalars.count)
         for scalar in characters.scalars {
@@ -165,25 +159,10 @@ public final class CharacterInformation : NSObject {
 
     // MARK: - Properties
 
-    static let characterKeyPath = "character"
-    @objc private var character: String
-
-    static let codePointKeyPath = "codePoint"
-    @objc private var codePoint: String
-
-    static let normalizedCodePointsPath = "normalizedCodePoints"
-    @objc private var normalizedCodePoints: String
-
-    static let normalizedCharactersPath = "normalizedCharacters"
-    @objc private var normalizedCharacters: String
-
-    static let warningColourPath = "warningColour"
-    #if canImport(AppKit)
-    @objc let warningColour: NSColor
-    #elseif canImport(UIKit)
-    @objc let warningColour: UIColor
-    #else
-    let warningColour: Colour
-    #endif
+    private let character: String
+    private let codePoint: String
+    private let normalizedCodePoints: String
+    private let normalizedCharacters: String
+    private let warningColour: Colour
 }
 #endif
