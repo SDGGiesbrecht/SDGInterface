@@ -14,6 +14,7 @@
 
 #if canImport(AppKit) || canImport(UIKit)
 import SDGText
+import SDGImageDisplay
 
 /// A segment label.
 public enum ButtonSetSegmentLabel {

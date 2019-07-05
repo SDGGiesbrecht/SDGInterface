@@ -26,6 +26,7 @@ import SDGText
 import SDGLocalization
 
 import SDGInterfaceBasics
+import SDGImageDisplay
 import SDGWindows
 import SDGInterfaceElements
 import SDGErrorMessages
@@ -143,7 +144,7 @@ extension Application {
         let firstLabel: Shared<UserFacing<ButtonSetSegmentLabel, InterfaceLocalization>>
             = Shared(UserFacing({ _ in .text("Segment") }))
         let secondLabel: Shared<UserFacing<ButtonSetSegmentLabel, InterfaceLocalization>>
-            = Shared(UserFacing({ _ in .image(Image()) }))
+            = Shared(UserFacing({ _ in .image(Image.empty) }))
         demonstrate(ButtonSet<InterfaceLocalization>(segments: [
             (label: firstLabel, action: #selector(Application.doNothing), target: self),
             (label: secondLabel, action: #selector(Application.doNothing), target: self)
@@ -174,7 +175,7 @@ extension Application {
                 return "Image"
             }
         })
-        demonstrate(ImageView(), windowTitle: label)
+        demonstrate(ImageView(image: Image.empty).native, windowTitle: label)
     }
 
     @objc public func demonstrateLabel() {
