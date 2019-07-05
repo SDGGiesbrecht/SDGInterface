@@ -88,6 +88,10 @@ let package = Package(
         /// Images.
         .library(name: "SDGImageDisplay", targets: ["SDGImageDisplay"]),
 
+        // @documentation(SDGTextDisplay)
+        /// Text.
+        .library(name: "SDGTextDisplay", targets: ["SDGTextDisplay"]),
+
         // @documentation(SDGViews)
         /// The view protocol.
         .library(name: "SDGViews", targets: ["SDGViews"]),
@@ -200,6 +204,12 @@ let package = Package(
         // #documentation(SDGImageDisplay)
         /// Images.
         .target(name: "SDGImageDisplay", dependencies: [
+            "SDGViews"
+            ]),
+
+        // #documentation(SDGTextDisplay)
+        /// Text.
+        .target(name: "SDGTextDisplay", dependencies: [
             "SDGViews"
             ]),
 
