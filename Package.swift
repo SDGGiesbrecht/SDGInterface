@@ -358,6 +358,8 @@ let package = Package(
         .target(name: "SDGInterfaceSample", dependencies: [
             "SDGInterfaceLocalizations",
             "SDGInterfaceBasics",
+            "SDGTextDisplay",
+            "SDGImageDisplay",
             "SDGWindows",
             "SDGMenus",
             "SDGInterfaceElements",

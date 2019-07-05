@@ -26,6 +26,7 @@ import SDGText
 import SDGLocalization
 
 import SDGInterfaceBasics
+import SDGTextDisplay
 import SDGImageDisplay
 import SDGWindows
 import SDGInterfaceElements
@@ -185,7 +186,7 @@ extension Application {
                 return "Label"
             }
         })
-        demonstrate(Label(text: Shared(label)), windowTitle: label)
+        demonstrate(Label(text: .static(label)).native, windowTitle: label)
     }
 
     @objc public func demonstrateLabelledTextField() {
@@ -195,7 +196,7 @@ extension Application {
                 return "Labelled Text Field"
             }
         })
-        demonstrate(LabelledTextField(labelText: label), windowTitle: label)
+        demonstrate(LabelledTextField(labelText: .static(label)).native, windowTitle: label)
     }
 
     @objc public func demonstrateLetterbox() {
@@ -205,11 +206,11 @@ extension Application {
                 return "Letterbox"
             }
         })
-        demonstrate(Letterbox(content: TextEditor(), aspectRatio: 1), windowTitle: label)
+        demonstrate(Letterbox(content: TextEditor().native, aspectRatio: 1), windowTitle: label)
     }
 
     @objc public func demonstrateTextEditor() {
-        demonstrate(TextEditor(), windowTitle: UserFacing<StrictString, InterfaceLocalization>({ localization in
+        demonstrate(TextEditor().native, windowTitle: UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Text Editor"
@@ -218,7 +219,7 @@ extension Application {
     }
 
     @objc public func demonstrateTextField() {
-        demonstrate(TextField(), windowTitle: UserFacing<StrictString, InterfaceLocalization>({ localization in
+        demonstrate(TextField().native, windowTitle: UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Text Field"
