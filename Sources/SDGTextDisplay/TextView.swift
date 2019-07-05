@@ -13,7 +13,6 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-
 import Foundation
 #if canImport(AppKit)
 import AppKit
@@ -22,29 +21,22 @@ import AppKit
 import UIKit
 #endif
 
-import SDGControlFlow
 import SDGLogic
 import SDGMathematics
 import SDGText
-import SDGLocalization
 
-import SDGInterfaceBasics
-import SDGContextMenu
-
-import SDGInterfaceLocalizations
-
-internal class TextView : NSTextView, TextEditingResponder {
+internal class TextView : NSUITextView {
 
     // MARK: - Initialization
 
     internal init() {
-        let prototype = NSTextView()
+        let prototype = NSUITextView()
         super.init(frame: CGRect.zero, textContainer: prototype.textContainer)
 
         #if canImport(AppKit)
         maxSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
         isVerticallyResizable = true
-        autoresizingMask = NativeView.AutoresizingMask.width
+        autoresizingMask = .width
 
         allowsUndo = true
         usesFindPanel = true
@@ -52,23 +44,41 @@ internal class TextView : NSTextView, TextEditingResponder {
 
         #if canImport(AppKit)
         isContinuousSpellCheckingEnabled = true
-        isAutomaticSpellingCorrectionEnabled = false
         isGrammarCheckingEnabled = true
         #else
         spellCheckingType = .yes
+        #endif
+
+        #if canImport(AppKit)
+        isAutomaticSpellingCorrectionEnabled = false
+        #else
         autocorrectionType = .no
-        autocapitalizationType = .none
         #endif
 
         #if canImport(AppKit)
         isAutomaticQuoteSubstitutionEnabled = true
-        isAutomaticDashSubstitutionEnabled = true
-        isAutomaticTextReplacementEnabled = true
-        smartInsertDeleteEnabled = true
         #else
         smartQuotesType = .yes
+        #endif
+
+        #if canImport(AppKit)
+        isAutomaticDashSubstitutionEnabled = true
+        #else
         smartDashesType = .yes
+        #endif
+
+        #if canImport(UIKit)
+        autocapitalizationType = .none
+        #endif
+
+        #if canImport(AppKit)
+        smartInsertDeleteEnabled = true
+        #else
         smartInsertDeleteType = .yes
+        #endif
+
+        #if canImport(AppKit)
+        isAutomaticTextReplacementEnabled = true
         #endif
 
         #if canImport(AppKit)
@@ -79,15 +89,11 @@ internal class TextView : NSTextView, TextEditingResponder {
         #endif
     }
 
-    @available(*, unavailable) internal required init?(coder: NSCoder) { // @exempt(from: unicode)
-        codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "TextView"
-            }
-        }))
-        return nil
+    #if canImport(AppKit)
+    internal required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
+    #endif
 
     // MARK: - Normalization
 
@@ -155,7 +161,11 @@ internal class TextView : NSTextView, TextEditingResponder {
     #endif
 
     override func paste(_ sender: Any?) {
-        let pasteboard = Pasteboard.general
+        #if canImport(AppKit)
+        let pasteboard = NSPasteboard.general
+        #elseif canImport(UIKit)
+        let pasteboard = UIPasteboard.general
+        #endif
         let possibleItems: [Any]?
         #if canImport(AppKit)
         possibleItems = pasteboard.readObjects(forClasses: [NSAttributedString.self, NSString.self], options: nil)
@@ -194,7 +204,9 @@ internal class TextView : NSTextView, TextEditingResponder {
 
     #if canImport(AppKit)
     public override class var defaultMenu: NSMenu? {
-        return TextContextMenu.contextMenu.menu.native
+        #warning("Requires more sinking.")
+        //return TextContextMenu.contextMenu.menu.native
+        return nil
     }
     #endif
 }

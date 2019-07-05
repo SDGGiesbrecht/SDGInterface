@@ -65,7 +65,7 @@ public final class Label<L> : AnyLabel, SpecificView where L : Localization {
             cell.usesSingleLineMode = true
         }
 
-        specificNative.isSelectable = false
+        specificNative.isSelectable = true
         specificNative.isEditable = false
         #endif
 
