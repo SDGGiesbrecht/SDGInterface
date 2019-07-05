@@ -41,6 +41,10 @@ import PackageDescription
 ///         Application.setSamplesUp()
 ///         return true
 ///     }
+///
+///     internal var remainsRunningWithNoWindows: Bool {
+///         return true
+///     }
 /// }
 /// ```
 ///
@@ -213,6 +217,9 @@ let package = Package(
         .target(name: "SDGTextDisplay", dependencies: [
             "SDGInterfaceBasics",
             "SDGViews",
+            "SDGMenus",
+            "SDGContextMenu",
+            "SDGInterfaceLocalizations",
             .product(name: "SDGControlFlow", package: "SDGCornerstone"),
             .product(name: "SDGLogic", package: "SDGCornerstone"),
             .product(name: "SDGMathematics", package: "SDGCornerstone"),

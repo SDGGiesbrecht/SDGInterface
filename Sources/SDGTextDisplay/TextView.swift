@@ -204,9 +204,7 @@ internal class TextView : NSUITextView {
 
     #if canImport(AppKit)
     public override class var defaultMenu: NSMenu? {
-        #warning("Requires more sinking.")
-        //return TextContextMenu.contextMenu.menu.native
-        return nil
+        return TextContextMenu.contextMenu.menu.native
     }
     #endif
 }

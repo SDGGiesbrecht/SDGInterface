@@ -15,7 +15,6 @@
 #if canImport(AppKit)
 import AppKit
 
-import SDGControlFlow
 import SDGLogic
 import SDGText
 import SDGLocalization
@@ -25,7 +24,6 @@ import SDGMenus
 import SDGContextMenu
 
 import SDGInterfaceLocalizations
-
 
 /// The context menu used by text views.
 public final class TextContextMenu {
