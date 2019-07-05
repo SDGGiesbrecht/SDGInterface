@@ -21,6 +21,10 @@ internal class SystemMediator : SDGApplication.SystemMediator {
         Application.setSamplesUp()
         return true
     }
+
+    internal var remainsRunningWithNoWindows: Bool {
+        return true
+    }
 }
 // @endExample
 
