@@ -44,6 +44,7 @@ public final class RowView : SpecificView {
             specificNative.spacing = CGFloat(measurement)
         }
 
+        specificNative.setHuggingPriority(.required, for: .vertical)
         specificNative.alignment = .firstBaseline
     }
 
