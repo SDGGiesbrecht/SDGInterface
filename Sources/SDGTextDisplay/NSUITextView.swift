@@ -1,19 +1,5 @@
-/*
- NSTextView.swift
-
- This source file is part of the SDGInterface open source project.
- https://sdggiesbrecht.github.io/SDGInterface
-
- Copyright ©2019 Jeremy David Giesbrecht and the SDGInterface project contributors.
-
- Soli Deo gloria.
-
- Licensed under the Apache Licence, Version 2.0.
- See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
- */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-
 #if canImport(AppKit)
 import AppKit
 #endif
@@ -24,17 +10,21 @@ import UIKit
 import SDGLogic
 import SDGCollections
 
-#if canImport(UIKit)
-/// An `AppKit.NSTextView` or a `UITextView`.
-public typealias NSTextView = UITextView
+import SDGInterfaceBasics
+
+#if canImport(AppKit)
+internal typealias NSUITextView = NSTextView
+#elseif canImport(UIKit)
+internal typealias NSUITextView = UITextView
 #endif
 
-extension NSTextView {
+#warning("Do any of these have to be public?")
+
+extension NSUITextView : TextEditingResponder {
 
     // MARK: - Selection
 
-    /// The rectangle of the current selection.
-    public func selectionRectangle() -> CGRect? {
+    internal func selectionRectangle() -> CGRect? {
         #if canImport(AppKit)
         guard let layout = layoutManager,
             let text = textContainer else {
@@ -88,7 +78,7 @@ extension NSTextView {
                 shouldChange = true
             } else {
                 guard let textRange = selectedTextRange else { // @exempt(from: tests)
-                return
+                    return
                 }
                 shouldChange = shouldChangeText(in: textRange, replacementText: rawResult)
             }
@@ -221,7 +211,7 @@ extension NSTextView {
             #selector(NSTextView.makeSuperscript(_:)),
             #selector(NSTextView.makeSubscript(_:)),
             #selector(NSTextView.resetBaseline(_:))
-            ]
+        ]
         #if canImport(AppKit)
         result ∪= [
             #selector(NSTextView.resetCasing(_:)),
@@ -340,11 +330,12 @@ extension NSTextView {
         #else
         possibleString = textStorage.attributedSubstring(from: selectedRange)
         #endif
-        if let string = possibleString {
+        #waring("Requires sinking.")
+        /*if let string = possibleString {
             CharacterInformation.display(
                 for: string.string,
                 origin: (view: self, selection: selectionRectangle()))
-        }
+        }*/
     }
 
     #if canImport(UIKit)

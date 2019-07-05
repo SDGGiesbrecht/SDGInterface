@@ -19,9 +19,9 @@ public final class TextEditor: SpecificView {
 
         #if canImport(AppKit)
         specificNative = NSScrollView()
-        nativeTextView = NSTextView()
+        nativeTextView = TextView()
         #else
-        specificNative = UITextView()
+        specificNative = TextView()
         #endif
 
         #if canImport(AppKit)
