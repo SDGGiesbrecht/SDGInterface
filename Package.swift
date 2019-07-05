@@ -88,6 +88,10 @@ let package = Package(
         /// Re‐usable interface elements, such as views, windows and menus.
         .library(name: "SDGInterfaceElements", targets: ["SDGInterfaceElements"]),
 
+        // @documentation(SDGTables)
+        /// Tables.
+        .library(name: "SDGTables", targets: ["SDGTables"]),
+
         // @documentation(SDGImageDisplay)
         /// Images.
         .library(name: "SDGImageDisplay", targets: ["SDGImageDisplay"]),
@@ -204,6 +208,12 @@ let package = Package(
             .product(name: "SDGLocalization", package: "SDGCornerstone")
             ], swiftSettings: [
                 .define("UNIDENTIFIED_PASTEBOARD_WARNINGS", .when(configuration: .debug))
+            ]),
+
+        // #documentation(SDGTables)
+        /// Tables.
+        .target(name: "SDGTables", dependencies: [
+            "SDGViews"
             ]),
 
         // #documentation(SDGImageDisplay)

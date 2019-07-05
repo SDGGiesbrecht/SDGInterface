@@ -42,6 +42,10 @@ internal class SystemMediator : SDGApplication.SystemMediator {
         Application.setSamplesUp()
         return true
     }
+
+    internal var remainsRunningWithNoWindows: Bool {
+        return true
+    }
 }
 ```
 
@@ -70,6 +74,7 @@ let package = Package(
             .productItem(name: "SDGMenus", package: "SDGInterface"),
             .productItem(name: "SDGWindows", package: "SDGInterface"),
             .productItem(name: "SDGInterfaceElements", package: "SDGInterface"),
+            .productItem(name: "SDGTables", package: "SDGInterface"),
             .productItem(name: "SDGImageDisplay", package: "SDGInterface"),
             .productItem(name: "SDGTextDisplay", package: "SDGInterface"),
             .productItem(name: "SDGViews", package: "SDGInterface"),
@@ -90,6 +95,7 @@ import SDGErrorMessages
 import SDGMenus
 import SDGWindows
 import SDGInterfaceElements
+import SDGTables
 import SDGImageDisplay
 import SDGTextDisplay
 import SDGViews
