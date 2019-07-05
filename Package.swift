@@ -210,7 +210,11 @@ let package = Package(
         // #documentation(SDGTextDisplay)
         /// Text.
         .target(name: "SDGTextDisplay", dependencies: [
-            "SDGViews"
+            "SDGInterfaceBasics",
+            "SDGViews",
+            .product(name: "SDGControlFlow", package: "SDGCornerstone"),
+            .product(name: "SDGText", package: "SDGCornerstone"),
+            .product(name: "SDGLocalization", package: "SDGCornerstone")
             ]),
 
         // #documentation(SDGViews)

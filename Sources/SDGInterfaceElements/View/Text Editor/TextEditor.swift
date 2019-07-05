@@ -36,7 +36,7 @@ public typealias _TextEditorSuperclass = UIView
 #endif
 
 /// An editor for multiline text.
-public class TextEditor : _TextEditorSuperclass {
+public final class TextEditor : _TextEditorSuperclass {
 
     // MARK: - Properties
 

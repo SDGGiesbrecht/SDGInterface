@@ -28,7 +28,7 @@ import SDGLocalization
 import SDGInterfaceLocalizations
 
 /// A button.
-public class Button<L> : NSButton, SharedValueObserver where L : Localization {
+public final class Button<L> : NSButton, SharedValueObserver where L : Localization {
 
     /// Creates a button.
     ///

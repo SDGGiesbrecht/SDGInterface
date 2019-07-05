@@ -29,7 +29,7 @@ import SDGLocalization
 import SDGInterfaceLocalizations
 
 /// An instance which intercepts particular selectors sent to a delegate and passes them to a listener instead.
-public class DelegationInterceptor : NSObject {
+public final class DelegationInterceptor : NSObject {
 
     // MARK: - Initialization
 

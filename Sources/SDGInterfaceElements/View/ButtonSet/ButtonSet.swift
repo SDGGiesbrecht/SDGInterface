@@ -29,7 +29,7 @@ import SDGLocalization
 import SDGInterfaceLocalizations
 
 /// A group of related buttons.
-public class ButtonSet<L> : NSSegmentedControl, SharedValueObserver where L : Localization {
+public final class ButtonSet<L> : NSSegmentedControl, SharedValueObserver where L : Localization {
 
     // MARK: - Initialization
 

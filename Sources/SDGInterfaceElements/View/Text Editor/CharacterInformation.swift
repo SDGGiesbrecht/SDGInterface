@@ -35,7 +35,7 @@ import SDGInterfaceLocalizations
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
 /// User‐presentable Unicode information about the characters in a string.
-public class CharacterInformation : NSObject {
+public final class CharacterInformation : NSObject {
 
     // MARK: - Static Methods
 

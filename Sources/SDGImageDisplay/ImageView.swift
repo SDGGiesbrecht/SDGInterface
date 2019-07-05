@@ -24,7 +24,7 @@ import UIKit
 import SDGViews
 
 /// An image view.
-public class ImageView : SpecificView {
+public final class ImageView : SpecificView {
 
     // MARK: - Initialization
 

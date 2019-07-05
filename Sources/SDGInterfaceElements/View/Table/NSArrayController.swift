@@ -16,7 +16,7 @@ import Foundation
 
 #if !canImport(AppKit)
 /// A drop‐in replacement for some uses of `AppKit`’s `NSArrayController` in `UIKit` environments.
-public class NSArrayController : NSObject {
+public final class NSArrayController : NSObject {
 
     // MARK: - Initialization
 

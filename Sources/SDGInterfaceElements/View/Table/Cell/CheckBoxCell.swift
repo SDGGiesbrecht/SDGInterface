@@ -23,7 +23,7 @@ import SDGLocalization
 import SDGInterfaceLocalizations
 
 /// A check box table cell.
-public class CheckBoxCell<L> : TableCellView where L : Localization {
+public final class CheckBoxCell<L> : TableCellView where L : Localization {
 
     // MARK: - Initialization
 
