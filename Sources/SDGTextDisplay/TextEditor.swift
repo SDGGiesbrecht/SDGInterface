@@ -19,7 +19,7 @@ public final class TextEditor: SpecificView {
 
         #if canImport(AppKit)
         specificNative = NSScrollView()
-        specificNative.documentView = NSTextView()
+        nativeTextView = NSTextView()
         #else
         specificNative = UITextView()
         #endif
@@ -42,7 +42,7 @@ public final class TextEditor: SpecificView {
             #if canImport(AppKit)
             return nativeTextView.drawsBackground
             #else
-            return specificNative.backgroundColor ≠ nil
+            return nativeTextView.backgroundColor ≠ nil
             #endif
         }
         set {
@@ -51,9 +51,9 @@ public final class TextEditor: SpecificView {
             #else
             if drawsBackground ≠ newValue {
                 if newValue {
-                    specificNative.backgroundColor = .white
+                    nativeTextView.backgroundColor = .white
                 } else {
-                    specificNative.backgroundColor = nil
+                    nativeTextView.backgroundColor = nil
                 }
             }
             #endif
@@ -79,25 +79,56 @@ public final class TextEditor: SpecificView {
     /// - Parameters:
     ///     - appendix: The text to append.
     public func append(_ appendix: RichText) {
-        let possibleStorage: NSTextStorage? = textView.textStorage
+
+        let possibleStorage: NSTextStorage?
+        #if canImport(AppKit)
+        possibleStorage = nativeTextView.textStorage
+        #elseif canImport(UIKit)
+        possibleStorage = nativeTextView.textStorage
+        #endif
+
         possibleStorage?.append(NSAttributedString(appendix))
+
         let content: String
         #if canImport(AppKit)
-        content = textView.string
+        content = nativeTextView.string
         #else
-        content = textView.text
+        content = nativeTextView.text
         #endif
-        textView.scrollRangeToVisible(NSRange(content.endIndex..., in: content))
+
+        let range = NSRange(content.endIndex..., in: content)
+
+        nativeTextView.scrollRangeToVisible(range)
     }
 
     // MARK: - SpecificView
 
     #if canImport(AppKit)
     public var specificNative: NSScrollView
-    /// The native text view.
-    public var nativeTextView: NSTextView
     #elseif canImport(UIKit)
     public var specificNative: UITextView
+    #endif
+
+    #if canImport(AppKit)
+    /// The native text view.
+    public var nativeTextView: NSTextView {
+        get {
+            return specificNative.documentView as? NSTextView ?? NSTextView()
+        }
+        set {
+            specificNative.documentView = newValue
+        }
+    }
+    #elseif canImport(UIKit)
+    /// The native text view.
+    public var nativeTextView: UITextView {
+        get {
+            return specificNative
+        }
+        set {
+            specificNative = newValue
+        }
+    }
     #endif
 }
 #endif
