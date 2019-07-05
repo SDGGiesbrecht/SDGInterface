@@ -32,7 +32,7 @@ public final class TextEditor: SpecificView {
 
         #if canImport(AppKit)
         specificNative = NSScrollView()
-        nativeTextView = TextView()
+        specificNative.documentView = TextView()
         #else
         specificNative = TextView()
         #endif
