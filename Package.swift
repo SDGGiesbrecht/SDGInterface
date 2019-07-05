@@ -186,6 +186,7 @@ let package = Package(
         .target(name: "SDGInterfaceElements", dependencies: [
             "SDGInterfaceBasics",
             "SDGViews",
+            "SDGTextDisplay",
             "SDGImageDisplay",
             "SDGWindows",
             "SDGMenus",

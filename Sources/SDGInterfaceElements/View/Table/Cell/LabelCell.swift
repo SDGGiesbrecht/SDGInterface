@@ -20,6 +20,8 @@ import SDGMathematics
 import SDGText
 import SDGLocalization
 
+import SDGTextDisplay
+
 import SDGInterfaceLocalizations
 
 /// A label table cell.
@@ -33,11 +35,11 @@ open class LabelCell<L> : TableCellView where L : Localization {
 
     /// Creates a label table cell.
     public init() {
-        label = Label(text: Shared(UserFacing<StrictString, L>({ _ in "" })))
+        label = Label(text: .binding(Shared("")))
         super.init(frame: CGRect.zero)
 
-        fill(with: label, on: .horizontal, margin: .specific(label.fittingSize.height ÷ 16))
-        fill(with: label, on: .vertical, margin: .none)
+        fill(with: label.native, on: .horizontal, margin: .specific(label.native.fittingSize.height ÷ 16))
+        fill(with: label.native, on: .vertical, margin: .none)
     }
 
     @available(*, unavailable) public required init?(coder decoder: NSCoder) { // @exempt(from: unicode)
@@ -57,7 +59,7 @@ open class LabelCell<L> : TableCellView where L : Localization {
     /// - Parameters:
     ///     - contentKeyPath: The key path of the content’s property.
     public func bindText(contentKeyPath: String) {
-        bind(subview: label, keyPath: .value, to: contentKeyPath)
+        bind(subview: label.native, keyPath: .value, to: contentKeyPath)
     }
 
     /// Binds the text colour to a content property.
@@ -65,7 +67,7 @@ open class LabelCell<L> : TableCellView where L : Localization {
     /// - Parameters:
     ///     - contentKeyPath: The key path of the content’s property.
     public func bindTextColour(contentKeyPath: String) {
-        bind(subview: label, keyPath: .textColor, to: contentKeyPath)
+        bind(subview: label.native, keyPath: .textColor, to: contentKeyPath)
     }
 }
 #endif
