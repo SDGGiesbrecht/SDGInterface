@@ -39,7 +39,7 @@ public final class RowView : SpecificView {
 
         switch spacing {
         case .automatic:
-            specificNative.spacing = NSStackView.useDefaultSpacing
+            break
         case .specific(let measurement):
             specificNative.spacing = CGFloat(measurement)
         }
