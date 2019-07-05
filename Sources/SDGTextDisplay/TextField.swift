@@ -13,7 +13,6 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-
 #if canImport(AppKit)
 import AppKit
 #endif
@@ -21,12 +20,7 @@ import AppKit
 import UIKit
 #endif
 
-import SDGText
-import SDGLocalization
-
-import SDGWindows
-
-import SDGInterfaceLocalizations
+import SDGInterfaceBasics
 
 /// A text field.
 open class TextField : NSTextField {
@@ -36,9 +30,7 @@ open class TextField : NSTextField {
         _getFieldEditor = {
             return FieldEditor()
         }
-        for (_, window) in _allWindows { // @exempt(from: tests) Only reachable with a bungled set‐up.
-            window._fieldEditor = FieldEditor()
-        }
+        _resetFieldEditors()
     }()
     #endif
 

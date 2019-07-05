@@ -28,9 +28,13 @@ import SDGInterfaceBasics
 import SDGViews
 
 #if canImport(AppKit)
-public var _getFieldEditor: () -> NSTextView = {
-    return NSTextView()
-}
+private let setUpFieldEditorReset: Void = {
+    _resetFieldEditors = {
+        for (_, window) in allWindows { // @exempt(from: tests) Only reachable with a bungled set‐up.
+            window._fieldEditor = _getFieldEditor()
+        }
+    }
+}()
 #endif
 
 /// A window.
@@ -85,6 +89,10 @@ public final class Window<L> : AnyWindow where L : Localization {
     ///     - name: The name of the window. (Used in places like the title bar or dock.)
     ///     - view: The view.
     public init(name: Binding<StrictString, L>, view: View) {
+        #if canImport(AppKit)
+        setUpFieldEditorReset
+        #endif
+
         defer {
             randomizeLocation()
         }
