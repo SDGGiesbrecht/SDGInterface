@@ -16,7 +16,6 @@ import SDGViews
 
 public protocol AnyLabel : View {
 
-
     func _refreshBindings()
 }
 

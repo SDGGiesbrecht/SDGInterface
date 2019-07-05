@@ -37,9 +37,18 @@ public final class MenuEntry<L> : AnyMenuEntry where L : Localization {
     ///     - label: The label.
     public init(label: Binding<StrictString, L>) {
         self.label = label
-        bindingObserver.entry = self
-        labelDidSet()
-        LocalizationSetting.current.register(observer: bindingObserver)
+        defer {
+            labelDidSet()
+            LocalizationSetting.current.register(observer: bindingObserver)
+        }
+        defer {
+            bindingObserver.entry = self
+        }
+        #if canImport(AppKit)
+        native = NSMenuItem()
+        #elseif canImport(UIKit)
+        native = UIMenuItem()
+        #endif
     }
 
     #if canImport(AppKit)
@@ -89,17 +98,9 @@ public final class MenuEntry<L> : AnyMenuEntry where L : Localization {
     // MARK: - AnyMenuEntry
 
     #if canImport(AppKit)
-    public var native: NSMenuItem = NSMenuItem() {
-        didSet {
-            refreshNative()
-        }
-    }
+    public let native: NSMenuItem
     #elseif canImport(UIKit)
-    public var native: UIMenuItem = UIMenuItem() {
-        didSet {
-            refreshNative()
-        }
-    }
+    public let native: UIMenuItem
     public var _isHidden: Bool = false
     public var _tag: Int = 0
     #endif

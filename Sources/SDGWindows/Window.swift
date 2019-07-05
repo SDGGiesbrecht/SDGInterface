@@ -183,12 +183,12 @@ public final class Window<L> : AnyWindow where L : Localization {
 
     #if canImport(AppKit)
     /// The native window.
-    public var native: NSWindow
+    public let native: NSWindow
     private let delegate = NSWindowDelegate()
     public var _fieldEditor = _getFieldEditor()
     #elseif canImport(UIKit)
     /// The native window.
-    public var native: UIWindow
+    public let native: UIWindow
     #endif
 
     // MARK: - Refreshing

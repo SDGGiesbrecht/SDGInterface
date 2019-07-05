@@ -42,10 +42,10 @@ public protocol AnyWindow : AnyObject {
 
     #if canImport(AppKit)
     /// The native window.
-    var native: NSWindow { get set }
+    var native: NSWindow { get }
     #elseif canImport(UIKit)
     /// The native window.
-    var native: UIWindow { get set }
+    var native: UIWindow { get }
     #endif
 
     #if canImport(AppKit)

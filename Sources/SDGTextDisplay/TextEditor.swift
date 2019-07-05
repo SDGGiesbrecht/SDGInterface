@@ -117,9 +117,9 @@ public final class TextEditor: SpecificView {
     // MARK: - SpecificView
 
     #if canImport(AppKit)
-    public var specificNative: NSScrollView
+    public let specificNative: NSScrollView
     #elseif canImport(UIKit)
-    public var specificNative: UITextView
+    public let specificNative: UITextView
     #endif
 
     #if canImport(AppKit)
@@ -128,18 +128,12 @@ public final class TextEditor: SpecificView {
         get {
             return specificNative.documentView as? NSTextView ?? NSTextView()
         }
-        set {
-            specificNative.documentView = newValue
-        }
     }
     #elseif canImport(UIKit)
     /// The native text view.
     public var nativeTextView: UITextView {
         get {
             return specificNative
-        }
-        set {
-            specificNative = newValue
         }
     }
     #endif

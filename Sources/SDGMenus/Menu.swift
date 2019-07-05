@@ -36,9 +36,16 @@ public final class Menu<L> : AnyMenu where L : Localization {
     ///     - label: The label.
     public init(label: Binding<StrictString, L>) {
         self.label = label
-        bindingObserver.menu = self
-        labelDidSet()
-        LocalizationSetting.current.register(observer: bindingObserver)
+        defer {
+            labelDidSet()
+            LocalizationSetting.current.register(observer: bindingObserver)
+        }
+        defer {
+            bindingObserver.menu = self
+        }
+        #if canImport(AppKit)
+        native = NSMenu()
+        #endif
     }
 
     #if canImport(AppKit)
@@ -144,11 +151,7 @@ public final class Menu<L> : AnyMenu where L : Localization {
     }
 
     #if canImport(AppKit)
-    public var native: NSMenu = NSMenu() {
-        didSet {
-            refreshNative()
-        }
-    }
+    public let native: NSMenu
     #endif
 }
 #endif

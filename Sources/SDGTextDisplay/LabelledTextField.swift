@@ -13,7 +13,6 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-
 #if canImport(AppKit)
 import AppKit
 #endif
@@ -21,14 +20,13 @@ import AppKit
 import UIKit
 #endif
 
-import SDGControlFlow
 import SDGText
 import SDGLocalization
 
-import SDGInterfaceLocalizations
+import SDGViews
 
 /// A text field with a label.
-open class LabelledTextField<L> : NativeView where L : Localization {
+open class LabelledTextField<L> : SpecificView where L : Localization {
 
     // MARK: - Initialization
 
@@ -36,7 +34,7 @@ open class LabelledTextField<L> : NativeView where L : Localization {
     ///
     /// - Parameters:
     /// 	- labelText: The text for the label.
-    public init(labelText: UserFacing<StrictString, L>) {
+    public init(labelText: Binding<StrictString, L>) {
         label = Label(text: Shared(labelText))
         field = TextField()
         super.init(frame: CGRect.zero)
@@ -61,21 +59,15 @@ open class LabelledTextField<L> : NativeView where L : Localization {
         alignLastBaselines(ofSubviews: [label, field])
     }
 
-    @available(*, unavailable) public required init?(coder: NSCoder) { // @exempt(from: unicode)
-        codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "LabelledTextField"
-            }
-        }))
-        return nil
-    }
-
     // MARK: - Properties
+
+    private let container: ContainerView
 
     /// The label.
     public let label: Label<L>
     /// The field.
     public let field: TextField
+
+    // MARK: - SpecificView
 }
 #endif

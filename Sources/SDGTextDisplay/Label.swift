@@ -103,9 +103,9 @@ public final class Label<L> : AnyLabel, SpecificView where L : Localization {
     // MARK: - SpecificView
 
     #if canImport(AppKit)
-    public var specificNative: NSTextField
+    public let specificNative: NSTextField
     #elseif canImport(UIKit)
-    public var specificNative: UILabel
+    public let specificNative: UILabel
     #endif
 }
 #endif

@@ -54,9 +54,9 @@ public final class ImageView : SpecificView {
     // MARK: - SpecificView
 
     #if canImport(AppKit)
-    public var specificNative: NSImageView
+    public let specificNative: NSImageView
     #elseif canImport(UIKit)
-    public var specificNative: UIImageView
+    public let specificNative: UIImageView
     #endif
 }
 #endif

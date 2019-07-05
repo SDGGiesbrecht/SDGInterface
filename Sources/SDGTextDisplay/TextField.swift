@@ -78,9 +78,9 @@ public final class TextField : SpecificView {
     // MARK: - SpecificView
 
     #if canImport(AppKit)
-    public var specificNative: NSTextField
+    public let specificNative: NSTextField
     #elseif canImport(UIKit)
-    public var specificNative: UITextField
+    public let specificNative: UITextField
     #endif
 }
 #endif
