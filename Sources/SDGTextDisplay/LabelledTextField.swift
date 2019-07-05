@@ -23,10 +23,12 @@ import UIKit
 import SDGText
 import SDGLocalization
 
+import SDGInterfaceBasics
 import SDGViews
 
+#warning("Test this with new row use.")
 /// A text field with a label.
-open class LabelledTextField<L> : SpecificView where L : Localization {
+public final class LabelledTextField<L> : View where L : Localization {
 
     // MARK: - Initialization
 
@@ -34,11 +36,9 @@ open class LabelledTextField<L> : SpecificView where L : Localization {
     ///
     /// - Parameters:
     /// 	- labelText: The text for the label.
-    public init(labelText: Binding<StrictString, L>) {
-        label = Label(text: Shared(labelText))
-        field = TextField()
-        super.init(frame: CGRect.zero)
-        finishInitialization()
+    public convenience init(labelText: Binding<StrictString, L>) {
+        let label = Label(text: labelText)
+        self.init(label: label)
     }
 
     /// Creates a text field with label and a text field instances.
@@ -48,26 +48,31 @@ open class LabelledTextField<L> : SpecificView where L : Localization {
     ///     - field: Optional. A specific field.
     public init(label: Label<L>, field: TextField? = nil) {
         self.label = label
-        self.field = field ?? TextField()
-        super.init(frame: CGRect.zero)
-        finishInitialization()
-    }
-
-    private func finishInitialization() {
-        position(subviews: [label, field], inSequenceAlong: .horizontal, padding: .system, margin: .none)
-        fill(with: field, on: .vertical, margin: .none)
-        alignLastBaselines(ofSubviews: [label, field])
+        let constructedField = field ?? TextField()
+        self.field = constructedField
+        row = RowView(views: [label, constructedField], spacing: .automatic)
     }
 
     // MARK: - Properties
 
-    private let container: ContainerView
+    private let row: RowView
 
     /// The label.
     public let label: Label<L>
     /// The field.
     public let field: TextField
 
-    // MARK: - SpecificView
+    // MARK: - View
+
+    #if canImport(AppKit)
+    public var native: NSView {
+        return row.native
+    }
+    #elseif canImport(UIKit)
+    public var native: UIView {
+        return row.native
+    }
+    #endif
+
 }
 #endif

@@ -20,25 +20,53 @@ import UIKit
 #endif
 
 /// A row of views.
-public final class RowView : View {
+public final class RowView : SpecificView {
 
     // MARK: - Initialization
 
-    /// Creates an empty view.
-    public init(views: [View]) {
+    /// Creates a row of views.
+    public init(views: [View], spacing: Spacing = .automatic) {
         #if canImport(AppKit)
-        native = NSView()
+        specificNative = NSStackView()
         #elseif canImport(UIKit)
-        native = UIView()
+        specificNative = UIStackView()
         #endif
+
+        self.views = views
+        defer {
+            viewsDidSet()
+        }
+
+        switch spacing {
+        case .automatic:
+            specificNative.spacing = NSStackView.useDefaultSpacing
+        case .specific(let measurement):
+            specificNative.spacing = CGFloat(measurement)
+        }
+
+        specificNative.alignment = .firstBaseline
     }
 
     // MARK: - Properties
 
+    public var views: [View] {
+        didSet {
+            viewsDidSet()
+        }
+    }
+    private func viewsDidSet() {
+        while let view = specificNative.views.first {
+            specificNative.removeView(view)
+        }
+        for view in views {
+            specificNative.addView(view.native, in: .trailing)
+        }
+    }
+
     #if canImport(AppKit)
-    public let native: NSView = NSView()
+    public let specificNative: NSStackView
     #elseif canImport(UIKit)
-    public let native: UIView = UIView()
+    public let specificNative: UIStackView
     #endif
 }
 #endif
