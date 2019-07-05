@@ -24,10 +24,10 @@ public protocol SpecificView : View {
 
     #if canImport(AppKit)
     /// The specific native view type.
-    associatedtype SpecificNativeView: NSView
+    associatedtype SpecificNativeView : NSView
     #elseif canImport(UIKit)
     /// The specific native view type.
-    associatedtype SpecificNativeView: UIView
+    associatedtype SpecificNativeView : UIView
     #endif
 
     #if canImport(AppKit)
