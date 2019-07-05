@@ -16,4 +16,13 @@ import SDGViews
 
 public protocol AnyLabel : View {
 
+
+    func _refreshBindings()
+}
+
+extension AnyLabel {
+
+    internal func refreshBindings() {
+        _refreshBindings()
+    }
 }

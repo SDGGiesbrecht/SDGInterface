@@ -15,7 +15,7 @@
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
 import SDGControlFlow
 
-internal final class BindingObserver : SharedValueObserver {
+internal final class LabelBindingObserver : SharedValueObserver {
 
     // MARK: - Properties
 

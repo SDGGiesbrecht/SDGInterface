@@ -48,6 +48,9 @@ public final class Label<L> : AnyLabel, SpecificView where L : Localization {
         #elseif canImport(UIKit)
 
         #endif
+        defer {
+            bindingObserver.label = self
+        }
 
         #if canImport(AppKit)
         specificNative.isBordered = false
@@ -71,7 +74,7 @@ public final class Label<L> : AnyLabel, SpecificView where L : Localization {
 
     // MARK: - Properties
 
-    private let bindingObserver = BindingObserver()
+    private let bindingObserver = LabelBindingObserver()
 
     /// The text.
     public var text: Binding<StrictString, L> {
@@ -89,7 +92,7 @@ public final class Label<L> : AnyLabel, SpecificView where L : Localization {
     // MARK: - Refreshing
 
     public func _refreshBindings() {
-        let resolved = String.name.resolved()
+        let resolved = String(text.resolved())
         #if canImport(AppKit)
         specificNative.stringValue = resolved
         #elseif canImport(UIKit)
