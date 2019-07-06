@@ -21,6 +21,7 @@ import UIKit
 #endif
 
 import SDGControlFlow
+import SDGLogic
 
 import SDGViews
 
@@ -60,13 +61,6 @@ public class Table<RowData> : SpecificView {
         #if canImport(AppKit)
         nativeTable.columnAutoresizingStyle = .sequentialColumnAutoresizingStyle
         #endif
-
-        contentController.automaticallyRearrangesObjects = true
-        #if canImport(AppKit)
-        table.bind(.content, to: contentController, withKeyPath: #keyPath(NSArrayController.arrangedObjects), options: nil)
-        table.bind(.selectionIndexes, to: contentController, withKeyPath: NSBindingName.selectionIndexes.rawValue, options: nil)
-        table.bind(.sortDescriptors, to: contentController, withKeyPath: NSBindingName.sortDescriptors.rawValue, options: nil)
-        #endif
     }
 
     // MARK: - SpecificView
@@ -85,6 +79,9 @@ public class Table<RowData> : SpecificView {
     private func dataDidSet() {
         data.register(observer: bindingObserver)
     }
+
+    /// A sort order to impose on the data.
+    public var sort: ((RowData, RowData) -> Bool)?
 
     #if canImport(AppKit)
     public var specificNative: NSScrollView
@@ -109,7 +106,19 @@ public class Table<RowData> : SpecificView {
     // MARK: - Refreshing
 
     private func refreshBindings() {
-        #warning("Not implemented yet.")
+        if let areSorted = self.sort {
+            let value = data.value
+            var alreadySorted = true
+            for (preceding, following) in zip(value.dropLast(), value.dropFirst()) {
+                if ¬areSorted(preceding, following) {
+                    alreadySorted = false
+                    break
+                }
+            }
+            if ¬alreadySorted {
+                data.value.sort(by: areSorted)
+            }
+        }
     }
 }
 #endif

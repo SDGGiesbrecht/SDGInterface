@@ -214,7 +214,8 @@ let package = Package(
         /// Tables.
         .target(name: "SDGTables", dependencies: [
             "SDGViews",
-            .product(name: "SDGControlFlow", package: "SDGCornerstone")
+            .product(name: "SDGControlFlow", package: "SDGCornerstone"),
+            .product(name: "SDGLogic", package: "SDGCornerstone")
             ]),
 
         // #documentation(SDGImageDisplay)
