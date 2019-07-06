@@ -21,28 +21,6 @@ open class Table : _TableSuperclass {
 
     // MARK: - Behaviour
 
-    #if canImport(AppKit)
-    private var identifiers = sequence(first: 0, next: { $0 + 1 })
-    /// Creates, adds and returns a new column.
-    ///
-    /// - Parameters:
-    ///     - header: The header for the column.
-    ///     - viewGenerator: A closure which generates the view to use for each cell.
-    @discardableResult public func newColumn(header: StrictString, viewGenerator: @escaping () -> NSTableCellView) -> NSTableColumn {
-        let identifier = NSUserInterfaceItemIdentifier("\(identifiers.next()!)")
-        viewGenerators[identifier] = viewGenerator
-        let column = createColumn(withIdentifier: identifier)
-        column.header = header
-        column.resizingMask = [.autoresizingMask, .userResizingMask]
-        table.addTableColumn(column)
-
-        let exampleView = viewGenerator()
-        table.rowHeight.increase(to: exampleView.minimumHeight)
-
-        return column
-    }
-    #endif
-
     // MARK: - Other Behavioural Fixes
 
 

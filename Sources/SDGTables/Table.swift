@@ -22,8 +22,11 @@ import UIKit
 
 import SDGControlFlow
 import SDGLogic
+import SDGMathematics
 
 import SDGViews
+
+private var columnIdentifiers = sequence(first: 0, next: { $0 &+ 1 })
 
 /// Table.
 public class Table<RowData> : SpecificView {
@@ -37,10 +40,13 @@ public class Table<RowData> : SpecificView {
         }
 
         self.columns = columns
+        defer {
+            columnsDidSet()
+        }
 
         #if canImport(AppKit)
         specificNative = NSScrollView()
-        specificNative.documentView = NSTableView()
+        specificNative.documentView = CocoaTableView()
         #elseif canImport(UIKit)
         specificNative = UITableView(frame: .zero, style: .plain)
         #endif
@@ -85,8 +91,26 @@ public class Table<RowData> : SpecificView {
 
     public var columns: [(RowData) -> View] {
         didSet {
-            nativeTable.reloadData()
+            columnsDidSet()
         }
+    }
+    private func columnsDidSet() {
+        #if canImport(AppKit)
+        while nativeTable.tableColumns.count > columns.count {
+            nativeTable.removeTableColumn(nativeTable.tableColumns.last!)
+        }
+        while nativeTable.tableColumns.count < columns.count {
+            let index = nativeTable.tableColumns.count
+            let newColumn = NSTableColumn(
+                identifier: NSUserInterfaceItemIdentifier("\(columnIdentifiers.next()!)"))
+            newColumn.resizingMask = [.autoresizingMask, .userResizingMask]
+            nativeTable.addTableColumn(newColumn)
+
+            let exampleView = columns[index](data.value[index])
+            nativeTable.rowHeight.increase(to: exampleView.native.fittingSize.height)
+        }
+        #endif
+        nativeTable.reloadData()
     }
 
     /// A sort order to impose on the data.
@@ -114,7 +138,7 @@ public class Table<RowData> : SpecificView {
 
     // MARK: - Refreshing
 
-    private func refreshBindings() {
+    internal func refreshBindings() {
         if let areSorted = self.sort {
             let value = data.value
             var alreadySorted = true
@@ -128,6 +152,7 @@ public class Table<RowData> : SpecificView {
                 data.value.sort(by: areSorted)
             }
         }
+        nativeTable.reloadData()
     }
 }
 #endif
