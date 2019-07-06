@@ -1,5 +1,5 @@
 /*
- Table.swift
+ UITableViewDataSource.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,11 +12,14 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
+#if canImport(UIKit)
+import UIKit
 
-#if canImport(AppKit)
-#else
-extension Table : UITableViewDataSource {
+internal class UITableViewDataSource<RowData> : NSObject, UIKit.UITableViewDataSource {
+
+    // MARK: - Properties
+
+    internal weak var table: Table<RowData>?
 
     // MARK: - UITableViewDataSource
 
@@ -32,6 +35,4 @@ extension Table : UITableViewDataSource {
         return cell
     }
 }
-#endif
-
 #endif

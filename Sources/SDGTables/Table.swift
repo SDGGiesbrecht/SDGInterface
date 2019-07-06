@@ -47,12 +47,15 @@ public class Table<RowData> : SpecificView {
         #if canImport(AppKit)
         specificNative = NSScrollView()
         specificNative.documentView = CocoaTableView()
-        #elseif canImport(UIKit)
-        specificNative = UITableView(frame: .zero, style: .plain)
-        #endif
         defer {
             delegate.table = self
         }
+        #elseif canImport(UIKit)
+        specificNative = UITableView(frame: .zero, style: .plain)
+        defer {
+            dataSource.table = self
+        }
+        #endif
 
         #if canImport(AppKit)
         specificNative.borderType = .bezelBorder
@@ -124,6 +127,7 @@ public class Table<RowData> : SpecificView {
     private var delegate = NSTableViewDelegate<RowData>()
     #elseif canImport(UIKit)
     public var specificNative: UITableView
+    private var dataSource = UITableViewDataSource<RowData>()
     #endif
 
     #if canImport(AppKit)
