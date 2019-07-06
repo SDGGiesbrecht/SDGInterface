@@ -30,11 +30,13 @@ public class Table<RowData> : SpecificView {
 
     // MARK: - Initialization
 
-    public init(data: Shared<[RowData]>) {
+    public init(data: Shared<[RowData]>, columns: [(RowData) -> View]) {
         self.data = data
         defer {
             dataDidSet()
         }
+
+        self.columns = columns
 
         #if canImport(AppKit)
         specificNative = NSScrollView()
@@ -78,6 +80,13 @@ public class Table<RowData> : SpecificView {
     }
     private func dataDidSet() {
         data.register(observer: bindingObserver)
+        nativeTable.reloadData()
+    }
+
+    public var columns: [(RowData) -> View] {
+        didSet {
+            nativeTable.reloadData()
+        }
     }
 
     /// A sort order to impose on the data.

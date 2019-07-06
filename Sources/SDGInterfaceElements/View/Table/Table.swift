@@ -19,9 +19,6 @@ open class Table : _TableSuperclass {
 
     // MARK: - Properties
 
-    /// The array controller which manages the content.
-    public let contentController: NSArrayController
-
     #if canImport(AppKit)
     private var viewGenerators: [NSUserInterfaceItemIdentifier: () -> NSTableCellView] = [:]
     #else
