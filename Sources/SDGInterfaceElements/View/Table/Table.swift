@@ -17,150 +17,9 @@
 /// A table.
 open class Table : _TableSuperclass {
 
-    // MARK: - Properties
-
     #if canImport(AppKit)
-    private var viewGenerators: [NSUserInterfaceItemIdentifier: () -> NSTableCellView] = [:]
-    #else
-    /// The style of table cell.
-    public var cellStyle: UITableViewCell.CellStyle = .default
-    /// A closure used to update a cell according to its value.
-    ///
-    /// - Parameters:
-    ///     - cell: The cell to update.
-    ///     - value: The value the cell should represent.
-    public var cellUpdator: (_ cell: UITableViewCell, _ value: NSObject) -> Void = { _, _ in }
-    #endif
-
-    // MARK: - Delegation
-
-    private static func interceptedDelegateSelectors() -> Set<Selector> {
-        var selectors: Set<Selector> = []
-        #if canImport(AppKit)
-        selectors ∪= [
-            #selector(NSTableViewDelegate.tableView(_:viewFor:row:)),
-            #selector(NSTableViewDelegate.tableView(_:sizeToFitWidthOfColumn:))
-            ]
-        #endif
-        return selectors
-    }
-    private let delegateInterceptor = DelegationInterceptor(selectors: Table.interceptedDelegateSelectors())
-    #if canImport(AppKit)
-    /// The table view’s delegate.
-    public var delegate: NSTableViewDelegate? {
-        get {
-            return delegateInterceptor.delegate as? NSTableViewDelegate
-        }
-        set {
-            delegateInterceptor.delegate = newValue
-            table.delegate = delegateInterceptor
-        }
-    }
-    #else
-    open override var delegate: UITableViewDelegate? {
-        get {
-            return delegateInterceptor.delegate as? UITableViewDelegate
-        }
-        set {
-            delegateInterceptor.delegate = newValue
-            super.delegate = delegateInterceptor
-        }
-    }
-    #endif
-
-    #if canImport(UIKit)
-    private let dataSourceInterceptor = DelegationInterceptor(selectors: [
-        #selector(UITableViewDataSource.tableView(_:numberOfRowsInSection:)),
-        #selector(UITableViewDataSource.tableView(_:cellForRowAt:))
-        ])
-    open override var dataSource: UITableViewDataSource? {
-        get {
-            return dataSourceInterceptor.delegate as? UITableViewDataSource
-        }
-        set {
-            dataSourceInterceptor.delegate = newValue
-            super.dataSource = dataSourceInterceptor
-        }
-    }
-    #endif
-
-    #if canImport(AppKit)
-    // MARK: - Actions
-
-    /// The click action.
-    public var action: Selector? {
-        get {
-            return table.action
-        }
-        set {
-            table.action = newValue
-        }
-    }
-    /// The double click action.
-    public var doubleAction: Selector? {
-        get {
-            return table.doubleAction
-        }
-        set {
-            table.doubleAction = doubleAction
-        }
-    }
-    /// The target for the click actions.
-    public var target: AnyObject? {
-        get {
-            return table.target
-        }
-        set {
-            table.target = newValue
-        }
-    }
-    #endif
 
     // MARK: - Behaviour
-
-    #if canImport(AppKit)
-    /// Whether or not the table displays column headers.
-    public var hasHeader: Bool {
-        get {
-            return self.table.headerView ≠ nil
-        }
-        set {
-            if newValue {
-                self.table.headerView = createHeader()
-            } else {
-                self.table.headerView = nil
-            }
-        }
-    }
-    #endif
-
-    #if canImport(AppKit)
-    /// Whether or not the table allows rows to be selected.
-    public var allowsSelection: Bool {
-        get {
-            return table.selectionHighlightStyle ≠ .none
-        }
-        set {
-            if newValue {
-                table.selectionHighlightStyle = .regular
-            } else {
-                table.selectionHighlightStyle = .none
-            }
-        }
-    }
-    #endif
-
-    #if canImport(AppKit)
-    /// The sort order for the table.
-    public var sortOrder: [NSSortDescriptor] {
-        get {
-            return contentController.sortDescriptors
-        }
-        set {
-            contentController.sortDescriptors = newValue
-        }
-    }
-    #endif
 
     #if canImport(AppKit)
     private var identifiers = sequence(first: 0, next: { $0 + 1 })
@@ -186,16 +45,6 @@ open class Table : _TableSuperclass {
 
     // MARK: - Other Behavioural Fixes
 
-    #if canImport(AppKit)
-    public final override func setFrameSize(_ newSize: NSSize) {
-        super.setFrameSize(newSize)
-        for index in table.tableColumns.indices {
-            let column = table.tableColumns[index]
-            column.width = tableView(table, sizeToFitWidthOfColumn: index)
-        }
-        table.sizeLastColumnToFit()
-    }
-    #endif
 
     // MARK: - Subclassing
 
