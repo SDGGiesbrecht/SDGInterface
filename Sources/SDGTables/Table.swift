@@ -50,6 +50,9 @@ public class Table<RowData> : SpecificView {
         #elseif canImport(UIKit)
         specificNative = UITableView(frame: .zero, style: .plain)
         #endif
+        defer {
+            delegate.table = self
+        }
 
         #if canImport(AppKit)
         specificNative.borderType = .bezelBorder
@@ -71,7 +74,7 @@ public class Table<RowData> : SpecificView {
         #endif
     }
 
-    // MARK: - SpecificView
+    // MARK: - Properties
 
     private let bindingObserver = BindingObserver<RowData>()
 
@@ -118,18 +121,19 @@ public class Table<RowData> : SpecificView {
 
     #if canImport(AppKit)
     public var specificNative: NSScrollView
+    private var delegate = NSTableViewDelegate<RowData>()
     #elseif canImport(UIKit)
     public var specificNative: UITableView
     #endif
 
     #if canImport(AppKit)
-    private var nativeTable: NSTableView {
+    internal var nativeTable: NSTableView {
         get {
             return specificNative.documentView as? NSTableView ?? NSTableView()
         }
     }
     #elseif canImport(UIKit)
-    public var nativeTable: UITableView {
+    internal var nativeTable: UITableView {
         get {
             return specificNative
         }
