@@ -26,7 +26,6 @@ import SDGLocalization
 import SDGInterfaceBasics
 import SDGViews
 
-#warning("Test this with new row use.")
 /// A text field with a label.
 public final class LabelledTextField<L> : View where L : Localization {
 

@@ -213,7 +213,8 @@ let package = Package(
         // #documentation(SDGTables)
         /// Tables.
         .target(name: "SDGTables", dependencies: [
-            "SDGViews"
+            "SDGViews",
+            .product(name: "SDGControlFlow", package: "SDGCornerstone")
             ]),
 
         // #documentation(SDGImageDisplay)
@@ -227,6 +228,7 @@ let package = Package(
         .target(name: "SDGTextDisplay", dependencies: [
             "SDGInterfaceBasics",
             "SDGViews",
+            "SDGTables",
             "SDGMenus",
             "SDGContextMenu",
             "SDGInterfaceLocalizations",
