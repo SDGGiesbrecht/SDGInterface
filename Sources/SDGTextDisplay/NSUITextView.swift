@@ -38,19 +38,19 @@ extension NSUITextView : TextEditingResponder {
 
     // MARK: - Selection
 
-    internal func selectionRectangle() -> CGRect? {
+    internal func selectionRectangle() -> Rectangle? {
         #if canImport(AppKit)
         guard let layout = layoutManager,
             let text = textContainer else {
                 return nil // @exempt(from: tests)
         }
         let range = layout.glyphRange(forCharacterRange: selectedRange(), actualCharacterRange: nil)
-        return layout.boundingRect(forGlyphRange: range, in: text)
+        return Rectangle(layout.boundingRect(forGlyphRange: range, in: text))
         #else
         guard let range = selectedTextRange else {
             return nil // @exempt(from: tests)
         }
-        return selectionRects(for: range).first?.rect
+        return selectionRects(for: range).first?.rect.map { Rectangle($0) }
         #endif
     }
 
