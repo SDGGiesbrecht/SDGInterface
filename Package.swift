@@ -243,6 +243,7 @@ let package = Package(
             "SDGViews",
             "SDGTables",
             "SDGWindows",
+            "SDGPopOvers",
             "SDGMenus",
             "SDGContextMenu",
             "SDGInterfaceLocalizations",

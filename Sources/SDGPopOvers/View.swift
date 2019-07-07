@@ -31,7 +31,7 @@ extension View {
     /// - Parameters:
     ///     - view: The view to display as a pop‐over.
     ///     - sourceRectangle: A rectangle within `self` that should be considered the origin of the pop‐over.
-    public func displayPopOver(_ view: View, sourceRectangle: Rectangle? = nil) {
+    public func displayPopOver(_ view: View, sourceRectangle: Rectangle? = nil, preferredSize: Size? = nil) {
 
         #if canImport(UIKit)
         let controller = UIViewController()
@@ -53,7 +53,11 @@ extension View {
         self.controller?.present(controller, animated: true, completion: nil)
         #else
         let controller = NSViewController()
-        controller.view = CocoaPopOverView(view: view)
+        let popOverView = CocoaPopOverView(view: view)
+        if let specifiedSize = preferredSize {
+            popOverView.frame.size = specifiedSize.native
+        }
+        controller.view = popOverView
 
         let popOver = NSPopover()
         popOver.contentViewController = controller

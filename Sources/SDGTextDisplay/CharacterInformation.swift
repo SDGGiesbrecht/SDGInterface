@@ -32,6 +32,7 @@ import SDGInterfaceBasics
 import SDGViews
 import SDGTables
 import SDGWindows
+import SDGPopOvers
 
 import SDGInterfaceLocalizations
 
@@ -47,7 +48,7 @@ public struct CharacterInformation {
     ///     - origin: The view and selection the characters originate from. If provided, the information will be shown in a pop‐up view instead of a separate window.
     ///     - view: The view the characters originate from.
     ///     - selection: The rectangle the characters originate from.
-    public static func display(for characters: String, origin: (view: View, selection: CGRect?)?) {
+    public static func display(for characters: String, origin: (view: View, selection: Rectangle?)?) {
         var details: [CharacterInformation] = []
         details.reserveCapacity(characters.scalars.count)
         for scalar in characters.scalars {
@@ -75,19 +76,15 @@ public struct CharacterInformation {
             ])
 
         if let origin = origin {
-            let view = NSView()
-            #if canImport(AppKit)
-            view.frame.size = Window<InterfaceLocalization>.auxiliarySize.native
-            #endif
-            view.fill(with: table)
-            origin.view.displayPopOver(view, sourceRectangle: origin.selection)
+            origin.view.displayPopOver(
+                table,
+                sourceRectangle: origin.selection,
+                preferredSize: Window<InterfaceLocalization>.auxiliarySize)
         } else {
             #if canImport(AppKit)
-            let view = NSView()
-            view.fill(with: table)
             let window = Window<InterfaceLocalization>.auxiliaryWindow(
                 name: .binding(Shared(StrictString(characters))),
-                view: view)
+                view: MarginView(contents: table))
             window.display()
             #endif
         }
