@@ -25,7 +25,6 @@ internal class CocoaTableView : NSTableView {
                 column.width = width
             }
         }
-        sizeLastColumnToFit()
     }
 }
 #endif
