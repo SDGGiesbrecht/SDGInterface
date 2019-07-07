@@ -49,12 +49,19 @@ public final class LabelledTextField<L> : View where L : Localization {
         self.label = label
         let constructedField = field ?? TextField()
         self.field = constructedField
-        row = RowView(views: [label, constructedField], spacing: .automatic)
+        container = AnyNativeView()
+        container.position(
+            subviews: [label, constructedField],
+            inSequenceAlong: .horizontal,
+            padding: .automatic,
+            margin: .specific(0))
+        container.alignLastBaselines(ofSubviews: [label, constructedField])
+        container.fill(with: constructedField, on: .vertical)
     }
 
     // MARK: - Properties
 
-    private let row: RowView
+    private let container: AnyNativeView
 
     /// The label.
     public let label: Label<L>
@@ -65,11 +72,11 @@ public final class LabelledTextField<L> : View where L : Localization {
 
     #if canImport(AppKit)
     public var native: NSView {
-        return row.native
+        return container.native
     }
     #elseif canImport(UIKit)
     public var native: UIView {
-        return row.native
+        return container.native
     }
     #endif
 

@@ -29,7 +29,7 @@ import SDGViews
 private var columnIdentifiers = sequence(first: 0, next: { $0 &+ 1 })
 
 /// Table.
-public class Table<RowData> : SpecificView {
+public final class Table<RowData> : SpecificView {
 
     // MARK: - Initialization
 

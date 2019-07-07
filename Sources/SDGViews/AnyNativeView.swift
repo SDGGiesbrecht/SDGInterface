@@ -20,9 +20,18 @@ import UIKit
 
 import SDGLogic
 
-public class AnyNativeView: View {
+public final class AnyNativeView: View {
 
     // MARK: - Initialization
+
+    /// Creates an empty native view.
+    public convenience init() {
+        #if canImport(AppKit)
+        self.init(NSView())
+        #elseif canImport(UIKit)
+        self.init(UIView())
+        #endif
+    }
 
     #if canImport(AppKit)
     // @documentation(AnyNativeView.init(_:))
@@ -347,10 +356,10 @@ public class AnyNativeView: View {
 
         for viewIndex in subviews.indices {
             let constraint = NSLayoutConstraint(
-                item: subviews[0],
+                item: subviews[0].native,
                 attribute: attribute,
                 relatedBy: .equal,
-                toItem: subviews[viewIndex],
+                toItem: subviews[viewIndex].native,
                 attribute: attribute,
                 multiplier: 1,
                 constant: 0)
@@ -376,7 +385,7 @@ public class AnyNativeView: View {
                 item: self.native,
                 attribute: attribute,
                 relatedBy: .equal,
-                toItem: view,
+                toItem: view.native,
                 attribute: attribute,
                 multiplier: coefficient,
                 constant: 0)
