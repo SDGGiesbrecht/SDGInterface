@@ -56,7 +56,7 @@ public final class LabelledTextField<L> : View where L : Localization {
             padding: .automatic,
             margin: .specific(0))
         container.alignLastBaselines(ofSubviews: [label, constructedField])
-        container.fill(with: constructedField, on: .vertical)
+        container.fill(with: constructedField, on: .vertical, margin: .specific(0))
     }
 
     // MARK: - Properties
