@@ -17,11 +17,17 @@ import AppKit
 
 import SDGMathematics
 
-internal class NSTableViewDelegate<RowData> : NSObject, AppKit.NSTableViewDelegate {
+internal class NSTableViewDelegate<RowData> : NSObject, NSTableViewDataSource, AppKit.NSTableViewDelegate {
 
     // MARK: - Properties
 
     internal weak var table: Table<RowData>?
+
+    // MARK: - NSTableViewDataSource
+
+    internal func numberOfRows(in tableView: NSTableView) -> Int {
+        return table?.data.value.count ?? 0
+    }
 
     // MARK: - NSTableViewDelegate
 

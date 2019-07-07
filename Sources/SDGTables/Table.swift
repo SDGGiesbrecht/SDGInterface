@@ -50,6 +50,7 @@ public final class Table<RowData> : SpecificView {
         defer {
             delegate.table = self
             nativeTable.delegate = delegate
+            nativeTable.dataSource = delegate
         }
         #elseif canImport(UIKit)
         specificNative = UITableView(frame: .zero, style: .plain)
