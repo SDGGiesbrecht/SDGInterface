@@ -19,11 +19,13 @@ internal class CocoaTableView : NSTableView {
 
     internal override func setFrameSize(_ newSize: NSSize) {
         super.setFrameSize(newSize)
-        for index in table.tableColumns.indices {
-            let column = table.tableColumns[index]
-            column.width = tableView(table, sizeToFitWidthOfColumn: index)
+        for index in tableColumns.indices {
+            let column = tableColumns[index]
+            if let width = delegate?.tableView?(self, sizeToFitWidthOfColumn: index) {
+                column.width = width
+            }
         }
-        table.sizeLastColumnToFit()
+        sizeLastColumnToFit()
     }
 }
 #endif
