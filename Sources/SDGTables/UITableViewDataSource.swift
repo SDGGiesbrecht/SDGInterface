@@ -23,15 +23,26 @@ internal class UITableViewDataSource<RowData> : NSObject, UIKit.UITableViewDataS
 
     // MARK: - UITableViewDataSource
 
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return contentController.arrangedObjects.count
+    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return table?.data.value.count ?? 0
     }
 
-    private static let reUseIdentifier = "SDGReUseIdentifier"
+    internal static var reUseIdentifier: String {
+        return "row"
+    }
 
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = dequeueReusableCell(withIdentifier: Table.reUseIdentifier) ?? UITableViewCell(style: cellStyle, reuseIdentifier: Table.reUseIdentifier)
-        cellUpdator(cell, contentController.arrangedObjects[indexPath.row])
+    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UIKit.UITableViewCell {
+        let cell: UITableViewCell
+        if let reUsable = table?.nativeTable.dequeueReusableCell(
+            withIdentifier: UITableViewDataSource.reUseIdentifier) as? UITableViewCell {
+            cell = reUsable
+        } else {
+            cell = UITableViewCell(columns: [])
+        }
+
+        if let table = self.table {
+            cell.row.views = table.columns.map { $0(table.data.value[indexPath.row]) }
+        }
         return cell
     }
 }

@@ -44,7 +44,9 @@ public final class RowView : SpecificView {
             specificNative.spacing = CGFloat(measurement)
         }
 
+        #if canImport(AppKit)
         specificNative.setHuggingPriority(.required, for: .vertical)
+        #endif
         specificNative.alignment = .firstBaseline
     }
 
@@ -56,12 +58,21 @@ public final class RowView : SpecificView {
         }
     }
     private func viewsDidSet() {
+        #if canImport(AppKit)
         while let view = specificNative.views.first {
             specificNative.removeView(view)
         }
         for view in views {
             specificNative.addView(view.native, in: .trailing)
         }
+        #elseif canImport(UIKit)
+        while let view = specificNative.arrangedSubviews.first {
+            specificNative.removeArrangedSubview(view)
+        }
+        for view in views {
+            specificNative.addArrangedSubview(view.native)
+        }
+        #endif
     }
 
     #if canImport(AppKit)

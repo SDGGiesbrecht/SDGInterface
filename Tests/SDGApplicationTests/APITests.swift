@@ -741,7 +741,7 @@ final class APITests : ApplicationTestCase {
         EmptyView().native.lockSizeRatio(toSubviews: [EmptyView().native, EmptyView().native], coefficient: 1, axis: .vertical)
         EmptyView().native.alignCentres(ofSubviews: [EmptyView().native, EmptyView().native], on: .horizontal)
         EmptyView().native.alignCentres(ofSubviews: [EmptyView().native, EmptyView().native], on: .vertical)
-        EmptyView().native.alignLastBaselines(ofSubviews: [EmptyView().native, EmptyView().native])
+        EmptyView().native.alignFirstBaselines(ofSubviews: [EmptyView().native, EmptyView().native])
         EmptyView().native.lockAspectRatio(to: 1)
         EmptyView().native.position(subviews: [EmptyView().native, EmptyView().native], inSequenceAlong: .horizontal, padding: .none, leadingMargin: .specific(8), trailingMargin: .unspecified)
         #endif

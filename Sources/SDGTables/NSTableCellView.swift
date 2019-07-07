@@ -1,5 +1,5 @@
 /*
- CocoaTableCellView.swift
+ NSTableCellView.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,22 +12,12 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
 #if canImport(AppKit)
 import AppKit
-#elseif canImport(UIKit)
-import UIKit
-#endif
 
 import SDGViews
 
-#if canImport(AppKit)
-internal typealias NSUITableCellView = NSTableCellView
-#elseif canImport(UIKit)
-internal typealias NSUITableCellView = NSTableCellView
-#endif
-
-internal class CocoaTableCellView : NSUITableCellView {
+internal class NSTableCellView : AppKit.NSTableCellView {
 
     // MARK: - Initialization
 
@@ -45,6 +35,6 @@ internal class CocoaTableCellView : NSUITableCellView {
 
     // MARK: - Properties
 
-    private let view: View?
+    private let view: View
 }
 #endif
