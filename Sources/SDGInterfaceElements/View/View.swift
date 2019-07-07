@@ -52,7 +52,7 @@ extension NativeView : View {
     ///     - size: The minimum size.
     ///     - axis: The axis to constrain.
     public func setMinimumSize(size: CGFloat, axis: Axis) {
-        let format = "\(axis.string)[view(\u{3E}=\(size))]"
+        let format = "\(axis._string)[view(\u{3E}=\(size))]"
         let constraints = NSLayoutConstraint.constraints(withVisualFormat: format, options: [], metrics: nil, views: ["view": self])
         addConstraints(constraints)
     }
@@ -66,7 +66,7 @@ extension NativeView : View {
     /// - Parameters:
     ///     - subview: The subview with which to fill the view.
     ///     - margin: The size of the margins.
-    public func fill(with subview: NativeView, margin: Margin = .system) {
+    public func fill(with subview: NativeView, margin: Spacing = .automatic) {
         _fill(with: subview, margin: margin)
     }
 
@@ -78,7 +78,7 @@ extension NativeView : View {
     ///     - subview: The subview with which to fill the view.
     ///     - axis: The axis to fill.
     ///     - margin: The size of the margins.
-    public func fill(with subview: NativeView, on axis: Axis, margin: Margin = .system) {
+    public func fill(with subview: NativeView, on axis: Axis, margin: Spacing = .automatic) {
         _fill(with: subview, on: axis, margin: margin)
     }
 
@@ -91,7 +91,7 @@ extension NativeView : View {
     ///     - axis: The axis to fill.
     ///     - leadingMargin: The size of the leading margin.
     ///     - trailingMargin: The size of the trailing margin.
-    public func fill(with subview: NativeView, on axis: Axis, leadingMargin: Margin, trailingMargin: Margin) {
+    public func fill(with subview: NativeView, on axis: Axis, leadingMargin: Spacing, trailingMargin: Spacing) {
         _fill(with: subview, on: axis, leadingMargin: leadingMargin, trailingMargin: trailingMargin)
     }
 
@@ -108,7 +108,7 @@ extension NativeView : View {
     ///     - axis: The axis along which to position the views.
     ///     - padding: The size of the padding between views.
     ///     - margin: The size of the margins.
-    public func position(subviews: [NativeView], inSequenceAlong axis: Axis, padding: Margin = .system, margin: Margin = .system) {
+    public func position(subviews: [NativeView], inSequenceAlong axis: Axis, padding: Spacing = .automatic, margin: Spacing = .automatic) {
         position(subviews: subviews, inSequenceAlong: axis, padding: padding, leadingMargin: margin, trailingMargin: margin)
     }
 
@@ -129,9 +129,9 @@ extension NativeView : View {
     public func position(
         subviews: [NativeView],
         inSequenceAlong axis: Axis,
-        padding: Margin = .system,
-        leadingMargin: Margin,
-        trailingMargin: Margin) {
+        padding: Spacing = .automatic,
+        leadingMargin: Spacing,
+        trailingMargin: Spacing) {
 
         _position(
             subviews: subviews,
@@ -163,7 +163,7 @@ extension NativeView : View {
     ///     - axis: An axis along which to centre the subview.
     public func centre(subview: NativeView, on axis: Axis) {
 
-        addSubviewIfNecessary(subview)
+        _addSubviewIfNecessary(subview)
 
         let attribute: NSLayoutConstraint.Attribute
         switch axis {
@@ -268,7 +268,7 @@ extension NativeView : View {
     ///     - subviews: The subviews on whose attributes should be equalized.
     public func equalize(_ attribute: NSLayoutConstraint.Attribute, amongSubviews subviews: [NativeView]) {
         for view in subviews {
-            addSubviewIfNecessary(view)
+            _addSubviewIfNecessary(view)
         }
 
         assert(subviews.count ≥ 2, UserFacing<StrictString, APILocalization>({ localization in
@@ -294,7 +294,7 @@ extension NativeView : View {
     ///     - coefficient: The ratio.
     public func lock(_ attribute: NSLayoutConstraint.Attribute, ratioToSubviews subviews: [NativeView], coefficient: CGFloat) {
         for view in subviews {
-            addSubviewIfNecessary(view)
+            _addSubviewIfNecessary(view)
             let constraint = NSLayoutConstraint(item: self, attribute: attribute, relatedBy: .equal, toItem: view, attribute: attribute, multiplier: coefficient, constant: 0)
             addConstraint(constraint)
         }
