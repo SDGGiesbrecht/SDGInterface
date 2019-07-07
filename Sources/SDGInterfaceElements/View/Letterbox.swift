@@ -26,6 +26,7 @@ import SDGText
 import SDGLocalization
 
 import SDGInterfaceBasics
+import SDGViews
 
 import SDGInterfaceLocalizations
 
@@ -47,8 +48,8 @@ open class Letterbox : NativeView {
     public init(content: NativeView, aspectRatio widthToHeight: CGFloat) {
         super.init(frame: CGRect.zero)
 
-        content.lockAspectRatio(to: widthToHeight)
-        centre(subview: content)
+        AnyNativeView(content).lockAspectRatio(to: widthToHeight)
+        AnyNativeView(self).centre(subview: content)
 
         let maxWidth = NSLayoutConstraint(
             item: content,

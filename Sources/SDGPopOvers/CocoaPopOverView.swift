@@ -21,14 +21,20 @@ import UIKit
 
 import SDGViews
 
-internal class CocoaPopOverView : _NSUIView {
+#if canImport(AppKit)
+internal typealias NSUIView = NSView
+#elseif canImport(UIKit)
+internal typealias NSUIView = UIView
+#endif
+
+internal class CocoaPopOverView : NSUIView {
 
     // MARK: - Initialization
 
     internal init(view: View) {
         self.view = view
         super.init(frame: .zero)
-        _fill(with: view.native, margin: .automatic)
+        AnyNativeView(self).fill(with: view, margin: .automatic)
     }
 
     internal required init?(coder decoder: NSCoder) {

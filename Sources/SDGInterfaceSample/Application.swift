@@ -26,6 +26,7 @@ import SDGText
 import SDGLocalization
 
 import SDGInterfaceBasics
+import SDGViews
 import SDGTextDisplay
 import SDGImageDisplay
 import SDGWindows
@@ -113,9 +114,7 @@ extension Application {
     }
     private func demonstrate<L>(_ view: NativeView, windowTitle: UserFacing<StrictString, L>) {
         #if canImport(AppKit)
-        let contentView = NSView()
-        contentView.fill(with: view)
-        let window = Window<L>.auxiliaryWindow(name: .static(windowTitle), view: contentView)
+        let window = Window<L>.auxiliaryWindow(name: .static(windowTitle), view: MarginView(contents: view))
         demonstrate(window)
         #else
         let contentView = UIView()
