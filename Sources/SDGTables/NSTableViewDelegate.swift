@@ -43,8 +43,8 @@ internal class NSTableViewDelegate<RowData> : NSObject, AppKit.NSTableViewDelega
                     constraint.priority = NSLayoutConstraint.Priority(rawValue: priority)
                 }
 
-                #warning("Need to wrap in order not to lose parent instance.")
-                return view.native
+                let cell = CocoaTableCellView(view: view)
+                return cell
             }
         }
         return nil
