@@ -19,17 +19,8 @@ import AppKit
 import UIKit
 #endif
 
-/// A view.
-public protocol View : AnyObject {
-    #if canImport(AppKit)
-    /// The native view.
-    var native: NSView { get }
-    #elseif canImport(UIKit)
-    /// The native view.
-    var native: UIView { get }
-    #endif
-}
-#endif
+import SDGInterfaceBasics
+import SDGViews
 
 extension View {
 
@@ -40,7 +31,8 @@ extension View {
     /// - Parameters:
     ///     - view: The view to display as a pop‐over.
     ///     - sourceRectangle: A rectangle within `self` that should be considered the origin of the pop‐over.
-    public func displayPopOver(_ view: View, sourceRectangle: (Point, Size)? = nil) {
+    public func displayPopOver(_ view: View, sourceRectangle: (origin: Point, size: Size)? = nil) {
+
         #if canImport(UIKit)
         let controller = UIViewController()
         #if os(tvOS)
@@ -61,12 +53,13 @@ extension View {
         self.controller?.present(controller, animated: true, completion: nil)
         #else
         let controller = NSViewController()
-        controller.view = view
+        controller.view = CocoaPopOverView(view: view)
 
         let popOver = NSPopover()
         popOver.contentViewController = controller
         popOver.behavior = .transient
-        popOver.show(relativeTo: sourceRectangle ?? frame, of: self, preferredEdge: .maxX)
+        popOver.show(relativeTo: sourceRectangle ?? native.frame, of: self, preferredEdge: .maxX)
         #endif
     }
 }
+#endif

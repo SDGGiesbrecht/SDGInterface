@@ -1,5 +1,5 @@
 /*
- View.swift
+ CocoaPopOverView.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -19,14 +19,24 @@ import AppKit
 import UIKit
 #endif
 
-/// A view.
-public protocol View : AnyObject {
-    #if canImport(AppKit)
-    /// The native view.
-    var native: NSView { get }
-    #elseif canImport(UIKit)
-    /// The native view.
-    var native: UIView { get }
-    #endif
+import SDGViews
+
+internal class CocoaPopOverView : _NSUIView {
+
+    // MARK: - Initialization
+
+    internal init(view: View) {
+        self.view = view
+        super.init(frame: .zero)
+        _fill(with: view.native, margin: .automatic)
+    }
+
+    internal required init?(coder decoder: NSCoder) {
+        return nil
+    }
+
+    // MARK: - Properties
+
+    private let view: View?
 }
 #endif
