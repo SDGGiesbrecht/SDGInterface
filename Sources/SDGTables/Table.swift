@@ -58,6 +58,7 @@ public final class Table<RowData> : SpecificView {
         #endif
 
         #if canImport(AppKit)
+        nativeTable.headerView = nil
         specificNative.borderType = .bezelBorder
         #endif
         #if canImport(AppKit)
