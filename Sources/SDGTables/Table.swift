@@ -49,6 +49,7 @@ public final class Table<RowData> : SpecificView {
         specificNative.documentView = CocoaTableView()
         defer {
             delegate.table = self
+            nativeTable.delegate = delegate
         }
         #elseif canImport(UIKit)
         specificNative = UITableView(frame: .zero, style: .plain)

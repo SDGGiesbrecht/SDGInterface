@@ -53,7 +53,7 @@ internal class NSTableViewDelegate<RowData> : NSObject, AppKit.NSTableViewDelega
     internal func tableView(_ tableView: NSTableView, sizeToFitWidthOfColumn column: Int) -> CGFloat {
         if var width = table?.nativeTable.tableColumns[column].headerCell.cellSize.width,
             let numberOfRows = table?.nativeTable.numberOfRows {
-            for row in 1 ... numberOfRows {
+            for row in 0 ..< numberOfRows {
                 if let view = table?.nativeTable.view(atColumn: column, row: row, makeIfNecessary: true) {
                     width.increase(to: view.fittingSize.width)
                 }
