@@ -245,6 +245,7 @@ let package = Package(
         // #documentation(SDGViews)
         /// The view protocol.
         .target(name: "SDGViews", dependencies: [
+            .product(name: "SDGLogic", package: "SDGCornerstone")
             ]),
 
         // #documentation(SDGKeyboard)

@@ -20,4 +20,15 @@ public enum Spacing {
 
     /// Custom spacing.
     case specific(Double)
+
+    // MARK: - Properties
+
+    internal var string: String {
+        switch self {
+        case .automatic:
+            return "\u{2D}"
+        case .specific(let size):
+            return "\u{2D}\(size)\u{2D}"
+        }
+    }
 }

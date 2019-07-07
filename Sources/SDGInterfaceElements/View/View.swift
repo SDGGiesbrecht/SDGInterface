@@ -42,14 +42,6 @@ public typealias NativeView = UIView
 
 extension NativeView : View {
 
-    private func addSubviewIfNecessary(_ subview: NativeView) {
-        subview.translatesAutoresizingMaskIntoConstraints = false
-
-        if ¬subviews.contains(subview) {
-            addSubview(subview)
-        }
-    }
-
     // MARK: - Layout Constraints
 
     // MARK: - Size Limits
@@ -135,50 +127,19 @@ extension NativeView : View {
     ///     - padding: The size of the padding between views.
     ///     - leadingMargin: The size of the leading margin.
     ///     - trailingMargin: The size of the trailing margin.
-    public func position(subviews: [NativeView], inSequenceAlong axis: Axis, padding: Margin = .system, leadingMargin: Margin, trailingMargin: Margin) {
+    public func position(
+        subviews: [NativeView],
+        inSequenceAlong axis: Axis,
+        padding: Margin = .system,
+        leadingMargin: Margin,
+        trailingMargin: Margin) {
 
-        for view in subviews {
-            addSubviewIfNecessary(view)
-        }
-
-        assert(subviews.count > 0, UserFacing<StrictString, APILocalization>({ localization in
-            switch localization { // @exempt(from: tests)
-            case .englishCanada:
-                return "Attempt made to position 0 views in sequence."
-            }
-        }))
-
-        var viewList = String()
-        var viewDictionary = [String: View]()
-        for index in subviews.indices {
-            if index > 0 {
-                guard let paddingString = padding.string else {
-                    preconditionFailure(UserFacing<StrictString, APILocalization>({ localization in
-                        switch localization {
-                        case .englishCanada:
-                            return "No padding specified."
-                        }
-                    }))
-                }
-                viewList += paddingString
-            }
-            viewList += "[v\(index)]"
-            viewDictionary["v\(index)"] = subviews[index]
-        }
-
-        var leadingMarginString = ""
-        if let string = leadingMargin.string {
-            leadingMarginString = "|\(string)"
-        }
-
-        var trailingMarginString = ""
-        if let string = trailingMargin.string {
-            trailingMarginString = "\(string)|"
-        }
-
-        let visualFormat = "\(axis.string)\(leadingMarginString)\(viewList)\(trailingMarginString)"
-        let constraints = NSLayoutConstraint.constraints(withVisualFormat: visualFormat, options: [], metrics: nil, views: viewDictionary)
-        addConstraints(constraints)
+        _position(
+            subviews: subviews,
+            inSequenceAlong: axis,
+            padding: padding,
+            leadingMargin: leadingMargin,
+            trailingMargin: trailingMargin)
     }
 
     // MARK: - Centring Subviews
