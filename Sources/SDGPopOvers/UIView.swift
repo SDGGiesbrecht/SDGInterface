@@ -20,7 +20,7 @@ import SDGLogic
 extension UIView {
 
     internal var controller: UIViewController? {
-        var responder: UIResponder? = native
+        var responder: UIResponder? = self
         while responder ≠ nil {
             responder = responder!.next
             if let cast = responder as? UIViewController {

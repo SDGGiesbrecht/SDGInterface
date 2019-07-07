@@ -51,7 +51,7 @@ extension View {
         popOver?.sourceRect = sourceRectangle?.native ?? native.frame // @exempt(from: tests) tvOS quirk.
         popOver?.permittedArrowDirections = .any
 
-        AnyNativeView(native).controller?.present(controller, animated: true, completion: nil)
+        native.controller?.present(controller, animated: true, completion: nil)
         #else
         let controller = NSViewController()
         if let specifiedSize = preferredSize {
