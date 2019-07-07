@@ -25,17 +25,13 @@ public enum Axis {
     #if canImport(AppKit) || canImport(UIKit)
     // MARK: - Layout Representation
 
-    #warning("Does this really need to be public?")
-    public var _string: String {
+    internal var string: String {
         switch self {
         case .horizontal:
             return "H:"
         case .vertical:
             return "V:"
         }
-    }
-    internal var string: String {
-        return _string
     }
     #endif
 }

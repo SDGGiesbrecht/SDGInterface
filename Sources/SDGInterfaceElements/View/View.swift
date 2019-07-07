@@ -44,19 +44,6 @@ extension NativeView : View {
 
     // MARK: - Layout Constraints
 
-    // MARK: - Size Limits
-
-    /// Sets the minimum size for the view along a given axis.
-    ///
-    /// - Parameters:
-    ///     - size: The minimum size.
-    ///     - axis: The axis to constrain.
-    public func setMinimumSize(size: CGFloat, axis: Axis) {
-        let format = "\(axis._string)[view(\u{3E}=\(size))]"
-        let constraints = NSLayoutConstraint.constraints(withVisualFormat: format, options: [], metrics: nil, views: ["view": self])
-        addConstraints(constraints)
-    }
-
     // MARK: - Subview Sequences
 
     /// Arranges a subview to fill the view.
