@@ -56,8 +56,7 @@ internal class NSTableViewDelegate<RowData> : NSObject, NSTableViewDataSource, A
         return nil
     }
 
-    #warning("Reactivate.")
-    /*internal func tableView(_ tableView: NSTableView, sizeToFitWidthOfColumn column: Int) -> CGFloat {
+    internal func tableView(_ tableView: NSTableView, sizeToFitWidthOfColumn column: Int) -> CGFloat {
         if var width = table?.nativeTable.tableColumns[column].headerCell.cellSize.width,
             let numberOfRows = table?.nativeTable.numberOfRows {
             for row in 0 ..< numberOfRows {
@@ -69,6 +68,6 @@ internal class NSTableViewDelegate<RowData> : NSObject, NSTableViewDataSource, A
         } else {
             return 0
         }
-    }*/
+    }
 }
 #endif
