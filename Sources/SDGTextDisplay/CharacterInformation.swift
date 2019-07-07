@@ -122,7 +122,7 @@ public struct CharacterInformation {
         } else {
             switch character {
             case "\u{22}", "\u{27}", "\u{2D}", "\\", "^", "_", "`", "~":
-                warningColour = .yellow // Code‐only ASCII
+                warningColour = Colour(red: 0.5, green: 0.5, blue: 0) // Code‐only ASCII
             default:
                 warningColour = .black // Normal
             }
