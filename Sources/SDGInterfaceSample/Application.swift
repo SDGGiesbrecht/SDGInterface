@@ -100,7 +100,7 @@ extension Application {
         #endif
 
         #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
-        let window = Window(name: .static(ApplicationNameForm.localizedIsolatedForm), view: TextEditor())
+        let window = Window.primaryWindow(name: .static(ApplicationNameForm.localizedIsolatedForm), view: TextEditor())
         if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil { // #exempt(from: tests)
             // This call fails during tests.
             window.display()

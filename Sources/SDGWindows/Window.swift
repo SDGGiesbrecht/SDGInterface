@@ -50,6 +50,9 @@ public final class Window<L> : AnyWindow where L : Localization {
     public static func primaryWindow(name: Binding<StrictString, L>, view: View) -> Window {
         let window = Window(name: name, view: view)
         window.size = availableSize
+        #if canImport(UIKit)
+        window.native.frame.origin = CGPoint(x: 0, y: 0)
+        #endif
         #if canImport(AppKit)
         window.isPrimary = true
         #endif
