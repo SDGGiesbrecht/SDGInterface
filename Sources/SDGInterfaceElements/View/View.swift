@@ -316,43 +316,6 @@ extension NativeView : View {
     }
     #endif
 
-    // MARK: - Pop‐overs
-
-    /// Displays a pop‐over view.
-    ///
-    /// - Parameters:
-    ///     - view: The view to display as a pop‐over.
-    ///     - sourceRectangle: A rectangle within `self` that should be considered the origin of the pop‐over.
-    public func displayPopOver(_ view: NativeView, sourceRectangle: CGRect? = nil) {
-        #if canImport(UIKit)
-        let controller = UIViewController()
-        #if os(tvOS)
-        controller.modalPresentationStyle = .overCurrentContext
-        #else
-        controller.modalPresentationStyle = .popover
-        #endif
-        controller.view = view
-
-        let popOver = controller.popoverPresentationController
-        #if !os(tvOS)
-        popOver?.delegate = PopOverDelegate.delegate
-        #endif
-        popOver?.sourceView = self
-        popOver?.sourceRect = sourceRectangle ?? frame // @exempt(from: tests) tvOS quirk.
-        popOver?.permittedArrowDirections = .any
-
-        self.controller?.present(controller, animated: true, completion: nil)
-        #else
-        let controller = NSViewController()
-        controller.view = view
-
-        let popOver = NSPopover()
-        popOver.contentViewController = controller
-        popOver.behavior = .transient
-        popOver.show(relativeTo: sourceRectangle ?? frame, of: self, preferredEdge: .maxX)
-        #endif
-    }
-
     // MARK: - View
 
     public var native: NativeView {

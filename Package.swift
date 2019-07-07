@@ -80,6 +80,10 @@ let package = Package(
         /// Menus.
         .library(name: "SDGMenus", targets: ["SDGMenus"]),
 
+        // @documentation(SDGPopOvers)
+        /// Pop‐over interfaces.
+        .library(name: "SDGPopOvers", targets: ["SDGPopOvers"]),
+
         // @documentation(SDGWindows)
         /// Windows.
         .library(name: "SDGWindows", targets: ["SDGWindows"]),
@@ -172,6 +176,13 @@ let package = Package(
             .product(name: "SDGControlFlow", package: "SDGCornerstone"),
             .product(name: "SDGText", package: "SDGCornerstone"),
             .product(name: "SDGLocalization", package: "SDGCornerstone")
+            ]),
+
+        // #documentation(SDGPopOvers)
+        /// Pop‐over interfaces.
+        .target(name: "SDGPopOvers", dependencies: [
+            "SDGInterfaceBasics",
+            "SDGViews"
             ]),
 
         // #documentation(SDGWindows)
