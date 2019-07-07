@@ -197,7 +197,7 @@ public class AnyNativeView: View {
             withVisualFormat: format,
             options: [],
             metrics: nil,
-            views: ["view": self])
+            views: ["view": self.native])
         native.addConstraints(constraints)
     }
 
@@ -237,7 +237,7 @@ public class AnyNativeView: View {
             item: subview,
             attribute: attribute,
             relatedBy: .equal,
-            toItem: self,
+            toItem: self.native,
             attribute: attribute,
             multiplier: 1,
             constant: 0)
@@ -321,10 +321,10 @@ public class AnyNativeView: View {
     ///     - aspectRatio: The aspect ratio. (*width* ∶ *height*)
     public func lockAspectRatio(to aspectRatio: CGFloat) {
         let constraint = NSLayoutConstraint(
-            item: self,
+            item: self.native,
             attribute: .width,
             relatedBy: .equal,
-            toItem: self,
+            toItem: self.native,
             attribute: .height,
             multiplier: aspectRatio,
             constant: 0)
@@ -373,7 +373,7 @@ public class AnyNativeView: View {
         for view in subviews {
             addSubviewIfNecessary(view)
             let constraint = NSLayoutConstraint(
-                item: self,
+                item: self.native,
                 attribute: attribute,
                 relatedBy: .equal,
                 toItem: view,
