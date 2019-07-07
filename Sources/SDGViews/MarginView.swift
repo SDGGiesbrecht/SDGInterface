@@ -30,7 +30,7 @@ public final class MarginView : View {
     ///     - contents: The content view.
     public init(contents: View) {
         self.contents = contents
-        native._fill(with: contents.native)
+        native.fill(with: contents.native)
     }
 
     // MARK: - Properties
