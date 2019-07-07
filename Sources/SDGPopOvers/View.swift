@@ -45,13 +45,13 @@ extension View {
 
         let popOver = controller.popoverPresentationController
         #if !os(tvOS)
-        popOver?.delegate = PopOverDelegate.delegate
+        popOver?.delegate = UIPopoverPresentationControllerDelegate.delegate
         #endif
-        popOver?.sourceView = self
-        popOver?.sourceRect = sourceRectangle ?? frame // @exempt(from: tests) tvOS quirk.
+        popOver?.sourceView = native
+        popOver?.sourceRect = sourceRectangle?.native ?? native.frame // @exempt(from: tests) tvOS quirk.
         popOver?.permittedArrowDirections = .any
 
-        self.controller?.present(controller, animated: true, completion: nil)
+        AnyNativeView(native).controller?.present(controller, animated: true, completion: nil)
         #else
         let controller = NSViewController()
         if let specifiedSize = preferredSize {

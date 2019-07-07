@@ -42,22 +42,6 @@ public typealias NativeView = UIView
 
 extension NativeView : View {
 
-    // MARK: - Responder Chain
-
-    #if canImport(UIKit)
-    /// The view controller associated with the view.
-    public var controller: UIViewController? {
-        var responder: UIResponder? = self
-        while responder ≠ nil {
-            responder = responder!.next
-            if let cast = responder as? UIViewController {
-                return cast
-            }
-        }
-        return nil
-    }
-    #endif
-
     // MARK: - View
 
     public var native: NativeView {

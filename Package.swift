@@ -182,7 +182,8 @@ let package = Package(
         /// Pop‐over interfaces.
         .target(name: "SDGPopOvers", dependencies: [
             "SDGInterfaceBasics",
-            "SDGViews"
+            "SDGViews",
+            .product(name: "SDGLogic", package: "SDGCornerstone")
             ]),
 
         // #documentation(SDGWindows)
