@@ -67,8 +67,7 @@ extension NativeView : View {
     ///     - subview: The subview with which to fill the view.
     ///     - margin: The size of the margins.
     public func fill(with subview: NativeView, margin: Margin = .system) {
-        fill(with: subview, on: .horizontal, margin: margin)
-        fill(with: subview, on: .vertical, margin: margin)
+        _fill(with: subview, margin: margin)
     }
 
     /// Arranges a subview to fill the view along one axis.
@@ -80,7 +79,7 @@ extension NativeView : View {
     ///     - axis: The axis to fill.
     ///     - margin: The size of the margins.
     public func fill(with subview: NativeView, on axis: Axis, margin: Margin = .system) {
-        fill(with: subview, on: axis, leadingMargin: margin, trailingMargin: margin)
+        _fill(with: subview, on: axis, margin: margin)
     }
 
     /// Arranges a subview to fill the view on one axis with differing margins.
@@ -93,7 +92,7 @@ extension NativeView : View {
     ///     - leadingMargin: The size of the leading margin.
     ///     - trailingMargin: The size of the trailing margin.
     public func fill(with subview: NativeView, on axis: Axis, leadingMargin: Margin, trailingMargin: Margin) {
-        position(subviews: [subview], inSequenceAlong: axis, padding: .system, leadingMargin: leadingMargin, trailingMargin: trailingMargin)
+        _fill(with: subview, on: axis, leadingMargin: leadingMargin, trailingMargin: trailingMargin)
     }
 
     /// Arranges subviews along an axis.

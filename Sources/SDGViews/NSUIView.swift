@@ -37,6 +37,19 @@ extension _NSUIView {
         }
     }
 
+    public func _fill(with subview: _NSUIView, margin: Spacing = .automatic) {
+        _fill(with: subview, on: .horizontal, margin: margin)
+        _fill(with: subview, on: .vertical, margin: margin)
+    }
+
+    public func _fill(with subview: _NSUIView, on axis: Axis, margin: Spacing = .automatic) {
+        _fill(with: subview, on: axis, leadingMargin: margin, trailingMargin: margin)
+    }
+
+    public func _fill(with subview: _NSUIView, on axis: Axis, leadingMargin: Spacing, trailingMargin: Spacing) {
+        _position(subviews: [subview], inSequenceAlong: axis, padding: .automatic, leadingMargin: leadingMargin, trailingMargin: trailingMargin)
+    }
+
     public func _position(subviews: [_NSUIView], inSequenceAlong axis: Axis, padding: Spacing = .automatic, leadingMargin: Spacing, trailingMargin: Spacing) {
 
         for view in subviews {

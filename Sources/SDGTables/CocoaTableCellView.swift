@@ -34,7 +34,7 @@ internal class CocoaTableCellView : NSUITableCellView {
     internal init(view: View) {
         self.view = view
         super.init(frame: .zero)
-        #warning("Needs to set up constraints.")
+        _fill(with: view.native, margin: .specific(0))
     }
 
     internal required init?(coder decoder: NSCoder) {
