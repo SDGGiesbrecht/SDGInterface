@@ -38,7 +38,7 @@ internal class NSTableViewDelegate<RowData> : NSObject, NSTableViewDataSource, A
             } else if let nativeTableColumns = table?.nativeTable.tableColumns,
                 let index = nativeTableColumns.indices.first(
                     where: { nativeTableColumns[$0].identifier == identifier }),
-                let data = table?.data.value[index],
+                let data = table?.data.value[row],
                 let generator = table?.columns[index] {
                 let view = generator(data)
 
@@ -56,7 +56,8 @@ internal class NSTableViewDelegate<RowData> : NSObject, NSTableViewDataSource, A
         return nil
     }
 
-    internal func tableView(_ tableView: NSTableView, sizeToFitWidthOfColumn column: Int) -> CGFloat {
+    #warning("Reactivate.")
+    /*internal func tableView(_ tableView: NSTableView, sizeToFitWidthOfColumn column: Int) -> CGFloat {
         if var width = table?.nativeTable.tableColumns[column].headerCell.cellSize.width,
             let numberOfRows = table?.nativeTable.numberOfRows {
             for row in 0 ..< numberOfRows {
@@ -68,6 +69,6 @@ internal class NSTableViewDelegate<RowData> : NSObject, NSTableViewDataSource, A
         } else {
             return 0
         }
-    }
+    }*/
 }
 #endif
