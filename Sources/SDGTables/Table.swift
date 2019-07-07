@@ -112,6 +112,7 @@ public final class Table<RowData> : SpecificView {
             let index = nativeTable.tableColumns.count
             let newColumn = NSTableColumn(
                 identifier: NSUserInterfaceItemIdentifier("\(columnIdentifiers.next()!)"))
+            newColumn.title = ""
             newColumn.resizingMask = [.autoresizingMask, .userResizingMask]
             nativeTable.addTableColumn(newColumn)
 
