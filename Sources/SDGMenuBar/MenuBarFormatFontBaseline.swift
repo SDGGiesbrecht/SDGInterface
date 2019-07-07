@@ -18,6 +18,7 @@ import AppKit
 import SDGText
 import SDGLocalization
 
+import SDGInterfaceBasics
 import SDGMenus
 
 import SDGInterfaceLocalizations
@@ -41,7 +42,7 @@ extension MenuBar {
                 return "השתמש בברירת המחדל"
             }
         })))
-        normal.action = #selector(NSTextView.resetBaseline(_:))
+        normal.action = #selector(RichTextEditingResponder.resetBaseline(_:))
         return normal
     }
 
@@ -62,7 +63,7 @@ extension MenuBar {
                 return "כתב עילי"
             }
         })))
-        superscript.action = #selector(NSTextView.makeSuperscript(_:))
+        superscript.action = #selector(RichTextEditingResponder.makeSuperscript(_:))
         return superscript
     }
 
@@ -84,7 +85,7 @@ extension MenuBar {
                 return "כתב תחתי"
             }
         })))
-        `subscript`.action = #selector(NSTextView.makeSubscript(_:))
+        `subscript`.action = #selector(RichTextEditingResponder.makeSubscript(_:))
         return `subscript`
     }
 

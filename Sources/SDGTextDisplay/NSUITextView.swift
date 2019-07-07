@@ -32,9 +32,7 @@ internal typealias NSUITextView = NSTextView
 internal typealias NSUITextView = UITextView
 #endif
 
-#warning("Do any of these have to be public?")
-
-extension NSUITextView : TextEditingResponder {
+extension NSUITextView : RichTextEditingResponder {
 
     // MARK: - Selection
 

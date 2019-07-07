@@ -18,6 +18,7 @@ import AppKit
 import SDGText
 import SDGLocalization
 
+import SDGInterfaceBasics
 import SDGMenus
 import SDGInterfaceElements
 
@@ -32,7 +33,7 @@ extension MenuBar {
                 return "Use Default"
             }
         })))
-        useDefault.action = #selector(NSTextView.resetCasing(_:))
+        useDefault.action = #selector(RichTextEditingResponder.resetCasing(_:))
         return useDefault
     }
 
@@ -57,7 +58,7 @@ extension MenuBar {
     }
     private static func latinateUpperCase() -> MenuEntry<InterfaceLocalization> {
         let latinateUpperCase = MenuEntry(label: .static(upperCaseLabel()))
-        latinateUpperCase.action = #selector(NSTextView.makeLatinateUpperCase(_:))
+        latinateUpperCase.action = #selector(RichTextEditingResponder.makeLatinateUpperCase(_:))
         latinateUpperCase.indentationLevel = 1
         return latinateUpperCase
     }
@@ -73,7 +74,7 @@ extension MenuBar {
 
     private static func latinateSmallUpperCase() -> MenuEntry<InterfaceLocalization> {
         let latinateSmallUpperCase = MenuEntry(label: .static(smallUpperCaseLabel()))
-        latinateSmallUpperCase.action = #selector(NSTextView.makeLatinateSmallCaps(_:))
+        latinateSmallUpperCase.action = #selector(RichTextEditingResponder.makeLatinateSmallCaps(_:))
         latinateSmallUpperCase.indentationLevel = 1
         return latinateSmallUpperCase
     }
@@ -88,7 +89,7 @@ extension MenuBar {
     }
     private static func latinateLowerCase() -> MenuEntry<InterfaceLocalization> {
         let latinateLowerCase = MenuEntry(label: .static(lowerCaseLabel()))
-        latinateLowerCase.action = #selector(NSTextView.makeLatinateLowerCase(_:))
+        latinateLowerCase.action = #selector(RichTextEditingResponder.makeLatinateLowerCase(_:))
         latinateLowerCase.indentationLevel = 1
         return latinateLowerCase
     }
@@ -106,21 +107,21 @@ extension MenuBar {
 
     private static func turkicUpperCase() -> MenuEntry<InterfaceLocalization> {
         let turkicUpperCase = MenuEntry(label: .static(upperCaseLabel()))
-        turkicUpperCase.action = #selector(NSTextView.makeTurkicUpperCase(_:))
+        turkicUpperCase.action = #selector(RichTextEditingResponder.makeTurkicUpperCase(_:))
         turkicUpperCase.indentationLevel = 1
         return turkicUpperCase
     }
 
     private static func turkicSmallUpperCase() -> MenuEntry<InterfaceLocalization> {
         let turkicSmallUpperCase = MenuEntry(label: .static(smallUpperCaseLabel()))
-        turkicSmallUpperCase.action = #selector(NSTextView.makeTurkicSmallCaps(_:))
+        turkicSmallUpperCase.action = #selector(RichTextEditingResponder.makeTurkicSmallCaps(_:))
         turkicSmallUpperCase.indentationLevel = 1
         return turkicSmallUpperCase
     }
 
     private static func turkicLowerCase() -> MenuEntry<InterfaceLocalization> {
         let turkicLowerCase = MenuEntry(label: .static(lowerCaseLabel()))
-        turkicLowerCase.action = #selector(NSTextView.makeTurkicLowerCase(_:))
+        turkicLowerCase.action = #selector(RichTextEditingResponder.makeTurkicLowerCase(_:))
         turkicLowerCase.indentationLevel = 1
         return turkicLowerCase
     }
