@@ -24,11 +24,16 @@ import AppKit
 import UIKit
 #endif
 
+import SDGControlFlow
 import SDGLogic
 import SDGText
 
 import SDGInterfaceBasics
 import SDGViews
+import SDGTables
+import SDGWindows
+
+import SDGInterfaceLocalizations
 
 /// User‐presentable Unicode information about the characters in a string.
 public struct CharacterInformation {
@@ -49,54 +54,28 @@ public struct CharacterInformation {
             details.append(CharacterInformation(scalar))
         }
 
-        let table = Table(content: details)
-
-        #if canImport(AppKit)
-        table.newColumn(header: "", viewGenerator: {
-            let view = LabelCell<InterfaceLocalization>()
-            view.bindText(contentKeyPath: CharacterInformation.codePointKeyPath)
-            view.bindTextColour(contentKeyPath: CharacterInformation.warningColourPath)
-            return view
-        })
-
-        table.newColumn(header: "", viewGenerator: {
-            let view = LabelCell<InterfaceLocalization>()
-            view.bindText(contentKeyPath: CharacterInformation.characterKeyPath)
-            view.bindTextColour(contentKeyPath: CharacterInformation.warningColourPath)
-            return view
-        })
-
-        table.newColumn(header: "", viewGenerator: {
-            let view = LabelCell<InterfaceLocalization>()
-            view.bindText(contentKeyPath: CharacterInformation.normalizedCodePointsPath)
-            return view
-        })
-
-        table.newColumn(header: "", viewGenerator: {
-            let view = LabelCell<InterfaceLocalization>()
-            view.bindText(contentKeyPath: CharacterInformation.normalizedCharactersPath)
-            return view
-        })
-        #else
-        table.cellStyle = .value1
-        table.cellUpdator = { cell, value in
-            // @exempt(from: tests) The operating system skips this call when the table is off‐screen.
-            if let characterInformation = value as? CharacterInformation {
-                cell.textLabel?.text = characterInformation.codePoint + " " + characterInformation.character
-                cell.textLabel?.textColor = characterInformation.warningColour
-                cell.detailTextLabel?.text = characterInformation.normalizedCodePoints + " " + characterInformation.normalizedCharacters
-                cell.detailTextLabel?.textColor = .black
+        let table = Table<CharacterInformation>(data: Shared(details), columns: [
+        { details in
+            let codePoint = Label<InterfaceLocalization>(text: .binding(Shared(details.codePoint)))
+            codePoint.textColour = details.warningColour
+            return codePoint
+            },
+        { details in
+            let codePoint = Label<InterfaceLocalization>(text: .binding(Shared(StrictString(details.character))))
+            codePoint.specificNative.stringValue = details.character
+            codePoint.textColour = details.warningColour
+            return codePoint
+            },
+        { details in
+            return Label<InterfaceLocalization>(text: .binding(Shared(StrictString(details.normalizedCodePoints))))
+            },
+        { details in
+            return Label<InterfaceLocalization>(text: .binding(Shared(StrictString(details.normalizedCharacters))))
             }
-        }
-        #endif
-
-        #if canImport(AppKit)
-        table.hasHeader = false
-        #endif
-        table.allowsSelection = false
+            ])
 
         if let origin = origin {
-            let view = NativeView()
+            let view = _NSUIView()
             #if canImport(AppKit)
             view.frame.size = Window<InterfaceLocalization>.auxiliarySize.native
             #endif
@@ -160,9 +139,9 @@ public struct CharacterInformation {
     // MARK: - Properties
 
     private let character: String
-    private let codePoint: String
-    private let normalizedCodePoints: String
-    private let normalizedCharacters: String
+    private let codePoint: StrictString
+    private let normalizedCodePoints: StrictString
+    private let normalizedCharacters: StrictString
     private let warningColour: Colour
 }
 #endif

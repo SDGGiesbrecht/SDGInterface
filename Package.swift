@@ -231,6 +231,7 @@ let package = Package(
             "SDGInterfaceBasics",
             "SDGViews",
             "SDGTables",
+            "SDGWindows",
             "SDGMenus",
             "SDGContextMenu",
             "SDGInterfaceLocalizations",
