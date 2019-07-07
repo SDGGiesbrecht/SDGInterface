@@ -93,26 +93,26 @@ public struct CharacterInformation {
     // MARK: - Initialization
 
     private init(_ character: Unicode.Scalar) {
-        self.character = String(character)
-        codePoint = character.hexadecimalCode
+        let characterString = String(character)
+        codePoint = StrictString(character.hexadecimalCode)
 
-        normalizedCharacters = String(StrictString(character))
-        if normalizedCharacters.unicodeScalars.elementsEqual(self.character.unicodeScalars) {
+        var normalizedCharacters = StrictString(character)
+        if normalizedCharacters.scalars.elementsEqual(characterString.unicodeScalars) {
             normalizedCharacters = ""
         }
 
-        var normalizedCodePointsString = ""
-        for scalar in normalizedCharacters.unicodeScalars {
+        var normalizedCodePointsString: StrictString = ""
+        for scalar in normalizedCharacters.scalars {
             if ¬normalizedCodePointsString.isEmpty {
                 normalizedCodePointsString += " "
             }
 
-            normalizedCodePointsString += scalar.hexadecimalCode
+            normalizedCodePointsString += StrictString(scalar.hexadecimalCode)
         }
         normalizedCodePoints = normalizedCodePointsString
 
         if ¬normalizedCharacters.isEmpty {
-            if self.character ≠ self.character.decomposedStringWithCompatibilityMapping {
+            if characterString ≠ characterString.decomposedStringWithCompatibilityMapping {
                 // Compatibility character.
                 warningColour = .red
             } else {
@@ -129,7 +129,7 @@ public struct CharacterInformation {
         }
 
         self.character = character.visibleRepresentation
-        let printable = self.normalizedCharacters.unicodeScalars.map { $0.visibleRepresentation }
+        let printable = normalizedCharacters.scalars.map { StrictString($0.visibleRepresentation) }
         self.normalizedCharacters = printable.reduce("") { $0 + $1 }
     }
 
