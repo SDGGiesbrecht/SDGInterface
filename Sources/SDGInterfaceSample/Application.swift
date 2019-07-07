@@ -117,9 +117,7 @@ extension Application {
         let window = Window<L>.auxiliaryWindow(name: .static(windowTitle), view: MarginView(contents: view))
         demonstrate(window)
         #else
-        let contentView = UIView()
-        contentView.fill(with: view)
-        let window = Window(name: .static(windowTitle), view: contentView)
+        let window = Window(name: .static(windowTitle), view: MarginView(contents: view))
         demonstrate(window)
         #endif
     }

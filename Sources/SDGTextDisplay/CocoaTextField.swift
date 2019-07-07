@@ -13,6 +13,10 @@
  */
 
 #if canImport(UIKit)
+import UIKit
+
+import SDGText
+
 internal class CocoaTextField: UITextField {
 
     internal override func insertText(_ text: String) {

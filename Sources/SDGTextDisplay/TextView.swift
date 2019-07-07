@@ -89,11 +89,9 @@ internal class TextView : NSUITextView {
         #endif
     }
 
-    #if canImport(AppKit)
     internal required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    #endif
 
     // MARK: - Normalization
 

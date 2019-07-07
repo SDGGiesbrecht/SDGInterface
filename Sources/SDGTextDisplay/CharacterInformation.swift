@@ -63,7 +63,11 @@ public struct CharacterInformation {
             },
         { details in
             let codePoint = Label<InterfaceLocalization>(text: .binding(Shared(StrictString(details.character))))
+            #if canImport(AppKit)
             codePoint.specificNative.stringValue = details.character
+            #elseif canImport(UIKit)
+            codePoint.specificNative.text = details.character
+            #endif
             codePoint.textColour = details.warningColour
             return codePoint
             },
@@ -76,10 +80,14 @@ public struct CharacterInformation {
             ])
 
         if let origin = origin {
+            var preferredSize: Size?
+            #if canImport(AppKit)
+            preferredSize = Window<InterfaceLocalization>.auxiliarySize
+            #endif
             origin.view.displayPopOver(
                 table,
                 sourceRectangle: origin.selection,
-                preferredSize: Window<InterfaceLocalization>.auxiliarySize)
+                preferredSize: preferredSize)
         } else {
             #if canImport(AppKit)
             let window = Window<InterfaceLocalization>.auxiliaryWindow(

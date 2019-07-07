@@ -20,6 +20,8 @@ import AppKit
 import UIKit
 #endif
 
+import SDGLogic
+
 import SDGViews
 
 /// An editor for multiline text.

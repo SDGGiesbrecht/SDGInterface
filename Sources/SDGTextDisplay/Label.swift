@@ -46,7 +46,7 @@ public final class Label<L> : AnyLabel, SpecificView where L : Localization {
         #if canImport(AppKit)
         specificNative = NSTextField(labelWithString: "")
         #elseif canImport(UIKit)
-
+        specificNative = UILabel(frame: .zero)
         #endif
         defer {
             bindingObserver.label = self

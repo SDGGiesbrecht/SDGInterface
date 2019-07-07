@@ -48,7 +48,7 @@ extension NSUITextView : RichTextEditingResponder {
         guard let range = selectedTextRange else {
             return nil // @exempt(from: tests)
         }
-        return selectionRects(for: range).first?.rect.map { Rectangle($0) }
+        return selectionRects(for: range).first.map { Rectangle($0.rect) }
         #endif
     }
 
@@ -115,21 +115,21 @@ extension NSUITextView : RichTextEditingResponder {
 
     private static let actionsRequiringSelection: Set<Selector> = {
         var result: Set<Selector> = [
-            #selector(NSTextView.normalizeText(_:)),
-            #selector(NSTextView.showCharacterInformation(_:)),
-            #selector(NSTextView.makeSuperscript(_:)),
-            #selector(NSTextView.makeSubscript(_:)),
-            #selector(NSTextView.resetBaseline(_:))
+            #selector(TextEditingResponder.normalizeText(_:)),
+            #selector(TextDisplayResponder.showCharacterInformation(_:)),
+            #selector(RichTextEditingResponder.makeSuperscript(_:)),
+            #selector(RichTextEditingResponder.makeSubscript(_:)),
+            #selector(RichTextEditingResponder.resetBaseline(_:))
         ]
         #if canImport(AppKit)
         result ∪= [
-            #selector(NSTextView.resetCasing(_:)),
-            #selector(NSTextView.makeLatinateUpperCase(_:)),
-            #selector(NSTextView.makeTurkicUpperCase(_:)),
-            #selector(NSTextView.makeLatinateSmallCaps(_:)),
-            #selector(NSTextView.makeTurkicSmallCaps(_:)),
-            #selector(NSTextView.makeLatinateLowerCase(_:)),
-            #selector(NSTextView.makeTurkicLowerCase(_:))
+            #selector(RichTextEditingResponder.resetCasing(_:)),
+            #selector(RichTextEditingResponder.makeLatinateUpperCase(_:)),
+            #selector(RichTextEditingResponder.makeTurkicUpperCase(_:)),
+            #selector(RichTextEditingResponder.makeLatinateSmallCaps(_:)),
+            #selector(RichTextEditingResponder.makeTurkicSmallCaps(_:)),
+            #selector(RichTextEditingResponder.makeLatinateLowerCase(_:)),
+            #selector(RichTextEditingResponder.makeTurkicLowerCase(_:))
         ]
         #endif
         return result
@@ -137,20 +137,20 @@ extension NSUITextView : RichTextEditingResponder {
 
     private static let actionsRequiringEditability: Set<Selector> = {
         var result: Set<Selector> = [
-            #selector(NSTextView.normalizeText(_:)),
-            #selector(NSTextView.makeSuperscript(_:)),
-            #selector(NSTextView.makeSubscript(_:)),
-            #selector(NSTextView.resetBaseline(_:))
+            #selector(TextEditingResponder.normalizeText(_:)),
+            #selector(RichTextEditingResponder.makeSuperscript(_:)),
+            #selector(RichTextEditingResponder.makeSubscript(_:)),
+            #selector(RichTextEditingResponder.resetBaseline(_:))
         ]
         #if canImport(AppKit)
         result ∪= [
-            #selector(NSTextView.resetCasing(_:)),
-            #selector(NSTextView.makeLatinateUpperCase(_:)),
-            #selector(NSTextView.makeTurkicUpperCase(_:)),
-            #selector(NSTextView.makeLatinateSmallCaps(_:)),
-            #selector(NSTextView.makeTurkicSmallCaps(_:)),
-            #selector(NSTextView.makeLatinateLowerCase(_:)),
-            #selector(NSTextView.makeTurkicLowerCase(_:))
+            #selector(RichTextEditingResponder.resetCasing(_:)),
+            #selector(RichTextEditingResponder.makeLatinateUpperCase(_:)),
+            #selector(RichTextEditingResponder.makeTurkicUpperCase(_:)),
+            #selector(RichTextEditingResponder.makeLatinateSmallCaps(_:)),
+            #selector(RichTextEditingResponder.makeTurkicSmallCaps(_:)),
+            #selector(RichTextEditingResponder.makeLatinateLowerCase(_:)),
+            #selector(RichTextEditingResponder.makeTurkicLowerCase(_:))
         ]
         #endif
         return result
@@ -158,19 +158,19 @@ extension NSUITextView : RichTextEditingResponder {
 
     private static let actionsRequiringRichEditability: Set<Selector> = {
         var result: Set<Selector> = [
-            #selector(NSTextView.makeSuperscript(_:)),
-            #selector(NSTextView.makeSubscript(_:)),
-            #selector(NSTextView.resetBaseline(_:))
+            #selector(RichTextEditingResponder.makeSuperscript(_:)),
+            #selector(RichTextEditingResponder.makeSubscript(_:)),
+            #selector(RichTextEditingResponder.resetBaseline(_:))
         ]
         #if canImport(AppKit)
         result ∪= [
-            #selector(NSTextView.resetCasing(_:)),
-            #selector(NSTextView.makeLatinateUpperCase(_:)),
-            #selector(NSTextView.makeTurkicUpperCase(_:)),
-            #selector(NSTextView.makeLatinateSmallCaps(_:)),
-            #selector(NSTextView.makeTurkicSmallCaps(_:)),
-            #selector(NSTextView.makeLatinateLowerCase(_:)),
-            #selector(NSTextView.makeTurkicLowerCase(_:))
+            #selector(RichTextEditingResponder.resetCasing(_:)),
+            #selector(RichTextEditingResponder.makeLatinateUpperCase(_:)),
+            #selector(RichTextEditingResponder.makeTurkicUpperCase(_:)),
+            #selector(RichTextEditingResponder.makeLatinateSmallCaps(_:)),
+            #selector(RichTextEditingResponder.makeTurkicSmallCaps(_:)),
+            #selector(RichTextEditingResponder.makeLatinateLowerCase(_:)),
+            #selector(RichTextEditingResponder.makeTurkicLowerCase(_:))
         ]
         #endif
         return result
@@ -178,7 +178,7 @@ extension NSUITextView : RichTextEditingResponder {
 
     /// Returns `nil` if the action is not recognized and should be delegated to the operating system.
     internal func canPerform(action: Selector) -> Bool? {
-        if action ∈ NSTextView.actionsRequiringSelection {
+        if action ∈ NSUITextView.actionsRequiringSelection {
             #if canImport(AppKit)
             let selectionRange = Range<Int>(selectedRange())
             #else
@@ -194,7 +194,7 @@ extension NSUITextView : RichTextEditingResponder {
                 return false // No selection available. // @exempt(from: tests) Always empty instead.
             }
         }
-        if action ∈ NSTextView.actionsRequiringEditability {
+        if action ∈ NSUITextView.actionsRequiringEditability {
             let isEditable: Bool
             #if os(tvOS)
             isEditable = false
@@ -205,7 +205,7 @@ extension NSUITextView : RichTextEditingResponder {
                 return false // Not editable
             }
         }
-        if action ∈ NSTextView.actionsRequiringRichEditability {
+        if action ∈ NSUITextView.actionsRequiringRichEditability {
             // @exempt(from: tests) Unreachable on tvOS.
             #if canImport(AppKit)
             if isFieldEditor {

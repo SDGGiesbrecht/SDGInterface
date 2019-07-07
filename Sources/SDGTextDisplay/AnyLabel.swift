@@ -44,7 +44,11 @@ extension AnyLabel {
             return specificNative.textColor.map { Colour($0) }
         }
         set {
+            #if canImport(AppKit)
             specificNative.textColor = newValue?.nsColor
+            #elseif canImport(UIKit)
+            specificNative.textColor = newValue?.uiColor
+            #endif
         }
     }
 }
