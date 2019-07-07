@@ -15,14 +15,10 @@
 // @example(mediator)
 import SDGApplication
 
-#warning("Remove.")
-import SDGTextDisplay
-
 internal class SystemMediator : SDGApplication.SystemMediator {
 
     internal func finishLaunching(_ details: LaunchDetails) -> Bool {
         Application.setSamplesUp()
-        CharacterInformation.display(for: "'Caf\u{E9}\u{2049}'³å", origin: nil)
         return true
     }
 
