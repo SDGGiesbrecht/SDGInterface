@@ -34,7 +34,9 @@ internal class CocoaTableCellView : NSUITableCellView {
     internal init(view: View) {
         self.view = view
         super.init(frame: .zero)
-        AnyNativeView(self).fill(with: view, margin: .specific(0))
+        let wrapped = AnyNativeView(self)
+        wrapped.fill(with: view, on: .vertical, margin: .specific(0))
+        wrapped.fill(with: view, on: .horizontal, margin: .specific(1))
     }
 
     internal required init?(coder decoder: NSCoder) {
