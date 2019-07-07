@@ -75,7 +75,7 @@ public struct CharacterInformation {
             ])
 
         if let origin = origin {
-            let view = _NSUIView()
+            let view = NSView()
             #if canImport(AppKit)
             view.frame.size = Window<InterfaceLocalization>.auxiliarySize.native
             #endif

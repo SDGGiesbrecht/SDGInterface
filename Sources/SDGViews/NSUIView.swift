@@ -27,6 +27,7 @@ public typealias _NSUIView = NSView
 public typealias _NSUIView = UIView
 #endif
 
+#warning("Move to AnyNativeView?")
 extension _NSUIView {
 
     public func _addSubviewIfNecessary(_ subview: _NSUIView) {
