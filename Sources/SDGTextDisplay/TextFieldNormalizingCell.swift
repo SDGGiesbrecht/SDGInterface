@@ -28,7 +28,7 @@ extension TextField {
         }
 
         internal required init(coder: NSCoder) {
-            super.init(coder: coder)
+            super.init(coder: coder) // @exempt(from: tests)
         }
 
         // MARK: - Field Editor
