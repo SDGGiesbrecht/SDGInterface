@@ -40,6 +40,10 @@ final class APITests : ApplicationTestCase {
             }])
         table.sort = { $0 < $1 }
         XCTAssertNotNil(table.sort)
+        table.data = Shared([1])
+        let columns = table.columns
+        table.columns = []
+        table.columns = columns
         let window = Window<InterfaceLocalization>.auxiliaryWindow(name: .binding(Shared("")), view: table)
         window.display()
         #endif
