@@ -128,7 +128,7 @@ public final class TextEditor: SpecificView {
     /// The native text view.
     public var nativeTextView: NSTextView {
         get {
-            return specificNative.documentView as? NSTextView ?? NSTextView()
+            return specificNative.documentView as? NSTextView ?? NSTextView() // @exempt(from: tests) Never nil.
         }
     }
     #elseif canImport(UIKit)

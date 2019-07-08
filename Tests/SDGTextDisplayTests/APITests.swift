@@ -373,6 +373,9 @@ final class APITests : ApplicationTestCase {
         #if canImport(AppKit)
         _ = TextContextMenu.contextMenu
         #endif
+
+        textEditor.drawsBackground = true
+        XCTAssert(textEditor.drawsBackground)
         #endif
     }
 
