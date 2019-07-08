@@ -20,7 +20,7 @@ import UIKit
 #endif
 
 /// A colour.
-public struct Colour {
+public struct Colour : Hashable {
 
     // MARK: - Static Properties
 

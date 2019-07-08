@@ -104,6 +104,8 @@ final class APITests : ApplicationTestCase {
                 return "Modified"
             }
         }))
+        label.textColour = .black
+        XCTAssertEqual(label.textColour, .black)
         #endif
     }
 
