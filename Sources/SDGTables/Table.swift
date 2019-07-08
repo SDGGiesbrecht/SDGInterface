@@ -38,7 +38,8 @@ public final class Table<RowData> : SpecificView {
     /// - Parameters:
     ///     - data: The data the table represents.
     ///     - columns: An array of closures—each representing a column—which produce a corresponding cell view for a particular data entry.
-    public init(data: Shared<[RowData]>, columns: [(RowData) -> View]) {
+    ///     - row: The data element represented by the row.
+    public init(data: Shared<[RowData]>, columns: [(_ row: RowData) -> View]) {
         self.data = data
         defer {
             dataDidSet()
