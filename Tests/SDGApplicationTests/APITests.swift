@@ -533,6 +533,8 @@ final class APITests : ApplicationTestCase {
         let window = Window<InterfaceLocalization>(name: .binding(Shared("...")), view: textView)
         textView.showCharacterInformation(nil)
 
+        assert(textEditor.specificNative.documentView as? NSTextView != nil)
+
         let compatibilityTextView = NSTextView(frame: CGRect.zero)
         #if canImport(AppKit)
         compatibilityTextView.string.append(characters)
@@ -615,6 +617,7 @@ final class APITests : ApplicationTestCase {
         XCTAssertFalse(validate(#selector(NSTextView.normalizeText(_:))))
         textView.selectAll(nil)
         textEditor.isEditable = false
+        XCTAssertFalse(textEditor.nativeTextView.isEditable)
         XCTAssertFalse(validate(#selector(NSTextView.normalizeText(_:))))
         #endif
 
