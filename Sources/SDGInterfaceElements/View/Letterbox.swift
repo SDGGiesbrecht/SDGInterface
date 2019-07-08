@@ -76,7 +76,11 @@ open class Letterbox : NativeView {
             attribute: .width,
             multiplier: 1,
             constant: 0)
+        #if canImport(AppKit)
         desiredWidth.priority = NSLayoutConstraint.Priority(rawValue: 1)
+        #elseif canImport(UIKit)
+        desiredWidth.priority = UILayoutPriority(rawValue: 1)
+        #endif
         let desiredHeight = NSLayoutConstraint(
             item: content,
             attribute: .height,
@@ -85,7 +89,11 @@ open class Letterbox : NativeView {
             attribute: .height,
             multiplier: 1,
             constant: 0)
+        #if canImport(AppKit)
         desiredHeight.priority = NSLayoutConstraint.Priority(rawValue: 1)
+        #elseif canImport(UIKit)
+        desiredHeight.priority = UILayoutPriority(rawValue: 1)
+        #endif
 
         addConstraints([maxWidth, maxHeight, desiredWidth, desiredHeight])
     }
