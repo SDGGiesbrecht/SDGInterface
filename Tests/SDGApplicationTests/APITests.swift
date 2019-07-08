@@ -530,10 +530,8 @@ final class APITests : ApplicationTestCase {
         let characters = "\u{20}\u{21}\u{22}\u{AA}\u{C0}"
         textEditor.append(RichText(rawText: StrictString(characters)))
         textView.selectAll(nil)
-        let window = Window<InterfaceLocalization>(name: .binding(Shared("...")), view: textView)
+        let window = Window<InterfaceLocalization>(name: .binding(Shared("...")), view: textEditor)
         textView.showCharacterInformation(nil)
-
-        assert(textEditor.specificNative.documentView as? NSTextView != nil)
 
         let compatibilityTextView = NSTextView(frame: CGRect.zero)
         #if canImport(AppKit)
