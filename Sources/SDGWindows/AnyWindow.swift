@@ -28,11 +28,6 @@ import SDGViews
 import SDGInterfaceBasics
 
 internal var allWindows = [ObjectIdentifier: AnyWindow]()
-#if canImport(AppKit)
-public var _allWindows: [ObjectIdentifier: AnyWindow] {
-    return allWindows
-}
-#endif
 
 /// A menu entry with no particular localization.
 public protocol AnyWindow : AnyObject {
