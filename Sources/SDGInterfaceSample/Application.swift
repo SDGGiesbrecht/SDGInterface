@@ -101,6 +101,7 @@ extension Application {
 
         #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
         let editor = TextEditor()
+        #warning("Remove.")
         editor.nativeTextView.text = "\n\n\n\n\n\n\n\u{A2}\u{B2}\u{C2}"
         let window = Window.primaryWindow(name: .static(ApplicationNameForm.localizedIsolatedForm), view: editor)
         if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil { // #exempt(from: tests)
