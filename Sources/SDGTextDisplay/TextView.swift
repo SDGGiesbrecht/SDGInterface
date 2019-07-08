@@ -90,7 +90,7 @@ internal class TextView : NSUITextView {
     }
 
     internal required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        super.init(coder: coder) // @exempt(from: tests)
     }
 
     // MARK: - Normalization

@@ -25,6 +25,11 @@ import SDGApplicationTestUtilities
 
 final class APITests : ApplicationTestCase {
 
+    func testRowView() {
+        let row = RowView(views: [AnyNativeView()])
+        row.views = [AnyNativeView()]
+    }
+
     func testView() {
         #if canImport(AppKit) || canImport(UIKit)
         func newView() -> AnyNativeView {
