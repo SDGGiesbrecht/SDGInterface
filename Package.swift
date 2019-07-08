@@ -313,8 +313,32 @@ let package = Package(
             .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
             ]),
 
+        .testTarget(name: "SDGViewsTests", dependencies: [
+            "SDGViews",
+            "SDGApplication",
+            "SDGInterfaceSample",
+            "SDGApplicationTestUtilities",
+            .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
+            ]),
+
+        .testTarget(name: "SDGTextDisplayTests", dependencies: [
+            "SDGViews",
+            "SDGApplication",
+            "SDGInterfaceSample",
+            "SDGApplicationTestUtilities",
+            .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
+            ]),
+
         .testTarget(name: "SDGImageDisplayTests", dependencies: [
-            "SDGImageDisplay",
+            "SDGTextDisplay",
+            "SDGApplication",
+            "SDGInterfaceSample",
+            "SDGApplicationTestUtilities",
+            .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
+            ]),
+
+        .testTarget(name: "SDGTablesTests", dependencies: [
+            "SDGTables",
             "SDGApplication",
             "SDGInterfaceSample",
             "SDGApplicationTestUtilities",
@@ -336,6 +360,14 @@ let package = Package(
             .product(name: "SDGControlFlow", package: "SDGCornerstone"),
             .product(name: "SDGText", package: "SDGCornerstone"),
             .product(name: "SDGLocalization", package: "SDGCornerstone"),
+            .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
+            ]),
+
+        .testTarget(name: "SDGPopOversTests", dependencies: [
+            "SDGPopOvers",
+            "SDGApplication",
+            "SDGInterfaceSample",
+            "SDGApplicationTestUtilities",
             .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
             ]),
 
