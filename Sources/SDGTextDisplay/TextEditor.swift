@@ -25,7 +25,7 @@ import SDGLogic
 import SDGViews
 
 /// An editor for multiline text.
-public final class TextEditor: SpecificView {
+public final class TextEditor : SpecificView {
 
     // MARK: - Initialization
 

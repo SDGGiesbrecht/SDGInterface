@@ -21,7 +21,8 @@ import UIKit
 
 import SDGLogic
 
-public final class AnyNativeView: View {
+/// Any native view.
+public final class AnyNativeView : View {
 
     // MARK: - Initialization
 

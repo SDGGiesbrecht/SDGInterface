@@ -17,7 +17,7 @@ import UIKit
 
 import SDGText
 
-internal class CocoaTextField: UITextField {
+internal class CocoaTextField : UITextField {
 
     internal override func insertText(_ text: String) {
         super.insertText(String(StrictString(text)))
