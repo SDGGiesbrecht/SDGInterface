@@ -6,12 +6,8 @@ extension APITests {
     //   `swift test --generate-linuxmain`
     // to regenerate.
     static let __allTests__APITests = [
-        ("testApplicationName", testApplicationName),
-        ("testBinding", testBinding),
-        ("testColour", testColour),
-        ("testPoint", testPoint),
-        ("testRectangle", testRectangle),
-        ("testSize", testSize),
+        ("testRowView", testRowView),
+        ("testView", testView),
     ]
 }
 
