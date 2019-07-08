@@ -21,7 +21,7 @@ import UIKit
 
 import SDGLogic
 
-/// Any native view.
+/// A wrapper for any native view.
 public final class AnyNativeView : View {
 
     // MARK: - Initialization

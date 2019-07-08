@@ -25,6 +25,10 @@ public final class RowView : SpecificView {
     // MARK: - Initialization
 
     /// Creates a row of views.
+    ///
+    /// - Parameters:
+    ///     - views: The subviews.
+    ///     - spacing: The spacing strategy.
     public init(views: [View], spacing: Spacing = .automatic) {
         #if canImport(AppKit)
         specificNative = NSStackView()
@@ -52,6 +56,7 @@ public final class RowView : SpecificView {
 
     // MARK: - Properties
 
+    /// The arranged views.
     public var views: [View] {
         didSet {
             viewsDidSet()

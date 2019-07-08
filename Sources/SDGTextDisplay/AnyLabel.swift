@@ -22,10 +22,13 @@ import UIKit
 import SDGInterfaceBasics
 import SDGViews
 
+/// A label with no particular localization.
 public protocol AnyLabel : View {
     #if canImport(AppKit)
+    // #documentation(SpecificView.specificNative)
     var specificNative: NSTextField { get }
     #elseif canImport(UIKit)
+    // #documentation(SpecificView.specificNative)
     var specificNative: UILabel { get }
     #endif
     func _refreshBindings()

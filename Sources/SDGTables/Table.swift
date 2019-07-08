@@ -33,6 +33,11 @@ public final class Table<RowData> : SpecificView {
 
     // MARK: - Initialization
 
+    /// Creates a table.
+    ///
+    /// - Parameters:
+    ///     - data: The data the table represents.
+    ///     - columns: An array of closures—each representing a column—which produce a corresponding cell view for a particular data entry.
     public init(data: Shared<[RowData]>, columns: [(RowData) -> View]) {
         self.data = data
         defer {
@@ -99,7 +104,11 @@ public final class Table<RowData> : SpecificView {
         nativeTable.reloadData()
     }
 
-    public var columns: [(RowData) -> View] {
+    /// An array of closures—each representing a column—which produce a corresponding cell view for a particular data entry.
+    ///
+    /// - Parameters:
+    ///     - row: The data entry represented by the row.
+    public var columns: [(row: RowData) -> View] {
         didSet {
             columnsDidSet()
         }
@@ -127,8 +136,12 @@ public final class Table<RowData> : SpecificView {
         nativeTable.reloadData()
     }
 
-    /// A sort order to impose on the data.
-    public var sort: ((RowData, RowData) -> Bool)?
+    /// A sort order to impose on the data. (i.e. `{ $0 < $1 }` will sort according to `Comparable`.)
+    ///
+    /// - Parameters:
+    ///     - preceding: The element before the inequality sign.
+    ///     - following: The element after the inequality sign.
+    public var sort: ((preceding: RowData, following: RowData) -> Bool)?
 
     #if canImport(AppKit)
     public var specificNative: NSScrollView

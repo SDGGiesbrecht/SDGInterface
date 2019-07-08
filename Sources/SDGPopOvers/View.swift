@@ -31,6 +31,7 @@ extension View {
     /// - Parameters:
     ///     - view: The view to display as a pop‐over.
     ///     - sourceRectangle: A rectangle within `self` that should be considered the origin of the pop‐over.
+    ///     - preferredSize: A preferred size for the pop over. This will be used as the default size, but may be overridden by layout constraints.
     public func displayPopOver(_ view: View, sourceRectangle: Rectangle? = nil, preferredSize: Size? = nil) {
         let popOverView = CocoaPopOverView(view: view)
 
