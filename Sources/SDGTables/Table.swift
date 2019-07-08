@@ -108,7 +108,7 @@ public final class Table<RowData> : SpecificView {
     ///
     /// - Parameters:
     ///     - row: The data entry represented by the row.
-    public var columns: [(row: RowData) -> View] {
+    public var columns: [(_ row: RowData) -> View] {
         didSet {
             columnsDidSet()
         }
@@ -141,7 +141,7 @@ public final class Table<RowData> : SpecificView {
     /// - Parameters:
     ///     - preceding: The element before the inequality sign.
     ///     - following: The element after the inequality sign.
-    public var sort: ((preceding: RowData, following: RowData) -> Bool)?
+    public var sort: ((_ preceding: RowData, _ following: RowData) -> Bool)?
 
     #if canImport(AppKit)
     public var specificNative: NSScrollView
