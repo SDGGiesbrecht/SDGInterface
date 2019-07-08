@@ -26,9 +26,11 @@ import SDGViews
 public protocol AnyLabel : View {
     #if canImport(AppKit)
     // #documentation(SpecificView.specificNative)
+    /// The specific native view.
     var specificNative: NSTextField { get }
     #elseif canImport(UIKit)
     // #documentation(SpecificView.specificNative)
+    /// The specific native view.
     var specificNative: UILabel { get }
     #endif
     func _refreshBindings()
