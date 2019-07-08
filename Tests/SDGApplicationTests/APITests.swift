@@ -53,11 +53,6 @@ final class APITests : ApplicationTestCase {
         #endif
     }
 
-    func testArrayController() {
-        _ = NSArrayController().arrangedObjects
-        _ = NSArrayController(content: [])
-    }
-
     func testAttributedString() {
         var mutable = NSMutableAttributedString(string: "...")
         #if canImport(AppKit) || canImport(UIKit)
@@ -196,29 +191,6 @@ final class APITests : ApplicationTestCase {
         applicationDelegate.applicationDidEnterBackground?(UIApplication.shared)
         _ = interceptor.forwardingTarget(for: #selector(UIApplicationDelegate.applicationWillResignActive(_:)))
         applicationDelegate.applicationWillResignActive?(UIApplication.shared)
-        #endif
-
-        #if canImport(UIKit)
-        class TableViewDataSource : NSObject, UITableViewDataSource {
-            func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-                return 0
-            }
-            func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-                return UITableViewCell()
-            }
-        }
-        let dataSourceDelegate = TableViewDataSource()
-        var dataSource = DelegationInterceptor(delegate: dataSourceDelegate, listener: dataSourceDelegate, selectors: [
-            #selector(UITableViewDataSource.tableView(_:numberOfRowsInSection:)),
-            #selector(UITableViewDataSource.tableView(_:cellForRowAt:))
-            ])
-        _ = dataSource.tableView(Table(content: [NSObject()]), numberOfRowsInSection: 0)
-        _ = dataSource.tableView(Table(content: [NSObject()]), cellForRowAt: IndexPath(item: 0, section: 0))
-        dataSource = DelegationInterceptor(delegate: dataSourceDelegate, listener: NSObject(), selectors: [
-            #selector(UITableViewDataSource.tableView(_:numberOfRowsInSection:)),
-            #selector(UITableViewDataSource.tableView(_:cellForRowAt:))
-            ])
-        _ = dataSource.tableView(Table(content: [NSObject()]), numberOfRowsInSection: 0)
         #endif
         #endif
     }
@@ -495,29 +467,9 @@ final class APITests : ApplicationTestCase {
 
     func testTable() {
         #if canImport(AppKit) || canImport(UIKit)
-        let table: Table<Int>
-        table = Table(data: Shared([]), columns: [])
-        #if canImport(AppKit)
+        let table = Table<Int>(data: Shared([]), columns: [])
         table.sort = { $0 < $1 }
         XCTAssertNotNil(table.sort)
-        #endif
-        #if canImport(UIKit)
-        _ = table.tableView(table, numberOfRowsInSection: 0)
-        _ = table.tableView(table, cellForRowAt: IndexPath(item: 0, section: 0))
-        #endif
-        #if canImport(UIKit)
-        class DataSource : NSObject, UITableViewDataSource {
-            func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-                return 1
-            }
-            func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-                return UITableViewCell()
-            }
-        }
-        table.dataSource = DataSource()
-        table.dataSource?.tableView(table, numberOfRowsInSection: 0)
-        table.dataSource?.tableView(table, cellForRowAt: IndexPath(item: 0, section: 1))
-        #endif
         #endif
     }
 
@@ -533,16 +485,15 @@ final class APITests : ApplicationTestCase {
         let window = Window<InterfaceLocalization>(name: .binding(Shared("...")), view: textEditor)
         textView.showCharacterInformation(nil)
 
-        let compatibilityTextView = NSTextView(frame: CGRect.zero)
         #if canImport(AppKit)
+        let compatibilityTextView = NSTextView(frame: CGRect.zero)
         compatibilityTextView.string.append(characters)
         #else
+        let compatibilityTextView = UITextView(frame: CGRect.zero)
         compatibilityTextView.text.append(characters)
         #endif
         compatibilityTextView.selectAll(nil)
-        #if canImport(AppKit)
         window.view = compatibilityTextView
-        #endif
         compatibilityTextView.showCharacterInformation(nil)
 
         textView.selectAll(nil)
@@ -626,20 +577,34 @@ final class APITests : ApplicationTestCase {
         #if canImport(UIKit)
         textView.insertText("...")
         textView.selectAll(nil)
-        XCTAssert(textView.canPerformAction(#selector(NSTextView.showCharacterInformation(_:)), withSender: nil))
+        XCTAssert(textView.canPerformAction(
+            #selector(TextDisplayResponder.showCharacterInformation(_:)),
+            withSender: nil))
         #if os(tvOS)
-        XCTAssertFalse(textView.canPerformAction(#selector(NSTextView.normalizeText(_:)), withSender: nil))
-        XCTAssertFalse(textView.canPerformAction(#selector(NSTextView.makeSuperscript(_:)), withSender: nil))
+        XCTAssertFalse(textView.canPerformAction(
+            #selector(TextEditingResponder.normalizeText(_:)),
+            withSender: nil))
+        XCTAssertFalse(textView.canPerformAction(
+            #selector(RichTextEditingResponder.makeSuperscript(_:)),
+            withSender: nil))
         #else
-        XCTAssert(textView.canPerformAction(#selector(NSTextView.normalizeText(_:)), withSender: nil))
-        XCTAssert(textView.canPerformAction(#selector(NSTextView.makeSuperscript(_:)), withSender: nil))
+        XCTAssert(textView.canPerformAction(
+            #selector(TextEditingResponder.normalizeText(_:)),
+            withSender: nil))
+        XCTAssert(textView.canPerformAction(
+            #selector(RichTextEditingResponder.makeSuperscript(_:)),
+            withSender: nil))
         #endif
         #if !os(tvOS)
         textView.isEditable = false
         #endif
-        XCTAssertFalse(textView.canPerformAction(#selector(NSTextView.normalizeText(_:)), withSender: nil))
+        XCTAssertFalse(textView.canPerformAction(
+            #selector(TextEditingResponder.normalizeText(_:)),
+            withSender: nil))
         textView.text = ""
-        XCTAssertFalse(textView.canPerformAction(#selector(NSTextView.showCharacterInformation(_:)), withSender: nil))
+        XCTAssertFalse(textView.canPerformAction(
+            #selector(TextDisplayResponder.showCharacterInformation(_:)),
+            withSender: nil))
         #endif
         #if canImport(AppKit)
         _ = textView.menu
@@ -665,7 +630,7 @@ final class APITests : ApplicationTestCase {
 
             let textField = TextField()
             #if canImport(UIKit)
-            textField.insertText("...")
+            textField.specificNative.insertText("...")
             #endif
         }
         Application.shared.demonstrateLabelledTextField()
