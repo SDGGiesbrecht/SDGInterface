@@ -15,6 +15,8 @@
 #if canImport(UIKit)
 import UIKit
 
+import SDGViews
+
 internal class UITableViewDataSource<RowData> : NSObject, UIKit.UITableViewDataSource {
 
     // MARK: - Properties
@@ -42,6 +44,7 @@ internal class UITableViewDataSource<RowData> : NSObject, UIKit.UITableViewDataS
 
         if let table = self.table {
             cell.row.views = table.columns.map { $0(table.data.value[indexPath.row]) }
+            AnyNativeView(cell.row.native).equalize(.width, amongSubviews: cell.row.views)
         }
         return cell
     }
