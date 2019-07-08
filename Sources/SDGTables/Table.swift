@@ -117,8 +117,11 @@ public final class Table<RowData> : SpecificView {
             newColumn.resizingMask = [.autoresizingMask, .userResizingMask]
             nativeTable.addTableColumn(newColumn)
 
-            let exampleView = columns[index](data.value[index])
-            nativeTable.rowHeight.increase(to: exampleView.native.fittingSize.height)
+            let exampleIndex = 0
+            if data.value.indices.contains(exampleIndex) {
+                let exampleView = columns[index](data.value[exampleIndex])
+                nativeTable.rowHeight.increase(to: exampleView.native.fittingSize.height)
+            }
         }
         #endif
         nativeTable.reloadData()
