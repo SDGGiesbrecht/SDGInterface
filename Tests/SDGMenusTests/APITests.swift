@@ -41,9 +41,7 @@ final class APITests : ApplicationTestCase {
         menuLabel.value = "unrelated"
         XCTAssertEqual(menu.label.resolved(), separateMenuLabel.value)
         #if canImport(AppKit)
-        let title = menu.native.title
-        menu.native = NSMenu()
-        XCTAssertEqual(menu.native.title, title)
+        _ = menu.native.title
         #endif
         #endif
     }
@@ -102,15 +100,7 @@ final class APITests : ApplicationTestCase {
         menu.tag = 1
         XCTAssertEqual(menu.tag, 1)
         #if !os(watchOS) && !os(tvOS)
-        let title = menu.native.title
-        #endif
-        #if canImport(AppKit)
-        menu.native = NSMenuItem()
-        #elseif canImport(UIKit) && !os(watchOS) && !os(tvOS)
-        menu.native = UIMenuItem()
-        #endif
-        #if !os(watchOS) && !os(tvOS)
-        XCTAssertEqual(menu.native.title, title)
+        _ = menu.native.title
         #endif
         #endif
     }

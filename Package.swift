@@ -289,6 +289,7 @@ let package = Package(
         // Internal utilities.
 
         .testTarget(name: "SDGInterfaceResourceGeneration", dependencies: [
+            "SDGTextDisplay",
             "SDGInterfaceElements",
             .product(name: "SDGText", package: "SDGCornerstone"),
             .product(name: "SDGLocalization", package: "SDGCornerstone"),
@@ -372,6 +373,7 @@ let package = Package(
         .testTarget(name: "SDGApplicationTests", dependencies: [
             "SDGInterfaceBasics",
             "SDGViews",
+            "SDGTextDisplay",
             "SDGWindows",
             "SDGMenus",
             "SDGContextMenu",

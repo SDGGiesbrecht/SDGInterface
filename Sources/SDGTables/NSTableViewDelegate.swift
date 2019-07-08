@@ -49,7 +49,7 @@ internal class NSTableViewDelegate<RowData> : NSObject, NSTableViewDataSource, A
                     constraint.priority = NSLayoutConstraint.Priority(rawValue: priority)
                 }
 
-                let cell = CocoaTableCellView(view: view)
+                let cell = NSTableCellView(view: view)
                 return cell
             }
         }

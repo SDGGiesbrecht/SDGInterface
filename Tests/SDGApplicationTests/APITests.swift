@@ -22,6 +22,8 @@ import SDGLocalization
 
 import SDGInterfaceBasics
 import SDGViews
+import SDGTextDisplay
+import SDGTables
 import SDGWindows
 import SDGMenus
 import SDGContextMenu
@@ -274,7 +276,7 @@ final class APITests : ApplicationTestCase {
             #else
             label = window.view.native.subviews[0] as! Label<SDGInterfaceSample.InterfaceLocalization>
             #endif
-            label.labelText = Shared(UserFacing<StrictString, SDGInterfaceSample.InterfaceLocalization>({ localization in
+            label.text = .static(UserFacing<StrictString, SDGInterfaceSample.InterfaceLocalization>({ localization in
                 switch localization {
                 case .englishCanada:
                     return "Modified"
