@@ -138,23 +138,6 @@ final class APITests : ApplicationTestCase {
         #endif
     }
 
-    func testCheckBoxCell() {
-        #if canImport(AppKit)
-        class Object : NSObject {
-            @objc var label: String = ""
-            @objc var state: Bool = false
-        }
-        let table = Table(content: [Object()])
-        table.newColumn(header: "", viewGenerator: {
-            let checkBox = CheckBoxCell<APILocalization>()
-            _ = checkBox.minimumHeight
-            checkBox.bindLabel(contentKeyPath: "label")
-            checkBox.bindState(contentKeyPath: "state")
-            return checkBox
-        })
-        #endif
-    }
-
     func testDelegationInterceptor() {
         #if canImport(AppKit) || canImport(UIKit)
 
@@ -519,31 +502,11 @@ final class APITests : ApplicationTestCase {
 
     func testTable() {
         #if canImport(AppKit) || canImport(UIKit)
-        let table: Table
-        table = Table(contentController: NSArrayController(content: [NSObject()]))
-        let delegate = DelegationInterceptor(delegate: nil, listener: nil, selectors: [])
-        table.delegate = delegate
-        XCTAssertNotNil(table.delegate as? DelegationInterceptor)
+        let table: Table<Int>
+        table = Table(data: Shared([]), columns: [])
         #if canImport(AppKit)
-        table.action = nil
-        XCTAssertNil(table.action)
-        table.doubleAction = nil
-        XCTAssertNil(table.doubleAction)
-        table.target = nil
-        XCTAssertNil(table.target)
-        #endif
-        #if canImport(AppKit)
-        table.hasHeader = true
-        XCTAssert(table.hasHeader)
-        #endif
-        table.allowsSelection = true
-        XCTAssert(table.allowsSelection)
-        #if canImport(AppKit)
-        table.sortOrder = []
-        XCTAssert(table.sortOrder.isEmpty)
-        #endif
-        #if canImport(AppKit)
-        XCTAssertNotNil(NSTableColumn().header)
+        table.sort = { $0 < $1 }
+        XCTAssertNotNil(table.sort)
         #endif
         #if canImport(UIKit)
         _ = table.tableView(table, numberOfRowsInSection: 0)
@@ -568,139 +531,124 @@ final class APITests : ApplicationTestCase {
     func testTextEditor() {
         #if canImport(AppKit) || canImport(UIKit)
         Application.shared.demonstrateTextEditor()
-        forEachWindow { window in
-            let textEditor: TextEditor
-            let textView: NSTextView
-            #if canImport(AppKit)
-            textEditor = window.view.native.subviews[0] as! TextEditor
-            textView = textEditor.documentView as! NSTextView
-            #else
-            textEditor = window.view.native.subviews[0] as! TextEditor
-            textView = textEditor.subviews[0] as! NSTextView
-            #endif
+        let textEditor = TextEditor()
+        let textView = textEditor.nativeTextView
 
-            let characters = "\u{20}\u{21}\u{22}\u{AA}\u{C0}"
-            textEditor.append(RichText(rawText: StrictString(characters)))
-            textView.selectAll(nil)
-            textView.showCharacterInformation(nil)
+        let characters = "\u{20}\u{21}\u{22}\u{AA}\u{C0}"
+        textEditor.append(RichText(rawText: StrictString(characters)))
+        textView.selectAll(nil)
+        textView.showCharacterInformation(nil)
 
-            let compatibilityTextView = NSTextView(frame: CGRect.zero)
-            #if canImport(AppKit)
-            compatibilityTextView.string.append(characters)
-            #else
-            compatibilityTextView.text.append(characters)
-            #endif
-            compatibilityTextView.selectAll(nil)
-            #if canImport(AppKit)
-            let window = Window<InterfaceLocalization>(name: .binding(Shared("")), view: compatibilityTextView)
-            #endif
-            compatibilityTextView.showCharacterInformation(nil)
+        let compatibilityTextView = NSTextView(frame: CGRect.zero)
+        #if canImport(AppKit)
+        compatibilityTextView.string.append(characters)
+        #else
+        compatibilityTextView.text.append(characters)
+        #endif
+        compatibilityTextView.selectAll(nil)
+        #if canImport(AppKit)
+        let window = Window<InterfaceLocalization>(name: .binding(Shared("")), view: compatibilityTextView)
+        #endif
+        compatibilityTextView.showCharacterInformation(nil)
 
-            textView.selectAll(nil)
-            textView.normalizeText(nil)
-            textView.selectAll(nil)
-            textView.makeSuperscript(nil)
-            textView.selectAll(nil)
-            textView.makeSubscript(nil)
-            textView.selectAll(nil)
-            textView.resetBaseline(nil)
-            textView.selectAll(nil)
-            #if canImport(AppKit)
-            textView.resetCasing(nil)
-            textView.selectAll(nil)
-            textView.makeLatinateUpperCase(nil)
-            textView.selectAll(nil)
-            textView.makeTurkicUpperCase(nil)
-            textView.selectAll(nil)
-            textView.makeLatinateSmallCaps(nil)
-            textView.selectAll(nil)
-            textView.makeTurkicSmallCaps(nil)
-            textView.selectAll(nil)
-            textView.makeLatinateLowerCase(nil)
-            textView.selectAll(nil)
-            textView.makeTurkicLowerCase(nil)
-            #endif
+        textView.selectAll(nil)
+        textView.normalizeText(nil)
+        textView.selectAll(nil)
+        textView.makeSuperscript(nil)
+        textView.selectAll(nil)
+        textView.makeSubscript(nil)
+        textView.selectAll(nil)
+        textView.resetBaseline(nil)
+        textView.selectAll(nil)
+        #if canImport(AppKit)
+        textView.resetCasing(nil)
+        textView.selectAll(nil)
+        textView.makeLatinateUpperCase(nil)
+        textView.selectAll(nil)
+        textView.makeTurkicUpperCase(nil)
+        textView.selectAll(nil)
+        textView.makeLatinateSmallCaps(nil)
+        textView.selectAll(nil)
+        textView.makeTurkicSmallCaps(nil)
+        textView.selectAll(nil)
+        textView.makeLatinateLowerCase(nil)
+        textView.selectAll(nil)
+        textView.makeTurkicLowerCase(nil)
+        #endif
 
-            textEditor.drawsTextBackground = true
-            XCTAssertTrue(textEditor.drawsTextBackground)
-            textEditor.drawsTextBackground = false
-            XCTAssertFalse(textEditor.drawsTextBackground)
-            textEditor.drawsTextBackground = true
-            XCTAssertTrue(textEditor.drawsTextBackground)
-            #if !os(tvOS)
-            textEditor.isEditable = true
-            XCTAssertTrue(textEditor.isEditable)
-            #endif
+        #if !os(tvOS)
+        textEditor.isEditable = true
+        XCTAssertTrue(textEditor.isEditable)
+        #endif
 
-            #if canImport(AppKit)
-            textView.insertText("...", replacementRange: NSRange(0 ..< 0))
-            textView.insertText(NSAttributedString(string: "..."), replacementRange: NSRange(0 ..< 0))
-            textView.insertText("...", replacementRange: NSRange(textView.textStorage!.length ..< textView.textStorage!.length))
-            #else
-            textView.textStorage.replaceCharacters(in: NSRange(0 ..< 0), with: "...")
-            textView.textStorage.replaceCharacters(in: NSRange(0 ..< 0), with: NSAttributedString(string: "..."))
-            textView.textStorage.replaceCharacters(in: NSRange(textView.textStorage.length ..< textView.textStorage.length), with: "...")
-            #endif
+        #if canImport(AppKit)
+        textView.insertText("...", replacementRange: NSRange(0 ..< 0))
+        textView.insertText(NSAttributedString(string: "..."), replacementRange: NSRange(0 ..< 0))
+        textView.insertText("...", replacementRange: NSRange(textView.textStorage!.length ..< textView.textStorage!.length))
+        #else
+        textView.textStorage.replaceCharacters(in: NSRange(0 ..< 0), with: "...")
+        textView.textStorage.replaceCharacters(in: NSRange(0 ..< 0), with: NSAttributedString(string: "..."))
+        textView.textStorage.replaceCharacters(in: NSRange(textView.textStorage.length ..< textView.textStorage.length), with: "...")
+        #endif
 
-            textView.paste(nil)
-            #if canImport(AppKit)
-            Pasteboard.general.clearContents()
-            #elseif !os(tvOS)
-            Pasteboard.general.items = []
-            #endif
-            textView.paste(nil)
-            textView.selectAll(nil)
-            textView.copy(nil)
-            textView.paste(nil)
-            #if canImport(AppKit)
-            textView.selectedRange = NSRange(textView.textStorage!.length ..< textView.textStorage!.length)
-            #else
-            textView.selectedRange = NSRange(textView.textStorage.length ..< textView.textStorage.length)
-            #endif
-            textView.paste(nil)
+        textView.paste(nil)
+        #if canImport(AppKit)
+        Pasteboard.general.clearContents()
+        #elseif !os(tvOS)
+        Pasteboard.general.items = []
+        #endif
+        textView.paste(nil)
+        textView.selectAll(nil)
+        textView.copy(nil)
+        textView.paste(nil)
+        #if canImport(AppKit)
+        textView.selectedRange = NSRange(textView.textStorage!.length ..< textView.textStorage!.length)
+        #else
+        textView.selectedRange = NSRange(textView.textStorage.length ..< textView.textStorage.length)
+        #endif
+        textView.paste(nil)
 
-            #if canImport(AppKit)
-            func validate(_ selector: Selector) -> Bool {
-                let menuItem = NSMenuItem(title: "", action: selector, keyEquivalent: "")
-                return textView.validateMenuItem(menuItem)
-            }
-            textView.selectAll(nil)
-            XCTAssert(validate(#selector(NSTextView.normalizeText(_:))))
-            XCTAssert(validate(#selector(NSTextView.makeSuperscript(_:))))
-            XCTAssert(validate(#selector(NSTextView.underline(_:))))
-            textView.setSelectedRange(NSRange(location: NSNotFound, length: 0))
-            XCTAssertFalse(validate(#selector(NSTextView.normalizeText(_:))))
-            textView.selectAll(nil)
-            textEditor.isEditable = false
-            XCTAssertFalse(validate(#selector(NSTextView.normalizeText(_:))))
-            #endif
-
-            #if canImport(UIKit)
-            textView.insertText("...")
-            #endif
-
-            #if canImport(UIKit)
-            textView.insertText("...")
-            textView.selectAll(nil)
-            XCTAssert(textView.canPerformAction(#selector(NSTextView.showCharacterInformation(_:)), withSender: nil))
-            #if os(tvOS)
-            XCTAssertFalse(textView.canPerformAction(#selector(NSTextView.normalizeText(_:)), withSender: nil))
-            XCTAssertFalse(textView.canPerformAction(#selector(NSTextView.makeSuperscript(_:)), withSender: nil))
-            #else
-            XCTAssert(textView.canPerformAction(#selector(NSTextView.normalizeText(_:)), withSender: nil))
-            XCTAssert(textView.canPerformAction(#selector(NSTextView.makeSuperscript(_:)), withSender: nil))
-            #endif
-            #if !os(tvOS)
-            textView.isEditable = false
-            #endif
-            XCTAssertFalse(textView.canPerformAction(#selector(NSTextView.normalizeText(_:)), withSender: nil))
-            textView.text = ""
-            XCTAssertFalse(textView.canPerformAction(#selector(NSTextView.showCharacterInformation(_:)), withSender: nil))
-            #endif
-            #if canImport(AppKit)
-            _ = textView.menu
-            #endif
+        #if canImport(AppKit)
+        func validate(_ selector: Selector) -> Bool {
+            let menuItem = NSMenuItem(title: "", action: selector, keyEquivalent: "")
+            return textView.validateMenuItem(menuItem)
         }
+        textView.selectAll(nil)
+        XCTAssert(validate(#selector(NSTextView.normalizeText(_:))))
+        XCTAssert(validate(#selector(NSTextView.makeSuperscript(_:))))
+        XCTAssert(validate(#selector(NSTextView.underline(_:))))
+        textView.setSelectedRange(NSRange(location: NSNotFound, length: 0))
+        XCTAssertFalse(validate(#selector(NSTextView.normalizeText(_:))))
+        textView.selectAll(nil)
+        textEditor.isEditable = false
+        XCTAssertFalse(validate(#selector(NSTextView.normalizeText(_:))))
+        #endif
+
+        #if canImport(UIKit)
+        textView.insertText("...")
+        #endif
+
+        #if canImport(UIKit)
+        textView.insertText("...")
+        textView.selectAll(nil)
+        XCTAssert(textView.canPerformAction(#selector(NSTextView.showCharacterInformation(_:)), withSender: nil))
+        #if os(tvOS)
+        XCTAssertFalse(textView.canPerformAction(#selector(NSTextView.normalizeText(_:)), withSender: nil))
+        XCTAssertFalse(textView.canPerformAction(#selector(NSTextView.makeSuperscript(_:)), withSender: nil))
+        #else
+        XCTAssert(textView.canPerformAction(#selector(NSTextView.normalizeText(_:)), withSender: nil))
+        XCTAssert(textView.canPerformAction(#selector(NSTextView.makeSuperscript(_:)), withSender: nil))
+        #endif
+        #if !os(tvOS)
+        textView.isEditable = false
+        #endif
+        XCTAssertFalse(textView.canPerformAction(#selector(NSTextView.normalizeText(_:)), withSender: nil))
+        textView.text = ""
+        XCTAssertFalse(textView.canPerformAction(#selector(NSTextView.showCharacterInformation(_:)), withSender: nil))
+        #endif
+        #if canImport(AppKit)
+        _ = textView.menu
+        #endif
         #if canImport(AppKit)
         _ = TextContextMenu.contextMenu
         #endif
@@ -727,25 +675,33 @@ final class APITests : ApplicationTestCase {
         }
         Application.shared.demonstrateLabelledTextField()
         _ = LabelledTextField(label: Label(
-            text: Shared(UserFacing<StrictString, InterfaceLocalization>({ _ in "" }))))
+            text: .static(UserFacing<StrictString, InterfaceLocalization>({ _ in "" }))))
         #endif
     }
 
     func testView() {
         #if canImport(AppKit) || canImport(UIKit)
-        EmptyView().native.fill(with: EmptyView().native)
-        EmptyView().native.setMinimumSize(size: 10, axis: .horizontal)
-        EmptyView().native.position(subviews: [EmptyView().native, EmptyView().native], inSequenceAlong: .vertical)
-        EmptyView().native.centre(subview: EmptyView().native)
-        EmptyView().native.equalizeSize(amongSubviews: [EmptyView().native, EmptyView().native], on: .horizontal)
-        EmptyView().native.equalizeSize(amongSubviews: [EmptyView().native, EmptyView().native], on: .vertical)
-        EmptyView().native.lockSizeRatio(toSubviews: [EmptyView().native, EmptyView().native], coefficient: 1, axis: .horizontal)
-        EmptyView().native.lockSizeRatio(toSubviews: [EmptyView().native, EmptyView().native], coefficient: 1, axis: .vertical)
-        EmptyView().native.alignCentres(ofSubviews: [EmptyView().native, EmptyView().native], on: .horizontal)
-        EmptyView().native.alignCentres(ofSubviews: [EmptyView().native, EmptyView().native], on: .vertical)
-        EmptyView().native.alignFirstBaselines(ofSubviews: [EmptyView().native, EmptyView().native])
-        EmptyView().native.lockAspectRatio(to: 1)
-        EmptyView().native.position(subviews: [EmptyView().native, EmptyView().native], inSequenceAlong: .horizontal, padding: .none, leadingMargin: .specific(8), trailingMargin: .unspecified)
+        func newView() -> AnyNativeView {
+            #if canImport(AppKit)
+            let native = NSView()
+            #elseif canImport(UIKit)
+            let native = UIView()
+            #endif
+            return AnyNativeView(native)
+        }
+        newView().fill(with: EmptyView().native)
+        newView().setMinimumSize(size: 10, axis: .horizontal)
+        newView().position(subviews: [EmptyView().native, EmptyView().native], inSequenceAlong: .vertical)
+        newView().centre(subview: EmptyView().native)
+        newView().equalizeSize(amongSubviews: [EmptyView().native, EmptyView().native], on: .horizontal)
+        newView().equalizeSize(amongSubviews: [EmptyView().native, EmptyView().native], on: .vertical)
+        newView().lockSizeRatio(toSubviews: [EmptyView().native, EmptyView().native], coefficient: 1, axis: .horizontal)
+        newView().lockSizeRatio(toSubviews: [EmptyView().native, EmptyView().native], coefficient: 1, axis: .vertical)
+        newView().alignCentres(ofSubviews: [EmptyView().native, EmptyView().native], on: .horizontal)
+        newView().alignCentres(ofSubviews: [EmptyView().native, EmptyView().native], on: .vertical)
+        newView().alignFirstBaselines(ofSubviews: [EmptyView().native, EmptyView().native])
+        newView().lockAspectRatio(to: 1)
+        newView().position(subviews: [EmptyView().native, EmptyView().native], inSequenceAlong: .horizontal, padding: .specific(0), leadingMargin: .specific(8), trailingMargin: .automatic)
         #endif
     }
 }
