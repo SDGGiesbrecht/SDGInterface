@@ -252,20 +252,13 @@ final class APITests : ApplicationTestCase {
     func testLabel() {
         #if canImport(AppKit) || canImport(UIKit)
         Application.shared.demonstrateLabel()
-        forEachWindow { window in
-            let label: Label<SDGInterfaceSample.InterfaceLocalization>
-            #if canImport(AppKit)
-            label = window.view.native.subviews[0] as! Label<SDGInterfaceSample.InterfaceLocalization>
-            #else
-            label = window.view.native.subviews[0] as! Label<SDGInterfaceSample.InterfaceLocalization>
-            #endif
-            label.text = .static(UserFacing<StrictString, SDGInterfaceSample.InterfaceLocalization>({ localization in
-                switch localization {
-                case .englishCanada:
-                    return "Modified"
-                }
-            }))
-        }
+        let label: Label<SDGInterfaceSample.InterfaceLocalization> = Label(text: .binding(Shared("...")))
+        label.text = .static(UserFacing<StrictString, SDGInterfaceSample.InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Modified"
+            }
+        }))
         #endif
     }
 
