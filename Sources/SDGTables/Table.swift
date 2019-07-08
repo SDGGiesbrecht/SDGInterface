@@ -56,6 +56,7 @@ public final class Table<RowData> : SpecificView {
         specificNative = UITableView(frame: .zero, style: .plain)
         defer {
             dataSource.table = self
+            nativeTable.dataSource = dataSource
         }
         #endif
 
