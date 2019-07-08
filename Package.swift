@@ -348,11 +348,15 @@ let package = Package(
             ]),
 
         .testTarget(name: "SDGTablesTests", dependencies: [
+            "SDGViews",
+            "SDGTextDisplay",
             "SDGTables",
+            "SDGWindows",
             "SDGApplication",
             "SDGInterfaceSample",
             "SDGApplicationTestUtilities",
             .product(name: "SDGControlFlow", package: "SDGCornerstone"),
+            .product(name: "SDGLocalization", package: "SDGCornerstone"),
             .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
             ]),
 

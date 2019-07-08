@@ -26,7 +26,7 @@ internal class NSTableViewDelegate<RowData> : NSObject, NSTableViewDataSource, A
     // MARK: - NSTableViewDataSource
 
     internal func numberOfRows(in tableView: NSTableView) -> Int {
-        return table?.data.value.count ?? 0
+        return table?.data.value.count ?? 0 // @exempt(from: tests) Never nil.
     }
 
     // MARK: - NSTableViewDelegate

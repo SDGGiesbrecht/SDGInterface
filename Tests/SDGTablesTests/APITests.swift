@@ -13,8 +13,12 @@
  */
 
 import SDGControlFlow
+import SDGLocalization
 
+import SDGViews
+import SDGTextDisplay
 import SDGTables
+import SDGWindows
 import SDGApplication
 
 import SDGInterfaceSample
@@ -29,9 +33,15 @@ final class APITests : ApplicationTestCase {
 
     func testTable() {
         #if canImport(AppKit) || canImport(UIKit)
-        let table = Table<Int>(data: Shared([]), columns: [])
+        let table = Table<Int>(data: Shared([0]), columns: [{ integer in
+            let view = AnyNativeView()
+            view.fill(with: Label<InterfaceLocalization>(text: .binding(Shared("\(integer.inDigits())"))))
+            return view
+            }])
         table.sort = { $0 < $1 }
         XCTAssertNotNil(table.sort)
+        let window = Window<InterfaceLocalization>.auxiliaryWindow(name: .binding(Shared("")), view: table)
+        window.display()
         #endif
     }
 }
