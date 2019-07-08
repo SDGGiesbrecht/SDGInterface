@@ -71,6 +71,10 @@ final class APITests : ApplicationTestCase {
         #endif
     }
 
+    func testRectangle() {
+        XCTAssertEqual(Rectangle(origin: Point(1, 2), size: Size(width: 3, height: 4)).size.height, 4)
+    }
+
     func testSize() {
         XCTAssertEqual(Size(), Size(width: 0, height: 0))
         #if canImport(CoreGraphics)
