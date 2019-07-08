@@ -29,7 +29,7 @@ internal class NSTableCellView : AppKit.NSTableCellView {
         wrapped.fill(with: view, on: .horizontal, margin: .specific(1))
     }
 
-    internal required init?(coder decoder: NSCoder) {
+    internal required init?(coder decoder: NSCoder) { // @exempt(from: tests)
         return nil
     }
 

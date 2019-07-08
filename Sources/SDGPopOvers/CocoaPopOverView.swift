@@ -37,7 +37,7 @@ internal class CocoaPopOverView : NSUIView {
         AnyNativeView(self).fill(with: view, margin: .automatic)
     }
 
-    internal required init?(coder decoder: NSCoder) {
+    internal required init?(coder decoder: NSCoder) { // @exempt(from: tests)
         return nil
     }
 
