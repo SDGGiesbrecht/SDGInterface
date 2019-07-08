@@ -22,7 +22,7 @@ internal class FieldEditor : TextView {
         super.init()
         self.isFieldEditor = true
     }
-    internal required init?(coder: NSCoder) {
+    internal required init?(coder: NSCoder) { // @exempt(from: tests)
         super.init(coder: coder)
     }
 }
