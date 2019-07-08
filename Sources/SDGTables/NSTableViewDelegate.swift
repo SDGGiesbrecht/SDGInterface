@@ -53,7 +53,7 @@ internal class NSTableViewDelegate<RowData> : NSObject, NSTableViewDataSource, A
                 return cell
             }
         }
-        return nil
+        return nil // @exempt(from: tests) Shouldn’t happen.
     }
 
     internal func tableView(_ tableView: NSTableView, sizeToFitWidthOfColumn column: Int) -> CGFloat {
@@ -66,6 +66,7 @@ internal class NSTableViewDelegate<RowData> : NSObject, NSTableViewDataSource, A
             }
             return width
         } else {
+            // @exempt(from: tests) Shouldn’t happen.
             return 0
         }
     }
