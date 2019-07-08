@@ -12,14 +12,26 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-import SDGImageDisplay
+import SDGControlFlow
+import SDGLogic
+import SDGText
+import SDGMathematics
+import SDGLocalization
+
+import SDGInterfaceBasics
+import SDGTextDisplay
+import SDGWindows
 import SDGApplication
+
+import SDGInterfaceLocalizations
 
 import SDGInterfaceSample
 
 import XCTest
 
 import SDGXCTestUtilities
+import SDGLogicTestUtilities
+import SDGLocalizationTestUtilities
 
 import SDGApplicationTestUtilities
 
@@ -229,7 +241,7 @@ final class APITests : ApplicationTestCase {
         let characters = "\u{20}\u{21}\u{22}\u{AA}\u{C0}"
         textEditor.append(RichText(rawText: StrictString(characters)))
         textView.selectAll(nil)
-        let window = Window<InterfaceLocalization>(name: .binding(Shared("...")), view: textEditor)
+        let window = Window<SDGInterfaceLocalizations.InterfaceLocalization>(name: .binding(Shared("...")), view: textEditor)
         textView.showCharacterInformation(nil)
 
         #if canImport(AppKit)
@@ -285,9 +297,9 @@ final class APITests : ApplicationTestCase {
 
         textView.paste(nil)
         #if canImport(AppKit)
-        Pasteboard.general.clearContents()
+        NSPasteboard.general.clearContents()
         #elseif !os(tvOS)
-        Pasteboard.general.items = []
+        UIPasteboard.general.items = []
         #endif
         textView.paste(nil)
         textView.selectAll(nil)
@@ -382,7 +394,7 @@ final class APITests : ApplicationTestCase {
         }
         Application.shared.demonstrateLabelledTextField()
         _ = LabelledTextField(label: Label(
-            text: .static(UserFacing<StrictString, InterfaceLocalization>({ _ in "" }))))
+            text: .static(UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in "" }))))
         #endif
     }
 }

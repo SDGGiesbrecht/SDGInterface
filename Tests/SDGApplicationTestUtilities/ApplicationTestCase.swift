@@ -41,7 +41,7 @@ open class ApplicationTestCase : TestCase {
         #endif
     }()
 
-    override func tearDown() {
+    open override func tearDown() {
         #if canImport(AppKit) || canImport(UIKit)
         forEachWindow { window in
             window.close()
