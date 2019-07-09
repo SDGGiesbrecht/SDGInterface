@@ -46,6 +46,11 @@ final class APITests : ApplicationTestCase {
         table.columns = columns
         let window = Window<InterfaceLocalization>.primaryWindow(name: .binding(Shared("")), view: table)
         window.display()
+        #if canImport(UIKit)
+        table.data = Shared([2, 1])
+        table.specificNative.dataSource?.tableView(table.specificNative, cellForRowAt: IndexPath(row: 0, section: 0))
+        table.specificNative.dataSource?.tableView(table.specificNative, cellForRowAt: IndexPath(row: 0, section: 0))
+        #endif
         #endif
     }
 }
