@@ -44,7 +44,7 @@ final class APITests : ApplicationTestCase {
         let columns = table.columns
         table.columns = []
         table.columns = columns
-        let window = Window<InterfaceLocalization>.auxiliaryWindow(name: .binding(Shared("")), view: table)
+        let window = Window<InterfaceLocalization>.primaryWindow(name: .binding(Shared("")), view: table)
         window.display()
         #endif
     }

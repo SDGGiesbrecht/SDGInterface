@@ -400,8 +400,10 @@ final class APITests : ApplicationTestCase {
         Application.shared.demonstrateLabelledTextField()
         _ = LabelledTextField(label: Label(
             text: .static(UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in "" }))))
+        #if canImport(AppKit)
         let textField = TextField()
         _ = textField.specificNative.cell?.fieldEditor(for: textField.specificNative)
+        #endif
         #endif
     }
 }
