@@ -42,7 +42,7 @@ import PackageDescription
 ///         return true
 ///     }
 ///
-///     internal var remainsRunningWithNoWindows: Bool {
+///     internal var remainsRunningWithNoWindows: Bool { // @exempt(from: tests)
 ///         return true
 ///     }
 /// }
