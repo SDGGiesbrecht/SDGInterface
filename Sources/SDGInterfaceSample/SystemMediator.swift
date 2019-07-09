@@ -22,7 +22,7 @@ internal class SystemMediator : SDGApplication.SystemMediator {
         return true
     }
 
-    internal var remainsRunningWithNoWindows: Bool {
+    internal var remainsRunningWithNoWindows: Bool { // @exempt(from: tests)
         return true
     }
 }

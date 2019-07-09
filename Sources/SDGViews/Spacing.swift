@@ -23,6 +23,7 @@ public enum Spacing {
 
     // MARK: - Properties
 
+    #if canImport(AppKit) || canImport(UIKit)
     internal var string: String {
         switch self {
         case .automatic:
@@ -31,4 +32,5 @@ public enum Spacing {
             return "\u{2D}\(size)\u{2D}"
         }
     }
+    #endif
 }
