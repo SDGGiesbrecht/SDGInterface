@@ -37,7 +37,7 @@ internal class UITableViewDataSource<RowData> : NSObject, UIKit.UITableViewDataS
         let cell: UITableViewCell
         if let reUsable = table?.nativeTable.dequeueReusableCell(
             withIdentifier: UITableViewDataSource.reUseIdentifier) as? UITableViewCell {
-            cell = reUsable
+            cell = reUsable // @exempt(from: tests) Hard to predicably reproduce.
         } else {
             cell = UITableViewCell(columns: [])
         }
