@@ -28,6 +28,7 @@ final class APITests : ApplicationTestCase {
     func testRowView() {
         let row = RowView(views: [AnyNativeView()])
         row.views = [AnyNativeView()]
+        let anotherRow = RowView(views: [AnyNativeView(), AnyNativeView()], spacing: .specific(0))
     }
 
     func testView() {
