@@ -381,6 +381,10 @@ final class APITests : ApplicationTestCase {
 
         textEditor.drawsBackground = true
         XCTAssert(textEditor.drawsBackground)
+        textEditor.drawsBackground = false
+        XCTAssertFalse(textEditor.drawsBackground)
+        textEditor.drawsBackground = true
+        XCTAssert(textEditor.drawsBackground)
         #endif
     }
 
