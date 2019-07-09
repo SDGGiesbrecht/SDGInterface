@@ -66,6 +66,10 @@ public final class Table<RowData> : SpecificView {
         }
         #endif
 
+        defer {
+            bindingObserver.table = self
+        }
+
         #if canImport(AppKit)
         nativeTable.headerView = nil
         specificNative.borderType = .bezelBorder
@@ -155,7 +159,7 @@ public final class Table<RowData> : SpecificView {
     #if canImport(AppKit)
     internal var nativeTable: NSTableView {
         get {
-            return specificNative.documentView as? NSTableView ?? NSTableView()
+            return specificNative.documentView as? NSTableView ?? NSTableView() // @exempt(from: tests) Never nil.
         }
     }
     #elseif canImport(UIKit)

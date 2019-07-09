@@ -65,8 +65,7 @@ internal class NSTableViewDelegate<RowData> : NSObject, NSTableViewDataSource, A
                 }
             }
             return width
-        } else {
-            // @exempt(from: tests) Shouldn’t happen.
+        } else { // @exempt(from: tests) Shouldn’t happen.
             return 0
         }
     }
