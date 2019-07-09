@@ -19,6 +19,7 @@ import SDGMathematics
 import SDGLocalization
 
 import SDGInterfaceBasics
+import SDGViews
 import SDGTextDisplay
 import SDGWindows
 import SDGApplication
@@ -80,6 +81,10 @@ final class APITests : ApplicationTestCase {
     func testCharacterInformation() {
         #if canImport(AppKit) || canImport(UIKit)
         CharacterInformation.display(for: "abc", origin: nil)
+        let view = AnyNativeView()
+        let window = Window<SDGInterfaceLocalizations.InterfaceLocalization>.primaryWindow(name: .binding(Shared("...")), view: view)
+        window.display()
+        CharacterInformation.display(for: "abc", origin: (view, nil))
         #endif
     }
 

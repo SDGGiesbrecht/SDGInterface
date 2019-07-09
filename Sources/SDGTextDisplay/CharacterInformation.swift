@@ -56,12 +56,12 @@ public struct CharacterInformation {
         }
 
         let table = Table<CharacterInformation>(data: Shared(details), columns: [
-        { details in
+        { details in // @exempt(from: tests) iOS does not call this unless it displays.
             let codePoint = Label<InterfaceLocalization>(text: .binding(Shared(details.codePoint)))
             codePoint.textColour = details.warningColour
             return codePoint
             },
-        { details in
+        { details in // @exempt(from: tests) iOS does not call this unless it displays.
             let codePoint = Label<InterfaceLocalization>(text: .binding(Shared(StrictString(details.character))))
             #if canImport(AppKit)
             codePoint.specificNative.stringValue = details.character
@@ -71,10 +71,10 @@ public struct CharacterInformation {
             codePoint.textColour = details.warningColour
             return codePoint
             },
-        { details in
+        { details in // @exempt(from: tests) iOS does not call this unless it displays.
             return Label<InterfaceLocalization>(text: .binding(Shared(StrictString(details.normalizedCodePoints))))
             },
-        { details in
+        { details in // @exempt(from: tests) iOS does not call this unless it displays.
             return Label<InterfaceLocalization>(text: .binding(Shared(StrictString(details.normalizedCharacters))))
             }
             ])
