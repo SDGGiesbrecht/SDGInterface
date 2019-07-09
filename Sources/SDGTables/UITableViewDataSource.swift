@@ -26,7 +26,7 @@ internal class UITableViewDataSource<RowData> : NSObject, UIKit.UITableViewDataS
     // MARK: - UITableViewDataSource
 
     internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return table?.data.value.count ?? 0
+        return table?.data.value.count ?? 0 // @exempt(from: tests) Never nil.
     }
 
     internal static var reUseIdentifier: String {

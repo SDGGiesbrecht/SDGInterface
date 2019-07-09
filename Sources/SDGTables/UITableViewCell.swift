@@ -29,7 +29,7 @@ internal class UITableViewCell : UIKit.UITableViewCell {
         wrapped.fill(with: row, margin: .specific(0))
     }
 
-    internal required init?(coder decoder: NSCoder) {
+    internal required init?(coder decoder: NSCoder) { // @exempt(from: tests)
         return nil
     }
 

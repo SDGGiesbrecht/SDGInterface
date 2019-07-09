@@ -19,7 +19,7 @@ internal class UIPopoverPresentationControllerDelegate : NSObject, UIKit.UIPopov
 
     internal static let delegate = UIPopoverPresentationControllerDelegate()
 
-    internal func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+    internal func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle { // @exempt(from: tests)
         return .none
     }
 }

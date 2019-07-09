@@ -26,7 +26,9 @@ import SDGMathematics
 
 import SDGViews
 
+#if canImport(AppKit)
 private var columnIdentifiers = sequence(first: 0, next: { $0 &+ 1 })
+#endif
 
 /// Table.
 public final class Table<RowData> : SpecificView {

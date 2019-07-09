@@ -85,9 +85,11 @@ public final class MenuEntry<L> : AnyMenuEntry where L : Localization {
 
     // MARK: - Refreshing
 
+    #if canImport(AppKit)
     private func refreshNative() {
         refreshLabel()
     }
+    #endif
     private func refreshLabel() {
         native.title = String(label.resolved())
     }
