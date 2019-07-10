@@ -33,7 +33,9 @@ final class APITests : ApplicationTestCase {
         #if canImport(AppKit) || canImport(UIKit)
         let window = Window<InterfaceLocalization>(name: .binding(Shared("")), view: EmptyView())
         window.view.displayPopOver(EmptyView())
+        #if canImport(UIKit)
         AnyNativeView().displayPopOver(EmptyView())
+        #endif
         #endif
     }
 }
