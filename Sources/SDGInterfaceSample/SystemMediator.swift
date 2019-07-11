@@ -12,6 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+public func getSystemMediator() -> SDGApplication.SystemMediator {
+    return SystemMediator()
+}
+
 // @example(mediator)
 import SDGApplication
 
@@ -24,6 +28,9 @@ internal class SystemMediator : SDGApplication.SystemMediator {
 }
 // @endExample
 
-public func getSystemMediator() -> SDGApplication.SystemMediator {
-    return SystemMediator()
+extension SystemMediator {
+
+    internal var remainsRunningWithNoWindows: Bool { // @exempt(from: tests)
+        return true
+    }
 }

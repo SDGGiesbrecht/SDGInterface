@@ -40,6 +40,14 @@ open class ApplicationTestCase : TestCase {
         _ = mediator.finishLaunching(LaunchDetails())
         #endif
     }()
+
+    open override func tearDown() {
+        #if canImport(AppKit) || canImport(UIKit)
+        forEachWindow { window in
+            window.close()
+        }
+        #endif
+    }
 }
 
 #endif

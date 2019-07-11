@@ -22,7 +22,7 @@ import SDGLocalization
 import SDGInterfaceLocalizations
 
 /// A check box.
-public class CheckBox<L> : NSButton, SharedValueObserver where L : Localization {
+public final class CheckBox<L> : NSButton, SharedValueObserver where L : Localization {
 
     // MARK: - Initialization
 

@@ -23,17 +23,21 @@ import UIKit
 public protocol SpecificView : View {
 
     #if canImport(AppKit)
+    // @documentation(SpecificView.SpecificNativeView)
     /// The specific native view type.
     associatedtype SpecificNativeView : NSView
     #elseif canImport(UIKit)
+    // #documentation(SpecificView.SpecificNativeView)
     /// The specific native view type.
     associatedtype SpecificNativeView : UIView
     #endif
 
     #if canImport(AppKit)
+    // @documentation(SpecificView.specificNative)
     /// The specific native view.
     var specificNative: SpecificNativeView { get }
     #elseif canImport(UIKit)
+    // #documentation(SpecificView.specificNative)
     /// The specific native view.
     var specificNative: SpecificNativeView { get }
     #endif

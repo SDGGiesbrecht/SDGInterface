@@ -68,9 +68,12 @@ let package = Package(
             .productItem(name: "SDGContextMenu", package: "SDGInterface"),
             .productItem(name: "SDGErrorMessages", package: "SDGInterface"),
             .productItem(name: "SDGMenus", package: "SDGInterface"),
+            .productItem(name: "SDGPopOvers", package: "SDGInterface"),
             .productItem(name: "SDGWindows", package: "SDGInterface"),
             .productItem(name: "SDGInterfaceElements", package: "SDGInterface"),
+            .productItem(name: "SDGTables", package: "SDGInterface"),
             .productItem(name: "SDGImageDisplay", package: "SDGInterface"),
+            .productItem(name: "SDGTextDisplay", package: "SDGInterface"),
             .productItem(name: "SDGViews", package: "SDGInterface"),
             .productItem(name: "SDGKeyboard", package: "SDGInterface"),
             .productItem(name: "SDGInterfaceBasics", package: "SDGInterface"),
@@ -87,9 +90,12 @@ import SDGMenuBar
 import SDGContextMenu
 import SDGErrorMessages
 import SDGMenus
+import SDGPopOvers
 import SDGWindows
 import SDGInterfaceElements
+import SDGTables
 import SDGImageDisplay
+import SDGTextDisplay
 import SDGViews
 import SDGKeyboard
 import SDGInterfaceBasics

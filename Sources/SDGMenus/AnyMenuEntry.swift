@@ -27,10 +27,10 @@ public protocol AnyMenuEntry : AnyObject {
 
     #if canImport(AppKit)
     /// The native menu item.
-    var native: NSMenuItem { get set }
+    var native: NSMenuItem { get }
     #elseif canImport(UIKit)
     /// The native menu item.
-    var native: UIMenuItem { get set }
+    var native: UIMenuItem { get }
     var _isHidden: Bool { get set }
     var _tag: Int { get set }
     #endif

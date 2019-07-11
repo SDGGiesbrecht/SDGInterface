@@ -50,10 +50,10 @@ public struct Size : Equatable, Hashable {
     // MARK: - Properties
 
     /// The width.
-    var width: Double
+    public var width: Double
 
     /// The height.
-    var height: Double
+    public var height: Double
 
     #if canImport(CoreGraphics)
     /// The native size.

@@ -28,9 +28,13 @@ import SDGInterfaceBasics
 import SDGViews
 
 #if canImport(AppKit)
-public var _getFieldEditor: () -> NSTextView = {
-    return NSTextView()
-}
+private let setUpFieldEditorReset: Void = {
+    _resetFieldEditors = {
+        for (_, window) in allWindows { // @exempt(from: tests) Only reachable with a bungled set‐up.
+            window._fieldEditor = _getFieldEditor()
+        }
+    }
+}()
 #endif
 
 /// A window.
@@ -46,6 +50,9 @@ public final class Window<L> : AnyWindow where L : Localization {
     public static func primaryWindow(name: Binding<StrictString, L>, view: View) -> Window {
         let window = Window(name: name, view: view)
         window.size = availableSize
+        #if canImport(UIKit)
+        window.native.frame.origin = CGPoint(x: 0, y: 0)
+        #endif
         #if canImport(AppKit)
         window.isPrimary = true
         #endif
@@ -85,6 +92,10 @@ public final class Window<L> : AnyWindow where L : Localization {
     ///     - name: The name of the window. (Used in places like the title bar or dock.)
     ///     - view: The view.
     public init(name: Binding<StrictString, L>, view: View) {
+        #if canImport(AppKit)
+        setUpFieldEditorReset
+        #endif
+
         defer {
             randomizeLocation()
         }
@@ -175,12 +186,12 @@ public final class Window<L> : AnyWindow where L : Localization {
 
     #if canImport(AppKit)
     /// The native window.
-    public var native: NSWindow
+    public let native: NSWindow
     private let delegate = NSWindowDelegate()
     public var _fieldEditor = _getFieldEditor()
     #elseif canImport(UIKit)
     /// The native window.
-    public var native: UIWindow
+    public let native: UIWindow
     #endif
 
     // MARK: - Refreshing

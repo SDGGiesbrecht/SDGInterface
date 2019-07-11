@@ -10,6 +10,7 @@ extension APITests {
         ("testBinding", testBinding),
         ("testColour", testColour),
         ("testPoint", testPoint),
+        ("testRectangle", testRectangle),
         ("testSize", testSize),
     ]
 }

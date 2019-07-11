@@ -26,6 +26,8 @@ import SDGText
 import SDGLocalization
 
 import SDGInterfaceBasics
+import SDGViews
+import SDGTextDisplay
 import SDGImageDisplay
 import SDGWindows
 import SDGInterfaceElements
@@ -98,7 +100,8 @@ extension Application {
         #endif
 
         #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
-        let window = Window(name: .static(ApplicationNameForm.localizedIsolatedForm), view: TextEditor())
+        let editor = TextEditor()
+        let window = Window.primaryWindow(name: .static(ApplicationNameForm.localizedIsolatedForm), view: editor)
         if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil { // #exempt(from: tests)
             // This call fails during tests.
             window.display()
@@ -112,14 +115,10 @@ extension Application {
     }
     private func demonstrate<L>(_ view: NativeView, windowTitle: UserFacing<StrictString, L>) {
         #if canImport(AppKit)
-        let contentView = NSView()
-        contentView.fill(with: view)
-        let window = Window<L>.auxiliaryWindow(name: .static(windowTitle), view: contentView)
+        let window = Window<L>.auxiliaryWindow(name: .static(windowTitle), view: MarginView(contents: view))
         demonstrate(window)
         #else
-        let contentView = UIView()
-        contentView.fill(with: view)
-        let window = Window(name: .static(windowTitle), view: contentView)
+        let window = Window(name: .static(windowTitle), view: MarginView(contents: view))
         demonstrate(window)
         #endif
     }
@@ -185,7 +184,7 @@ extension Application {
                 return "Label"
             }
         })
-        demonstrate(Label(text: Shared(label)), windowTitle: label)
+        demonstrate(Label(text: .static(label)).native, windowTitle: label)
     }
 
     @objc public func demonstrateLabelledTextField() {
@@ -195,7 +194,7 @@ extension Application {
                 return "Labelled Text Field"
             }
         })
-        demonstrate(LabelledTextField(labelText: label), windowTitle: label)
+        demonstrate(LabelledTextField(labelText: .static(label)).native, windowTitle: label)
     }
 
     @objc public func demonstrateLetterbox() {
@@ -205,11 +204,11 @@ extension Application {
                 return "Letterbox"
             }
         })
-        demonstrate(Letterbox(content: TextEditor(), aspectRatio: 1), windowTitle: label)
+        demonstrate(Letterbox(content: TextEditor().native, aspectRatio: 1), windowTitle: label)
     }
 
     @objc public func demonstrateTextEditor() {
-        demonstrate(TextEditor(), windowTitle: UserFacing<StrictString, InterfaceLocalization>({ localization in
+        demonstrate(TextEditor().native, windowTitle: UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Text Editor"
@@ -218,7 +217,7 @@ extension Application {
     }
 
     @objc public func demonstrateTextField() {
-        demonstrate(TextField(), windowTitle: UserFacing<StrictString, InterfaceLocalization>({ localization in
+        demonstrate(TextField().native, windowTitle: UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Text Field"
