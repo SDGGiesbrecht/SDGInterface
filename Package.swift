@@ -113,7 +113,7 @@ let package = Package(
         .library(name: "SDGInterfaceBasics", targets: ["SDGInterfaceBasics"])
     ],
     dependencies: [
-        .package(url: "https://github.com/SDGGiesbrecht/SDGCornerstone", from: Version(1, 0, 0))
+        .package(url: "https://github.com/SDGGiesbrecht/SDGCornerstone", from: Version(2, 0, 0))
     ],
     targets: [
         // #documentation(SDGApplication)
