@@ -290,7 +290,7 @@ let package = Package(
             .product(name: "SDGText", package: "SDGCornerstone"),
             .product(name: "SDGLocalization", package: "SDGCornerstone"),
             .product(name: "SDGPersistence", package: "SDGCornerstone")
-            ], path: "Sources/SDGInterfaceResourceGeneration"),
+            ]),
 
         // Internal tests.
 
