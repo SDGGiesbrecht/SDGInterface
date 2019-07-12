@@ -124,7 +124,10 @@ final class APITests : ApplicationTestCase {
         func prepareForEqualityCheck(_ string: NSAttributedString, ignoring ignored: [NSAttributedString.Key] = []) -> NSAttributedString {
             #if canImport(AppKit) || canImport(UIKit)
             let processed = NSAttributedString(RichText(string))
-            let font = processed.attributes(at: 0, effectiveRange: nil).font!
+            var font = processed.attributes(at: 0, effectiveRange: nil).font!
+            if font.fontName == ".SFNSDisplay" ∨ font.fontName == ".SFNSText" {
+                font.fontName = ".AppleSystemUIFont"
+            }
             let mutable = processed.mutableCopy() as! NSMutableAttributedString
             let all = NSRange(0 ..< mutable.length)
             mutable.removeAttribute(.font, range: all)
@@ -141,13 +144,10 @@ final class APITests : ApplicationTestCase {
         for fontSize in sequence(first: 0, next: { $0 + 1 }).prefix(10).map({ 2 ↑ $0 }) {
             #if canImport(CoreGraphics)
             let placeholderText = "..."
-            let font = Font.system
+            let font = Font.system.resized(to: Double(fontSize))
             let basicString = NSAttributedString(string: placeholderText, attributes: [.font: font.native])
             let basicHTML = try NSAttributedString.from(html: placeholderText, font: font)
-            var ignored: [NSAttributedString.Key] = [.foregroundColor, .kern, .paragraphStyle, .strokeColor, .strokeWidth]
-            if fontSize < 20 {
-                ignored.append(fontNameKey)
-            }
+            let ignored: [NSAttributedString.Key] = [.foregroundColor, .kern, .paragraphStyle, .strokeColor, .strokeWidth]
             XCTAssertEqual(prepareForEqualityCheck(basicString, ignoring: ignored), prepareForEqualityCheck(basicHTML, ignoring: ignored))
 
             let toFixSup = try NSAttributedString.from(html: "\u{B2}", font: font)
