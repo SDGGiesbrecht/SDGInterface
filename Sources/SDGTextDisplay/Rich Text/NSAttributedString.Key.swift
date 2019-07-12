@@ -40,6 +40,7 @@ extension NSAttributedString.Key {
 
 extension Dictionary where Key == NSAttributedString.Key, Value == Any {
 
+    #if canImport(AppKit) || canImport(UIKit)
     /// Returns the font in the attribute dictionary.
     public var font: Font? {
         get {
@@ -58,4 +59,5 @@ extension Dictionary where Key == NSAttributedString.Key, Value == Any {
             self[.font] = newValue?.native
         }
     }
+    #endif
 }
