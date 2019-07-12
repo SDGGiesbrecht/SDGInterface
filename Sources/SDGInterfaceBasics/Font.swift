@@ -77,9 +77,9 @@ extension Font {
     ///     - size: The new point size.
     public func resized(to size: Double) -> Font {
         #if canImport(AppKit)
-        return Font(NSFontManager.shared.convert(native, toSize: native.pointSize))
+        return Font(NSFontManager.shared.convert(native, toSize: CGFloat(size)))
         #else
-        return Font(UIFont(descriptor: native.fontDescriptor, size: native.pointSize))
+        return Font(UIFont(descriptor: native.fontDescriptor, size: CGFloat(size)))
         #endif
     }
 }
