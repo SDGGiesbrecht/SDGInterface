@@ -36,7 +36,7 @@ extension Font {
         #if canImport(AppKit)
         return Font(NSFont.systemFont(ofSize: NSFont.systemFontSize(for: .regular)))
         #else
-        return preferredFont(forTextStyle: .headline)
+        return Font(UIFont.preferredFont(forTextStyle: .headline))
         #endif
     }
 
@@ -56,8 +56,8 @@ extension Font {
         #if canImport(AppKit)
         return Font(NSFontManager.shared.convert(native, toHaveTrait: .boldFontMask))
         #else
-        let descriptor = fontDescriptor.withSymbolicTraits(.traitBold) ?? fontDescriptor // @exempt(from: tests) Unknown why the descriptor would be nil.
-        return Font(descriptor: descriptor, size: 0)
+        let descriptor = native.fontDescriptor.withSymbolicTraits(.traitBold) ?? native.fontDescriptor // @exempt(from: tests) Unknown why the descriptor would be nil.
+        return Font(UIFont(descriptor: descriptor, size: 0))
         #endif
     }
 
@@ -66,8 +66,8 @@ extension Font {
         #if canImport(AppKit)
         return Font(NSFontManager.shared.convert(native, toHaveTrait: .italicFontMask))
         #else
-        let descriptor = fontDescriptor.withSymbolicTraits(.traitItalic) ?? fontDescriptor // @exempt(from: tests) Unknown why the descriptor would be nil.
-        return Font(descriptor: descriptor, size: 0)
+        let descriptor = native.fontDescriptor.withSymbolicTraits(.traitItalic) ?? native.fontDescriptor // @exempt(from: tests) Unknown why the descriptor would be nil.
+        return Font(UIFont(descriptor: descriptor, size: 0))
         #endif
     }
 
@@ -77,9 +77,9 @@ extension Font {
     ///     - size: The new point size.
     public func resized(to size: Double) -> Font {
         #if canImport(AppKit)
-        return Font(NSFontManager.shared.convert(native, toSize: CGFloat(size)))
+        return Font(NSFontManager.shared.convert(native, toSize: native.pointSize))
         #else
-        return Font(descriptor: fontDescriptor, size: CGFloat(size))
+        return Font(UIFont(descriptor: native.fontDescriptor, size: native.pointSize))
         #endif
     }
 }

@@ -26,6 +26,8 @@ import SDGCollections
 import SDGText
 import SDGLocalization
 
+import SDGTextDisplay
+
 import SDGInterfaceLocalizations
 
 /// A group of related buttons.
