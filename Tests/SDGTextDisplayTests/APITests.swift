@@ -124,6 +124,7 @@ final class APITests : ApplicationTestCase {
         func prepareForEqualityCheck(_ string: NSAttributedString, ignoring ignored: [NSAttributedString.Key] = []) -> NSAttributedString {
             #if canImport(AppKit) || canImport(UIKit)
             let processed = NSAttributedString(RichText(string))
+            print(processed.attributes(at: 0, effectiveRange: nil))
             let font = processed.attributes(at: 0, effectiveRange: nil).font!
             let mutable = processed.mutableCopy() as! NSMutableAttributedString
             let all = NSRange(0 ..< mutable.length)
@@ -142,7 +143,7 @@ final class APITests : ApplicationTestCase {
             #if canImport(CoreGraphics)
             let placeholderText = "..."
             let font = Font.system
-            let basicString = NSAttributedString(string: placeholderText, attributes: [.font: font])
+            let basicString = NSAttributedString(string: placeholderText, attributes: [.font: font.native])
             let basicHTML = try NSAttributedString.from(html: placeholderText, font: font)
             var ignored: [NSAttributedString.Key] = [.foregroundColor, .kern, .paragraphStyle, .strokeColor, .strokeWidth]
             if fontSize < 20 {
