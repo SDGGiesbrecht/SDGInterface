@@ -51,7 +51,7 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
     ///     - semanticMarkup: The semantic markup.
     ///     - attributes: The rich text attributes.
     public init(semanticMarkup: SemanticMarkup, attributes: [NSAttributedString.Key: Any] = [:]) {
-        let font = (attributes[NSAttributedString.Key.font] as? Font) ?? Font.default
+        let font = attributes.font ?? Font.default
         self.init(semanticMarkup.richText(font: font))
     }
     #endif

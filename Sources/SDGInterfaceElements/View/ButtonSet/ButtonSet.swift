@@ -61,7 +61,7 @@ public final class ButtonSet<L> : NSSegmentedControl, SharedValueObserver where 
         font = Font.forLabels.native
         #else
         var attributes = titleTextAttributes(for: .normal) ?? [:]
-        attributes[.font] = Font.forLabels
+        attributes.font = Font.forLabels
         setTitleTextAttributes(attributes, for: .normal)
         #endif
 

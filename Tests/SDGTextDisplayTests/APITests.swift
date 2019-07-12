@@ -50,10 +50,10 @@ final class APITests : ApplicationTestCase {
         #elseif canImport(UIKit)
         typealias NativeFont = UIFont
         #endif
-        XCTAssert((mutable.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! NativeFont).pointSize < 24, "\((mutable.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! NativeFont).pointSize)")
+        XCTAssert((mutable.attributes(at: 0, effectiveRange: nil).font!.native).pointSize < 24, "\((mutable.attributes(at: 0, effectiveRange: nil).font!.native).pointSize)")
         mutable = attributed.mutableCopy() as! NSMutableAttributedString
         mutable.subscript(NSRange(0 ..< mutable.length))
-        XCTAssert((mutable.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! NativeFont).pointSize < 24, "\((mutable.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! NativeFont).pointSize)")
+        XCTAssert((mutable.attributes(at: 0, effectiveRange: nil).font!.native).pointSize < 24, "\((mutable.attributes(at: 0, effectiveRange: nil).font!.native).pointSize)")
         #endif
 
         #if canImport(AppKit)
@@ -124,7 +124,7 @@ final class APITests : ApplicationTestCase {
         func prepareForEqualityCheck(_ string: NSAttributedString, ignoring ignored: [NSAttributedString.Key] = []) -> NSAttributedString {
             #if canImport(AppKit) || canImport(UIKit)
             let processed = NSAttributedString(RichText(string))
-            let font = processed.attribute(.font, at: 0, effectiveRange: nil) as! Font
+            let font = processed.attributes(at: 0, effectiveRange: nil).font!
             let mutable = processed.mutableCopy() as! NSMutableAttributedString
             let all = NSRange(0 ..< mutable.length)
             mutable.removeAttribute(.font, range: all)
