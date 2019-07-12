@@ -34,7 +34,7 @@ extension Font {
     /// The label font.
     public static var forLabels: Font {
         #if canImport(AppKit)
-        return systemFont(ofSize: systemFontSize(for: .regular))
+        return Font(NSFont.systemFont(ofSize: NSFont.systemFontSize(for: .regular)))
         #else
         return preferredFont(forTextStyle: .headline)
         #endif
@@ -44,9 +44,9 @@ extension Font {
     public static var forTextEditing: Font {
         var user: Font?
         #if canImport(AppKit)
-        user = userFont(ofSize: systemSize)
+        user = NSFont.userFont(ofSize: NSFont.systemFontSize).map { Font($0) }
         #endif
-        return user ?? systemFont(ofSize: systemSize) // @exempt(from: tests) Unknown why it would ever be nil on macOS.
+        return user ?? system // @exempt(from: tests) Unknown why it would ever be nil on macOS.
     }
 
     // MARK: - Modified Versions
@@ -54,7 +54,7 @@ extension Font {
     /// The bold version of `self`.
     public var bold: Font {
         #if canImport(AppKit)
-        return NSFontManager.shared.convert(self, toHaveTrait: .boldFontMask)
+        return Font(NSFontManager.shared.convert(native, toHaveTrait: .boldFontMask))
         #else
         let descriptor = fontDescriptor.withSymbolicTraits(.traitBold) ?? fontDescriptor // @exempt(from: tests) Unknown why the descriptor would be nil.
         return Font(descriptor: descriptor, size: 0)
@@ -64,7 +64,7 @@ extension Font {
     /// The italic version of `self`.
     public var italic: Font {
         #if canImport(AppKit)
-        return NSFontManager.shared.convert(self, toHaveTrait: .italicFontMask)
+        return Font(NSFontManager.shared.convert(native, toHaveTrait: .italicFontMask))
         #else
         let descriptor = fontDescriptor.withSymbolicTraits(.traitItalic) ?? fontDescriptor // @exempt(from: tests) Unknown why the descriptor would be nil.
         return Font(descriptor: descriptor, size: 0)
@@ -77,7 +77,7 @@ extension Font {
     ///     - size: The new point size.
     public func resized(to size: CGFloat) -> Font {
         #if canImport(AppKit)
-        return NSFontManager.shared.convert(self, toSize: size)
+        return Font(NSFontManager.shared.convert(native, toSize: size))
         #else
         return Font(descriptor: fontDescriptor, size: size)
         #endif
