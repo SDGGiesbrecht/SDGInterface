@@ -41,14 +41,19 @@ final class APITests : ApplicationTestCase {
     func testAttributedString() {
         var mutable = NSMutableAttributedString(string: "...")
         #if canImport(AppKit) || canImport(UIKit)
-        mutable.addAttribute(NSAttributedString.Key.font, value: Font.systemFont(ofSize: 24), range: NSRange(0 ..< 3))
+        mutable.addAttribute(NSAttributedString.Key.font, value: Font.system.resized(to: 24).native, range: NSRange(0 ..< 3))
         let attributed = mutable.copy() as! NSAttributedString
         mutable = attributed.mutableCopy() as! NSMutableAttributedString
         mutable.superscript(NSRange(0 ..< mutable.length))
-        XCTAssert((mutable.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! Font).pointSize < 24, "\((mutable.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! Font).pointSize)")
+        #if canImport(AppKit)
+        typealias NativeFont = NSFont
+        #elseif canImport(UIKit)
+        typealias NativeFont = UIFont
+        #endif
+        XCTAssert((mutable.attributes(at: 0, effectiveRange: nil).font!.native).pointSize < 24, "\((mutable.attributes(at: 0, effectiveRange: nil).font!.native).pointSize)")
         mutable = attributed.mutableCopy() as! NSMutableAttributedString
         mutable.subscript(NSRange(0 ..< mutable.length))
-        XCTAssert((mutable.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! Font).pointSize < 24, "\((mutable.attributes(at: 0, effectiveRange: nil)[NSAttributedString.Key.font] as! Font).pointSize)")
+        XCTAssert((mutable.attributes(at: 0, effectiveRange: nil).font!.native).pointSize < 24, "\((mutable.attributes(at: 0, effectiveRange: nil).font!.native).pointSize)")
         #endif
 
         #if canImport(AppKit)
@@ -95,7 +100,7 @@ final class APITests : ApplicationTestCase {
         _ = Font.forTextEditing
         _ = font.bold
         _ = font.italic
-        XCTAssertEqual(font.resized(to: 12).pointSize, 12)
+        XCTAssertEqual(font.resized(to: 12).size, 12)
         #endif
     }
 
@@ -119,12 +124,15 @@ final class APITests : ApplicationTestCase {
         func prepareForEqualityCheck(_ string: NSAttributedString, ignoring ignored: [NSAttributedString.Key] = []) -> NSAttributedString {
             #if canImport(AppKit) || canImport(UIKit)
             let processed = NSAttributedString(RichText(string))
-            let font = processed.attribute(.font, at: 0, effectiveRange: nil) as! Font
+            var font = processed.attributes(at: 0, effectiveRange: nil).font!
+            if font.fontName == ".SFNSDisplay" ∨ font.fontName == ".SFNSText" {
+                font.fontName = ".AppleSystemUIFont"
+            }
             let mutable = processed.mutableCopy() as! NSMutableAttributedString
             let all = NSRange(0 ..< mutable.length)
             mutable.removeAttribute(.font, range: all)
             mutable.addAttribute(fontNameKey, value: font.fontName, range: all)
-            mutable.addAttribute(NSAttributedString.Key(rawValue: "SDGTestFontSize"), value: font.pointSize.rounded(.toNearestOrEven), range: all)
+            mutable.addAttribute(NSAttributedString.Key(rawValue: "SDGTestFontSize"), value: font.native.pointSize.rounded(.toNearestOrEven), range: all)
             for attribute in ignored {
                 mutable.removeAttribute(attribute, range: all)
             }
@@ -136,13 +144,10 @@ final class APITests : ApplicationTestCase {
         for fontSize in sequence(first: 0, next: { $0 + 1 }).prefix(10).map({ 2 ↑ $0 }) {
             #if canImport(CoreGraphics)
             let placeholderText = "..."
-            let font = Font.systemFont(ofSize: CGFloat(fontSize))
-            let basicString = NSAttributedString(string: placeholderText, attributes: [.font: font])
+            let font = Font.system.resized(to: Double(fontSize))
+            let basicString = NSAttributedString(string: placeholderText, attributes: [.font: font.native])
             let basicHTML = try NSAttributedString.from(html: placeholderText, font: font)
-            var ignored: [NSAttributedString.Key] = [.foregroundColor, .kern, .paragraphStyle, .strokeColor, .strokeWidth]
-            if fontSize < 20 {
-                ignored.append(fontNameKey)
-            }
+            let ignored: [NSAttributedString.Key] = [.foregroundColor, .kern, .paragraphStyle, .strokeColor, .strokeWidth]
             XCTAssertEqual(prepareForEqualityCheck(basicString, ignoring: ignored), prepareForEqualityCheck(basicHTML, ignoring: ignored))
 
             let toFixSup = try NSAttributedString.from(html: "\u{B2}", font: font)
@@ -172,7 +177,7 @@ final class APITests : ApplicationTestCase {
         richText.set(colour: Colour(red: 1, green: 1, blue: 1, opacity: 1))
         richText.superscript(range: richText.bounds)
         richText.subscript(range: richText.bounds)
-        richText.set(font: Font.systemFont(ofSize: Font.systemSize))
+        richText.set(font: Font.system)
         richText.set(paragraphStyle: NSParagraphStyle())
         XCTAssertEqual(richText.rawText(), StrictString("..."))
         XCTAssert(richText.scalars().elementsEqual("...".scalars))

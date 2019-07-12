@@ -72,7 +72,7 @@ public final class TextField : SpecificView {
         #endif
         specificNative.allowsEditingTextAttributes = false
 
-        specificNative.font = Font.forLabels
+        specificNative.font = Font.forLabels.native
     }
 
     // MARK: - SpecificView

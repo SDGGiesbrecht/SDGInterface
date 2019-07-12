@@ -26,6 +26,8 @@ import SDGCollections
 import SDGText
 import SDGLocalization
 
+import SDGTextDisplay
+
 import SDGInterfaceLocalizations
 
 /// A group of related buttons.
@@ -58,10 +60,10 @@ public final class ButtonSet<L> : NSSegmentedControl, SharedValueObserver where 
         #endif
 
         #if canImport(AppKit)
-        font = Font.forLabels
+        font = Font.forLabels.native
         #else
         var attributes = titleTextAttributes(for: .normal) ?? [:]
-        attributes[.font] = Font.forLabels
+        attributes.font = Font.forLabels
         setTitleTextAttributes(attributes, for: .normal)
         #endif
 

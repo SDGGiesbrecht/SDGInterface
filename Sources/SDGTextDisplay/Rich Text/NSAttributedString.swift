@@ -41,31 +41,35 @@ extension NSAttributedString {
     // MARK: - Superscript & Subscript
 
     #if canImport(CoreGraphics)
-    private static func superscriptPointSize(forBasePointSize baseSize: CGFloat) -> CGFloat {
+    private static func superscriptPointSize(forBasePointSize baseSize: Double) -> Double {
         return baseSize × 5 ÷ 6
     }
-    private static func basePointSize(forSuperscriptPointSize superscriptSize: CGFloat) -> CGFloat {
+    private static func basePointSize(forSuperscriptPointSize superscriptSize: Double) -> Double {
         return superscriptSize × 6 ÷ 5
     }
 
-    internal static let htmlCorrection: CGFloat = 3 ÷ 4
-    private static var lineHeightTable: [Font: [CGFloat: CGFloat]] = [:]
-    private static func lineHeight(for font: Font) -> CGFloat {
-        return cached(in: &lineHeightTable[font, default: [:]][font.pointSize]) {
-            let markedUp = SemanticMarkup("_").richText(font: font.resized(to: font.pointSize × htmlCorrection))
+    internal static let htmlCorrection: Double = 3 ÷ 4
+    #if canImport(AppKit)
+    private static var lineHeightTable: [NSFont: [Double: Double]] = [:]
+    #elseif canImport(UIKit)
+    private static var lineHeightTable: [UIFont: [Double: Double]] = [:]
+    #endif
+    private static func lineHeight(for font: Font) -> Double {
+        return cached(in: &lineHeightTable[font.native, default: [:]][font.size]) {
+            let markedUp = SemanticMarkup("_").richText(font: font.resized(to: font.size × htmlCorrection))
             let paragraph = markedUp.attribute(.paragraphStyle, at: 0, effectiveRange: nil) as! NSParagraphStyle
-            return paragraph.minimumLineHeight
+            return Double(paragraph.minimumLineHeight)
         }
     }
 
     private static func reduceSizeForSuperscript(_ attributes: inout [NSAttributedString.Key: Any]) {
-        var font = attributes[.font] as? Font ?? Font.default
+        var font = attributes.font ?? Font.default
         let paragraphStyle = (attributes[.paragraphStyle] as? NSParagraphStyle ?? NSParagraphStyle.default).mutableCopy() as! NSMutableParagraphStyle
 
-        font = font.resized(to: superscriptPointSize(forBasePointSize: font.pointSize))
-        paragraphStyle.minimumLineHeight = lineHeight(for: font)
+        font = font.resized(to: superscriptPointSize(forBasePointSize: font.size))
+        paragraphStyle.minimumLineHeight = CGFloat(lineHeight(for: font))
 
-        attributes[.font] = font
+        attributes.font = font
         attributes[.paragraphStyle] = paragraphStyle.copy()
     }
 
@@ -87,17 +91,17 @@ extension NSAttributedString {
 
     fileprivate static func resetBaseline(for attributes: inout [NSAttributedString.Key: Any]) {
         var level = |(attributes[.superscript] as? Int ?? 0)|
-        var font = attributes[.font] as? Font ?? Font.default
+        var font = attributes.font ?? Font.default
         let paragraphStyle = (attributes[.paragraphStyle] as? NSParagraphStyle ?? NSParagraphStyle.default).mutableCopy() as! NSMutableParagraphStyle
 
         while level ≠ 0 {
             defer { level −= 1 }
 
-            font = font.resized(to: basePointSize(forSuperscriptPointSize: font.pointSize))
-            paragraphStyle.minimumLineHeight = lineHeight(for: font)
+            font = font.resized(to: basePointSize(forSuperscriptPointSize: font.size))
+            paragraphStyle.minimumLineHeight = CGFloat(lineHeight(for: font))
         }
 
-        attributes[.font] = font
+        attributes.font = font
         attributes[.paragraphStyle] = paragraphStyle.copy() as! NSParagraphStyle
         attributes[.superscript] = nil
     }
@@ -142,9 +146,9 @@ extension NSMutableAttributedString {
         applyChanges(to: range) { (sectionRange: NSRange, sectionAttributes: [NSAttributedString.Key: Any]) in
 
             let section = attributedSubstring(from: sectionRange).string
-            let font = sectionAttributes[.font] as? Font ?? Font.default
+            let font = sectionAttributes.font ?? Font.default
 
-            let prototypeAttributes: [NSAttributedString.Key: Any] = [.font: font]
+            let prototypeAttributes: [NSAttributedString.Key: Any] = [.font: font.native]
 
             // ===== ===== NOTE ===== =====
             // Glyph interaction after substitution does not work, so glyphs must be as precomposed as possible to begin with. (The base string does not matter.)
@@ -178,7 +182,7 @@ extension NSMutableAttributedString {
 
                     let glyph = replacementLayout.glyph(at: 0)
                     let baseString = character
-                    if let glyphInfo = NSGlyphInfo(glyph: glyph, for: font, baseString: baseString) {
+                    if let glyphInfo = NSGlyphInfo(glyph: glyph, for: font.native, baseString: baseString) {
                         let characterRange = NSRange(scalarStart ..< scalarEnd, in: section)
                         let charactersRangeInContext = NSRange((characterRange.lowerBound + sectionRange.lowerBound) ..< (characterRange.upperBound + sectionRange.lowerBound))
                         addAttribute(.glyphInfo, value: glyphInfo, range: charactersRangeInContext)
@@ -230,8 +234,8 @@ extension NSMutableAttributedString {
     private static func smallCapsMetrics(for font: Font, baseSize: Int) -> Int {
         return cached(in: &smallCapsSizeReduction[font.fontName, default: [:]][baseSize]) {
             return findLocalMinimum(near: baseSize) { (attemptedFontSize: Int) -> CGFloat in
-                let attemptedFont = font.resized(to: CGFloat(attemptedFontSize))
-                return |(font.xHeight − attemptedFont.capHeight)|
+                let attemptedFont = font.resized(to: Double(attemptedFontSize))
+                return |(font.native.xHeight − attemptedFont.native.capHeight)|
             }
         }
     }
@@ -248,8 +252,8 @@ extension NSMutableAttributedString {
             if attributes[.smallCaps] as? Bool == true {
                 attributes[.smallCaps] = nil
 
-                let font = attributes[.font] as? Font ?? Font.default // @exempt(from: tests) Never nil.
-                let actualSmallCapsSize = Int(font.pointSize.rounded(.toNearestOrEven))
+                let font = attributes.font ?? Font.default // @exempt(from: tests) Never nil.
+                let actualSmallCapsSize = Int(font.native.pointSize.rounded(.toNearestOrEven))
 
                 let baseSize = findLocalMinimum(near: actualSmallCapsSize) { (attemptedBaseSize: Int) -> Int in
 
@@ -257,7 +261,7 @@ extension NSMutableAttributedString {
 
                     return |(attemptedSmallCapsSize − actualSmallCapsSize)|
                 }
-                attributes[.font] = font.resized(to: CGFloat(baseSize))
+                attributes.font = font.resized(to: Double(baseSize))
             }
         }
     }
@@ -273,10 +277,10 @@ extension NSMutableAttributedString {
 
             attributes[.smallCaps] = true
 
-            let font = attributes[.font] as? Font ?? Font.default
-            let smallCapsSize = NSMutableAttributedString.smallCapsMetrics(for: font, baseSize: Int(font.pointSize.rounded(.toNearestOrEven)))
+            let font = attributes.font ?? Font.default
+            let smallCapsSize = NSMutableAttributedString.smallCapsMetrics(for: font, baseSize: Int(font.native.pointSize.rounded(.toNearestOrEven)))
 
-            attributes[.font] = font.resized(to: CGFloat(smallCapsSize))
+            attributes.font = font.resized(to: Double(smallCapsSize))
         })
     }
 

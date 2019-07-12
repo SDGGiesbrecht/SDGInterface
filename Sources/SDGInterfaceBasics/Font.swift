@@ -34,9 +34,9 @@ extension Font {
     /// The label font.
     public static var forLabels: Font {
         #if canImport(AppKit)
-        return systemFont(ofSize: systemFontSize(for: .regular))
+        return Font(NSFont.systemFont(ofSize: NSFont.systemFontSize(for: .regular)))
         #else
-        return preferredFont(forTextStyle: .headline)
+        return Font(UIFont.preferredFont(forTextStyle: .headline))
         #endif
     }
 
@@ -44,9 +44,9 @@ extension Font {
     public static var forTextEditing: Font {
         var user: Font?
         #if canImport(AppKit)
-        user = userFont(ofSize: systemSize)
+        user = NSFont.userFont(ofSize: NSFont.systemFontSize).map { Font($0) }
         #endif
-        return user ?? systemFont(ofSize: systemSize) // @exempt(from: tests) Unknown why it would ever be nil on macOS.
+        return user ?? system // @exempt(from: tests) Unknown why it would ever be nil on macOS.
     }
 
     // MARK: - Modified Versions
@@ -54,20 +54,20 @@ extension Font {
     /// The bold version of `self`.
     public var bold: Font {
         #if canImport(AppKit)
-        return NSFontManager.shared.convert(self, toHaveTrait: .boldFontMask)
+        return Font(NSFontManager.shared.convert(native, toHaveTrait: .boldFontMask))
         #else
-        let descriptor = fontDescriptor.withSymbolicTraits(.traitBold) ?? fontDescriptor // @exempt(from: tests) Unknown why the descriptor would be nil.
-        return Font(descriptor: descriptor, size: 0)
+        let descriptor = native.fontDescriptor.withSymbolicTraits(.traitBold) ?? native.fontDescriptor // @exempt(from: tests) Unknown why the descriptor would be nil.
+        return Font(UIFont(descriptor: descriptor, size: 0))
         #endif
     }
 
     /// The italic version of `self`.
     public var italic: Font {
         #if canImport(AppKit)
-        return NSFontManager.shared.convert(self, toHaveTrait: .italicFontMask)
+        return Font(NSFontManager.shared.convert(native, toHaveTrait: .italicFontMask))
         #else
-        let descriptor = fontDescriptor.withSymbolicTraits(.traitItalic) ?? fontDescriptor // @exempt(from: tests) Unknown why the descriptor would be nil.
-        return Font(descriptor: descriptor, size: 0)
+        let descriptor = native.fontDescriptor.withSymbolicTraits(.traitItalic) ?? native.fontDescriptor // @exempt(from: tests) Unknown why the descriptor would be nil.
+        return Font(UIFont(descriptor: descriptor, size: 0))
         #endif
     }
 
@@ -75,11 +75,11 @@ extension Font {
     ///
     /// - Parameters:
     ///     - size: The new point size.
-    public func resized(to size: CGFloat) -> Font {
+    public func resized(to size: Double) -> Font {
         #if canImport(AppKit)
-        return NSFontManager.shared.convert(self, toSize: size)
+        return Font(NSFontManager.shared.convert(native, toSize: CGFloat(size)))
         #else
-        return Font(descriptor: fontDescriptor, size: size)
+        return Font(UIFont(descriptor: native.fontDescriptor, size: CGFloat(size)))
         #endif
     }
 }

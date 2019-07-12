@@ -69,7 +69,7 @@ public final class Label<L> : AnyLabel, SpecificView where L : Localization {
         specificNative.isEditable = false
         #endif
 
-        specificNative.font = Font.forLabels
+        specificNative.font = Font.forLabels.native
     }
 
     // MARK: - Properties

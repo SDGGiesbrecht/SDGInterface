@@ -13,6 +13,14 @@
  */
 
 import Foundation
+#if canImport(AppKit)
+import AppKit
+#endif
+#if canImport(UIKit)
+import UIKit
+#endif
+
+import SDGText
 
 #if !(canImport(AppKit) || canImport(UIKit))
 extension NSAttributedString {
@@ -28,4 +36,28 @@ extension NSAttributedString.Key {
     internal static let superscript = NSAttributedString.Key(rawValue: "NSSuperScript")
     #endif
     internal static let smallCaps = NSAttributedString.Key(rawValue: "SDGSmallCaps")
+}
+
+extension Dictionary where Key == NSAttributedString.Key, Value == Any {
+
+    #if canImport(AppKit) || canImport(UIKit)
+    /// Returns the font in the attribute dictionary.
+    public var font: Font? {
+        get {
+            #if canImport(AppKit)
+            typealias NativeFont = NSFont
+            #elseif canImport(UIKit)
+            typealias NativeFont = UIFont
+            #endif
+            if let font = self[.font] as? NativeFont {
+                return Font(font)
+            } else {
+                return nil
+            }
+        }
+        set {
+            self[.font] = newValue?.native
+        }
+    }
+    #endif
 }

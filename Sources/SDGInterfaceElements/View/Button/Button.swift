@@ -46,9 +46,9 @@ public final class Button<L> : NSButton, SharedValueObserver where L : Localizat
         #endif
 
         #if canImport(AppKit)
-        font = Font.forLabels
+        font = Font.forLabels.native
         #else
-        titleLabel?.font = Font.forLabels
+        titleLabel?.font = Font.forLabels.native
         #endif
 
         label.register(observer: self)
