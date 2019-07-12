@@ -124,7 +124,6 @@ final class APITests : ApplicationTestCase {
         func prepareForEqualityCheck(_ string: NSAttributedString, ignoring ignored: [NSAttributedString.Key] = []) -> NSAttributedString {
             #if canImport(AppKit) || canImport(UIKit)
             let processed = NSAttributedString(RichText(string))
-            print(processed.attributes(at: 0, effectiveRange: nil))
             let font = processed.attributes(at: 0, effectiveRange: nil).font!
             let mutable = processed.mutableCopy() as! NSMutableAttributedString
             let all = NSRange(0 ..< mutable.length)
