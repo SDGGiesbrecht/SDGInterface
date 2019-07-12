@@ -49,10 +49,14 @@ extension NSAttributedString {
     }
 
     internal static let htmlCorrection: CGFloat = 3 ÷ 4
-    private static var lineHeightTable: [Font: [CGFloat: CGFloat]] = [:]
+    #if canImport(AppKit)
+    private static var lineHeightTable: [NSFont: [CGFloat: CGFloat]] = [:]
+    #elseif canImport(UIKit)
+    private static var lineHeightTable: [UIFont: [CGFloat: CGFloat]] = [:]
+    #endif
     private static func lineHeight(for font: Font) -> CGFloat {
-        return cached(in: &lineHeightTable[font, default: [:]][font.pointSize]) {
-            let markedUp = SemanticMarkup("_").richText(font: font.resized(to: font.pointSize × htmlCorrection))
+        return cached(in: &lineHeightTable[font.native, default: [:]][font.native.pointSize]) {
+            let markedUp = SemanticMarkup("_").richText(font: font.resized(to: font.native.pointSize × htmlCorrection))
             let paragraph = markedUp.attribute(.paragraphStyle, at: 0, effectiveRange: nil) as! NSParagraphStyle
             return paragraph.minimumLineHeight
         }
@@ -62,7 +66,7 @@ extension NSAttributedString {
         var font = attributes[.font] as? Font ?? Font.default
         let paragraphStyle = (attributes[.paragraphStyle] as? NSParagraphStyle ?? NSParagraphStyle.default).mutableCopy() as! NSMutableParagraphStyle
 
-        font = font.resized(to: superscriptPointSize(forBasePointSize: font.pointSize))
+        font = font.resized(to: superscriptPointSize(forBasePointSize: font.native.pointSize))
         paragraphStyle.minimumLineHeight = lineHeight(for: font)
 
         attributes[.font] = font
@@ -93,7 +97,7 @@ extension NSAttributedString {
         while level ≠ 0 {
             defer { level −= 1 }
 
-            font = font.resized(to: basePointSize(forSuperscriptPointSize: font.pointSize))
+            font = font.resized(to: basePointSize(forSuperscriptPointSize: font.native.pointSize))
             paragraphStyle.minimumLineHeight = lineHeight(for: font)
         }
 
@@ -178,7 +182,7 @@ extension NSMutableAttributedString {
 
                     let glyph = replacementLayout.glyph(at: 0)
                     let baseString = character
-                    if let glyphInfo = NSGlyphInfo(glyph: glyph, for: font, baseString: baseString) {
+                    if let glyphInfo = NSGlyphInfo(glyph: glyph, for: font.native, baseString: baseString) {
                         let characterRange = NSRange(scalarStart ..< scalarEnd, in: section)
                         let charactersRangeInContext = NSRange((characterRange.lowerBound + sectionRange.lowerBound) ..< (characterRange.upperBound + sectionRange.lowerBound))
                         addAttribute(.glyphInfo, value: glyphInfo, range: charactersRangeInContext)
@@ -231,7 +235,7 @@ extension NSMutableAttributedString {
         return cached(in: &smallCapsSizeReduction[font.fontName, default: [:]][baseSize]) {
             return findLocalMinimum(near: baseSize) { (attemptedFontSize: Int) -> CGFloat in
                 let attemptedFont = font.resized(to: CGFloat(attemptedFontSize))
-                return |(font.xHeight − attemptedFont.capHeight)|
+                return |(font.native.xHeight − attemptedFont.native.capHeight)|
             }
         }
     }
@@ -249,7 +253,7 @@ extension NSMutableAttributedString {
                 attributes[.smallCaps] = nil
 
                 let font = attributes[.font] as? Font ?? Font.default // @exempt(from: tests) Never nil.
-                let actualSmallCapsSize = Int(font.pointSize.rounded(.toNearestOrEven))
+                let actualSmallCapsSize = Int(font.native.pointSize.rounded(.toNearestOrEven))
 
                 let baseSize = findLocalMinimum(near: actualSmallCapsSize) { (attemptedBaseSize: Int) -> Int in
 
@@ -274,7 +278,7 @@ extension NSMutableAttributedString {
             attributes[.smallCaps] = true
 
             let font = attributes[.font] as? Font ?? Font.default
-            let smallCapsSize = NSMutableAttributedString.smallCapsMetrics(for: font, baseSize: Int(font.pointSize.rounded(.toNearestOrEven)))
+            let smallCapsSize = NSMutableAttributedString.smallCapsMetrics(for: font, baseSize: Int(font.native.pointSize.rounded(.toNearestOrEven)))
 
             attributes[.font] = font.resized(to: CGFloat(smallCapsSize))
         })

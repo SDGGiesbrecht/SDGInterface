@@ -38,7 +38,7 @@ public final class CheckBox<L> : NSButton, SharedValueObserver where L : Localiz
 
         bezelStyle = .rounded
         setButtonType(.switch)
-        font = Font.forLabels
+        font = Font.forLabels.native
 
         lineBreakMode = .byTruncatingTail
 
