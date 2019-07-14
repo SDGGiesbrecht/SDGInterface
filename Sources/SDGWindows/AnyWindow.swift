@@ -43,6 +43,9 @@ public protocol AnyWindow : AnyObject {
     var native: UIWindow { get }
     #endif
 
+    /// An action performed when the window closes.
+    var closeAction: () -> Void { get set }
+
     #if canImport(AppKit)
     var _fieldEditor: NSTextView { get set }
     #endif
@@ -97,8 +100,11 @@ extension AnyWindow {
         }
     }
 
-    internal func release() {
+    internal func finishClosing() {
+        // Release
         allWindows[ObjectIdentifier(self)] = nil
+
+        closeAction()
     }
 
     /// Closes the window.
@@ -106,7 +112,6 @@ extension AnyWindow {
         #if canImport(AppKit)
         native.close()
         #endif
-        release()
     }
 
     // MARK: - Size & Location

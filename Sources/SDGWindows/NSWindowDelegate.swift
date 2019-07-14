@@ -28,7 +28,7 @@ internal final class NSWindowDelegate : NSObject, AppKit.NSWindowDelegate {
     }
 
     internal func windowWillClose(_ notification: Notification) {
-        window?.release()
+        window?.finishClosing()
     }
 }
 #endif

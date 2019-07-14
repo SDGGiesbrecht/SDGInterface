@@ -203,5 +203,9 @@ public final class Window<L> : AnyWindow where L : Localization {
         _ = name.resolved()
         #endif
     }
+
+    // MARK: - AnyWindow
+
+    public var closeAction: () -> Void = {}
 }
 #endif
