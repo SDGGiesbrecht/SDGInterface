@@ -51,6 +51,13 @@ public final class Button<L> : AnyButton, SpecificView where L : Localization {
         defer {
             bindingObserver.button = self
         }
+
+        #if canImport(AppKit)
+        specificNative.bezelStyle = .rounded
+        specificNative.setButtonType(.momentaryPushIn)
+        #endif
+
+        specificNative.font = Font.forLabels.native
     }
 
     // MARK: - Properties

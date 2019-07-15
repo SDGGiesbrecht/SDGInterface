@@ -29,6 +29,7 @@ import SDGInterfaceBasics
 import SDGViews
 import SDGTextDisplay
 import SDGImageDisplay
+import SDGButtons
 import SDGWindows
 import SDGInterfaceElements
 import SDGErrorMessages
@@ -113,7 +114,7 @@ extension Application {
     private func demonstrate(_ window: AnyWindow) {
         window.display()
     }
-    private func demonstrate<L>(_ view: NativeView, windowTitle: UserFacing<StrictString, L>) {
+    private func demonstrate<L>(_ view: View, windowTitle: UserFacing<StrictString, L>) {
         #if canImport(AppKit)
         let window = Window<L>.auxiliaryWindow(name: .static(windowTitle), view: MarginView(contents: view))
         demonstrate(window)
@@ -130,7 +131,7 @@ extension Application {
                 return "Button"
             }
         })
-        demonstrate(Button(label: Shared(label)), windowTitle: label)
+        demonstrate(Button(label: .static(label)), windowTitle: label)
     }
 
     @objc public func demonstrateButtonSet() {

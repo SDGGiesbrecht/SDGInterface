@@ -458,6 +458,7 @@ let package = Package(
             "SDGInterfaceBasics",
             "SDGTextDisplay",
             "SDGImageDisplay",
+            "SDGButtons",
             "SDGWindows",
             "SDGMenus",
             "SDGInterfaceElements",
