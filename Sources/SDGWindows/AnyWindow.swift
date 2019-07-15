@@ -111,6 +111,8 @@ extension AnyWindow {
     public func close() {
         #if canImport(AppKit)
         native.close()
+        #else
+        finishClosing()
         #endif
     }
 
