@@ -59,7 +59,7 @@ Simply add SDGInterface as a dependency in `Package.swift` and specify which of 
 let package = Package(
     name: "MyPackage",
     dependencies: [
-        .package(url: "https://github.com/SDGGiesbrecht/SDGInterface", .upToNextMinor(from: Version(0, 2, 0))),
+        .package(url: "https://github.com/SDGGiesbrecht/SDGInterface", .upToNextMinor(from: Version(0, 2, 1))),
     ],
     targets: [
         .target(name: "MyTarget", dependencies: [
