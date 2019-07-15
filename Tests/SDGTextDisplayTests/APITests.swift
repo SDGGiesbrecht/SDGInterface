@@ -424,7 +424,7 @@ final class APITests : ApplicationTestCase {
         #if canImport(AppKit)
         XCTAssertEqual(textField.specificNative.stringValue, String(shared.value))
         textField.specificNative.stringValue = "Modifed again."
-        _ = textField.specificNative.target?.perform(textField.specificNative.action)
+        NSApplication.shared.sendAction(textField.specificNative.action!, to: textField.specificNative.target, from: textField.specificNative)
         XCTAssertEqual(shared.value, "Modifed again.")
         #endif
         #endif
