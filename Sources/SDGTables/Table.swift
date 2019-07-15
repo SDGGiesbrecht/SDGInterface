@@ -193,6 +193,11 @@ public final class Table<RowData> : SpecificView {
             }
         }
         nativeTable.reloadData()
+        if ¬nativeTable.tableColumns.isEmpty,
+            nativeTable.numberOfRows ≠ 0 {
+            // Table doesn’t redraw otherwise?
+            nativeTable.view(atColumn: 0, row: 0, makeIfNecessary: true)
+        }
     }
 }
 #endif
