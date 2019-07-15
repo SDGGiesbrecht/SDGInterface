@@ -148,7 +148,11 @@ public final class Table<RowData> : SpecificView {
     /// - Parameters:
     ///     - preceding: The element before the inequality sign.
     ///     - following: The element after the inequality sign.
-    public var sort: ((_ preceding: RowData, _ following: RowData) -> Bool)?
+    public var sort: ((_ preceding: RowData, _ following: RowData) -> Bool)? {
+        didSet {
+            refreshBindings()
+        }
+    }
 
     #if canImport(AppKit)
     public var specificNative: NSScrollView
