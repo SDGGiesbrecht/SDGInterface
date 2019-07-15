@@ -92,6 +92,10 @@ let package = Package(
         /// Tables.
         .library(name: "SDGTables", targets: ["SDGTables"]),
 
+        // @documentation(SDGButtons)
+        /// Buttons.
+        .library(name: "SDGButtons", targets: ["SDGButtons"]),
+
         // @documentation(SDGImageDisplay)
         /// Images.
         .library(name: "SDGImageDisplay", targets: ["SDGImageDisplay"]),
@@ -225,6 +229,16 @@ let package = Package(
             .product(name: "SDGControlFlow", package: "SDGCornerstone"),
             .product(name: "SDGLogic", package: "SDGCornerstone"),
             .product(name: "SDGMathematics", package: "SDGCornerstone")
+            ]),
+
+        // #documentation(SDGButtons)
+        /// Buttons.
+        .target(name: "SDGButtons", dependencies: [
+            "SDGInterfaceBasics",
+            "SDGViews",
+            .product(name: "SDGControlFlow", package: "SDGCornerstone"),
+            .product(name: "SDGText", package: "SDGCornerstone"),
+            .product(name: "SDGLocalization", package: "SDGCornerstone")
             ]),
 
         // #documentation(SDGImageDisplay)
