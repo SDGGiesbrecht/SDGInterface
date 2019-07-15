@@ -61,8 +61,12 @@ public final class TextField : SpecificView {
         specificNative.cell = cell
         #endif
 
+        #if canImport(AppKit)
         specificNative.action = #selector(TextFieldBindingObserver.actionOccurred)
         specificNative.target = bindingObserver
+        #elseif canImport(UIKit)
+        specificNative.addTarget(bindingObserver, action: #selector(TextFieldBindingObserver.actionOccurred), for: .editingDidEnd)
+        #endif
 
         #if canImport(AppKit)
         specificNative.isBordered = true
@@ -107,9 +111,13 @@ public final class TextField : SpecificView {
     }
 
     internal func actionOccurred() {
+        #if canImport(AppKit)
         let new = StrictString(specificNative.stringValue)
+        #elseif canImport(UIKit)
+        let new = StrictString(specificNative.text ?? "")
+        #endif
         if new ≠ value.value {
-            value.value = StrictString(specificNative.stringValue)
+            value.value = new
         }
     }
 
