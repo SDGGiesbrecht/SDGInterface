@@ -110,7 +110,7 @@ public final class TextField : SpecificView {
         #endif
     }
 
-    internal func actionOccurred() {
+    internal func actionOccurred() { // @exempt(from: tests) Unreachable in tests on iOS.
         #if canImport(AppKit)
         let new = StrictString(specificNative.stringValue)
         #elseif canImport(UIKit)

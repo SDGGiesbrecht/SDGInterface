@@ -28,7 +28,7 @@ import SDGControlFlow
         field?.refreshBindings()
     }
 
-    @objc func actionOccurred() {
+    @objc internal func actionOccurred(_ sender: Any?) { // @exempt(from: tests) Unreachable in tests on iOS.
         field?.actionOccurred()
     }
 }
