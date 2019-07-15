@@ -54,14 +54,15 @@ public final class TextField : SpecificView {
         #else
         specificNative = CocoaTextField()
         #endif
-
-        specificNative.action = #selector(TextFieldBindingObserver.actionOccurred)
-        specificNative.target = bindingObserver
+        bindingObserver.field = self
 
         #if canImport(AppKit)
         let cell = NormalizingCell()
         specificNative.cell = cell
         #endif
+
+        specificNative.action = #selector(TextFieldBindingObserver.actionOccurred)
+        specificNative.target = bindingObserver
 
         #if canImport(AppKit)
         specificNative.isBordered = true
