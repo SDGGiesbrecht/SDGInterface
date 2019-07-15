@@ -414,9 +414,18 @@ final class APITests : ApplicationTestCase {
         Application.shared.demonstrateLabelledTextField()
         _ = LabelledTextField(label: Label(
             text: .static(UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in "" }))))
-        #if canImport(AppKit)
         let textField = TextField()
+        #if canImport(AppKit)
         _ = textField.specificNative.cell?.fieldEditor(for: textField.specificNative)
+        #endif
+        let shared = Shared<StrictString>("Before")
+        textField.value = shared
+        shared.value = "After"
+        #if canImport(AppKit)
+        XCTAssertEqual(textField.specificNative.stringValue, String(shared.value))
+        textField.specificNative.stringValue = "Modifed again."
+        NSApplication.shared.sendAction(textField.specificNative.action!, to: textField.specificNative.target, from: textField.specificNative)
+        XCTAssertEqual(shared.value, "Modifed again.")
         #endif
         #endif
     }

@@ -108,7 +108,7 @@ public final class Table<RowData> : SpecificView {
     }
     private func dataDidSet() {
         data.register(observer: bindingObserver)
-        nativeTable.reloadData()
+        refreshBindings()
     }
 
     /// An array of closures—each representing a column—which produce a corresponding cell view for a particular data entry.
@@ -148,7 +148,11 @@ public final class Table<RowData> : SpecificView {
     /// - Parameters:
     ///     - preceding: The element before the inequality sign.
     ///     - following: The element after the inequality sign.
-    public var sort: ((_ preceding: RowData, _ following: RowData) -> Bool)?
+    public var sort: ((_ preceding: RowData, _ following: RowData) -> Bool)? {
+        didSet {
+            refreshBindings()
+        }
+    }
 
     #if canImport(AppKit)
     public var specificNative: NSScrollView

@@ -20,6 +20,8 @@ import AppKit
 import UIKit
 #endif
 
+import SDGControlFlow
+import SDGLogic
 import SDGText
 
 import SDGInterfaceBasics
@@ -52,10 +54,18 @@ public final class TextField : SpecificView {
         #else
         specificNative = CocoaTextField()
         #endif
+        bindingObserver.field = self
 
         #if canImport(AppKit)
         let cell = NormalizingCell()
         specificNative.cell = cell
+        #endif
+
+        #if canImport(AppKit)
+        specificNative.action = #selector(TextFieldBindingObserver.actionOccurred)
+        specificNative.target = bindingObserver
+        #elseif canImport(UIKit)
+        specificNative.addTarget(bindingObserver, action: #selector(TextFieldBindingObserver.actionOccurred), for: .editingDidEnd)
         #endif
 
         #if canImport(AppKit)
@@ -73,6 +83,42 @@ public final class TextField : SpecificView {
         specificNative.allowsEditingTextAttributes = false
 
         specificNative.font = Font.forLabels.native
+    }
+
+    // MARK: - Properties
+
+    private let bindingObserver = TextFieldBindingObserver()
+
+    /// The value of the text field.
+    public var value: Shared<StrictString> = Shared("") {
+        willSet {
+            value.cancel(observer: bindingObserver)
+        }
+        didSet {
+            value.register(observer: bindingObserver)
+        }
+    }
+
+    // MARK: - Refreshing
+
+    internal func refreshBindings() {
+        let resolved = String(value.value)
+        #if canImport(AppKit)
+        specificNative.stringValue = resolved
+        #elseif canImport(UIKit)
+        specificNative.text = resolved
+        #endif
+    }
+
+    internal func actionOccurred() { // @exempt(from: tests) Unreachable in tests on iOS.
+        #if canImport(AppKit)
+        let new = StrictString(specificNative.stringValue)
+        #elseif canImport(UIKit)
+        let new = StrictString(specificNative.text ?? "")
+        #endif
+        if new ≠ value.value {
+            value.value = new
+        }
     }
 
     // MARK: - SpecificView
