@@ -31,7 +31,12 @@ public class RadioButtonSet<Option, L> : AnyRadioButtonSet, SpecificView where O
 
     // MARK: - Initialization
 
-    public init(labels: @escaping (Option) -> UserFacing<ButtonLabel, L>) {
+    /// Creates a set of radio buttons.
+    ///
+    /// - Parameters:
+    ///     - labels: A closure which generates a label from an option.
+    ///     - option: The option to label.
+    public init(labels: @escaping (_ option: Option) -> UserFacing<ButtonLabel, L>) {
         self.labels = labels
         defer {
             LocalizationSetting.current.register(observer: bindingObserver)
