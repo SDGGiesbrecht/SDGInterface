@@ -356,7 +356,7 @@ let package = Package(
             "SDGApplicationTestUtilities",
             .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
             ]),
-        
+
         .testTarget(name: "SDGButtonsTests", dependencies: [
             "SDGInterfaceBasics",
             "SDGButtons",
