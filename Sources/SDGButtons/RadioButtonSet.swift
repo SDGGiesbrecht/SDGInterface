@@ -24,6 +24,7 @@ import SDGText
 import SDGLocalization
 
 import SDGViews
+import SDGTextDisplay
 
 /// A set of radio buttons.
 public class RadioButtonSet<Option, L> : SpecificView where Option : CaseIterable, L : Localization, Option.AllCases == Array<Option> {
@@ -55,7 +56,7 @@ public class RadioButtonSet<Option, L> : SpecificView where Option : CaseIterabl
         #if canImport(AppKit)
         specificNative.font = Font.forLabels.native
         #else
-        var attributes = titleTextAttributes(for: .normal) ?? [:]
+        var attributes = specificNative.titleTextAttributes(for: .normal) ?? [:]
         attributes.font = Font.forLabels
         specificNative.setTitleTextAttributes(attributes, for: .normal)
         #endif
@@ -67,11 +68,7 @@ public class RadioButtonSet<Option, L> : SpecificView where Option : CaseIterabl
             #if canImport(AppKit)
             (specificNative.cell as? NSSegmentedCell)?.setTag(index, forSegment: index)
             #else
-            let segment = segments[index]
-            insertSegment(withTitle: nil, at: index, animated: false)
-            if let selector = segment.action {
-                addTarget(segment.target, action: selector, for: .primaryActionTriggered)
-            }
+            specificNative.insertSegment(withTitle: nil, at: index, animated: false)
             #endif
         }
     }
