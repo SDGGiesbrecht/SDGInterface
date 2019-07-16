@@ -7,6 +7,7 @@ extension APITests {
     // to regenerate.
     static let __allTests__APITests = [
         ("testButton", testButton),
+        ("testRadioButtonSet", testRadioButtonSet),
     ]
 }
 
