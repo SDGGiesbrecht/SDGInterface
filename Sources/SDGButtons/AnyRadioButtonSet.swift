@@ -1,5 +1,5 @@
 /*
- AnyRadioButtons.swift
+ AnyRadioButtonSet.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -22,7 +22,7 @@ import UIKit
 import SDGViews
 
 /// A set of radio buttons with no particular localization.
-public protocol AnyRadioButtons : View {
+public protocol AnyRadioButtonSet : View {
     #if canImport(AppKit)
     // #documentation(SpecificView.specificNative)
     /// The specific native view.
@@ -35,7 +35,7 @@ public protocol AnyRadioButtons : View {
     func _refreshBindings()
 }
 
-extension AnyRadioButtons {
+extension AnyRadioButtonSet {
 
     internal func refreshBindings() {
         _refreshBindings()

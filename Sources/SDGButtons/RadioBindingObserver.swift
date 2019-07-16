@@ -19,7 +19,7 @@ internal final class RadioBindingObserver : SharedValueObserver {
 
     // MARK: - Properties
 
-    internal weak var buttons: AnyRadioButtons?
+    internal weak var buttons: AnyRadioButtonSet?
 
     // MARK: - SharedValueObserver
 

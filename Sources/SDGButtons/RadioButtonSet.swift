@@ -1,5 +1,5 @@
 /*
- RadioButtons.swift
+ RadioButtonSet.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -27,7 +27,7 @@ import SDGViews
 import SDGTextDisplay
 
 /// A set of radio buttons.
-public class RadioButtonSet<Option, L> : SpecificView where Option : CaseIterable, L : Localization, Option.AllCases == Array<Option> {
+public class RadioButtonSet<Option, L> : AnyRadioButtonSet, SpecificView where Option : CaseIterable, L : Localization, Option.AllCases == Array<Option> {
 
     // MARK: - Initialization
 
@@ -42,6 +42,9 @@ public class RadioButtonSet<Option, L> : SpecificView where Option : CaseIterabl
         #elseif canImport(UIKit)
         specificNative = UISegmentedControl()
         #endif
+        defer {
+            bindingObserver.buttons = self
+        }
 
         #if canImport(AppKit)
         (specificNative.cell as? NSSegmentedCell)?.segmentStyle = .rounded
