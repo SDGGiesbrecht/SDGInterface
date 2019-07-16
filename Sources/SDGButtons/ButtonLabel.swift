@@ -1,5 +1,5 @@
 /*
- ButtonSetSegmentAppearance.swift
+ ButtonLabel.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,17 +12,16 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit) || canImport(UIKit)
 import SDGText
+
 import SDGImageDisplay
 
-/// A segment label.
-public enum ButtonSetSegmentLabel {
+/// A button label.
+public enum ButtonLabel {
 
-    /// A text label.
+    /// Text.
     case text(StrictString)
 
-    /// An image label.
-    case image(Image)
+    /// A symbol.
+    case symbol(Image)
 }
-#endif
