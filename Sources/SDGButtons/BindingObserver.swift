@@ -1,5 +1,5 @@
 /*
- NSButton.swift
+ BindingObserver.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -13,14 +13,18 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
+import SDGControlFlow
 
-#if canImport(UIKit)
-import UIKit
-#endif
+internal final class BindingObserver : SharedValueObserver {
 
-#if !canImport(AppKit)
-/// An `AppKit.NSButton` or a `UIButton`.
-public typealias NSButton = UIButton
-#endif
+    // MARK: - Properties
 
+    internal weak var button: AnyButton?
+
+    // MARK: - SharedValueObserver
+
+    internal func valueChanged(for identifier: String) {
+        button?.refreshBindings()
+    }
+}
 #endif

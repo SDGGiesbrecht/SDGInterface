@@ -45,21 +45,6 @@ import SDGInterfaceSample
 
 final class APITests : ApplicationTestCase {
 
-    func testButton() {
-        #if canImport(AppKit) || canImport(UIKit)
-        Application.shared.demonstrateButton()
-        let label = Shared(UserFacing<StrictString, APILocalization>({ _ in "Button" }))
-        let button = Button(label: label)
-        label.value = UserFacing<StrictString, APILocalization>({ _ in "Changed" })
-        #if canImport(AppKit)
-        XCTAssertEqual(button.title, "Changed")
-        #else
-        XCTAssertEqual(button.titleLabel?.text, "Changed")
-        #endif
-        button.label = Shared(UserFacing<StrictString, APILocalization>({ _ in "Changed again." }))
-        #endif
-    }
-
     func testButtonSet() {
         #if canImport(AppKit) || canImport(UIKit)
         Application.shared.demonstrateButtonSet()

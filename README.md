@@ -72,6 +72,7 @@ let package = Package(
             .productItem(name: "SDGWindows", package: "SDGInterface"),
             .productItem(name: "SDGInterfaceElements", package: "SDGInterface"),
             .productItem(name: "SDGTables", package: "SDGInterface"),
+            .productItem(name: "SDGButtons", package: "SDGInterface"),
             .productItem(name: "SDGImageDisplay", package: "SDGInterface"),
             .productItem(name: "SDGTextDisplay", package: "SDGInterface"),
             .productItem(name: "SDGViews", package: "SDGInterface"),
@@ -94,6 +95,7 @@ import SDGPopOvers
 import SDGWindows
 import SDGInterfaceElements
 import SDGTables
+import SDGButtons
 import SDGImageDisplay
 import SDGTextDisplay
 import SDGViews

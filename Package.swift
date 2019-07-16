@@ -92,6 +92,10 @@ let package = Package(
         /// Tables.
         .library(name: "SDGTables", targets: ["SDGTables"]),
 
+        // @documentation(SDGButtons)
+        /// Buttons.
+        .library(name: "SDGButtons", targets: ["SDGButtons"]),
+
         // @documentation(SDGImageDisplay)
         /// Images.
         .library(name: "SDGImageDisplay", targets: ["SDGImageDisplay"]),
@@ -227,6 +231,16 @@ let package = Package(
             .product(name: "SDGMathematics", package: "SDGCornerstone")
             ]),
 
+        // #documentation(SDGButtons)
+        /// Buttons.
+        .target(name: "SDGButtons", dependencies: [
+            "SDGInterfaceBasics",
+            "SDGViews",
+            .product(name: "SDGControlFlow", package: "SDGCornerstone"),
+            .product(name: "SDGText", package: "SDGCornerstone"),
+            .product(name: "SDGLocalization", package: "SDGCornerstone")
+            ]),
+
         // #documentation(SDGImageDisplay)
         /// Images.
         .target(name: "SDGImageDisplay", dependencies: [
@@ -343,6 +357,19 @@ let package = Package(
             .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
             ]),
 
+        .testTarget(name: "SDGButtonsTests", dependencies: [
+            "SDGInterfaceBasics",
+            "SDGButtons",
+            "SDGApplication",
+            "SDGInterfaceSample",
+            "SDGInterfaceLocalizations",
+            "SDGApplicationTestUtilities",
+            .product(name: "SDGControlFlow", package: "SDGCornerstone"),
+            .product(name: "SDGText", package: "SDGCornerstone"),
+            .product(name: "SDGLocalization", package: "SDGCornerstone"),
+            .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
+            ]),
+
         .testTarget(name: "SDGTablesTests", dependencies: [
             "SDGViews",
             "SDGTextDisplay",
@@ -444,6 +471,7 @@ let package = Package(
             "SDGInterfaceBasics",
             "SDGTextDisplay",
             "SDGImageDisplay",
+            "SDGButtons",
             "SDGWindows",
             "SDGMenus",
             "SDGInterfaceElements",
