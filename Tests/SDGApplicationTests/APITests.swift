@@ -47,7 +47,7 @@ final class APITests : ApplicationTestCase {
 
     func testButtonSet() {
         #if canImport(AppKit) || canImport(UIKit)
-        Application.shared.demonstrateButtonSet()
+        Application.shared.demonstrateRadioButtonSet()
         #endif
     }
 
