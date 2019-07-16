@@ -12,6 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(AppKit) || canImport(UIKit)
 import SDGText
 
 import SDGImageDisplay
@@ -25,3 +26,4 @@ public enum ButtonLabel {
     /// A symbol.
     case symbol(Image)
 }
+#endif
