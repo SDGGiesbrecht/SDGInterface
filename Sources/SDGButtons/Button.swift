@@ -46,7 +46,7 @@ public final class Button<L> : AnyButton, SpecificView where L : Localization {
         #if canImport(AppKit)
         specificNative = NSButton()
         #elseif canImport(UIKit)
-        specificNative = UILabel()
+        specificNative = UIButton()
         #endif
         defer {
             bindingObserver.button = self
@@ -57,7 +57,11 @@ public final class Button<L> : AnyButton, SpecificView where L : Localization {
         specificNative.setButtonType(.momentaryPushIn)
         #endif
 
+        #if canImport(AppKit)
         specificNative.font = Font.forLabels.native
+        #elseif canImport(UIKit)
+        specificNative.titleLabel?.font = Font.forLabels.native
+        #endif
     }
 
     // MARK: - Properties
@@ -81,7 +85,11 @@ public final class Button<L> : AnyButton, SpecificView where L : Localization {
 
     public func _refreshBindings() {
         let resolved = String(label.resolved())
+        #if canImport(AppKit)
         specificNative.title = resolved
+        #elseif canImport(UIKit)
+        specificNative.titleLabel?.text = resolved
+        #endif
     }
 
     // MARK: - SpecificView

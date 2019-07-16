@@ -30,7 +30,7 @@ public protocol AnyButton : View {
     #elseif canImport(UIKit)
     // #documentation(SpecificView.specificNative)
     /// The specific native view.
-    var specificNative: UILabel { get }
+    var specificNative: UIButton { get }
     #endif
     func _refreshBindings()
 }
