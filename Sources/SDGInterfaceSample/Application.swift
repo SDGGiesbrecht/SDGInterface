@@ -142,7 +142,7 @@ extension Application {
                 return "Check Box"
             }
         })
-        demonstrate(CheckBox(label: Shared(label)), windowTitle: label)
+        demonstrate(CheckBox(label: .static(label)), windowTitle: label)
         #endif
     }
 
