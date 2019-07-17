@@ -13,7 +13,6 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-
 #if canImport(AppKit)
 import AppKit
 #endif
@@ -21,41 +20,32 @@ import AppKit
 import UIKit
 #endif
 
-import SDGMathematics
-import SDGText
-import SDGLocalization
-
 import SDGInterfaceBasics
-import SDGViews
 
 import SDGInterfaceLocalizations
 
 /// A letterboxing view.
-open class Letterbox : NativeView {
-
-    // MARK: - Properties
-
-    /// The colour.
-    public var colour: Colour?
+public final class Letterbox<Content> : View where Content : View {
 
     // MARK: - Initialization
 
-    /// Creates a letterboxing view.
+    /// Creates a letterbox.
     ///
     /// - Parameters:
     ///     - content: The content view.
     ///     - widthToHeight: The intended aspect ratio.
-    public init(content: NativeView, aspectRatio widthToHeight: CGFloat) {
-        super.init(frame: CGRect.zero)
+    public init(content: Content, aspectRatio widthToHeight: Double) {
+        self.container = LetterboxContainer()
+        self.content = content
 
-        AnyNativeView(content).lockAspectRatio(to: widthToHeight)
-        AnyNativeView(self).centre(subview: content)
+        content.lockAspectRatio(to: widthToHeight)
+        AnyNativeView(container).centre(subview: content)
 
         let maxWidth = NSLayoutConstraint(
             item: content,
             attribute: .width,
             relatedBy: .lessThanOrEqual,
-            toItem: self,
+            toItem: container,
             attribute: .width,
             multiplier: 1,
             constant: 0)
@@ -63,7 +53,7 @@ open class Letterbox : NativeView {
             item: content,
             attribute: .height,
             relatedBy: .lessThanOrEqual,
-            toItem: self,
+            toItem: container,
             attribute: .height,
             multiplier: 1,
             constant: 0)
@@ -72,7 +62,7 @@ open class Letterbox : NativeView {
             item: content,
             attribute: .width,
             relatedBy: .equal,
-            toItem: self,
+            toItem: container,
             attribute: .width,
             multiplier: 1,
             constant: 0)
@@ -85,7 +75,7 @@ open class Letterbox : NativeView {
             item: content,
             attribute: .height,
             relatedBy: .equal,
-            toItem: self,
+            toItem: container,
             attribute: .height,
             multiplier: 1,
             constant: 0)
@@ -95,44 +85,36 @@ open class Letterbox : NativeView {
         desiredHeight.priority = UILayoutPriority(rawValue: 1)
         #endif
 
-        addConstraints([maxWidth, maxHeight, desiredWidth, desiredHeight])
+        container.addConstraints([maxWidth, maxHeight, desiredWidth, desiredHeight])
     }
 
-    @available(*, unavailable) public required init?(coder: NSCoder) { // @exempt(from: unicode)
-        codingNotSupported(forType: UserFacing<StrictString, APILocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "Letterbox"
-            }
-        }))
-        return nil
-    }
+    // MARK: - Properties
 
-    // MARK: - Drawing
+    private let container: LetterboxContainer
 
-    open override func draw(_ dirtyRect: CGRect) { // @exempt(from: tests) Crashes without active interface.
-        if let colour = self.colour {
-            #if canImport(AppKit)
-            let native = colour.nsColor
-            #elseif canImport(UIKit)
-            let native = colour.uiColor
-            #endif
-            native.setFill()
-            if colour.opacity < 1 {
-                #if canImport(UIKit)
-                UIRectFillUsingBlendMode(dirtyRect, .normal)
-                #else
-                dirtyRect.fill(using: .sourceOver)
-                #endif
-            } else {
-                #if canImport(UIKit)
-                UIRectFill(dirtyRect)
-                #else
-                dirtyRect.fill()
-                #endif
-            }
+    /// The content of the letterbox.
+    public let content: Content
+
+    /// The colour.
+    public var colour: Colour? {
+        get {
+            return container.colour
         }
-        super.draw(dirtyRect)
+        set {
+            container.colour = newValue
+        }
     }
+
+    // MARK: - View
+
+    #if canImport(AppKit)
+    public var native: NSView {
+        return container
+    }
+    #elseif canImport(UIKit)
+    public var native: UIView {
+        return container
+    }
+    #endif
 }
 #endif

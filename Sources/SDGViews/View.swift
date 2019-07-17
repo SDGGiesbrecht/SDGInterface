@@ -29,4 +29,25 @@ public protocol View : AnyObject {
     var native: UIView { get }
     #endif
 }
+
+extension View {
+
+    // MARK: - Aspect Ratio
+
+    /// Locks the aspect ratio of the view.
+    ///
+    /// - Parameters:
+    ///     - aspectRatio: The aspect ratio. (*width* ∶ *height*)
+    public func lockAspectRatio(to aspectRatio: Double) {
+        let constraint = NSLayoutConstraint(
+            item: self.native,
+            attribute: .width,
+            relatedBy: .equal,
+            toItem: self.native,
+            attribute: .height,
+            multiplier: CGFloat(aspectRatio),
+            constant: 0)
+        native.addConstraint(constraint)
+    }
+}
 #endif
