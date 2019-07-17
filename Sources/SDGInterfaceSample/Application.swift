@@ -31,7 +31,6 @@ import SDGTextDisplay
 import SDGImageDisplay
 import SDGButtons
 import SDGWindows
-import SDGInterfaceElements
 import SDGErrorMessages
 import SDGMenuBar
 import SDGApplication

@@ -27,7 +27,6 @@ import SDGTables
 import SDGWindows
 import SDGMenus
 import SDGContextMenu
-import SDGInterfaceElements
 import SDGMenuBar
 import SDGApplication
 
