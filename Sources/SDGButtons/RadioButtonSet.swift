@@ -86,7 +86,10 @@ public class RadioButtonSet<Option, L> : AnyRadioButtonSet, SpecificView where O
     private let bindingObserver = RadioBindingObserver()
 
     /// The labels.
-    public let labels: (Option) -> UserFacing<ButtonLabel, L>
+    ///
+    /// - Parameters:
+    ///     - option: The option to label.
+    public let labels: (_ option: Option) -> UserFacing<ButtonLabel, L>
 
     // MARK: - Refreshing
 
