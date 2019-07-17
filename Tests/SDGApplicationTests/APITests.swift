@@ -45,12 +45,6 @@ import SDGInterfaceSample
 
 final class APITests : ApplicationTestCase {
 
-    func testButtonSet() {
-        #if canImport(AppKit) || canImport(UIKit)
-        Application.shared.demonstrateButtonSet()
-        #endif
-    }
-
     func testCheckBox() {
         #if canImport(AppKit) || canImport(UIKit)
         Application.shared.demonstrateCheckBox()
@@ -85,13 +79,6 @@ final class APITests : ApplicationTestCase {
         let letterbox = Letterbox(content: EmptyView().native, aspectRatio: 1)
         letterbox.colour = .red
         XCTAssertEqual(letterbox.colour?.opacity, 1)
-        #endif
-    }
-
-    func testKeyModifiers() {
-        let modifiers: KeyModifiers = [.command, .shift, .option, .control, .function, .capsLock]
-        #if canImport(AppKit)
-        XCTAssertEqual(KeyModifiers(modifiers.native), modifiers)
         #endif
     }
 

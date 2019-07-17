@@ -1,5 +1,5 @@
 /*
- BindingObserver.swift
+ ButtonBindingObserver.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -15,7 +15,7 @@
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
 import SDGControlFlow
 
-internal final class BindingObserver : SharedValueObserver {
+internal final class ButtonBindingObserver : SharedValueObserver {
 
     // MARK: - Properties
 

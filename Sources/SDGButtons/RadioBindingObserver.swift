@@ -1,5 +1,5 @@
 /*
- NSSegmentedControl.swift
+ RadioBindingObserver.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -13,14 +13,18 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
+import SDGControlFlow
 
-#if canImport(UIKit)
-import UIKit
-#endif
+internal final class RadioBindingObserver : SharedValueObserver {
 
-#if !canImport(AppKit)
-/// An `AppKit.NSSegmentedControl` or a `UISegmentedControl`.
-public typealias NSSegmentedControl = UISegmentedControl
-#endif
+    // MARK: - Properties
 
+    internal weak var buttons: AnyRadioButtonSet?
+
+    // MARK: - SharedValueObserver
+
+    internal func valueChanged(for identifier: String) {
+        buttons?.refreshBindings()
+    }
+}
 #endif

@@ -46,4 +46,10 @@ final class APITests : ApplicationTestCase {
         button.label = .binding(Shared("Changed again."))
         #endif
     }
+
+    func testRadioButtonSet() {
+        #if canImport(AppKit) || canImport(UIKit)
+        Application.shared.demonstrateRadioButtonSet()
+        #endif
+    }
 }

@@ -134,23 +134,6 @@ extension Application {
         demonstrate(Button(label: .static(label)), windowTitle: label)
     }
 
-    @objc public func demonstrateButtonSet() {
-        let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-                return "ButtonSet"
-            }
-        })
-        let firstLabel: Shared<UserFacing<ButtonSetSegmentLabel, InterfaceLocalization>>
-            = Shared(UserFacing({ _ in .text("Segment") }))
-        let secondLabel: Shared<UserFacing<ButtonSetSegmentLabel, InterfaceLocalization>>
-            = Shared(UserFacing({ _ in .image(Image.empty) }))
-        demonstrate(ButtonSet<InterfaceLocalization>(segments: [
-            (label: firstLabel, action: #selector(Application.doNothing), target: self),
-            (label: secondLabel, action: #selector(Application.doNothing), target: self)
-            ]), windowTitle: label)
-    }
-
     @objc public func demonstrateCheckBox() {
         #if canImport(AppKit)
         let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
@@ -206,6 +189,32 @@ extension Application {
             }
         })
         demonstrate(Letterbox(content: TextEditor().native, aspectRatio: 1), windowTitle: label)
+    }
+
+    @objc public func demonstrateRadioButtonSet() {
+        let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+                return "Radio Button Set"
+            }
+        })
+        enum Value : CaseIterable {
+            case text
+            case symbol
+            var label: UserFacing<ButtonLabel, InterfaceLocalization> {
+                switch self {
+                case .text:
+                    return UserFacing<ButtonLabel, InterfaceLocalization>({ _ in
+                        return .text("Segment")
+                    })
+                case .symbol:
+                    return UserFacing<ButtonLabel, InterfaceLocalization>({ _ in
+                        return .symbol(Image.empty)
+                    })
+                }
+            }
+        }
+        demonstrate(RadioButtonSet<Value, InterfaceLocalization>(labels: { $0.label }), windowTitle: label)
     }
 
     @objc public func demonstrateTextEditor() {

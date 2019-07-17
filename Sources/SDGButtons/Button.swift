@@ -66,7 +66,7 @@ public final class Button<L> : AnyButton, SpecificView where L : Localization {
 
     // MARK: - Properties
 
-    private let bindingObserver = BindingObserver()
+    private let bindingObserver = ButtonBindingObserver()
 
     /// The label.
     public var label: Binding<StrictString, L> {

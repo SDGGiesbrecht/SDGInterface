@@ -42,10 +42,10 @@ extension MenuBar {
         let buttonSet = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
-                return "Button Set"
+                return "Radio Buttons"
             }
         })))
-        buttonSet.action = #selector(Application.demonstrateButtonSet)
+        buttonSet.action = #selector(Application.demonstrateRadioButtonSet)
         buttonSet.target = Application.shared
         return buttonSet
     }

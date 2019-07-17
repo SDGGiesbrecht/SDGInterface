@@ -28,6 +28,13 @@ import SDGApplicationTestUtilities
 
 final class APITests : ApplicationTestCase {
 
+    func testKeyModifiers() {
+        let modifiers: KeyModifiers = [.command, .shift, .option, .control, .function, .capsLock]
+        #if canImport(AppKit)
+        XCTAssertEqual(KeyModifiers(modifiers.native), modifiers)
+        #endif
+    }
+
     func testMenu() {
         #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS) && !os(tvOS)
         _ = MenuEntry(label: .static(UserFacing<StrictString, APILocalization>({ _ in "..." })))
