@@ -47,6 +47,20 @@ final class APITests : ApplicationTestCase {
         #endif
     }
 
+    func testCheckBox() {
+        #if canImport(AppKit) || canImport(UIKit)
+        Application.shared.demonstrateCheckBox()
+        #if canImport(AppKit)
+        let label = Shared<StrictString>("Check Box")
+        let binding: Binding<StrictString, APILocalization> = .binding(label)
+        let checkBox = CheckBox(label: binding)
+        label.value = "Changed"
+        XCTAssertEqual(checkBox.specificNative.title, "Changed")
+        checkBox.label = .binding(Shared("Changed again."))
+        #endif
+        #endif
+    }
+
     func testRadioButtonSet() {
         #if canImport(AppKit) || canImport(UIKit)
         Application.shared.demonstrateRadioButtonSet()

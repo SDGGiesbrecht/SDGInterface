@@ -45,19 +45,6 @@ import SDGInterfaceSample
 
 final class APITests : ApplicationTestCase {
 
-    func testCheckBox() {
-        #if canImport(AppKit) || canImport(UIKit)
-        Application.shared.demonstrateCheckBox()
-        #if canImport(AppKit)
-        let label = Shared(UserFacing<StrictString, APILocalization>({ _ in "Check Box" }))
-        let checkBox = CheckBox(label: label)
-        label.value = UserFacing<StrictString, APILocalization>({ _ in "Changed" })
-        XCTAssertEqual(checkBox.title, "Changed")
-        checkBox.label = Shared(UserFacing<StrictString, APILocalization>({ _ in "Changed again." }))
-        #endif
-        #endif
-    }
-
     func testDemonstrations() {
         #if canImport(AppKit)
         Application.shared.demonstrateFullscreenWindow()
