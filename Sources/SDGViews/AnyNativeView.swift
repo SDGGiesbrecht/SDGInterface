@@ -245,7 +245,7 @@ public final class AnyNativeView : View {
         }
 
         let constraint = NSLayoutConstraint(
-            item: subview,
+            item: subview.native,
             attribute: attribute,
             relatedBy: .equal,
             toItem: self.native,
@@ -322,24 +322,6 @@ public final class AnyNativeView : View {
     ///     - subviews: The subviews to align.
     public func alignFirstBaselines(ofSubviews subviews: [View]) {
         equalize(.firstBaseline, amongSubviews: subviews)
-    }
-
-    // MARK: - Aspect Ratio
-
-    /// Locks the aspect ratio of the view.
-    ///
-    /// - Parameters:
-    ///     - aspectRatio: The aspect ratio. (*width* ∶ *height*)
-    public func lockAspectRatio(to aspectRatio: CGFloat) {
-        let constraint = NSLayoutConstraint(
-            item: self.native,
-            attribute: .width,
-            relatedBy: .equal,
-            toItem: self.native,
-            attribute: .height,
-            multiplier: aspectRatio,
-            constant: 0)
-        native.addConstraint(constraint)
     }
 
     // MARK: - Abstract

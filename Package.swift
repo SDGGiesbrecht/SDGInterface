@@ -84,10 +84,6 @@ let package = Package(
         /// Windows.
         .library(name: "SDGWindows", targets: ["SDGWindows"]),
 
-        // @documentation(SDGInterfaceElements)
-        /// Re‐usable interface elements, such as views, windows and menus.
-        .library(name: "SDGInterfaceElements", targets: ["SDGInterfaceElements"]),
-
         // @documentation(SDGTables)
         /// Tables.
         .library(name: "SDGTables", targets: ["SDGTables"]),
@@ -125,7 +121,6 @@ let package = Package(
         .target(name: "SDGApplication", dependencies: [
             "SDGInterfaceLocalizations",
             "SDGMenus",
-            "SDGInterfaceElements",
             "SDGContextMenu",
             "SDGMenuBar",
             .product(name: "SDGLogic", package: "SDGCornerstone"),
@@ -142,7 +137,6 @@ let package = Package(
         .target(name: "SDGMenuBar", dependencies: [
             "SDGInterfaceBasics",
             "SDGMenus",
-            "SDGInterfaceElements",
             "SDGContextMenu",
             "SDGInterfaceLocalizations",
             .product(name: "SDGMathematics", package: "SDGCornerstone"),
@@ -201,27 +195,6 @@ let package = Package(
                 .define("TEST_COVERAGE_AIDS", .when(configuration: .debug))
             ]),
 
-        // #documentation(SDGInterfaceElements)
-        /// Re‐usable interface elements, such as views, windows and menus.
-        .target(name: "SDGInterfaceElements", dependencies: [
-            "SDGInterfaceBasics",
-            "SDGViews",
-            "SDGTextDisplay",
-            "SDGImageDisplay",
-            "SDGWindows",
-            "SDGMenus",
-            "SDGContextMenu",
-            "SDGInterfaceLocalizations",
-            .product(name: "SDGControlFlow", package: "SDGCornerstone"),
-            .product(name: "SDGLogic", package: "SDGCornerstone"),
-            .product(name: "SDGMathematics", package: "SDGCornerstone"),
-            .product(name: "SDGCollections", package: "SDGCornerstone"),
-            .product(name: "SDGText", package: "SDGCornerstone"),
-            .product(name: "SDGLocalization", package: "SDGCornerstone")
-            ], swiftSettings: [
-                .define("UNIDENTIFIED_PASTEBOARD_WARNINGS", .when(configuration: .debug))
-            ]),
-
         // #documentation(SDGTables)
         /// Tables.
         .target(name: "SDGTables", dependencies: [
@@ -266,11 +239,14 @@ let package = Package(
             .product(name: "SDGCollections", package: "SDGCornerstone"),
             .product(name: "SDGText", package: "SDGCornerstone"),
             .product(name: "SDGLocalization", package: "SDGCornerstone")
+            ], swiftSettings: [
+                .define("UNIDENTIFIED_PASTEBOARD_WARNINGS", .when(configuration: .debug))
             ]),
 
         // #documentation(SDGViews)
         /// The view protocol.
         .target(name: "SDGViews", dependencies: [
+            "SDGInterfaceBasics",
             .product(name: "SDGLogic", package: "SDGCornerstone")
             ]),
 
@@ -302,7 +278,6 @@ let package = Package(
 
         .testTarget(name: "SDGInterfaceResourceGeneration", dependencies: [
             "SDGTextDisplay",
-            "SDGInterfaceElements",
             .product(name: "SDGText", package: "SDGCornerstone"),
             .product(name: "SDGLocalization", package: "SDGCornerstone"),
             .product(name: "SDGPersistence", package: "SDGCornerstone")
@@ -452,7 +427,6 @@ let package = Package(
             "SDGWindows",
             "SDGMenus",
             "SDGContextMenu",
-            "SDGInterfaceElements",
             "SDGMenuBar",
             "SDGApplication",
             "SDGInterfaceLocalizations",
@@ -476,7 +450,6 @@ let package = Package(
             "SDGButtons",
             "SDGWindows",
             "SDGMenus",
-            "SDGInterfaceElements",
             "SDGErrorMessages",
             "SDGMenuBar",
             "SDGApplication",

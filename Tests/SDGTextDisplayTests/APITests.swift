@@ -264,7 +264,7 @@ final class APITests : ApplicationTestCase {
         compatibilityTextView.text.append(characters)
         #endif
         compatibilityTextView.selectAll(nil)
-        window.view = compatibilityTextView
+        window.view = AnyNativeView(compatibilityTextView)
         compatibilityTextView.showCharacterInformation(nil)
 
         textView.selectAll(nil)

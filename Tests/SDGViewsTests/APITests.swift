@@ -25,6 +25,15 @@ import SDGApplicationTestUtilities
 
 final class APITests : ApplicationTestCase {
 
+    func testLetterbox() {
+        #if canImport(AppKit) || canImport(UIKit)
+        Application.shared.demonstrateLetterbox()
+        let letterbox = Letterbox(content: EmptyView(), aspectRatio: 1)
+        letterbox.colour = .red
+        XCTAssertEqual(letterbox.colour?.opacity, 1)
+        #endif
+    }
+
     func testRowView() {
         #if canImport(AppKit) || canImport(UIKit)
         let row = RowView(views: [AnyNativeView()])
@@ -43,19 +52,19 @@ final class APITests : ApplicationTestCase {
             #endif
             return AnyNativeView(native)
         }
-        newView().fill(with: EmptyView().native)
+        newView().fill(with: EmptyView())
         newView().setMinimumSize(size: 10, axis: .horizontal)
-        newView().position(subviews: [EmptyView().native, EmptyView().native], inSequenceAlong: .vertical)
-        newView().centre(subview: EmptyView().native)
-        newView().equalizeSize(amongSubviews: [EmptyView().native, EmptyView().native], on: .horizontal)
-        newView().equalizeSize(amongSubviews: [EmptyView().native, EmptyView().native], on: .vertical)
-        newView().lockSizeRatio(toSubviews: [EmptyView().native, EmptyView().native], coefficient: 1, axis: .horizontal)
-        newView().lockSizeRatio(toSubviews: [EmptyView().native, EmptyView().native], coefficient: 1, axis: .vertical)
-        newView().alignCentres(ofSubviews: [EmptyView().native, EmptyView().native], on: .horizontal)
-        newView().alignCentres(ofSubviews: [EmptyView().native, EmptyView().native], on: .vertical)
-        newView().alignFirstBaselines(ofSubviews: [EmptyView().native, EmptyView().native])
+        newView().position(subviews: [EmptyView(), EmptyView()], inSequenceAlong: .vertical)
+        newView().centre(subview: EmptyView())
+        newView().equalizeSize(amongSubviews: [EmptyView(), EmptyView()], on: .horizontal)
+        newView().equalizeSize(amongSubviews: [EmptyView(), EmptyView()], on: .vertical)
+        newView().lockSizeRatio(toSubviews: [EmptyView(), EmptyView()], coefficient: 1, axis: .horizontal)
+        newView().lockSizeRatio(toSubviews: [EmptyView(), EmptyView()], coefficient: 1, axis: .vertical)
+        newView().alignCentres(ofSubviews: [EmptyView(), EmptyView()], on: .horizontal)
+        newView().alignCentres(ofSubviews: [EmptyView(), EmptyView()], on: .vertical)
+        newView().alignFirstBaselines(ofSubviews: [EmptyView(), EmptyView()])
         newView().lockAspectRatio(to: 1)
-        newView().position(subviews: [EmptyView().native, EmptyView().native], inSequenceAlong: .horizontal, padding: .specific(0), leadingMargin: .specific(8), trailingMargin: .automatic)
+        newView().position(subviews: [EmptyView(), EmptyView()], inSequenceAlong: .horizontal, padding: .specific(0), leadingMargin: .specific(8), trailingMargin: .automatic)
         #endif
     }
 }

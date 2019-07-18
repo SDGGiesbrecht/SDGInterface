@@ -27,7 +27,6 @@ import SDGTables
 import SDGWindows
 import SDGMenus
 import SDGContextMenu
-import SDGInterfaceElements
 import SDGMenuBar
 import SDGApplication
 
@@ -57,15 +56,6 @@ final class APITests : ApplicationTestCase {
             let native = result.native
             XCTAssertEqual(result, FetchResult(native))
         }
-        #endif
-    }
-
-    func testLetterbox() {
-        #if canImport(AppKit) || canImport(UIKit)
-        Application.shared.demonstrateLetterbox()
-        let letterbox = Letterbox(content: EmptyView().native, aspectRatio: 1)
-        letterbox.colour = .red
-        XCTAssertEqual(letterbox.colour?.opacity, 1)
         #endif
     }
 
