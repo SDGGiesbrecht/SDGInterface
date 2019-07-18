@@ -8,7 +8,6 @@ extension APITests {
     static let __allTests__APITests = [
         ("testDemonstrations", testDemonstrations),
         ("testFetchResult", testFetchResult),
-        ("testLetterbox", testLetterbox),
         ("testNotification", testNotification),
         ("testPreferences", testPreferences),
         ("testSystemMediator", testSystemMediator),
