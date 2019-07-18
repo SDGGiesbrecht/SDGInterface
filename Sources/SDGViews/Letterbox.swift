@@ -42,7 +42,7 @@ public final class Letterbox<Content> : View where Content : View {
         AnyNativeView(container).centre(subview: content)
 
         let maxWidth = NSLayoutConstraint(
-            item: content,
+            item: content.native,
             attribute: .width,
             relatedBy: .lessThanOrEqual,
             toItem: container,
@@ -50,7 +50,7 @@ public final class Letterbox<Content> : View where Content : View {
             multiplier: 1,
             constant: 0)
         let maxHeight = NSLayoutConstraint(
-            item: content,
+            item: content.native,
             attribute: .height,
             relatedBy: .lessThanOrEqual,
             toItem: container,
@@ -59,7 +59,7 @@ public final class Letterbox<Content> : View where Content : View {
             constant: 0)
 
         let desiredWidth = NSLayoutConstraint(
-            item: content,
+            item: content.native,
             attribute: .width,
             relatedBy: .equal,
             toItem: container,
@@ -72,7 +72,7 @@ public final class Letterbox<Content> : View where Content : View {
         desiredWidth.priority = UILayoutPriority(rawValue: 1)
         #endif
         let desiredHeight = NSLayoutConstraint(
-            item: content,
+            item: content.native,
             attribute: .height,
             relatedBy: .equal,
             toItem: container,
