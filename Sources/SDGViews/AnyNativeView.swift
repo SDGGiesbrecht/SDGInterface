@@ -245,7 +245,7 @@ public final class AnyNativeView : View {
         }
 
         let constraint = NSLayoutConstraint(
-            item: subview,
+            item: subview.native,
             attribute: attribute,
             relatedBy: .equal,
             toItem: self.native,
