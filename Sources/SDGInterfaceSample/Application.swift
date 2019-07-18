@@ -157,7 +157,7 @@ extension Application {
                 return "Image"
             }
         })
-        demonstrate(ImageView(image: Image.empty).native, windowTitle: label)
+        demonstrate(ImageView(image: Image.empty), windowTitle: label)
     }
 
     @objc public func demonstrateLabel() {
@@ -167,7 +167,7 @@ extension Application {
                 return "Label"
             }
         })
-        demonstrate(Label(text: .static(label)).native, windowTitle: label)
+        demonstrate(Label(text: .static(label)), windowTitle: label)
     }
 
     @objc public func demonstrateLabelledTextField() {
@@ -177,7 +177,7 @@ extension Application {
                 return "Labelled Text Field"
             }
         })
-        demonstrate(LabelledTextField(labelText: .static(label)).native, windowTitle: label)
+        demonstrate(LabelledTextField(labelText: .static(label)), windowTitle: label)
     }
 
     @objc public func demonstrateLetterbox() {
@@ -187,7 +187,7 @@ extension Application {
                 return "Letterbox"
             }
         })
-        demonstrate(Letterbox(content: TextEditor().native, aspectRatio: 1), windowTitle: label)
+        demonstrate(Letterbox(content: TextEditor(), aspectRatio: 1), windowTitle: label)
     }
 
     @objc public func demonstrateRadioButtonSet() {
@@ -217,7 +217,7 @@ extension Application {
     }
 
     @objc public func demonstrateTextEditor() {
-        demonstrate(TextEditor().native, windowTitle: UserFacing<StrictString, InterfaceLocalization>({ localization in
+        demonstrate(TextEditor(), windowTitle: UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Text Editor"
@@ -226,7 +226,7 @@ extension Application {
     }
 
     @objc public func demonstrateTextField() {
-        demonstrate(TextField().native, windowTitle: UserFacing<StrictString, InterfaceLocalization>({ localization in
+        demonstrate(TextField(), windowTitle: UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
                 return "Text Field"
@@ -241,7 +241,7 @@ extension Application {
             case .englishCanada:
                 return "Fullscreen Window"
             }
-        })), view: NativeView())
+        })), view: AnyNativeView())
         demonstrate(window)
     }
     #endif
