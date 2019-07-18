@@ -62,7 +62,7 @@ final class APITests : ApplicationTestCase {
     func testLetterbox() {
         #if canImport(AppKit) || canImport(UIKit)
         Application.shared.demonstrateLetterbox()
-        let letterbox = Letterbox(content: EmptyView().native, aspectRatio: 1)
+        let letterbox = Letterbox(content: EmptyView(), aspectRatio: 1)
         letterbox.colour = .red
         XCTAssertEqual(letterbox.colour?.opacity, 1)
         #endif
