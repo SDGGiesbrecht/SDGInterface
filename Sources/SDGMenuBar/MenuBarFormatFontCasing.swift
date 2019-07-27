@@ -30,6 +30,8 @@ extension MenuBar {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Use Default"
+            case .deutschDeutschland:
+                return "Normal"
             }
         })))
         useDefault.action = #selector(RichTextEditingResponder.resetCasing(_:))
@@ -42,6 +44,8 @@ extension MenuBar {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 latinate = "Latinate"
+            case .deutschDeutschland:
+                return "Lateinische"
             }
             return latinate + " (I ↔ i)"
         })))
@@ -52,6 +56,8 @@ extension MenuBar {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Upper Case"
+            case .deutschDeutschland:
+                return "Großbuchstaben"
             }
         })
     }
@@ -67,6 +73,8 @@ extension MenuBar {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Small Upper Case"
+            case .deutschDeutschland:
+                return "Kapitälchen"
             }
         })
     }
@@ -83,6 +91,8 @@ extension MenuBar {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Lower Case"
+            case .deutschDeutschland:
+                return "Kleinbuchstaben"
             }
         })
     }
@@ -99,6 +109,8 @@ extension MenuBar {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 turkic = "Turkic"
+            case .deutschDeutschland:
+                return "Türkische"
             }
             return turkic + " (I ↔ ı, İ ↔ i)"
         })))
@@ -130,6 +142,8 @@ extension MenuBar {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Casing"
+            case .deutschDeutschland:
+                return "Buchstabengröße"
             }
         })))
         casing.entries = [

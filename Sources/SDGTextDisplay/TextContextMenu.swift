@@ -40,6 +40,8 @@ public final class TextContextMenu {
             switch localization { // @exempt(from: tests)
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Context Menu"
+            case .deutschDeutschland:
+                return "Kontextmenü"
             }
         })))
         let systemMenu = Menu<InterfaceLocalization>(native: NSTextView.defaultMenu ?? NSMenu()) // @exempt(from: tests) Never nil.

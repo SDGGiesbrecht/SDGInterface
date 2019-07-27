@@ -21,6 +21,8 @@ public enum InterfaceLocalization : String, CaseIterable, InputLocalization {
     case englishUnitedKingdom = "en\u{2D}GB"
     case englishUnitedStates = "en\u{2D}US"
     case englishCanada = "en\u{2D}CA"
+    
+    case deutschDeutschland = "de\u{2D}DE"
 
     // MARK: - Localization
 

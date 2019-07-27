@@ -33,6 +33,8 @@ extension ContextMenu {
                 return "Normalise Text"
             case .englishUnitedStates, .englishCanada:
                 return "Normalize Text"
+            case .deutschDeutschland:
+                return "Text normalisieren"
             }
         })))
         normalizeText.action = #selector(TextEditingResponder.normalizeText(_:))
@@ -45,6 +47,8 @@ extension ContextMenu {
                 switch localization {
                 case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                     return "Show Character Information"
+                case .deutschDeutschland:
+                    return "Schriftzeicheninformationen einblenden"
                 }
             })))
         showCharacterInformation.action = #selector(TextDisplayResponder.showCharacterInformation(_:))

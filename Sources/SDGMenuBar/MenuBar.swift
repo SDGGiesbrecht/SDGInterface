@@ -45,6 +45,8 @@ public final class MenuBar {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Menu Bar"
+            case .deutschDeutschland:
+                return "Menüleiste"
             }
         })))
         menu.entries = [
