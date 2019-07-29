@@ -43,7 +43,9 @@ extension Error {
             title: String(UserFacing<StrictString, InterfaceLocalization>({ localization in
                 switch localization {
                 case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                    return "Okay"
+                    return "Cancel"
+                case .deutschDeutschland:
+                    return "Abbrechen"
                 }
             }).resolved()),
             style: .cancel,
