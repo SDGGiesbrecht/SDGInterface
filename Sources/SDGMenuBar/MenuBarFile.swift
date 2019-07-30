@@ -190,6 +190,8 @@ extension MenuBar {
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Revert to Saved"
+            case .deutschDeutschland:
+                return "Auf das gespeicherte zurückgreifen"
             }
         })))
         revertToSaved.action = #selector(NSDocument.revertToSaved(_:))

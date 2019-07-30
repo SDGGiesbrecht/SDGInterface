@@ -40,6 +40,8 @@ public final class ContextMenu {
             switch localization { // @exempt(from: tests)
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Context Menu"
+            case .deutschDeutschland:
+                return "Kontextmenü"
             }
         })))
         menu.entries = [
