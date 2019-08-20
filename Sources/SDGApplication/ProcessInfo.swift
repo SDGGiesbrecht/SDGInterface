@@ -67,6 +67,7 @@ extension ProcessInfo {
             }))
         }
 
+        var fallbackLocalizedInformation: NSDictionary!
         for localization in localizations.allCases {
             #if !os(Linux)
             let infoPlist = applicationBundle.url(forResource: "InfoPlist", withExtension: "strings", subdirectory: nil, localization: localization.code)
@@ -108,6 +109,10 @@ extension ProcessInfo {
                     }))
             }
             #endif
+
+            if localization.code == localizations.fallbackLocalization.code {
+                fallbackLocalizedInformation = dictionary
+            }
         }
 
         let dictionary = applicationBundle.infoDictionary
@@ -121,6 +126,15 @@ extension ProcessInfo {
         assertExists((
             dictionary?[hasLocalizedNameKey] as? Bool,
             "Info.plist" + hasLocalizedNameKey))
+
+        for (key, value) in fallbackLocalizedInformation {
+            if let stringKey = key as? String,
+                let stringValue = value as? String {
+                assertEqual(
+                    (stringValue, "\(localizations.fallbackLocalization.code).InfoPlist.strings.\(stringKey)"),
+                    (dictionary?[stringKey] as? String, "Info.plist.\(stringKey)"))
+            }
+        }
         #endif
     }
 }
