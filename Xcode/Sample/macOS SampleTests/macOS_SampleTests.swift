@@ -18,9 +18,11 @@ import XCTest
 
 import SDGApplication
 
+import SDGInterfaceLocalizations
+
 class macOS_SampleTests : XCTestCase {
 
     func testBundle() {
-        ProcessInfo.validate(applicationBundle: Bundle(for: BundleClass.self))
+        ProcessInfo.validate(applicationBundle: Bundle(for: BundleClass.self), localizations: InterfaceLocalization.self)
     }
 }

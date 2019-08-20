@@ -116,6 +116,11 @@ extension ProcessInfo {
         assertExists((
             dictionary?[systemLocalizationsKey] as? Bool,
             "Info.plist" + systemLocalizationsKey))
+
+        let hasLocalizedNameKey = "LSHasLocalizedDisplayName"
+        assertExists((
+            dictionary?[hasLocalizedNameKey] as? Bool,
+            "Info.plist" + hasLocalizedNameKey))
         #endif
     }
 }

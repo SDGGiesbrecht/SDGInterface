@@ -20,39 +20,65 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3F0DF8762293AE4100504491 /* SDGCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0DF8752293AE4100504491 /* SDGCalendar.framework */; };
-		3F0DF8772293AE4100504491 /* SDGCalendar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0DF8752293AE4100504491 /* SDGCalendar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3F0DF9292293B0BD00504491 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3F0DF9212293B01D00504491 /* InfoPlist.strings */; };
+		3F0E7424230B6ADD0069AD69 /* SDGMenuBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0E7423230B6ADD0069AD69 /* SDGMenuBar.framework */; };
+		3F0E7425230B6ADD0069AD69 /* SDGMenuBar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0E7423230B6ADD0069AD69 /* SDGMenuBar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3F0E7426230B6ADD0069AD69 /* SDGMathematics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE24821DEBC180076700B /* SDGMathematics.framework */; };
+		3F0E7427230B6ADD0069AD69 /* SDGMathematics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE24821DEBC180076700B /* SDGMathematics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3F0E7429230B6ADD0069AD69 /* SDGMenus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0E7428230B6ADD0069AD69 /* SDGMenus.framework */; };
+		3F0E742A230B6ADD0069AD69 /* SDGMenus.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0E7428230B6ADD0069AD69 /* SDGMenus.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3F0E742C230B6ADD0069AD69 /* SDGKeyboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0E742B230B6ADD0069AD69 /* SDGKeyboard.framework */; };
+		3F0E742D230B6ADD0069AD69 /* SDGKeyboard.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0E742B230B6ADD0069AD69 /* SDGKeyboard.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3F0E742F230B6ADD0069AD69 /* SDGTextDisplay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0E742E230B6ADD0069AD69 /* SDGTextDisplay.framework */; };
+		3F0E7430230B6ADD0069AD69 /* SDGTextDisplay.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0E742E230B6ADD0069AD69 /* SDGTextDisplay.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3F0E7431230B6ADD0069AD69 /* SDGControlFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE23C21DEBC180076700B /* SDGControlFlow.framework */; };
+		3F0E7432230B6ADD0069AD69 /* SDGControlFlow.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE23C21DEBC180076700B /* SDGControlFlow.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3F0E7434230B6ADD0069AD69 /* SDGGeometry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0E7433230B6ADD0069AD69 /* SDGGeometry.framework */; };
+		3F0E7435230B6ADD0069AD69 /* SDGGeometry.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0E7433230B6ADD0069AD69 /* SDGGeometry.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3F0E7437230B6ADD0069AD69 /* SDGTables.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0E7436230B6ADD0069AD69 /* SDGTables.framework */; };
+		3F0E7438230B6ADD0069AD69 /* SDGTables.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0E7436230B6ADD0069AD69 /* SDGTables.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3F0E743A230B6ADD0069AD69 /* SDGImageDisplay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0E7439230B6ADD0069AD69 /* SDGImageDisplay.framework */; };
+		3F0E743B230B6ADD0069AD69 /* SDGImageDisplay.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0E7439230B6ADD0069AD69 /* SDGImageDisplay.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3F0E743C230B6ADD0069AD69 /* SDGPersistence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE25A21DEBC180076700B /* SDGPersistence.framework */; };
+		3F0E743D230B6ADD0069AD69 /* SDGPersistence.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE25A21DEBC180076700B /* SDGPersistence.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3F0E743F230B6ADD0069AD69 /* SDGPopOvers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0E743E230B6ADD0069AD69 /* SDGPopOvers.framework */; };
+		3F0E7440230B6ADD0069AD69 /* SDGPopOvers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0E743E230B6ADD0069AD69 /* SDGPopOvers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3F0E7441230B6ADD0069AD69 /* SDGCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0DF8752293AE4100504491 /* SDGCalendar.framework */; };
+		3F0E7442230B6ADD0069AD69 /* SDGCalendar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0DF8752293AE4100504491 /* SDGCalendar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3F0E7444230B6ADD0069AD69 /* SDGViews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0E7443230B6ADD0069AD69 /* SDGViews.framework */; };
+		3F0E7445230B6ADD0069AD69 /* SDGViews.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0E7443230B6ADD0069AD69 /* SDGViews.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3F0E7446230B6ADD0069AD69 /* SDGApplication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE25121DEBC180076700B /* SDGApplication.framework */; };
+		3F0E7447230B6ADD0069AD69 /* SDGApplication.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE25121DEBC180076700B /* SDGApplication.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3F0E7449230B6ADD0069AD69 /* SDGInterfaceBasics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0E7448230B6ADD0069AD69 /* SDGInterfaceBasics.framework */; };
+		3F0E744A230B6ADD0069AD69 /* SDGInterfaceBasics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0E7448230B6ADD0069AD69 /* SDGInterfaceBasics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3F0E744B230B6ADE0069AD69 /* SDGCornerstoneLocalizations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE23921DEBC180076700B /* SDGCornerstoneLocalizations.framework */; };
+		3F0E744C230B6ADE0069AD69 /* SDGCornerstoneLocalizations.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE23921DEBC180076700B /* SDGCornerstoneLocalizations.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3F0E744D230B6ADE0069AD69 /* SDGInterfaceSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE25D21DEBC180076700B /* SDGInterfaceSample.framework */; };
+		3F0E744E230B6ADE0069AD69 /* SDGInterfaceSample.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE25D21DEBC180076700B /* SDGInterfaceSample.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3F0E744F230B6ADE0069AD69 /* SDGLocalization.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE25421DEBC180076700B /* SDGLocalization.framework */; };
+		3F0E7450230B6ADE0069AD69 /* SDGLocalization.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE25421DEBC180076700B /* SDGLocalization.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3F0E7451230B6ADE0069AD69 /* SDGInterfaceLocalizations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE23F21DEBC180076700B /* SDGInterfaceLocalizations.framework */; };
+		3F0E7452230B6ADE0069AD69 /* SDGInterfaceLocalizations.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE23F21DEBC180076700B /* SDGInterfaceLocalizations.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3F0E7454230B6ADE0069AD69 /* SDGContextMenu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0E7453230B6ADE0069AD69 /* SDGContextMenu.framework */; };
+		3F0E7455230B6ADE0069AD69 /* SDGContextMenu.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0E7453230B6ADE0069AD69 /* SDGContextMenu.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3F0E7457230B6ADE0069AD69 /* SDGWindows.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0E7456230B6ADE0069AD69 /* SDGWindows.framework */; };
+		3F0E7458230B6ADE0069AD69 /* SDGWindows.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0E7456230B6ADE0069AD69 /* SDGWindows.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3F0E7459230B6ADE0069AD69 /* SDGCollections.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE24221DEBC180076700B /* SDGCollections.framework */; };
+		3F0E745A230B6ADE0069AD69 /* SDGCollections.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE24221DEBC180076700B /* SDGCollections.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3F0E745B230B6ADE0069AD69 /* SDGText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE25721DEBC180076700B /* SDGText.framework */; };
+		3F0E745C230B6ADE0069AD69 /* SDGText.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE25721DEBC180076700B /* SDGText.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3F0E745D230B6ADE0069AD69 /* SDGLogic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE24521DEBC180076700B /* SDGLogic.framework */; };
+		3F0E745E230B6ADE0069AD69 /* SDGLogic.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE24521DEBC180076700B /* SDGLogic.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3F0E7460230B6ADE0069AD69 /* SDGButtons.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0E745F230B6ADE0069AD69 /* SDGButtons.framework */; };
+		3F0E7461230B6ADE0069AD69 /* SDGButtons.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0E745F230B6ADE0069AD69 /* SDGButtons.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3F0E7463230B6ADE0069AD69 /* SDGErrorMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0E7462230B6ADE0069AD69 /* SDGErrorMessages.framework */; };
+		3F0E7464230B6ADE0069AD69 /* SDGErrorMessages.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0E7462230B6ADE0069AD69 /* SDGErrorMessages.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3F94C153220B9BDC00B1E716 /* macOS_SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F94C152220B9BDC00B1E716 /* macOS_SampleTests.swift */; };
 		3F94C161220B9CD800B1E716 /* iOS_SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F94C160220B9CD800B1E716 /* iOS_SampleTests.swift */; };
 		3F94C16F220B9CE900B1E716 /* tvOS_SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F94C16E220B9CE900B1E716 /* tvOS_SampleTests.swift */; };
 		3FE4FB7321DD80AE008026FB /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE4FB7221DD80AE008026FB /* main.swift */; };
 		3FE4FBF021DD80E6008026FB /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE4FBEF21DD80E6008026FB /* main.swift */; };
 		3FE4FC0621DD80F8008026FB /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE4FC0521DD80F8008026FB /* main.swift */; };
-		3FEFE23A21DEBC180076700B /* SDGCornerstoneLocalizations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE23921DEBC180076700B /* SDGCornerstoneLocalizations.framework */; };
-		3FEFE23B21DEBC180076700B /* SDGCornerstoneLocalizations.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE23921DEBC180076700B /* SDGCornerstoneLocalizations.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3FEFE23D21DEBC180076700B /* SDGControlFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE23C21DEBC180076700B /* SDGControlFlow.framework */; };
-		3FEFE23E21DEBC180076700B /* SDGControlFlow.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE23C21DEBC180076700B /* SDGControlFlow.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3FEFE24021DEBC180076700B /* SDGInterfaceLocalizations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE23F21DEBC180076700B /* SDGInterfaceLocalizations.framework */; };
-		3FEFE24121DEBC180076700B /* SDGInterfaceLocalizations.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE23F21DEBC180076700B /* SDGInterfaceLocalizations.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3FEFE24321DEBC180076700B /* SDGCollections.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE24221DEBC180076700B /* SDGCollections.framework */; };
-		3FEFE24421DEBC180076700B /* SDGCollections.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE24221DEBC180076700B /* SDGCollections.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3FEFE24621DEBC180076700B /* SDGLogic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE24521DEBC180076700B /* SDGLogic.framework */; };
-		3FEFE24721DEBC180076700B /* SDGLogic.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE24521DEBC180076700B /* SDGLogic.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3FEFE24921DEBC180076700B /* SDGMathematics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE24821DEBC180076700B /* SDGMathematics.framework */; };
-		3FEFE24A21DEBC180076700B /* SDGMathematics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE24821DEBC180076700B /* SDGMathematics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3FEFE24C21DEBC180076700B /* SDGInterfaceElements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE24B21DEBC180076700B /* SDGInterfaceElements.framework */; };
-		3FEFE24D21DEBC180076700B /* SDGInterfaceElements.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE24B21DEBC180076700B /* SDGInterfaceElements.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3FEFE25221DEBC180076700B /* SDGApplication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE25121DEBC180076700B /* SDGApplication.framework */; };
-		3FEFE25321DEBC180076700B /* SDGApplication.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE25121DEBC180076700B /* SDGApplication.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3FEFE25521DEBC180076700B /* SDGLocalization.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE25421DEBC180076700B /* SDGLocalization.framework */; };
-		3FEFE25621DEBC180076700B /* SDGLocalization.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE25421DEBC180076700B /* SDGLocalization.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3FEFE25821DEBC180076700B /* SDGText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE25721DEBC180076700B /* SDGText.framework */; };
-		3FEFE25921DEBC180076700B /* SDGText.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE25721DEBC180076700B /* SDGText.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3FEFE25B21DEBC180076700B /* SDGPersistence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE25A21DEBC180076700B /* SDGPersistence.framework */; };
-		3FEFE25C21DEBC180076700B /* SDGPersistence.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE25A21DEBC180076700B /* SDGPersistence.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3FEFE25E21DEBC180076700B /* SDGInterfaceSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE25D21DEBC180076700B /* SDGInterfaceSample.framework */; };
-		3FEFE25F21DEBC180076700B /* SDGInterfaceSample.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE25D21DEBC180076700B /* SDGInterfaceSample.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3FEFE26121DEBC300076700B /* SDGCornerstoneLocalizations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE23921DEBC180076700B /* SDGCornerstoneLocalizations.framework */; };
 		3FEFE26221DEBC300076700B /* SDGCornerstoneLocalizations.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE23921DEBC180076700B /* SDGCornerstoneLocalizations.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3FEFE26321DEBC300076700B /* SDGControlFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FEFE23C21DEBC180076700B /* SDGControlFlow.framework */; };
@@ -130,25 +156,38 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		3FEFE26021DEBC190076700B /* Embed Frameworks */ = {
+		3F0E7465230B6ADE0069AD69 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3FEFE23B21DEBC180076700B /* SDGCornerstoneLocalizations.framework in Embed Frameworks */,
-				3FEFE25621DEBC180076700B /* SDGLocalization.framework in Embed Frameworks */,
-				3FEFE24421DEBC180076700B /* SDGCollections.framework in Embed Frameworks */,
-				3FEFE25321DEBC180076700B /* SDGApplication.framework in Embed Frameworks */,
-				3FEFE23E21DEBC180076700B /* SDGControlFlow.framework in Embed Frameworks */,
-				3FEFE25F21DEBC180076700B /* SDGInterfaceSample.framework in Embed Frameworks */,
-				3FEFE24121DEBC180076700B /* SDGInterfaceLocalizations.framework in Embed Frameworks */,
-				3FEFE25C21DEBC180076700B /* SDGPersistence.framework in Embed Frameworks */,
-				3F0DF8772293AE4100504491 /* SDGCalendar.framework in Embed Frameworks */,
-				3FEFE24A21DEBC180076700B /* SDGMathematics.framework in Embed Frameworks */,
-				3FEFE24721DEBC180076700B /* SDGLogic.framework in Embed Frameworks */,
-				3FEFE24D21DEBC180076700B /* SDGInterfaceElements.framework in Embed Frameworks */,
-				3FEFE25921DEBC180076700B /* SDGText.framework in Embed Frameworks */,
+				3F0E7438230B6ADD0069AD69 /* SDGTables.framework in Embed Frameworks */,
+				3F0E745A230B6ADE0069AD69 /* SDGCollections.framework in Embed Frameworks */,
+				3F0E742D230B6ADD0069AD69 /* SDGKeyboard.framework in Embed Frameworks */,
+				3F0E7461230B6ADE0069AD69 /* SDGButtons.framework in Embed Frameworks */,
+				3F0E7432230B6ADD0069AD69 /* SDGControlFlow.framework in Embed Frameworks */,
+				3F0E744A230B6ADD0069AD69 /* SDGInterfaceBasics.framework in Embed Frameworks */,
+				3F0E7452230B6ADE0069AD69 /* SDGInterfaceLocalizations.framework in Embed Frameworks */,
+				3F0E7440230B6ADD0069AD69 /* SDGPopOvers.framework in Embed Frameworks */,
+				3F0E744E230B6ADE0069AD69 /* SDGInterfaceSample.framework in Embed Frameworks */,
+				3F0E743D230B6ADD0069AD69 /* SDGPersistence.framework in Embed Frameworks */,
+				3F0E7455230B6ADE0069AD69 /* SDGContextMenu.framework in Embed Frameworks */,
+				3F0E7427230B6ADD0069AD69 /* SDGMathematics.framework in Embed Frameworks */,
+				3F0E7458230B6ADE0069AD69 /* SDGWindows.framework in Embed Frameworks */,
+				3F0E7447230B6ADD0069AD69 /* SDGApplication.framework in Embed Frameworks */,
+				3F0E7425230B6ADD0069AD69 /* SDGMenuBar.framework in Embed Frameworks */,
+				3F0E7450230B6ADE0069AD69 /* SDGLocalization.framework in Embed Frameworks */,
+				3F0E7435230B6ADD0069AD69 /* SDGGeometry.framework in Embed Frameworks */,
+				3F0E742A230B6ADD0069AD69 /* SDGMenus.framework in Embed Frameworks */,
+				3F0E7464230B6ADE0069AD69 /* SDGErrorMessages.framework in Embed Frameworks */,
+				3F0E745C230B6ADE0069AD69 /* SDGText.framework in Embed Frameworks */,
+				3F0E745E230B6ADE0069AD69 /* SDGLogic.framework in Embed Frameworks */,
+				3F0E7445230B6ADD0069AD69 /* SDGViews.framework in Embed Frameworks */,
+				3F0E7442230B6ADD0069AD69 /* SDGCalendar.framework in Embed Frameworks */,
+				3F0E744C230B6ADE0069AD69 /* SDGCornerstoneLocalizations.framework in Embed Frameworks */,
+				3F0E743B230B6ADD0069AD69 /* SDGImageDisplay.framework in Embed Frameworks */,
+				3F0E7430230B6ADD0069AD69 /* SDGTextDisplay.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -210,6 +249,20 @@
 		3F0DF9262293B04900504491 /* el-GR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "el-GR"; path = "el-GR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		3F0DF9272293B04A00504491 /* de-DE */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "de-DE"; path = "de-DE.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		3F0DF9282293B04A00504491 /* es-ES */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-ES"; path = "es-ES.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		3F0E7423230B6ADD0069AD69 /* SDGMenuBar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDGMenuBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F0E7428230B6ADD0069AD69 /* SDGMenus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDGMenus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F0E742B230B6ADD0069AD69 /* SDGKeyboard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDGKeyboard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F0E742E230B6ADD0069AD69 /* SDGTextDisplay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDGTextDisplay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F0E7433230B6ADD0069AD69 /* SDGGeometry.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDGGeometry.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F0E7436230B6ADD0069AD69 /* SDGTables.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDGTables.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F0E7439230B6ADD0069AD69 /* SDGImageDisplay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDGImageDisplay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F0E743E230B6ADD0069AD69 /* SDGPopOvers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDGPopOvers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F0E7443230B6ADD0069AD69 /* SDGViews.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDGViews.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F0E7448230B6ADD0069AD69 /* SDGInterfaceBasics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDGInterfaceBasics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F0E7453230B6ADE0069AD69 /* SDGContextMenu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDGContextMenu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F0E7456230B6ADE0069AD69 /* SDGWindows.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDGWindows.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F0E745F230B6ADE0069AD69 /* SDGButtons.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDGButtons.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F0E7462230B6ADE0069AD69 /* SDGErrorMessages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDGErrorMessages.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F94C150220B9BDC00B1E716 /* macOS SampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "macOS SampleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F94C152220B9BDC00B1E716 /* macOS_SampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = macOS_SampleTests.swift; sourceTree = "<group>"; };
 		3F94C154220B9BDC00B1E716 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -270,19 +323,32 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3FEFE23A21DEBC180076700B /* SDGCornerstoneLocalizations.framework in Frameworks */,
-				3FEFE25521DEBC180076700B /* SDGLocalization.framework in Frameworks */,
-				3FEFE24321DEBC180076700B /* SDGCollections.framework in Frameworks */,
-				3FEFE25221DEBC180076700B /* SDGApplication.framework in Frameworks */,
-				3FEFE23D21DEBC180076700B /* SDGControlFlow.framework in Frameworks */,
-				3FEFE25E21DEBC180076700B /* SDGInterfaceSample.framework in Frameworks */,
-				3FEFE24021DEBC180076700B /* SDGInterfaceLocalizations.framework in Frameworks */,
-				3FEFE25B21DEBC180076700B /* SDGPersistence.framework in Frameworks */,
-				3F0DF8762293AE4100504491 /* SDGCalendar.framework in Frameworks */,
-				3FEFE24921DEBC180076700B /* SDGMathematics.framework in Frameworks */,
-				3FEFE24621DEBC180076700B /* SDGLogic.framework in Frameworks */,
-				3FEFE24C21DEBC180076700B /* SDGInterfaceElements.framework in Frameworks */,
-				3FEFE25821DEBC180076700B /* SDGText.framework in Frameworks */,
+				3F0E7437230B6ADD0069AD69 /* SDGTables.framework in Frameworks */,
+				3F0E7459230B6ADE0069AD69 /* SDGCollections.framework in Frameworks */,
+				3F0E742C230B6ADD0069AD69 /* SDGKeyboard.framework in Frameworks */,
+				3F0E7460230B6ADE0069AD69 /* SDGButtons.framework in Frameworks */,
+				3F0E7431230B6ADD0069AD69 /* SDGControlFlow.framework in Frameworks */,
+				3F0E7449230B6ADD0069AD69 /* SDGInterfaceBasics.framework in Frameworks */,
+				3F0E7451230B6ADE0069AD69 /* SDGInterfaceLocalizations.framework in Frameworks */,
+				3F0E743F230B6ADD0069AD69 /* SDGPopOvers.framework in Frameworks */,
+				3F0E744D230B6ADE0069AD69 /* SDGInterfaceSample.framework in Frameworks */,
+				3F0E743C230B6ADD0069AD69 /* SDGPersistence.framework in Frameworks */,
+				3F0E7454230B6ADE0069AD69 /* SDGContextMenu.framework in Frameworks */,
+				3F0E7426230B6ADD0069AD69 /* SDGMathematics.framework in Frameworks */,
+				3F0E7457230B6ADE0069AD69 /* SDGWindows.framework in Frameworks */,
+				3F0E7446230B6ADD0069AD69 /* SDGApplication.framework in Frameworks */,
+				3F0E7424230B6ADD0069AD69 /* SDGMenuBar.framework in Frameworks */,
+				3F0E744F230B6ADE0069AD69 /* SDGLocalization.framework in Frameworks */,
+				3F0E7434230B6ADD0069AD69 /* SDGGeometry.framework in Frameworks */,
+				3F0E7429230B6ADD0069AD69 /* SDGMenus.framework in Frameworks */,
+				3F0E7463230B6ADE0069AD69 /* SDGErrorMessages.framework in Frameworks */,
+				3F0E745B230B6ADE0069AD69 /* SDGText.framework in Frameworks */,
+				3F0E745D230B6ADE0069AD69 /* SDGLogic.framework in Frameworks */,
+				3F0E7444230B6ADD0069AD69 /* SDGViews.framework in Frameworks */,
+				3F0E7441230B6ADD0069AD69 /* SDGCalendar.framework in Frameworks */,
+				3F0E744B230B6ADE0069AD69 /* SDGCornerstoneLocalizations.framework in Frameworks */,
+				3F0E743A230B6ADD0069AD69 /* SDGImageDisplay.framework in Frameworks */,
+				3F0E742F230B6ADD0069AD69 /* SDGTextDisplay.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,6 +424,20 @@
 		3FE4FAF921DD8009008026FB = {
 			isa = PBXGroup;
 			children = (
+				3F0E7462230B6ADE0069AD69 /* SDGErrorMessages.framework */,
+				3F0E745F230B6ADE0069AD69 /* SDGButtons.framework */,
+				3F0E7456230B6ADE0069AD69 /* SDGWindows.framework */,
+				3F0E7453230B6ADE0069AD69 /* SDGContextMenu.framework */,
+				3F0E7448230B6ADD0069AD69 /* SDGInterfaceBasics.framework */,
+				3F0E7443230B6ADD0069AD69 /* SDGViews.framework */,
+				3F0E743E230B6ADD0069AD69 /* SDGPopOvers.framework */,
+				3F0E7439230B6ADD0069AD69 /* SDGImageDisplay.framework */,
+				3F0E7436230B6ADD0069AD69 /* SDGTables.framework */,
+				3F0E7433230B6ADD0069AD69 /* SDGGeometry.framework */,
+				3F0E742E230B6ADD0069AD69 /* SDGTextDisplay.framework */,
+				3F0E742B230B6ADD0069AD69 /* SDGKeyboard.framework */,
+				3F0E7428230B6ADD0069AD69 /* SDGMenus.framework */,
+				3F0E7423230B6ADD0069AD69 /* SDGMenuBar.framework */,
 				3F0DF8752293AE4100504491 /* SDGCalendar.framework */,
 				3FEFE25D21DEBC180076700B /* SDGInterfaceSample.framework */,
 				3FEFE25A21DEBC180076700B /* SDGPersistence.framework */,
@@ -488,7 +568,7 @@
 				3FE4FB6B21DD80AE008026FB /* Sources */,
 				3FE4FB6C21DD80AE008026FB /* Frameworks */,
 				3FE4FB6D21DD80AE008026FB /* Resources */,
-				3FEFE26021DEBC190076700B /* Embed Frameworks */,
+				3F0E7465230B6ADE0069AD69 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
