@@ -299,7 +299,152 @@ public enum Key : CaseIterable {
 
     // MARK: - Key Codes
 
+    private static let coreGraphicsMapping: BijectiveMapping<Key, Int> = [
+
+        .leftOutsideTopISO: 0x0A,
+        .leftLittleTop: 0x12,
+        .leftRingTop: 0x13,
+        .leftMiddleTop: 0x14,
+        .leftIndexTop: 0x15,
+        .leftInsideTop: 0x17,
+        .rightInsideTop: 0x16,
+        .rightIndexTop: 0x1A,
+        .rightMiddleTop: 0x1C,
+        .rightRingTop: 0x19,
+        .rightLittleTop: 0x1D,
+        .rightOutsideTop: 0x1B,
+        .rightDoubleOutsideTop: 0x18,
+        .rightTripleOutsideTopJIS: 0x5D,
+        .deleteBackspace: 0x33,
+
+        .tabulation: 0x30,
+        .leftLittleUpper: 0x0C,
+        .leftRingUpper: 0x0D,
+        .leftMiddleUpper: 0x0E,
+        .leftIndexUpper: 0x0F,
+        .leftInsideUpper: 0x11,
+        .rightInsideUpper: 0x10,
+        .rightIndexUpper: 0x20,
+        .rightMiddleUpper: 0x22,
+        .rightRingUpper: 0x1F,
+        .rightLittleUpper: 0x23,
+        .rightOutsideUpper: 0x21,
+        .rightDoubleOutsideUpper: 0x1E,
+
+        .capsLockLeftHomeISO_ANSI_CapsLockRightBottomJIS: 0x39,
+        .leftLittleHome: 0x00,
+        .leftRingHome: 0x01,
+        .leftMiddleHome: 0x02,
+        .leftIndexHome: 0x03,
+        .leftInsideHome: 0x05,
+        .rightInsideHome: 0x04,
+        .rightIndexHome: 0x26,
+        .rightMiddleHome: 0x28,
+        .rightRingHome: 0x25,
+        .rightLittleHome: 0x29,
+        .rightOutsideHome: 0x27,
+        .rightDoubleOutsideHomeISO_JIS_RightTripleOutsideUpperANSI: 0x2A,
+        .return: 0x24,
+
+        .shiftLeft: 0x38,
+        .leftOutsideLowerISO_LeftOutsideTopANSI_JIS: 0x32,
+        .leftLittleLower: 0x06,
+        .leftRingLower: 0x07,
+        .leftMiddleLower: 0x08,
+        .leftIndexLower: 0x09,
+        .leftInsideLower: 0x0B,
+        .rightInsideLower: 0x2D,
+        .rightIndexLower: 0x2E,
+        .rightMiddleLower: 0x2B,
+        .rightRingLower: 0x2F,
+        .rightLittleLower: 0x2C,
+        .rightOutsideLowerJIS: 0x5E,
+        .shiftRight: 0x3C,
+
+        .function: 0x3F,
+        .controlLeftBottomISO_ANSI_ControlLeftHomeJIS: 0x3B,
+        .optionLeft: 0x3A,
+        .commandLeft: 0x37,
+        .英数ジス: 0x66,
+        .thumbs: 0x31,
+        .かなジス: 0x68,
+        .commandRight: 0x36,
+        .optionRight: 0x3D,
+        .controlRightISO_ANSI: 0x3E,
+
+
+        .help: 0x72,
+        .home: 0x73,
+        .pageUp: 0x74,
+
+        .deleteForward: 0x75,
+        .end: 0x77,
+        .pageDown: 0x79,
+
+        .arrowUp: 0x7E,
+        .arrowLeft: 0x7B,
+        .arrowDown: 0x7D,
+        .arrowRight: 0x7C,
+
+
+        .clear: 0x47,
+        .padMiddleTopMac: 0x51,
+        .padRingTopMac_padMiddleTopPC: 0x4B,
+        .padLittleTopMac_padRingTopPC: 0x43,
+
+        .padIndexUpper: 0x59,
+        .padMiddleUpper: 0x5B,
+        .padRingUpper: 0x5C,
+        .padLittleUpperMac_padLittleTopPC: 0x4E,
+
+        .padIndexHome: 0x56,
+        .padMiddleHome: 0x57,
+        .padRingHome: 0x58,
+        .padLittleHome: 0x45,
+
+        .padIndexLower: 0x53,
+        .padMiddleLower: 0x54,
+        .padRingLower: 0x55,
+        .enterPad: 0x4C,
+
+        .padThumb: 0x52,
+        .padMiddleBottomJIS: 0x5F,
+        .padRingBottom: 0x41,
+
+
+        .escape: 0x35,
+        .f1: 0x7A,
+        .f2: 0x78,
+        .f3: 0x63,
+        .f4: 0x76,
+        .f5: 0x60,
+        .f6: 0x61,
+        .f7: 0x62,
+        .f8: 0x64,
+        .f9: 0x65,
+        .f10: 0x6D,
+        .f11: 0x67,
+        .f12: 0x6F,
+        .f13: 0x69,
+        .f14: 0x6B,
+        .f15: 0x71,
+        .f16: 0x6A,
+        .f17: 0x40,
+        .f18: 0x4F,
+        .f19: 0x50,
+        .f20: 0x5A,
+
+        .volumeDown: 0x49,
+        .volumeUp: 0x48,
+        .mute: 0x4A,
+
+        .unidentifiedCode42: 0x42,
+        .unidentifiedCode46: 0x46,
+        .unidentifiedCode4D: 0x4D,
+    ]
+
     #if canImport(Carbon)
+
     private static let codeMapping: BijectiveMapping<Key, Int> = [
 
         .leftOutsideTopISO: kVK_ISO_Section,
@@ -447,6 +592,20 @@ public enum Key : CaseIterable {
 
     // MARK: - Initialization
 
+    /// Creates a `Key` from a `CoreGraphics` code.
+    ///
+    /// This initializer is available on all platforms, regardless of whether `CoreGraphics` is available. It can be used to describing keyboard activity *for* such a compatible platform even *from* one that is not.
+    ///
+    /// - Parameters:
+    ///     - code: The code.
+    public init?(coreGraphicsCode: Int) {
+        if let key = Key.coreGraphicsMapping[coreGraphicsCode] {
+            self = key
+        } else {
+            return nil
+        }
+    }
+
     #if canImport(Carbon)
     /// Creates a `Key` from a `CGKeyCode`.
     ///
@@ -462,6 +621,13 @@ public enum Key : CaseIterable {
     #endif
 
     // MARK: - Properties
+
+    /// The `CoreGraphics` code.
+    ///
+    /// This property is available on all platforms, regardless of whether `CoreGraphics` is available. It can be used to describing keyboard activity *for* such a compatible platform even *from* one that is not.
+    public var coreGraphicsCode: Int {
+        return Key.coreGraphicsMapping[self]!
+    }
 
     #if canImport(Carbon)
     /// The CGKeyCode for `self`.
