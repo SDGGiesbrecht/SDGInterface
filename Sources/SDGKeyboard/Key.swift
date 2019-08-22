@@ -598,8 +598,8 @@ public enum Key : CaseIterable {
     ///
     /// - Parameters:
     ///     - code: The code.
-    public init?(coreGraphicsCode: Int) {
-        if let key = Key.coreGraphicsMapping[coreGraphicsCode] {
+    public init?(coreGraphicsCode code: Int) {
+        if let key = Key.coreGraphicsMapping[code] {
             self = key
         } else {
             return nil
