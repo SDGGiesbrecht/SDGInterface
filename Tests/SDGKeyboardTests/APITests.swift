@@ -41,5 +41,7 @@ final class APITests : ApplicationTestCase {
             XCTAssertEqual(Key(coreGraphicsCode: key.coreGraphicsCode), key)
         }
         #endif
+        XCTAssertEqual(Key(coreGraphicsCode: Key.thumbs.coreGraphicsCode), Key.thumbs)
+        XCTAssertNil(Key(coreGraphicsCode: Int.max))
     }
 }
