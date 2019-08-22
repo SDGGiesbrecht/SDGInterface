@@ -35,5 +35,13 @@ final class APITests : ApplicationTestCase {
         XCTAssert(Key.rightIndexHome.existsConsistently)
         XCTAssertFalse(Key.かなジス.existsConsistently)
         XCTAssert(Key.rightDoubleOutsideHomeISO_JIS_RightTripleOutsideUpperANSI.existsConsistently)
+        #if canImport(Carbon)
+        for key in Key.allCases {
+            XCTAssertEqual(key.coreGraphicsCode, Int(key.keyCode))
+            XCTAssertEqual(Key(coreGraphicsCode: key.coreGraphicsCode), key)
+        }
+        #endif
+        XCTAssertEqual(Key(coreGraphicsCode: Key.thumbs.coreGraphicsCode), Key.thumbs)
+        XCTAssertNil(Key(coreGraphicsCode: Int.max))
     }
 }
