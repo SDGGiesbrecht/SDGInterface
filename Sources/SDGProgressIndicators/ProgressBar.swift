@@ -21,6 +21,8 @@ import AppKit
 import UIKit
 #endif
 
+import SDGMathematics
+
 import SDGViews
 
 /// An image view.
@@ -36,42 +38,82 @@ public final class ProgressBar : SpecificView {
         #if canImport(AppKit)
         specificNative = NSProgressIndicator()
         #elseif canImport(UIKit)
-        specificNative = UIProgressIndicator()
+        specificNative = UIProgressView()
         #endif
 
+        #if canImport(AppKit)
         specificNative.usesThreadedAnimation = true
+        #endif
 
         progressValue = nil
     }
 
     // MARK: - Properties
 
+    #if canImport(UIKit)
+    private var minValue: Double = 0
+    private var maxValue: Double = 1
+    private var doubleValue: Double? = 0
+    private func refreshNativeBar() {
+        let progress: Float
+        if let value = doubleValue {
+            progress = Float((value − minValue) ÷ (maxValue − minValue))
+        } else {
+            progress = 0
+        }
+        specificNative.setProgress(progress, animated: true)
+    }
+    #endif
+
     /// The value indicated by the start of the progress bar.
     public var startValue: Double {
         get {
+            #if canImport(AppKit)
             return specificNative.minValue
+            #elseif canImport(UIKit)
+            return minValue
+            #endif
         }
         set {
+            #if canImport(AppKit)
             specificNative.minValue = newValue
+            #elseif canImport(UIKit)
+            minValue = newValue
+            refreshNativeBar()
+            #endif
         }
     }
 
     /// The value indicated by the start of the progress bar.
     public var endValue: Double {
         get {
+            #if canImport(AppKit)
             return specificNative.maxValue
+            #elseif canImport(UIKit)
+            return maxValue
+            #endif
         }
         set {
+            #if canImport(AppKit)
             specificNative.maxValue = newValue
+            #elseif canImport(UIKit)
+            maxValue = newValue
+            refreshNativeBar()
+            #endif
         }
     }
 
     /// The value indicated by the progress bar. `nil` represents an indeterminate value.
     public var progressValue: Double? {
         get {
+            #if canImport(AppKit)
             return specificNative.isIndeterminate ? nil : specificNative.doubleValue
+            #elseif canImport(UIKit)
+            return doubleValue
+            #endif
         }
         set {
+            #if canImport(AppKit)
             if let value = newValue {
                 specificNative.isIndeterminate = false
                 specificNative.stopAnimation(nil)
@@ -81,6 +123,10 @@ public final class ProgressBar : SpecificView {
                 specificNative.isIndeterminate = true
                 specificNative.startAnimation(nil)
             }
+            #elseif canImport(UIKit)
+            doubleValue = newValue
+            refreshNativeBar()
+            #endif
         }
     }
 
@@ -89,7 +135,7 @@ public final class ProgressBar : SpecificView {
     #if canImport(AppKit)
     public let specificNative: NSProgressIndicator
     #elseif canImport(UIKit)
-    public let specificNative: UIProgressIndicator
+    public let specificNative: UIProgressView
     #endif
 }
 #endif
