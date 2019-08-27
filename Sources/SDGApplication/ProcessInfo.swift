@@ -68,7 +68,7 @@ extension ProcessInfo {
         }
 
         #if !os(Linux)
-        var fallbackLocalizedInformation: NSDictionary!
+        var fallbackLocalizedInformation: NSDictionary?
         #endif
         for localization in localizations.allCases {
             #if !os(Linux)
@@ -130,7 +130,7 @@ extension ProcessInfo {
             "Info.plist" + hasLocalizedNameKey))
 
         #if !os(Linux)
-        for (key, value) in fallbackLocalizedInformation {
+        for (key, value) in fallbackLocalizedInformation ?? [:] {
             if let stringKey = key as? String,
                 let stringValue = value as? String {
                 assertEqual(
