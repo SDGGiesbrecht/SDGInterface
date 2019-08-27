@@ -45,7 +45,7 @@ public final class LabelledProgressBar<L> : View where L : Localization {
     ///
     /// - Parameters:
     ///     - label: The label.
-    ///     - field: Optional. A specific progressBar.
+    ///     - progressBar: Optional. A specific progress bar.
     public init(label: Label<L>, progressBar: ProgressBar? = nil) {
         self.label = label
         let constructedBar = progressBar ?? ProgressBar()

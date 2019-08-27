@@ -31,9 +31,6 @@ public final class ProgressBar : SpecificView {
     // MARK: - Initialization
 
     /// Creates an image view displaying an image.
-    ///
-    /// - Parameters:
-    ///     - image: The image.
     public init() {
         #if canImport(AppKit)
         specificNative = NSProgressIndicator()
