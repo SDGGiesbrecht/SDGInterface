@@ -88,6 +88,10 @@ let package = Package(
         /// Tables.
         .library(name: "SDGTables", targets: ["SDGTables"]),
 
+        // @documentation(SDGProgressIndicators)
+        /// Progress indicators.
+        .library(name: "SDGProgressIndicators", targets: ["SDGProgressIndicators"]),
+
         // @documentation(SDGButtons)
         /// Buttons.
         .library(name: "SDGButtons", targets: ["SDGButtons"]),
@@ -202,6 +206,16 @@ let package = Package(
             .product(name: "SDGControlFlow", package: "SDGCornerstone"),
             .product(name: "SDGLogic", package: "SDGCornerstone"),
             .product(name: "SDGMathematics", package: "SDGCornerstone")
+            ]),
+
+        // #documentation(SDGProgressIndicators)
+        /// Progress indicators.
+        .target(name: "SDGProgressIndicators", dependencies: [
+            "SDGInterfaceBasics",
+            "SDGViews",
+            "SDGTextDisplay",
+            .product(name: "SDGText", package: "SDGCornerstone"),
+            .product(name: "SDGLocalization", package: "SDGCornerstone")
             ]),
 
         // #documentation(SDGButtons)
