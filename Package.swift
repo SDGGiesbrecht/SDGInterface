@@ -362,6 +362,15 @@ let package = Package(
             .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
             ]),
 
+        .testTarget(name: "SDGProgressIndicatorsTests", dependencies: [
+            "SDGProgressIndicators",
+            "SDGApplication",
+            "SDGInterfaceSample",
+            "SDGApplicationTestUtilities",
+            .product(name: "SDGControlFlow", package: "SDGCornerstone"),
+            .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
+            ]),
+
         .testTarget(name: "SDGTablesTests", dependencies: [
             "SDGViews",
             "SDGTextDisplay",
