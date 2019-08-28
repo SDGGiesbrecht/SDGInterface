@@ -9,6 +9,7 @@ import SDGKeyboardTests
 import SDGMenuBarTests
 import SDGMenusTests
 import SDGPopOversTests
+import SDGProgressIndicatorsTests
 import SDGTablesTests
 import SDGTextDisplayTests
 import SDGViewsTests
@@ -24,6 +25,7 @@ tests += SDGKeyboardTests.__allTests()
 tests += SDGMenuBarTests.__allTests()
 tests += SDGMenusTests.__allTests()
 tests += SDGPopOversTests.__allTests()
+tests += SDGProgressIndicatorsTests.__allTests()
 tests += SDGTablesTests.__allTests()
 tests += SDGTextDisplayTests.__allTests()
 tests += SDGViewsTests.__allTests()
