@@ -67,6 +67,8 @@ extension ProcessInfo {
             }))
         }
 
+        let unlocalizedDictionary = applicationBundle.infoDictionary
+
         #if !os(Linux)
         var fallbackLocalizedInformation: NSDictionary?
         #endif
@@ -111,22 +113,26 @@ extension ProcessInfo {
                     }))
             }
 
+            let appleEventsKey = "NSAppleEventsUsageDescription"
+            if unlocalizedDictionary?[appleEventsKey] ≠ nil {
+                let appleEvents = dictionary?[appleEventsKey] as? String
+                assertExists((appleEvents, localization.code + ".InfoPlist.strings." + appleEventsKey))
+            }
+
             if localization.code == localizations.fallbackLocalization.code {
                 fallbackLocalizedInformation = dictionary
             }
             #endif
         }
 
-        let dictionary = applicationBundle.infoDictionary
-
         let systemLocalizationsKey = "CFBundleAllowMixedLocalizations"
         assertExists((
-            dictionary?[systemLocalizationsKey] as? Bool,
+            unlocalizedDictionary?[systemLocalizationsKey] as? Bool,
             "Info.plist" + systemLocalizationsKey))
 
         let hasLocalizedNameKey = "LSHasLocalizedDisplayName"
         assertExists((
-            dictionary?[hasLocalizedNameKey] as? Bool,
+            unlocalizedDictionary?[hasLocalizedNameKey] as? Bool,
             "Info.plist" + hasLocalizedNameKey))
 
         #if !os(Linux)
@@ -135,7 +141,7 @@ extension ProcessInfo {
                 let stringValue = value as? String {
                 assertEqual(
                     (stringValue, "\(localizations.fallbackLocalization.code).InfoPlist.strings.\(stringKey)"),
-                    (dictionary?[stringKey] as? String, "Info.plist.\(stringKey)"))
+                    (unlocalizedDictionary?[stringKey] as? String, "Info.plist.\(stringKey)"))
             }
         }
         #endif
