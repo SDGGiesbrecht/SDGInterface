@@ -23,15 +23,14 @@ extension SemanticMarkup {
     internal func richText(font: Font) -> NSAttributedString {
         #warning("Is this necessary?")
         do {
-            return try SemanticMarkup._attributedString(from: String(html()), in: font)
+            return try SemanticMarkup.__attributedString(from: String(html()), in: font)
         } catch {
             preconditionFailure(error.localizedDescription)
         }
     }
 
     // #workaround(SDGCornerstone 2.5.1, The upstream version does not handle new iOS text mechanism yet.)
-    private static func _attributedString(from html: String, in font: Font) throws -> NSAttributedString {
-        #warning("Can this be merged with the one in tests?")
+    public static func __attributedString(from html: String, in font: Font) throws -> NSAttributedString {
         var adjustedFontName = font.fontName
 
         if #available(iOS 13, watchOS 6, tvOS 13, *) { // @exempt(from: unicode)
