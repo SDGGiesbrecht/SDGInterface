@@ -21,7 +21,6 @@ extension SemanticMarkup {
 
     // #workaround(SDGCornerstone 2.5.1, The upstream version does not handle new iOS text mechanism yet.)
     internal func richText(font: Font) -> NSAttributedString {
-        #warning("Is this necessary?")
         do {
             return try SemanticMarkup.__attributedString(from: String(html()), in: font)
         } catch {
