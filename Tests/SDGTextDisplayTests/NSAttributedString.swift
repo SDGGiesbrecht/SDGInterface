@@ -29,7 +29,7 @@ extension NSAttributedString {
         #if canImport(UIKit)
         return try SemanticMarkup.__attributedString(from: html, in: adjustedFont)
         #else
-        return try SemanticMarkup.__attributedString(from: html, in: adjustedFont)
+        return try SemanticMarkup._attributedString(from: html, in: adjustedFont)
         #endif
     }
     #endif
