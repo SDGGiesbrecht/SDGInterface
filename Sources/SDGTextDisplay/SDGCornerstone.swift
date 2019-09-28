@@ -35,7 +35,7 @@ extension SemanticMarkup {
         if #available(iOS 13, watchOS 6, tvOS 13, *) { // @exempt(from: unicode)
             // Older platforms do not support this CSS, but can use the name directly.
             if adjustedFontName == Font.system.fontName {
-                adjustedFontName = "-apple-system"
+                adjustedFontName = "\u{2D}apple\u{2D}system"
             }
         }
 
