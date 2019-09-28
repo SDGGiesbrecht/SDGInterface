@@ -1,4 +1,4 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.1
 
 /*
  Package.swift
@@ -117,7 +117,7 @@ let package = Package(
         .library(name: "SDGInterfaceBasics", targets: ["SDGInterfaceBasics"])
     ],
     dependencies: [
-        .package(url: "https://github.com/SDGGiesbrecht/SDGCornerstone", from: Version(2, 0, 0))
+        .package(url: "https://github.com/SDGGiesbrecht/SDGCornerstone", from: Version(2, 5, 1))
     ],
     targets: [
         // #documentation(SDGApplication)
@@ -484,3 +484,15 @@ let package = Package(
             ])
     ]
 )
+
+// #workaround(Swift 5.1, The generated Xcode project cannot import XCTest on iOS devices.)
+import Foundation
+let path = ProcessInfo.processInfo.environment["PATH"] ?? ""
+let firstColon = path.range(of: ":")?.lowerBound ?? path.endIndex
+let firstEntry = path[..<firstColon]
+if firstEntry.hasSuffix("/Contents/Developer/usr/bin") {
+    let sdgXCTestUtilities = package.targets.first(where: { $0.name == "SDGApplicationTestUtilities" })!
+    var settings = sdgXCTestUtilities.swiftSettings ?? []
+    settings.append(.define("MANIFEST_LOADED_BY_XCODE"))
+    sdgXCTestUtilities.swiftSettings = settings
+}

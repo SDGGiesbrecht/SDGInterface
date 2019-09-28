@@ -12,7 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(XCTest) && (!(os(iOS) || os(watchOS) || os(tvOS)) || targetEnvironment(simulator)) // XCTest does not contain bitcode.
+#if !os(watchOS)
+
+// #workaround(Swift 5.1, The generated Xcode project cannot import XCTest on iOS devices.)
+#if !Xcode || MANIFEST_LOADED_BY_XCODE || !(os(iOS) || os(tvOS)) || targetEnvironment(simulator)
 
 import Foundation
 
@@ -49,5 +52,7 @@ open class ApplicationTestCase : TestCase {
         #endif
     }
 }
+
+#endif
 
 #endif
