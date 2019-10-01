@@ -50,7 +50,7 @@ import PackageDescription
 let package = Package(
     name: "SDGInterface",
     platforms: [
-        .macOS(.v10_13),
+        .macOS(.v10_11),
         .iOS(.v11),
         .watchOS(.v4),
         .tvOS(.v11)
