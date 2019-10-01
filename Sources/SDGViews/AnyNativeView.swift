@@ -320,8 +320,8 @@ public final class AnyNativeView : View {
     ///
     /// - Parameters:
     ///     - subviews: The subviews to align.
-    public func alignFirstBaselines(ofSubviews subviews: [View]) {
-        equalize(.firstBaseline, amongSubviews: subviews)
+    public func alignLastBaselines(ofSubviews subviews: [View]) {
+        equalize(.lastBaseline, amongSubviews: subviews)
     }
 
     // MARK: - Abstract

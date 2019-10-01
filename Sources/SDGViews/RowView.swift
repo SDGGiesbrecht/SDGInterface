@@ -51,7 +51,7 @@ public final class RowView : SpecificView {
         #if canImport(AppKit)
         specificNative.setHuggingPriority(.required, for: .vertical)
         #endif
-        specificNative.alignment = .firstBaseline
+        specificNative.alignment = .lastBaseline
     }
 
     // MARK: - Properties

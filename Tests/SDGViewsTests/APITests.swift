@@ -62,7 +62,7 @@ final class APITests : ApplicationTestCase {
         newView().lockSizeRatio(toSubviews: [EmptyView(), EmptyView()], coefficient: 1, axis: .vertical)
         newView().alignCentres(ofSubviews: [EmptyView(), EmptyView()], on: .horizontal)
         newView().alignCentres(ofSubviews: [EmptyView(), EmptyView()], on: .vertical)
-        newView().alignFirstBaselines(ofSubviews: [EmptyView(), EmptyView()])
+        newView().alignLastBaselines(ofSubviews: [EmptyView(), EmptyView()])
         newView().lockAspectRatio(to: 1)
         newView().position(subviews: [EmptyView(), EmptyView()], inSequenceAlong: .horizontal, padding: .specific(0), leadingMargin: .specific(8), trailingMargin: .automatic)
         #endif
