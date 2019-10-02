@@ -67,6 +67,15 @@ final class APITests : ApplicationTestCase {
         Application.shared.preferenceManager?.openPreferences()
     }
 
+    func testQuickActionDetails() {
+        #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
+        if #available(iOS 9, *) { // @exempt(from: unicode)
+            var details = QuickActionDetails()
+            details.shortcutItem = UIApplicationShortcutItem(type: "", localizedTitle: "")
+        }
+        #endif
+    }
+
     func testSystemMediator() {
         class Mediator : SystemMediator, Error {
             func finishLaunching(_ details: LaunchDetails) -> Bool {
