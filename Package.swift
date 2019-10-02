@@ -49,12 +49,6 @@ import PackageDescription
 /// ```
 let package = Package(
     name: "SDGInterface",
-    platforms: [
-        .macOS(.v10_13),
-        .iOS(.v11),
-        .watchOS(.v4),
-        .tvOS(.v11)
-    ],
     products: [
         // @documentation(SDGApplication)
         /// Application‐level functionality and system interaction.
@@ -117,7 +111,7 @@ let package = Package(
         .library(name: "SDGInterfaceBasics", targets: ["SDGInterfaceBasics"])
     ],
     dependencies: [
-        .package(url: "https://github.com/SDGGiesbrecht/SDGCornerstone", from: Version(2, 5, 1))
+        .package(url: "https://github.com/SDGGiesbrecht/SDGCornerstone", from: Version(2, 6, 0))
     ],
     targets: [
         // #documentation(SDGApplication)

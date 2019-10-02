@@ -76,7 +76,7 @@ extension ProcessInfo {
             #if !os(Linux)
             let infoPlist = applicationBundle.url(forResource: "InfoPlist", withExtension: "strings", subdirectory: nil, localization: localization.code)
             let dictionary: NSDictionary? = (infoPlist.flatMap({ (url: URL) -> NSDictionary? in
-                return try? NSDictionary(contentsOf: url, error: ())
+                return NSDictionary(contentsOfFile: url.path)
             }))
             let nameKey = "CFBundleDisplayName"
             let shortKey = "CFBundleName"

@@ -10,6 +10,7 @@ extension APITests {
         ("testFetchResult", testFetchResult),
         ("testNotification", testNotification),
         ("testPreferences", testPreferences),
+        ("testQuickActionDetails", testQuickActionDetails),
         ("testSystemMediator", testSystemMediator),
     ]
 }

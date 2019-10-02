@@ -20,6 +20,7 @@ import UIKit
 #endif
 
 /// A row of views.
+@available(iOS 9, *) // @exempt(from: unicode)
 public final class RowView : SpecificView {
 
     // MARK: - Initialization
@@ -51,7 +52,7 @@ public final class RowView : SpecificView {
         #if canImport(AppKit)
         specificNative.setHuggingPriority(.required, for: .vertical)
         #endif
-        specificNative.alignment = .firstBaseline
+        specificNative.alignment = .lastBaseline
     }
 
     // MARK: - Properties

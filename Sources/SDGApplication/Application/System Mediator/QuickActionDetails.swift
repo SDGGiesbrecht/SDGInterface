@@ -28,6 +28,15 @@ public struct QuickActionDetails {
 
     #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
     /// Some systems specify the shortcut item.
-    public var shortcutItem: UIApplicationShortcutItem?
+    @available(iOS 9, *) // @exempt(from: unicode)
+    public var shortcutItem: UIApplicationShortcutItem? {
+        get {
+            return _shortcutItem as? UIApplicationShortcutItem
+        }
+        set {
+            _shortcutItem = newValue
+        }
+    }
+    private var _shortcutItem: Any?
     #endif
 }

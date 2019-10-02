@@ -31,6 +31,7 @@ private var columnIdentifiers = sequence(first: 0, next: { $0 &+ 1 })
 #endif
 
 /// Table.
+@available(iOS 9, *) // @exempt(from: unicode)
 public final class Table<RowData> : SpecificView {
 
     // MARK: - Initialization

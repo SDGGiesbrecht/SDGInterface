@@ -44,10 +44,13 @@ public final class ContextMenu {
                 return "Kontextmenü"
             }
         })))
-        menu.entries = [
+        var entries: [MenuComponent] = [
             .entry(ContextMenu._normalizeText()),
-            .entry(ContextMenu._showCharacterInformation())
         ]
+        if #available(iOS 9, *) { // @exempt(from: unicode)
+             entries.append(.entry(ContextMenu._showCharacterInformation()))
+        }
+        menu.entries = entries
         menuDidSet()
     }
 
