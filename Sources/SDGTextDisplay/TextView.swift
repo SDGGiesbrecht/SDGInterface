@@ -58,13 +58,17 @@ internal class TextView : NSUITextView {
         #if canImport(AppKit)
         isAutomaticQuoteSubstitutionEnabled = true
         #else
-        smartQuotesType = .yes
+        if #available(iOS 11, *) { // @exempt(from: unicode)
+            smartQuotesType = .yes
+        }
         #endif
 
         #if canImport(AppKit)
         isAutomaticDashSubstitutionEnabled = true
         #else
-        smartDashesType = .yes
+        if #available(iOS 11, *) { // @exempt(from: unicode)
+            smartDashesType = .yes
+        }
         #endif
 
         #if canImport(UIKit)
@@ -74,7 +78,9 @@ internal class TextView : NSUITextView {
         #if canImport(AppKit)
         smartInsertDeleteEnabled = true
         #else
-        smartInsertDeleteType = .yes
+        if #available(iOS 11, *) { // @exempt(from: unicode)
+            smartInsertDeleteType = .yes
+        }
         #endif
 
         #if canImport(AppKit)
