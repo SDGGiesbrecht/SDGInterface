@@ -49,10 +49,6 @@ import PackageDescription
 /// ```
 let package = Package(
     name: "SDGInterface",
-    platforms: [
-        .watchOS(.v4),
-        .tvOS(.v11)
-    ],
     products: [
         // @documentation(SDGApplication)
         /// Application‐level functionality and system interaction.
