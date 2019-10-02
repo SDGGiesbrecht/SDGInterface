@@ -15,6 +15,7 @@
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
 import SDGControlFlow
 
+@available(iOS 9, *) // @exempt(from: unicode)
 internal final class BindingObserver<RowData> : SharedValueObserver {
 
     // MARK: - Properties

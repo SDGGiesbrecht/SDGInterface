@@ -36,9 +36,11 @@ final class APITests : ApplicationTestCase {
 
     func testRowView() {
         #if canImport(AppKit) || canImport(UIKit)
-        let row = RowView(views: [AnyNativeView()])
-        row.views = [AnyNativeView()]
-        _ = RowView(views: [AnyNativeView(), AnyNativeView()], spacing: .specific(0))
+        if #available(iOS 9, *) { // @exempt(from: unicode)
+            let row = RowView(views: [AnyNativeView()])
+            row.views = [AnyNativeView()]
+            _ = RowView(views: [AnyNativeView(), AnyNativeView()], spacing: .specific(0))
+        }
         #endif
     }
 

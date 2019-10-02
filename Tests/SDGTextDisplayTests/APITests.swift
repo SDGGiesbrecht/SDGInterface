@@ -85,11 +85,13 @@ final class APITests : ApplicationTestCase {
 
     func testCharacterInformation() {
         #if canImport(AppKit) || canImport(UIKit)
-        CharacterInformation.display(for: "abc", origin: nil)
-        let view = AnyNativeView()
-        let window = Window<SDGInterfaceLocalizations.InterfaceLocalization>.primaryWindow(name: .binding(Shared("...")), view: view)
-        window.display()
-        CharacterInformation.display(for: "abc", origin: (view, nil))
+        if #available(iOS 9, *) { // @exempt(from: unicode)
+            CharacterInformation.display(for: "abc", origin: nil)
+            let view = AnyNativeView()
+            let window = Window<SDGInterfaceLocalizations.InterfaceLocalization>.primaryWindow(name: .binding(Shared("...")), view: view)
+            window.display()
+            CharacterInformation.display(for: "abc", origin: (view, nil))
+        }
         #endif
     }
 
@@ -254,7 +256,9 @@ final class APITests : ApplicationTestCase {
         textEditor.append(RichText(rawText: StrictString(characters)))
         textView.selectAll(nil)
         let window = Window<SDGInterfaceLocalizations.InterfaceLocalization>(name: .binding(Shared("...")), view: textEditor)
-        textView.showCharacterInformation(nil)
+        if #available(iOS 9, *) { // @exempt(from: unicode)
+            textView.showCharacterInformation(nil)
+        }
 
         #if canImport(AppKit)
         let compatibilityTextView = NSTextView(frame: CGRect.zero)
@@ -265,7 +269,9 @@ final class APITests : ApplicationTestCase {
         #endif
         compatibilityTextView.selectAll(nil)
         window.view = AnyNativeView(compatibilityTextView)
-        compatibilityTextView.showCharacterInformation(nil)
+        if #available(iOS 9, *) { // @exempt(from: unicode)
+            compatibilityTextView.showCharacterInformation(nil)
+        }
 
         textView.selectAll(nil)
         textView.normalizeText(nil)
@@ -348,9 +354,11 @@ final class APITests : ApplicationTestCase {
         #if canImport(UIKit)
         textView.insertText("...")
         textView.selectAll(nil)
-        XCTAssert(textView.canPerformAction(
-            #selector(TextDisplayResponder.showCharacterInformation(_:)),
-            withSender: nil))
+        if #available(iOS 9, *) { // @exempt(from: unicode)
+            XCTAssert(textView.canPerformAction(
+                #selector(TextDisplayResponder.showCharacterInformation(_:)),
+                withSender: nil))
+        }
         #if os(tvOS)
         XCTAssertFalse(textView.canPerformAction(
             #selector(TextEditingResponder.normalizeText(_:)),
@@ -373,9 +381,11 @@ final class APITests : ApplicationTestCase {
             #selector(TextEditingResponder.normalizeText(_:)),
             withSender: nil))
         textView.text = ""
-        XCTAssertFalse(textView.canPerformAction(
-            #selector(TextDisplayResponder.showCharacterInformation(_:)),
-            withSender: nil))
+        if #available(iOS 9, *) { // @exempt(from: unicode)
+            XCTAssertFalse(textView.canPerformAction(
+                #selector(TextDisplayResponder.showCharacterInformation(_:)),
+                withSender: nil))
+        }
         #endif
         #if canImport(AppKit)
         _ = textView.menu

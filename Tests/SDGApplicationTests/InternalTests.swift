@@ -167,10 +167,12 @@ final class InternalTests : ApplicationTestCase {
             _ = delegate.application(UIApplication.shared, continue: NSUserActivity(activityType: " "), restorationHandler: { _ in })
             delegate.application(UIApplication.shared, didUpdate: NSUserActivity(activityType: " "))
             #if !os(tvOS)
-            delegate.application(
-                UIApplication.shared,
-                performActionFor: UIApplicationShortcutItem(type: "", localizedTitle: ""),
-                completionHandler: { _ in })
+            if #available(iOS 9, *) { // @exempt(from: unicode)
+                delegate.application(
+                    UIApplication.shared,
+                    performActionFor: UIApplicationShortcutItem(type: "", localizedTitle: ""),
+                    completionHandler: { _ in })
+            }
             #endif
             delegate.application(UIApplication.shared, handleWatchKitExtensionRequest: nil, reply: { _ in })
             delegate.applicationShouldRequestHealthAuthorization(UIApplication.shared)

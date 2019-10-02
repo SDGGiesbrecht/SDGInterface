@@ -17,6 +17,7 @@ import UIKit
 
 import SDGViews
 
+@available(iOS 9, *) // @exempt(from: unicode)
 internal class UITableViewDataSource<RowData> : NSObject, UIKit.UITableViewDataSource {
 
     // MARK: - Properties

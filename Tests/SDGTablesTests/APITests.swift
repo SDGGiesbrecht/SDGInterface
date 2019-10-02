@@ -33,24 +33,26 @@ final class APITests : ApplicationTestCase {
 
     func testTable() {
         #if canImport(AppKit) || canImport(UIKit)
-        let table = Table<Int>(data: Shared([0]), columns: [{ integer in
-            let view = AnyNativeView()
-            view.fill(with: Label<InterfaceLocalization>(text: .binding(Shared("\(integer.inDigits())"))))
-            return view
-            }])
-        table.sort = { $0 < $1 }
-        XCTAssertNotNil(table.sort)
-        table.data = Shared([2, 1])
-        let columns = table.columns
-        table.columns = []
-        table.columns = columns
-        let window = Window<InterfaceLocalization>.primaryWindow(name: .binding(Shared("")), view: table)
-        window.display()
-        #if canImport(UIKit)
-        table.data = Shared([2, 1])
-        table.specificNative.dataSource?.tableView(table.specificNative, cellForRowAt: IndexPath(row: 0, section: 0))
-        table.specificNative.dataSource?.tableView(table.specificNative, cellForRowAt: IndexPath(row: 0, section: 0))
-        #endif
+        if #available(iOS 9, *) { // @exempt(from: unicode)
+            let table = Table<Int>(data: Shared([0]), columns: [{ integer in
+                let view = AnyNativeView()
+                view.fill(with: Label<InterfaceLocalization>(text: .binding(Shared("\(integer.inDigits())"))))
+                return view
+                }])
+            table.sort = { $0 < $1 }
+            XCTAssertNotNil(table.sort)
+            table.data = Shared([2, 1])
+            let columns = table.columns
+            table.columns = []
+            table.columns = columns
+            let window = Window<InterfaceLocalization>.primaryWindow(name: .binding(Shared("")), view: table)
+            window.display()
+            #if canImport(UIKit)
+            table.data = Shared([2, 1])
+            table.specificNative.dataSource?.tableView(table.specificNative, cellForRowAt: IndexPath(row: 0, section: 0))
+            table.specificNative.dataSource?.tableView(table.specificNative, cellForRowAt: IndexPath(row: 0, section: 0))
+            #endif
+        }
         #endif
     }
 }

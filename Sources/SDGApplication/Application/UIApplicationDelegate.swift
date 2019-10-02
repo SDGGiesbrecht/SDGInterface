@@ -154,6 +154,7 @@ internal class UIApplicationDelegate : NSObject, UIKit.UIApplicationDelegate {
     }
 
     #if !os(tvOS)
+    @available(iOS 9, *) // @exempt(from: unicode)
     internal func application(
         _ application: UIApplication,
         performActionFor shortcutItem: UIApplicationShortcutItem,

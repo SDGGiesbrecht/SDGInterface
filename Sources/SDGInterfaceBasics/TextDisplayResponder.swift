@@ -21,5 +21,6 @@ import Foundation
     ///
     /// - Parameters:
     ///     - sender: The sender.
+    @available(iOS 9, *) // @exempt(from: unicode)
     @objc func showCharacterInformation(_ sender: Any?)
 }

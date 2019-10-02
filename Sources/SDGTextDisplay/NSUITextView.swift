@@ -116,11 +116,13 @@ extension NSUITextView : RichTextEditingResponder {
     private static let actionsRequiringSelection: Set<Selector> = {
         var result: Set<Selector> = [
             #selector(TextEditingResponder.normalizeText(_:)),
-            #selector(TextDisplayResponder.showCharacterInformation(_:)),
             #selector(RichTextEditingResponder.makeSuperscript(_:)),
             #selector(RichTextEditingResponder.makeSubscript(_:)),
             #selector(RichTextEditingResponder.resetBaseline(_:))
         ]
+        if #available(iOS 9, *) { // @exempt(from: unicode)
+            result.insert(#selector(TextDisplayResponder.showCharacterInformation(_:)))
+        }
         #if canImport(AppKit)
         result ∪= [
             #selector(RichTextEditingResponder.resetCasing(_:)),
@@ -285,6 +287,7 @@ extension NSUITextView : RichTextEditingResponder {
 
     // MARK: - TextDisplayResponder
 
+    @available(iOS 9, *) // @exempt(from: unicode)
     @objc public func showCharacterInformation(_ sender: Any?) {
         let possibleString: NSAttributedString?
         #if canImport(AppKit)

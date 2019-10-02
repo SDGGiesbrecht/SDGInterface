@@ -41,6 +41,7 @@ extension ContextMenu {
         return normalizeText
     }
 
+    @available(iOS 9, *) // @exempt(from: unicode)
     public static func _showCharacterInformation() -> MenuEntry<InterfaceLocalization> {
         let showCharacterInformation = MenuEntry(
             label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
