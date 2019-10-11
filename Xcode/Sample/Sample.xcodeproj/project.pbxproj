@@ -3,13 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		3F7D722823501F4D00A751CE /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7D722723501F4D00A751CE /* main.swift */; };
 		3F7D723E23501F4F00A751CE /* macOS_SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7D723D23501F4F00A751CE /* macOS_SampleTests.swift */; };
 		3F7D72482350210600A751CE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3F7D724A2350210600A751CE /* InfoPlist.strings */; };
+		3F7D725523502A7100A751CE /* _SDGInterfaceSample in Frameworks */ = {isa = PBXBuildFile; productRef = 3F7D725423502A7100A751CE /* _SDGInterfaceSample */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F7D725523502A7100A751CE /* _SDGInterfaceSample in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,6 +66,7 @@
 				3F7D722623501F4D00A751CE /* macOS Sample */,
 				3F7D723C23501F4F00A751CE /* macOS SampleTests */,
 				3F7D722523501F4D00A751CE /* Products */,
+				3F7D725323502A7100A751CE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -96,6 +99,13 @@
 			path = "macOS SampleTests";
 			sourceTree = "<group>";
 		};
+		3F7D725323502A7100A751CE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -112,6 +122,9 @@
 			dependencies = (
 			);
 			name = "macOS Sample";
+			packageProductDependencies = (
+				3F7D725423502A7100A751CE /* _SDGInterfaceSample */,
+			);
 			productName = "macOS Sample";
 			productReference = 3F7D722423501F4D00A751CE /* macOS Sample.app */;
 			productType = "com.apple.product-type.application";
@@ -294,7 +307,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_ASSET_PATHS = "\"macOS Sample/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_PREVIEWS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -368,7 +381,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_ASSET_PATHS = "\"macOS Sample/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -569,6 +582,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3F7D725423502A7100A751CE /* _SDGInterfaceSample */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = _SDGInterfaceSample;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3F7D721A23501E8100A751CE /* Project object */;
 }
