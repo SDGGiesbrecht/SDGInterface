@@ -13,6 +13,7 @@
 		3F7D722F23501F4F00A751CE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F7D722E23501F4F00A751CE /* Preview Assets.xcassets */; };
 		3F7D723223501F4F00A751CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F7D723023501F4F00A751CE /* Main.storyboard */; };
 		3F7D723E23501F4F00A751CE /* macOS_SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7D723D23501F4F00A751CE /* macOS_SampleTests.swift */; };
+		3F7D72482350210600A751CE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3F7D724A2350210600A751CE /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +38,14 @@
 		3F7D723923501F4F00A751CE /* macOS SampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "macOS SampleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F7D723D23501F4F00A751CE /* macOS_SampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = macOS_SampleTests.swift; sourceTree = "<group>"; };
 		3F7D723F23501F4F00A751CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3F7D724B2350211D00A751CE /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		3F7D724C2350215600A751CE /* en-US */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-US"; path = "en-US.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		3F7D724D2350216F00A751CE /* en-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-CA"; path = "en-CA.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		3F7D724E2350217C00A751CE /* de-DE */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "de-DE"; path = "de-DE.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		3F7D724F2350218B00A751CE /* fr-FR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-FR"; path = "fr-FR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		3F7D72502350219900A751CE /* el-GR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "el-GR"; path = "el-GR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		3F7D7251235021A600A751CE /* he-IL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "he-IL"; path = "he-IL.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		3F7D7252235021C500A751CE /* es-ES */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-ES"; path = "es-ES.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +92,7 @@
 				3F7D722B23501F4F00A751CE /* Assets.xcassets */,
 				3F7D723023501F4F00A751CE /* Main.storyboard */,
 				3F7D723323501F4F00A751CE /* Info.plist */,
+				3F7D724A2350210600A751CE /* InfoPlist.strings */,
 				3F7D723423501F4F00A751CE /* macOS_Sample.entitlements */,
 				3F7D722D23501F4F00A751CE /* Preview Content */,
 			);
@@ -164,11 +174,18 @@
 			};
 			buildConfigurationList = 3F7D721D23501E8100A751CE /* Build configuration list for PBXProject "Sample" */;
 			compatibilityVersion = "Xcode 9.3";
-			developmentRegion = en;
+			developmentRegion = "en-CA";
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
+				"en-GB",
+				"en-US",
+				"en-CA",
+				"de-DE",
+				"fr-FR",
+				"el-GR",
+				"he-IL",
+				"es-ES",
 			);
 			mainGroup = 3F7D721923501E8100A751CE;
 			productRefGroup = 3F7D722523501F4D00A751CE /* Products */;
@@ -187,6 +204,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F7D723223501F4F00A751CE /* Main.storyboard in Resources */,
+				3F7D72482350210600A751CE /* InfoPlist.strings in Resources */,
 				3F7D722F23501F4F00A751CE /* Preview Assets.xcassets in Resources */,
 				3F7D722C23501F4F00A751CE /* Assets.xcassets in Resources */,
 			);
@@ -238,18 +256,35 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
+		3F7D724A2350210600A751CE /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3F7D724B2350211D00A751CE /* en-GB */,
+				3F7D724C2350215600A751CE /* en-US */,
+				3F7D724D2350216F00A751CE /* en-CA */,
+				3F7D724E2350217C00A751CE /* de-DE */,
+				3F7D724F2350218B00A751CE /* fr-FR */,
+				3F7D72502350219900A751CE /* el-GR */,
+				3F7D7251235021A600A751CE /* he-IL */,
+				3F7D7252235021C500A751CE /* es-ES */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		3F7D721E23501E8100A751CE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 			};
 			name = Debug;
 		};
 		3F7D721F23501E8100A751CE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 			};
 			name = Release;
 		};
