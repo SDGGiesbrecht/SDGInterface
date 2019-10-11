@@ -15,6 +15,8 @@
 		3F7D72EA23502C8800A751CE /* iOS_SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7D72E923502C8800A751CE /* iOS_SampleTests.swift */; };
 		3F7D72F923502C9900A751CE /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7D72F823502C9900A751CE /* main.swift */; };
 		3F7D730E23502C9B00A751CE /* tvOS_SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7D730D23502C9B00A751CE /* tvOS_SampleTests.swift */; };
+		3F7D731723502DDC00A751CE /* _SDGInterfaceSample in Frameworks */ = {isa = PBXBuildFile; productRef = 3F7D731623502DDC00A751CE /* _SDGInterfaceSample */; };
+		3F7D731923502DE200A751CE /* _SDGInterfaceSample in Frameworks */ = {isa = PBXBuildFile; productRef = 3F7D731823502DE200A751CE /* _SDGInterfaceSample */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F7D731723502DDC00A751CE /* _SDGInterfaceSample in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F7D731923502DE200A751CE /* _SDGInterfaceSample in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,6 +266,9 @@
 			dependencies = (
 			);
 			name = "iOS Sample";
+			packageProductDependencies = (
+				3F7D731623502DDC00A751CE /* _SDGInterfaceSample */,
+			);
 			productName = "iOS Sample";
 			productReference = 3F7D72D023502C8600A751CE /* iOS Sample.app */;
 			productType = "com.apple.product-type.application";
@@ -297,6 +304,9 @@
 			dependencies = (
 			);
 			name = "tvOS Sample";
+			packageProductDependencies = (
+				3F7D731823502DE200A751CE /* _SDGInterfaceSample */,
+			);
 			productName = "tvOS Sample";
 			productReference = 3F7D72F623502C9800A751CE /* tvOS Sample.app */;
 			productType = "com.apple.product-type.application";
@@ -1445,6 +1455,14 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		3F7D725423502A7100A751CE /* _SDGInterfaceSample */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = _SDGInterfaceSample;
+		};
+		3F7D731623502DDC00A751CE /* _SDGInterfaceSample */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = _SDGInterfaceSample;
+		};
+		3F7D731823502DE200A751CE /* _SDGInterfaceSample */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = _SDGInterfaceSample;
 		};
