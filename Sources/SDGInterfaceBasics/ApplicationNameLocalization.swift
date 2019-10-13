@@ -41,6 +41,11 @@ public struct ApplicationNameLocalization : Localization {
 
     // MARK: - Localization
 
+    // #workaround(workspace version 0.23.1, Avoids parser crash.)
+    /// Creates an instance from an IETF language tag.
+    ///
+    /// - Parameters:
+    ///     - code: The localization code.
     public init?(exactly code: String) {
         guard let form = ApplicationNameForm._isolatedForm(for: code),
             let name = ProcessInfo.applicationName(form) else {
@@ -50,7 +55,12 @@ public struct ApplicationNameLocalization : Localization {
         _correspondingIsolatedName = name
     }
 
+    // #workaround(workspace version 0.23.1, Avoids parser crash.)
+    /// The corresponding IETF language tag.
     public var code: String
 
-    public static var fallbackLocalization = ApplicationNameLocalization(undefined: ())
+    // #workaround(workspace version 0.23.1, Avoids parser crash.)
+    /// The localization to use whenever none of the localizations requested by the user are available.
+    public static var fallbackLocalization: ApplicationNameLocalization
+        = ApplicationNameLocalization(undefined: ())
 }
