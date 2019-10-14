@@ -108,7 +108,9 @@ let package = Package(
 
         // @documentation(SDGInterfaceBasics)
         /// Basic interface building blocks.
-        .library(name: "SDGInterfaceBasics", targets: ["SDGInterfaceBasics"])
+        .library(name: "SDGInterfaceBasics", targets: ["SDGInterfaceBasics"]),
+
+        .library(name: "_SDGInterfaceSample", targets: ["SDGInterfaceSample"])
     ],
     dependencies: [
         .package(url: "https://github.com/SDGGiesbrecht/SDGCornerstone", from: Version(2, 6, 0))

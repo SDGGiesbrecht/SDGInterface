@@ -39,6 +39,7 @@ configuration.documentation.api.ignoredDependencies = [
     "SDGCalendar",
     "SDGCollections",
     "SDGCornerstoneLocalizations",
+    "SDGLocalization",
     "SDGLocalizationTestUtilities",
     "SDGLogic",
     "SDGLogicTestUtilities",

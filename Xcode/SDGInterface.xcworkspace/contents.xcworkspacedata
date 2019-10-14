@@ -2,9 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "container:Sample/Sample.xcodeproj">
+      location = "group:..">
    </FileRef>
    <FileRef
-      location = "group:../SDGInterface.xcodeproj">
+      location = "container:Sample/Sample.xcodeproj">
    </FileRef>
 </Workspace>
