@@ -22,7 +22,7 @@ import UIKit
 
 
 /// A wrapped SwiftUI view.
-@available(macOS 10.15, *)
+@available(macOS 10.15, iOS 13, *)
 public final class AnySwiftUIView<V> : SpecificView where V : SwiftUI.View {
 
     // MARK: - Initialization
@@ -32,7 +32,8 @@ public final class AnySwiftUIView<V> : SpecificView where V : SwiftUI.View {
         #if canImport(AppKit)
         specificNative = NSHostingView(rootView: view)
         #elseif canImport(UIKit)
-        specificNative = UIHostingView(rootView: view)
+        let controller = UIHostingController(rootView: view)
+        specificNative = controller.view
         #endif
     }
 
@@ -41,7 +42,7 @@ public final class AnySwiftUIView<V> : SpecificView where V : SwiftUI.View {
     #if canImport(AppKit)
     public let specificNative: NSHostingView<V>
     #elseif canImport(UIKit)
-    public let specificNative: UIHostingView<V>
+    public var specificNative: UIView
     #endif
 }
 #endif
