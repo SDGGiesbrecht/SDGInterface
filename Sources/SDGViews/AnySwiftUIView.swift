@@ -20,10 +20,9 @@ import AppKit
 import UIKit
 #endif
 
-
 /// A wrapped SwiftUI view.
-@available(macOS 10.15, iOS 13, *)
-public final class AnySwiftUIView<V> : SpecificView where V : SwiftUI.View {
+@available(macOS 10.15, iOS 13, tvOS 13, *)
+public final class SwiftUIView<V> : SpecificView where V : SwiftUI.View {
 
     // MARK: - Initialization
 
