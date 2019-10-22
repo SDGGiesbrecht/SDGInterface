@@ -12,6 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(SwiftUI)
+import SwiftUI
+#endif
+
 import SDGViews
 import SDGApplication
 
@@ -40,6 +44,19 @@ final class APITests : ApplicationTestCase {
             let row = RowView(views: [AnyNativeView()])
             row.views = [AnyNativeView()]
             _ = RowView(views: [AnyNativeView(), AnyNativeView()], spacing: .specific(0))
+        }
+        #endif
+    }
+
+    func testSwiftUIView() {
+        #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI)
+        if #available(macOS 10.15, iOS 13, tvOS 13, *) {
+            struct SwiftUIViewType : SwiftUI.View {
+                var body: some SwiftUI.View {
+                    return Text(verbatim: "...")
+                }
+            }
+            _ = SwiftUIView(SwiftUIViewType())
         }
         #endif
     }

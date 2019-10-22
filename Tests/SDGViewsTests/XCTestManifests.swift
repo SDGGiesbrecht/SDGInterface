@@ -8,6 +8,7 @@ extension APITests {
     static let __allTests__APITests = [
         ("testLetterbox", testLetterbox),
         ("testRowView", testRowView),
+        ("testSwiftUIView", testSwiftUIView),
         ("testView", testView),
     ]
 }
