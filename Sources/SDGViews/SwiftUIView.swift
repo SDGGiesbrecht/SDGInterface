@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if !os(iOS) // #workaround(xocdebuild -version 11.1, @availability checks are broken for iOS.)
+
 #if ((canImport(AppKit) || canImport(UIKit)) && !os(watchOS)) && canImport(SwiftUI)
 import SwiftUI
 #if canImport(AppKit)
@@ -44,4 +46,5 @@ public final class SwiftUIView<V> : SpecificView where V : SwiftUI.View {
     public var specificNative: UIView
     #endif
 }
+#endif
 #endif
