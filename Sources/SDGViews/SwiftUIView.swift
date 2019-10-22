@@ -23,12 +23,15 @@ import UIKit
 #endif
 
 /// A wrapped SwiftUI view.
-@available(macOS 10.15, iOS 13, tvOS 13, *)
+@available(macOS 10.15, iOS 13, tvOS 13, *) // @exempt(from: unicode)
 public final class SwiftUIView<V> : SpecificView where V : SwiftUI.View {
 
     // MARK: - Initialization
 
     /// Creates a wrapped SwiftUI view.
+    ///
+    /// - Parameters:
+    ///     - view: The view.
     public init(_ view: V) {
         #if canImport(AppKit)
         specificNative = NSHostingView(rootView: view)
