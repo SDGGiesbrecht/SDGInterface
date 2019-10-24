@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(UIKit)
+#if canImport(AppKit) || canImport(UIKit)
 import Foundation
 
 import SDGText
@@ -32,9 +32,9 @@ extension SemanticMarkup {
     public static func __attributedString(from html: String, in font: Font) throws -> NSAttributedString {
         var adjustedFontName = font.fontName
 
-        if #available(iOS 13, watchOS 6, tvOS 13, *) { // @exempt(from: unicode)
+        if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) { // @exempt(from: unicode)
             // Older platforms do not support this CSS, but can use the name directly.
-            if adjustedFontName == Font.system.fontName {
+            if adjustedFontName == Font.system.fontName || adjustedFontName == ".SFNS-Regular" {
                 adjustedFontName = "\u{2D}apple\u{2D}system"
             }
         }
