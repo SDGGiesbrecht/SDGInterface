@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit) || canImport(UIKit)
+#if canImport(AppKit)
 import Foundation
 
 import SDGLogic
@@ -20,7 +20,7 @@ import SDGText
 
 extension SemanticMarkup {
 
-    // #workaround(SDGCornerstone 2.5.1, The upstream version does not handle new iOS text mechanism yet.)
+    // #workaround(SDGCornerstone 3.0.0, The upstream version does not handle new macOS text mechanism yet.)
     internal func richText(font: Font) -> NSAttributedString {
         do {
             return try SemanticMarkup.__attributedString(from: String(html()), in: font)
@@ -29,7 +29,7 @@ extension SemanticMarkup {
         }
     }
 
-    // #workaround(SDGCornerstone 2.5.1, The upstream version does not handle new iOS text mechanism yet.)
+    // #workaround(SDGCornerstone 3.0.0, The upstream version does not handle new macOS text mechanism yet.)
     public static func __attributedString(from html: String, in font: Font) throws -> NSAttributedString {
         var adjustedFontName = font.fontName
 
