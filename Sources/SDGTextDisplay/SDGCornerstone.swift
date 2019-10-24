@@ -15,6 +15,7 @@
 #if canImport(AppKit) || canImport(UIKit)
 import Foundation
 
+import SDGLogic
 import SDGText
 
 extension SemanticMarkup {
@@ -34,7 +35,8 @@ extension SemanticMarkup {
 
         if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) { // @exempt(from: unicode)
             // Older platforms do not support this CSS, but can use the name directly.
-            if adjustedFontName == Font.system.fontName || adjustedFontName == ".SFNS-Regular" {
+            if adjustedFontName == Font.system.fontName
+                ∨ adjustedFontName == Font.system.resized(to: font.size).fontName {
                 adjustedFontName = "\u{2D}apple\u{2D}system"
             }
         }
