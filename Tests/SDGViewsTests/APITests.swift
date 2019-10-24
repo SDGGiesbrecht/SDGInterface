@@ -49,7 +49,7 @@ final class APITests : ApplicationTestCase {
     }
 
     func testSwiftUIView() {
-        #if !os(iOS) // #workaround(xocdebuild -version 11.1, @availability checks are broken for iOS.) @exempt(from: unicode)
+        #if !os(iOS) // #workaround(xcodebuild -version 11.1, @availability checks are broken for iOS.) @exempt(from: unicode)
         #if (canImport(AppKit) || canImport(UIKit)) && canImport(SwiftUI)
         if #available(macOS 10.15, iOS 13, tvOS 13, *) { // @exempt(from: unicode)
             struct SwiftUIViewType : SwiftUI.View {
