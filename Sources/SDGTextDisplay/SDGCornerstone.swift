@@ -12,14 +12,15 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(UIKit)
+#if canImport(AppKit)
 import Foundation
 
+import SDGLogic
 import SDGText
 
 extension SemanticMarkup {
 
-    // #workaround(SDGCornerstone 2.5.1, The upstream version does not handle new iOS text mechanism yet.)
+    // #workaround(SDGCornerstone 3.0.0, The upstream version does not handle new macOS text mechanism yet.)
     internal func richText(font: Font) -> NSAttributedString {
         do {
             return try SemanticMarkup.__attributedString(from: String(html()), in: font)
@@ -28,13 +29,14 @@ extension SemanticMarkup {
         }
     }
 
-    // #workaround(SDGCornerstone 2.5.1, The upstream version does not handle new iOS text mechanism yet.)
+    // #workaround(SDGCornerstone 3.0.0, The upstream version does not handle new macOS text mechanism yet.)
     public static func __attributedString(from html: String, in font: Font) throws -> NSAttributedString {
         var adjustedFontName = font.fontName
 
-        if #available(iOS 13, watchOS 6, tvOS 13, *) { // @exempt(from: unicode)
+        if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) { // @exempt(from: unicode) @exempt(from: tests)
             // Older platforms do not support this CSS, but can use the name directly.
-            if adjustedFontName == Font.system.fontName {
+            if adjustedFontName == Font.system.fontName
+                ∨ adjustedFontName == Font.system.resized(to: font.size).fontName {
                 adjustedFontName = "\u{2D}apple\u{2D}system"
             }
         }

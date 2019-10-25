@@ -76,6 +76,7 @@ extension Font {
     /// - Parameters:
     ///     - size: The new point size.
     public func resized(to size: Double) -> Font {
+        // #workaround(SDGCornerstone 3.0.0, Sunk in 3.1.0.)
         #if canImport(AppKit)
         return Font(NSFontManager.shared.convert(native, toSize: CGFloat(size)))
         #else

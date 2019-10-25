@@ -26,7 +26,7 @@ extension NSAttributedString {
     #if canImport(AppKit) || canImport(UIKit)
     internal static func from(html: String, font: Font) throws -> NSAttributedString {
         let adjustedFont = font.resized(to: font.size × NSAttributedString.htmlCorrection)
-        #if canImport(UIKit)
+        #if canImport(AppKit)
         return try SemanticMarkup.__attributedString(from: html, in: adjustedFont)
         #else
         return try SemanticMarkup._attributedString(from: html, in: adjustedFont)
