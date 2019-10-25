@@ -33,7 +33,7 @@ extension SemanticMarkup {
     public static func __attributedString(from html: String, in font: Font) throws -> NSAttributedString {
         var adjustedFontName = font.fontName
 
-        if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) { // @exempt(from: unicode)
+        if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) { // @exempt(from: unicode) @exempt(from: tests)
             // Older platforms do not support this CSS, but can use the name directly.
             if adjustedFontName == Font.system.fontName
                 ∨ adjustedFontName == Font.system.resized(to: font.size).fontName {
