@@ -70,18 +70,5 @@ extension Font {
         return Font(UIFont(descriptor: descriptor, size: 0))
         #endif
     }
-
-    /// The same font in a different size.
-    ///
-    /// - Parameters:
-    ///     - size: The new point size.
-    public func resized(to size: Double) -> Font {
-        // #workaround(SDGCornerstone 3.0.0, Sunk in 3.1.0.)
-        #if canImport(AppKit)
-        return Font(NSFontManager.shared.convert(native, toSize: CGFloat(size)))
-        #else
-        return Font(UIFont(descriptor: native.fontDescriptor, size: CGFloat(size)))
-        #endif
-    }
 }
 #endif
