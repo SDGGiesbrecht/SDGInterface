@@ -41,7 +41,7 @@ public struct ApplicationNameLocalization : Localization {
 
     // MARK: - Localization
 
-    // #workaround(workspace version 0.23.1, Avoids parser crash.)
+    // #workaround(workspace version 0.24.0, Avoids parser crash.)
     /// Creates an instance from an IETF language tag.
     ///
     /// - Parameters:
@@ -55,11 +55,11 @@ public struct ApplicationNameLocalization : Localization {
         _correspondingIsolatedName = name
     }
 
-    // #workaround(workspace version 0.23.1, Avoids parser crash.)
+    // #workaround(workspace version 0.24.0, Avoids parser crash.)
     /// The corresponding IETF language tag.
     public var code: String
 
-    // #workaround(workspace version 0.23.1, Avoids parser crash.)
+    // #workaround(workspace version 0.24.0, Avoids parser crash.)
     /// The localization to use whenever none of the localizations requested by the user are available.
     public static var fallbackLocalization: ApplicationNameLocalization
         = ApplicationNameLocalization(undefined: ())
