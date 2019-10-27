@@ -360,6 +360,11 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
 
     // MARK: - ExpressiblyByStringInterpolation
 
+    // #workaround(workspace version 0.24.0, Inheritance not detected.)
+    /// Creates rich text from an interpolated string.
+    ///
+    /// - Parameters:
+    ///     - stringInterpolation: The interpolation.
     public init(stringInterpolation: SemanticMarkup.StringInterpolation) {
         #if canImport(AppKit) || canImport(UIKit)
         self.init(semanticMarkup: stringInterpolation.semanticMarkup)
