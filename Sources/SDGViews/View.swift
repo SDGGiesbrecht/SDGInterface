@@ -40,7 +40,6 @@ extension View {
     public var swiftUIView: some SwiftUI.View {
         return SDGView(self)
     }
-    #warning("customization point?")
     #endif
 
     // MARK: - Aspect Ratio
