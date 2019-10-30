@@ -1,0 +1,60 @@
+/*
+ SDGView.swift
+
+ This source file is part of the SDGInterface open source project.
+ https://sdggiesbrecht.github.io/SDGInterface
+
+ Copyright ©2019 Jeremy David Giesbrecht and the SDGInterface project contributors.
+
+ Soli Deo gloria.
+
+ Licensed under the Apache Licence, Version 2.0.
+ See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
+ */
+
+#if canImport(SwiftUI) && !os(iOS) // #workaround(xcodebuild -version 11.1, @availability checks are broken for iOS.) @exempt(from: unicode)
+import SwiftUI
+
+#if canImport(AppKit)
+@available(macOS 10.15, *)
+extension SDGView : NSViewRepresentable {}
+#endif
+#if canImport(UIKit)
+@available(tvOS 13, *)
+extension SDGView : UIViewRepresentable {}
+#endif
+
+@available(macOS 10.15, tvOS 13, *)
+internal struct SDGView {
+
+    // MARK: - Initialization
+
+    internal init(_ view: SDGViews.View) {
+        self.sdgView = view
+    }
+
+    // MARK: - Properties
+
+    private let sdgView: SDGViews.View
+
+    #if canImport(AppKit)
+    // MARK: - NSViewRepresentable
+
+    func makeNSView(context: NSViewRepresentableContext<SDGView>) -> NSView {
+        return sdgView.native
+    }
+
+    func updateNSView(_ nsView: NSView, context: NSViewRepresentableContext<SDGView>) {}
+    #endif
+
+    #if canImport(UIKit)
+    // MARK: - UIViewRepresentable
+
+    func makeUIView(context: UIViewRepresentableContext<SDGView>) -> UIView {
+        return sdgView.native
+    }
+
+    func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<SDGView>) {}
+    #endif
+}
+#endif
