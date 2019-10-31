@@ -12,6 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if !os(watchOS) // Wrapper not needed; uses SwiftUI natively.
 #if canImport(SwiftUI) && !os(iOS) // #workaround(xcodebuild -version 11.1, @availability checks are broken for iOS.) @exempt(from: unicode)
 import SwiftUI
 
@@ -59,4 +60,5 @@ internal struct SDGView {
     func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<SDGView>) {}
     #endif
 }
+#endif
 #endif
