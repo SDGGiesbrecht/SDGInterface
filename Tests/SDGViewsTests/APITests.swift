@@ -89,7 +89,8 @@ final class APITests : ApplicationTestCase {
 
         #if !os(iOS) // #workaround(xcodebuild -version 11.1, @availability checks are broken for iOS.) @exempt(from: unicode)
         if #available(macOS 10.15, tvOS 13, *) {
-            _ = newView().swiftUIView
+            let swiftUI = newView().swiftUIView
+            _ = swiftUI.body
         }
         #endif
         #endif
