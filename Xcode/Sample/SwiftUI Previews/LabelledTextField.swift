@@ -21,7 +21,7 @@ import SDGTextDisplay
 
 import SDGInterfaceLocalizations
 
-struct LabelledTextField_Previews: PreviewProvider {
+struct LabelledTextField_Previews : PreviewProvider {
     static var previews: some SwiftUI.View {
         let view = LabelledTextField<InterfaceLocalization>(labelText: .binding(Shared("Label")))
         let margin = AnyNativeView()
