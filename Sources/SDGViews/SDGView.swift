@@ -30,6 +30,7 @@ internal struct SDGView {
     // MARK: - Initialization
 
     internal init(_ view: SDGViews.View) {
+        // @exempt(from: tests) #workaround(workspace version 0.24.0, macOS 10.15 is unavailable in CI.)
         self.sdgView = view
     }
 
@@ -41,6 +42,7 @@ internal struct SDGView {
     // MARK: - NSViewRepresentable
 
     func makeNSView(context: NSViewRepresentableContext<SDGView>) -> NSView {
+        // @exempt(from: tests) #workaround(workspace version 0.24.0, macOS 10.15 is unavailable in CI.)
         return sdgView.native
     }
 
