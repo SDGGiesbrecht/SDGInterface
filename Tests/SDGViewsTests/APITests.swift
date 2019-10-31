@@ -88,7 +88,9 @@ final class APITests : ApplicationTestCase {
         newView().position(subviews: [EmptyView(), EmptyView()], inSequenceAlong: .horizontal, padding: .specific(0), leadingMargin: .specific(8), trailingMargin: .automatic)
 
         #if !os(iOS) // #workaround(xcodebuild -version 11.1, @availability checks are broken for iOS.) @exempt(from: unicode)
-        _ = newView.swiftUIView
+        if #available(macOS 10.15, tvOS 13, *) {
+            _ = newView().swiftUIView
+        }
         #endif
         #endif
     }
