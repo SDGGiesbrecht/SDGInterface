@@ -36,6 +36,7 @@ public protocol View : AnyObject {
 extension View {
 
     #if canImport(SwiftUI) && !os(iOS) // #workaround(xcodebuild -version 11.1, @availability checks are broken for iOS.) @exempt(from: unicode)
+    /// The SwiftUI view.
     @available(macOS 10.15, tvOS 13, *)
     public var swiftUIView: some SwiftUI.View {
         // @exempt(from: tests) #workaround(workspace version 0.24.0, macOS 10.15 is unavailable in CI.)
