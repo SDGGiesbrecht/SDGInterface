@@ -313,9 +313,11 @@ let package = Package(
 
         .testTarget(name: "SDGViewsTests", dependencies: [
             "SDGViews",
+            "SDGWindows",
             "SDGApplication",
             "SDGInterfaceSample",
             "SDGApplicationTestUtilities",
+            .product(name: "SDGControlFlow", package: "SDGCornerstone"),
             .product(name: "SDGXCTestUtilities", package: "SDGCornerstone")
             ]),
 
