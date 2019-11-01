@@ -54,10 +54,13 @@ internal struct SDGView {
     // MARK: - UIViewRepresentable
 
     func makeUIView(context: UIViewRepresentableContext<SDGView>) -> UIView {
+        // @exempt(from: tests) Not reachable from tests.
         return sdgView.native
     }
 
-    func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<SDGView>) {}
+    func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<SDGView>) {
+        // @exempt(from: tests) Not reachable from tests.
+    }
     #endif
 }
 #endif

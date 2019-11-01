@@ -96,6 +96,8 @@ final class APITests : ApplicationTestCase {
             let window = Window<InterfaceLocalization>.primaryWindow(
                 name: .binding(Shared("")),
                 view: SwiftUIView(swiftUI))
+            window.display()
+            window.close()
         }
         #endif
         #endif
