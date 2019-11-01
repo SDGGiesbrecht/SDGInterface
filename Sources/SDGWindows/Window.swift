@@ -180,7 +180,7 @@ public final class Window<L> : AnyWindow where L : Localization {
         if native.rootViewController == nil {
             native.rootViewController = UIViewController()
         }
-        native.rootViewController?.view = view.native
+        native.rootViewController?.view.map { AnyNativeView($0).fill(with: view, margin: .specific(0)) }
         #endif
     }
 

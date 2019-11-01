@@ -16,7 +16,10 @@
 import SwiftUI
 #endif
 
+import SDGControlFlow
+
 import SDGViews
+import SDGWindows
 import SDGApplication
 
 import SDGInterfaceSample
@@ -90,7 +93,9 @@ final class APITests : ApplicationTestCase {
         #if !os(iOS) // #workaround(xcodebuild -version 11.1, @availability checks are broken for iOS.) @exempt(from: unicode)
         if #available(macOS 10.15, tvOS 13, *) {
             let swiftUI = newView().swiftUIView
-            _ = swiftUI.body
+            let window = Window<InterfaceLocalization>.primaryWindow(
+                name: .binding(Shared("")),
+                view: SwiftUIView(swiftUI))
         }
         #endif
         #endif
