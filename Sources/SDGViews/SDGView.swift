@@ -13,7 +13,7 @@
  */
 
 #if !os(watchOS) // Wrapper not needed; uses SwiftUI natively.
-#if canImport(SwiftUI) && !os(iOS) // #workaround(xcodebuild -version 11.1, @availability checks are broken for iOS.) @exempt(from: unicode)
+#if canImport(SwiftUI) && !os(iOS) // #workaround(xcodebuild -version 11.2, @availability checks are broken for iOS.) @exempt(from: unicode)
 import SwiftUI
 
 #if canImport(AppKit)
