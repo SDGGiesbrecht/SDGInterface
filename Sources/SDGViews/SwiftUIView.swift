@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if !os(iOS) // #workaround(xcodebuild -version 11.1, @availability checks are broken for iOS.) @exempt(from: unicode)
+#if !os(iOS) // #workaround(xcodebuild -version 11.2, @availability checks are broken for iOS.) @exempt(from: unicode)
 
 #if ((canImport(AppKit) || canImport(UIKit)) && !os(watchOS)) && canImport(SwiftUI)
 import SwiftUI
@@ -33,7 +33,7 @@ public final class SwiftUIView<V> : SpecificView where V : SwiftUI.View {
     /// - Parameters:
     ///     - view: The view.
     public init(_ view: V) {
-        // @exempt(from: tests) #workaround(workspace version 0.24.0, macOS 10.15 is unavailable in CI.)
+        // @exempt(from: tests) #workaround(workspace version 0.25.0, macOS 10.15 is unavailable in CI.)
         #if canImport(AppKit)
         specificNative = NSHostingView(rootView: view)
         #elseif canImport(UIKit)

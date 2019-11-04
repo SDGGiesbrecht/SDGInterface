@@ -13,7 +13,7 @@
  */
 
 #if !os(watchOS) // Wrapper not needed; uses SwiftUI natively.
-#if canImport(SwiftUI) && !os(iOS) // #workaround(xcodebuild -version 11.1, @availability checks are broken for iOS.) @exempt(from: unicode)
+#if canImport(SwiftUI) && !os(iOS) // #workaround(xcodebuild -version 11.2, @availability checks are broken for iOS.) @exempt(from: unicode)
 import SwiftUI
 
 #if canImport(AppKit)
@@ -31,7 +31,7 @@ internal struct SDGView {
     // MARK: - Initialization
 
     internal init(_ view: SDGViews.View) {
-        // @exempt(from: tests) #workaround(workspace version 0.24.0, macOS 10.15 is unavailable in CI.)
+        // @exempt(from: tests) #workaround(workspace version 0.25.0, macOS 10.15 is unavailable in CI.)
         self.sdgView = view
     }
 
@@ -43,7 +43,7 @@ internal struct SDGView {
     // MARK: - NSViewRepresentable
 
     func makeNSView(context: NSViewRepresentableContext<SDGView>) -> NSView {
-        // @exempt(from: tests) #workaround(workspace version 0.24.0, macOS 10.15 is unavailable in CI.)
+        // @exempt(from: tests) #workaround(workspace version 0.25.0, macOS 10.15 is unavailable in CI.)
         return sdgView.native
     }
 
