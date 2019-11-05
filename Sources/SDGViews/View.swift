@@ -32,9 +32,11 @@ public protocol View : AnyObject {
     var native: UIView { get }
     #endif
 
+    #if canImport(SwiftUI) && !os(iOS) // #workaround(xcodebuild -version 11.2, @availability checks are broken for iOS.) @exempt(from: unicode)
     /// The SwiftUI view.
     @available(macOS 10.15, tvOS 13, *)
     var swiftUIView: SwiftUI.AnyView { get }
+    #endif
 }
 
 extension View {
