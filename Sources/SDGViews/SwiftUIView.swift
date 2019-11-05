@@ -55,6 +55,7 @@ public final class SwiftUIView<V> : SpecificView where V : SwiftUI.View {
     // MARK: - View
 
     public var swiftUIView: AnyView {
+        // @exempt(from: tests) #workaround(workspace version 0.25.0, macOS 10.15 is unavailable in CI.)
         return AnyView(nativeSwiftUIView)
     }
 }
