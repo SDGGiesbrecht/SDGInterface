@@ -47,7 +47,7 @@ public final class SwiftUIView<V> : SpecificView where V : SwiftUI.View {
     #if canImport(AppKit)
     public let specificNative: NSHostingView<V>
     #elseif canImport(UIKit)
-    public var specificNative: UIView
+    public let specificNative: UIView
     #endif
 }
 #endif
