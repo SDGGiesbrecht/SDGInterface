@@ -34,6 +34,7 @@ public final class SwiftUIView<V> : SpecificView where V : SwiftUI.View {
     ///     - view: The view.
     public init(_ view: V) {
         // @exempt(from: tests) #workaround(workspace version 0.25.0, macOS 10.15 is unavailable in CI.)
+        nativeSwiftUIView = view
         #if canImport(AppKit)
         specificNative = NSHostingView(rootView: view)
         #elseif canImport(UIKit)
@@ -44,11 +45,18 @@ public final class SwiftUIView<V> : SpecificView where V : SwiftUI.View {
 
     // MARK: - SpecificView
 
+    private let nativeSwiftUIView: V
     #if canImport(AppKit)
     public let specificNative: NSHostingView<V>
     #elseif canImport(UIKit)
     public let specificNative: UIView
     #endif
+
+    // MARK: - View
+
+    public var swiftUIView: AnyView {
+        return AnyView(nativeSwiftUIView)
+    }
 }
 #endif
 #endif
