@@ -61,6 +61,10 @@ final class APITests : ApplicationTestCase {
                 }
             }
             _ = SwiftUIView(SwiftUIViewType())
+
+            let view = Text(verbatim: "...")
+            let wrapped = SwiftUIView(view)
+            _ = wrapped.swiftUIView
         }
         #endif
         #endif
