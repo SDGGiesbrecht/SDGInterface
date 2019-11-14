@@ -13,7 +13,7 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-#if canImport(SwiftUI) && !os(iOS) // #workaround(xcodebuild -version 11.2, @availability checks are broken for iOS.) @exempt(from: unicode)
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
 import SwiftUI
 #endif
 #if canImport(AppKit)
@@ -32,17 +32,16 @@ public protocol View : AnyObject {
     var native: UIView { get }
     #endif
 
-    #if canImport(SwiftUI) && !os(iOS) // #workaround(xcodebuild -version 11.2, @availability checks are broken for iOS.) @exempt(from: unicode)
-    /// The SwiftUI view.
-    @available(macOS 10.15, tvOS 13, *)
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    @available(macOS 10.15, iOS 13, tvOS 13, *)
     var swiftUIView: SwiftUI.AnyView { get }
     #endif
 }
 
 extension View {
 
-    #if canImport(SwiftUI) && !os(iOS) // #workaround(xcodebuild -version 11.2, @availability checks are broken for iOS.) @exempt(from: unicode)
-    @available(macOS 10.15, tvOS 13, *)
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    @available(macOS 10.15, iOS 13, tvOS 13, *)
     public var swiftUIView: AnyView {
         // @exempt(from: tests) #workaround(workspace version 0.25.0, macOS 10.15 is unavailable in CI.)
         return AnyView(SDGView(self))

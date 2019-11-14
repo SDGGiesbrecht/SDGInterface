@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(SwiftUI) && !os(iOS) // #workaround(xcodebuild -version 11.2, @availability checks are broken for iOS.) @exempt(from: unicode)
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
 import SwiftUI
 
 import SDGControlFlow

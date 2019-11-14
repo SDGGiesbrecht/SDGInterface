@@ -13,7 +13,7 @@
  */
 
 #if !os(watchOS) // Wrapper not needed; uses SwiftUI natively.
-#if canImport(SwiftUI) && !os(iOS) // #workaround(xcodebuild -version 11.2, @availability checks are broken for iOS.) @exempt(from: unicode)
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
 import SwiftUI
 
 #if canImport(AppKit)
@@ -21,11 +21,11 @@ import SwiftUI
 extension SDGView : NSViewRepresentable {}
 #endif
 #if canImport(UIKit)
-@available(tvOS 13, *)
+@available(iOS 13, tvOS 13, *)
 extension SDGView : UIViewRepresentable {}
 #endif
 
-@available(macOS 10.15, tvOS 13, *)
+@available(macOS 10.15, iOS 13, tvOS 13, *)
 internal struct SDGView {
 
     // MARK: - Initialization
