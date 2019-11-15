@@ -12,9 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if !os(iOS) // #workaround(xcodebuild -version 11.2, @availability checks are broken for iOS.) @exempt(from: unicode)
-
-#if ((canImport(AppKit) || canImport(UIKit)) && !os(watchOS)) && canImport(SwiftUI)
+#if (((canImport(AppKit) || canImport(UIKit)) && !os(watchOS))) && (canImport(SwiftUI) && !(os(iOS) && arch(arm)))
 import SwiftUI
 #if canImport(AppKit)
 import AppKit
@@ -59,5 +57,4 @@ public final class SwiftUIView<V> : SpecificView where V : SwiftUI.View {
         return AnyView(nativeSwiftUIView)
     }
 }
-#endif
 #endif
