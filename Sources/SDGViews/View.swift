@@ -33,6 +33,7 @@ public protocol View : AnyObject {
     #endif
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    /// The SwiftUI view.
     @available(macOS 10.15, iOS 13, tvOS 13, *)
     var swiftUIView: SwiftUI.AnyView { get }
     #endif
