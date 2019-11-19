@@ -13,41 +13,41 @@
  */
 
 #if canImport(AppKit)
-import AppKit
+  import AppKit
 
-import SDGControlFlow
+  import SDGControlFlow
 
-extension TextField {
+  extension TextField {
 
-    internal class NormalizingCell : NSTextFieldCell {
+    internal class NormalizingCell: NSTextFieldCell {
 
-        // MARK: - Initialization
+      // MARK: - Initialization
 
-        internal init() {
-            super.init(textCell: "")
+      internal init() {
+        super.init(textCell: "")
+      }
+
+      internal required init(coder: NSCoder) {
+        super.init(coder: coder)  // @exempt(from: tests)
+      }
+
+      // MARK: - Field Editor
+
+      private var fieldEditor: FieldEditor?
+
+      internal override func fieldEditor(for aControlView: NSView) -> NSTextView? {
+        if let fromWindow = controlView?.window?.fieldEditor(true, for: self) as? FieldEditor {
+          return fromWindow
+        } else {
+          let fromCell = cached(in: &fieldEditor) {
+            return FieldEditor()
+          }
+
+          // Solves (or at least mitigates) zombie problem, unknown whether it causes leaks.
+          let unmanaged = Unmanaged.passRetained(fromCell)
+          return unmanaged.takeUnretainedValue()
         }
-
-        internal required init(coder: NSCoder) {
-            super.init(coder: coder) // @exempt(from: tests)
-        }
-
-        // MARK: - Field Editor
-
-        private var fieldEditor: FieldEditor?
-
-        internal override func fieldEditor(for aControlView: NSView) -> NSTextView? {
-            if let fromWindow = controlView?.window?.fieldEditor(true, for: self) as? FieldEditor {
-                return fromWindow
-            } else {
-                let fromCell = cached(in: &fieldEditor) {
-                    return FieldEditor()
-                }
-
-                // Solves (or at least mitigates) zombie problem, unknown whether it causes leaks.
-                let unmanaged = Unmanaged.passRetained(fromCell)
-                return unmanaged.takeUnretainedValue()
-            }
-        }
+      }
     }
-}
+  }
 #endif

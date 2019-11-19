@@ -15,18 +15,18 @@
 import Foundation
 
 extension RichText {
-    internal enum NormalizationAttribute : String, Codable {
+  internal enum NormalizationAttribute: String, Codable {
 
-        // MARK: - Type Properties
-        internal static let mapping: [Unicode.Scalar: NormalizationAttribute] = {
-            let data = Resources.normalizationMapping
-            let wrapper = (try? JSONDecoder().decode(NormalizationAttribute.Mapping.self, from: data))!
-            return wrapper.mapping
-        }()
+    // MARK: - Type Properties
+    internal static let mapping: [Unicode.Scalar: NormalizationAttribute] = {
+      let data = Resources.normalizationMapping
+      let wrapper = (try? JSONDecoder().decode(NormalizationAttribute.Mapping.self, from: data))!
+      return wrapper.mapping
+    }()
 
-        // MARK: - Cases
+    // MARK: - Cases
 
-        case superscript
-        case `subscript`
-    }
+    case superscript
+    case `subscript`
+  }
 }

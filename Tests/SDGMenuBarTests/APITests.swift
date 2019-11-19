@@ -27,66 +27,73 @@ import SDGXCTestUtilities
 
 import SDGApplicationTestUtilities
 
-final class APITests : ApplicationTestCase {
+final class APITests: ApplicationTestCase {
 
-    func testMenuBar() {
-        #if canImport(AppKit)
-        let menuBar = MenuBar.menuBar
-        XCTAssertNotNil(menuBar)
-        var submenu: AnyMenu?
-        _ = menuBar.menu.entries.first(where: { entry in
-            switch entry {
-            case .submenu(let menu):
-                submenu = menu
-                return true
-            default:
-                return false
-            }
-        })
-        XCTAssertNotNil(submenu)
-
-        let previous = ProcessInfo.applicationName
-        func testAllLocalizations() {
-            defer {
-                ProcessInfo.applicationName = previous
-            }
-            for localization in MenuBarLocalization.allCases {
-                LocalizationSetting(orderOfPrecedence: [localization.code]).do {
-                    _ = ContextMenu._normalizeText().label.resolved()
-                    _ = ContextMenu._showCharacterInformation().label.resolved()
-                    _ = (MenuBar.menuBar.menu as? Menu<InterfaceLocalization>)?.label.resolved()
-                }
-            }
+  func testMenuBar() {
+    #if canImport(AppKit)
+      let menuBar = MenuBar.menuBar
+      XCTAssertNotNil(menuBar)
+      var submenu: AnyMenu?
+      _ = menuBar.menu.entries.first(where: { entry in
+        switch entry {
+        case .submenu(let menu):
+          submenu = menu
+          return true
+        default:
+          return false
         }
+      })
+      XCTAssertNotNil(submenu)
 
-        ProcessInfo.applicationName = { form in
-            switch form {
-            case .english(.canada):
-                return "..."
-            default:
-                return nil
-            }
+      let previous = ProcessInfo.applicationName
+      func testAllLocalizations() {
+        defer {
+          ProcessInfo.applicationName = previous
         }
-        testAllLocalizations()
-        ProcessInfo.applicationName = { form in
-            switch form {
-            case .english(.unitedKingdom):
-                return "..."
-            default:
-                return nil
-            }
+        for localization in MenuBarLocalization.allCases {
+          LocalizationSetting(orderOfPrecedence: [localization.code]).do {
+            _ = ContextMenu._normalizeText().label.resolved()
+            _ = ContextMenu._showCharacterInformation().label.resolved()
+            _ = (MenuBar.menuBar.menu as? Menu<InterfaceLocalization>)?.label.resolved()
+          }
         }
-        testAllLocalizations()
+      }
 
-        let preferencesMenuItem = NSApplication.shared.mainMenu?.items.first?.submenu?.items.first(where: { $0.action == #selector(_NSApplicationDelegateProtocol.openPreferences(_:)) })
-        XCTAssertNotNil(preferencesMenuItem)
+      ProcessInfo.applicationName = { form in
+        switch form {
+        case .english(.canada):
+          return "..."
+        default:
+          return nil
+        }
+      }
+      testAllLocalizations()
+      ProcessInfo.applicationName = { form in
+        switch form {
+        case .english(.unitedKingdom):
+          return "..."
+        default:
+          return nil
+        }
+      }
+      testAllLocalizations()
 
-        let menu = MenuBar.menuBar.menu
-        MenuBar.menuBar.menu = Menu<APILocalization>(label: .binding(Shared("")))
-        MenuBar.menuBar.addApplicationSpecificSubmenu(Menu<APILocalization>(label: .binding(Shared(""))))
-        MenuBar.menuBar.addApplicationSpecificSubmenu(Menu<APILocalization>(label: .binding(Shared(""))))
-        MenuBar.menuBar.addApplicationSpecificSubmenu(Menu<APILocalization>(label: .binding(Shared(""))))
-        MenuBar.menuBar.menu = menu
-        #endif
-    }
+      let preferencesMenuItem = NSApplication.shared.mainMenu?.items.first?.submenu?.items.first(
+        where: { $0.action == #selector(_NSApplicationDelegateProtocol.openPreferences(_:)) })
+      XCTAssertNotNil(preferencesMenuItem)
+
+      let menu = MenuBar.menuBar.menu
+      MenuBar.menuBar.menu = Menu<APILocalization>(label: .binding(Shared("")))
+      MenuBar.menuBar.addApplicationSpecificSubmenu(
+        Menu<APILocalization>(label: .binding(Shared("")))
+      )
+      MenuBar.menuBar.addApplicationSpecificSubmenu(
+        Menu<APILocalization>(label: .binding(Shared("")))
+      )
+      MenuBar.menuBar.addApplicationSpecificSubmenu(
+        Menu<APILocalization>(label: .binding(Shared("")))
+      )
+      MenuBar.menuBar.menu = menu
+    #endif
+  }
 }

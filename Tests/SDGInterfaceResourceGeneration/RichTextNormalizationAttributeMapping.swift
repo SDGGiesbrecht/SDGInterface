@@ -13,34 +13,34 @@
  */
 
 #if canImport(AppKit)
-import Foundation
+  import Foundation
 
-import SDGLocalization
-import SDGPersistence
+  import SDGLocalization
+  import SDGPersistence
 
-@testable import SDGTextDisplay
+  @testable import SDGTextDisplay
 
-extension RichText.NormalizationAttribute.Mapping : Encodable, FileConvertible {
+  extension RichText.NormalizationAttribute.Mapping: Encodable, FileConvertible {
 
     // MARK: - Encodable
 
     public func encode(to encoder: Encoder) throws {
-        try encode(to: encoder, via: mapping.mapKeys({ String($0.hexadecimalCode) }))
+      try encode(to: encoder, via: mapping.mapKeys({ String($0.hexadecimalCode) }))
     }
 
     // MARK: - FileConvertible
 
     public init(file: Data, origin: URL?) throws {
-        self = try JSONDecoder().decode(RichText.NormalizationAttribute.Mapping.self, from: file)
+      self = try JSONDecoder().decode(RichText.NormalizationAttribute.Mapping.self, from: file)
     }
 
     public var file: Data {
-        let encoder = JSONEncoder()
-        if #available(macOS 10.13, *) { // @exempt(from: unicode)
-            encoder.outputFormatting.insert(.sortedKeys)
-        }
-        encoder.outputFormatting.insert(.prettyPrinted)
-        return (try? encoder.encode(self))!
+      let encoder = JSONEncoder()
+      if #available(macOS 10.13, *) {  // @exempt(from: unicode)
+        encoder.outputFormatting.insert(.sortedKeys)
+      }
+      encoder.outputFormatting.insert(.prettyPrinted)
+      return (try? encoder.encode(self))!
     }
-}
+  }
 #endif

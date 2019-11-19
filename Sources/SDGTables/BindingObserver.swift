@@ -13,10 +13,10 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-import SDGControlFlow
+  import SDGControlFlow
 
-@available(iOS 9, *) // @exempt(from: unicode)
-internal final class BindingObserver<RowData> : SharedValueObserver {
+  @available(iOS 9, *)  // @exempt(from: unicode)
+  internal final class BindingObserver<RowData>: SharedValueObserver {
 
     // MARK: - Properties
 
@@ -25,7 +25,7 @@ internal final class BindingObserver<RowData> : SharedValueObserver {
     // MARK: - SharedValueObserver
 
     internal func valueChanged(for identifier: String) {
-        table?.refreshBindings()
+      table?.refreshBindings()
     }
-}
+  }
 #endif

@@ -13,24 +13,24 @@
  */
 
 #if canImport(UIKit)
-import UIKit
+  import UIKit
 #endif
 
 /// Details about the launch.
 public struct LaunchDetails {
 
-    // MARK: - Initialization
+  // MARK: - Initialization
 
-    /// Creates empty details.
-    public init() {}
+  /// Creates empty details.
+  public init() {}
 
-    // MARK: - Properties
+  // MARK: - Properties
 
-    /// Some systems provide an accompanying notification.
-    public var notification: SystemNotification?
+  /// Some systems provide an accompanying notification.
+  public var notification: SystemNotification?
 
-    #if canImport(UIKit) && !os(watchOS)
+  #if canImport(UIKit) && !os(watchOS)
     /// Some systems specify options.
     public var options: [UIApplication.LaunchOptionsKey: Any]?
-    #endif
+  #endif
 }

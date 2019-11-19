@@ -14,10 +14,10 @@
 
 import Foundation
 #if canImport(AppKit)
-import AppKit
+  import AppKit
 #endif
 #if canImport(UIKit)
-import UIKit
+  import UIKit
 #endif
 
 import SDGControlFlow
@@ -30,214 +30,227 @@ import SDGInterfaceBasics
 /// Rich text.
 ///
 /// Rich text is built on `StrictString` and maintains normalization form NFKD, except where canonical reordering would cause scalars to cross attribute boundaries.
-public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStringConvertible, BidirectionalCollection, Equatable, ExpressibleByStringInterpolation, ExpressibleByStringLiteral, Hashable, RangeReplaceableCollection {
+public struct RichText: Addable, CustomPlaygroundDisplayConvertible, CustomStringConvertible,
+  BidirectionalCollection, Equatable, ExpressibleByStringInterpolation, ExpressibleByStringLiteral,
+  Hashable, RangeReplaceableCollection
+{
 
-    // MARK: - Initialization
+  // MARK: - Initialization
 
-    /// Creates rich text from raw text.
-    ///
-    /// - Parameters:
-    ///     - rawText: The raw text.
-    ///     - attributes: The rich text attributes.
-    public init(rawText: StrictString, attributes: [NSAttributedString.Key: Any] = [:]) {
-        let segments: [Segment] = rawText.isEmpty ? [] : [Segment(rawText: rawText, attributes: attributes)]
-        self.init(unsafeSegments: segments)
-    }
+  /// Creates rich text from raw text.
+  ///
+  /// - Parameters:
+  ///     - rawText: The raw text.
+  ///     - attributes: The rich text attributes.
+  public init(rawText: StrictString, attributes: [NSAttributedString.Key: Any] = [:]) {
+    let segments: [Segment] = rawText.isEmpty
+      ? [] : [Segment(rawText: rawText, attributes: attributes)]
+    self.init(unsafeSegments: segments)
+  }
 
-    #if canImport(AppKit) || canImport(UIKit)
+  #if canImport(AppKit) || canImport(UIKit)
     /// Creates rich text from semantic markup.
     ///
     /// - Parameters:
     ///     - semanticMarkup: The semantic markup.
     ///     - attributes: The rich text attributes.
     public init(semanticMarkup: SemanticMarkup, attributes: [NSAttributedString.Key: Any] = [:]) {
-        let font = attributes.font ?? Font.default
-        self.init(semanticMarkup.richText(font: font))
+      let font = attributes.font ?? Font.default
+      self.init(semanticMarkup.richText(font: font))
     }
-    #endif
+  #endif
 
-    private init(segments: [Segment]) {
-        self.segments = segments
-    }
+  private init(segments: [Segment]) {
+    self.segments = segments
+  }
 
-    private init(unsafeSegments: [Segment]) {
-        _segments = unsafeSegments
-    }
+  private init(unsafeSegments: [Segment]) {
+    _segments = unsafeSegments
+  }
 
-    /// Creates rich text from an attributed string.
-    public init(_ attributedString: NSAttributedString) {
-        var index = 0
-        var segments: [Segment] = []
-        while index < attributedString.length {
+  /// Creates rich text from an attributed string.
+  public init(_ attributedString: NSAttributedString) {
+    var index = 0
+    var segments: [Segment] = []
+    while index < attributedString.length {
 
-            var range = NSRange()
-            let attributes = attributedString.attributes(at: index, effectiveRange: &range)
-            let actualRange = NSRange(index ..< range.upperBound)
-            let existingSegment = attributedString.attributedSubstring(from: actualRange).string
+      var range = NSRange()
+      let attributes = attributedString.attributes(at: index, effectiveRange: &range)
+      let actualRange = NSRange(index..<range.upperBound)
+      let existingSegment = attributedString.attributedSubstring(from: actualRange).string
 
-            var segmentString = ""
-            for element in existingSegment.scalars {
+      var segmentString = ""
+      for element in existingSegment.scalars {
 
-                if let format = RichText.NormalizationAttribute.mapping[element] {
+        if let format = RichText.NormalizationAttribute.mapping[element] {
 
-                    segments.append(Segment(rawText: StrictString(segmentString), attributes: attributes))
-                    segmentString = ""
+          segments.append(Segment(rawText: StrictString(segmentString), attributes: attributes))
+          segmentString = ""
 
-                    var modified = attributes
-                    switch format {
-                    case .superscript:
-                        #if canImport(AppKit) || canImport(UIKit)
-                        NSAttributedString.addSuperscript(to: &modified)
-                        #else
-                        break
-                        #endif
-                    case .subscript:
-                        #if canImport(AppKit) || canImport(UIKit)
-                        NSAttributedString.addSubscript(to: &modified)
-                        #else
-                        break
-                        #endif
-                    }
-                    segments.append(Segment(rawText: StrictString(element), attributes: modified))
+          var modified = attributes
+          switch format {
+          case .superscript:
+            #if canImport(AppKit) || canImport(UIKit)
+              NSAttributedString.addSuperscript(to: &modified)
+            #else
+              break
+            #endif
+          case .subscript:
+            #if canImport(AppKit) || canImport(UIKit)
+              NSAttributedString.addSubscript(to: &modified)
+            #else
+              break
+            #endif
+          }
+          segments.append(Segment(rawText: StrictString(element), attributes: modified))
 
-                } else {
-                    segmentString.scalars.append(element)
-                }
-            }
-            segments.append(Segment(rawText: StrictString(segmentString), attributes: attributes))
-
-            index = range.upperBound
+        } else {
+          segmentString.scalars.append(element)
         }
-        self.segments = segments
+      }
+      segments.append(Segment(rawText: StrictString(segmentString), attributes: attributes))
+
+      index = range.upperBound
     }
+    self.segments = segments
+  }
 
-    // MARK: - Properties
+  // MARK: - Properties
 
-    private var _segments: [Segment] = []
-    private var segments: [Segment] {
-        get {
-            return _segments
-        }
-        set {
-            cache = Cache()
-            var new: [Segment] = []
-            for segment in newValue where ¬segment.rawText.isEmpty { // Ignore empty segments.
-                if let previous = new.last {
-                    if previous.attributesEqual(segment) { // @exempt(from: tests) Linux equality check unreliable.
-                        // Matches previous, so combine.
-
-                        new.removeLast()
-                        let replacement = Segment(rawText: previous.rawText + segment.rawText, attributes: segment.attributes)
-                        new.append(replacement)
-
-                    } else {
-                        // Differs from previous
-                        new.append(segment)
-                    }
-                } else {
-                    // First
-                    new.append(segment)
-                }
-            }
-            _segments = new
-        }
+  private var _segments: [Segment] = []
+  private var segments: [Segment] {
+    get {
+      return _segments
     }
+    set {
+      cache = Cache()
+      var new: [Segment] = []
+      for segment in newValue where ¬segment.rawText.isEmpty {  // Ignore empty segments.
+        if let previous = new.last {
+          if previous.attributesEqual(segment) {  // @exempt(from: tests) Linux equality check unreliable.
+            // Matches previous, so combine.
 
-    private class Cache {
-        fileprivate init() {}
-        fileprivate var rawText: StrictString?
-        fileprivate var scalars: String.UnicodeScalarView?
-        fileprivate var attributedString: NSAttributedString?
-    }
-    private var cache = Cache()
+            new.removeLast()
+            let replacement = Segment(
+              rawText: previous.rawText + segment.rawText,
+              attributes: segment.attributes
+            )
+            new.append(replacement)
 
-    // Computed
-
-    /// Returns the raw text version of the text.
-    ///
-    /// Raw text offsets may not match rich text offsets because normalization can cause scalars to cross over where attribute boundaries had been. The `scalars` property is provided for when matching offsets are necessary.
-    public func rawText() -> StrictString {
-        return cached(in: &cache.rawText) {
-            var string: StrictString = ""
-            for segment in segments {
-                string.append(contentsOf: segment.rawText)
-            }
-            return string
+          } else {
+            // Differs from previous
+            new.append(segment)
+          }
+        } else {
+          // First
+          new.append(segment)
         }
+      }
+      _segments = new
     }
+  }
 
-    /// Returns the text as a sequence of raw text Unicode scalars.
-    ///
-    /// Offsets are guaranteed to match those of the rich string because no normalization is performed that would cause scalars to cross attribute boundaries.
-    public func scalars() -> String.UnicodeScalarView {
-        return cached(in: &cache.scalars) {
-            var string = String.UnicodeScalarView()
-            for segment in segments {
-                string.append(contentsOf: segment.rawText.scalars)
-            }
-            return string
-        }
+  private class Cache {
+    fileprivate init() {}
+    fileprivate var rawText: StrictString?
+    fileprivate var scalars: String.UnicodeScalarView?
+    fileprivate var attributedString: NSAttributedString?
+  }
+  private var cache = Cache()
+
+  // Computed
+
+  /// Returns the raw text version of the text.
+  ///
+  /// Raw text offsets may not match rich text offsets because normalization can cause scalars to cross over where attribute boundaries had been. The `scalars` property is provided for when matching offsets are necessary.
+  public func rawText() -> StrictString {
+    return cached(in: &cache.rawText) {
+      var string: StrictString = ""
+      for segment in segments {
+        string.append(contentsOf: segment.rawText)
+      }
+      return string
     }
+  }
 
-    internal func attributedString() -> NSAttributedString {
-        return cached(in: &cache.attributedString) {
-            let mutable = NSMutableAttributedString(string: "")
-            for segment in segments {
-                mutable.append(NSAttributedString(string: String(segment.rawText), attributes: segment.attributes))
-            }
-            return mutable.copy() as! NSAttributedString
-        }
+  /// Returns the text as a sequence of raw text Unicode scalars.
+  ///
+  /// Offsets are guaranteed to match those of the rich string because no normalization is performed that would cause scalars to cross attribute boundaries.
+  public func scalars() -> String.UnicodeScalarView {
+    return cached(in: &cache.scalars) {
+      var string = String.UnicodeScalarView()
+      for segment in segments {
+        string.append(contentsOf: segment.rawText.scalars)
+      }
+      return string
     }
+  }
 
-    // MARK: - Attributes
+  internal func attributedString() -> NSAttributedString {
+    return cached(in: &cache.attributedString) {
+      let mutable = NSMutableAttributedString(string: "")
+      for segment in segments {
+        mutable.append(
+          NSAttributedString(string: String(segment.rawText), attributes: segment.attributes)
+        )
+      }
+      return mutable.copy() as! NSAttributedString
+    }
+  }
 
-    #if canImport(AppKit) || canImport(UIKit)
-    internal mutating func set<R>(attribute key: NSAttributedString.Key, to value: Any?, forRange range: R) where R : RangeExpression, R.Bound == Index {
-        var changedSegments: [Segment] = []
-        for segment in RichText(self[range]).segments {
-            var copy = segment
-            copy.attributes[key] = value
-            changedSegments.append(copy)
-        }
-        replaceSubrange(range, with: RichText(segments: changedSegments))
+  // MARK: - Attributes
+
+  #if canImport(AppKit) || canImport(UIKit)
+    internal mutating func set<R>(
+      attribute key: NSAttributedString.Key,
+      to value: Any?,
+      forRange range: R
+    ) where R: RangeExpression, R.Bound == Index {
+      var changedSegments: [Segment] = []
+      for segment in RichText(self[range]).segments {
+        var copy = segment
+        copy.attributes[key] = value
+        changedSegments.append(copy)
+      }
+      replaceSubrange(range, with: RichText(segments: changedSegments))
     }
 
     /// Superscripts the entire string.
     public mutating func superscript() {
-        segments = segments.map { segment in
-            var mutable = segment
-            NSAttributedString.addSuperscript(to: &mutable.attributes)
-            return mutable
-        }
+      segments = segments.map { segment in
+        var mutable = segment
+        NSAttributedString.addSuperscript(to: &mutable.attributes)
+        return mutable
+      }
     }
 
     /// Superscripts a particular range.
     ///
     /// - Parameters:
     ///     - range: The range.
-    public mutating func superscript<R>(range: R) where R : RangeExpression, R.Bound == Index {
-        var change = RichText(self[range])
-        change.superscript()
-        replaceSubrange(range, with: change)
+    public mutating func superscript<R>(range: R) where R: RangeExpression, R.Bound == Index {
+      var change = RichText(self[range])
+      change.superscript()
+      replaceSubrange(range, with: change)
     }
 
     /// Subscripts the entire string.
     public mutating func `subscript`() {
-        segments = segments.map { segment in
-            var mutable = segment
-            NSAttributedString.addSubscript(to: &mutable.attributes)
-            return mutable
-        }
+      segments = segments.map { segment in
+        var mutable = segment
+        NSAttributedString.addSubscript(to: &mutable.attributes)
+        return mutable
+      }
     }
 
     /// Subscripts a particular range.
     ///
     /// - Parameters:
     ///     - range: The range.
-    public mutating func `subscript`<R>(range: R) where R : RangeExpression, R.Bound == Index {
-        var change = RichText(self[range])
-        change.`subscript`()
-        replaceSubrange(range, with: change)
+    public mutating func `subscript`<R>(range: R) where R: RangeExpression, R.Bound == Index {
+      var change = RichText(self[range])
+      change.`subscript`()
+      replaceSubrange(range, with: change)
     }
 
     /// Sets the font for the entire string.
@@ -245,15 +258,16 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
     /// - Parameters:
     ///     - font: The font.
     public mutating func set(font: Font?) {
-        set(font: font, forRange: bounds)
+      set(font: font, forRange: bounds)
     }
     /// Sets the font for a particular range.
     ///
     /// - Parameters:
     ///     - font: The font.
     ///     - range: The range.
-    public mutating func set<R>(font: Font?, forRange range: R) where R : RangeExpression, R.Bound == Index {
-        set(attribute: NSAttributedString.Key.font, to: font, forRange: range)
+    public mutating func set<R>(font: Font?, forRange range: R)
+    where R: RangeExpression, R.Bound == Index {
+      set(attribute: NSAttributedString.Key.font, to: font, forRange: range)
     }
 
     /// Sets the font colour for the entire string.
@@ -261,15 +275,16 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
     /// - Parameters:
     ///     - colour: The colour.
     public mutating func set(colour: Colour?) {
-        set(colour: colour, forRange: bounds)
+      set(colour: colour, forRange: bounds)
     }
     /// Sets the font colour for a particular range.
     ///
     /// - Parameters:
     ///     - colour: The colour.
     /// 	- range: The range.
-    public mutating func set<R>(colour: Colour?, forRange range: R) where R : RangeExpression, R.Bound == Index {
-        set(attribute: NSAttributedString.Key.foregroundColor, to: colour, forRange: range)
+    public mutating func set<R>(colour: Colour?, forRange range: R)
+    where R: RangeExpression, R.Bound == Index {
+      set(attribute: NSAttributedString.Key.foregroundColor, to: colour, forRange: range)
     }
 
     /// Sets the paragraph style for the entire string.
@@ -277,179 +292,194 @@ public struct RichText : Addable, CustomPlaygroundDisplayConvertible, CustomStri
     /// - Parameters:
     ///     - paragraphStyle: The paragraph style.
     public mutating func set(paragraphStyle: NSParagraphStyle?) {
-        set(paragraphStyle: paragraphStyle, forRange: bounds)
+      set(paragraphStyle: paragraphStyle, forRange: bounds)
     }
     /// Sets the paragraph style for a particular range.
     ///
     /// - Parameters:
     ///     - paragraphStyle: The paragraph style.
     ///     - range: The range.
-    public mutating func set<R>(paragraphStyle: NSParagraphStyle?, forRange range: R) where R : RangeExpression, R.Bound == Index {
-        set(attribute: NSAttributedString.Key.paragraphStyle, to: paragraphStyle, forRange: range)
+    public mutating func set<R>(paragraphStyle: NSParagraphStyle?, forRange range: R)
+    where R: RangeExpression, R.Bound == Index {
+      set(attribute: NSAttributedString.Key.paragraphStyle, to: paragraphStyle, forRange: range)
     }
+  #endif
+
+  // MARK: - BidirectionalCollection
+
+  public func index(before i: RichText.Index) -> RichText.Index {
+    func endOfPrevious() -> Index {
+      let previousSegment = segments.index(before: i.segment)
+      let previous = segments[previousSegment].rawText
+      return Index(segment: previousSegment, scalar: previous.index(before: previous.endIndex))
+    }
+    if i == endIndex {
+      return endOfPrevious()
+    } else {
+      let segment = segments[i.segment]
+      if i.scalar == segment.rawText.startIndex {
+        return endOfPrevious()
+      } else {
+        return Index(segment: i.segment, scalar: segment.rawText.index(before: i.scalar))
+      }
+    }
+  }
+
+  // MARK: - Collection
+
+  public var startIndex: Index {
+    return Index(
+      segment: segments.startIndex,
+      scalar: segments.first?.rawText.startIndex ?? "".scalars.endIndex
+    )
+  }
+
+  public var endIndex: Index {
+    return Index(segment: segments.endIndex, scalar: "".scalars.endIndex)
+  }
+
+  public func index(after i: Index) -> Index {
+    let segment = segments[i.segment]
+    let nextScalar = segment.rawText.index(after: i.scalar)
+    if nextScalar == segment.rawText.endIndex {
+      let nextSegment = segments.index(after: i.segment)
+      if nextSegment == segments.endIndex {
+        return endIndex
+      } else {
+        return Index(segment: nextSegment, scalar: segments[nextSegment].rawText.startIndex)
+      }
+    } else {
+      return Index(segment: i.segment, scalar: nextScalar)
+    }
+  }
+
+  public subscript(position: Index) -> Scalar {
+    let segment = segments[position.segment]
+    let scalar = segment.rawText.scalars[position.scalar]
+    return Scalar(scalar, attributes: segment.attributes)
+  }
+
+  // MARK: - CustomPlaygroundDisplayConvertible
+
+  public var playgroundDescription: Any {
+    return attributedString()
+  }
+
+  // MARK: - CustomStringConvertible
+
+  public var description: String {
+    return String(rawText())
+  }
+
+  // MARK: - Equatable
+
+  public static func == (precedingValue: RichText, followingValue: RichText) -> Bool {
+    return precedingValue.segments == followingValue.segments
+  }
+
+  // MARK: - ExpressiblyByStringInterpolation
+
+  public init(stringInterpolation: SemanticMarkup.StringInterpolation) {
+    #if canImport(AppKit) || canImport(UIKit)
+      self.init(semanticMarkup: stringInterpolation.semanticMarkup)
+    #else
+      self.init(rawText: stringInterpolation.semanticMarkup.rawTextApproximation())
     #endif
+  }
 
-    // MARK: - BidirectionalCollection
+  // MARK: - ExpressibleByStringLiteral
 
-    public func index(before i: RichText.Index) -> RichText.Index {
-        func endOfPrevious() -> Index {
-            let previousSegment = segments.index(before: i.segment)
-            let previous = segments[previousSegment].rawText
-            return Index(segment: previousSegment, scalar: previous.index(before: previous.endIndex))
+  public init(stringLiteral value: String) {
+    self.init(rawText: StrictString(value))
+  }
+
+  // MARK: - Hashable
+
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(segments)
+  }
+
+  // MARK: - RangeReplaceableCollection
+
+  public init() {}
+
+  public init<S>(_ elements: S) where S: Sequence, S.Element == RichText.Scalar {
+    if let rich = elements as? RichText {
+      self = rich
+    } else if let slice = elements as? RichText.SubSequence {
+      var segments: [Segment] = []
+      for segmentIndex in slice.base.segments.indices {
+        if segmentIndex > slice.startIndex.segment {
+          if segmentIndex < slice.endIndex.segment {
+            // Between
+            segments.append(slice.base.segments[segmentIndex])
+          } else if segmentIndex == slice.endIndex.segment {
+            // Same segment as end.
+            let segment = slice.base.segments[segmentIndex]
+            let rawSlice = segment.rawText[..<slice.endIndex.scalar]
+            segments.append(
+              Segment(rawText: StrictString(rawSlice), attributes: segment.attributes)
+            )
+          }
+        } else if segmentIndex == slice.startIndex.segment {
+          if segmentIndex < slice.endIndex.segment {
+            // Same segment as start.
+            let segment = slice.base.segments[segmentIndex]
+            let rawSlice = segment.rawText[slice.startIndex.scalar...]
+            segments.append(
+              Segment(rawText: StrictString(rawSlice), attributes: segment.attributes)
+            )
+          } else if segmentIndex == slice.endIndex.segment {
+            // Same segment as both start and end.
+            let segment = slice.base.segments[segmentIndex]
+            let rawSlice = segment.rawText[slice.startIndex.scalar..<slice.endIndex.scalar]
+            segments.append(
+              Segment(rawText: StrictString(rawSlice), attributes: segment.attributes)
+            )
+          }
         }
-        if i == endIndex {
-            return endOfPrevious()
-        } else {
-            let segment = segments[i.segment]
-            if i.scalar == segment.rawText.startIndex {
-                return endOfPrevious()
-            } else {
-                return Index(segment: i.segment, scalar: segment.rawText.index(before: i.scalar))
-            }
-        }
+      }
+      self.segments = segments
+    } else {
+      segments = elements.map {
+        Segment(rawText: StrictString($0.rawScalar), attributes: $0.attributes)
+      }
     }
+  }
 
-    // MARK: - Collection
+  private static func concatenateRichText(_ first: RichText, _ second: RichText) -> RichText {
+    if first.isEmpty {
+      return second
+    } else if second.isEmpty {
+      return first
+    } else {
+      var firstSegments = first.segments
+      var secondSegments = second.segments
 
-    public var startIndex: Index {
-        return Index(segment: segments.startIndex, scalar: segments.first?.rawText.startIndex ?? "".scalars.endIndex)
+      let preceding = firstSegments.removeLast()
+      let next = secondSegments.removeFirst()
+      let nearbySegments = RichText(segments: [preceding, next]).segments
+
+      return RichText(unsafeSegments: firstSegments + nearbySegments + secondSegments)
     }
+  }
 
-    public var endIndex: Index {
-        return Index(segment: segments.endIndex, scalar: "".scalars.endIndex)
-    }
+  public mutating func append<S>(contentsOf newElements: S)
+  where S: Sequence, S.Element == RichText.Scalar {
+    self = RichText.concatenateRichText(self, RichText(newElements))
+  }
 
-    public func index(after i: Index) -> Index {
-        let segment = segments[i.segment]
-        let nextScalar = segment.rawText.index(after: i.scalar)
-        if nextScalar == segment.rawText.endIndex {
-            let nextSegment = segments.index(after: i.segment)
-            if nextSegment == segments.endIndex {
-                return endIndex
-            } else {
-                return Index(segment: nextSegment, scalar: segments[nextSegment].rawText.startIndex)
-            }
-        } else {
-            return Index(segment: i.segment, scalar: nextScalar)
-        }
-    }
+  public mutating func insert<S>(contentsOf newElements: S, at i: Index)
+  where S: Sequence, S.Element == RichText.Scalar {
+    replaceSubrange(i..<i, with: newElements)
+  }
 
-    public subscript(position: Index) -> Scalar {
-        let segment = segments[position.segment]
-        let scalar = segment.rawText.scalars[position.scalar]
-        return Scalar(scalar, attributes: segment.attributes)
-    }
-
-    // MARK: - CustomPlaygroundDisplayConvertible
-
-    public var playgroundDescription: Any {
-        return attributedString()
-    }
-
-    // MARK: - CustomStringConvertible
-
-    public var description: String {
-        return String(rawText())
-    }
-
-    // MARK: - Equatable
-
-    public static func == (precedingValue: RichText, followingValue: RichText) -> Bool {
-        return precedingValue.segments == followingValue.segments
-    }
-
-    // MARK: - ExpressiblyByStringInterpolation
-
-    public init(stringInterpolation: SemanticMarkup.StringInterpolation) {
-        #if canImport(AppKit) || canImport(UIKit)
-        self.init(semanticMarkup: stringInterpolation.semanticMarkup)
-        #else
-        self.init(rawText: stringInterpolation.semanticMarkup.rawTextApproximation())
-        #endif
-    }
-
-    // MARK: - ExpressibleByStringLiteral
-
-    public init(stringLiteral value: String) {
-        self.init(rawText: StrictString(value))
-    }
-
-    // MARK: - Hashable
-
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(segments)
-    }
-
-    // MARK: - RangeReplaceableCollection
-
-    public init() {}
-
-    public init<S>(_ elements: S) where S : Sequence, S.Element == RichText.Scalar {
-        if let rich = elements as? RichText {
-            self = rich
-        } else if let slice = elements as? RichText.SubSequence {
-            var segments: [Segment] = []
-            for segmentIndex in slice.base.segments.indices {
-                if segmentIndex > slice.startIndex.segment {
-                    if segmentIndex < slice.endIndex.segment {
-                        // Between
-                        segments.append(slice.base.segments[segmentIndex])
-                    } else if segmentIndex == slice.endIndex.segment {
-                        // Same segment as end.
-                        let segment = slice.base.segments[segmentIndex]
-                        let rawSlice = segment.rawText[..<slice.endIndex.scalar]
-                        segments.append(Segment(rawText: StrictString(rawSlice), attributes: segment.attributes))
-                    }
-                } else if segmentIndex == slice.startIndex.segment {
-                    if segmentIndex < slice.endIndex.segment {
-                        // Same segment as start.
-                        let segment = slice.base.segments[segmentIndex]
-                        let rawSlice = segment.rawText[slice.startIndex.scalar...]
-                        segments.append(Segment(rawText: StrictString(rawSlice), attributes: segment.attributes))
-                    } else if segmentIndex == slice.endIndex.segment {
-                        // Same segment as both start and end.
-                        let segment = slice.base.segments[segmentIndex]
-                        let rawSlice = segment.rawText[slice.startIndex.scalar ..< slice.endIndex.scalar]
-                        segments.append(Segment(rawText: StrictString(rawSlice), attributes: segment.attributes))
-                    }
-                }
-            }
-            self.segments = segments
-        } else {
-            segments = elements.map { Segment(rawText: StrictString($0.rawScalar), attributes: $0.attributes) }
-        }
-    }
-
-    private static func concatenateRichText(_ first: RichText, _ second: RichText) -> RichText {
-        if first.isEmpty {
-            return second
-        } else if second.isEmpty {
-            return first
-        } else {
-            var firstSegments = first.segments
-            var secondSegments = second.segments
-
-            let preceding = firstSegments.removeLast()
-            let next = secondSegments.removeFirst()
-            let nearbySegments = RichText(segments: [preceding, next]).segments
-
-            return RichText(unsafeSegments: firstSegments + nearbySegments + secondSegments)
-        }
-    }
-
-    public mutating func append<S>(contentsOf newElements: S) where S : Sequence, S.Element == RichText.Scalar {
-        self = RichText.concatenateRichText(self, RichText(newElements))
-    }
-
-    public mutating func insert<S>(contentsOf newElements: S, at i: Index) where S : Sequence, S.Element == RichText.Scalar {
-        replaceSubrange(i ..< i, with: newElements)
-    }
-
-    public mutating func replaceSubrange<S>(_ subrange: Range<RichText.Index>, with newElements: S) where S : Sequence, S.Element == RichText.Scalar {
-        let preceding = RichText(self[..<subrange.lowerBound])
-        let following = RichText(self[subrange.upperBound...])
-        var result = RichText.concatenateRichText(preceding, RichText(newElements))
-        result = RichText.concatenateRichText(result, following)
-        self = result
-    }
+  public mutating func replaceSubrange<S>(_ subrange: Range<RichText.Index>, with newElements: S)
+  where S: Sequence, S.Element == RichText.Scalar {
+    let preceding = RichText(self[..<subrange.lowerBound])
+    let following = RichText(self[subrange.upperBound...])
+    var result = RichText.concatenateRichText(preceding, RichText(newElements))
+    result = RichText.concatenateRichText(result, following)
+    self = result
+  }
 }

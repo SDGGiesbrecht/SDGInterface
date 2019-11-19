@@ -13,150 +13,174 @@
  */
 
 #if canImport(AppKit)
-import AppKit
+  import AppKit
 
-import SDGText
-import SDGLocalization
+  import SDGText
+  import SDGLocalization
 
-import SDGInterfaceBasics
-import SDGMenus
+  import SDGInterfaceBasics
+  import SDGMenus
 
-import SDGInterfaceLocalizations
+  import SDGInterfaceLocalizations
 
-extension MenuBar {
+  extension MenuBar {
 
     private static func normal() -> MenuEntry<MenuBarLocalization> {
-        let normal = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let normal = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Valor por omisión"
+              return "Valor por omisión"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Use Default"
+              return "Use Default"
             case .deutschDeutschland:
-                return "Normal"
+              return "Normal"
             case .françaisFrance:
-                return "Valeur par défaut"
+              return "Valeur par défaut"
             case .ελληνικάΕλλάδα:
-                return "Χρήση προεπιλογής"
+              return "Χρήση προεπιλογής"
             case .עברית־ישראל:
-                return "השתמש בברירת המחדל"
+              return "השתמש בברירת המחדל"
             }
-        })))
-        normal.action = #selector(RichTextEditingResponder.resetBaseline(_:))
-        return normal
+          })
+        )
+      )
+      normal.action = #selector(RichTextEditingResponder.resetBaseline(_:))
+      return normal
     }
 
     private static func superscript() -> MenuEntry<MenuBarLocalization> {
-        let superscript = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let superscript = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Superíndice"
+              return "Superíndice"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Superscript"
+              return "Superscript"
             case .deutschDeutschland:
-                return "Hochgestellt"
+              return "Hochgestellt"
             case .françaisFrance:
-                return "Exposant"
+              return "Exposant"
             case .ελληνικάΕλλάδα:
-                return "Εκθέτης"
+              return "Εκθέτης"
             case .עברית־ישראל:
-                return "כתב עילי"
+              return "כתב עילי"
             }
-        })))
-        superscript.action = #selector(RichTextEditingResponder.makeSuperscript(_:))
-        return superscript
+          })
+        )
+      )
+      superscript.action = #selector(RichTextEditingResponder.makeSuperscript(_:))
+      return superscript
     }
 
     private static func `subscript`() -> MenuEntry<MenuBarLocalization> {
-       let `subscript` = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let `subscript` = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Subíndice"
+              return "Subíndice"
             case .françaisFrance:
-                return "Indice"
+              return "Indice"
 
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Subscript"
+              return "Subscript"
             case .deutschDeutschland:
-                return "Tiefgestellt"
+              return "Tiefgestellt"
             case .ελληνικάΕλλάδα:
-                return "Δεικτής"
+              return "Δεικτής"
             case .עברית־ישראל:
-                return "כתב תחתי"
+              return "כתב תחתי"
             }
-        })))
-        `subscript`.action = #selector(RichTextEditingResponder.makeSubscript(_:))
-        return `subscript`
+          })
+        )
+      )
+      `subscript`.action = #selector(RichTextEditingResponder.makeSubscript(_:))
+      return `subscript`
     }
 
     private static func raise() -> MenuEntry<MenuBarLocalization> {
-        let raise = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let raise = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Subir"
+              return "Subir"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Raise"
+              return "Raise"
             case .deutschDeutschland:
-                return "Höher"
+              return "Höher"
             case .françaisFrance:
-                return "Élever"
+              return "Élever"
             case .ελληνικάΕλλάδα:
-                return "Ανύψωση"
+              return "Ανύψωση"
             case .עברית־ישראל:
-                return "הגבה"
+              return "הגבה"
             }
-        })))
-        raise.action = #selector(NSTextView.raiseBaseline(_:))
-        return raise
+          })
+        )
+      )
+      raise.action = #selector(NSTextView.raiseBaseline(_:))
+      return raise
     }
 
     private static func lower() -> MenuEntry<MenuBarLocalization> {
-        let lower = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let lower = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Bajar"
+              return "Bajar"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Lower"
+              return "Lower"
             case .deutschDeutschland:
-                return "Niedriger"
+              return "Niedriger"
             case .françaisFrance:
-                return "Abaisser"
+              return "Abaisser"
             case .ελληνικάΕλλάδα:
-                return "Χαμήλωμα"
+              return "Χαμήλωμα"
             case .עברית־ישראל:
-                return "נמוך יותר"
+              return "נמוך יותר"
             }
-        })))
-        lower.action = #selector(NSTextView.lowerBaseline(_:))
-        return lower
+          })
+        )
+      )
+      lower.action = #selector(NSTextView.lowerBaseline(_:))
+      return lower
     }
 
     internal static func baseline() -> Menu<MenuBarLocalization> {
-        let baseline = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let baseline = Menu(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Línea base"
+              return "Línea base"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Baseline"
+              return "Baseline"
             case .françaisFrance:
-                return "Ligne de base"
+              return "Ligne de base"
 
             case .deutschDeutschland:
-                return "Schriftlinie"
+              return "Schriftlinie"
             case .ελληνικάΕλλάδα:
-                return "Γραμμή βάσης"
+              return "Γραμμή βάσης"
             case .עברית־ישראל:
-                return "קו בסיס"
+              return "קו בסיס"
             }
-        })))
-        baseline.entries = [
-            .entry(normal()),
-            .entry(superscript()),
-            .entry(`subscript`()),
-            .entry(raise()),
-            .entry(lower())
-        ]
-        return baseline
+          })
+        )
+      )
+      baseline.entries = [
+        .entry(normal()),
+        .entry(superscript()),
+        .entry(`subscript`()),
+        .entry(raise()),
+        .entry(lower())
+      ]
+      return baseline
     }
-}
+  }
 #endif

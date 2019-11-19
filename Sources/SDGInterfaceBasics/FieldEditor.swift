@@ -13,10 +13,10 @@
  */
 
 #if canImport(AppKit)
-import AppKit
+  import AppKit
 
-public var _getFieldEditor: () -> NSTextView = {
+  public var _getFieldEditor: () -> NSTextView = {
     return NSTextView()
-}
-public var _resetFieldEditors: () -> Void = {}
+  }
+  public var _resetFieldEditors: () -> Void = {}
 #endif

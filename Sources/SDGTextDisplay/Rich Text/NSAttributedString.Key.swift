@@ -14,42 +14,42 @@
 
 import Foundation
 #if canImport(AppKit)
-import AppKit
+  import AppKit
 #endif
 #if canImport(UIKit)
-import UIKit
+  import UIKit
 #endif
 
 import SDGText
 
 extension NSAttributedString.Key {
-    #if !canImport(AppKit)
+  #if !canImport(AppKit)
     // This fills in a hole in the API of `UIKit`. While absent from the API, `UIKit` methods generate attributed strings using this attribute the same way `AppKit` does.
     internal static let superscript = NSAttributedString.Key(rawValue: "NSSuperScript")
-    #endif
-    internal static let smallCaps = NSAttributedString.Key(rawValue: "SDGSmallCaps")
+  #endif
+  internal static let smallCaps = NSAttributedString.Key(rawValue: "SDGSmallCaps")
 }
 
 extension Dictionary where Key == NSAttributedString.Key, Value == Any {
 
-    #if canImport(AppKit) || canImport(UIKit)
+  #if canImport(AppKit) || canImport(UIKit)
     /// Returns the font in the attribute dictionary.
     public var font: Font? {
-        get {
-            #if canImport(AppKit)
-            typealias NativeFont = NSFont
-            #elseif canImport(UIKit)
-            typealias NativeFont = UIFont
-            #endif
-            if let font = self[.font] as? NativeFont {
-                return Font(font)
-            } else {
-                return nil
-            }
+      get {
+        #if canImport(AppKit)
+          typealias NativeFont = NSFont
+        #elseif canImport(UIKit)
+          typealias NativeFont = UIFont
+        #endif
+        if let font = self[.font] as? NativeFont {
+          return Font(font)
+        } else {
+          return nil
         }
-        set {
-            self[.font] = newValue?.native
-        }
+      }
+      set {
+        self[.font] = newValue?.native
+      }
     }
-    #endif
+  #endif
 }

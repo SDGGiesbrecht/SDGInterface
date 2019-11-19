@@ -13,14 +13,18 @@
  */
 
 #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
-import UIKit
+  import UIKit
 
-internal class UIPopoverPresentationControllerDelegate : NSObject, UIKit.UIPopoverPresentationControllerDelegate {
+  internal class UIPopoverPresentationControllerDelegate: NSObject, UIKit
+      .UIPopoverPresentationControllerDelegate
+  {
 
     internal static let delegate = UIPopoverPresentationControllerDelegate()
 
-    internal func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle { // @exempt(from: tests)
-        return .none
+    internal func adaptivePresentationStyle(for controller: UIPresentationController)
+      -> UIModalPresentationStyle
+    {  // @exempt(from: tests)
+      return .none
     }
-}
+  }
 #endif

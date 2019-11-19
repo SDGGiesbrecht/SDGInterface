@@ -14,186 +14,214 @@
 
 #if canImport(AppKit)
 
-import AppKit
+  import AppKit
 
-import SDGText
-import SDGLocalization
+  import SDGText
+  import SDGLocalization
 
-import SDGMenus
+  import SDGMenus
 
-import SDGInterfaceLocalizations
+  import SDGInterfaceLocalizations
 
-extension MenuBar {
+  extension MenuBar {
 
     private static func findEntry() -> MenuEntry<MenuBarLocalization> {
-        let find = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let find = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Buscar..."
+              return "Buscar..."
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Find..."
+              return "Find..."
             case .deutschDeutschland:
-                return "Suchen ..."
+              return "Suchen ..."
             case .françaisFrance:
-                return "Rechercher..."
+              return "Rechercher..."
             case .ελληνικάΕλλάδα:
-                return "Εύρεση"
+              return "Εύρεση"
             case .עברית־ישראל:
-                return "חיפוש..."
+              return "חיפוש..."
             }
-        })))
-        find.action = #selector(NSTextView.performFindPanelAction(_:))
-        find.tag = 1
-        find.hotKey = "f"
-        find.hotKeyModifiers = .command
-        return find
+          })
+        )
+      )
+      find.action = #selector(NSTextView.performFindPanelAction(_:))
+      find.tag = 1
+      find.hotKey = "f"
+      find.hotKeyModifiers = .command
+      return find
     }
 
     private static func findAndReplace() -> MenuEntry<MenuBarLocalization> {
-        let replace = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let replace = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Buscar y reemplazar..."
+              return "Buscar y reemplazar..."
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Find & Replace..."
+              return "Find & Replace..."
             case .deutschDeutschland:
-                return "Suchen und Ersetzen ..."
+              return "Suchen und Ersetzen ..."
             case .françaisFrance:
-                return "Rechercher et remplacer..."
+              return "Rechercher et remplacer..."
             case .ελληνικάΕλλάδα:
-                return "Εύρεση και αντικατάσταση..."
+              return "Εύρεση και αντικατάσταση..."
             case .עברית־ישראל:
-                return "חפש והחלף..."
+              return "חפש והחלף..."
             }
-        })))
-        replace.action = #selector(NSTextView.performFindPanelAction(_:))
-        replace.tag = 12
-        replace.hotKey = "f"
-        replace.hotKeyModifiers = [.command, .option]
-        return replace
+          })
+        )
+      )
+      replace.action = #selector(NSTextView.performFindPanelAction(_:))
+      replace.tag = 12
+      replace.hotKey = "f"
+      replace.hotKeyModifiers = [.command, .option]
+      return replace
     }
 
     private static func findNext() -> MenuEntry<MenuBarLocalization> {
-        let findNext = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let findNext = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Buscar siguiente"
+              return "Buscar siguiente"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Find Next"
+              return "Find Next"
             case .deutschDeutschland:
-                return "Weitersuchen (vorwärts)"
+              return "Weitersuchen (vorwärts)"
             case .françaisFrance:
-                return "Rechercher le suivant"
+              return "Rechercher le suivant"
             case .ελληνικάΕλλάδα:
-                return "Εύρεση επόμενου"
+              return "Εύρεση επόμενου"
             case .עברית־ישראל:
-                return "חפש את הבא"
+              return "חפש את הבא"
             }
-        })))
-        findNext.action = #selector(NSTextView.performFindPanelAction(_:))
-        findNext.tag = 2
-        findNext.hotKey = "g"
-        findNext.hotKeyModifiers = [.command]
-        return findNext
+          })
+        )
+      )
+      findNext.action = #selector(NSTextView.performFindPanelAction(_:))
+      findNext.tag = 2
+      findNext.hotKey = "g"
+      findNext.hotKeyModifiers = [.command]
+      return findNext
     }
 
     private static func findPrevious() -> MenuEntry<MenuBarLocalization> {
-        let findPrevious = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let findPrevious = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Buscar antetior"
+              return "Buscar antetior"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Find Previous"
+              return "Find Previous"
             case .deutschDeutschland:
-                return "Weitersuchen (rückwärts)"
+              return "Weitersuchen (rückwärts)"
             case .françaisFrance:
-                return "Rechercher le précédent"
+              return "Rechercher le précédent"
             case .ελληνικάΕλλάδα:
-                return "Εύρεση προηγούμενου"
+              return "Εύρεση προηγούμενου"
             case .עברית־ישראל:
-                return "חפש את הקודם"
+              return "חפש את הקודם"
             }
-        })))
-        findPrevious.action = #selector(NSTextView.performFindPanelAction(_:))
-        findPrevious.tag = 3
-        findPrevious.hotKey = "G"
-        findPrevious.hotKeyModifiers = [.command]
-        return findPrevious
+          })
+        )
+      )
+      findPrevious.action = #selector(NSTextView.performFindPanelAction(_:))
+      findPrevious.tag = 3
+      findPrevious.hotKey = "G"
+      findPrevious.hotKeyModifiers = [.command]
+      return findPrevious
     }
 
     private static func useSelectionForFind() -> MenuEntry<MenuBarLocalization> {
-        let useSelectionForFind = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let useSelectionForFind = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Usar selección para buscar"
+              return "Usar selección para buscar"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Use Selection for Find"
+              return "Use Selection for Find"
             case .deutschDeutschland:
-                return "Auswahl suchen"
+              return "Auswahl suchen"
             case .françaisFrance:
-                return "Rechercher la sélection"
+              return "Rechercher la sélection"
             case .ελληνικάΕλλάδα:
-                return "Χρήση επιλογής για εύρεση"
+              return "Χρήση επιλογής για εύρεση"
             case .עברית־ישראל:
-                return "השתמש במלל הנבחר לחיפוש"
+              return "השתמש במלל הנבחר לחיפוש"
             }
-        })))
-        useSelectionForFind.action = #selector(NSTextView.performFindPanelAction(_:))
-        useSelectionForFind.tag = 7
-        useSelectionForFind.hotKey = "e"
-        useSelectionForFind.hotKeyModifiers = .command
-        return useSelectionForFind
+          })
+        )
+      )
+      useSelectionForFind.action = #selector(NSTextView.performFindPanelAction(_:))
+      useSelectionForFind.tag = 7
+      useSelectionForFind.hotKey = "e"
+      useSelectionForFind.hotKeyModifiers = .command
+      return useSelectionForFind
     }
 
     private static func jumpToSelection() -> MenuEntry<MenuBarLocalization> {
-        let jumpToSelection = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let jumpToSelection = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Ir a la selección"
+              return "Ir a la selección"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Jump to Selection"
+              return "Jump to Selection"
             case .deutschDeutschland:
-                return "Auswahl anzeigen"
+              return "Auswahl anzeigen"
             case .françaisFrance:
-                return "Aller à la sélection"
+              return "Aller à la sélection"
             case .ελληνικάΕλλάδα:
-                return "Μετάβαση σε επιλογή"
+              return "Μετάβαση σε επιλογή"
             case .עברית־ישראל:
-                return "עבור על הקטע הנבחר"
+              return "עבור על הקטע הנבחר"
             }
-        })))
-        jumpToSelection.action = #selector(NSResponder.centerSelectionInVisibleArea(_:))
-        jumpToSelection.hotKey = "j"
-        jumpToSelection.hotKeyModifiers = [.command]
-        return jumpToSelection
+          })
+        )
+      )
+      jumpToSelection.action = #selector(NSResponder.centerSelectionInVisibleArea(_:))
+      jumpToSelection.hotKey = "j"
+      jumpToSelection.hotKeyModifiers = [.command]
+      return jumpToSelection
     }
 
     internal static func find() -> Menu<MenuBarLocalization> {
-        let find = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let find = Menu(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Buscar"
+              return "Buscar"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Find"
+              return "Find"
             case .deutschDeutschland:
-                return "Suchen"
+              return "Suchen"
             case .françaisFrance:
-                return "Rechercher"
+              return "Rechercher"
             case .ελληνικάΕλλάδα:
-                return "Εύρεση"
+              return "Εύρεση"
             case .עברית־ישראל:
-                return "חיפוש"
+              return "חיפוש"
             }
-        })))
-        find.entries = [
-            .entry(findEntry()),
-            .entry(findAndReplace()),
-            .entry(findNext()),
-            .entry(findPrevious()),
-            .entry(jumpToSelection()),
-            .entry(useSelectionForFind())
-        ]
-        return find
+          })
+        )
+      )
+      find.entries = [
+        .entry(findEntry()),
+        .entry(findAndReplace()),
+        .entry(findNext()),
+        .entry(findPrevious()),
+        .entry(jumpToSelection()),
+        .entry(useSelectionForFind())
+      ]
+      return find
     }
-}
+  }
 #endif

@@ -13,48 +13,56 @@
  */
 
 #if canImport(AppKit)
-import ObjectiveC
+  import ObjectiveC
 
-import SDGText
-import SDGLocalization
+  import SDGText
+  import SDGLocalization
 
-import SDGMenus
-import SDGMenuBar
-import SDGApplication
+  import SDGMenus
+  import SDGMenuBar
+  import SDGApplication
 
-import SDGInterfaceLocalizations
+  import SDGInterfaceLocalizations
 
-extension MenuBar {
+  extension MenuBar {
 
     private static func error() -> MenuEntry<InterfaceLocalization> {
-        let error = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
+      let error = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
-                return "Error"
+              return "Error"
             }
-        })))
-        error.action = #selector(Application.demonstrateError)
-        error.target = Application.shared
-        return error
+          })
+        )
+      )
+      error.action = #selector(Application.demonstrateError)
+      error.target = Application.shared
+      return error
     }
 
     private static func sample() -> Menu<InterfaceLocalization> {
-        let sample = Menu(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
+      let sample = Menu(
+        label: .static(
+          UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
-                return "Sample"
+              return "Sample"
             }
-        })))
-        sample.entries = [
-            .entry(error()),
-            .submenu(menu()),
-            .submenu(view()),
-            .submenu(window())
-        ]
-        return sample
+          })
+        )
+      )
+      sample.entries = [
+        .entry(error()),
+        .submenu(menu()),
+        .submenu(view()),
+        .submenu(window())
+      ]
+      return sample
     }
     internal func setSamplesUp() {
-        addApplicationSpecificSubmenu(MenuBar.sample())
+      addApplicationSpecificSubmenu(MenuBar.sample())
     }
-}
+  }
 #endif

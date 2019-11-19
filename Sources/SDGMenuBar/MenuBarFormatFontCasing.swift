@@ -13,153 +13,169 @@
  */
 
 #if canImport(AppKit)
-import AppKit
+  import AppKit
 
-import SDGText
-import SDGLocalization
+  import SDGText
+  import SDGLocalization
 
-import SDGInterfaceBasics
-import SDGMenus
+  import SDGInterfaceBasics
+  import SDGMenus
 
-import SDGInterfaceLocalizations
+  import SDGInterfaceLocalizations
 
-extension MenuBar {
+  extension MenuBar {
 
     private static func useDefault() -> MenuEntry<InterfaceLocalization> {
-        let useDefault = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
+      let useDefault = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Use Default"
+              return "Use Default"
             case .deutschDeutschland:
-                return "Normal"
+              return "Normal"
             }
-        })))
-        useDefault.action = #selector(RichTextEditingResponder.resetCasing(_:))
-        return useDefault
+          })
+        )
+      )
+      useDefault.action = #selector(RichTextEditingResponder.resetCasing(_:))
+      return useDefault
     }
 
     private static func latinate() -> MenuEntry<InterfaceLocalization> {
-        return MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
+      return MenuEntry(
+        label: .static(
+          UserFacing<StrictString, InterfaceLocalization>({ localization in
             var latinate: StrictString
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                latinate = "Latinate"
+              latinate = "Latinate"
             case .deutschDeutschland:
-                return "Lateinische"
+              return "Lateinische"
             }
             return latinate + " (I ↔ i)"
-        })))
+          })
+        )
+      )
     }
 
     private static func upperCaseLabel() -> UserFacing<StrictString, InterfaceLocalization> {
-        return UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Upper Case"
-            case .deutschDeutschland:
-                return "Großbuchstaben"
-            }
-        })
+      return UserFacing<StrictString, InterfaceLocalization>({ localization in
+        switch localization {
+        case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+          return "Upper Case"
+        case .deutschDeutschland:
+          return "Großbuchstaben"
+        }
+      })
     }
     private static func latinateUpperCase() -> MenuEntry<InterfaceLocalization> {
-        let latinateUpperCase = MenuEntry(label: .static(upperCaseLabel()))
-        latinateUpperCase.action = #selector(RichTextEditingResponder.makeLatinateUpperCase(_:))
-        latinateUpperCase.indentationLevel = 1
-        return latinateUpperCase
+      let latinateUpperCase = MenuEntry(label: .static(upperCaseLabel()))
+      latinateUpperCase.action = #selector(RichTextEditingResponder.makeLatinateUpperCase(_:))
+      latinateUpperCase.indentationLevel = 1
+      return latinateUpperCase
     }
 
     private static func smallUpperCaseLabel() -> UserFacing<StrictString, InterfaceLocalization> {
-        return UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Small Upper Case"
-            case .deutschDeutschland:
-                return "Kapitälchen"
-            }
-        })
+      return UserFacing<StrictString, InterfaceLocalization>({ localization in
+        switch localization {
+        case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+          return "Small Upper Case"
+        case .deutschDeutschland:
+          return "Kapitälchen"
+        }
+      })
     }
 
     private static func latinateSmallUpperCase() -> MenuEntry<InterfaceLocalization> {
-        let latinateSmallUpperCase = MenuEntry(label: .static(smallUpperCaseLabel()))
-        latinateSmallUpperCase.action = #selector(RichTextEditingResponder.makeLatinateSmallCaps(_:))
-        latinateSmallUpperCase.indentationLevel = 1
-        return latinateSmallUpperCase
+      let latinateSmallUpperCase = MenuEntry(label: .static(smallUpperCaseLabel()))
+      latinateSmallUpperCase.action = #selector(RichTextEditingResponder.makeLatinateSmallCaps(_:))
+      latinateSmallUpperCase.indentationLevel = 1
+      return latinateSmallUpperCase
     }
 
     private static func lowerCaseLabel() -> UserFacing<StrictString, InterfaceLocalization> {
-        return UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Lower Case"
-            case .deutschDeutschland:
-                return "Kleinbuchstaben"
-            }
-        })
+      return UserFacing<StrictString, InterfaceLocalization>({ localization in
+        switch localization {
+        case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+          return "Lower Case"
+        case .deutschDeutschland:
+          return "Kleinbuchstaben"
+        }
+      })
     }
     private static func latinateLowerCase() -> MenuEntry<InterfaceLocalization> {
-        let latinateLowerCase = MenuEntry(label: .static(lowerCaseLabel()))
-        latinateLowerCase.action = #selector(RichTextEditingResponder.makeLatinateLowerCase(_:))
-        latinateLowerCase.indentationLevel = 1
-        return latinateLowerCase
+      let latinateLowerCase = MenuEntry(label: .static(lowerCaseLabel()))
+      latinateLowerCase.action = #selector(RichTextEditingResponder.makeLatinateLowerCase(_:))
+      latinateLowerCase.indentationLevel = 1
+      return latinateLowerCase
     }
 
     private static func turkic() -> MenuEntry<InterfaceLocalization> {
-        return MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
+      return MenuEntry(
+        label: .static(
+          UserFacing<StrictString, InterfaceLocalization>({ localization in
             var turkic: StrictString
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                turkic = "Turkic"
+              turkic = "Turkic"
             case .deutschDeutschland:
-                return "Türkische"
+              return "Türkische"
             }
             return turkic + " (I ↔ ı, İ ↔ i)"
-        })))
+          })
+        )
+      )
     }
 
     private static func turkicUpperCase() -> MenuEntry<InterfaceLocalization> {
-        let turkicUpperCase = MenuEntry(label: .static(upperCaseLabel()))
-        turkicUpperCase.action = #selector(RichTextEditingResponder.makeTurkicUpperCase(_:))
-        turkicUpperCase.indentationLevel = 1
-        return turkicUpperCase
+      let turkicUpperCase = MenuEntry(label: .static(upperCaseLabel()))
+      turkicUpperCase.action = #selector(RichTextEditingResponder.makeTurkicUpperCase(_:))
+      turkicUpperCase.indentationLevel = 1
+      return turkicUpperCase
     }
 
     private static func turkicSmallUpperCase() -> MenuEntry<InterfaceLocalization> {
-        let turkicSmallUpperCase = MenuEntry(label: .static(smallUpperCaseLabel()))
-        turkicSmallUpperCase.action = #selector(RichTextEditingResponder.makeTurkicSmallCaps(_:))
-        turkicSmallUpperCase.indentationLevel = 1
-        return turkicSmallUpperCase
+      let turkicSmallUpperCase = MenuEntry(label: .static(smallUpperCaseLabel()))
+      turkicSmallUpperCase.action = #selector(RichTextEditingResponder.makeTurkicSmallCaps(_:))
+      turkicSmallUpperCase.indentationLevel = 1
+      return turkicSmallUpperCase
     }
 
     private static func turkicLowerCase() -> MenuEntry<InterfaceLocalization> {
-        let turkicLowerCase = MenuEntry(label: .static(lowerCaseLabel()))
-        turkicLowerCase.action = #selector(RichTextEditingResponder.makeTurkicLowerCase(_:))
-        turkicLowerCase.indentationLevel = 1
-        return turkicLowerCase
+      let turkicLowerCase = MenuEntry(label: .static(lowerCaseLabel()))
+      turkicLowerCase.action = #selector(RichTextEditingResponder.makeTurkicLowerCase(_:))
+      turkicLowerCase.indentationLevel = 1
+      return turkicLowerCase
     }
 
     internal static func casing() -> Menu<InterfaceLocalization> {
-        let casing = Menu(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
+      let casing = Menu(
+        label: .static(
+          UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Casing"
+              return "Casing"
             case .deutschDeutschland:
-                return "Buchstabengröße"
+              return "Buchstabengröße"
             }
-        })))
-        casing.entries = [
-            .entry(useDefault()),
-            .separator,
-            .entry(latinate()),
-            .entry(latinateUpperCase()),
-            .entry(latinateSmallUpperCase()),
-            .entry(latinateLowerCase()),
-            .separator,
-            .entry(turkic()),
-            .entry(turkicUpperCase()),
-            .entry(turkicSmallUpperCase()),
-            .entry(turkicLowerCase()),
-        ]
-        return casing
+          })
+        )
+      )
+      casing.entries = [
+        .entry(useDefault()),
+        .separator,
+        .entry(latinate()),
+        .entry(latinateUpperCase()),
+        .entry(latinateSmallUpperCase()),
+        .entry(latinateLowerCase()),
+        .separator,
+        .entry(turkic()),
+        .entry(turkicUpperCase()),
+        .entry(turkicSmallUpperCase()),
+        .entry(turkicLowerCase()),
+      ]
+      return casing
     }
-}
+  }
 #endif

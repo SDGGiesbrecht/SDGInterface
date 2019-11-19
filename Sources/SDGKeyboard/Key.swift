@@ -13,7 +13,7 @@
  */
 
 #if canImport(Carbon)
-import Carbon
+  import Carbon
 #endif
 
 import SDGLogic
@@ -31,638 +31,642 @@ import SDGText
 /// `thumbs` refers to what is commonly a space bar.
 ///
 /// The same key can represent many different characters depending on the user’s current virtual keyboard or input source.
-public enum Key : CaseIterable {
+public enum Key: CaseIterable {
 
-    // MARK: - Cases
+  // MARK: - Cases
 
-    /// Left of the left little finger, top row (ISO only).
-    case leftOutsideTopISO
-    /// Left little finger, top row.
-    case leftLittleTop
-    /// Left ring finger, top row.
-    case leftRingTop
-    /// Left middle finger, top row.
-    case leftMiddleTop
-    /// Left index finger, top row.
-    case leftIndexTop
-    /// Right of the left index finger, top row.
-    case leftInsideTop
-    /// Left of the right index finger, top row.
-    case rightInsideTop
-    /// Right index finder, top row.
-    case rightIndexTop
-    /// Right middle finger, top row.
-    case rightMiddleTop
-    /// Right ring finger, top row.
-    case rightRingTop
-    /// Right little finger, top row.
-    case rightLittleTop
-    /// Right of the right little finger, top row.
-    case rightOutsideTop
-    /// Two columns to the right of the right little finger, top row.
-    case rightDoubleOutsideTop
-    /// Three columns right of the right little finger, top row (JIS only).
-    case rightTripleOutsideTopJIS
-    /// Delete (backspace).
-    case deleteBackspace
+  /// Left of the left little finger, top row (ISO only).
+  case leftOutsideTopISO
+  /// Left little finger, top row.
+  case leftLittleTop
+  /// Left ring finger, top row.
+  case leftRingTop
+  /// Left middle finger, top row.
+  case leftMiddleTop
+  /// Left index finger, top row.
+  case leftIndexTop
+  /// Right of the left index finger, top row.
+  case leftInsideTop
+  /// Left of the right index finger, top row.
+  case rightInsideTop
+  /// Right index finder, top row.
+  case rightIndexTop
+  /// Right middle finger, top row.
+  case rightMiddleTop
+  /// Right ring finger, top row.
+  case rightRingTop
+  /// Right little finger, top row.
+  case rightLittleTop
+  /// Right of the right little finger, top row.
+  case rightOutsideTop
+  /// Two columns to the right of the right little finger, top row.
+  case rightDoubleOutsideTop
+  /// Three columns right of the right little finger, top row (JIS only).
+  case rightTripleOutsideTopJIS
+  /// Delete (backspace).
+  case deleteBackspace
 
-    /// Tabulation.
-    case tabulation
-    /// Left little finger, upper row.
-    case leftLittleUpper
-    /// Left ring finger, upper row.
-    case leftRingUpper
-    /// Left middle finger, upper row.
-    case leftMiddleUpper
-    /// Left index finger, upper row.
-    case leftIndexUpper
-    /// Right of the left index finger, upper row.
-    case leftInsideUpper
-    /// Left of the right index finger, upper row.
-    case rightInsideUpper
-    /// Right index finger, upper row.
-    case rightIndexUpper
-    /// Right middle finger, upper row.
-    case rightMiddleUpper
-    /// Right ring finger, upper row.
-    case rightRingUpper
-    /// Right little finger, upper row.
-    case rightLittleUpper
-    /// Right of the right little finger, upper row.
-    case rightOutsideUpper
-    /// Two columns to the right of the right little finger, upper row.
-    case rightDoubleOutsideUpper
+  /// Tabulation.
+  case tabulation
+  /// Left little finger, upper row.
+  case leftLittleUpper
+  /// Left ring finger, upper row.
+  case leftRingUpper
+  /// Left middle finger, upper row.
+  case leftMiddleUpper
+  /// Left index finger, upper row.
+  case leftIndexUpper
+  /// Right of the left index finger, upper row.
+  case leftInsideUpper
+  /// Left of the right index finger, upper row.
+  case rightInsideUpper
+  /// Right index finger, upper row.
+  case rightIndexUpper
+  /// Right middle finger, upper row.
+  case rightMiddleUpper
+  /// Right ring finger, upper row.
+  case rightRingUpper
+  /// Right little finger, upper row.
+  case rightLittleUpper
+  /// Right of the right little finger, upper row.
+  case rightOutsideUpper
+  /// Two columns to the right of the right little finger, upper row.
+  case rightDoubleOutsideUpper
 
-    /// Caps lock (left end of the home row on ISO/ANSI, bottom right on JIS).
-    case capsLockLeftHomeISO_ANSI_CapsLockRightBottomJIS
-    /// Left little finger, home row.
-    case leftLittleHome
-    /// Left ring finger, home row.
-    case leftRingHome
-    /// Left middle finger, home row.
-    case leftMiddleHome
-    /// Left index finger, home row.
-    case leftIndexHome
-    /// Right of the left index finger, home row.
-    case leftInsideHome
-    /// Left of the right index finger, home row.
-    case rightInsideHome
-    /// Right index finger, home row.
-    case rightIndexHome
-    /// Right middle finger, home row.
-    case rightMiddleHome
-    /// Right ring finger, home row.
-    case rightRingHome
-    /// Right little finger, home row.
-    case rightLittleHome
-    /// Right of the right little finger, home row.
-    case rightOutsideHome
-    /// Right of the right little finger, home row on ISO/JIS; three columns right of the right little finger, upper row on ANSI.
-    case rightDoubleOutsideHomeISO_JIS_RightTripleOutsideUpperANSI
-    /// Return.
-    case `return`
+  /// Caps lock (left end of the home row on ISO/ANSI, bottom right on JIS).
+  case capsLockLeftHomeISO_ANSI_CapsLockRightBottomJIS
+  /// Left little finger, home row.
+  case leftLittleHome
+  /// Left ring finger, home row.
+  case leftRingHome
+  /// Left middle finger, home row.
+  case leftMiddleHome
+  /// Left index finger, home row.
+  case leftIndexHome
+  /// Right of the left index finger, home row.
+  case leftInsideHome
+  /// Left of the right index finger, home row.
+  case rightInsideHome
+  /// Right index finger, home row.
+  case rightIndexHome
+  /// Right middle finger, home row.
+  case rightMiddleHome
+  /// Right ring finger, home row.
+  case rightRingHome
+  /// Right little finger, home row.
+  case rightLittleHome
+  /// Right of the right little finger, home row.
+  case rightOutsideHome
+  /// Right of the right little finger, home row on ISO/JIS; three columns right of the right little finger, upper row on ANSI.
+  case rightDoubleOutsideHomeISO_JIS_RightTripleOutsideUpperANSI
+  /// Return.
+  case `return`
 
-    /// Shift (left).
-    case shiftLeft
-    /// Left of the left little finger, home row on ISO; left of the left little finger, top row on ANSI/JIS.
-    case leftOutsideLowerISO_LeftOutsideTopANSI_JIS
-    /// Left little finger, lower row.
-    case leftLittleLower
-    /// Left ring finger, lower row.
-    case leftRingLower
-    /// Left middle finger, lower row.
-    case leftMiddleLower
-    /// Left index finger, lower row.
-    case leftIndexLower
-    /// Right of the left index finger, lower row.
-    case leftInsideLower
-    /// Left of the right index finger, lower row.
-    case rightInsideLower
-    /// Right index finger, lower row.
-    case rightIndexLower
-    /// Right middle finger, lower row.
-    case rightMiddleLower
-    /// Right middle finger, lower row.
-    case rightRingLower
-    /// Right little finger, lower row.
-    case rightLittleLower
-    /// Right of the right little finger on a JIS keyboard.
-    case rightOutsideLowerJIS
-    /// Shift (right).
-    case shiftRight
+  /// Shift (left).
+  case shiftLeft
+  /// Left of the left little finger, home row on ISO; left of the left little finger, top row on ANSI/JIS.
+  case leftOutsideLowerISO_LeftOutsideTopANSI_JIS
+  /// Left little finger, lower row.
+  case leftLittleLower
+  /// Left ring finger, lower row.
+  case leftRingLower
+  /// Left middle finger, lower row.
+  case leftMiddleLower
+  /// Left index finger, lower row.
+  case leftIndexLower
+  /// Right of the left index finger, lower row.
+  case leftInsideLower
+  /// Left of the right index finger, lower row.
+  case rightInsideLower
+  /// Right index finger, lower row.
+  case rightIndexLower
+  /// Right middle finger, lower row.
+  case rightMiddleLower
+  /// Right middle finger, lower row.
+  case rightRingLower
+  /// Right little finger, lower row.
+  case rightLittleLower
+  /// Right of the right little finger on a JIS keyboard.
+  case rightOutsideLowerJIS
+  /// Shift (right).
+  case shiftRight
 
-    /// Function.
-    case function
-    /// Control (left) (bottom row on ISO/ANSI, home row on JIS).
-    case controlLeftBottomISO_ANSI_ControlLeftHomeJIS
-    /// Option (left).
-    case optionLeft
-    /// Command (left).
-    case commandLeft
-    /// 英数 (ジス).
-    case 英数ジス
-    /// Space bar.
-    case thumbs
-    /// かな (ジス).
-    case かなジス
-    /// Command (right).
-    case commandRight
-    /// Option (right).
-    case optionRight
-    /// Control (right) (ISO/ANSI only).
-    case controlRightISO_ANSI
+  /// Function.
+  case function
+  /// Control (left) (bottom row on ISO/ANSI, home row on JIS).
+  case controlLeftBottomISO_ANSI_ControlLeftHomeJIS
+  /// Option (left).
+  case optionLeft
+  /// Command (left).
+  case commandLeft
+  /// 英数 (ジス).
+  case 英数ジス
+  /// Space bar.
+  case thumbs
+  /// かな (ジス).
+  case かなジス
+  /// Command (right).
+  case commandRight
+  /// Option (right).
+  case optionRight
+  /// Control (right) (ISO/ANSI only).
+  case controlRightISO_ANSI
 
+  /// Help.
+  case help
+  /// Home.
+  case home
+  /// Page up.
+  case pageUp
 
-    /// Help.
-    case help
-    /// Home.
-    case home
-    /// Page up.
-    case pageUp
+  /// Delete (forward).
+  case deleteForward
+  /// End.
+  case end
+  /// Page down.
+  case pageDown
 
-    /// Delete (forward).
-    case deleteForward
-    /// End.
-    case end
-    /// Page down.
-    case pageDown
+  /// Up arrow.
+  case arrowUp
+  /// Left arrow.
+  case arrowLeft
+  /// Down arrow.
+  case arrowDown
+  /// Right arrow.
+  case arrowRight
 
-    /// Up arrow.
-    case arrowUp
-    /// Left arrow.
-    case arrowLeft
-    /// Down arrow.
-    case arrowDown
-    /// Right arrow.
-    case arrowRight
+  /// Clear (number pad).
+  case clear
+  /// Middle finger, top row on the number pad (Mac models only).
+  case padMiddleTopMac
+  /// Ring finger, top row on the number pad on Mac models; middle finger, top row on PC models.
+  case padRingTopMac_padMiddleTopPC
+  /// Little finger, top row on the number pad on Mac models; ring finger, top row on PC models.
+  case padLittleTopMac_padRingTopPC
 
+  /// Index finger, upper row on the number pad.
+  case padIndexUpper
+  /// Middle finger, upper row on the number pad.
+  case padMiddleUpper
+  /// Ring finger, upper row on the number pad.
+  case padRingUpper
+  /// Little finger, upper row on the number pad on Mac models; little finger top row on PC models.
+  case padLittleUpperMac_padLittleTopPC
 
-    /// Clear (number pad).
-    case clear
-    /// Middle finger, top row on the number pad (Mac models only).
-    case padMiddleTopMac
-    /// Ring finger, top row on the number pad on Mac models; middle finger, top row on PC models.
-    case padRingTopMac_padMiddleTopPC
-    /// Little finger, top row on the number pad on Mac models; ring finger, top row on PC models.
-    case padLittleTopMac_padRingTopPC
+  /// Index finger, home row on the number pad.
+  case padIndexHome
+  /// Middle finger, home row on the number pad.
+  case padMiddleHome
+  /// Ring finger, home row on the number pad.
+  case padRingHome
+  /// Little finger, home row on the number pad.
+  case padLittleHome
 
-    /// Index finger, upper row on the number pad.
-    case padIndexUpper
-    /// Middle finger, upper row on the number pad.
-    case padMiddleUpper
-    /// Ring finger, upper row on the number pad.
-    case padRingUpper
-    /// Little finger, upper row on the number pad on Mac models; little finger top row on PC models.
-    case padLittleUpperMac_padLittleTopPC
+  /// Index finger, lower row on the number pad.
+  case padIndexLower
+  /// Middle finger, lower row on the number pad.
+  case padMiddleLower
+  /// Ring finger, lower row on the number pad.
+  case padRingLower
+  /// Enter (number pad).
+  case enterPad
 
-    /// Index finger, home row on the number pad.
-    case padIndexHome
-    /// Middle finger, home row on the number pad.
-    case padMiddleHome
-    /// Ring finger, home row on the number pad.
-    case padRingHome
-    /// Little finger, home row on the number pad.
-    case padLittleHome
+  /// Thumb on the number pad (zero).
+  case padThumb
+  /// Middle finger bottom row on the number pad (JIS only).
+  case padMiddleBottomJIS
+  /// Ring finger, bottom row on the number pad (decimal).
+  case padRingBottom
 
-    /// Index finger, lower row on the number pad.
-    case padIndexLower
-    /// Middle finger, lower row on the number pad.
-    case padMiddleLower
-    /// Ring finger, lower row on the number pad.
-    case padRingLower
-    /// Enter (number pad).
-    case enterPad
+  /// Escape.
+  case escape
+  /// F1.
+  case f1
+  /// F2.
+  case f2
+  /// F3.
+  case f3
+  /// F4.
+  case f4
+  /// F5.
+  case f5
+  /// F6.
+  case f6
+  /// F7.
+  case f7
+  /// F8.
+  case f8
+  /// F9.
+  case f9
+  /// F10.
+  case f10
+  /// F11.
+  case f11
+  /// F12.
+  case f12
+  /// F13.
+  case f13
+  /// F14.
+  case f14
+  /// F15.
+  case f15
+  /// F16.
+  case f16
+  /// F17.
+  case f17
+  /// F18.
+  case f18
+  /// F19.
+  case f19
+  /// F20.
+  case f20
+  /// Volume down (different from F11).
+  case volumeDown
+  /// Volume up (different from F12).
+  case volumeUp
+  /// Mute (different from F10).
+  case mute
 
-    /// Thumb on the number pad (zero).
-    case padThumb
-    /// Middle finger bottom row on the number pad (JIS only).
-    case padMiddleBottomJIS
-    /// Ring finger, bottom row on the number pad (decimal).
-    case padRingBottom
+  /// Unidentified.
+  case unidentifiedCode42
+  /// Unidentified.
+  case unidentifiedCode46
+  /// Unidentified.
+  case unidentifiedCode4D
 
+  // MARK: - Key Codes
 
-    /// Escape.
-    case escape
-    /// F1.
-    case f1
-    /// F2.
-    case f2
-    /// F3.
-    case f3
-    /// F4.
-    case f4
-    /// F5.
-    case f5
-    /// F6.
-    case f6
-    /// F7.
-    case f7
-    /// F8.
-    case f8
-    /// F9.
-    case f9
-    /// F10.
-    case f10
-    /// F11.
-    case f11
-    /// F12.
-    case f12
-    /// F13.
-    case f13
-    /// F14.
-    case f14
-    /// F15.
-    case f15
-    /// F16.
-    case f16
-    /// F17.
-    case f17
-    /// F18.
-    case f18
-    /// F19.
-    case f19
-    /// F20.
-    case f20
-    /// Volume down (different from F11).
-    case volumeDown
-    /// Volume up (different from F12).
-    case volumeUp
-    /// Mute (different from F10).
-    case mute
+  private static let coreGraphicsMapping: BijectiveMapping<Key, Int> = [
 
-    /// Unidentified.
-    case unidentifiedCode42
-    /// Unidentified.
-    case unidentifiedCode46
-    /// Unidentified.
-    case unidentifiedCode4D
+    .leftOutsideTopISO: 0x0A,
+    .leftLittleTop: 0x12,
+    .leftRingTop: 0x13,
+    .leftMiddleTop: 0x14,
+    .leftIndexTop: 0x15,
+    .leftInsideTop: 0x17,
+    .rightInsideTop: 0x16,
+    .rightIndexTop: 0x1A,
+    .rightMiddleTop: 0x1C,
+    .rightRingTop: 0x19,
+    .rightLittleTop: 0x1D,
+    .rightOutsideTop: 0x1B,
+    .rightDoubleOutsideTop: 0x18,
+    .rightTripleOutsideTopJIS: 0x5D,
+    .deleteBackspace: 0x33,
 
-    // MARK: - Key Codes
+    .tabulation: 0x30,
+    .leftLittleUpper: 0x0C,
+    .leftRingUpper: 0x0D,
+    .leftMiddleUpper: 0x0E,
+    .leftIndexUpper: 0x0F,
+    .leftInsideUpper: 0x11,
+    .rightInsideUpper: 0x10,
+    .rightIndexUpper: 0x20,
+    .rightMiddleUpper: 0x22,
+    .rightRingUpper: 0x1F,
+    .rightLittleUpper: 0x23,
+    .rightOutsideUpper: 0x21,
+    .rightDoubleOutsideUpper: 0x1E,
 
-    private static let coreGraphicsMapping: BijectiveMapping<Key, Int> = [
+    .capsLockLeftHomeISO_ANSI_CapsLockRightBottomJIS: 0x39,
+    .leftLittleHome: 0x00,
+    .leftRingHome: 0x01,
+    .leftMiddleHome: 0x02,
+    .leftIndexHome: 0x03,
+    .leftInsideHome: 0x05,
+    .rightInsideHome: 0x04,
+    .rightIndexHome: 0x26,
+    .rightMiddleHome: 0x28,
+    .rightRingHome: 0x25,
+    .rightLittleHome: 0x29,
+    .rightOutsideHome: 0x27,
+    .rightDoubleOutsideHomeISO_JIS_RightTripleOutsideUpperANSI: 0x2A,
+    .return: 0x24,
 
-        .leftOutsideTopISO: 0x0A,
-        .leftLittleTop: 0x12,
-        .leftRingTop: 0x13,
-        .leftMiddleTop: 0x14,
-        .leftIndexTop: 0x15,
-        .leftInsideTop: 0x17,
-        .rightInsideTop: 0x16,
-        .rightIndexTop: 0x1A,
-        .rightMiddleTop: 0x1C,
-        .rightRingTop: 0x19,
-        .rightLittleTop: 0x1D,
-        .rightOutsideTop: 0x1B,
-        .rightDoubleOutsideTop: 0x18,
-        .rightTripleOutsideTopJIS: 0x5D,
-        .deleteBackspace: 0x33,
+    .shiftLeft: 0x38,
+    .leftOutsideLowerISO_LeftOutsideTopANSI_JIS: 0x32,
+    .leftLittleLower: 0x06,
+    .leftRingLower: 0x07,
+    .leftMiddleLower: 0x08,
+    .leftIndexLower: 0x09,
+    .leftInsideLower: 0x0B,
+    .rightInsideLower: 0x2D,
+    .rightIndexLower: 0x2E,
+    .rightMiddleLower: 0x2B,
+    .rightRingLower: 0x2F,
+    .rightLittleLower: 0x2C,
+    .rightOutsideLowerJIS: 0x5E,
+    .shiftRight: 0x3C,
 
-        .tabulation: 0x30,
-        .leftLittleUpper: 0x0C,
-        .leftRingUpper: 0x0D,
-        .leftMiddleUpper: 0x0E,
-        .leftIndexUpper: 0x0F,
-        .leftInsideUpper: 0x11,
-        .rightInsideUpper: 0x10,
-        .rightIndexUpper: 0x20,
-        .rightMiddleUpper: 0x22,
-        .rightRingUpper: 0x1F,
-        .rightLittleUpper: 0x23,
-        .rightOutsideUpper: 0x21,
-        .rightDoubleOutsideUpper: 0x1E,
+    .function: 0x3F,
+    .controlLeftBottomISO_ANSI_ControlLeftHomeJIS: 0x3B,
+    .optionLeft: 0x3A,
+    .commandLeft: 0x37,
+    .英数ジス: 0x66,
+    .thumbs: 0x31,
+    .かなジス: 0x68,
+    .commandRight: 0x36,
+    .optionRight: 0x3D,
+    .controlRightISO_ANSI: 0x3E,
 
-        .capsLockLeftHomeISO_ANSI_CapsLockRightBottomJIS: 0x39,
-        .leftLittleHome: 0x00,
-        .leftRingHome: 0x01,
-        .leftMiddleHome: 0x02,
-        .leftIndexHome: 0x03,
-        .leftInsideHome: 0x05,
-        .rightInsideHome: 0x04,
-        .rightIndexHome: 0x26,
-        .rightMiddleHome: 0x28,
-        .rightRingHome: 0x25,
-        .rightLittleHome: 0x29,
-        .rightOutsideHome: 0x27,
-        .rightDoubleOutsideHomeISO_JIS_RightTripleOutsideUpperANSI: 0x2A,
-        .return: 0x24,
+    .help: 0x72,
+    .home: 0x73,
+    .pageUp: 0x74,
 
-        .shiftLeft: 0x38,
-        .leftOutsideLowerISO_LeftOutsideTopANSI_JIS: 0x32,
-        .leftLittleLower: 0x06,
-        .leftRingLower: 0x07,
-        .leftMiddleLower: 0x08,
-        .leftIndexLower: 0x09,
-        .leftInsideLower: 0x0B,
-        .rightInsideLower: 0x2D,
-        .rightIndexLower: 0x2E,
-        .rightMiddleLower: 0x2B,
-        .rightRingLower: 0x2F,
-        .rightLittleLower: 0x2C,
-        .rightOutsideLowerJIS: 0x5E,
-        .shiftRight: 0x3C,
+    .deleteForward: 0x75,
+    .end: 0x77,
+    .pageDown: 0x79,
 
-        .function: 0x3F,
-        .controlLeftBottomISO_ANSI_ControlLeftHomeJIS: 0x3B,
-        .optionLeft: 0x3A,
-        .commandLeft: 0x37,
-        .英数ジス: 0x66,
-        .thumbs: 0x31,
-        .かなジス: 0x68,
-        .commandRight: 0x36,
-        .optionRight: 0x3D,
-        .controlRightISO_ANSI: 0x3E,
+    .arrowUp: 0x7E,
+    .arrowLeft: 0x7B,
+    .arrowDown: 0x7D,
+    .arrowRight: 0x7C,
 
+    .clear: 0x47,
+    .padMiddleTopMac: 0x51,
+    .padRingTopMac_padMiddleTopPC: 0x4B,
+    .padLittleTopMac_padRingTopPC: 0x43,
 
-        .help: 0x72,
-        .home: 0x73,
-        .pageUp: 0x74,
+    .padIndexUpper: 0x59,
+    .padMiddleUpper: 0x5B,
+    .padRingUpper: 0x5C,
+    .padLittleUpperMac_padLittleTopPC: 0x4E,
 
-        .deleteForward: 0x75,
-        .end: 0x77,
-        .pageDown: 0x79,
+    .padIndexHome: 0x56,
+    .padMiddleHome: 0x57,
+    .padRingHome: 0x58,
+    .padLittleHome: 0x45,
 
-        .arrowUp: 0x7E,
-        .arrowLeft: 0x7B,
-        .arrowDown: 0x7D,
-        .arrowRight: 0x7C,
+    .padIndexLower: 0x53,
+    .padMiddleLower: 0x54,
+    .padRingLower: 0x55,
+    .enterPad: 0x4C,
 
+    .padThumb: 0x52,
+    .padMiddleBottomJIS: 0x5F,
+    .padRingBottom: 0x41,
 
-        .clear: 0x47,
-        .padMiddleTopMac: 0x51,
-        .padRingTopMac_padMiddleTopPC: 0x4B,
-        .padLittleTopMac_padRingTopPC: 0x43,
+    .escape: 0x35,
+    .f1: 0x7A,
+    .f2: 0x78,
+    .f3: 0x63,
+    .f4: 0x76,
+    .f5: 0x60,
+    .f6: 0x61,
+    .f7: 0x62,
+    .f8: 0x64,
+    .f9: 0x65,
+    .f10: 0x6D,
+    .f11: 0x67,
+    .f12: 0x6F,
+    .f13: 0x69,
+    .f14: 0x6B,
+    .f15: 0x71,
+    .f16: 0x6A,
+    .f17: 0x40,
+    .f18: 0x4F,
+    .f19: 0x50,
+    .f20: 0x5A,
 
-        .padIndexUpper: 0x59,
-        .padMiddleUpper: 0x5B,
-        .padRingUpper: 0x5C,
-        .padLittleUpperMac_padLittleTopPC: 0x4E,
+    .volumeDown: 0x49,
+    .volumeUp: 0x48,
+    .mute: 0x4A,
 
-        .padIndexHome: 0x56,
-        .padMiddleHome: 0x57,
-        .padRingHome: 0x58,
-        .padLittleHome: 0x45,
+    .unidentifiedCode42: 0x42,
+    .unidentifiedCode46: 0x46,
+    .unidentifiedCode4D: 0x4D,
+  ]
 
-        .padIndexLower: 0x53,
-        .padMiddleLower: 0x54,
-        .padRingLower: 0x55,
-        .enterPad: 0x4C,
-
-        .padThumb: 0x52,
-        .padMiddleBottomJIS: 0x5F,
-        .padRingBottom: 0x41,
-
-
-        .escape: 0x35,
-        .f1: 0x7A,
-        .f2: 0x78,
-        .f3: 0x63,
-        .f4: 0x76,
-        .f5: 0x60,
-        .f6: 0x61,
-        .f7: 0x62,
-        .f8: 0x64,
-        .f9: 0x65,
-        .f10: 0x6D,
-        .f11: 0x67,
-        .f12: 0x6F,
-        .f13: 0x69,
-        .f14: 0x6B,
-        .f15: 0x71,
-        .f16: 0x6A,
-        .f17: 0x40,
-        .f18: 0x4F,
-        .f19: 0x50,
-        .f20: 0x5A,
-
-        .volumeDown: 0x49,
-        .volumeUp: 0x48,
-        .mute: 0x4A,
-
-        .unidentifiedCode42: 0x42,
-        .unidentifiedCode46: 0x46,
-        .unidentifiedCode4D: 0x4D,
-    ]
-
-    #if canImport(Carbon)
+  #if canImport(Carbon)
 
     private static let codeMapping: BijectiveMapping<Key, Int> = [
 
-        .leftOutsideTopISO: kVK_ISO_Section,
-        .leftLittleTop: kVK_ANSI_1,
-        .leftRingTop: kVK_ANSI_2,
-        .leftMiddleTop: kVK_ANSI_3,
-        .leftIndexTop: kVK_ANSI_4,
-        .leftInsideTop: kVK_ANSI_5,
-        .rightInsideTop: kVK_ANSI_6,
-        .rightIndexTop: kVK_ANSI_7,
-        .rightMiddleTop: kVK_ANSI_8,
-        .rightRingTop: kVK_ANSI_9,
-        .rightLittleTop: kVK_ANSI_0,
-        .rightOutsideTop: kVK_ANSI_Minus,
-        .rightDoubleOutsideTop: kVK_ANSI_Equal,
-        .rightTripleOutsideTopJIS: kVK_JIS_Yen,
-        .deleteBackspace: kVK_Delete,
+      .leftOutsideTopISO: kVK_ISO_Section,
+      .leftLittleTop: kVK_ANSI_1,
+      .leftRingTop: kVK_ANSI_2,
+      .leftMiddleTop: kVK_ANSI_3,
+      .leftIndexTop: kVK_ANSI_4,
+      .leftInsideTop: kVK_ANSI_5,
+      .rightInsideTop: kVK_ANSI_6,
+      .rightIndexTop: kVK_ANSI_7,
+      .rightMiddleTop: kVK_ANSI_8,
+      .rightRingTop: kVK_ANSI_9,
+      .rightLittleTop: kVK_ANSI_0,
+      .rightOutsideTop: kVK_ANSI_Minus,
+      .rightDoubleOutsideTop: kVK_ANSI_Equal,
+      .rightTripleOutsideTopJIS: kVK_JIS_Yen,
+      .deleteBackspace: kVK_Delete,
 
-        .tabulation: kVK_Tab,
-        .leftLittleUpper: kVK_ANSI_Q,
-        .leftRingUpper: kVK_ANSI_W,
-        .leftMiddleUpper: kVK_ANSI_E,
-        .leftIndexUpper: kVK_ANSI_R,
-        .leftInsideUpper: kVK_ANSI_T,
-        .rightInsideUpper: kVK_ANSI_Y,
-        .rightIndexUpper: kVK_ANSI_U,
-        .rightMiddleUpper: kVK_ANSI_I,
-        .rightRingUpper: kVK_ANSI_O,
-        .rightLittleUpper: kVK_ANSI_P,
-        .rightOutsideUpper: kVK_ANSI_LeftBracket,
-        .rightDoubleOutsideUpper: kVK_ANSI_RightBracket,
+      .tabulation: kVK_Tab,
+      .leftLittleUpper: kVK_ANSI_Q,
+      .leftRingUpper: kVK_ANSI_W,
+      .leftMiddleUpper: kVK_ANSI_E,
+      .leftIndexUpper: kVK_ANSI_R,
+      .leftInsideUpper: kVK_ANSI_T,
+      .rightInsideUpper: kVK_ANSI_Y,
+      .rightIndexUpper: kVK_ANSI_U,
+      .rightMiddleUpper: kVK_ANSI_I,
+      .rightRingUpper: kVK_ANSI_O,
+      .rightLittleUpper: kVK_ANSI_P,
+      .rightOutsideUpper: kVK_ANSI_LeftBracket,
+      .rightDoubleOutsideUpper: kVK_ANSI_RightBracket,
 
-        .capsLockLeftHomeISO_ANSI_CapsLockRightBottomJIS: kVK_CapsLock,
-        .leftLittleHome: kVK_ANSI_A,
-        .leftRingHome: kVK_ANSI_S,
-        .leftMiddleHome: kVK_ANSI_D,
-        .leftIndexHome: kVK_ANSI_F,
-        .leftInsideHome: kVK_ANSI_G,
-        .rightInsideHome: kVK_ANSI_H,
-        .rightIndexHome: kVK_ANSI_J,
-        .rightMiddleHome: kVK_ANSI_K,
-        .rightRingHome: kVK_ANSI_L,
-        .rightLittleHome: kVK_ANSI_Semicolon,
-        .rightOutsideHome: kVK_ANSI_Quote,
-        .rightDoubleOutsideHomeISO_JIS_RightTripleOutsideUpperANSI: kVK_ANSI_Backslash,
-        .return: kVK_Return,
+      .capsLockLeftHomeISO_ANSI_CapsLockRightBottomJIS: kVK_CapsLock,
+      .leftLittleHome: kVK_ANSI_A,
+      .leftRingHome: kVK_ANSI_S,
+      .leftMiddleHome: kVK_ANSI_D,
+      .leftIndexHome: kVK_ANSI_F,
+      .leftInsideHome: kVK_ANSI_G,
+      .rightInsideHome: kVK_ANSI_H,
+      .rightIndexHome: kVK_ANSI_J,
+      .rightMiddleHome: kVK_ANSI_K,
+      .rightRingHome: kVK_ANSI_L,
+      .rightLittleHome: kVK_ANSI_Semicolon,
+      .rightOutsideHome: kVK_ANSI_Quote,
+      .rightDoubleOutsideHomeISO_JIS_RightTripleOutsideUpperANSI: kVK_ANSI_Backslash,
+      .return: kVK_Return,
 
-        .shiftLeft: kVK_Shift,
-        .leftOutsideLowerISO_LeftOutsideTopANSI_JIS: kVK_ANSI_Grave,
-        .leftLittleLower: kVK_ANSI_Z,
-        .leftRingLower: kVK_ANSI_X,
-        .leftMiddleLower: kVK_ANSI_C,
-        .leftIndexLower: kVK_ANSI_V,
-        .leftInsideLower: kVK_ANSI_B,
-        .rightInsideLower: kVK_ANSI_N,
-        .rightIndexLower: kVK_ANSI_M,
-        .rightMiddleLower: kVK_ANSI_Comma,
-        .rightRingLower: kVK_ANSI_Period,
-        .rightLittleLower: kVK_ANSI_Slash,
-        .rightOutsideLowerJIS: kVK_JIS_Underscore,
-        .shiftRight: kVK_RightShift,
+      .shiftLeft: kVK_Shift,
+      .leftOutsideLowerISO_LeftOutsideTopANSI_JIS: kVK_ANSI_Grave,
+      .leftLittleLower: kVK_ANSI_Z,
+      .leftRingLower: kVK_ANSI_X,
+      .leftMiddleLower: kVK_ANSI_C,
+      .leftIndexLower: kVK_ANSI_V,
+      .leftInsideLower: kVK_ANSI_B,
+      .rightInsideLower: kVK_ANSI_N,
+      .rightIndexLower: kVK_ANSI_M,
+      .rightMiddleLower: kVK_ANSI_Comma,
+      .rightRingLower: kVK_ANSI_Period,
+      .rightLittleLower: kVK_ANSI_Slash,
+      .rightOutsideLowerJIS: kVK_JIS_Underscore,
+      .shiftRight: kVK_RightShift,
 
-        .function: kVK_Function,
-        .controlLeftBottomISO_ANSI_ControlLeftHomeJIS: kVK_Control,
-        .optionLeft: kVK_Option,
-        .commandLeft: kVK_Command,
-        .英数ジス: kVK_JIS_Eisu,
-        .thumbs: kVK_Space,
-        .かなジス: kVK_JIS_Kana,
-        .commandRight: 0x36,
-        .optionRight: kVK_RightOption,
-        .controlRightISO_ANSI: kVK_RightControl,
+      .function: kVK_Function,
+      .controlLeftBottomISO_ANSI_ControlLeftHomeJIS: kVK_Control,
+      .optionLeft: kVK_Option,
+      .commandLeft: kVK_Command,
+      .英数ジス: kVK_JIS_Eisu,
+      .thumbs: kVK_Space,
+      .かなジス: kVK_JIS_Kana,
+      .commandRight: 0x36,
+      .optionRight: kVK_RightOption,
+      .controlRightISO_ANSI: kVK_RightControl,
 
+      .help: kVK_Help,
+      .home: kVK_Home,
+      .pageUp: kVK_PageUp,
 
-        .help: kVK_Help,
-        .home: kVK_Home,
-        .pageUp: kVK_PageUp,
+      .deleteForward: kVK_ForwardDelete,
+      .end: kVK_End,
+      .pageDown: kVK_PageDown,
 
-        .deleteForward: kVK_ForwardDelete,
-        .end: kVK_End,
-        .pageDown: kVK_PageDown,
+      .arrowUp: kVK_UpArrow,
+      .arrowLeft: kVK_LeftArrow,
+      .arrowDown: kVK_DownArrow,
+      .arrowRight: kVK_RightArrow,
 
-        .arrowUp: kVK_UpArrow,
-        .arrowLeft: kVK_LeftArrow,
-        .arrowDown: kVK_DownArrow,
-        .arrowRight: kVK_RightArrow,
+      .clear: kVK_ANSI_KeypadClear,
+      .padMiddleTopMac: kVK_ANSI_KeypadEquals,
+      .padRingTopMac_padMiddleTopPC: kVK_ANSI_KeypadDivide,
+      .padLittleTopMac_padRingTopPC: kVK_ANSI_KeypadMultiply,
 
+      .padIndexUpper: kVK_ANSI_Keypad7,
+      .padMiddleUpper: kVK_ANSI_Keypad8,
+      .padRingUpper: kVK_ANSI_Keypad9,
+      .padLittleUpperMac_padLittleTopPC: kVK_ANSI_KeypadMinus,
 
-        .clear: kVK_ANSI_KeypadClear,
-        .padMiddleTopMac: kVK_ANSI_KeypadEquals,
-        .padRingTopMac_padMiddleTopPC: kVK_ANSI_KeypadDivide,
-        .padLittleTopMac_padRingTopPC: kVK_ANSI_KeypadMultiply,
+      .padIndexHome: kVK_ANSI_Keypad4,
+      .padMiddleHome: kVK_ANSI_Keypad5,
+      .padRingHome: kVK_ANSI_Keypad6,
+      .padLittleHome: kVK_ANSI_KeypadPlus,
 
-        .padIndexUpper: kVK_ANSI_Keypad7,
-        .padMiddleUpper: kVK_ANSI_Keypad8,
-        .padRingUpper: kVK_ANSI_Keypad9,
-        .padLittleUpperMac_padLittleTopPC: kVK_ANSI_KeypadMinus,
+      .padIndexLower: kVK_ANSI_Keypad1,
+      .padMiddleLower: kVK_ANSI_Keypad2,
+      .padRingLower: kVK_ANSI_Keypad3,
+      .enterPad: kVK_ANSI_KeypadEnter,
 
-        .padIndexHome: kVK_ANSI_Keypad4,
-        .padMiddleHome: kVK_ANSI_Keypad5,
-        .padRingHome: kVK_ANSI_Keypad6,
-        .padLittleHome: kVK_ANSI_KeypadPlus,
+      .padThumb: kVK_ANSI_Keypad0,
+      .padMiddleBottomJIS: kVK_JIS_KeypadComma,
+      .padRingBottom: kVK_ANSI_KeypadDecimal,
 
-        .padIndexLower: kVK_ANSI_Keypad1,
-        .padMiddleLower: kVK_ANSI_Keypad2,
-        .padRingLower: kVK_ANSI_Keypad3,
-        .enterPad: kVK_ANSI_KeypadEnter,
+      .escape: kVK_Escape,
+      .f1: kVK_F1,
+      .f2: kVK_F2,
+      .f3: kVK_F3,
+      .f4: kVK_F4,
+      .f5: kVK_F5,
+      .f6: kVK_F6,
+      .f7: kVK_F7,
+      .f8: kVK_F8,
+      .f9: kVK_F9,
+      .f10: kVK_F10,
+      .f11: kVK_F11,
+      .f12: kVK_F12,
+      .f13: kVK_F13,
+      .f14: kVK_F14,
+      .f15: kVK_F15,
+      .f16: kVK_F16,
+      .f17: kVK_F17,
+      .f18: kVK_F18,
+      .f19: kVK_F19,
+      .f20: kVK_F20,
 
-        .padThumb: kVK_ANSI_Keypad0,
-        .padMiddleBottomJIS: kVK_JIS_KeypadComma,
-        .padRingBottom: kVK_ANSI_KeypadDecimal,
+      .volumeDown: kVK_VolumeDown,
+      .volumeUp: kVK_VolumeUp,
+      .mute: kVK_Mute,
 
+      .unidentifiedCode42: 0x42,
+      .unidentifiedCode46: 0x46,
+      .unidentifiedCode4D: 0x4D,
+    ]
+  #endif
 
-        .escape: kVK_Escape,
-        .f1: kVK_F1,
-        .f2: kVK_F2,
-        .f3: kVK_F3,
-        .f4: kVK_F4,
-        .f5: kVK_F5,
-        .f6: kVK_F6,
-        .f7: kVK_F7,
-        .f8: kVK_F8,
-        .f9: kVK_F9,
-        .f10: kVK_F10,
-        .f11: kVK_F11,
-        .f12: kVK_F12,
-        .f13: kVK_F13,
-        .f14: kVK_F14,
-        .f15: kVK_F15,
-        .f16: kVK_F16,
-        .f17: kVK_F17,
-        .f18: kVK_F18,
-        .f19: kVK_F19,
-        .f20: kVK_F20,
+  // MARK: - Initialization
 
-        .volumeDown: kVK_VolumeDown,
-        .volumeUp: kVK_VolumeUp,
-        .mute: kVK_Mute,
-
-        .unidentifiedCode42: 0x42,
-        .unidentifiedCode46: 0x46,
-        .unidentifiedCode4D: 0x4D,
-        ]
-    #endif
-
-    // MARK: - Initialization
-
-    /// Creates a `Key` from a `CoreGraphics` code.
-    ///
-    /// This initializer is available on all platforms, regardless of whether `CoreGraphics` is available. It can be used to describing keyboard activity *for* such a compatible platform even *from* one that is not.
-    ///
-    /// - Parameters:
-    ///     - code: The code.
-    public init?(coreGraphicsCode code: Int) {
-        if let key = Key.coreGraphicsMapping[code] {
-            self = key
-        } else {
-            return nil
-        }
+  /// Creates a `Key` from a `CoreGraphics` code.
+  ///
+  /// This initializer is available on all platforms, regardless of whether `CoreGraphics` is available. It can be used to describing keyboard activity *for* such a compatible platform even *from* one that is not.
+  ///
+  /// - Parameters:
+  ///     - code: The code.
+  public init?(coreGraphicsCode code: Int) {
+    if let key = Key.coreGraphicsMapping[code] {
+      self = key
+    } else {
+      return nil
     }
+  }
 
-    #if canImport(Carbon)
+  #if canImport(Carbon)
     /// Creates a `Key` from a `CGKeyCode`.
     ///
     /// - Parameters:
     ///     - code: The `CGKeyCode`.
     public init?(code: CGKeyCode) {
-        if let key = Key.codeMapping[Int(code)] {
-            self = key
-        } else {
-            return nil
-        }
+      if let key = Key.codeMapping[Int(code)] {
+        self = key
+      } else {
+        return nil
+      }
     }
-    #endif
+  #endif
 
-    // MARK: - Properties
+  // MARK: - Properties
 
-    /// The `CoreGraphics` code.
-    ///
-    /// This property is available on all platforms, regardless of whether `CoreGraphics` is available. It can be used to describing keyboard activity *for* such a compatible platform even *from* one that is not.
-    public var coreGraphicsCode: Int {
-        return Key.coreGraphicsMapping[self]!
-    }
+  /// The `CoreGraphics` code.
+  ///
+  /// This property is available on all platforms, regardless of whether `CoreGraphics` is available. It can be used to describing keyboard activity *for* such a compatible platform even *from* one that is not.
+  public var coreGraphicsCode: Int {
+    return Key.coreGraphicsMapping[self]!
+  }
 
-    #if canImport(Carbon)
+  #if canImport(Carbon)
     /// The CGKeyCode for `self`.
     public var keyCode: CGKeyCode {
-        return CGKeyCode(Key.codeMapping[self]!)
+      return CGKeyCode(Key.codeMapping[self]!)
     }
-    #endif
+  #endif
 
-    /// Returns `true` if `self` is located in the same position on every hardware layout.
-    public var hasConsistentPosition: Bool {
-        switch self {
-        case .leftLittleTop, .leftRingTop, .leftMiddleTop, .leftIndexTop, .leftInsideTop, .rightInsideTop, .rightIndexTop, .rightMiddleTop, .rightRingTop, .rightLittleTop, .rightOutsideTop, .rightDoubleOutsideTop, .deleteBackspace, .tabulation, .leftLittleUpper, .leftRingUpper, .leftMiddleUpper, .leftIndexUpper, .leftInsideUpper, .rightInsideUpper, .rightIndexUpper, .rightMiddleUpper, .rightRingUpper, .rightLittleUpper, .rightOutsideUpper, .rightDoubleOutsideUpper, .leftLittleHome, .leftRingHome, .leftMiddleHome, .leftIndexHome, .leftInsideHome, .rightInsideHome, .rightIndexHome, .rightMiddleHome, .rightRingHome, .rightLittleHome, .rightOutsideHome, .return, .shiftLeft, .leftLittleLower, .leftRingLower, .leftMiddleLower, .leftIndexLower, .leftInsideLower, .rightInsideLower, .rightIndexLower, .rightMiddleLower, .rightRingLower, .rightLittleLower, .shiftRight, .optionLeft, .commandLeft, .thumbs, .commandRight, .optionRight, .arrowUp, .arrowLeft, .arrowDown, .arrowRight, .escape, .f1, .f2, .f3, .f4, .f5, .f6, .f7, .f8, .f9, .f10, .f11, .f12:
-            return true
-        default:
-            return false
-        }
+  /// Returns `true` if `self` is located in the same position on every hardware layout.
+  public var hasConsistentPosition: Bool {
+    switch self {
+    case .leftLittleTop, .leftRingTop, .leftMiddleTop, .leftIndexTop, .leftInsideTop,
+      .rightInsideTop, .rightIndexTop, .rightMiddleTop, .rightRingTop, .rightLittleTop,
+      .rightOutsideTop, .rightDoubleOutsideTop, .deleteBackspace, .tabulation, .leftLittleUpper,
+      .leftRingUpper, .leftMiddleUpper, .leftIndexUpper, .leftInsideUpper, .rightInsideUpper,
+      .rightIndexUpper, .rightMiddleUpper, .rightRingUpper, .rightLittleUpper, .rightOutsideUpper,
+      .rightDoubleOutsideUpper, .leftLittleHome, .leftRingHome, .leftMiddleHome, .leftIndexHome,
+      .leftInsideHome, .rightInsideHome, .rightIndexHome, .rightMiddleHome, .rightRingHome,
+      .rightLittleHome, .rightOutsideHome, .return, .shiftLeft, .leftLittleLower, .leftRingLower,
+      .leftMiddleLower, .leftIndexLower, .leftInsideLower, .rightInsideLower, .rightIndexLower,
+      .rightMiddleLower, .rightRingLower, .rightLittleLower, .shiftRight, .optionLeft, .commandLeft,
+      .thumbs, .commandRight, .optionRight, .arrowUp, .arrowLeft, .arrowDown, .arrowRight, .escape,
+      .f1, .f2, .f3, .f4, .f5, .f6, .f7, .f8, .f9, .f10, .f11, .f12:
+      return true
+    default:
+      return false
     }
+  }
 
-    /// Returns `true` if self is present on every hardware layout (but not necessarily in the same location).
-    public var existsConsistently: Bool {
-        if hasConsistentPosition {
-            return true
-        } else {
-            switch self {
-            case .capsLockLeftHomeISO_ANSI_CapsLockRightBottomJIS, .rightDoubleOutsideHomeISO_JIS_RightTripleOutsideUpperANSI, .leftOutsideLowerISO_LeftOutsideTopANSI_JIS, .controlLeftBottomISO_ANSI_ControlLeftHomeJIS:
-                return true
-            default:
-                return false
-            }
-        }
+  /// Returns `true` if self is present on every hardware layout (but not necessarily in the same location).
+  public var existsConsistently: Bool {
+    if hasConsistentPosition {
+      return true
+    } else {
+      switch self {
+      case .capsLockLeftHomeISO_ANSI_CapsLockRightBottomJIS,
+        .rightDoubleOutsideHomeISO_JIS_RightTripleOutsideUpperANSI,
+        .leftOutsideLowerISO_LeftOutsideTopANSI_JIS, .controlLeftBottomISO_ANSI_ControlLeftHomeJIS:
+        return true
+      default:
+        return false
+      }
     }
+  }
 
-    // MARK: - Usage
+  // MARK: - Usage
 
-    #if canImport(Carbon)
+  #if canImport(Carbon)
     /// Returns the character printed on the physical key. This is useful for describing controls to the user.
     ///
     /// - Note: This is accomplished by determining the key’s output, and modifing it to match keyboard labelling conventions (such as printing letters uppercase). Therefore, if the user’s virtual and physical keyboards do not match, the returned string will match the virtual layout, not the physical one.
@@ -671,55 +675,58 @@ public enum Key : CaseIterable {
     ///
     /// - Returns: The character printed on the key.
     public var currentName: StrictString {
-        let output = self.output(with: CGEventFlags(rawValue: 0))
+      let output = self.output(with: CGEventFlags(rawValue: 0))
 
-        if output.scalars.contains(where: { $0.properties.changesWhenUppercased }) {
-            let shifted = self.output(with: .maskShift)
+      if output.scalars.contains(where: { $0.properties.changesWhenUppercased }) {
+        let shifted = self.output(with: .maskShift)
 
-            if shifted.lowercased() == output
-                ∨ output.uppercased() == shifted { // @exempt(from: tests) Reachability depends on keyboard.
-                return StrictString(shifted)
-            } else if output == "i" ∧ shifted == "İ" { // @exempt(from: tests)
-                // Turkic
-                return StrictString(shifted)
-            } else if output == "ĸ" ∧ shifted == "Kʻ" { // @exempt(from: tests)
-                // Inuktitut
-                return StrictString(shifted)
-            }
+        if shifted.lowercased() == output
+          ∨ output.uppercased() == shifted
+        {  // @exempt(from: tests) Reachability depends on keyboard.
+          return StrictString(shifted)
+        } else if output == "i" ∧ shifted == "İ" {  // @exempt(from: tests)
+          // Turkic
+          return StrictString(shifted)
+        } else if output == "ĸ" ∧ shifted == "Kʻ" {  // @exempt(from: tests)
+          // Inuktitut
+          return StrictString(shifted)
         }
+      }
 
-        return StrictString(output)
+      return StrictString(output)
     }
 
     private func output(with modifiers: CGEventFlags) -> String {
-        let keyboard = TISCopyCurrentKeyboardLayoutInputSource().takeRetainedValue()
-        let rawLayoutData = TISGetInputSourceProperty(keyboard, kTISPropertyUnicodeKeyLayoutData)
-        let layoutData = unsafeBitCast(rawLayoutData, to: CFData.self)
-        let layout: UnsafePointer<UCKeyboardLayout> = unsafeBitCast(
-            CFDataGetBytePtr(layoutData),
-            to: UnsafePointer<UCKeyboardLayout>.self)
-        let action = UInt16(kUCKeyActionDisplay)
-        let modifierKeyState = UInt32((modifiers.rawValue >> 16) & 0xFF)
-        let keyboardType = UInt32(LMGetKbdType())
-        let keyTranslateOptions = OptionBits(kUCKeyTranslateNoDeadKeysBit)
-        var deadKeyState: UInt32 = 0
-        let maxStringLength = 255
-        var actualStringLength = 0
-        var result = [UniChar](repeating: 0, count: maxStringLength)
+      let keyboard = TISCopyCurrentKeyboardLayoutInputSource().takeRetainedValue()
+      let rawLayoutData = TISGetInputSourceProperty(keyboard, kTISPropertyUnicodeKeyLayoutData)
+      let layoutData = unsafeBitCast(rawLayoutData, to: CFData.self)
+      let layout: UnsafePointer<UCKeyboardLayout> = unsafeBitCast(
+        CFDataGetBytePtr(layoutData),
+        to: UnsafePointer<UCKeyboardLayout>.self
+      )
+      let action = UInt16(kUCKeyActionDisplay)
+      let modifierKeyState = UInt32((modifiers.rawValue >> 16) & 0xFF)
+      let keyboardType = UInt32(LMGetKbdType())
+      let keyTranslateOptions = OptionBits(kUCKeyTranslateNoDeadKeysBit)
+      var deadKeyState: UInt32 = 0
+      let maxStringLength = 255
+      var actualStringLength = 0
+      var result = [UniChar](repeating: 0, count: maxStringLength)
 
-        _ = UCKeyTranslate(
-            layout,
-            keyCode,
-            action,
-            modifierKeyState,
-            keyboardType,
-            keyTranslateOptions,
-            &deadKeyState,
-            maxStringLength,
-            &actualStringLength,
-            &result)
+      _ = UCKeyTranslate(
+        layout,
+        keyCode,
+        action,
+        modifierKeyState,
+        keyboardType,
+        keyTranslateOptions,
+        &deadKeyState,
+        maxStringLength,
+        &actualStringLength,
+        &result
+      )
 
-        return NSString(characters: result, length: actualStringLength) as String
+      return NSString(characters: result, length: actualStringLength) as String
     }
-    #endif
+  #endif
 }

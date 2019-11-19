@@ -15,22 +15,22 @@
 /// A spacing measurement.
 public enum Spacing {
 
-    /// The automatic spacing provided by the system.
-    case automatic
+  /// The automatic spacing provided by the system.
+  case automatic
 
-    /// Custom spacing.
-    case specific(Double)
+  /// Custom spacing.
+  case specific(Double)
 
-    // MARK: - Properties
+  // MARK: - Properties
 
-    #if canImport(AppKit) || canImport(UIKit)
+  #if canImport(AppKit) || canImport(UIKit)
     internal var string: String {
-        switch self {
-        case .automatic:
-            return "\u{2D}"
-        case .specific(let size):
-            return "\u{2D}\(size)\u{2D}"
-        }
+      switch self {
+      case .automatic:
+        return "\u{2D}"
+      case .specific(let size):
+        return "\u{2D}\(size)\u{2D}"
+      }
     }
-    #endif
+  #endif
 }

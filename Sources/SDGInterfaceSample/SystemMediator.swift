@@ -13,24 +13,24 @@
  */
 
 public func getSystemMediator() -> SDGApplication.SystemMediator {
-    return SystemMediator()
+  return SystemMediator()
 }
 
 // @example(mediator)
 import SDGApplication
 
-internal class SystemMediator : SDGApplication.SystemMediator {
+internal class SystemMediator: SDGApplication.SystemMediator {
 
-    internal func finishLaunching(_ details: LaunchDetails) -> Bool {
-        Application.setSamplesUp()
-        return true
-    }
+  internal func finishLaunching(_ details: LaunchDetails) -> Bool {
+    Application.setSamplesUp()
+    return true
+  }
 }
 // @endExample
 
 extension SystemMediator {
 
-    internal var remainsRunningWithNoWindows: Bool { // @exempt(from: tests)
-        return true
-    }
+  internal var remainsRunningWithNoWindows: Bool {  // @exempt(from: tests)
+    return true
+  }
 }

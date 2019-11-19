@@ -17,24 +17,26 @@ import SDGText
 
 extension RichText {
 
-    public struct Index : Comparable {
+  public struct Index: Comparable {
 
-        // MARK: - Initialization
+    // MARK: - Initialization
 
-        internal init(segment: Array<Segment>.Index, scalar: StrictString.Index) {
-            self.segment = segment
-            self.scalar = scalar
-        }
-
-        // MARK: - Properties
-
-        internal var segment: Array<Segment>.Index
-        internal var scalar: StrictString.Index
-
-        // MARK: - Comparable
-
-        public static func < (precedingValue: Index, followingValue: Index) -> Bool {
-            return (precedingValue.segment, precedingValue.scalar) < (followingValue.segment, followingValue.scalar)
-        }
+    internal init(segment: Array<Segment>.Index, scalar: StrictString.Index) {
+      self.segment = segment
+      self.scalar = scalar
     }
+
+    // MARK: - Properties
+
+    internal var segment: Array<Segment>.Index
+    internal var scalar: StrictString.Index
+
+    // MARK: - Comparable
+
+    public static func < (precedingValue: Index, followingValue: Index) -> Bool {
+      return (precedingValue.segment, precedingValue.scalar) < (
+        followingValue.segment, followingValue.scalar
+      )
+    }
+  }
 }

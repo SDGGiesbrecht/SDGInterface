@@ -13,32 +13,32 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-#if canImport(AppKit)
-import AppKit
-#elseif canImport(UIKit)
-import UIKit
-#endif
+  #if canImport(AppKit)
+    import AppKit
+  #elseif canImport(UIKit)
+    import UIKit
+  #endif
 
-import SDGViews
+  import SDGViews
 
-/// A set of radio buttons with no particular localization.
-public protocol AnyRadioButtonSet : View {
+  /// A set of radio buttons with no particular localization.
+  public protocol AnyRadioButtonSet: View {
     #if canImport(AppKit)
-    // #documentation(SpecificView.specificNative)
-    /// The specific native view.
-    var specificNative: NSSegmentedControl { get }
+      // #documentation(SpecificView.specificNative)
+      /// The specific native view.
+      var specificNative: NSSegmentedControl { get }
     #elseif canImport(UIKit)
-    // #documentation(SpecificView.specificNative)
-    /// The specific native view.
-    var specificNative: UISegmentedControl { get }
+      // #documentation(SpecificView.specificNative)
+      /// The specific native view.
+      var specificNative: UISegmentedControl { get }
     #endif
     func _refreshBindings()
-}
+  }
 
-extension AnyRadioButtonSet {
+  extension AnyRadioButtonSet {
 
     internal func refreshBindings() {
-        _refreshBindings()
+      _refreshBindings()
     }
-}
+  }
 #endif

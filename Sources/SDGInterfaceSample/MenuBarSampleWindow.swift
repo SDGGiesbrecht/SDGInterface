@@ -13,42 +13,50 @@
  */
 
 #if canImport(AppKit)
-import ObjectiveC
+  import ObjectiveC
 
-import SDGText
-import SDGLocalization
+  import SDGText
+  import SDGLocalization
 
-import SDGMenus
-import SDGMenuBar
-import SDGApplication
+  import SDGMenus
+  import SDGMenuBar
+  import SDGApplication
 
-import SDGInterfaceLocalizations
+  import SDGInterfaceLocalizations
 
-extension MenuBar {
+  extension MenuBar {
 
     private static func fullscreen() -> MenuEntry<InterfaceLocalization> {
-        let fullscreen = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
+      let fullscreen = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
-                return "Fullscreen"
+              return "Fullscreen"
             }
-        })))
-        fullscreen.action = #selector(Application.demonstrateFullscreenWindow)
-        fullscreen.target = Application.shared
-        return fullscreen
+          })
+        )
+      )
+      fullscreen.action = #selector(Application.demonstrateFullscreenWindow)
+      fullscreen.target = Application.shared
+      return fullscreen
     }
 
     internal static func window() -> Menu<InterfaceLocalization> {
-        let window = Menu(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
+      let window = Menu(
+        label: .static(
+          UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
-                return "Window"
+              return "Window"
             }
-        })))
-        window.entries = [
-            .entry(fullscreen())
-        ]
-        return window
+          })
+        )
+      )
+      window.entries = [
+        .entry(fullscreen())
+      ]
+      return window
     }
-}
+  }
 #endif

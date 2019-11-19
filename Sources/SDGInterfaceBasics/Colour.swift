@@ -13,155 +13,166 @@
  */
 
 #if canImport(AppKit)
-import AppKit
+  import AppKit
 #endif
 #if canImport(UIKit)
-import UIKit
+  import UIKit
 #endif
 
 /// A colour.
-public struct Colour : Hashable {
+public struct Colour: Hashable {
 
-    // MARK: - Static Properties
+  // MARK: - Static Properties
 
-    /// Black.
-    public static var black: Colour {
-        return Colour(white: 0)
-    }
-    /// White.
-    public static var white: Colour {
-        return Colour(white: 1)
-    }
+  /// Black.
+  public static var black: Colour {
+    return Colour(white: 0)
+  }
+  /// White.
+  public static var white: Colour {
+    return Colour(white: 1)
+  }
 
-    /// Blue.
-    public static var blue: Colour {
-        return Colour(red: 0, green: 0, blue: 1)
-    }
-    /// Green.
-    public static var green: Colour {
-        return Colour(red: 0, green: 1, blue: 0)
-    }
-    /// Cyan.
-    public static var cyan: Colour {
-        return Colour(red: 0, green: 1, blue: 1)
-    }
-    /// Red.
-    public static var red: Colour {
-        return Colour(red: 1, green: 0, blue: 0)
-    }
-    /// Magenta.
-    public static var magenta: Colour {
-        return Colour(red: 1, green: 0, blue: 1)
-    }
-    /// Yellow.
-    public static var yellow: Colour {
-        return Colour(red: 1, green: 1, blue: 0)
-    }
+  /// Blue.
+  public static var blue: Colour {
+    return Colour(red: 0, green: 0, blue: 1)
+  }
+  /// Green.
+  public static var green: Colour {
+    return Colour(red: 0, green: 1, blue: 0)
+  }
+  /// Cyan.
+  public static var cyan: Colour {
+    return Colour(red: 0, green: 1, blue: 1)
+  }
+  /// Red.
+  public static var red: Colour {
+    return Colour(red: 1, green: 0, blue: 0)
+  }
+  /// Magenta.
+  public static var magenta: Colour {
+    return Colour(red: 1, green: 0, blue: 1)
+  }
+  /// Yellow.
+  public static var yellow: Colour {
+    return Colour(red: 1, green: 1, blue: 0)
+  }
 
-    // MARK: - Initialization
+  // MARK: - Initialization
 
-    /// Creates a colour.
-    ///
-    /// - Parameters:
-    ///     - red: The red component. (0–1)
-    ///     - green: The green component. (0–1)
-    ///     - blue: The blue component. (0–1)
-    ///     - opacity: The opacity. (0–1)
-    public init(red: Double, green: Double, blue: Double, opacity: Double = 1) {
-        self.red = red
-        self.green = green
-        self.blue = blue
-        self.opacity = opacity
-    }
+  /// Creates a colour.
+  ///
+  /// - Parameters:
+  ///     - red: The red component. (0–1)
+  ///     - green: The green component. (0–1)
+  ///     - blue: The blue component. (0–1)
+  ///     - opacity: The opacity. (0–1)
+  public init(red: Double, green: Double, blue: Double, opacity: Double = 1) {
+    self.red = red
+    self.green = green
+    self.blue = blue
+    self.opacity = opacity
+  }
 
-    /// Creates a greyscale colour with zero saturation.
-    ///
-    /// - Parameters:
-    ///     - white: The brightness component. (0–1)
-    ///     - opacity: The opacity. (0–1)
-    public init(white: Double, opacity: Double = 1) {
-        self.red = white
-        self.green = white
-        self.blue = white
-        self.opacity = opacity
-    }
+  /// Creates a greyscale colour with zero saturation.
+  ///
+  /// - Parameters:
+  ///     - white: The brightness component. (0–1)
+  ///     - opacity: The opacity. (0–1)
+  public init(white: Double, opacity: Double = 1) {
+    self.red = white
+    self.green = white
+    self.blue = white
+    self.opacity = opacity
+  }
 
-    #if canImport(AppKit)
+  #if canImport(AppKit)
     // @documentation(Colour.init(native:))
     /// Creates a colour from a native colour.
     ///
     /// - Parameters:
     ///     - native: The native colour.
     public init(_ native: NSColor) {
-        self.nsColor = native
+      self.nsColor = native
     }
-    #endif
+  #endif
 
-    #if canImport(UIKit)
+  #if canImport(UIKit)
     // #documentation(Colour.init(native:))
     /// Creates a colour from a native colour.
     ///
     /// - Parameters:
     ///     - native: The native colour.
     public init(_ native: UIColor) {
-        self.uiColor = native
+      self.uiColor = native
     }
-    #endif
+  #endif
 
-    // MARK: - Properties
+  // MARK: - Properties
 
-    /// The red component. (0–1)
-    public var red: Double = 0
+  /// The red component. (0–1)
+  public var red: Double = 0
 
-    /// The green component. (0–1)
-    public var green: Double = 0
+  /// The green component. (0–1)
+  public var green: Double = 0
 
-    /// The blue component. (0–1)
-    public var blue: Double = 0
+  /// The blue component. (0–1)
+  public var blue: Double = 0
 
-    /// The opacity. (0–1)
-    public var opacity: Double = 0
+  /// The opacity. (0–1)
+  public var opacity: Double = 0
 
-    #if canImport(AppKit)
+  #if canImport(AppKit)
     // @documentation(Colour.native)
     /// The native colour.
     public var nsColor: NSColor {
-        get {
-            return NSColor(
-                calibratedRed: CGFloat(red),
-                green: CGFloat(green),
-                blue: CGFloat(blue),
-                alpha: CGFloat(opacity))
+      get {
+        return NSColor(
+          calibratedRed: CGFloat(red),
+          green: CGFloat(green),
+          blue: CGFloat(blue),
+          alpha: CGFloat(opacity)
+        )
+      }
+      set {
+        if let converted = newValue.usingColorSpace(.genericRGB) {
+          red = Double(converted.redComponent)
+          green = Double(converted.greenComponent)
+          blue = Double(converted.blueComponent)
+          opacity = Double(converted.alphaComponent)
         }
-        set {
-            if let converted = newValue.usingColorSpace(.genericRGB) {
-                red = Double(converted.redComponent)
-                green = Double(converted.greenComponent)
-                blue = Double(converted.blueComponent)
-                opacity = Double(converted.alphaComponent)
-            }
-        }
+      }
     }
-    #endif
+  #endif
 
-    #if canImport(UIKit)
+  #if canImport(UIKit)
     // #documentation(Colour.native)
     /// The native colour.
     public var uiColor: UIColor {
-        get {
-            return UIColor(red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: CGFloat(opacity))
-        }
-        set {
-            var convertedRed: CGFloat = 0
-            var convertedGreen: CGFloat = 0
-            var convertedBlue: CGFloat = 0
-            var convertedAlpha: CGFloat = 0
-            newValue.getRed(&convertedRed, green: &convertedGreen, blue: &convertedBlue, alpha: &convertedAlpha)
-            red = Double(convertedRed)
-            green = Double(convertedGreen)
-            blue = Double(convertedBlue)
-            opacity = Double(convertedAlpha)
-        }
+      get {
+        return UIColor(
+          red: CGFloat(red),
+          green: CGFloat(green),
+          blue: CGFloat(blue),
+          alpha: CGFloat(opacity)
+        )
+      }
+      set {
+        var convertedRed: CGFloat = 0
+        var convertedGreen: CGFloat = 0
+        var convertedBlue: CGFloat = 0
+        var convertedAlpha: CGFloat = 0
+        newValue.getRed(
+          &convertedRed,
+          green: &convertedGreen,
+          blue: &convertedBlue,
+          alpha: &convertedAlpha
+        )
+        red = Double(convertedRed)
+        green = Double(convertedGreen)
+        blue = Double(convertedBlue)
+        opacity = Double(convertedAlpha)
+      }
     }
-    #endif
+  #endif
 }

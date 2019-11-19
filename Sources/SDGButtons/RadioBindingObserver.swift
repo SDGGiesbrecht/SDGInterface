@@ -13,9 +13,9 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-import SDGControlFlow
+  import SDGControlFlow
 
-internal final class RadioBindingObserver : SharedValueObserver {
+  internal final class RadioBindingObserver: SharedValueObserver {
 
     // MARK: - Properties
 
@@ -24,7 +24,7 @@ internal final class RadioBindingObserver : SharedValueObserver {
     // MARK: - SharedValueObserver
 
     internal func valueChanged(for identifier: String) {
-        buttons?.refreshBindings()
+      buttons?.refreshBindings()
     }
-}
+  }
 #endif

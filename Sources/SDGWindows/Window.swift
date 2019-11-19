@@ -13,32 +13,32 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-#if canImport(AppKit)
-import AppKit
-#endif
-#if canImport(UIKit)
-import UIKit
-#endif
+  #if canImport(AppKit)
+    import AppKit
+  #endif
+  #if canImport(UIKit)
+    import UIKit
+  #endif
 
-import SDGLogic
-import SDGText
-import SDGLocalization
+  import SDGLogic
+  import SDGText
+  import SDGLocalization
 
-import SDGInterfaceBasics
-import SDGViews
+  import SDGInterfaceBasics
+  import SDGViews
 
-#if canImport(AppKit)
-private let setUpFieldEditorReset: Void = {
-    _resetFieldEditors = {
-        for (_, window) in allWindows { // @exempt(from: tests) Only reachable with a bungled set‐up.
-            window._fieldEditor = _getFieldEditor()
+  #if canImport(AppKit)
+    private let setUpFieldEditorReset: Void = {
+      _resetFieldEditors = {
+        for (_, window) in allWindows {  // @exempt(from: tests) Only reachable with a bungled set‐up.
+          window._fieldEditor = _getFieldEditor()
         }
-    }
-}()
-#endif
+      }
+    }()
+  #endif
 
-/// A window.
-public final class Window<L> : AnyWindow where L : Localization {
+  /// A window.
+  public final class Window<L>: AnyWindow where L: Localization {
 
     // MARK: - Generators
 
@@ -48,40 +48,40 @@ public final class Window<L> : AnyWindow where L : Localization {
     ///     - name: The name of the window. (Used in places like the title bar or dock.)
     ///     - view: The view.
     public static func primaryWindow(name: Binding<StrictString, L>, view: View) -> Window {
-        let window = Window(name: name, view: view)
-        window.size = availableSize
-        #if canImport(UIKit)
+      let window = Window(name: name, view: view)
+      window.size = availableSize
+      #if canImport(UIKit)
         window.native.frame.origin = CGPoint(x: 0, y: 0)
-        #endif
-        #if canImport(AppKit)
+      #endif
+      #if canImport(AppKit)
         window.isPrimary = true
-        #endif
-        return window
+      #endif
+      return window
     }
 
     #if canImport(AppKit)
-    /// Creates an auxiliary window.
-    ///
-    /// - Parameters:
-    ///     - name: The name of the window. (Used in places like the title bar or dock.)
-    ///     - view: The view.
-    public static func auxiliaryWindow(name: Binding<StrictString, L>, view: View) -> Window {
+      /// Creates an auxiliary window.
+      ///
+      /// - Parameters:
+      ///     - name: The name of the window. (Used in places like the title bar or dock.)
+      ///     - view: The view.
+      public static func auxiliaryWindow(name: Binding<StrictString, L>, view: View) -> Window {
         let window = Window(name: name, view: view)
         window.size = auxiliarySize
         window.isAuxiliary = true
         return window
-    }
+      }
 
-    /// Creates a fullscreen window.
-    ///
-    /// - Parameters:
-    ///     - name: The name of the window. (Used in places like the title bar or dock.)
-    ///     - view: The view.
-    public static func fullscreenWindow(name: Binding<StrictString, L>, view: View) -> Window {
+      /// Creates a fullscreen window.
+      ///
+      /// - Parameters:
+      ///     - name: The name of the window. (Used in places like the title bar or dock.)
+      ///     - view: The view.
+      public static func fullscreenWindow(name: Binding<StrictString, L>, view: View) -> Window {
         let window = primaryWindow(name: name, view: view)
         window.isFullscreen = true
         return window
-    }
+      }
     #endif
 
     // MARK: - Initialization
@@ -92,62 +92,63 @@ public final class Window<L> : AnyWindow where L : Localization {
     ///     - name: The name of the window. (Used in places like the title bar or dock.)
     ///     - view: The view.
     public init(name: Binding<StrictString, L>, view: View) {
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         setUpFieldEditorReset
-        #endif
+      #endif
 
-        defer {
-            randomizeLocation()
-        }
+      defer {
+        randomizeLocation()
+      }
 
-        self.name = name
-        defer {
-            nameDidSet()
-            LocalizationSetting.current.register(observer: bindingObserver)
-        }
+      self.name = name
+      defer {
+        nameDidSet()
+        LocalizationSetting.current.register(observer: bindingObserver)
+      }
 
-        self.view = view
-        defer {
-            viewDidSet()
-        }
+      self.view = view
+      defer {
+        viewDidSet()
+      }
 
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         native = NSWindow(
-            contentRect: NSRect.zero,
-            styleMask: [
-                .titled,
-                .closable,
-                .miniaturizable,
-                .resizable,
-                .texturedBackground,
-                .unifiedTitleAndToolbar
-            ],
-            backing: .buffered,
-            defer: true)
-        #elseif canImport(UIKit)
+          contentRect: NSRect.zero,
+          styleMask: [
+            .titled,
+            .closable,
+            .miniaturizable,
+            .resizable,
+            .texturedBackground,
+            .unifiedTitleAndToolbar
+          ],
+          backing: .buffered,
+          defer: true
+        )
+      #elseif canImport(UIKit)
         native = UIWindow(frame: CGRect.zero)
-        #endif
+      #endif
 
+      defer {
+        bindingObserver.window = self
+      }
+
+      #if canImport(AppKit)
         defer {
-            bindingObserver.window = self
+          native.delegate = delegate
+          delegate.window = self
         }
+      #endif
 
-        #if canImport(AppKit)
-        defer {
-            native.delegate = delegate
-            delegate.window = self
-        }
-        #endif
-
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         native.isReleasedWhenClosed = false
-        #endif
+      #endif
 
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         native.titleVisibility = .hidden
         native.setAutorecalculatesContentBorderThickness(false, for: NSRectEdge.minY)
         native.setContentBorderThickness(0, for: NSRectEdge.minY)
-        #endif
+      #endif
     }
 
     // MARK: - Properties
@@ -156,56 +157,58 @@ public final class Window<L> : AnyWindow where L : Localization {
 
     /// The name of the window. (Used in places like the title bar or dock.)
     public var name: Binding<StrictString, L> {
-        willSet {
-            name.shared?.cancel(observer: bindingObserver)
-        }
-        didSet {
-            nameDidSet()
-        }
+      willSet {
+        name.shared?.cancel(observer: bindingObserver)
+      }
+      didSet {
+        nameDidSet()
+      }
     }
     private func nameDidSet() {
-        name.shared?.register(observer: bindingObserver)
+      name.shared?.register(observer: bindingObserver)
     }
 
     /// The root view.
     public var view: View {
-        didSet {
-            viewDidSet()
-        }
+      didSet {
+        viewDidSet()
+      }
     }
     private func viewDidSet() {
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         native.contentView = view.native
-        #elseif canImport(UIKit)
+      #elseif canImport(UIKit)
         if native.rootViewController == nil {
-            native.rootViewController = UIViewController()
+          native.rootViewController = UIViewController()
         }
-        native.rootViewController?.view.map { AnyNativeView($0).fill(with: view, margin: .specific(0)) }
-        #endif
+        native.rootViewController?.view.map {
+          AnyNativeView($0).fill(with: view, margin: .specific(0))
+        }
+      #endif
     }
 
     #if canImport(AppKit)
-    /// The native window.
-    public let native: NSWindow
-    private let delegate = NSWindowDelegate()
-    public var _fieldEditor = _getFieldEditor()
+      /// The native window.
+      public let native: NSWindow
+      private let delegate = NSWindowDelegate()
+      public var _fieldEditor = _getFieldEditor()
     #elseif canImport(UIKit)
-    /// The native window.
-    public let native: UIWindow
+      /// The native window.
+      public let native: UIWindow
     #endif
 
     // MARK: - Refreshing
 
     public func _refreshBindings() {
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         native.title = String(name.resolved())
-        #elseif TEST_COVERAGE_AIDS
+      #elseif TEST_COVERAGE_AIDS
         _ = name.resolved()
-        #endif
+      #endif
     }
 
     // MARK: - AnyWindow
 
     public var closeAction: () -> Void = {}
-}
+  }
 #endif

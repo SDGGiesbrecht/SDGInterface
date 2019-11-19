@@ -13,48 +13,48 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-#if canImport(AppKit)
-import AppKit
-#elseif canImport(UIKit)
-import UIKit
-#endif
+  #if canImport(AppKit)
+    import AppKit
+  #elseif canImport(UIKit)
+    import UIKit
+  #endif
 
-/// A specific type of view.
-public protocol SpecificView : View {
+  /// A specific type of view.
+  public protocol SpecificView: View {
 
     #if canImport(AppKit)
-    // @documentation(SpecificView.SpecificNativeView)
-    /// The specific native view type.
-    associatedtype SpecificNativeView : NSView
+      // @documentation(SpecificView.SpecificNativeView)
+      /// The specific native view type.
+      associatedtype SpecificNativeView: NSView
     #elseif canImport(UIKit)
-    // #documentation(SpecificView.SpecificNativeView)
-    /// The specific native view type.
-    associatedtype SpecificNativeView : UIView
+      // #documentation(SpecificView.SpecificNativeView)
+      /// The specific native view type.
+      associatedtype SpecificNativeView: UIView
     #endif
 
     #if canImport(AppKit)
-    // @documentation(SpecificView.specificNative)
-    /// The specific native view.
-    var specificNative: SpecificNativeView { get }
+      // @documentation(SpecificView.specificNative)
+      /// The specific native view.
+      var specificNative: SpecificNativeView { get }
     #elseif canImport(UIKit)
-    // #documentation(SpecificView.specificNative)
-    /// The specific native view.
-    var specificNative: SpecificNativeView { get }
+      // #documentation(SpecificView.specificNative)
+      /// The specific native view.
+      var specificNative: SpecificNativeView { get }
     #endif
-}
+  }
 
-extension SpecificView {
+  extension SpecificView {
 
     // MARK: - View
 
     #if canImport(AppKit)
-    public var native: NSView {
+      public var native: NSView {
         return specificNative
-    }
+      }
     #elseif canImport(UIKit)
-    public var native: UIView {
+      public var native: UIView {
         return specificNative
-    }
+      }
     #endif
-}
+  }
 #endif

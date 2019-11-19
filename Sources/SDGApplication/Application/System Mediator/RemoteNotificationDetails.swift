@@ -15,21 +15,20 @@
 /// Details about a remote notification.
 public struct RemoteNotificationDetails {
 
-    // MARK: - Initialization
+  // MARK: - Initialization
 
-    /// Creates empty details.
-    public init() {}
+  /// Creates empty details.
+  public init() {}
 
-    // MARK: - Properties
+  // MARK: - Properties
 
-
-    #if canImport(AppKit)
+  #if canImport(AppKit)
     /// Some systems provide user information.
     public var userInformation: [String: Any] = [:]
-    #endif
+  #endif
 
-    #if canImport(UIKit)
+  #if canImport(UIKit)
     /// Some systems provide user information.
     public var userInformation: [AnyHashable: Any] = [:]
-    #endif
+  #endif
 }

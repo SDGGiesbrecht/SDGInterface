@@ -13,9 +13,9 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS) && !os(tvOS)
-import SDGControlFlow
+  import SDGControlFlow
 
-internal final class MenuBindingObserver : SharedValueObserver {
+  internal final class MenuBindingObserver: SharedValueObserver {
 
     // MARK: - Properties
 
@@ -24,7 +24,7 @@ internal final class MenuBindingObserver : SharedValueObserver {
     // MARK: - SharedValueObserver
 
     internal func valueChanged(for identifier: String) {
-        menu?.refreshBindings()
+      menu?.refreshBindings()
     }
-}
+  }
 #endif

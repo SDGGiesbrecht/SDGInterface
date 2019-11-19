@@ -13,9 +13,9 @@
  */
 
 #if canImport(AppKit)
-import SDGControlFlow
+  import SDGControlFlow
 
-internal final class CheckBoxBindingObserver : SharedValueObserver {
+  internal final class CheckBoxBindingObserver: SharedValueObserver {
 
     // MARK: - Properties
 
@@ -24,7 +24,7 @@ internal final class CheckBoxBindingObserver : SharedValueObserver {
     // MARK: - SharedValueObserver
 
     internal func valueChanged(for identifier: String) {
-        checkBox?.refreshBindings()
+      checkBox?.refreshBindings()
     }
-}
+  }
 #endif

@@ -13,241 +13,277 @@
  */
 
 #if canImport(AppKit)
-import AppKit
+  import AppKit
 
-import SDGText
-import SDGLocalization
+  import SDGText
+  import SDGLocalization
 
-import SDGMenus
-import SDGContextMenu
+  import SDGMenus
+  import SDGContextMenu
 
-import SDGInterfaceLocalizations
+  import SDGInterfaceLocalizations
 
-extension MenuBar {
+  extension MenuBar {
 
     private static func undo() -> MenuEntry<MenuBarLocalization> {
-        let undo = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let undo = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Deshacer"
+              return "Deshacer"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Undo"
+              return "Undo"
             case .deutschDeutschland:
-                return "Widerrufen"
+              return "Widerrufen"
             case .françaisFrance:
-                return "Annuler"
+              return "Annuler"
             case .ελληνικάΕλλάδα:
-                return "Αναίρεση"
+              return "Αναίρεση"
             case .עברית־ישראל:
-                return "בטל"
+              return "בטל"
             }
-        })))
-        undo.action = Selector.undo
-        undo.hotKey = "z"
-        undo.hotKeyModifiers = .command
-        return undo
+          })
+        )
+      )
+      undo.action = Selector.undo
+      undo.hotKey = "z"
+      undo.hotKeyModifiers = .command
+      return undo
     }
 
     private static func redo() -> MenuEntry<MenuBarLocalization> {
-        let redo = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let redo = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Rehacer"
+              return "Rehacer"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Redo"
+              return "Redo"
             case .deutschDeutschland:
-                return "Wiederholen"
+              return "Wiederholen"
             case .françaisFrance:
-                return "Rétablir"
+              return "Rétablir"
             case .ελληνικάΕλλάδα:
-                return "Επανάληψη"
+              return "Επανάληψη"
             case .עברית־ישראל:
-                return "חזור על הפעולה האחרונה"
+              return "חזור על הפעולה האחרונה"
             }
-        })))
-        redo.action = Selector.redo
-        redo.hotKey = "Z"
-        redo.hotKeyModifiers = .command
-        return redo
+          })
+        )
+      )
+      redo.action = Selector.redo
+      redo.hotKey = "Z"
+      redo.hotKeyModifiers = .command
+      return redo
     }
 
     private static func cut() -> MenuEntry<MenuBarLocalization> {
-        let cut = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let cut = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Cortar"
+              return "Cortar"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Cut"
+              return "Cut"
             case .deutschDeutschland:
-                return "Ausschneiden"
+              return "Ausschneiden"
             case .françaisFrance:
-                return "Couper"
+              return "Couper"
             case .ελληνικάΕλλάδα:
-                return "Αποκοπή"
+              return "Αποκοπή"
             case .עברית־ישראל:
-                return "גזור"
+              return "גזור"
             }
-        })))
-        cut.action = #selector(NSText.cut(_:))
-        cut.hotKey = "x"
-        cut.hotKeyModifiers = .command
-        return cut
+          })
+        )
+      )
+      cut.action = #selector(NSText.cut(_:))
+      cut.hotKey = "x"
+      cut.hotKeyModifiers = .command
+      return cut
     }
 
     private static func copy() -> MenuEntry<MenuBarLocalization> {
-        let copy = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let copy = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Copiar"
+              return "Copiar"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Copy"
+              return "Copy"
             case .deutschDeutschland:
-                return "Kopieren"
+              return "Kopieren"
             case .françaisFrance:
-                return "Copier"
+              return "Copier"
 
             case .ελληνικάΕλλάδα:
-                return "Αντιγραφή"
+              return "Αντιγραφή"
             case .עברית־ישראל:
-                return "העתק"
+              return "העתק"
             }
-        })))
-        copy.action = #selector(NSText.copy(_:))
-        copy.hotKey = "c"
-        copy.hotKeyModifiers = .command
-        return copy
+          })
+        )
+      )
+      copy.action = #selector(NSText.copy(_:))
+      copy.hotKey = "c"
+      copy.hotKeyModifiers = .command
+      return copy
     }
 
     private static func paste() -> MenuEntry<MenuBarLocalization> {
-        let paste = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let paste = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Pegar"
+              return "Pegar"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Paste"
+              return "Paste"
             case .deutschDeutschland:
-                return "Einsetzen"
+              return "Einsetzen"
 
             case .françaisFrance:
-                return "Coller"
+              return "Coller"
             case .ελληνικάΕλλάδα:
-                return "Επικόλληση"
+              return "Επικόλληση"
 
             case .עברית־ישראל:
-                return "הדבק"
+              return "הדבק"
             }
-        })))
-        paste.action = #selector(NSText.paste(_:))
-        paste.hotKey = "v"
-        paste.hotKeyModifiers = .command
-        return paste
+          })
+        )
+      )
+      paste.action = #selector(NSText.paste(_:))
+      paste.hotKey = "v"
+      paste.hotKeyModifiers = .command
+      return paste
     }
 
     private static func pasteAndMatchStyle() -> MenuEntry<MenuBarLocalization> {
-        let pasteAndMatchStyle = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let pasteAndMatchStyle = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Pegar con el mismo estilo"
+              return "Pegar con el mismo estilo"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Paste & Match Style"
+              return "Paste & Match Style"
             case .deutschDeutschland:
-                return "Einsetzen und Stil anpassen"
+              return "Einsetzen und Stil anpassen"
             case .françaisFrance:
-                return "Coller et adapter le style"
+              return "Coller et adapter le style"
             case .ελληνικάΕλλάδα:
-                return "Επικόλληση και αντιστοίχιση στιλ"
+              return "Επικόλληση και αντιστοίχιση στιλ"
             case .עברית־ישראל:
-                return "הדבק והתאם לסגנון"
+              return "הדבק והתאם לסגנון"
             }
-        })))
-        pasteAndMatchStyle.action = #selector(NSTextView.pasteAsPlainText(_:))
-        pasteAndMatchStyle.hotKey = "V"
-        pasteAndMatchStyle.hotKeyModifiers = [.command, .option]
-        return pasteAndMatchStyle
+          })
+        )
+      )
+      pasteAndMatchStyle.action = #selector(NSTextView.pasteAsPlainText(_:))
+      pasteAndMatchStyle.hotKey = "V"
+      pasteAndMatchStyle.hotKeyModifiers = [.command, .option]
+      return pasteAndMatchStyle
     }
 
     private static func delete() -> MenuEntry<MenuBarLocalization> {
-        let delete = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let delete = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Eliminar"
+              return "Eliminar"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Delete"
+              return "Delete"
             case .deutschDeutschland:
-                return "Löschen"
+              return "Löschen"
             case .françaisFrance:
-                return "Supprimer"
+              return "Supprimer"
             case .ελληνικάΕλλάδα:
-                return "Διαγραφή"
+              return "Διαγραφή"
             case .עברית־ישראל:
-                return "מחק"
+              return "מחק"
             }
-        })))
-        delete.action = #selector(NSText.delete(_:))
-        return delete
+          })
+        )
+      )
+      delete.action = #selector(NSText.delete(_:))
+      return delete
     }
 
     private static func selectAll() -> MenuEntry<MenuBarLocalization> {
-        let selectAll = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let selectAll = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Seleccionar todo"
+              return "Seleccionar todo"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Select All"
+              return "Select All"
             case .deutschDeutschland:
-                return "Alles auswählen"
+              return "Alles auswählen"
             case .françaisFrance:
-                return "Tout sélectionner"
+              return "Tout sélectionner"
             case .ελληνικάΕλλάδα:
-                return "Επιλογή όλων"
+              return "Επιλογή όλων"
             case .עברית־ישראל:
-                return "בחר הכל"
+              return "בחר הכל"
             }
-        })))
-        selectAll.action = #selector(NSResponder.selectAll(_:))
-        selectAll.hotKey = "a"
-        selectAll.hotKeyModifiers = .command
-        return selectAll
+          })
+        )
+      )
+      selectAll.action = #selector(NSResponder.selectAll(_:))
+      selectAll.hotKey = "a"
+      selectAll.hotKeyModifiers = .command
+      return selectAll
     }
 
     // Show Character Information (See context menu.)
 
     internal static func edit() -> Menu<MenuBarLocalization> {
-        let edit = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let edit = Menu(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Edición"
+              return "Edición"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Edit"
+              return "Edit"
             case .françaisFrance:
-                return "Édition"
+              return "Édition"
             case .deutschDeutschland:
-                return "Bearbeiten"
+              return "Bearbeiten"
             case .ελληνικάΕλλάδα:
-                return "Επεξεργασία"
+              return "Επεξεργασία"
             case .עברית־ישראל:
-                return "עריכה"
+              return "עריכה"
             }
-        })))
-        edit.entries = [
-            .entry(undo()),
-            .entry(redo()),
-            .separator,
-            .entry(cut()),
-            .entry(copy()),
-            .entry(paste()),
-            .entry(pasteAndMatchStyle()),
-            .entry(delete()),
-            .entry(selectAll()),
-            .separator,
-            .submenu(find()),
-            .submenu(spellingAndGrammar()),
-            .submenu(substitutions()),
-            .submenu(transformations()),
-            .entry(ContextMenu._showCharacterInformation()),
-            .submenu(speech())
-        ]
-        return edit
+          })
+        )
+      )
+      edit.entries = [
+        .entry(undo()),
+        .entry(redo()),
+        .separator,
+        .entry(cut()),
+        .entry(copy()),
+        .entry(paste()),
+        .entry(pasteAndMatchStyle()),
+        .entry(delete()),
+        .entry(selectAll()),
+        .separator,
+        .submenu(find()),
+        .submenu(spellingAndGrammar()),
+        .submenu(substitutions()),
+        .submenu(transformations()),
+        .entry(ContextMenu._showCharacterInformation()),
+        .submenu(speech())
+      ]
+      return edit
     }
-}
+  }
 #endif

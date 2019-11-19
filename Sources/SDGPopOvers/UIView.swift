@@ -13,21 +13,21 @@
  */
 
 #if canImport(UIKit) && !os(watchOS)
-import UIKit
+  import UIKit
 
-import SDGLogic
+  import SDGLogic
 
-extension UIView {
+  extension UIView {
 
     internal var controller: UIViewController? {
-        var responder: UIResponder? = self
-        while responder ≠ nil {
-            responder = responder!.next
-            if let cast = responder as? UIViewController {
-                return cast
-            }
+      var responder: UIResponder? = self
+      while responder ≠ nil {
+        responder = responder!.next
+        if let cast = responder as? UIViewController {
+          return cast
         }
-        return nil
+      }
+      return nil
     }
-}
+  }
 #endif

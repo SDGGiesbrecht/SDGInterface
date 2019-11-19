@@ -13,59 +13,67 @@
  */
 
 #if canImport(AppKit)
-import AppKit
+  import AppKit
 
-import SDGText
-import SDGLocalization
+  import SDGText
+  import SDGLocalization
 
-import SDGMenus
+  import SDGMenus
 
-import SDGInterfaceLocalizations
+  import SDGInterfaceLocalizations
 
-extension MenuBar {
+  extension MenuBar {
 
     private static func clearMenu() -> MenuEntry<MenuBarLocalization> {
-        let clearMenu = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let clearMenu = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Vaciar menú"
+              return "Vaciar menú"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Clear Menu"
+              return "Clear Menu"
             case .deutschDeutschland:
-                return "Einträge löschen"
+              return "Einträge löschen"
             case .françaisFrance:
-                return "Effacer le menu"
+              return "Effacer le menu"
             case .ελληνικάΕλλάδα:
-                return "Εκκαθάριση μενού"
+              return "Εκκαθάριση μενού"
             case .עברית־ישראל:
-                return "נקה תפריט"
+              return "נקה תפריט"
             }
-        })))
-        clearMenu.action = #selector(NSDocumentController.clearRecentDocuments(_:))
-        return clearMenu
+          })
+        )
+      )
+      clearMenu.action = #selector(NSDocumentController.clearRecentDocuments(_:))
+      return clearMenu
     }
 
     internal static func openRecent() -> Menu<MenuBarLocalization> {
-        let openRecent = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let openRecent = Menu(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Abrir recientes"
+              return "Abrir recientes"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Open Recent"
+              return "Open Recent"
             case .deutschDeutschland:
-                return "Benutzte Dokumente"
+              return "Benutzte Dokumente"
             case .françaisFrance:
-                return "Ouvrir l’élément récent"
+              return "Ouvrir l’élément récent"
             case .ελληνικάΕλλάδα:
-                return "Άνοιγμα προσφάτου"
+              return "Άνοιγμα προσφάτου"
             case .עברית־ישראל:
-                return "פתח אחרונים"
+              return "פתח אחרונים"
             }
-        })))
-        openRecent.entries = [
-            .entry(clearMenu())
-        ]
-        return openRecent
+          })
+        )
+      )
+      openRecent.entries = [
+        .entry(clearMenu())
+      ]
+      return openRecent
     }
-}
+  }
 #endif

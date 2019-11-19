@@ -13,17 +13,17 @@
  */
 
 #if canImport(AppKit) || canImport(UIKit)
-import SDGText
+  import SDGText
 
-import SDGImageDisplay
+  import SDGImageDisplay
 
-/// A button label.
-public enum ButtonLabel {
+  /// A button label.
+  public enum ButtonLabel {
 
     /// Text.
     case text(StrictString)
 
     /// A symbol.
     case symbol(Image)
-}
+  }
 #endif

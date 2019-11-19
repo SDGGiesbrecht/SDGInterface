@@ -13,66 +13,66 @@
  */
 
 #if canImport(AppKit)
-import AppKit
+  import AppKit
 #endif
 
 /// A response to a request to print.
-public enum PrintingResponse : CaseIterable {
+public enum PrintingResponse: CaseIterable {
 
-    // MARK: - Initialization
+  // MARK: - Initialization
 
-    #if canImport(AppKit)
+  #if canImport(AppKit)
     /// Creates a printing response from a native response.
     ///
     /// - Parameters:
     ///     - native: The native printing response.
     public init(_ native: NSApplication.PrintReply) {
-        switch native {
-        case .printingSuccess:
-            self = .success
-        case .printingReplyLater:
-            self = .processing
-        case .printingCancelled:
-            self = .cancel
-        case .printingFailure:
-            self = .failure
-        @unknown default: // @exempt(from: tests)
-            self = .failure
-        }
+      switch native {
+      case .printingSuccess:
+        self = .success
+      case .printingReplyLater:
+        self = .processing
+      case .printingCancelled:
+        self = .cancel
+      case .printingFailure:
+        self = .failure
+      @unknown default:  // @exempt(from: tests)
+        self = .failure
+      }
     }
-    #endif
+  #endif
 
-    // MARK: - Cases
+  // MARK: - Cases
 
-    /// Printing succeeded.
-    case success
+  /// Printing succeeded.
+  case success
 
-    /// Printing began but has not completed yet.
-    ///
-    /// This requests that the system wait until the application reports the result of the print attempt on its own.
-    case processing
+  /// Printing began but has not completed yet.
+  ///
+  /// This requests that the system wait until the application reports the result of the print attempt on its own.
+  case processing
 
-    /// Cancel printing.
-    case cancel
+  /// Cancel printing.
+  case cancel
 
-    /// Failed to print.
-    case failure
+  /// Failed to print.
+  case failure
 
-    // MARK: - Properties
+  // MARK: - Properties
 
-    #if canImport(AppKit)
+  #if canImport(AppKit)
     /// The native response.
     public var native: NSApplication.PrintReply {
-        switch self {
-        case .success:
-            return .printingSuccess
-        case .processing:
-            return .printingReplyLater
-        case .cancel:
-            return .printingCancelled
-        case .failure:
-            return .printingFailure
-        }
+      switch self {
+      case .success:
+        return .printingSuccess
+      case .processing:
+        return .printingReplyLater
+      case .cancel:
+        return .printingCancelled
+      case .failure:
+        return .printingFailure
+      }
     }
-    #endif
+  #endif
 }

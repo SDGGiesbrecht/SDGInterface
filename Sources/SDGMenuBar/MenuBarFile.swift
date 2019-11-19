@@ -13,273 +13,317 @@
  */
 
 #if canImport(AppKit)
-import AppKit
+  import AppKit
 
-import SDGText
-import SDGLocalization
+  import SDGText
+  import SDGLocalization
 
-import SDGMenus
+  import SDGMenus
 
-import SDGInterfaceLocalizations
+  import SDGInterfaceLocalizations
 
-extension MenuBar {
+  extension MenuBar {
 
     private static func new() -> MenuEntry<MenuBarLocalization> {
-        let new = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let new = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Nuevo"
+              return "Nuevo"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "New"
+              return "New"
             case .deutschDeutschland:
-                return "Neu"
+              return "Neu"
             case .françaisFrance:
-                return "Nouveau"
+              return "Nouveau"
 
             case .ελληνικάΕλλάδα:
-                return "Δημιουργία"
+              return "Δημιουργία"
             case .עברית־ישראל:
-                return "חדש"
+              return "חדש"
             }
-        })))
-        new.action = #selector(NSDocumentController.newDocument(_:))
-        new.hotKey = "n"
-        new.hotKeyModifiers = .command
-        return new
+          })
+        )
+      )
+      new.action = #selector(NSDocumentController.newDocument(_:))
+      new.hotKey = "n"
+      new.hotKeyModifiers = .command
+      return new
     }
 
     private static func open() -> MenuEntry<MenuBarLocalization> {
-        let open = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let open = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Abrir..."
+              return "Abrir..."
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Open..."
+              return "Open..."
             case .deutschDeutschland:
-                return "Öffnen ..."
+              return "Öffnen ..."
 
             case .françaisFrance:
-                return "Ouvrir..."
+              return "Ouvrir..."
             case .ελληνικάΕλλάδα:
-                return "Άνοιγμα..."
+              return "Άνοιγμα..."
             case .עברית־ישראל:
-                return "פתח..."
+              return "פתח..."
             }
-        })))
-        open.action = #selector(NSDocumentController.openDocument(_:))
-        open.hotKey = "o"
-        open.hotKeyModifiers = .command
-        return open
+          })
+        )
+      )
+      open.action = #selector(NSDocumentController.openDocument(_:))
+      open.hotKey = "o"
+      open.hotKeyModifiers = .command
+      return open
     }
 
     private static func close() -> MenuEntry<MenuBarLocalization> {
-        let close = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let close = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Cerrar"
+              return "Cerrar"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Close"
+              return "Close"
             case .deutschDeutschland:
-                return "Schließen"
+              return "Schließen"
             case .françaisFrance:
-                return "Fermer"
+              return "Fermer"
             case .ελληνικάΕλλάδα:
-                return "Κλείσιμο"
+              return "Κλείσιμο"
             case .עברית־ישראל:
-                return "סגור"
+              return "סגור"
             }
-        })))
-        close.action = #selector(NSWindow.performClose(_:))
-        close.hotKey = "w"
-        close.hotKeyModifiers = .command
-        return close
+          })
+        )
+      )
+      close.action = #selector(NSWindow.performClose(_:))
+      close.hotKey = "w"
+      close.hotKeyModifiers = .command
+      return close
     }
 
     private static func save() -> MenuEntry<MenuBarLocalization> {
-        let save = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let save = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Guardar"
+              return "Guardar"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Save"
+              return "Save"
             case .deutschDeutschland:
-                return "Sichern"
+              return "Sichern"
             case .françaisFrance:
-                return "Enregistrer"
+              return "Enregistrer"
             case .ελληνικάΕλλάδα:
-                return "Αποθήκευση"
+              return "Αποθήκευση"
             case .עברית־ישראל:
-                return "שמור"
+              return "שמור"
             }
-        })))
-        save.action = #selector(NSDocument.save(_:))
-        save.hotKey = "s"
-        save.hotKeyModifiers = .command
-        return save
+          })
+        )
+      )
+      save.action = #selector(NSDocument.save(_:))
+      save.hotKey = "s"
+      save.hotKeyModifiers = .command
+      return save
     }
 
     private static func duplicate() -> MenuEntry<MenuBarLocalization> {
-        let duplicate = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let duplicate = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Duplicar"
+              return "Duplicar"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Duplicate"
+              return "Duplicate"
             case .deutschDeutschland:
-                return "Duplizieren"
+              return "Duplizieren"
             case .françaisFrance:
-                return "Dupliquer"
+              return "Dupliquer"
 
             case .ελληνικάΕλλάδα:
-                return "Διπλότυπο"
+              return "Διπλότυπο"
             case .עברית־ישראל:
-                return "שכפל"
+              return "שכפל"
             }
-        })))
-        duplicate.action = #selector(NSDocument.duplicate(_:))
-        duplicate.hotKey = "S"
-        duplicate.hotKeyModifiers = .command
-        return duplicate
+          })
+        )
+      )
+      duplicate.action = #selector(NSDocument.duplicate(_:))
+      duplicate.hotKey = "S"
+      duplicate.hotKeyModifiers = .command
+      return duplicate
     }
 
     private static func rename() -> MenuEntry<MenuBarLocalization> {
-        let rename = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let rename = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Renombrar..."
+              return "Renombrar..."
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Rename..."
+              return "Rename..."
             case .françaisFrance:
-                return "Renommer..."
+              return "Renommer..."
 
             case .deutschDeutschland:
-                return "Umbenennen ..."
+              return "Umbenennen ..."
             case .ελληνικάΕλλάδα:
-                return "Μετανομασία..."
+              return "Μετανομασία..."
             case .עברית־ישראל:
-                return "שינוי שם..."
+              return "שינוי שם..."
             }
-        })))
-        rename.action = #selector(NSDocument.rename(_:))
-        return rename
+          })
+        )
+      )
+      rename.action = #selector(NSDocument.rename(_:))
+      return rename
     }
 
     private static func moveTo() -> MenuEntry<MenuBarLocalization> {
-        let moveTo = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let moveTo = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Trasladar a..."
+              return "Trasladar a..."
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Move to..."
+              return "Move to..."
             case .deutschDeutschland:
-                return "Bewegen ..."
+              return "Bewegen ..."
             case .françaisFrance:
-                return "Déplacer vers..."
+              return "Déplacer vers..."
             case .ελληνικάΕλλάδα:
-                return "Μετακίνηση σε..."
+              return "Μετακίνηση σε..."
             case .עברית־ישראל:
-                return "העבר אל..."
+              return "העבר אל..."
             }
-        })))
-        moveTo.action = #selector(NSDocument.move(_:))
-        return moveTo
+          })
+        )
+      )
+      moveTo.action = #selector(NSDocument.move(_:))
+      return moveTo
     }
 
     private static func revertToSaved() -> MenuEntry<InterfaceLocalization> {
-        let revertToSaved = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
+      let revertToSaved = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Revert to Saved"
+              return "Revert to Saved"
             case .deutschDeutschland:
-                return "Auf das gespeicherte zurückgreifen"
+              return "Auf das gespeicherte zurückgreifen"
             }
-        })))
-        revertToSaved.action = #selector(NSDocument.revertToSaved(_:))
-        revertToSaved.hotKey = "r"
-        revertToSaved.hotKeyModifiers = .command
-        return revertToSaved
+          })
+        )
+      )
+      revertToSaved.action = #selector(NSDocument.revertToSaved(_:))
+      revertToSaved.hotKey = "r"
+      revertToSaved.hotKeyModifiers = .command
+      return revertToSaved
     }
 
     private static func pageSetUp() -> MenuEntry<MenuBarLocalization> {
-        let pageSetUp = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let pageSetUp = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Ajustar página..."
+              return "Ajustar página..."
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Page Set‐Up..."
+              return "Page Set‐Up..."
             case .deutschDeutschland:
-                return "Papierformat ..."
+              return "Papierformat ..."
             case .françaisFrance:
-                return "Format d’impression..."
+              return "Format d’impression..."
             case .ελληνικάΕλλάδα:
-                return "Διαμόρφωση σελίδας..."
+              return "Διαμόρφωση σελίδας..."
             case .עברית־ישראל:
-                return "הגדרת עמוד..."
+              return "הגדרת עמוד..."
             }
-        })))
-        pageSetUp.action = #selector(NSDocument.runPageLayout(_:))
-        pageSetUp.hotKey = "P"
-        pageSetUp.hotKeyModifiers = .command
-        return pageSetUp
+          })
+        )
+      )
+      pageSetUp.action = #selector(NSDocument.runPageLayout(_:))
+      pageSetUp.hotKey = "P"
+      pageSetUp.hotKeyModifiers = .command
+      return pageSetUp
     }
 
     private static func print() -> MenuEntry<MenuBarLocalization> {
-        let print = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let print = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Imprimir..."
+              return "Imprimir..."
             case .françaisFrance:
-                return "Imprimer..."
+              return "Imprimer..."
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Print..."
+              return "Print..."
             case .deutschDeutschland:
-                return "Drucken ..."
+              return "Drucken ..."
             case .ελληνικάΕλλάδα:
-                return "Εκτύπωση..."
+              return "Εκτύπωση..."
             case .עברית־ישראל:
-                return "הדפס..."
+              return "הדפס..."
             }
-        })))
-        print.action = #selector(NSView.printView(_:))
-        print.hotKey = "p"
-        print.hotKeyModifiers = .command
-        return print
+          })
+        )
+      )
+      print.action = #selector(NSView.printView(_:))
+      print.hotKey = "p"
+      print.hotKeyModifiers = .command
+      return print
     }
 
     internal static func file() -> Menu<MenuBarLocalization> {
-        let file = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let file = Menu(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Archivo"
+              return "Archivo"
             case .ελληνικάΕλλάδα:
-                return "Αρχείο"
+              return "Αρχείο"
 
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "File"
+              return "File"
             case .deutschDeutschland:
-                return "Ablage"
+              return "Ablage"
             case .françaisFrance:
-                return "Fichier"
+              return "Fichier"
             case .עברית־ישראל:
-                return "קובץ"
+              return "קובץ"
             }
-        })))
-        file.entries = [
-            .entry(new()),
-            .entry(open()),
-            .submenu(openRecent()),
-            .separator,
-            .entry(close()),
-            .entry(save()),
-            .entry(duplicate()),
-            .entry(rename()),
-            .entry(moveTo()),
-            .entry(revertToSaved()),
-            .separator,
-            .entry(pageSetUp()),
-            .entry(print())
-        ]
-        return file
+          })
+        )
+      )
+      file.entries = [
+        .entry(new()),
+        .entry(open()),
+        .submenu(openRecent()),
+        .separator,
+        .entry(close()),
+        .entry(save()),
+        .entry(duplicate()),
+        .entry(rename()),
+        .entry(moveTo()),
+        .entry(revertToSaved()),
+        .separator,
+        .entry(pageSetUp()),
+        .entry(print())
+      ]
+      return file
     }
-}
+  }
 #endif

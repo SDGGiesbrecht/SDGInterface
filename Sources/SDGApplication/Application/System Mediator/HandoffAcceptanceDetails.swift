@@ -13,35 +13,35 @@
  */
 
 #if canImport(AppKit)
-import AppKit
+  import AppKit
 #endif
 #if canImport(UIKit)
-import UIKit
+  import UIKit
 #endif
 
 /// Details about the acceptance of an activity handoff.
 public struct HandoffAcceptanceDetails {
 
-    // MARK: - Initialization
+  // MARK: - Initialization
 
-    /// Creates empty details.
-    public init() {}
+  /// Creates empty details.
+  public init() {}
 
-    // MARK: - Properties
+  // MARK: - Properties
 
-    #if canImport(AppKit)
+  #if canImport(AppKit)
     /// Some systems provide a restoration handler.
     ///
     /// - Parameters:
     ///     - restorableObjects: Interface objects to restore state to.
     public var restorationHandler: ((_ restorableObjects: [NSUserActivityRestoring]) -> Void)?
-    #endif
+  #endif
 
-    #if canImport(UIKit) && !os(watchOS)
+  #if canImport(UIKit) && !os(watchOS)
     /// Some systems provide a restoration handler.
     ///
     /// - Parameters:
     ///     - restorableObjects: Interface objects to restore state to.
     public var restorationHandler: ((_ restorableObjects: [UIUserActivityRestoring]) -> Void)?
-    #endif
+  #endif
 }

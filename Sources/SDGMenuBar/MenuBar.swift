@@ -13,25 +13,25 @@
  */
 
 #if canImport(AppKit)
-import AppKit
+  import AppKit
 
-import SDGMathematics
-import SDGText
-import SDGLocalization
+  import SDGMathematics
+  import SDGText
+  import SDGLocalization
 
-import SDGInterfaceBasics
-import SDGMenus
+  import SDGInterfaceBasics
+  import SDGMenus
 
-import SDGInterfaceLocalizations
+  import SDGInterfaceLocalizations
 
-/// An application’s menu bar.
-///
-/// `MenuBar` is a fully localized version of Interface Builder’s template with several useful additions.
-///
-/// Some menu items only appear if the application provides details they need to operate:
-/// - “Preferences...” appears if the application has a preference manager.
-/// - “Help” appears if a help book is specified in the `Info.plist` file.
-public final class MenuBar {
+  /// An application’s menu bar.
+  ///
+  /// `MenuBar` is a fully localized version of Interface Builder’s template with several useful additions.
+  ///
+  /// Some menu items only appear if the application provides details they need to operate:
+  /// - “Preferences...” appears if the application has a preference manager.
+  /// - “Help” appears if a help book is specified in the `Info.plist` file.
+  public final class MenuBar {
 
     // MARK: - Class Properties
 
@@ -41,36 +41,40 @@ public final class MenuBar {
     // MARK: - Initialization
 
     private init() {
-        menu = Menu(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
+      menu = Menu(
+        label: .static(
+          UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Menu Bar"
+              return "Menu Bar"
             case .deutschDeutschland:
-                return "Menüleiste"
+              return "Menüleiste"
             }
-        })))
-        menu.entries = [
-            .submenu(MenuBar.application()),
-            .submenu(MenuBar.file()),
-            .submenu(MenuBar.edit()),
-            .submenu(MenuBar.format()),
-            .submenu(MenuBar.view()),
-            .submenu(MenuBar.window()),
-            .submenu(MenuBar.help())
-        ]
-        menuDidSet()
+          })
+        )
+      )
+      menu.entries = [
+        .submenu(MenuBar.application()),
+        .submenu(MenuBar.file()),
+        .submenu(MenuBar.edit()),
+        .submenu(MenuBar.format()),
+        .submenu(MenuBar.view()),
+        .submenu(MenuBar.window()),
+        .submenu(MenuBar.help())
+      ]
+      menuDidSet()
     }
 
     // MARK: - Properties
 
     /// The root menu.
     public var menu: AnyMenu {
-        didSet {
-            menuDidSet()
-        }
+      didSet {
+        menuDidSet()
+      }
     }
     private func menuDidSet() {
-        NSApplication.shared.mainMenu = menu.native
+      NSApplication.shared.mainMenu = menu.native
     }
 
     // MARK: - Modification
@@ -80,24 +84,26 @@ public final class MenuBar {
     /// - Parameters:
     ///     - submenu: The submenu.
     public func addApplicationSpecificSubmenu(_ submenu: AnyMenu) {
-        let index: Int
-        if menu.entries.count ≥ 2 {
-            index = menu.entries.index(menu.entries.endIndex, offsetBy: −2)
-        } else {
-            index = 0
-        }
-        menu.entries.insert(.submenu(submenu), at: index)
+      let index: Int
+      if menu.entries.count ≥ 2 {
+        index = menu.entries.index(menu.entries.endIndex, offsetBy: −2)
+      } else {
+        index = 0
+      }
+      menu.entries.insert(.submenu(submenu), at: index)
     }
 
     // MARK: - Items
 
-    internal static func fallbackApplicationName(quotationMarks: (leading: StrictString, trailing: StrictString)) -> StrictString {
-        var result = quotationMarks.leading
-        result.append("\u{2068}")
-        result.append(contentsOf: ApplicationNameForm.localizedIsolatedForm.resolved())
-        result.append("\u{2069}")
-        result.append(contentsOf: quotationMarks.trailing)
-        return result
+    internal static func fallbackApplicationName(
+      quotationMarks: (leading: StrictString, trailing: StrictString)
+    ) -> StrictString {
+      var result = quotationMarks.leading
+      result.append("\u{2068}")
+      result.append(contentsOf: ApplicationNameForm.localizedIsolatedForm.resolved())
+      result.append("\u{2069}")
+      result.append(contentsOf: quotationMarks.trailing)
+      return result
     }
-}
+  }
 #endif

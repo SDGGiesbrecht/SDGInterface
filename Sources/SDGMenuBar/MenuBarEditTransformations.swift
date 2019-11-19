@@ -13,47 +13,51 @@
  */
 
 #if canImport(AppKit)
-import AppKit
+  import AppKit
 
-import SDGText
-import SDGLocalization
+  import SDGText
+  import SDGLocalization
 
-import SDGMenus
-import SDGContextMenu
+  import SDGMenus
+  import SDGContextMenu
 
-import SDGInterfaceLocalizations
+  import SDGInterfaceLocalizations
 
-extension MenuBar {
+  extension MenuBar {
 
     // Normalize Text (See context menu.)
 
     internal static func transformations() -> Menu<MenuBarLocalization> {
-        let transformations = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let transformations = Menu(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Transformaciones"
+              return "Transformaciones"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada,
-                 .françaisFrance:
-                return "Transformations"
+              .françaisFrance:
+              return "Transformations"
             case .deutschDeutschland:
-                return "Transformationen"
+              return "Transformationen"
 
             case .ελληνικάΕλλάδα:
-                return "Μετασχηματισμοί"
+              return "Μετασχηματισμοί"
             case .עברית־ישראל:
-                return "המרות"
+              return "המרות"
             }
-        })))
-        transformations.entries = [
-            .entry(ContextMenu._normalizeText())
+          })
+        )
+      )
+      transformations.entries = [
+        .entry(ContextMenu._normalizeText())
 
-            // “Make Upper Case” does not belong here. Upper‐case‐only is a font style, not a semantic aspect of the text. Attempting to fake it by switching to capital letters (a) results in semantically incorrect text, and (b) is irreversable. A font‐based version is available under the “Font” menu instead.
+        // “Make Upper Case” does not belong here. Upper‐case‐only is a font style, not a semantic aspect of the text. Attempting to fake it by switching to capital letters (a) results in semantically incorrect text, and (b) is irreversable. A font‐based version is available under the “Font” menu instead.
 
-            // “Make Lower Case” is never useful. Instead, reversion from an upper‐case‐only font style to normally cased font—which preserves true capitals—is available under the “Font” menu.
+        // “Make Lower Case” is never useful. Instead, reversion from an upper‐case‐only font style to normally cased font—which preserves true capitals—is available under the “Font” menu.
 
-            // “Capitalize” is just not possible for a machine to do properly in any language.
-        ]
-        return transformations
+        // “Capitalize” is just not possible for a machine to do properly in any language.
+      ]
+      return transformations
     }
-}
+  }
 #endif

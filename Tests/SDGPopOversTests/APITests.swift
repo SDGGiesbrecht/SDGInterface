@@ -27,15 +27,15 @@ import SDGXCTestUtilities
 
 import SDGApplicationTestUtilities
 
-final class APITests : ApplicationTestCase {
+final class APITests: ApplicationTestCase {
 
-    func testPopOver() {
-        #if canImport(AppKit) || canImport(UIKit)
-        let window = Window<InterfaceLocalization>(name: .binding(Shared("")), view: EmptyView())
-        window.view.displayPopOver(EmptyView())
-        #if canImport(UIKit)
+  func testPopOver() {
+    #if canImport(AppKit) || canImport(UIKit)
+      let window = Window<InterfaceLocalization>(name: .binding(Shared("")), view: EmptyView())
+      window.view.displayPopOver(EmptyView())
+      #if canImport(UIKit)
         AnyNativeView().displayPopOver(EmptyView())
-        #endif
-        #endif
-    }
+      #endif
+    #endif
+  }
 }

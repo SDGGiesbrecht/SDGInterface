@@ -17,15 +17,15 @@ import Foundation
 /// A system notification.
 public struct SystemNotification {
 
-    // MARK: - Initialization
+  // MARK: - Initialization
 
-    /// Creates an empty notification.
-    public init() {}
+  /// Creates an empty notification.
+  public init() {}
 
-    // MARK: - Properties
+  // MARK: - Properties
 
-    #if !os(Linux)
+  #if !os(Linux)
     /// The native notification.
     public var native: Notification?
-    #endif
+  #endif
 }

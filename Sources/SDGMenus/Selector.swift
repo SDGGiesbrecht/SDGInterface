@@ -13,13 +13,13 @@
  */
 
 #if canImport(ObjectiveC)
-import Foundation
-import ObjectiveC
+  import Foundation
+  import ObjectiveC
 
-extension Selector {
-    private class Responder : NSObject {
-        @objc fileprivate func unimplementedSelector(_ sender: Any?) {} // @exmpt(from: tests)
+  extension Selector {
+    private class Responder: NSObject {
+      @objc fileprivate func unimplementedSelector(_ sender: Any?) {}  // @exmpt(from: tests)
     }
     internal static let none: Selector = #selector(Responder.unimplementedSelector(_:))
-}
+  }
 #endif

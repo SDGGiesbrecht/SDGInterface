@@ -13,26 +13,26 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-#if canImport(AppKit)
-import AppKit
-#endif
-#if canImport(UIKit)
-import UIKit
-#endif
+  #if canImport(AppKit)
+    import AppKit
+  #endif
+  #if canImport(UIKit)
+    import UIKit
+  #endif
 
-import SDGControlFlow
-import SDGLogic
-import SDGMathematics
+  import SDGControlFlow
+  import SDGLogic
+  import SDGMathematics
 
-import SDGViews
+  import SDGViews
 
-#if canImport(AppKit)
-private var columnIdentifiers = sequence(first: 0, next: { $0 &+ 1 })
-#endif
+  #if canImport(AppKit)
+    private var columnIdentifiers = sequence(first: 0, next: { $0 &+ 1 })
+  #endif
 
-/// Table.
-@available(iOS 9, *) // @exempt(from: unicode)
-public final class Table<RowData> : SpecificView {
+  /// Table.
+  @available(iOS 9, *)  // @exempt(from: unicode)
+  public final class Table<RowData>: SpecificView {
 
     // MARK: - Initialization
 
@@ -43,55 +43,55 @@ public final class Table<RowData> : SpecificView {
     ///     - columns: An array of closures—each representing a column—which produce a corresponding cell view for a particular data entry.
     ///     - row: The data element represented by the row.
     public init(data: Shared<[RowData]>, columns: [(_ row: RowData) -> View]) {
-        self.data = data
-        defer {
-            dataDidSet()
-        }
+      self.data = data
+      defer {
+        dataDidSet()
+      }
 
-        self.columns = columns
-        defer {
-            columnsDidSet()
-        }
+      self.columns = columns
+      defer {
+        columnsDidSet()
+      }
 
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         specificNative = NSScrollView()
         specificNative.documentView = CocoaTableView()
         defer {
-            delegate.table = self
-            nativeTable.delegate = delegate
-            nativeTable.dataSource = delegate
+          delegate.table = self
+          nativeTable.delegate = delegate
+          nativeTable.dataSource = delegate
         }
-        #elseif canImport(UIKit)
+      #elseif canImport(UIKit)
         specificNative = UITableView(frame: .zero, style: .plain)
         defer {
-            dataSource.table = self
-            nativeTable.dataSource = dataSource
+          dataSource.table = self
+          nativeTable.dataSource = dataSource
         }
-        #endif
+      #endif
 
-        defer {
-            bindingObserver.table = self
-        }
+      defer {
+        bindingObserver.table = self
+      }
 
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         nativeTable.headerView = nil
         specificNative.borderType = .bezelBorder
-        #endif
-        #if canImport(AppKit)
+      #endif
+      #if canImport(AppKit)
         specificNative.hasHorizontalScroller = true
         specificNative.hasVerticalScroller = true
-        #else
+      #else
         specificNative.showsHorizontalScrollIndicator = true
         specificNative.showsVerticalScrollIndicator = true
-        #endif
+      #endif
 
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         nativeTable.usesAlternatingRowBackgroundColors = true
-        #endif
+      #endif
 
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         nativeTable.columnAutoresizingStyle = .sequentialColumnAutoresizingStyle
-        #endif
+      #endif
     }
 
     // MARK: - Properties
@@ -100,16 +100,16 @@ public final class Table<RowData> : SpecificView {
 
     /// The data.
     public var data: Shared<[RowData]> {
-        willSet {
-            data.cancel(observer: bindingObserver)
-        }
-        didSet {
-            dataDidSet()
-        }
+      willSet {
+        data.cancel(observer: bindingObserver)
+      }
+      didSet {
+        dataDidSet()
+      }
     }
     private func dataDidSet() {
-        data.register(observer: bindingObserver)
-        refreshBindings()
+      data.register(observer: bindingObserver)
+      refreshBindings()
     }
 
     /// An array of closures—each representing a column—which produce a corresponding cell view for a particular data entry.
@@ -117,31 +117,32 @@ public final class Table<RowData> : SpecificView {
     /// - Parameters:
     ///     - row: The data entry represented by the row.
     public var columns: [(_ row: RowData) -> View] {
-        didSet {
-            columnsDidSet()
-        }
+      didSet {
+        columnsDidSet()
+      }
     }
     private func columnsDidSet() {
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         while nativeTable.tableColumns.count > columns.count {
-            nativeTable.removeTableColumn(nativeTable.tableColumns.last!)
+          nativeTable.removeTableColumn(nativeTable.tableColumns.last!)
         }
         while nativeTable.tableColumns.count < columns.count {
-            let index = nativeTable.tableColumns.count
-            let newColumn = NSTableColumn(
-                identifier: NSUserInterfaceItemIdentifier("\(columnIdentifiers.next()!)"))
-            newColumn.title = ""
-            newColumn.resizingMask = [.autoresizingMask, .userResizingMask]
-            nativeTable.addTableColumn(newColumn)
+          let index = nativeTable.tableColumns.count
+          let newColumn = NSTableColumn(
+            identifier: NSUserInterfaceItemIdentifier("\(columnIdentifiers.next()!)")
+          )
+          newColumn.title = ""
+          newColumn.resizingMask = [.autoresizingMask, .userResizingMask]
+          nativeTable.addTableColumn(newColumn)
 
-            let exampleIndex = 0
-            if data.value.indices.contains(exampleIndex) {
-                let exampleView = columns[index](data.value[exampleIndex])
-                nativeTable.rowHeight.increase(to: exampleView.native.fittingSize.height)
-            }
+          let exampleIndex = 0
+          if data.value.indices.contains(exampleIndex) {
+            let exampleView = columns[index](data.value[exampleIndex])
+            nativeTable.rowHeight.increase(to: exampleView.native.fittingSize.height)
+          }
         }
-        #endif
-        nativeTable.reloadData()
+      #endif
+      nativeTable.reloadData()
     }
 
     /// A sort order to impose on the data. (i.e. `{ $0 < $1 }` will sort according to `Comparable`.)
@@ -150,50 +151,50 @@ public final class Table<RowData> : SpecificView {
     ///     - preceding: The element before the inequality sign.
     ///     - following: The element after the inequality sign.
     public var sort: ((_ preceding: RowData, _ following: RowData) -> Bool)? {
-        didSet {
-            refreshBindings()
-        }
+      didSet {
+        refreshBindings()
+      }
     }
 
     #if canImport(AppKit)
-    public var specificNative: NSScrollView
-    private var delegate = NSTableViewDelegate<RowData>()
+      public var specificNative: NSScrollView
+      private var delegate = NSTableViewDelegate<RowData>()
     #elseif canImport(UIKit)
-    public var specificNative: UITableView
-    private var dataSource = UITableViewDataSource<RowData>()
+      public var specificNative: UITableView
+      private var dataSource = UITableViewDataSource<RowData>()
     #endif
 
     #if canImport(AppKit)
-    internal var nativeTable: NSTableView {
+      internal var nativeTable: NSTableView {
         get {
-            return specificNative.documentView as? NSTableView ?? NSTableView() // @exempt(from: tests) Never nil.
+          return specificNative.documentView as? NSTableView ?? NSTableView()  // @exempt(from: tests) Never nil.
         }
-    }
+      }
     #elseif canImport(UIKit)
-    internal var nativeTable: UITableView {
+      internal var nativeTable: UITableView {
         get {
-            return specificNative
+          return specificNative
         }
-    }
+      }
     #endif
 
     // MARK: - Refreshing
 
     internal func refreshBindings() {
-        if let areSorted = self.sort {
-            let value = data.value
-            var alreadySorted = true
-            for (preceding, following) in zip(value.dropLast(), value.dropFirst()) {
-                if ¬areSorted(preceding, following) {
-                    alreadySorted = false
-                    break
-                }
-            }
-            if ¬alreadySorted {
-                data.value.sort(by: areSorted)
-            }
+      if let areSorted = self.sort {
+        let value = data.value
+        var alreadySorted = true
+        for (preceding, following) in zip(value.dropLast(), value.dropFirst()) {
+          if ¬areSorted(preceding, following) {
+            alreadySorted = false
+            break
+          }
         }
-        nativeTable.reloadData()
+        if ¬alreadySorted {
+          data.value.sort(by: areSorted)
+        }
+      }
+      nativeTable.reloadData()
     }
-}
+  }
 #endif

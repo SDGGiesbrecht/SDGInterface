@@ -14,21 +14,21 @@
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
 
-#if canImport(AppKit)
-import AppKit
-#endif
-#if canImport(UIKit)
-import UIKit
-#endif
+  #if canImport(AppKit)
+    import AppKit
+  #endif
+  #if canImport(UIKit)
+    import UIKit
+  #endif
 
-import SDGText
-import SDGLocalization
+  import SDGText
+  import SDGLocalization
 
-import SDGInterfaceBasics
-import SDGViews
+  import SDGInterfaceBasics
+  import SDGViews
 
-/// A text label.
-public final class Label<L> : AnyLabel, SpecificView where L : Localization {
+  /// A text label.
+  public final class Label<L>: AnyLabel, SpecificView where L: Localization {
 
     // MARK: - Initialization
 
@@ -37,39 +37,39 @@ public final class Label<L> : AnyLabel, SpecificView where L : Localization {
     /// - Parameters:
     ///     - text: The text of the label.
     public init(text: Binding<StrictString, L>) {
-        self.text = text
-        defer {
-            textDidSet()
-            LocalizationSetting.current.register(observer: bindingObserver)
-        }
+      self.text = text
+      defer {
+        textDidSet()
+        LocalizationSetting.current.register(observer: bindingObserver)
+      }
 
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         specificNative = NSTextField()
-        #elseif canImport(UIKit)
+      #elseif canImport(UIKit)
         specificNative = UILabel(frame: .zero)
-        #endif
-        defer {
-            bindingObserver.label = self
-        }
+      #endif
+      defer {
+        bindingObserver.label = self
+      }
 
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         specificNative.isBordered = false
         specificNative.isBezeled = false
         specificNative.drawsBackground = false
-        #endif
-        specificNative.lineBreakMode = .byTruncatingTail
+      #endif
+      specificNative.lineBreakMode = .byTruncatingTail
 
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         if let cell = specificNative.cell as? NSTextFieldCell {
-            cell.isScrollable = false
-            cell.usesSingleLineMode = true
+          cell.isScrollable = false
+          cell.usesSingleLineMode = true
         }
 
         specificNative.isSelectable = true
         specificNative.isEditable = false
-        #endif
+      #endif
 
-        specificNative.font = Font.forLabels.native
+      specificNative.font = Font.forLabels.native
     }
 
     // MARK: - Properties
@@ -78,34 +78,34 @@ public final class Label<L> : AnyLabel, SpecificView where L : Localization {
 
     /// The text.
     public var text: Binding<StrictString, L> {
-        willSet {
-            text.shared?.cancel(observer: bindingObserver)
-        }
-        didSet {
-            textDidSet()
-        }
+      willSet {
+        text.shared?.cancel(observer: bindingObserver)
+      }
+      didSet {
+        textDidSet()
+      }
     }
     private func textDidSet() {
-        text.shared?.register(observer: bindingObserver)
+      text.shared?.register(observer: bindingObserver)
     }
 
     // MARK: - Refreshing
 
     public func _refreshBindings() {
-        let resolved = String(text.resolved())
-        #if canImport(AppKit)
+      let resolved = String(text.resolved())
+      #if canImport(AppKit)
         specificNative.stringValue = resolved
-        #elseif canImport(UIKit)
+      #elseif canImport(UIKit)
         specificNative.text = resolved
-        #endif
+      #endif
     }
 
     // MARK: - SpecificView
 
     #if canImport(AppKit)
-    public let specificNative: NSTextField
+      public let specificNative: NSTextField
     #elseif canImport(UIKit)
-    public let specificNative: UILabel
+      public let specificNative: UILabel
     #endif
-}
+  }
 #endif

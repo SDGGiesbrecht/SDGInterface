@@ -13,21 +13,21 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-#if canImport(AppKit)
-import AppKit
-#endif
-#if canImport(UIKit)
-import UIKit
-#endif
+  #if canImport(AppKit)
+    import AppKit
+  #endif
+  #if canImport(UIKit)
+    import UIKit
+  #endif
 
-import SDGText
-import SDGLocalization
+  import SDGText
+  import SDGLocalization
 
-import SDGInterfaceBasics
-import SDGViews
+  import SDGInterfaceBasics
+  import SDGViews
 
-/// A text field with a label.
-public final class LabelledTextField<L> : View where L : Localization {
+  /// A text field with a label.
+  public final class LabelledTextField<L>: View where L: Localization {
 
     // MARK: - Initialization
 
@@ -36,8 +36,8 @@ public final class LabelledTextField<L> : View where L : Localization {
     /// - Parameters:
     /// 	- labelText: The text for the label.
     public convenience init(labelText: Binding<StrictString, L>) {
-        let label = Label(text: labelText)
-        self.init(label: label)
+      let label = Label(text: labelText)
+      self.init(label: label)
     }
 
     /// Creates a text field with label and a text field instances.
@@ -46,17 +46,18 @@ public final class LabelledTextField<L> : View where L : Localization {
     ///     - label: The label.
     ///     - field: Optional. A specific field.
     public init(label: Label<L>, field: TextField? = nil) {
-        self.label = label
-        let constructedField = field ?? TextField()
-        self.field = constructedField
-        container = AnyNativeView()
-        container.position(
-            subviews: [label, constructedField],
-            inSequenceAlong: .horizontal,
-            padding: .automatic,
-            margin: .specific(0))
-        container.alignLastBaselines(ofSubviews: [label, constructedField])
-        container.fill(with: constructedField, on: .vertical, margin: .specific(0))
+      self.label = label
+      let constructedField = field ?? TextField()
+      self.field = constructedField
+      container = AnyNativeView()
+      container.position(
+        subviews: [label, constructedField],
+        inSequenceAlong: .horizontal,
+        padding: .automatic,
+        margin: .specific(0)
+      )
+      container.alignLastBaselines(ofSubviews: [label, constructedField])
+      container.fill(with: constructedField, on: .vertical, margin: .specific(0))
     }
 
     // MARK: - Properties
@@ -71,14 +72,14 @@ public final class LabelledTextField<L> : View where L : Localization {
     // MARK: - View
 
     #if canImport(AppKit)
-    public var native: NSView {
+      public var native: NSView {
         return container.native
-    }
+      }
     #elseif canImport(UIKit)
-    public var native: UIView {
+      public var native: UIView {
         return container.native
-    }
+      }
     #endif
 
-}
+  }
 #endif

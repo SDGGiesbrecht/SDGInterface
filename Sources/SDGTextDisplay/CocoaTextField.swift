@@ -13,14 +13,14 @@
  */
 
 #if canImport(UIKit) && !os(watchOS)
-import UIKit
+  import UIKit
 
-import SDGText
+  import SDGText
 
-internal class CocoaTextField : UITextField {
+  internal class CocoaTextField: UITextField {
 
     internal override func insertText(_ text: String) {
-        super.insertText(String(StrictString(text)))
+      super.insertText(String(StrictString(text)))
     }
-}
+  }
 #endif

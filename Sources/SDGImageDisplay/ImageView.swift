@@ -14,17 +14,17 @@
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
 
-#if canImport(AppKit)
-import AppKit
-#endif
-#if canImport(UIKit)
-import UIKit
-#endif
+  #if canImport(AppKit)
+    import AppKit
+  #endif
+  #if canImport(UIKit)
+    import UIKit
+  #endif
 
-import SDGViews
+  import SDGViews
 
-/// An image view.
-public final class ImageView : SpecificView {
+  /// An image view.
+  public final class ImageView: SpecificView {
 
     // MARK: - Initialization
 
@@ -33,19 +33,19 @@ public final class ImageView : SpecificView {
     /// - Parameters:
     ///     - image: The image.
     public init(image: Image) {
-        self.image = image
-        #if canImport(AppKit)
+      self.image = image
+      #if canImport(AppKit)
         let imageView = NSImageView()
         imageView.image = image.native
         specificNative = imageView
-        #elseif canImport(UIKit)
+      #elseif canImport(UIKit)
         specificNative = UIImageView(image: image.native)
-        #endif
+      #endif
 
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         specificNative.setContentCompressionResistancePriority(.windowSizeStayPut, for: .horizontal)
         specificNative.setContentCompressionResistancePriority(.windowSizeStayPut, for: .vertical)
-        #endif
+      #endif
     }
 
     // MARK: - Properties
@@ -56,9 +56,9 @@ public final class ImageView : SpecificView {
     // MARK: - SpecificView
 
     #if canImport(AppKit)
-    public let specificNative: NSImageView
+      public let specificNative: NSImageView
     #elseif canImport(UIKit)
-    public let specificNative: UIImageView
+      public let specificNative: UIImageView
     #endif
-}
+  }
 #endif

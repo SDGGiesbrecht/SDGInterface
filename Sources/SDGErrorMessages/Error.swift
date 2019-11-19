@@ -13,10 +13,10 @@
  */
 
 #if canImport(AppKit)
-import AppKit
+  import AppKit
 #endif
 #if canImport(UIKit)
-import UIKit
+  import UIKit
 #endif
 
 import SDGText
@@ -26,32 +26,45 @@ import SDGInterfaceLocalizations
 
 extension Error {
 
-    // MARK: - Display
+  // MARK: - Display
 
-    #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
+  #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
     /// Displays the error to the user.
-    public func display() { // @exempt(from: tests) Requires user interaction.
-        #if canImport(AppKit)
+    public func display() {  // @exempt(from: tests) Requires user interaction.
+      #if canImport(AppKit)
         let cocoaError = self as NSError
         var info = cocoaError.userInfo
         info[NSLocalizedDescriptionKey] = localizedDescription
         let modified = NSError(domain: cocoaError.domain, code: cocoaError.code, userInfo: info)
         NSAlert(error: modified).runModal()
-        #else
-        let alert = UIAlertController(title: localizedDescription, message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(
-            title: String(UserFacing<StrictString, InterfaceLocalization>({ localization in
+      #else
+        let alert = UIAlertController(
+          title: localizedDescription,
+          message: nil,
+          preferredStyle: .alert
+        )
+        alert.addAction(
+          UIAlertAction(
+            title: String(
+              UserFacing<StrictString, InterfaceLocalization>({ localization in
                 switch localization {
                 case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                    return "Cancel"
+                  return "Cancel"
                 case .deutschDeutschland:
-                    return "Abbrechen"
+                  return "Abbrechen"
                 }
-            }).resolved()),
+              }).resolved()
+            ),
             style: .cancel,
-            handler: nil))
-        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
-        #endif
+            handler: nil
+          )
+        )
+        UIApplication.shared.keyWindow?.rootViewController?.present(
+          alert,
+          animated: true,
+          completion: nil
+        )
+      #endif
     }
-    #endif
+  #endif
 }

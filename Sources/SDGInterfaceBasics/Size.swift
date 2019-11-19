@@ -13,52 +13,52 @@
  */
 
 #if canImport(CoreGraphics)
-import CoreGraphics
+  import CoreGraphics
 #endif
 
 /// A window size.
-public struct Size : Equatable, Hashable {
+public struct Size: Equatable, Hashable {
 
-    // MARK: - Initialization
+  // MARK: - Initialization
 
-    /// Creates a size.
-    ///
-    /// - Parameters:
-    ///     - width: The width.
-    ///     - height: The height.
-    public init(width: Double, height: Double) {
-        self.width = width
-        self.height = height
-    }
+  /// Creates a size.
+  ///
+  /// - Parameters:
+  ///     - width: The width.
+  ///     - height: The height.
+  public init(width: Double, height: Double) {
+    self.width = width
+    self.height = height
+  }
 
-    /// Creates an empty size.
-    public init() {
-        width = 0
-        height = 0
-    }
+  /// Creates an empty size.
+  public init() {
+    width = 0
+    height = 0
+  }
 
-    #if canImport(CoreGraphics)
+  #if canImport(CoreGraphics)
     /// Creates a size from a native size.
     ///
     /// - Parameters:
     ///     - native: The native size.
     public init(_ native: CGSize) {
-        self.init(width: Double(native.width), height: Double(native.height))
+      self.init(width: Double(native.width), height: Double(native.height))
     }
-    #endif
+  #endif
 
-    // MARK: - Properties
+  // MARK: - Properties
 
-    /// The width.
-    public var width: Double
+  /// The width.
+  public var width: Double
 
-    /// The height.
-    public var height: Double
+  /// The height.
+  public var height: Double
 
-    #if canImport(CoreGraphics)
+  #if canImport(CoreGraphics)
     /// The native size.
     public var native: CGSize {
-        return CGSize(width: CGFloat(width), height: CGFloat(height))
+      return CGSize(width: CGFloat(width), height: CGFloat(height))
     }
-    #endif
+  #endif
 }

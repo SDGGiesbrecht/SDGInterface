@@ -13,36 +13,36 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-#if canImport(AppKit)
-import AppKit
-#elseif canImport(UIKit)
-import UIKit
-#endif
+  #if canImport(AppKit)
+    import AppKit
+  #elseif canImport(UIKit)
+    import UIKit
+  #endif
 
-import SDGViews
+  import SDGViews
 
-#if canImport(AppKit)
-internal typealias NSUIView = NSView
-#elseif canImport(UIKit)
-internal typealias NSUIView = UIView
-#endif
+  #if canImport(AppKit)
+    internal typealias NSUIView = NSView
+  #elseif canImport(UIKit)
+    internal typealias NSUIView = UIView
+  #endif
 
-internal class CocoaPopOverView : NSUIView {
+  internal class CocoaPopOverView: NSUIView {
 
     // MARK: - Initialization
 
     internal init(view: View) {
-        self.view = view
-        super.init(frame: .zero)
-        AnyNativeView(self).fill(with: view, margin: .automatic)
+      self.view = view
+      super.init(frame: .zero)
+      AnyNativeView(self).fill(with: view, margin: .automatic)
     }
 
-    internal required init?(coder decoder: NSCoder) { // @exempt(from: tests)
-        return nil
+    internal required init?(coder decoder: NSCoder) {  // @exempt(from: tests)
+      return nil
     }
 
     // MARK: - Properties
 
     private let view: View?
-}
+  }
 #endif

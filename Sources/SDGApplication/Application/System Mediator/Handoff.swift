@@ -17,15 +17,15 @@ import Foundation
 /// An activity handoff.
 public struct Handoff {
 
-    // MARK: - Initialization
+  // MARK: - Initialization
 
-    /// Creates empty details.
-    public init() {}
+  /// Creates empty details.
+  public init() {}
 
-    // MARK: - Properties
+  // MARK: - Properties
 
-    #if !os(Linux)
+  #if !os(Linux)
     /// The native activity.
     public var activity: NSUserActivity?
-    #endif
+  #endif
 }

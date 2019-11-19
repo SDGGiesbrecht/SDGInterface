@@ -13,8 +13,8 @@
  */
 
 /// An object which manages application preferences.
-public protocol PreferenceManager : AnyObject {
+public protocol PreferenceManager: AnyObject {
 
-    /// Opens the application preferences.
-    func openPreferences()
+  /// Opens the application preferences.
+  func openPreferences()
 }

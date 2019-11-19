@@ -13,9 +13,9 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-import SDGControlFlow
+  import SDGControlFlow
 
-internal final class BindingObserver : SharedValueObserver {
+  internal final class BindingObserver: SharedValueObserver {
 
     // MARK: - Properties
 
@@ -24,7 +24,7 @@ internal final class BindingObserver : SharedValueObserver {
     // MARK: - SharedValueObserver
 
     internal func valueChanged(for identifier: String) {
-        window?.refreshBindings()
+      window?.refreshBindings()
     }
-}
+  }
 #endif

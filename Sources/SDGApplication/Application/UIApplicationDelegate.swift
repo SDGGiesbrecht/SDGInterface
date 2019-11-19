@@ -13,191 +13,229 @@
  */
 
 #if canImport(UIKit) && !os(watchOS)
-import UIKit
+  import UIKit
 
-internal class UIApplicationDelegate : NSObject, UIKit.UIApplicationDelegate {
+  internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
 
     // MARK: - UIApplicationDelegate
 
     internal func application(
-        _ application: UIApplication,
-        willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-        var details = LaunchDetails()
-        details.options = launchOptions
-        return Application.shared.systemMediator?.prepareToLaunch(details) ?? false
+      _ application: UIApplication,
+      willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
+    ) -> Bool {
+      var details = LaunchDetails()
+      details.options = launchOptions
+      return Application.shared.systemMediator?.prepareToLaunch(details) ?? false
     }
 
     internal func application(
-        _ application: UIApplication,
-        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+      _ application: UIApplication,
+      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
+    ) -> Bool {
 
-        Application.postLaunchSetUp()
+      Application.postLaunchSetUp()
 
-        var details = LaunchDetails()
-        details.options = launchOptions
-        return Application.shared.systemMediator?.finishLaunching(details) ?? false
+      var details = LaunchDetails()
+      details.options = launchOptions
+      return Application.shared.systemMediator?.finishLaunching(details) ?? false
     }
 
     internal func applicationDidBecomeActive(_ application: UIApplication) {
-        Application.shared.systemMediator?.finishAcquiringFocus(nil)
+      Application.shared.systemMediator?.finishAcquiringFocus(nil)
     }
 
     internal func applicationWillResignActive(_ application: UIApplication) {
-        Application.shared.systemMediator?.prepareToResignFocus(nil)
+      Application.shared.systemMediator?.prepareToResignFocus(nil)
     }
 
     internal func applicationDidEnterBackground(_ application: UIApplication) {
-        Application.shared.systemMediator?.finishResigningFocus(nil)
+      Application.shared.systemMediator?.finishResigningFocus(nil)
     }
 
     internal func applicationWillEnterForeground(_ application: UIApplication) {
-        Application.shared.systemMediator?.prepareToAcquireFocus(nil)
+      Application.shared.systemMediator?.prepareToAcquireFocus(nil)
     }
 
     internal func applicationWillTerminate(_ application: UIApplication) {
-        Application.shared.systemMediator?.prepareToTerminate(nil)
+      Application.shared.systemMediator?.prepareToTerminate(nil)
     }
 
     internal func applicationProtectedDataDidBecomeAvailable(_ application: UIApplication) {
-        Application.shared.systemMediator?.finishGainingAccessToProtectedData()
+      Application.shared.systemMediator?.finishGainingAccessToProtectedData()
     }
 
     internal func applicationProtectedDataWillBecomeUnavailable(_ application: UIApplication) {
-        Application.shared.systemMediator?.prepareToLoseAccessToProtectedData()
+      Application.shared.systemMediator?.prepareToLoseAccessToProtectedData()
     }
 
     internal func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
-        Application.shared.systemMediator?.purgeUnnecessaryMemory()
+      Application.shared.systemMediator?.purgeUnnecessaryMemory()
     }
 
     internal func applicationSignificantTimeChange(_ application: UIApplication) {
-        Application.shared.systemMediator?.updateAccordingToTimeChange()
-    }
-
-    internal func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
-        return Application.shared.systemMediator?.shouldEncodeRestorableState(coder: coder) ?? false
-    }
-
-    internal func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
-        return Application.shared.systemMediator?.shouldRestorePreviousState(coder: coder) ?? false
+      Application.shared.systemMediator?.updateAccordingToTimeChange()
     }
 
     internal func application(
-        _ application: UIApplication,
-        viewControllerWithRestorationIdentifierPath identifierComponents: [String],
-        coder: NSCoder) -> UIViewController? {
-        return Application.shared.systemMediator?.viewController(
-            forRestorationIdentifierPath: identifierComponents,
-            coder: coder).viewController
-    }
-
-    internal func application(_ application: UIApplication, willEncodeRestorableStateWith coder: NSCoder) {
-        Application.shared.systemMediator?.prepareToEncodeRestorableState(coder: coder)
-    }
-
-    internal func application(_ application: UIApplication, didDecodeRestorableStateWith coder: NSCoder) {
-        Application.shared.systemMediator?.finishRestoring(coder: coder)
+      _ application: UIApplication,
+      shouldSaveApplicationState coder: NSCoder
+    ) -> Bool {
+      return Application.shared.systemMediator?.shouldEncodeRestorableState(coder: coder) ?? false
     }
 
     internal func application(
-        _ application: UIApplication,
-        handleEventsForBackgroundURLSession identifier: String,
-        completionHandler: @escaping () -> Void) {
-        Application.shared.systemMediator?.handleEventsForBackgroundURLSession(identifier)
-        completionHandler()
+      _ application: UIApplication,
+      shouldRestoreApplicationState coder: NSCoder
+    ) -> Bool {
+      return Application.shared.systemMediator?.shouldRestorePreviousState(coder: coder) ?? false
     }
 
     internal func application(
-        _ application: UIApplication,
-        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        Application.shared.systemMediator?.finishRegistrationForRemoteNotifications(deviceToken: deviceToken)
+      _ application: UIApplication,
+      viewControllerWithRestorationIdentifierPath identifierComponents: [String],
+      coder: NSCoder
+    ) -> UIViewController? {
+      return Application.shared.systemMediator?.viewController(
+        forRestorationIdentifierPath: identifierComponents,
+        coder: coder
+      ).viewController
     }
 
     internal func application(
-        _ application: UIApplication,
-        didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        Application.shared.systemMediator?.reportFailedRegistrationForRemoteNotifications(error: error)
+      _ application: UIApplication,
+      willEncodeRestorableStateWith coder: NSCoder
+    ) {
+      Application.shared.systemMediator?.prepareToEncodeRestorableState(coder: coder)
     }
 
     internal func application(
-        _ application: UIApplication,
-        didReceiveRemoteNotification userInfo: [AnyHashable: Any],
-        fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        var details = RemoteNotificationDetails()
-        details.userInformation = userInfo
-        let result = Application.shared.systemMediator?.acceptRemoteNotification(
-            details: details) ?? .noData
-        completionHandler(result.native)
-    }
-
-    internal func application(_ application: UIApplication, willContinueUserActivityWithType userActivityType: String) -> Bool {
-        return Application.shared.systemMediator?.notifyHandoffBegan(userActivityType) ?? false
+      _ application: UIApplication,
+      didDecodeRestorableStateWith coder: NSCoder
+    ) {
+      Application.shared.systemMediator?.finishRestoring(coder: coder)
     }
 
     internal func application(
-        _ application: UIApplication,
-        continue userActivity: NSUserActivity,
-        restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
-        var handoff = Handoff()
-        handoff.activity = userActivity
-        var details = HandoffAcceptanceDetails()
-        details.restorationHandler = restorationHandler
-        return Application.shared.systemMediator?.accept(
-            handoff: handoff,
-            details: details) ?? false
+      _ application: UIApplication,
+      handleEventsForBackgroundURLSession identifier: String,
+      completionHandler: @escaping () -> Void
+    ) {
+      Application.shared.systemMediator?.handleEventsForBackgroundURLSession(identifier)
+      completionHandler()
     }
 
-    internal func application(_ application: UIApplication, didUpdate userActivity: NSUserActivity) {
-        var handoff = Handoff()
-        handoff.activity = userActivity
-        Application.shared.systemMediator?.preprocess(handoff: handoff)
+    internal func application(
+      _ application: UIApplication,
+      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
+    ) {
+      Application.shared.systemMediator?.finishRegistrationForRemoteNotifications(
+        deviceToken: deviceToken
+      )
+    }
+
+    internal func application(
+      _ application: UIApplication,
+      didFailToRegisterForRemoteNotificationsWithError error: Error
+    ) {
+      Application.shared.systemMediator?.reportFailedRegistrationForRemoteNotifications(
+        error: error
+      )
+    }
+
+    internal func application(
+      _ application: UIApplication,
+      didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+      fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void
+    ) {
+      var details = RemoteNotificationDetails()
+      details.userInformation = userInfo
+      let result = Application.shared.systemMediator?.acceptRemoteNotification(
+        details: details
+      ) ?? .noData
+      completionHandler(result.native)
+    }
+
+    internal func application(
+      _ application: UIApplication,
+      willContinueUserActivityWithType userActivityType: String
+    ) -> Bool {
+      return Application.shared.systemMediator?.notifyHandoffBegan(userActivityType) ?? false
+    }
+
+    internal func application(
+      _ application: UIApplication,
+      continue userActivity: NSUserActivity,
+      restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void
+    ) -> Bool {
+      var handoff = Handoff()
+      handoff.activity = userActivity
+      var details = HandoffAcceptanceDetails()
+      details.restorationHandler = restorationHandler
+      return Application.shared.systemMediator?.accept(
+        handoff: handoff,
+        details: details
+      ) ?? false
+    }
+
+    internal func application(_ application: UIApplication, didUpdate userActivity: NSUserActivity)
+    {
+      var handoff = Handoff()
+      handoff.activity = userActivity
+      Application.shared.systemMediator?.preprocess(handoff: handoff)
     }
 
     #if !os(tvOS)
-    @available(iOS 9, *) // @exempt(from: unicode)
-    internal func application(
+      @available(iOS 9, *)  // @exempt(from: unicode)
+      internal func application(
         _ application: UIApplication,
         performActionFor shortcutItem: UIApplicationShortcutItem,
-        completionHandler: @escaping (Bool) -> Void) {
+        completionHandler: @escaping (Bool) -> Void
+      ) {
         var details = QuickActionDetails()
         details.shortcutItem = shortcutItem
         let result = Application.shared.systemMediator?.performQuickAction(
-            details: details) ?? false
+          details: details
+        ) ?? false
         completionHandler(result)
-    }
+      }
     #endif
 
     internal func application(
-        _ application: UIApplication,
-        handleWatchKitExtensionRequest userInfo: [AnyHashable: Any]?,
-        reply: @escaping ([AnyHashable: Any]?) -> Void) {
-        let result = Application.shared.systemMediator?.handleWatchRequest(userInformation: userInfo)
-        reply(result)
+      _ application: UIApplication,
+      handleWatchKitExtensionRequest userInfo: [AnyHashable: Any]?,
+      reply: @escaping ([AnyHashable: Any]?) -> Void
+    ) {
+      let result = Application.shared.systemMediator?.handleWatchRequest(userInformation: userInfo)
+      reply(result)
     }
 
     internal func applicationShouldRequestHealthAuthorization(_ application: UIApplication) {
-        Application.shared.systemMediator?.requestHealthAuthorization()
+      Application.shared.systemMediator?.requestHealthAuthorization()
     }
 
     internal func application(
-        _ app: UIApplication,
-        open url: URL,
-        options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-        var details = OpeningDetails()
-        details.options = options
-        return Application.shared.systemMediator?.open(
-            files: [url],
-            details: details) ?? false
+      _ app: UIApplication,
+      open url: URL,
+      options: [UIApplication.OpenURLOptionsKey: Any] = [:]
+    ) -> Bool {
+      var details = OpeningDetails()
+      details.options = options
+      return Application.shared.systemMediator?.open(
+        files: [url],
+        details: details
+      ) ?? false
     }
 
     internal func application(
-        _ application: UIApplication,
-        shouldAllowExtensionPointIdentifier extensionPointIdentifier: UIApplication.ExtensionPointIdentifier
-        ) -> Bool {
-        var details = ExtensionDetails()
-        details.pointIdentifier = extensionPointIdentifier
-        return Application.shared.systemMediator?.shouldAllowExtension(
-            details: details) ?? true
+      _ application: UIApplication,
+      shouldAllowExtensionPointIdentifier extensionPointIdentifier: UIApplication
+        .ExtensionPointIdentifier
+    ) -> Bool {
+      var details = ExtensionDetails()
+      details.pointIdentifier = extensionPointIdentifier
+      return Application.shared.systemMediator?.shouldAllowExtension(
+        details: details
+      ) ?? true
     }
-}
+  }
 #endif

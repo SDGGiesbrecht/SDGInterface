@@ -15,5 +15,5 @@
 import Foundation
 
 @objc public protocol _NSApplicationDelegateProtocol {
-    @objc func openPreferences(_ sender: Any?)
+  @objc func openPreferences(_ sender: Any?)
 }

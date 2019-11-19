@@ -13,89 +13,97 @@
  */
 
 #if canImport(AppKit)
-import AppKit
+  import AppKit
 
-import SDGText
-import SDGLocalization
+  import SDGText
+  import SDGLocalization
 
-import SDGMenus
+  import SDGMenus
 
-import SDGInterfaceLocalizations
+  import SDGInterfaceLocalizations
 
-extension MenuBar {
+  extension MenuBar {
 
     private static func helpEntry() -> MenuEntry<MenuBarLocalization> {
-        let help = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let help = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                let deLaAplicación = ProcessInfo.applicationName(.español(.de))
-                    ?? "de \(MenuBar.fallbackApplicationName(quotationMarks: ("«", "»")))"
-                return "Ayuda \(deLaAplicación)"
+              let deLaAplicación = ProcessInfo.applicationName(.español(.de))
+                ?? "de \(MenuBar.fallbackApplicationName(quotationMarks: ("«", "»")))"
+              return "Ayuda \(deLaAplicación)"
             case .françaisFrance:
-                let deLApplication = ProcessInfo.applicationName(.français(.de))
-                    ?? "de \(MenuBar.fallbackApplicationName(quotationMarks: ("« ", " »")))"
-                return "Aide \(deLApplication)"
+              let deLApplication = ProcessInfo.applicationName(.français(.de))
+                ?? "de \(MenuBar.fallbackApplicationName(quotationMarks: ("« ", " »")))"
+              return "Aide \(deLApplication)"
 
             case .englishUnitedKingdom:
-                let theApplication = ProcessInfo.applicationName(.english(.unitedKingdom))
-                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("‘", "’"))
-                return "\(theApplication) Help"
+              let theApplication = ProcessInfo.applicationName(.english(.unitedKingdom))
+                ?? MenuBar.fallbackApplicationName(quotationMarks: ("‘", "’"))
+              return "\(theApplication) Help"
             case .englishUnitedStates:
-                let theApplication = ProcessInfo.applicationName(.english(.unitedStates))
-                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”"))
-                return "\(theApplication) Help"
+              let theApplication = ProcessInfo.applicationName(.english(.unitedStates))
+                ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”"))
+              return "\(theApplication) Help"
             case .englishCanada:
-                let theApplication = ProcessInfo.applicationName(.english(.canada))
-                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”"))
-                return "\(theApplication) Help"
+              let theApplication = ProcessInfo.applicationName(.english(.canada))
+                ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”"))
+              return "\(theApplication) Help"
             case .deutschDeutschland:
-                let derAnwendung = ProcessInfo.applicationName(.deutsch(.dativ))
-                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("„", "“"))
-                return "Hilfe zu \(derAnwendung)"
+              let derAnwendung = ProcessInfo.applicationName(.deutsch(.dativ))
+                ?? MenuBar.fallbackApplicationName(quotationMarks: ("„", "“"))
+              return "Hilfe zu \(derAnwendung)"
 
             case .ελληνικάΕλλάδα:
-                let τηνΕφαρμογή = ProcessInfo.applicationName(.ελληνικά(.αιτιατική))
-                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("«", "»"))
-                return "Βοήθεια για \(τηνΕφαρμογή)"
+              let τηνΕφαρμογή = ProcessInfo.applicationName(.ελληνικά(.αιτιατική))
+                ?? MenuBar.fallbackApplicationName(quotationMarks: ("«", "»"))
+              return "Βοήθεια για \(τηνΕφαρμογή)"
             case .עברית־ישראל:
-                let היישום = ProcessInfo.applicationName(.עברית)
-                    ?? MenuBar.fallbackApplicationName(quotationMarks: ("”", "“"))
-                return "עזרה עבור \(היישום)"
+              let היישום = ProcessInfo.applicationName(.עברית)
+                ?? MenuBar.fallbackApplicationName(quotationMarks: ("”", "“"))
+              return "עזרה עבור \(היישום)"
             }
-        })))
-        help.action = #selector(NSApplication.showHelp(_:))
-        help.hotKey = "?"
-        help.hotKeyModifiers = .command
-        if Bundle.main.infoDictionary?["CFBundleHelpBookName"] == nil {
-            help.isHidden = true
-        }
-        return help
+          })
+        )
+      )
+      help.action = #selector(NSApplication.showHelp(_:))
+      help.hotKey = "?"
+      help.hotKeyModifiers = .command
+      if Bundle.main.infoDictionary?["CFBundleHelpBookName"] == nil {
+        help.isHidden = true
+      }
+      return help
     }
 
     internal static func help() -> Menu<MenuBarLocalization> {
-        let help = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let help = Menu(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Ayuda"
+              return "Ayuda"
             case .françaisFrance:
-                return "Aide"
+              return "Aide"
 
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Help"
+              return "Help"
             case .deutschDeutschland:
-                return "Hilfe"
+              return "Hilfe"
 
             case .ελληνικάΕλλάδα:
-                return "Βοήθεια"
+              return "Βοήθεια"
             case .עברית־ישראל:
-                return "עזרה"
+              return "עזרה"
             }
-        })))
-        help.entries = [
-            .entry(helpEntry())
-        ]
-        NSApplication.shared.helpMenu = help.native
-        return help
+          })
+        )
+      )
+      help.entries = [
+        .entry(helpEntry())
+      ]
+      NSApplication.shared.helpMenu = help.native
+      return help
     }
-}
+  }
 #endif

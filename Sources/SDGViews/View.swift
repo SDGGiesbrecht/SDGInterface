@@ -13,40 +13,40 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-import SwiftUI
-#endif
-#if canImport(AppKit)
-import AppKit
-#elseif canImport(UIKit)
-import UIKit
-#endif
+  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    import SwiftUI
+  #endif
+  #if canImport(AppKit)
+    import AppKit
+  #elseif canImport(UIKit)
+    import UIKit
+  #endif
 
-/// A view.
-public protocol View : AnyObject {
+  /// A view.
+  public protocol View: AnyObject {
     #if canImport(AppKit)
-    /// The native view.
-    var native: NSView { get }
+      /// The native view.
+      var native: NSView { get }
     #elseif canImport(UIKit)
-    /// The native view.
-    var native: UIView { get }
+      /// The native view.
+      var native: UIView { get }
     #endif
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-    /// The SwiftUI view.
-    @available(macOS 10.15, iOS 13, tvOS 13, *)
-    var swiftUIView: SwiftUI.AnyView { get }
+      /// The SwiftUI view.
+      @available(macOS 10.15, iOS 13, tvOS 13, *)
+      var swiftUIView: SwiftUI.AnyView { get }
     #endif
-}
+  }
 
-extension View {
+  extension View {
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-    @available(macOS 10.15, iOS 13, tvOS 13, *)
-    public var swiftUIView: AnyView {
+      @available(macOS 10.15, iOS 13, tvOS 13, *)
+      public var swiftUIView: AnyView {
         // @exempt(from: tests) #workaround(workspace version 0.25.0, macOS 10.15 is unavailable in CI.)
         return AnyView(SDGView(self))
-    }
+      }
     #endif
 
     // MARK: - Aspect Ratio
@@ -56,15 +56,16 @@ extension View {
     /// - Parameters:
     ///     - aspectRatio: The aspect ratio. (*width* ∶ *height*)
     public func lockAspectRatio(to aspectRatio: Double) {
-        let constraint = NSLayoutConstraint(
-            item: self.native,
-            attribute: .width,
-            relatedBy: .equal,
-            toItem: self.native,
-            attribute: .height,
-            multiplier: CGFloat(aspectRatio),
-            constant: 0)
-        native.addConstraint(constraint)
+      let constraint = NSLayoutConstraint(
+        item: self.native,
+        attribute: .width,
+        relatedBy: .equal,
+        toItem: self.native,
+        attribute: .height,
+        multiplier: CGFloat(aspectRatio),
+        constant: 0
+      )
+      native.addConstraint(constraint)
     }
-}
+  }
 #endif

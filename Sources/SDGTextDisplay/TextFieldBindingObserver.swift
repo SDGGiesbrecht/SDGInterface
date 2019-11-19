@@ -13,10 +13,10 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-import Foundation
-import SDGControlFlow
+  import Foundation
+  import SDGControlFlow
 
-@objc internal final class TextFieldBindingObserver : NSObject, SharedValueObserver {
+  @objc internal final class TextFieldBindingObserver: NSObject, SharedValueObserver {
 
     // MARK: - Properties
 
@@ -25,11 +25,11 @@ import SDGControlFlow
     // MARK: - SharedValueObserver
 
     internal func valueChanged(for identifier: String) {
-        field?.refreshBindings()
+      field?.refreshBindings()
     }
 
-    @objc internal func actionOccurred(_ sender: Any?) { // @exempt(from: tests) Unreachable in tests on iOS.
-        field?.actionOccurred()
+    @objc internal func actionOccurred(_ sender: Any?) {  // @exempt(from: tests) Unreachable in tests on iOS.
+      field?.actionOccurred()
     }
-}
+  }
 #endif

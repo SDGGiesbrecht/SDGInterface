@@ -13,208 +13,240 @@
  */
 
 #if canImport(AppKit)
-import AppKit
+  import AppKit
 
-import SDGText
-import SDGLocalization
+  import SDGText
+  import SDGLocalization
 
-import SDGMenus
+  import SDGMenus
 
-import SDGInterfaceLocalizations
+  import SDGInterfaceLocalizations
 
-extension MenuBar {
+  extension MenuBar {
 
     private static func alignRight() -> MenuEntry<MenuBarLocalization> {
-        let alignRight = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let alignRight = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Alinear a la derecha"
+              return "Alinear a la derecha"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Align Right"
+              return "Align Right"
             case .deutschDeutschland:
-                return "Rechtsbündig"
+              return "Rechtsbündig"
             case .françaisFrance:
-                return "Aligner à droite"
+              return "Aligner à droite"
             case .ελληνικάΕλλάδα:
-                return "Στοίχιση δεξιά"
+              return "Στοίχιση δεξιά"
             case .עברית־ישראל:
-                return "יישר לימין"
+              return "יישר לימין"
             }
-        })))
-        alignRight.action = #selector(NSText.alignRight(_:))
-        alignRight.hotKey = "}"
-        alignRight.hotKeyModifiers = .command
-        return alignRight
+          })
+        )
+      )
+      alignRight.action = #selector(NSText.alignRight(_:))
+      alignRight.hotKey = "}"
+      alignRight.hotKeyModifiers = .command
+      return alignRight
     }
 
     private static func centre() -> MenuEntry<MenuBarLocalization> {
-        let centre = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let centre = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Centrar"
+              return "Centrar"
             case .englishUnitedKingdom, .englishCanada:
-                return "Centre"
+              return "Centre"
             case .englishUnitedStates:
-                return "Center"
+              return "Center"
             case .deutschDeutschland:
-                return "Zentriert"
+              return "Zentriert"
             case .françaisFrance:
-                return "Centrer"
+              return "Centrer"
             case .ελληνικάΕλλάδα:
-                return "Κεντράρισμα"
+              return "Κεντράρισμα"
 
             case .עברית־ישראל:
-                return "מרכז"
+              return "מרכז"
             }
-        })))
-        centre.action = #selector(NSText.alignCenter(_:))
-        centre.hotKey = "|"
-        centre.hotKeyModifiers = .command
-        return centre
+          })
+        )
+      )
+      centre.action = #selector(NSText.alignCenter(_:))
+      centre.hotKey = "|"
+      centre.hotKeyModifiers = .command
+      return centre
     }
 
     private static func justify() -> MenuEntry<MenuBarLocalization> {
-        let justify = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let justify = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Justificar"
+              return "Justificar"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Justify"
+              return "Justify"
             case .françaisFrance:
-                return "Justifier"
+              return "Justifier"
 
             case .deutschDeutschland:
-                return "Blocksatz"
+              return "Blocksatz"
             case .ελληνικάΕλλάδα:
-                return "Πλήρης στοίχιση"
+              return "Πλήρης στοίχιση"
             case .עברית־ישראל:
-                return "יישר לשני הצדדים"
+              return "יישר לשני הצדדים"
             }
-        })))
-        justify.action = #selector(NSTextView.alignJustified(_:))
-        return justify
+          })
+        )
+      )
+      justify.action = #selector(NSTextView.alignJustified(_:))
+      return justify
     }
 
     private static func alignLeft() -> MenuEntry<MenuBarLocalization> {
-        let alignLeft = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let alignLeft = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Alinear a la izquierda"
+              return "Alinear a la izquierda"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Align Left"
+              return "Align Left"
             case .deutschDeutschland:
-                return "Linksbündig"
+              return "Linksbündig"
             case .françaisFrance:
-                return "Aligner à gauche"
+              return "Aligner à gauche"
             case .ελληνικάΕλλάδα:
-                return "Στοίχιση αριστερά"
+              return "Στοίχιση αριστερά"
             case .עברית־ישראל:
-                return "יישר לשמאל"
+              return "יישר לשמאל"
             }
-        })))
-        alignLeft.hotKey = "{"
-        alignLeft.hotKeyModifiers = .command
-        alignLeft.action = #selector(NSText.alignLeft(_:))
-        return alignLeft
+          })
+        )
+      )
+      alignLeft.hotKey = "{"
+      alignLeft.hotKeyModifiers = .command
+      alignLeft.action = #selector(NSText.alignLeft(_:))
+      return alignLeft
     }
 
     private static func showRuler() -> MenuEntry<MenuBarLocalization> {
-        let showRuler = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let showRuler = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Mostrar regla"
+              return "Mostrar regla"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Show Ruler"
+              return "Show Ruler"
             case .deutschDeutschland:
-                return "Lineal einblenden"
+              return "Lineal einblenden"
             case .françaisFrance:
-                return "Afficher la règle"
+              return "Afficher la règle"
             case .ελληνικάΕλλάδα:
-                return "Εμφάνιση χάρακα"
+              return "Εμφάνιση χάρακα"
             case .עברית־ישראל:
-                return "הצג סרגל"
+              return "הצג סרגל"
             }
-        })))
-        showRuler.action = #selector(NSText.toggleRuler(_:))
-        return showRuler
+          })
+        )
+      )
+      showRuler.action = #selector(NSText.toggleRuler(_:))
+      return showRuler
     }
 
     private static func copyRuler() -> MenuEntry<MenuBarLocalization> {
-        let copyRuler = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let copyRuler = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Copiar regla"
+              return "Copiar regla"
             case .françaisFrance:
-                return "Copier la règle"
+              return "Copier la règle"
 
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Copy Ruler"
+              return "Copy Ruler"
             case .deutschDeutschland:
-                return "Lineal kopieren"
+              return "Lineal kopieren"
             case .ελληνικάΕλλάδα:
-                return "Αντιγραφή χάρακα"
+              return "Αντιγραφή χάρακα"
             case .עברית־ישראל:
-                return "העתק סרגל"
+              return "העתק סרגל"
             }
-        })))
-        copyRuler.action = #selector(NSText.copyRuler(_:))
-        copyRuler.hotKey = "c"
-        copyRuler.hotKeyModifiers = [.command, .control]
-        return copyRuler
+          })
+        )
+      )
+      copyRuler.action = #selector(NSText.copyRuler(_:))
+      copyRuler.hotKey = "c"
+      copyRuler.hotKeyModifiers = [.command, .control]
+      return copyRuler
     }
 
     private static func pasteRuler() -> MenuEntry<MenuBarLocalization> {
-        let pasteRuler = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let pasteRuler = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Pegar regla"
+              return "Pegar regla"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Paste Ruler"
+              return "Paste Ruler"
             case .deutschDeutschland:
-                return "Lineal einsetzen"
+              return "Lineal einsetzen"
             case .françaisFrance:
-                return "Coller la règle"
+              return "Coller la règle"
             case .ελληνικάΕλλάδα:
-                return "Επικόλληση χάρακα"
+              return "Επικόλληση χάρακα"
             case .עברית־ישראל:
-                return "הדבק סרגל"
+              return "הדבק סרגל"
             }
-        })))
-        pasteRuler.action = #selector(NSText.pasteRuler(_:))
-        pasteRuler.hotKey = "v"
-        pasteRuler.hotKeyModifiers = [.command, .control]
-        return pasteRuler
+          })
+        )
+      )
+      pasteRuler.action = #selector(NSText.pasteRuler(_:))
+      pasteRuler.hotKey = "v"
+      pasteRuler.hotKeyModifiers = [.command, .control]
+      return pasteRuler
     }
 
     internal static func text() -> Menu<MenuBarLocalization> {
-        let text = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let text = Menu(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Texto"
+              return "Texto"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada,
-                 .deutschDeutschland:
-                return "Text"
+              .deutschDeutschland:
+              return "Text"
             case .françaisFrance:
-                return "Texte"
+              return "Texte"
             case .ελληνικάΕλλάδα:
-                return "Κείμενο"
+              return "Κείμενο"
             case .עברית־ישראל:
-                return "מלל"
+              return "מלל"
             }
-        })))
-        text.entries = [
-            .entry(alignRight()),
-            .entry(centre()),
-            .entry(justify()),
-            .entry(alignLeft()),
-            .separator,
-            .submenu(writingDirection()),
-            .separator,
-            .entry(showRuler()),
-            .entry(copyRuler()),
-            .entry(pasteRuler())
-        ]
-        return text
+          })
+        )
+      )
+      text.entries = [
+        .entry(alignRight()),
+        .entry(centre()),
+        .entry(justify()),
+        .entry(alignLeft()),
+        .separator,
+        .submenu(writingDirection()),
+        .separator,
+        .entry(showRuler()),
+        .entry(copyRuler()),
+        .entry(pasteRuler())
+      ]
+      return text
     }
-}
+  }
 #endif

@@ -30,40 +30,40 @@ import SDGXCTestUtilities
 
 import SDGApplicationTestUtilities
 
-final class APITests : ApplicationTestCase {
+final class APITests: ApplicationTestCase {
 
-    func testButton() {
-        #if canImport(AppKit) || canImport(UIKit)
-        Application.shared.demonstrateButton()
-        let label: Binding<StrictString, APILocalization> = .binding(Shared("Button"))
-        let button = Button(label: label)
-        label.shared?.value = "Changed"
-        #if canImport(AppKit)
+  func testButton() {
+    #if canImport(AppKit) || canImport(UIKit)
+      Application.shared.demonstrateButton()
+      let label: Binding<StrictString, APILocalization> = .binding(Shared("Button"))
+      let button = Button(label: label)
+      label.shared?.value = "Changed"
+      #if canImport(AppKit)
         XCTAssertEqual(button.specificNative.title, "Changed")
-        #else
+      #else
         XCTAssertEqual(button.specificNative.titleLabel?.text, "Changed")
-        #endif
-        button.label = .binding(Shared("Changed again."))
-        #endif
-    }
+      #endif
+      button.label = .binding(Shared("Changed again."))
+    #endif
+  }
 
-    func testCheckBox() {
-        #if canImport(AppKit) || canImport(UIKit)
-        Application.shared.demonstrateCheckBox()
-        #if canImport(AppKit)
+  func testCheckBox() {
+    #if canImport(AppKit) || canImport(UIKit)
+      Application.shared.demonstrateCheckBox()
+      #if canImport(AppKit)
         let label = Shared<StrictString>("Check Box")
         let binding: Binding<StrictString, APILocalization> = .binding(label)
         let checkBox = CheckBox(label: binding)
         label.value = "Changed"
         XCTAssertEqual(checkBox.specificNative.title, "Changed")
         checkBox.label = .binding(Shared("Changed again."))
-        #endif
-        #endif
-    }
+      #endif
+    #endif
+  }
 
-    func testRadioButtonSet() {
-        #if canImport(AppKit) || canImport(UIKit)
-        Application.shared.demonstrateRadioButtonSet()
-        #endif
-    }
+  func testRadioButtonSet() {
+    #if canImport(AppKit) || canImport(UIKit)
+      Application.shared.demonstrateRadioButtonSet()
+    #endif
+  }
 }

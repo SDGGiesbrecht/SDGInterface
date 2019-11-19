@@ -13,278 +13,318 @@
  */
 
 #if canImport(AppKit)
-import AppKit
+  import AppKit
 
-import SDGText
-import SDGLocalization
+  import SDGText
+  import SDGLocalization
 
-import SDGMenus
+  import SDGMenus
 
-import SDGInterfaceLocalizations
+  import SDGInterfaceLocalizations
 
-extension MenuBar {
+  extension MenuBar {
 
     private static func showFonts() -> MenuEntry<MenuBarLocalization> {
-        let showFonts = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let showFonts = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Mostrar tipos de letra"
+              return "Mostrar tipos de letra"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Show Fonts"
+              return "Show Fonts"
             case .deutschDeutschland:
-                return "Schriften einblenden"
+              return "Schriften einblenden"
             case .françaisFrance:
-                return "Afficher les polices"
+              return "Afficher les polices"
             case .ελληνικάΕλλάδα:
-                return "Εμφάνιση γραμματοσειρών"
+              return "Εμφάνιση γραμματοσειρών"
             case .עברית־ישראל:
-                return "הצג גופנים"
+              return "הצג גופנים"
             }
-        })))
-        showFonts.action = #selector(NSFontManager.orderFrontFontPanel(_:))
-        showFonts.target = NSFontManager.shared
-        showFonts.hotKey = "t"
-        showFonts.hotKeyModifiers = .command
-        return showFonts
+          })
+        )
+      )
+      showFonts.action = #selector(NSFontManager.orderFrontFontPanel(_:))
+      showFonts.target = NSFontManager.shared
+      showFonts.hotKey = "t"
+      showFonts.hotKeyModifiers = .command
+      return showFonts
     }
 
     private static func bold() -> MenuEntry<MenuBarLocalization> {
-        let bold = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let bold = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Negrita"
+              return "Negrita"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Bold"
+              return "Bold"
             case .deutschDeutschland:
-                return "Fett"
+              return "Fett"
             case .françaisFrance:
-                return "Gras"
+              return "Gras"
             case .ελληνικάΕλλάδα:
-                return "Έντονα"
+              return "Έντονα"
             case .עברית־ישראל:
-                return "עבה"
+              return "עבה"
             }
-        })))
-        bold.action = #selector(NSFontManager.addFontTrait(_:))
-        bold.target = NSFontManager.shared
-        bold.tag = 2
-        bold.hotKey = "b"
-        bold.hotKeyModifiers = .command
-        return bold
+          })
+        )
+      )
+      bold.action = #selector(NSFontManager.addFontTrait(_:))
+      bold.target = NSFontManager.shared
+      bold.tag = 2
+      bold.hotKey = "b"
+      bold.hotKeyModifiers = .command
+      return bold
     }
 
     private static func italic() -> MenuEntry<MenuBarLocalization> {
-        let italic = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let italic = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Cursiva"
+              return "Cursiva"
             case .deutschDeutschland:
-                return "Kursiv"
+              return "Kursiv"
 
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Italic"
+              return "Italic"
             case .françaisFrance:
-                return "Italique"
+              return "Italique"
 
             case .ελληνικάΕλλάδα:
-                return "Πλάγια"
+              return "Πλάγια"
             case .עברית־ישראל:
-                return "נטוי"
+              return "נטוי"
             }
-        })))
-        italic.action = #selector(NSFontManager.addFontTrait(_:))
-        italic.target = NSFontManager.shared
-        italic.tag = 1
-        italic.hotKey = "i"
-        italic.hotKeyModifiers = .command
-        return italic
+          })
+        )
+      )
+      italic.action = #selector(NSFontManager.addFontTrait(_:))
+      italic.target = NSFontManager.shared
+      italic.tag = 1
+      italic.hotKey = "i"
+      italic.hotKeyModifiers = .command
+      return italic
     }
 
     private static func underline() -> MenuEntry<MenuBarLocalization> {
-        let underline = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let underline = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Subrayado"
+              return "Subrayado"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Underline"
+              return "Underline"
             case .deutschDeutschland:
-                return "Unterstrichen"
+              return "Unterstrichen"
             case .françaisFrance:
-                return "Souligné"
+              return "Souligné"
             case .ελληνικάΕλλάδα:
-                return "Υπογράμμιση"
+              return "Υπογράμμιση"
             case .עברית־ישראל:
-                return "קו תחתון"
+              return "קו תחתון"
             }
-        })))
-        underline.action = #selector(NSText.underline(_:))
-        underline.hotKey = "u"
-        underline.hotKeyModifiers = .command
-        return underline
+          })
+        )
+      )
+      underline.action = #selector(NSText.underline(_:))
+      underline.hotKey = "u"
+      underline.hotKeyModifiers = .command
+      return underline
     }
 
     private static func bigger() -> MenuEntry<MenuBarLocalization> {
-        let bigger = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let bigger = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Más grande"
+              return "Más grande"
             case .deutschDeutschland:
-                return "Größer"
+              return "Größer"
             case .françaisFrance:
-                return "Plus grand"
+              return "Plus grand"
 
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Bigger"
+              return "Bigger"
 
             case .ελληνικάΕλλάδα:
-                return "Μεγαλύτερα"
+              return "Μεγαλύτερα"
             case .עברית־ישראל:
-                return "גדול יותר"
+              return "גדול יותר"
             }
-        })))
-        bigger.action = #selector(NSFontManager.modifyFont(_:))
-        bigger.target = NSFontManager.shared
-        bigger.tag = 3
-        bigger.hotKey = "+"
-        bigger.hotKeyModifiers = .command
-        return bigger
+          })
+        )
+      )
+      bigger.action = #selector(NSFontManager.modifyFont(_:))
+      bigger.target = NSFontManager.shared
+      bigger.tag = 3
+      bigger.hotKey = "+"
+      bigger.hotKeyModifiers = .command
+      return bigger
     }
 
     private static func smaller() -> MenuEntry<MenuBarLocalization> {
-        let smaller = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let smaller = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Más pequeño"
+              return "Más pequeño"
             case .françaisFrance:
-                return "Plus petit"
+              return "Plus petit"
 
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Smaller"
+              return "Smaller"
             case .deutschDeutschland:
-                return "Kleiner"
+              return "Kleiner"
             case .ελληνικάΕλλάδα:
-                return "Μικρότερα"
+              return "Μικρότερα"
             case .עברית־ישראל:
-                return "קטן יותר"
+              return "קטן יותר"
             }
-        })))
-        smaller.action = #selector(NSFontManager.modifyFont(_:))
-        smaller.target = NSFontManager.shared
-        smaller.tag = 4
-        smaller.hotKey = "\u{2D}"
-        smaller.hotKeyModifiers = .command
-        return smaller
+          })
+        )
+      )
+      smaller.action = #selector(NSFontManager.modifyFont(_:))
+      smaller.target = NSFontManager.shared
+      smaller.tag = 4
+      smaller.hotKey = "\u{2D}"
+      smaller.hotKeyModifiers = .command
+      return smaller
     }
 
     private static func showColours() -> MenuEntry<MenuBarLocalization> {
-        let showColours = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let showColours = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Mostrar colores"
+              return "Mostrar colores"
             case .englishUnitedKingdom, .englishCanada:
-                return "Show Colours"
+              return "Show Colours"
             case .englishUnitedStates:
-                return "Show Colors"
+              return "Show Colors"
             case .deutschDeutschland:
-                return "Farben einblenden"
+              return "Farben einblenden"
             case .françaisFrance:
-                return "Afficher les couleurs"
+              return "Afficher les couleurs"
             case .ελληνικάΕλλάδα:
-                return "Εμφάνιση χρωμάτων"
+              return "Εμφάνιση χρωμάτων"
             case .עברית־ישראל:
-                return "הצג צבעים"
+              return "הצג צבעים"
             }
-        })))
-        showColours.action = #selector(NSApplication.orderFrontColorPanel(_:))
-        showColours.hotKey = "C"
-        showColours.hotKeyModifiers = .command
-        return showColours
+          })
+        )
+      )
+      showColours.action = #selector(NSApplication.orderFrontColorPanel(_:))
+      showColours.hotKey = "C"
+      showColours.hotKeyModifiers = .command
+      return showColours
     }
 
     private static func copyStyle() -> MenuEntry<MenuBarLocalization> {
-        let copyStyle = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let copyStyle = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Copiar estilo"
+              return "Copiar estilo"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Copy Style"
+              return "Copy Style"
             case .deutschDeutschland:
-                return "Stil kopieren"
+              return "Stil kopieren"
             case .françaisFrance:
-                return "Copier le style"
+              return "Copier le style"
 
             case .ελληνικάΕλλάδα:
-                return "Αντιγραφή στιλ"
+              return "Αντιγραφή στιλ"
             case .עברית־ישראל:
-                return "העתק סגנון"
+              return "העתק סגנון"
             }
-        })))
-        copyStyle.action = #selector(NSText.copyFont(_:))
-        copyStyle.hotKey = "c"
-        copyStyle.hotKeyModifiers = [.command, .option]
-        return copyStyle
+          })
+        )
+      )
+      copyStyle.action = #selector(NSText.copyFont(_:))
+      copyStyle.hotKey = "c"
+      copyStyle.hotKeyModifiers = [.command, .option]
+      return copyStyle
     }
 
     private static func pasteStyle() -> MenuEntry<MenuBarLocalization> {
-        let pasteStyle = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let pasteStyle = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Pegar estilo"
+              return "Pegar estilo"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Paste Style"
+              return "Paste Style"
             case .deutschDeutschland:
-                return "Stil einsetzen"
+              return "Stil einsetzen"
             case .françaisFrance:
-                return "Coller le style"
+              return "Coller le style"
             case .ελληνικάΕλλάδα:
-                return "Επικόλληση στιλ"
+              return "Επικόλληση στιλ"
             case .עברית־ישראל:
-                return "הדבק סגנון"
+              return "הדבק סגנון"
             }
-        })))
-        pasteStyle.action = #selector(NSText.pasteFont(_:))
-        pasteStyle.hotKey = "v"
-        pasteStyle.hotKeyModifiers = [.command, .option]
-        return pasteStyle
+          })
+        )
+      )
+      pasteStyle.action = #selector(NSText.pasteFont(_:))
+      pasteStyle.hotKey = "v"
+      pasteStyle.hotKeyModifiers = [.command, .option]
+      return pasteStyle
     }
 
     internal static func font() -> Menu<MenuBarLocalization> {
-        let font = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let font = Menu(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Tipe de letra"
+              return "Tipe de letra"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Font"
+              return "Font"
             case .deutschDeutschland:
-                return "Schrift"
+              return "Schrift"
             case .françaisFrance:
-                return "Police"
+              return "Police"
             case .ελληνικάΕλλάδα:
-                return "Γραμματοσειρά"
+              return "Γραμματοσειρά"
             case .עברית־ישראל:
-                return "גופן"
+              return "גופן"
             }
-        })))
-        font.entries = [
-            .entry(showFonts()),
-            .entry(bold()),
-            .entry(italic()),
-            .entry(underline()),
-            .separator,
-            .entry(bigger()),
-            .entry(smaller()),
-            .separator,
-            .submenu(kern()),
-            .submenu(ligatures()),
-            .submenu(baseline()),
-            .submenu(casing()),
-            .separator,
-            .entry(showColours()),
-            .separator,
-            .entry(copyStyle()),
-            .entry(pasteStyle())
-        ]
-        return font
+          })
+        )
+      )
+      font.entries = [
+        .entry(showFonts()),
+        .entry(bold()),
+        .entry(italic()),
+        .entry(underline()),
+        .separator,
+        .entry(bigger()),
+        .entry(smaller()),
+        .separator,
+        .submenu(kern()),
+        .submenu(ligatures()),
+        .submenu(baseline()),
+        .submenu(casing()),
+        .separator,
+        .entry(showColours()),
+        .separator,
+        .entry(copyStyle()),
+        .entry(pasteStyle())
+      ]
+      return font
     }
-}
+  }
 #endif

@@ -13,32 +13,32 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-#if canImport(AppKit)
-import AppKit
-#elseif canImport(UIKit)
-import UIKit
-#endif
+  #if canImport(AppKit)
+    import AppKit
+  #elseif canImport(UIKit)
+    import UIKit
+  #endif
 
-import SDGViews
+  import SDGViews
 
-/// A button with no particular localization.
-public protocol AnyButton : View {
+  /// A button with no particular localization.
+  public protocol AnyButton: View {
     #if canImport(AppKit)
-    // #documentation(SpecificView.specificNative)
-    /// The specific native view.
-    var specificNative: NSButton { get }
+      // #documentation(SpecificView.specificNative)
+      /// The specific native view.
+      var specificNative: NSButton { get }
     #elseif canImport(UIKit)
-    // #documentation(SpecificView.specificNative)
-    /// The specific native view.
-    var specificNative: UIButton { get }
+      // #documentation(SpecificView.specificNative)
+      /// The specific native view.
+      var specificNative: UIButton { get }
     #endif
     func _refreshBindings()
-}
+  }
 
-extension AnyButton {
+  extension AnyButton {
 
     internal func refreshBindings() {
-        _refreshBindings()
+      _refreshBindings()
     }
-}
+  }
 #endif

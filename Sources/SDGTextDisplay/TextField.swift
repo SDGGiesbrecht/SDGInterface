@@ -13,62 +13,66 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-#if canImport(AppKit)
-import AppKit
-#endif
-#if canImport(UIKit)
-import UIKit
-#endif
+  #if canImport(AppKit)
+    import AppKit
+  #endif
+  #if canImport(UIKit)
+    import UIKit
+  #endif
 
-import SDGControlFlow
-import SDGLogic
-import SDGText
+  import SDGControlFlow
+  import SDGLogic
+  import SDGText
 
-import SDGInterfaceBasics
-import SDGViews
+  import SDGInterfaceBasics
+  import SDGViews
 
-/// A text field.
-public final class TextField : SpecificView {
+  /// A text field.
+  public final class TextField: SpecificView {
 
     // MARK: - Static Set‐Up
 
     #if canImport(AppKit)
-    private static let setUpFieldEditor: Void = {
+      private static let setUpFieldEditor: Void = {
         _getFieldEditor = {
-            return FieldEditor()
+          return FieldEditor()
         }
         _resetFieldEditors()
-    }()
+      }()
     #endif
 
     // MARK: - Initialization
 
     /// Creates a text field.
     public init() {
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         TextField.setUpFieldEditor
-        #endif
+      #endif
 
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         specificNative = NSTextField()
-        #else
+      #else
         specificNative = CocoaTextField()
-        #endif
-        bindingObserver.field = self
+      #endif
+      bindingObserver.field = self
 
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         let cell = NormalizingCell()
         specificNative.cell = cell
-        #endif
+      #endif
 
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         specificNative.action = #selector(TextFieldBindingObserver.actionOccurred)
         specificNative.target = bindingObserver
-        #elseif canImport(UIKit)
-        specificNative.addTarget(bindingObserver, action: #selector(TextFieldBindingObserver.actionOccurred), for: .editingDidEnd)
-        #endif
+      #elseif canImport(UIKit)
+        specificNative.addTarget(
+          bindingObserver,
+          action: #selector(TextFieldBindingObserver.actionOccurred),
+          for: .editingDidEnd
+        )
+      #endif
 
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         specificNative.isBordered = true
         specificNative.isBezeled = true
         specificNative.bezelStyle = .squareBezel
@@ -79,10 +83,10 @@ public final class TextField : SpecificView {
         cell.sendsActionOnEndEditing = true
         specificNative.isSelectable = true
         specificNative.isEditable = true
-        #endif
-        specificNative.allowsEditingTextAttributes = false
+      #endif
+      specificNative.allowsEditingTextAttributes = false
 
-        specificNative.font = Font.forLabels.native
+      specificNative.font = Font.forLabels.native
     }
 
     // MARK: - Properties
@@ -91,42 +95,42 @@ public final class TextField : SpecificView {
 
     /// The value of the text field.
     public var value: Shared<StrictString> = Shared("") {
-        willSet {
-            value.cancel(observer: bindingObserver)
-        }
-        didSet {
-            value.register(observer: bindingObserver)
-        }
+      willSet {
+        value.cancel(observer: bindingObserver)
+      }
+      didSet {
+        value.register(observer: bindingObserver)
+      }
     }
 
     // MARK: - Refreshing
 
     internal func refreshBindings() {
-        let resolved = String(value.value)
-        #if canImport(AppKit)
+      let resolved = String(value.value)
+      #if canImport(AppKit)
         specificNative.stringValue = resolved
-        #elseif canImport(UIKit)
+      #elseif canImport(UIKit)
         specificNative.text = resolved
-        #endif
+      #endif
     }
 
-    internal func actionOccurred() { // @exempt(from: tests) Unreachable in tests on iOS.
-        #if canImport(AppKit)
+    internal func actionOccurred() {  // @exempt(from: tests) Unreachable in tests on iOS.
+      #if canImport(AppKit)
         let new = StrictString(specificNative.stringValue)
-        #elseif canImport(UIKit)
+      #elseif canImport(UIKit)
         let new = StrictString(specificNative.text ?? "")
-        #endif
-        if new ≠ value.value {
-            value.value = new
-        }
+      #endif
+      if new ≠ value.value {
+        value.value = new
+      }
     }
 
     // MARK: - SpecificView
 
     #if canImport(AppKit)
-    public let specificNative: NSTextField
+      public let specificNative: NSTextField
     #elseif canImport(UIKit)
-    public let specificNative: UITextField
+      public let specificNative: UITextField
     #endif
-}
+  }
 #endif
