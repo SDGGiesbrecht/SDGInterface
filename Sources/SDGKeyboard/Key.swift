@@ -681,7 +681,7 @@ public enum Key: CaseIterable {
         let shifted = self.output(with: .maskShift)
 
         if shifted.lowercased() == output
-          ∨ output.uppercased() == shifted
+          ∨ output.uppercased() == shifted  // @exempt(from: tests)
         {  // @exempt(from: tests) Reachability depends on keyboard.
           return StrictString(shifted)
         } else if output == "i" ∧ shifted == "İ" {  // @exempt(from: tests)
