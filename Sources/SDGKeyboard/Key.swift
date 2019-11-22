@@ -20,7 +20,9 @@ import SDGLogic
 import SDGCollections
 import SDGText
 
-/// Represents a physical key on the keyboard. These are useful for defining controls with a consistent arrangement.
+/// Represents a physical key on the keyboard.
+///
+/// These are useful for defining controls with a consistent arrangement.
 ///
 /// Text keys are named by their hand position in proper typing technique:
 ///
@@ -667,7 +669,9 @@ public enum Key: CaseIterable {
   // MARK: - Usage
 
   #if canImport(Carbon)
-    /// Returns the character printed on the physical key. This is useful for describing controls to the user.
+    /// Returns the character printed on the physical key.
+    ///
+    /// This is useful for describing controls to the user.
     ///
     /// - Note: This is accomplished by determining the key’s output, and modifing it to match keyboard labelling conventions (such as printing letters uppercase). Therefore, if the user’s virtual and physical keyboards do not match, the returned string will match the virtual layout, not the physical one.
     ///

@@ -100,7 +100,9 @@
       }
     }
 
-    /// The value indicated by the progress bar. `nil` represents an indeterminate value.
+    /// The value indicated by the progress bar.
+    ///
+    /// `nil` represents an indeterminate value.
     public var progressValue: Double? {
       get {
         #if canImport(AppKit)

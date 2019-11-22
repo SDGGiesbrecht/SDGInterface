@@ -146,8 +146,7 @@ extension NSMutableAttributedString {
       to range: NSRange,
       modifySection: (inout [NSAttributedString.Key: Any]) -> Void
     ) {
-      applyChanges(to: range) {
-        (sectionRange: NSRange, sectionAttributes: [NSAttributedString.Key: Any]) in
+      applyChanges(to: range) { sectionRange, sectionAttributes in
 
         var sectionAttributes = sectionAttributes
         modifySection(&sectionAttributes)
@@ -164,8 +163,7 @@ extension NSMutableAttributedString {
         Void
     ) {
 
-      applyChanges(to: range) {
-        (sectionRange: NSRange, sectionAttributes: [NSAttributedString.Key: Any]) in
+      applyChanges(to: range) { sectionRange, sectionAttributes in
 
         let section = attributedSubstring(from: sectionRange).string
         let font = sectionAttributes.font ?? Font.default
@@ -286,8 +284,9 @@ extension NSMutableAttributedString {
           let font = attributes.font ?? Font.default  // @exempt(from: tests) Never nil.
           let actualSmallCapsSize = Int(font.native.pointSize.rounded(.toNearestOrEven))
 
-          let baseSize = findLocalMinimum(near: actualSmallCapsSize) {
-            (attemptedBaseSize: Int) -> Int in
+          let baseSize = findLocalMinimum(
+            near: actualSmallCapsSize
+          ) { (attemptedBaseSize: Int) -> Int in
 
             let attemptedSmallCapsSize = NSMutableAttributedString.smallCapsMetrics(
               for: font,

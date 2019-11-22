@@ -145,7 +145,9 @@
       nativeTable.reloadData()
     }
 
-    /// A sort order to impose on the data. (i.e. `{ $0 < $1 }` will sort according to `Comparable`.)
+    /// A sort order to impose on the data.
+    ///
+    /// For example, `{ $0 < $1 }` will sort according to `Comparable`.
     ///
     /// - Parameters:
     ///     - preceding: The element before the inequality sign.
@@ -166,15 +168,12 @@
 
     #if canImport(AppKit)
       internal var nativeTable: NSTableView {
-        get {
-          return specificNative.documentView as? NSTableView ?? NSTableView()  // @exempt(from: tests) Never nil.
-        }
+        return specificNative.documentView as? NSTableView
+          ?? NSTableView()  // @exempt(from: tests) Never nil.
       }
     #elseif canImport(UIKit)
       internal var nativeTable: UITableView {
-        get {
-          return specificNative
-        }
+        return specificNative
       }
     #endif
 

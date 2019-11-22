@@ -105,7 +105,9 @@ extension Application {
         name: .static(ApplicationNameForm.localizedIsolatedForm),
         view: editor
       )
-      if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil {  // #exempt(from: tests)
+      if ProcessInfo.processInfo
+        .environment["XCTestConfigurationFilePath"] == nil
+      {  // #exempt(from: tests)
         // This call fails during tests.
         window.display()
       }

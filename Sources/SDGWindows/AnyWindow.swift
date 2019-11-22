@@ -64,7 +64,12 @@
     /// A size that fills the available space on the main screen, without obscuring menu bars, docks, etc.
     public static var availableSize: Size {
       #if canImport(AppKit)
-        return Size((NSScreen.main ?? NSScreen()).frame.size)  // @exempt(from: tests) Screen should not be nil.
+        return Size(
+          (
+            NSScreen.main
+              ?? NSScreen()  // @exempt(from: tests) Screen should not be nil.
+          ).frame.size
+        )
       #elseif canImport(UIKit)
         return Size(UIScreen.main.bounds.size)
       #endif
@@ -91,13 +96,11 @@
 
     /// Whether or not the window is visible. (It may still be obscured by other elements on the screen.)
     public var isVisible: Bool {
-      get {
-        #if canImport(AppKit)
-          return native.isVisible
-        #elseif canImport(UIKit)
-          return native.isHidden
-        #endif
-      }
+      #if canImport(AppKit)
+        return native.isVisible
+      #elseif canImport(UIKit)
+        return native.isHidden
+      #endif
     }
 
     internal func finishClosing() {

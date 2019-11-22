@@ -21,22 +21,22 @@ public struct KeyModifiers: OptionSet {
 
   // MARK: - Modifiers
 
-  /// ⌘
+  /// The command key (⌘).
   public static let command: KeyModifiers = KeyModifiers(rawValue: 1 << 0)
 
-  /// ⇧
+  /// The shift key (⇧).
   public static let shift: KeyModifiers = KeyModifiers(rawValue: 1 << 1)
 
-  /// ⌥
+  /// The option key (⌥).
   public static let option: KeyModifiers = KeyModifiers(rawValue: 1 << 2)
 
-  /// ⌃
+  /// The control key (⌃).
   public static let control: KeyModifiers = KeyModifiers(rawValue: 1 << 3)
 
-  /// fn
+  /// The function key (fn).
   public static let function: KeyModifiers = KeyModifiers(rawValue: 1 << 4)
 
-  /// ⇪
+  /// The caps lock key (⇪).
   public static let capsLock: KeyModifiers = KeyModifiers(rawValue: 1 << 5)
 
   // MARK: - Initialization

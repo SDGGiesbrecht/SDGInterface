@@ -127,16 +127,13 @@
     #if canImport(AppKit)
       /// The native text view.
       public var nativeTextView: NSTextView {
-        get {
-          return specificNative.documentView as? NSTextView ?? NSTextView()  // @exempt(from: tests) Never nil.
-        }
+        return specificNative.documentView as? NSTextView
+          ?? NSTextView()  // @exempt(from: tests) Never nil.
       }
     #elseif canImport(UIKit)
       /// The native text view.
       public var nativeTextView: UITextView {
-        get {
-          return specificNative
-        }
+        return specificNative
       }
     #endif
   }

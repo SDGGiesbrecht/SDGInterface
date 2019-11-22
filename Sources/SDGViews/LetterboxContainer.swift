@@ -35,7 +35,9 @@
 
     // MARK: - LetterboxContainerSuperClass
 
-    internal override func draw(_ dirtyRect: CGRect) {  // @exempt(from: tests) Crashes without active interface.
+    internal override func draw(
+      _ dirtyRect: CGRect
+    ) {  // @exempt(from: tests) Crashes without active interface.
       if let colour = self.colour {
         #if canImport(AppKit)
           let native = colour.nsColor

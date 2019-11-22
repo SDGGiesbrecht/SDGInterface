@@ -62,7 +62,7 @@ public protocol SystemMediator: AnyObject {
   /// Called by some systems to request that the application terminate.
   func terminate() -> TerminationResponse
 
-  /// Some systems will terminate the application automatically when the last window closes. Returning `false` requests that the application remain running.
+  /// On platforms which offer to terminate the application automatically when the last window closes, returning `false` requests that the application remain running.
   var remainsRunningWithNoWindows: Bool { get }
 
   /// Called by some systems before the application terminates.

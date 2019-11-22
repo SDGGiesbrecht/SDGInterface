@@ -28,7 +28,7 @@
 
   /// A set of radio buttons.
   public class RadioButtonSet<Option, L>: AnyRadioButtonSet, SpecificView
-  where Option: CaseIterable, L: Localization, Option.AllCases == Array<Option> {
+  where Option: CaseIterable, L: Localization, Option.AllCases == [Option] {
 
     // MARK: - Initialization
 

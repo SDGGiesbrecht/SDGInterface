@@ -30,7 +30,8 @@
   #if canImport(AppKit)
     private let setUpFieldEditorReset: Void = {
       _resetFieldEditors = {
-        for (_, window) in allWindows {  // @exempt(from: tests) Only reachable with a bungled set‐up.
+        for (_, window) in allWindows {  // @exempt(from: tests)
+          // Only reachable with a bungled set‐up.
           window._fieldEditor = _getFieldEditor()
         }
       }

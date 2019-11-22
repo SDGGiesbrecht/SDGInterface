@@ -53,11 +53,16 @@
       #if canImport(UIKit)
         // MARK: - UIViewRepresentable
 
-        func makeUIView(context: UIViewRepresentableContext<SDGView>) -> UIView {  // @exempt(from: tests) Not reachable from tests.
+        func makeUIView(
+          context: UIViewRepresentableContext<SDGView>
+        ) -> UIView {  // @exempt(from: tests) Not reachable from tests.
           return sdgView.native
         }
 
-        func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<SDGView>) {  // @exempt(from: tests) Not reachable from tests.
+        func updateUIView(
+          _ uiView: UIView,
+          context: UIViewRepresentableContext<SDGView>
+        ) {  // @exempt(from: tests) Not reachable from tests.
         }
       #endif
     }

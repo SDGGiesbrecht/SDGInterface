@@ -21,7 +21,7 @@
   #endif
 
   /// An image.
-  public struct Image {
+  public struct Image {  // @exempt(from: swiftFormat[UseEnumForNamespacing])
 
     /// Returns an empty image.
     public static var empty: Image {

@@ -53,7 +53,8 @@
           popOver?.delegate = UIPopoverPresentationControllerDelegate.delegate
         #endif
         popOver?.sourceView = native
-        popOver?.sourceRect = sourceRectangle?.native ?? native.frame  // @exempt(from: tests) tvOS quirk.
+        popOver?.sourceRect = sourceRectangle?.native
+          ?? native.frame  // @exempt(from: tests) tvOS quirk.
         popOver?.permittedArrowDirections = .any
 
         native.controller?.present(controller, animated: true, completion: nil)
