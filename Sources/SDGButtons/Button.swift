@@ -13,21 +13,21 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-#if canImport(AppKit)
-import AppKit
-#endif
-#if canImport(UIKit)
-import UIKit
-#endif
+  #if canImport(AppKit)
+    import AppKit
+  #endif
+  #if canImport(UIKit)
+    import UIKit
+  #endif
 
-import SDGText
-import SDGLocalization
+  import SDGText
+  import SDGLocalization
 
-import SDGInterfaceBasics
-import SDGViews
+  import SDGInterfaceBasics
+  import SDGViews
 
-/// A button.
-public final class Button<L> : AnyButton, SpecificView where L : Localization {
+  /// A button.
+  public final class Button<L>: AnyButton, SpecificView where L: Localization {
 
     // MARK: - Initialization
 
@@ -36,31 +36,31 @@ public final class Button<L> : AnyButton, SpecificView where L : Localization {
     /// - Parameters:
     ///     - label: The label on the button.
     public init(label: Binding<StrictString, L>) {
-        self.label = label
-        defer {
-            labelDidSet()
-            LocalizationSetting.current.register(observer: bindingObserver)
-        }
+      self.label = label
+      defer {
+        labelDidSet()
+        LocalizationSetting.current.register(observer: bindingObserver)
+      }
 
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         specificNative = NSButton()
-        #elseif canImport(UIKit)
+      #elseif canImport(UIKit)
         specificNative = UIButton()
-        #endif
-        defer {
-            bindingObserver.button = self
-        }
+      #endif
+      defer {
+        bindingObserver.button = self
+      }
 
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         specificNative.bezelStyle = .rounded
         specificNative.setButtonType(.momentaryPushIn)
-        #endif
+      #endif
 
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         specificNative.font = Font.forLabels.native
-        #elseif canImport(UIKit)
+      #elseif canImport(UIKit)
         specificNative.titleLabel?.font = Font.forLabels.native
-        #endif
+      #endif
     }
 
     // MARK: - Properties
@@ -69,34 +69,34 @@ public final class Button<L> : AnyButton, SpecificView where L : Localization {
 
     /// The label.
     public var label: Binding<StrictString, L> {
-        willSet {
-            label.shared?.cancel(observer: bindingObserver)
-        }
-        didSet {
-            labelDidSet()
-        }
+      willSet {
+        label.shared?.cancel(observer: bindingObserver)
+      }
+      didSet {
+        labelDidSet()
+      }
     }
     private func labelDidSet() {
-        label.shared?.register(observer: bindingObserver)
+      label.shared?.register(observer: bindingObserver)
     }
 
     // MARK: - Refreshing
 
     public func _refreshBindings() {
-        let resolved = String(label.resolved())
-        #if canImport(AppKit)
+      let resolved = String(label.resolved())
+      #if canImport(AppKit)
         specificNative.title = resolved
-        #elseif canImport(UIKit)
+      #elseif canImport(UIKit)
         specificNative.titleLabel?.text = resolved
-        #endif
+      #endif
     }
 
     // MARK: - SpecificView
 
     #if canImport(AppKit)
-    public let specificNative: NSButton
+      public let specificNative: NSButton
     #elseif canImport(UIKit)
-    public let specificNative: UIButton
+      public let specificNative: UIButton
     #endif
-}
+  }
 #endif

@@ -20,38 +20,40 @@ import SDGLocalization
 /// A dynamic localization set based on the provided forms of the application’s name.
 ///
 /// See `ProcessInfo.applicationName`.
-public struct ApplicationNameLocalization : Localization {
+public struct ApplicationNameLocalization: Localization {
 
-    private init(undefined: Void) {
-        self.code = "und"
+  private init(undefined: Void) {
+    self.code = "und"
+  }
+
+  private var _correspondingIsolatedName: StrictString?
+  internal var correspondingIsolatedName: StrictString {
+    if let defined = _correspondingIsolatedName {
+      return defined
     }
+    #if !os(Linux)
+      if let infoPropertyList = Bundle.main.infoDictionary?[kCFBundleNameKey as String] as? String {
+        return StrictString(infoPropertyList)  // @exempt(from: tests)
+      }
+    #endif  // @exempt(from: tests)
+    return StrictString(ProcessInfo.processInfo.processName)  // @exempt(from: tests)
+  }
 
-    private var _correspondingIsolatedName: StrictString?
-    internal var correspondingIsolatedName: StrictString {
-        if let defined = _correspondingIsolatedName {
-            return defined
-        }
-        #if !os(Linux)
-        if let infoPropertyList = Bundle.main.infoDictionary?[kCFBundleNameKey as String] as? String {
-            return StrictString(infoPropertyList) // @exempt(from: tests)
-        }
-        #endif // @exempt(from: tests)
-        return StrictString(ProcessInfo.processInfo.processName) // @exempt(from: tests)
+  // MARK: - Localization
+
+  public init?(exactly code: String) {
+    guard let form = ApplicationNameForm._isolatedForm(for: code),
+      let name = ProcessInfo.applicationName(form)
+    else {
+      return nil
     }
+    self.code = code
+    _correspondingIsolatedName = name
+  }
 
-    // MARK: - Localization
+  public var code: String
 
-    public init?(exactly code: String) {
-        guard let form = ApplicationNameForm._isolatedForm(for: code),
-            let name = ProcessInfo.applicationName(form) else {
-            return nil
-        }
-        self.code = code
-        _correspondingIsolatedName = name
-    }
-
-    public var code: String
-
-    public static var fallbackLocalization: ApplicationNameLocalization
-        = ApplicationNameLocalization(undefined: ())
+  public static var fallbackLocalization: ApplicationNameLocalization = ApplicationNameLocalization(
+    undefined: ()
+  )
 }

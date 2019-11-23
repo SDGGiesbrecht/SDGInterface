@@ -17,24 +17,27 @@ import SDGText
 
 extension RichText.NormalizationAttribute {
 
-    internal struct Mapping : Decodable {
+  internal struct Mapping: Decodable {
 
-        // MARK: - Initialization
+    // MARK: - Initialization
 
-        internal init(_ mapping: [Unicode.Scalar: RichText.NormalizationAttribute]) {
-            self.mapping = mapping
-        }
-
-        // MARK: - Properties
-
-        internal let mapping: [Unicode.Scalar: RichText.NormalizationAttribute]
-
-        // MARK: - Decodable
-
-        internal init(from decoder: Decoder) throws {
-            try self.init(from: decoder, via: [String: RichText.NormalizationAttribute].self) { (proxy: [String: RichText.NormalizationAttribute]) -> Mapping in
-                return Mapping(proxy.mapKeys({ Unicode.Scalar(UInt32(hexadecimal: StrictString($0)))! }))
-            }
-        }
+    internal init(_ mapping: [Unicode.Scalar: RichText.NormalizationAttribute]) {
+      self.mapping = mapping
     }
+
+    // MARK: - Properties
+
+    internal let mapping: [Unicode.Scalar: RichText.NormalizationAttribute]
+
+    // MARK: - Decodable
+
+    internal init(from decoder: Decoder) throws {
+      try self.init(
+        from: decoder,
+        via: [String: RichText.NormalizationAttribute].self
+      ) { (proxy: [String: RichText.NormalizationAttribute]) -> Mapping in
+        return Mapping(proxy.mapKeys({ Unicode.Scalar(UInt32(hexadecimal: StrictString($0)))! }))
+      }
+    }
+  }
 }

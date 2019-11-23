@@ -13,14 +13,14 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-#if canImport(AppKit)
-import AppKit
-#elseif canImport(UIKit)
-import UIKit
-#endif
+  #if canImport(AppKit)
+    import AppKit
+  #elseif canImport(UIKit)
+    import UIKit
+  #endif
 
-/// An empty view.
-public final class EmptyView : View {
+  /// An empty view.
+  public final class EmptyView: View {
 
     // MARK: - Initialization
 
@@ -30,9 +30,9 @@ public final class EmptyView : View {
     // MARK: - Properties
 
     #if canImport(AppKit)
-    public let native: NSView = NSView()
+      public let native: NSView = NSView()
     #elseif canImport(UIKit)
-    public let native: UIView = UIView()
+      public let native: UIView = UIView()
     #endif
-}
+  }
 #endif

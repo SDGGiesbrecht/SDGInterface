@@ -16,26 +16,26 @@ import Foundation
 
 extension RichText {
 
-    /// A single Unicode scalar of rich text.
-    public struct Scalar {
+  /// A single Unicode scalar of rich text.
+  public struct Scalar {
 
-        // MARK: - Initialization
+    // MARK: - Initialization
 
-        /// Creates a rich text scalar.
-        ///
-        /// - Parameters:
-        ///     - rawScalar: The raw Unicode scalar.
-        ///     - attributes: The rich text attributes.
-        public init(_ rawScalar: Unicode.Scalar, attributes: [NSAttributedString.Key: Any] = [:]) {
-            self.rawScalar = rawScalar
-            self.attributes = attributes
-        }
-
-        // MARK: - Properties
-
-        /// The raw text scalar.
-        public var rawScalar: Unicode.Scalar
-        /// The attributes applied to the scalar.
-        public var attributes: [NSAttributedString.Key: Any]
+    /// Creates a rich text scalar.
+    ///
+    /// - Parameters:
+    ///     - rawScalar: The raw Unicode scalar.
+    ///     - attributes: The rich text attributes.
+    public init(_ rawScalar: Unicode.Scalar, attributes: [NSAttributedString.Key: Any] = [:]) {
+      self.rawScalar = rawScalar
+      self.attributes = attributes
     }
+
+    // MARK: - Properties
+
+    /// The raw text scalar.
+    public var rawScalar: Unicode.Scalar
+    /// The attributes applied to the scalar.
+    public var attributes: [NSAttributedString.Key: Any]
+  }
 }

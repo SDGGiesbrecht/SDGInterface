@@ -13,16 +13,16 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-#if canImport(AppKit)
-import AppKit
-#elseif canImport(UIKit)
-import UIKit
-#endif
+  #if canImport(AppKit)
+    import AppKit
+  #elseif canImport(UIKit)
+    import UIKit
+  #endif
 
-import SDGInterfaceBasics
-import SDGViews
+  import SDGInterfaceBasics
+  import SDGViews
 
-extension View {
+  extension View {
 
     // MARK: - Pop‐overs
 
@@ -32,39 +32,48 @@ extension View {
     ///     - view: The view to display as a pop‐over.
     ///     - sourceRectangle: A rectangle within `self` that should be considered the origin of the pop‐over.
     ///     - preferredSize: A preferred size for the pop over. This will be used as the default size, but may be overridden by layout constraints.
-    public func displayPopOver(_ view: View, sourceRectangle: Rectangle? = nil, preferredSize: Size? = nil) {
-        let popOverView = CocoaPopOverView(view: view)
+    public func displayPopOver(
+      _ view: View,
+      sourceRectangle: Rectangle? = nil,
+      preferredSize: Size? = nil
+    ) {
+      let popOverView = CocoaPopOverView(view: view)
 
-        #if canImport(UIKit)
+      #if canImport(UIKit)
         let controller = UIViewController()
         #if os(tvOS)
-        controller.modalPresentationStyle = .overCurrentContext
+          controller.modalPresentationStyle = .overCurrentContext
         #else
-        controller.modalPresentationStyle = .popover
+          controller.modalPresentationStyle = .popover
         #endif
         controller.view = popOverView
 
         let popOver = controller.popoverPresentationController
         #if !os(tvOS)
-        popOver?.delegate = UIPopoverPresentationControllerDelegate.delegate
+          popOver?.delegate = UIPopoverPresentationControllerDelegate.delegate
         #endif
         popOver?.sourceView = native
-        popOver?.sourceRect = sourceRectangle?.native ?? native.frame // @exempt(from: tests) tvOS quirk.
+        popOver?.sourceRect = sourceRectangle?.native
+          ?? native.frame  // @exempt(from: tests) tvOS quirk.
         popOver?.permittedArrowDirections = .any
 
         native.controller?.present(controller, animated: true, completion: nil)
-        #else
+      #else
         let controller = NSViewController()
         if let specifiedSize = preferredSize {
-            popOverView.frame.size = specifiedSize.native
+          popOverView.frame.size = specifiedSize.native
         }
         controller.view = popOverView
 
         let popOver = NSPopover()
         popOver.contentViewController = controller
         popOver.behavior = .transient
-        popOver.show(relativeTo: sourceRectangle?.native ?? native.frame, of: native, preferredEdge: .maxX)
-        #endif
+        popOver.show(
+          relativeTo: sourceRectangle?.native ?? native.frame,
+          of: native,
+          preferredEdge: .maxX
+        )
+      #endif
     }
-}
+  }
 #endif

@@ -13,55 +13,67 @@
  */
 
 #if canImport(AppKit)
-import ObjectiveC
+  import ObjectiveC
 
-import SDGText
-import SDGLocalization
+  import SDGText
+  import SDGLocalization
 
-import SDGMenus
-import SDGMenuBar
-import SDGApplication
+  import SDGMenus
+  import SDGMenuBar
+  import SDGApplication
 
-import SDGInterfaceLocalizations
+  import SDGInterfaceLocalizations
 
-extension MenuBar {
+  extension MenuBar {
 
     private static func textFieldEntry() -> MenuEntry<InterfaceLocalization> {
-        let textField = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
+      let textField = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
-                return "Text Field"
+              return "Text Field"
             }
-        })))
-        textField.action = #selector(Application.demonstrateTextField)
-        textField.target = Application.shared
-        return textField
+          })
+        )
+      )
+      textField.action = #selector(Application.demonstrateTextField)
+      textField.target = Application.shared
+      return textField
     }
 
     private static func labelledTextField() -> MenuEntry<InterfaceLocalization> {
-        let labelledTextField = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
+      let labelledTextField = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
-                return "Labelled Text Field"
+              return "Labelled Text Field"
             }
-        })))
-        labelledTextField.action = #selector(Application.demonstrateLabelledTextField)
-        labelledTextField.target = Application.shared
-        return labelledTextField
+          })
+        )
+      )
+      labelledTextField.action = #selector(Application.demonstrateLabelledTextField)
+      labelledTextField.target = Application.shared
+      return labelledTextField
     }
 
     internal static func textField() -> Menu<InterfaceLocalization> {
-        let textField = Menu(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
+      let textField = Menu(
+        label: .static(
+          UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
-                return "Text Field"
+              return "Text Field"
             }
-        })))
-        textField.entries = [
-            .entry(textFieldEntry()),
-            .entry(labelledTextField())
-        ]
-        return textField
+          })
+        )
+      )
+      textField.entries = [
+        .entry(textFieldEntry()),
+        .entry(labelledTextField())
+      ]
+      return textField
     }
-}
+  }
 #endif

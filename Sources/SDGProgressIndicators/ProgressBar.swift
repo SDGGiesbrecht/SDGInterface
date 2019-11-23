@@ -14,125 +14,127 @@
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
 
-#if canImport(AppKit)
-import AppKit
-#endif
-#if canImport(UIKit)
-import UIKit
-#endif
+  #if canImport(AppKit)
+    import AppKit
+  #endif
+  #if canImport(UIKit)
+    import UIKit
+  #endif
 
-import SDGMathematics
+  import SDGMathematics
 
-import SDGViews
+  import SDGViews
 
-/// An image view.
-public final class ProgressBar : SpecificView {
+  /// An image view.
+  public final class ProgressBar: SpecificView {
 
     // MARK: - Initialization
 
     /// Creates an image view displaying an image.
     public init() {
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         specificNative = NSProgressIndicator()
-        #elseif canImport(UIKit)
+      #elseif canImport(UIKit)
         specificNative = UIProgressView()
-        #endif
+      #endif
 
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         specificNative.usesThreadedAnimation = true
-        #endif
+      #endif
 
-        progressValue = nil
+      progressValue = nil
     }
 
     // MARK: - Properties
 
     #if canImport(UIKit)
-    private var minValue: Double = 0
-    private var maxValue: Double = 1
-    private var doubleValue: Double? = 0
-    private func refreshNativeBar() {
+      private var minValue: Double = 0
+      private var maxValue: Double = 1
+      private var doubleValue: Double? = 0
+      private func refreshNativeBar() {
         let progress: Float
         if let value = doubleValue {
-            progress = Float((value − minValue) ÷ (maxValue − minValue))
+          progress = Float((value − minValue) ÷ (maxValue − minValue))
         } else {
-            progress = 0
+          progress = 0
         }
         specificNative.setProgress(progress, animated: true)
-    }
+      }
     #endif
 
     /// The value indicated by the start of the progress bar.
     public var startValue: Double {
-        get {
-            #if canImport(AppKit)
-            return specificNative.minValue
-            #elseif canImport(UIKit)
-            return minValue
-            #endif
-        }
-        set {
-            #if canImport(AppKit)
-            specificNative.minValue = newValue
-            #elseif canImport(UIKit)
-            minValue = newValue
-            refreshNativeBar()
-            #endif
-        }
+      get {
+        #if canImport(AppKit)
+          return specificNative.minValue
+        #elseif canImport(UIKit)
+          return minValue
+        #endif
+      }
+      set {
+        #if canImport(AppKit)
+          specificNative.minValue = newValue
+        #elseif canImport(UIKit)
+          minValue = newValue
+          refreshNativeBar()
+        #endif
+      }
     }
 
     /// The value indicated by the start of the progress bar.
     public var endValue: Double {
-        get {
-            #if canImport(AppKit)
-            return specificNative.maxValue
-            #elseif canImport(UIKit)
-            return maxValue
-            #endif
-        }
-        set {
-            #if canImport(AppKit)
-            specificNative.maxValue = newValue
-            #elseif canImport(UIKit)
-            maxValue = newValue
-            refreshNativeBar()
-            #endif
-        }
+      get {
+        #if canImport(AppKit)
+          return specificNative.maxValue
+        #elseif canImport(UIKit)
+          return maxValue
+        #endif
+      }
+      set {
+        #if canImport(AppKit)
+          specificNative.maxValue = newValue
+        #elseif canImport(UIKit)
+          maxValue = newValue
+          refreshNativeBar()
+        #endif
+      }
     }
 
-    /// The value indicated by the progress bar. `nil` represents an indeterminate value.
+    /// The value indicated by the progress bar.
+    ///
+    /// `nil` represents an indeterminate value.
     public var progressValue: Double? {
-        get {
-            #if canImport(AppKit)
-            return specificNative.isIndeterminate ? nil : specificNative.doubleValue
-            #elseif canImport(UIKit)
-            return doubleValue
-            #endif
-        }
-        set {
-            #if canImport(AppKit)
-            if let value = newValue {
-                specificNative.isIndeterminate = false
-                specificNative.stopAnimation(nil)
-                specificNative.doubleValue = value
-            } else {
-                specificNative.doubleValue = 0
-                specificNative.isIndeterminate = true
-                specificNative.startAnimation(nil)
-            }
-            #elseif canImport(UIKit)
-            doubleValue = newValue
-            refreshNativeBar()
-            #endif
-        }
+      get {
+        #if canImport(AppKit)
+          return specificNative.isIndeterminate ? nil : specificNative.doubleValue
+        #elseif canImport(UIKit)
+          return doubleValue
+        #endif
+      }
+      set {
+        #if canImport(AppKit)
+          if let value = newValue {
+            specificNative.isIndeterminate = false
+            specificNative.stopAnimation(nil)
+            specificNative.doubleValue = value
+          } else {
+            specificNative.doubleValue = 0
+            specificNative.isIndeterminate = true
+            specificNative.startAnimation(nil)
+          }
+        #elseif canImport(UIKit)
+          doubleValue = newValue
+          refreshNativeBar()
+        #endif
+      }
     }
 
     // MARK: - SpecificView
 
     #if canImport(AppKit)
-    public let specificNative: NSProgressIndicator
+      public let specificNative: NSProgressIndicator
     #elseif canImport(UIKit)
-    public let specificNative: UIProgressView
+      public let specificNative: UIProgressView
     #endif
-}
+  }
 #endif

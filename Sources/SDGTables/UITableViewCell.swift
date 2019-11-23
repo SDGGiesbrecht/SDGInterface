@@ -13,29 +13,29 @@
  */
 
 #if canImport(UIKit) && !os(watchOS)
-import UIKit
+  import UIKit
 
-import SDGViews
+  import SDGViews
 
-@available(iOS 9, *) // @exempt(from: unicode)
-internal class UITableViewCell : UIKit.UITableViewCell {
+  @available(iOS 9, *)  // @exempt(from: unicode)
+  internal class UITableViewCell: UIKit.UITableViewCell {
 
     // MARK: - Initialization
 
     internal init(columns: [View]) {
-        self.row = RowView(views: columns)
-        super.init(style: .default, reuseIdentifier: UITableViewDataSource<Bool>.reUseIdentifier)
-        row.specificNative.spacing = 8
-        let wrapped = AnyNativeView(self)
-        wrapped.fill(with: row, margin: .specific(0))
+      self.row = RowView(views: columns)
+      super.init(style: .default, reuseIdentifier: UITableViewDataSource<Bool>.reUseIdentifier)
+      row.specificNative.spacing = 8
+      let wrapped = AnyNativeView(self)
+      wrapped.fill(with: row, margin: .specific(0))
     }
 
-    internal required init?(coder decoder: NSCoder) { // @exempt(from: tests)
-        return nil
+    internal required init?(coder decoder: NSCoder) {  // @exempt(from: tests)
+      return nil
     }
 
     // MARK: - Properties
 
     internal let row: RowView
-}
+  }
 #endif

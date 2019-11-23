@@ -13,83 +13,95 @@
  */
 
 #if canImport(AppKit)
-import AppKit
+  import AppKit
 
-import SDGText
-import SDGLocalization
+  import SDGText
+  import SDGLocalization
 
-import SDGMenus
+  import SDGMenus
 
-import SDGInterfaceLocalizations
+  import SDGInterfaceLocalizations
 
-extension MenuBar {
+  extension MenuBar {
 
     private static func startSpeaking() -> MenuEntry<MenuBarLocalization> {
-        let startSpeaking = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let startSpeaking = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Iniciar locución"
+              return "Iniciar locución"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Start Speaking"
+              return "Start Speaking"
             case .deutschDeutschland:
-                return "Sprachausgabe starten"
+              return "Sprachausgabe starten"
             case .françaisFrance:
-                return "Commencer la lecture"
+              return "Commencer la lecture"
             case .ελληνικάΕλλάδα:
-                return "Έναρξη εκφώνησης"
+              return "Έναρξη εκφώνησης"
             case .עברית־ישראל:
-                return "התחל לדבר"
+              return "התחל לדבר"
             }
-        })))
-        startSpeaking.action = #selector(NSTextView.startSpeaking(_:))
-        return startSpeaking
+          })
+        )
+      )
+      startSpeaking.action = #selector(NSTextView.startSpeaking(_:))
+      return startSpeaking
     }
 
     private static func stopSpeaking() -> MenuEntry<MenuBarLocalization> {
-        let stopSpeaking = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let stopSpeaking = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Detener locución"
+              return "Detener locución"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Stop Speaking"
+              return "Stop Speaking"
             case .deutschDeutschland:
-                return "Sprachausgabe stoppen"
+              return "Sprachausgabe stoppen"
             case .françaisFrance:
-                return "Arrêter la lecture"
+              return "Arrêter la lecture"
             case .ελληνικάΕλλάδα:
-                return "Διακοπή εκφώνησης"
+              return "Διακοπή εκφώνησης"
             case .עברית־ישראל:
-                return "הפסק לדבר"
+              return "הפסק לדבר"
             }
-        })))
-        stopSpeaking.action = #selector(NSTextView.stopSpeaking(_:))
-        return stopSpeaking
+          })
+        )
+      )
+      stopSpeaking.action = #selector(NSTextView.stopSpeaking(_:))
+      return stopSpeaking
     }
 
     internal static func speech() -> Menu<MenuBarLocalization> {
-        let speech = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let speech = Menu(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Habla"
+              return "Habla"
 
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Speech"
+              return "Speech"
             case .deutschDeutschland:
-                return "Sprachausgabe"
+              return "Sprachausgabe"
 
             case .françaisFrance:
-                return "Parole"
+              return "Parole"
             case .ελληνικάΕλλάδα:
-                return "Εκφώνηση"
+              return "Εκφώνηση"
             case .עברית־ישראל:
-                return "דיבור"
+              return "דיבור"
             }
-        })))
-        speech.entries = [
-            .entry(startSpeaking()),
-            .entry(stopSpeaking())
-        ]
-        return speech
+          })
+        )
+      )
+      speech.entries = [
+        .entry(startSpeaking()),
+        .entry(stopSpeaking())
+      ]
+      return speech
     }
-}
+  }
 #endif

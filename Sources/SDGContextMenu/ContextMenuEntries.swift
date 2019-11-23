@@ -13,47 +13,54 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS) && !os(tvOS)
-import Foundation
-import ObjectiveC
+  import Foundation
+  import ObjectiveC
 
-import SDGText
-import SDGLocalization
+  import SDGText
+  import SDGLocalization
 
-import SDGInterfaceBasics
-import SDGMenus
+  import SDGInterfaceBasics
+  import SDGMenus
 
-import SDGInterfaceLocalizations
+  import SDGInterfaceLocalizations
 
-extension ContextMenu {
+  extension ContextMenu {
 
     public static func _normalizeText() -> MenuEntry<InterfaceLocalization> {
-        let normalizeText = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
+      let normalizeText = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishUnitedKingdom:
-                return "Normalise Text"
+              return "Normalise Text"
             case .englishUnitedStates, .englishCanada:
-                return "Normalize Text"
+              return "Normalize Text"
             case .deutschDeutschland:
-                return "Text normalisieren"
+              return "Text normalisieren"
             }
-        })))
-        normalizeText.action = #selector(TextEditingResponder.normalizeText(_:))
-        return normalizeText
+          })
+        )
+      )
+      normalizeText.action = #selector(TextEditingResponder.normalizeText(_:))
+      return normalizeText
     }
 
-    @available(iOS 9, *) // @exempt(from: unicode)
+    @available(iOS 9, *)  // @exempt(from: unicode)
     public static func _showCharacterInformation() -> MenuEntry<InterfaceLocalization> {
-        let showCharacterInformation = MenuEntry(
-            label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
-                switch localization {
-                case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                    return "Show Character Information"
-                case .deutschDeutschland:
-                    return "Schriftzeicheninformationen einblenden"
-                }
-            })))
-        showCharacterInformation.action = #selector(TextDisplayResponder.showCharacterInformation(_:))
-        return showCharacterInformation
+      let showCharacterInformation = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+              return "Show Character Information"
+            case .deutschDeutschland:
+              return "Schriftzeicheninformationen einblenden"
+            }
+          })
+        )
+      )
+      showCharacterInformation.action = #selector(TextDisplayResponder.showCharacterInformation(_:))
+      return showCharacterInformation
     }
-}
+  }
 #endif

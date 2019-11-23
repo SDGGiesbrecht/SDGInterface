@@ -26,16 +26,16 @@ import SDGXCTestUtilities
 
 import SDGApplicationTestUtilities
 
-final class APITests : ApplicationTestCase {
+final class APITests: ApplicationTestCase {
 
-    func testContextMenu() {
-        #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
-        let contextMenu = ContextMenu.contextMenu
-        let modified = contextMenu.menu
-        let newEntry = MenuEntry<InterfaceLocalization>(label: .binding(Shared("")))
-        newEntry.isHidden = true
-        modified.entries.append(.entry(newEntry))
-        contextMenu.menu = modified
-        #endif
-    }
+  func testContextMenu() {
+    #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
+      let contextMenu = ContextMenu.contextMenu
+      let modified = contextMenu.menu
+      let newEntry = MenuEntry<InterfaceLocalization>(label: .binding(Shared("")))
+      newEntry.isHidden = true
+      modified.entries.append(.entry(newEntry))
+      contextMenu.menu = modified
+    #endif
+  }
 }

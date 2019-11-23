@@ -13,38 +13,42 @@
  */
 
 #if canImport(AppKit)
-import AppKit
+  import AppKit
 
-import SDGText
-import SDGLocalization
+  import SDGText
+  import SDGLocalization
 
-import SDGMenus
+  import SDGMenus
 
-import SDGInterfaceLocalizations
+  import SDGInterfaceLocalizations
 
-extension MenuBar {
+  extension MenuBar {
 
     internal static func format() -> Menu<MenuBarLocalization> {
-        let format = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let format = Menu(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Formato"
+              return "Formato"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada,
-                 .deutschDeutschland,
-                 .françaisFrance:
-                return "Format"
+              .deutschDeutschland,
+              .françaisFrance:
+              return "Format"
 
             case .עברית־ישראל:
-                return "עיצוב"
+              return "עיצוב"
             case .ελληνικάΕλλάδα:
-                return "Μορφή"
+              return "Μορφή"
             }
-        })))
-        format.entries = [
-            .submenu(font()),
-            .submenu(text())
-        ]
-        return format
+          })
+        )
+      )
+      format.entries = [
+        .submenu(font()),
+        .submenu(text())
+      ]
+      return format
     }
-}
+  }
 #endif

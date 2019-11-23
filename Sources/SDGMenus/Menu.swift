@@ -13,20 +13,20 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS) && !os(tvOS)
-#if canImport(AppKit)
-import AppKit
-#endif
+  #if canImport(AppKit)
+    import AppKit
+  #endif
 
-import SDGControlFlow
-import SDGText
-import SDGLocalization
+  import SDGControlFlow
+  import SDGText
+  import SDGLocalization
 
-import SDGInterfaceBasics
+  import SDGInterfaceBasics
 
-import SDGInterfaceLocalizations
+  import SDGInterfaceLocalizations
 
-/// A menu.
-public final class Menu<L> : AnyMenu where L : Localization {
+  /// A menu.
+  public final class Menu<L>: AnyMenu where L: Localization {
 
     // MARK: - Initialization
 
@@ -35,25 +35,25 @@ public final class Menu<L> : AnyMenu where L : Localization {
     /// - Parameters:
     ///     - label: The label.
     public init(label: Binding<StrictString, L>) {
-        self.label = label
-        defer {
-            labelDidSet()
-            LocalizationSetting.current.register(observer: bindingObserver)
-        }
-        defer {
-            bindingObserver.menu = self
-        }
-        #if canImport(AppKit)
+      self.label = label
+      defer {
+        labelDidSet()
+        LocalizationSetting.current.register(observer: bindingObserver)
+      }
+      defer {
+        bindingObserver.menu = self
+      }
+      #if canImport(AppKit)
         native = NSMenu()
-        #endif
+      #endif
     }
 
     #if canImport(AppKit)
-    /// Creates an unlocalized menu with a native menu.
-    ///
-    /// - Parameters:
-    ///     - native: The native menu.
-    public init(native: NSMenu) {
+      /// Creates an unlocalized menu with a native menu.
+      ///
+      /// - Parameters:
+      ///     - native: The native menu.
+      public init(native: NSMenu) {
         let title = native.title
         let items = native.items
 
@@ -64,31 +64,31 @@ public final class Menu<L> : AnyMenu where L : Localization {
         labelDidSet()
 
         self.entries = items.map { item in
-            if item.isSeparatorItem {
-                return .separator
-            } else if let submenu = item.submenu {
-                return .submenu(Menu<InterfaceLocalization>(native: submenu))
-            } else {
-                return .entry(MenuEntry<InterfaceLocalization>(native: item))
-            }
+          if item.isSeparatorItem {
+            return .separator
+          } else if let submenu = item.submenu {
+            return .submenu(Menu<InterfaceLocalization>(native: submenu))
+          } else {
+            return .entry(MenuEntry<InterfaceLocalization>(native: item))
+          }
         }
         refreshEntries()
-    }
+      }
     #endif
 
     // MARK: - Properties
 
     /// The label.
     public var label: Binding<StrictString, L> {
-        willSet {
-            label.shared?.cancel(observer: bindingObserver)
-        }
-        didSet {
-            labelDidSet()
-        }
+      willSet {
+        label.shared?.cancel(observer: bindingObserver)
+      }
+      didSet {
+        labelDidSet()
+      }
     }
     private func labelDidSet() {
-        label.shared?.register(observer: bindingObserver)
+      label.shared?.register(observer: bindingObserver)
     }
 
     private var bindingObserver = MenuBindingObserver()
@@ -96,62 +96,62 @@ public final class Menu<L> : AnyMenu where L : Localization {
     // MARK: - Refreshing
 
     #if canImport(AppKit)
-    private func refreshNative() {
+      private func refreshNative() {
         refreshLabel()
         refreshEntries()
-    }
+      }
     #endif
     public func _refreshLabel() {
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         native.title = String(label.resolved())
         if let index = native.supermenu?.indexOfItem(withSubmenu: native) {
-            native.supermenu?.item(at: index)?.title = String(label.resolved())
+          native.supermenu?.item(at: index)?.title = String(label.resolved())
         }
-        #endif
+      #endif
     }
     private func refreshEntries() {
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         native.items = entries.map { component in
-            switch component {
-            case .entry(let entry):
-                if let index = entry.native.menu?.index(of: entry.native) {
-                    entry.native.menu?.removeItem(at: index)
-                }
-                return entry.native
-            case .submenu(let menu):
-                if let index = menu.native.supermenu?.indexOfItem(withSubmenu: menu.native) {
-                    menu.native.supermenu?.removeItem(at: index)
-                }
-                let entry = NSMenuItem()
-                entry.submenu = menu.native
-                return entry
-            case .separator:
-                return NSMenuItem.separator()
+          switch component {
+          case .entry(let entry):
+            if let index = entry.native.menu?.index(of: entry.native) {
+              entry.native.menu?.removeItem(at: index)
             }
+            return entry.native
+          case .submenu(let menu):
+            if let index = menu.native.supermenu?.indexOfItem(withSubmenu: menu.native) {
+              menu.native.supermenu?.removeItem(at: index)
+            }
+            let entry = NSMenuItem()
+            entry.submenu = menu.native
+            return entry
+          case .separator:
+            return NSMenuItem.separator()
+          }
         }
+      #endif
+      for entry in entries {
+        #if canImport(AppKit)
+          if case .submenu(let menu) = entry {
+            menu.refreshLabel()
+          }
         #endif
-        for entry in entries {
-            #if canImport(AppKit)
-            if case .submenu(let menu) = entry {
-                menu.refreshLabel()
-            }
-            #endif
-        }
+      }
     }
     public func _refreshBindings() {
-        refreshLabel()
+      refreshLabel()
     }
 
     // MARK: - AnyMenu
 
     public var entries: [MenuComponent] = [] {
-        didSet {
-            refreshEntries()
-        }
+      didSet {
+        refreshEntries()
+      }
     }
 
     #if canImport(AppKit)
-    public let native: NSMenu
+      public let native: NSMenu
     #endif
-}
+  }
 #endif

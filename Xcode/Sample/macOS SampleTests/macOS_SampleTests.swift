@@ -20,9 +20,12 @@ import SDGApplication
 
 import SDGInterfaceLocalizations
 
-class macOS_SampleTests : XCTestCase {
+class macOS_SampleTests: XCTestCase {
 
-    func testBundle() {
-        ProcessInfo.validate(applicationBundle: Bundle(for: BundleClass.self), localizations: InterfaceLocalization.self)
-    }
+  func testBundle() {
+    ProcessInfo.validate(
+      applicationBundle: Bundle(for: BundleClass.self),
+      localizations: InterfaceLocalization.self
+    )
+  }
 }

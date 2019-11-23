@@ -36,12 +36,12 @@ SDGInterface provides tools for implementing a graphical user interface.
 ```swift
 import SDGApplication
 
-internal class SystemMediator : SDGApplication.SystemMediator {
+internal class SystemMediator: SDGApplication.SystemMediator {
 
-    internal func finishLaunching(_ details: LaunchDetails) -> Bool {
-        Application.setSamplesUp()
-        return true
-    }
+  internal func finishLaunching(_ details: LaunchDetails) -> Bool {
+    Application.setSamplesUp()
+    return true
+  }
 }
 ```
 

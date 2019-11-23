@@ -13,111 +13,127 @@
  */
 
 #if canImport(AppKit)
-import AppKit
+  import AppKit
 
-import SDGText
-import SDGLocalization
+  import SDGText
+  import SDGLocalization
 
-import SDGMenus
+  import SDGMenus
 
-import SDGInterfaceLocalizations
+  import SDGInterfaceLocalizations
 
-extension MenuBar {
+  extension MenuBar {
 
     private static func minimize() -> MenuEntry<MenuBarLocalization> {
-        let minimize = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let minimize = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Minimizar"
+              return "Minimizar"
             case .englishUnitedKingdom:
-                return "Minimise"
+              return "Minimise"
             case .englishUnitedStates, .englishCanada:
-                return "Minimize"
+              return "Minimize"
             case .deutschDeutschland:
-                return "Im Dock ablegen"
+              return "Im Dock ablegen"
             case .françaisFrance:
-                return "Placer dans le Dock"
+              return "Placer dans le Dock"
             case .ελληνικάΕλλάδα:
-                return "Ελαχιστοποίηση"
+              return "Ελαχιστοποίηση"
             case .עברית־ישראל:
-                return "מזער"
+              return "מזער"
             }
-        })))
-        minimize.action = #selector(NSWindow.performMiniaturize(_:))
-        minimize.hotKey = "m"
-        minimize.hotKeyModifiers = .command
-        return minimize
+          })
+        )
+      )
+      minimize.action = #selector(NSWindow.performMiniaturize(_:))
+      minimize.hotKey = "m"
+      minimize.hotKeyModifiers = .command
+      return minimize
     }
 
     private static func zoom() -> MenuEntry<MenuBarLocalization> {
-        let zoom = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let zoom = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña,
-                 .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Zoom"
+              .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+              return "Zoom"
             case .deutschDeutschland:
-                return "Zoomen"
+              return "Zoomen"
             case .ελληνικάΕλλάδα:
-                return "Ζουμ"
+              return "Ζουμ"
 
             case .françaisFrance:
-                return "Réduire/agrandir"
+              return "Réduire/agrandir"
             case .עברית־ישראל:
-                return "הגדל/הקטן"
+              return "הגדל/הקטן"
             }
-        })))
-        zoom.action = #selector(NSWindow.performZoom(_:))
-        return zoom
+          })
+        )
+      )
+      zoom.action = #selector(NSWindow.performZoom(_:))
+      return zoom
     }
 
     private static func bringAllToFront() -> MenuEntry<MenuBarLocalization> {
-        let bringAllToFront = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let bringAllToFront = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Traer todo al frente"
+              return "Traer todo al frente"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Bring All to Front"
+              return "Bring All to Front"
             case .deutschDeutschland:
-                return "Alle nach vorne bringen"
+              return "Alle nach vorne bringen"
             case .françaisFrance:
-                return "Tout ramener au premier plan"
+              return "Tout ramener au premier plan"
             case .ελληνικάΕλλάδα:
-                return "Μεταφωρά όλων σε πρώτο πλάνο"
+              return "Μεταφωρά όλων σε πρώτο πλάνο"
             case .עברית־ישראל:
-                return "הבא הכל קדימה"
+              return "הבא הכל קדימה"
             }
-        })))
-        bringAllToFront.action = #selector(NSApplication.arrangeInFront(_:))
-        return bringAllToFront
+          })
+        )
+      )
+      bringAllToFront.action = #selector(NSApplication.arrangeInFront(_:))
+      return bringAllToFront
     }
 
     internal static func window() -> Menu<MenuBarLocalization> {
-        let window = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let window = Menu(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Ventana"
+              return "Ventana"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Window"
+              return "Window"
 
             case .deutschDeutschland:
-                return "Fenster"
+              return "Fenster"
             case .françaisFrance:
-                return "Fenêtre"
+              return "Fenêtre"
 
             case .ελληνικάΕλλάδα:
-                return "Παράθυρο"
+              return "Παράθυρο"
             case .עברית־ישראל:
-                return "חלון"
+              return "חלון"
             }
-        })))
-        window.entries = [
-            .entry(minimize()),
-            .entry(zoom()),
-            .separator,
-            .entry(bringAllToFront())
-        ]
-        NSApplication.shared.windowsMenu = window.native
-        return window
+          })
+        )
+      )
+      window.entries = [
+        .entry(minimize()),
+        .entry(zoom()),
+        .separator,
+        .entry(bringAllToFront())
+      ]
+      NSApplication.shared.windowsMenu = window.native
+      return window
     }
-}
+  }
 #endif

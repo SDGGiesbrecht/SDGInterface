@@ -13,7 +13,7 @@
  */
 
 #if canImport(CoreGraphics)
-import CoreGraphics
+  import CoreGraphics
 #endif
 
 import SDGGeometry
@@ -23,24 +23,24 @@ public typealias Point = TwoDimensionalPoint<Double>
 
 extension Point {
 
-    // MARK: - Initialization
+  // MARK: - Initialization
 
-    #if canImport(CoreGraphics)
+  #if canImport(CoreGraphics)
     /// Creates a size from a native point.
     ///
     /// - Parameters:
     ///     - native: The native point.
     public init(_ native: CGPoint) {
-        self.init(Double(native.x), Double(native.y))
+      self.init(Double(native.x), Double(native.y))
     }
-    #endif
+  #endif
 
-    // MARK: - Properties
+  // MARK: - Properties
 
-    #if canImport(CoreGraphics)
+  #if canImport(CoreGraphics)
     /// The native point.
     public var native: CGPoint {
-        return CGPoint(x: CGFloat(x), y: CGFloat(y))
+      return CGPoint(x: CGFloat(x), y: CGFloat(y))
     }
-    #endif
+  #endif
 }

@@ -13,103 +13,119 @@
  */
 
 #if canImport(AppKit)
-import AppKit
+  import AppKit
 
-import SDGText
-import SDGLocalization
+  import SDGText
+  import SDGLocalization
 
-import SDGMenus
+  import SDGMenus
 
-import SDGInterfaceLocalizations
+  import SDGInterfaceLocalizations
 
-extension MenuBar {
+  extension MenuBar {
 
     private static func useDefault() -> MenuEntry<MenuBarLocalization> {
-        let useDefault = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let useDefault = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Valor por omisión"
+              return "Valor por omisión"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Use Default"
+              return "Use Default"
             case .deutschDeutschland:
-                return "Normal"
+              return "Normal"
             case .françaisFrance:
-                return "Valeur par défaut"
+              return "Valeur par défaut"
             case .ελληνικάΕλλάδα:
-                return "Χρήση προεπιλογής"
+              return "Χρήση προεπιλογής"
             case .עברית־ישראל:
-                return "השתמש בברירת המחדל"
+              return "השתמש בברירת המחדל"
             }
-        })))
-        useDefault.action = #selector(NSTextView.useStandardLigatures(_:))
-        return useDefault
+          })
+        )
+      )
+      useDefault.action = #selector(NSTextView.useStandardLigatures(_:))
+      return useDefault
     }
 
     private static func useNone() -> MenuEntry<MenuBarLocalization> {
-        let useNone = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let useNone = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Ninguna"
+              return "Ninguna"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Use None"
+              return "Use None"
             case .deutschDeutschland:
-                return "Nicht verwenden"
+              return "Nicht verwenden"
             case .françaisFrance:
-                return "Aucune"
+              return "Aucune"
             case .ελληνικάΕλλάδα:
-                return "Κανένα"
+              return "Κανένα"
             case .עברית־ישראל:
-                return "אל תשתמש בשום אפשרות"
+              return "אל תשתמש בשום אפשרות"
             }
-        })))
-        useNone.action = #selector(NSTextView.turnOffLigatures(_:))
-        return useNone
+          })
+        )
+      )
+      useNone.action = #selector(NSTextView.turnOffLigatures(_:))
+      return useNone
     }
 
     private static func useAll() -> MenuEntry<MenuBarLocalization> {
-        let useAll = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let useAll = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Todas"
+              return "Todas"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Use All"
+              return "Use All"
             case .deutschDeutschland:
-                return "Alle verwenden"
+              return "Alle verwenden"
             case .françaisFrance:
-                return "Toutes"
+              return "Toutes"
             case .ελληνικάΕλλάδα:
-                return "Χρήση όλων"
+              return "Χρήση όλων"
             case .עברית־ישראל:
-                return "השתמש בכולם"
+              return "השתמש בכולם"
             }
-        })))
-        useAll.action = #selector(NSTextView.useAllLigatures(_:))
-        return useAll
+          })
+        )
+      )
+      useAll.action = #selector(NSTextView.useAllLigatures(_:))
+      return useAll
     }
 
     internal static func ligatures() -> Menu<MenuBarLocalization> {
-        let ligatures = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let ligatures = Menu(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Ligaduras"
+              return "Ligaduras"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada,
-                 .françaisFrance:
-                return "Ligatures"
+              .françaisFrance:
+              return "Ligatures"
             case .deutschDeutschland:
-                return "Ligaturen"
+              return "Ligaturen"
 
             case .ελληνικάΕλλάδα:
-                return "Συμπλέγματα"
+              return "Συμπλέγματα"
             case .עברית־ישראל:
-                return "משלבי אותיות"
+              return "משלבי אותיות"
             }
-        })))
-        ligatures.entries = [
-            .entry(useDefault()),
-            .entry(useNone()),
-            .entry(useAll())
-        ]
-        return ligatures
+          })
+        )
+      )
+      ligatures.entries = [
+        .entry(useDefault()),
+        .entry(useNone()),
+        .entry(useAll())
+      ]
+      return ligatures
     }
-}
+  }
 #endif

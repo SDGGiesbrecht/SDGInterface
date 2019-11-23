@@ -13,30 +13,30 @@
  */
 
 #if canImport(UIKit)
-import UIKit
+  import UIKit
 #endif
 
 /// Details about a quick action.
 public struct QuickActionDetails {
 
-    // MARK: - Initialization
+  // MARK: - Initialization
 
-    /// Creates empty details.
-    public init() {}
+  /// Creates empty details.
+  public init() {}
 
-    // MARK: - Properties
+  // MARK: - Properties
 
-    #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
+  #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
     /// Some systems specify the shortcut item.
-    @available(iOS 9, *) // @exempt(from: unicode)
+    @available(iOS 9, *)  // @exempt(from: unicode)
     public var shortcutItem: UIApplicationShortcutItem? {
-        get {
-            return _shortcutItem as? UIApplicationShortcutItem
-        }
-        set {
-            _shortcutItem = newValue
-        }
+      get {
+        return _shortcutItem as? UIApplicationShortcutItem
+      }
+      set {
+        _shortcutItem = newValue
+      }
     }
     private var _shortcutItem: Any?
-    #endif
+  #endif
 }

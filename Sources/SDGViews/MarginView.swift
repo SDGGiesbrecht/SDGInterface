@@ -13,14 +13,14 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-#if canImport(AppKit)
-import AppKit
-#elseif canImport(UIKit)
-import UIKit
-#endif
+  #if canImport(AppKit)
+    import AppKit
+  #elseif canImport(UIKit)
+    import UIKit
+  #endif
 
-/// A view providing a margin around another view.
-public final class MarginView : View {
+  /// A view providing a margin around another view.
+  public final class MarginView: View {
 
     // MARK: - Initialization
 
@@ -29,8 +29,8 @@ public final class MarginView : View {
     /// - Parameters:
     ///     - contents: The content view.
     public init(contents: View) {
-        self.contents = contents
-        AnyNativeView(native).fill(with: contents)
+      self.contents = contents
+      AnyNativeView(native).fill(with: contents)
     }
 
     // MARK: - Properties
@@ -39,9 +39,9 @@ public final class MarginView : View {
     public let contents: View
 
     #if canImport(AppKit)
-    public let native: NSView = NSView()
+      public let native: NSView = NSView()
     #elseif canImport(UIKit)
-    public let native: UIView = UIView()
+      public let native: UIView = UIView()
     #endif
-}
+  }
 #endif

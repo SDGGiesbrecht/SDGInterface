@@ -13,17 +13,17 @@
  */
 
 #if canImport(AppKit)
-import Dispatch
-import AppKit
+  import Dispatch
+  import AppKit
 
-import SDGLogic
+  import SDGLogic
 
-internal class FullscreenObserver {
+  internal class FullscreenObserver {
 
     // MARK: - Initialization
 
     internal init(window: AnyWindow) {
-        self.window = window
+      self.window = window
     }
 
     // MARK: - Properties
@@ -33,26 +33,28 @@ internal class FullscreenObserver {
     // MARK: - Fullscreen
 
     internal func setFullscreenModeSettingAsSoonAsPossible(_ setting: Bool) {
-        if window?.isFullscreen ≠ setting {
-            if window?.isVisible == true {
-                setFullscreenMode(setting: setting)
-            } else {
-                DispatchQueue.global(qos: .userInitiated).async {
-                    while DispatchQueue.main.sync(execute: { self.window ≠ nil ∧ self.window?.isVisible ≠ true }) {
-                        Thread.sleep(forTimeInterval: 0.1) // @exempt(from: tests)
-                    }
-                    DispatchQueue.main.async {
-                        self.setFullscreenMode(setting: setting)
-                    }
-                }
+      if window?.isFullscreen ≠ setting {
+        if window?.isVisible == true {
+          setFullscreenMode(setting: setting)
+        } else {
+          DispatchQueue.global(qos: .userInitiated).async {
+            while DispatchQueue.main.sync(execute: {
+              self.window ≠ nil ∧ self.window?.isVisible ≠ true
+            }) {
+              Thread.sleep(forTimeInterval: 0.1)  // @exempt(from: tests)
             }
+            DispatchQueue.main.async {
+              self.setFullscreenMode(setting: setting)
+            }
+          }
         }
+      }
     }
 
     private func setFullscreenMode(setting: Bool) {
-        if self.window?.isFullscreen ≠ setting {
-            self.window?.native.toggleFullScreen(self)
-        }
+      if self.window?.isFullscreen ≠ setting {
+        self.window?.native.toggleFullScreen(self)
+      }
     }
-}
+  }
 #endif

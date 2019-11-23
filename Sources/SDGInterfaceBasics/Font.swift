@@ -13,62 +13,66 @@
  */
 
 #if canImport(AppKit) || canImport(UIKit)
-#if canImport(AppKit)
-import AppKit
-#endif
-#if canImport(UIKit)
-import UIKit
-#endif
+  #if canImport(AppKit)
+    import AppKit
+  #endif
+  #if canImport(UIKit)
+    import UIKit
+  #endif
 
-import SDGText
+  import SDGText
 
-extension Font {
+  extension Font {
 
     // MARK: - System Fonts
 
     /// The default font.
     public static var `default`: Font {
-        return forTextEditing
+      return forTextEditing
     }
 
     /// The label font.
     public static var forLabels: Font {
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         return Font(NSFont.systemFont(ofSize: NSFont.systemFontSize(for: .regular)))
-        #else
+      #else
         return Font(UIFont.preferredFont(forTextStyle: .headline))
-        #endif
+      #endif
     }
 
     /// The default font for text editing.
     public static var forTextEditing: Font {
-        var user: Font?
-        #if canImport(AppKit)
+      var user: Font?
+      #if canImport(AppKit)
         user = NSFont.userFont(ofSize: NSFont.systemFontSize).map { Font($0) }
-        #endif
-        return user ?? system // @exempt(from: tests) Unknown why it would ever be nil on macOS.
+      #endif
+      return user ?? system  // @exempt(from: tests) Unknown why it would ever be nil on macOS.
     }
 
     // MARK: - Modified Versions
 
     /// The bold version of `self`.
     public var bold: Font {
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         return Font(NSFontManager.shared.convert(native, toHaveTrait: .boldFontMask))
-        #else
-        let descriptor = native.fontDescriptor.withSymbolicTraits(.traitBold) ?? native.fontDescriptor // @exempt(from: tests) Unknown why the descriptor would be nil.
+      #else
+        let descriptor = native.fontDescriptor.withSymbolicTraits(.traitBold)
+        // Unknown why the descriptor would be nil.
+          ?? native.fontDescriptor  // @exempt(from: tests)
         return Font(UIFont(descriptor: descriptor, size: 0))
-        #endif
+      #endif
     }
 
     /// The italic version of `self`.
     public var italic: Font {
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         return Font(NSFontManager.shared.convert(native, toHaveTrait: .italicFontMask))
-        #else
-        let descriptor = native.fontDescriptor.withSymbolicTraits(.traitItalic) ?? native.fontDescriptor // @exempt(from: tests) Unknown why the descriptor would be nil.
+      #else
+        let descriptor = native.fontDescriptor.withSymbolicTraits(.traitItalic)
+        // Unknown why the descriptor would be nil.
+          ?? native.fontDescriptor  // @exempt(from: tests)
         return Font(UIFont(descriptor: descriptor, size: 0))
-        #endif
+      #endif
     }
-}
+  }
 #endif

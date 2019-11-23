@@ -15,29 +15,29 @@
 import Foundation
 
 /// An object which responds to actions related to editing rich text.
-@objc public protocol RichTextEditingResponder : TextEditingResponder {
+@objc public protocol RichTextEditingResponder: TextEditingResponder {
 
-    // MARK: - Superscripts & Subscripts
+  // MARK: - Superscripts & Subscripts
 
-    /// Superscripts the selection.
-    ///
-    /// - Parameters:
-    ///     - sender: The sender.
-    @objc func makeSuperscript(_ sender: Any?)
+  /// Superscripts the selection.
+  ///
+  /// - Parameters:
+  ///     - sender: The sender.
+  @objc func makeSuperscript(_ sender: Any?)
 
-    /// Subscripts the selection.
-    ///
-    /// - Parameters:
-    ///     - sender: The sender.
-    @objc func makeSubscript(_ sender: Any?)
+  /// Subscripts the selection.
+  ///
+  /// - Parameters:
+  ///     - sender: The sender.
+  @objc func makeSubscript(_ sender: Any?)
 
-    /// Resets the baseline of the selection.
-    ///
-    /// - Parameters:
-    ///     - sender: The sender.
-    @objc func resetBaseline(_ sender: Any?)
+  /// Resets the baseline of the selection.
+  ///
+  /// - Parameters:
+  ///     - sender: The sender.
+  @objc func resetBaseline(_ sender: Any?)
 
-    #if canImport(AppKit)
+  #if canImport(AppKit)
     // MARK: - Case
 
     /// Resets the casing of the selection.
@@ -78,5 +78,5 @@ import Foundation
     /// - Parameters:
     ///     - sender: The sender.
     @objc func makeTurkicLowerCase(_ sender: Any?)
-    #endif
+  #endif
 }

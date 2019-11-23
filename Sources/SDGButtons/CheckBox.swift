@@ -13,16 +13,16 @@
  */
 
 #if canImport(AppKit)
-import AppKit
+  import AppKit
 
-import SDGText
-import SDGLocalization
+  import SDGText
+  import SDGLocalization
 
-import SDGInterfaceBasics
-import SDGViews
+  import SDGInterfaceBasics
+  import SDGViews
 
-/// A check box.
-public final class CheckBox<L> : AnyCheckBox, SpecificView where L : Localization {
+  /// A check box.
+  public final class CheckBox<L>: AnyCheckBox, SpecificView where L: Localization {
 
     // MARK: - Initialization
 
@@ -31,23 +31,23 @@ public final class CheckBox<L> : AnyCheckBox, SpecificView where L : Localizatio
     /// - Parameters:
     ///     - label: The label on the button.
     public init(label: Binding<StrictString, L>) {
-        self.label = label
-        defer {
-            labelDidSet()
-            LocalizationSetting.current.register(observer: bindingObserver)
-        }
+      self.label = label
+      defer {
+        labelDidSet()
+        LocalizationSetting.current.register(observer: bindingObserver)
+      }
 
-        specificNative = NSButton()
-        defer {
-            bindingObserver.checkBox = self
-        }
+      specificNative = NSButton()
+      defer {
+        bindingObserver.checkBox = self
+      }
 
-        specificNative.bezelStyle = .rounded
-        specificNative.setButtonType(.switch)
+      specificNative.bezelStyle = .rounded
+      specificNative.setButtonType(.switch)
 
-        specificNative.lineBreakMode = .byTruncatingTail
+      specificNative.lineBreakMode = .byTruncatingTail
 
-        specificNative.font = Font.forLabels.native
+      specificNative.font = Font.forLabels.native
     }
 
     // MARK: - Properties
@@ -56,26 +56,26 @@ public final class CheckBox<L> : AnyCheckBox, SpecificView where L : Localizatio
 
     /// The label.
     public var label: Binding<StrictString, L> {
-        willSet {
-            label.shared?.cancel(observer: bindingObserver)
-        }
-        didSet {
-            labelDidSet()
-        }
+      willSet {
+        label.shared?.cancel(observer: bindingObserver)
+      }
+      didSet {
+        labelDidSet()
+      }
     }
     private func labelDidSet() {
-        label.shared?.register(observer: bindingObserver)
+      label.shared?.register(observer: bindingObserver)
     }
 
     // MARK: - Refreshing
 
     public func _refreshBindings() {
-        let resolved = String(label.resolved())
-        specificNative.title = resolved
+      let resolved = String(label.resolved())
+      specificNative.title = resolved
     }
 
     // MARK: - SpecificView
 
     public let specificNative: NSButton
-}
+  }
 #endif

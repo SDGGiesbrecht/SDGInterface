@@ -15,23 +15,23 @@
 /// A layout axis.
 public enum Axis {
 
-    // MARK: - Cases
+  // MARK: - Cases
 
-    /// Horizontal.
-    case horizontal
-    /// Vertical.
-    case vertical
+  /// Horizontal.
+  case horizontal
+  /// Vertical.
+  case vertical
 
-    #if canImport(AppKit) || canImport(UIKit)
+  #if canImport(AppKit) || canImport(UIKit)
     // MARK: - Layout Representation
 
     internal var string: String {
-        switch self {
-        case .horizontal:
-            return "H:"
-        case .vertical:
-            return "V:"
-        }
+      switch self {
+      case .horizontal:
+        return "H:"
+      case .vertical:
+        return "V:"
+      }
     }
-    #endif
+  #endif
 }

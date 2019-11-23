@@ -13,15 +13,15 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-#if canImport(AppKit)
-import AppKit
-#elseif canImport(UIKit)
-import UIKit
-#endif
+  #if canImport(AppKit)
+    import AppKit
+  #elseif canImport(UIKit)
+    import UIKit
+  #endif
 
-/// A row of views.
-@available(iOS 9, *) // @exempt(from: unicode)
-public final class RowView : SpecificView {
+  /// A row of views.
+  @available(iOS 9, *)  // @exempt(from: unicode)
+  public final class RowView: SpecificView {
 
     // MARK: - Initialization
 
@@ -31,60 +31,60 @@ public final class RowView : SpecificView {
     ///     - views: The subviews.
     ///     - spacing: The spacing strategy.
     public init(views: [View], spacing: Spacing = .automatic) {
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         specificNative = NSStackView()
-        #elseif canImport(UIKit)
+      #elseif canImport(UIKit)
         specificNative = UIStackView()
-        #endif
+      #endif
 
-        self.views = views
-        defer {
-            viewsDidSet()
-        }
+      self.views = views
+      defer {
+        viewsDidSet()
+      }
 
-        switch spacing {
-        case .automatic:
-            break
-        case .specific(let measurement):
-            specificNative.spacing = CGFloat(measurement)
-        }
+      switch spacing {
+      case .automatic:
+        break
+      case .specific(let measurement):
+        specificNative.spacing = CGFloat(measurement)
+      }
 
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         specificNative.setHuggingPriority(.required, for: .vertical)
-        #endif
-        specificNative.alignment = .lastBaseline
+      #endif
+      specificNative.alignment = .lastBaseline
     }
 
     // MARK: - Properties
 
     /// The arranged views.
     public var views: [View] {
-        didSet {
-            viewsDidSet()
-        }
+      didSet {
+        viewsDidSet()
+      }
     }
     private func viewsDidSet() {
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         while let view = specificNative.views.first {
-            specificNative.removeView(view)
+          specificNative.removeView(view)
         }
         for view in views {
-            specificNative.addView(view.native, in: .trailing)
+          specificNative.addView(view.native, in: .trailing)
         }
-        #elseif canImport(UIKit)
+      #elseif canImport(UIKit)
         while let view = specificNative.arrangedSubviews.first {
-            specificNative.removeArrangedSubview(view)
+          specificNative.removeArrangedSubview(view)
         }
         for view in views {
-            specificNative.addArrangedSubview(view.native)
+          specificNative.addArrangedSubview(view.native)
         }
-        #endif
+      #endif
     }
 
     #if canImport(AppKit)
-    public let specificNative: NSStackView
+      public let specificNative: NSStackView
     #elseif canImport(UIKit)
-    public let specificNative: UIStackView
+      public let specificNative: UIStackView
     #endif
-}
+  }
 #endif

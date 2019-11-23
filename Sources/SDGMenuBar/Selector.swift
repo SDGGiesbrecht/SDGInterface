@@ -13,17 +13,17 @@
  */
 
 #if canImport(ObjectiveC)
-import Foundation
-import ObjectiveC
+  import Foundation
+  import ObjectiveC
 
-extension Selector {
-    private class Responder : NSObject {
-        @objc fileprivate func undo(_ sender: Any?) {} // @exempt(from: tests)
-        @objc fileprivate func redo(_ sender: Any?) {} // @exempt(from: tests)
-        @objc fileprivate func toggleSourceList(_ sender: Any?) {} // @exempt(from: tests)
+  extension Selector {
+    private class Responder: NSObject {
+      @objc fileprivate func undo(_ sender: Any?) {}  // @exempt(from: tests)
+      @objc fileprivate func redo(_ sender: Any?) {}  // @exempt(from: tests)
+      @objc fileprivate func toggleSourceList(_ sender: Any?) {}  // @exempt(from: tests)
     }
     internal static let undo: Selector = #selector(Responder.undo(_:))
     internal static let redo: Selector = #selector(Responder.redo(_:))
     internal static let toggleSourceList: Selector = #selector(Responder.toggleSourceList(_:))
-}
+  }
 #endif

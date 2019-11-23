@@ -13,23 +13,23 @@
  */
 
 #if canImport(AppKit)
-import AppKit
+  import AppKit
 
-import SDGViews
+  import SDGViews
 
-/// A check box with no particular localization.
-public protocol AnyCheckBox : View {
+  /// A check box with no particular localization.
+  public protocol AnyCheckBox: View {
     // #documentation(SpecificView.specificNative)
     /// The specific native view.
     var specificNative: NSButton { get }
 
     func _refreshBindings()
-}
+  }
 
-extension AnyCheckBox {
+  extension AnyCheckBox {
 
     internal func refreshBindings() {
-        _refreshBindings()
+      _refreshBindings()
     }
-}
+  }
 #endif

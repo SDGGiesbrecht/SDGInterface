@@ -13,57 +13,57 @@
  */
 
 #if canImport(UIKit)
-import UIKit
+  import UIKit
 #endif
 
 /// A fetch result.
-public enum FetchResult : CaseIterable {
+public enum FetchResult: CaseIterable {
 
-    // MARK: - Initialization
+  // MARK: - Initialization
 
-    #if canImport(UIKit) && !os(watchOS)
+  #if canImport(UIKit) && !os(watchOS)
     /// Creates a fetch result from a native result.
     ///
     /// - Parameters:
     ///     - native: The native result.
     public init(_ native: UIBackgroundFetchResult) {
-        switch native {
-        case .newData:
-            self = .newData
-        case .noData:
-            self = .noData
-        case .failed:
-            self = .failed
-        @unknown default:
-            self = .failed
-        }
+      switch native {
+      case .newData:
+        self = .newData
+      case .noData:
+        self = .noData
+      case .failed:
+        self = .failed
+      @unknown default:
+        self = .failed
+      }
     }
-    #endif
+  #endif
 
-    // MARK: - Cases
+  // MARK: - Cases
 
-    /// New data was downloaded.
-    case newData
+  /// New data was downloaded.
+  case newData
 
-    /// No new data to download.
-    case noData
+  /// No new data to download.
+  case noData
 
-    /// A download attempt failed.
-    case failed
+  /// A download attempt failed.
+  case failed
 
-    // MARK: - Properties
+  // MARK: - Properties
 
-    #if canImport(UIKit) && !os(watchOS)
+  #if canImport(UIKit) && !os(watchOS)
     /// The native result.
     public var native: UIBackgroundFetchResult {
-        switch self {
-        case .newData:
-            return .newData
-        case .noData:
-            return .noData
-        case .failed:
-            return .failed
-        }
+      switch self {
+      case .newData:
+        return .newData
+      case .noData:
+        return .noData
+      case .failed:
+        return .failed
+      }
     }
-    #endif
+  #endif
 }

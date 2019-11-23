@@ -13,127 +13,147 @@
  */
 
 #if canImport(AppKit)
-import AppKit
+  import AppKit
 
-import SDGText
-import SDGLocalization
+  import SDGText
+  import SDGLocalization
 
-import SDGMenus
+  import SDGMenus
 
-import SDGInterfaceLocalizations
+  import SDGInterfaceLocalizations
 
-extension MenuBar {
+  extension MenuBar {
 
     private static func useDefault() -> MenuEntry<MenuBarLocalization> {
-        let useDefault = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let useDefault = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Valor por omisión"
+              return "Valor por omisión"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Use Default"
+              return "Use Default"
             case .deutschDeutschland:
-                return "Normal"
+              return "Normal"
             case .françaisFrance:
-                return "Valeur par défaut"
+              return "Valeur par défaut"
             case .ελληνικάΕλλάδα:
-                return "Χρήση προεπιλογής"
+              return "Χρήση προεπιλογής"
             case .עברית־ישראל:
-                return "השתמש בברירת המחדל"
+              return "השתמש בברירת המחדל"
             }
-        })))
-        useDefault.action = #selector(NSTextView.useStandardKerning(_:))
-        return useDefault
+          })
+        )
+      )
+      useDefault.action = #selector(NSTextView.useStandardKerning(_:))
+      return useDefault
     }
 
     private static func useNone() -> MenuEntry<MenuBarLocalization> {
-        let useNone = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let useNone = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Ninguno"
+              return "Ninguno"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Use None"
+              return "Use None"
             case .deutschDeutschland:
-                return "Nicht verwenden"
+              return "Nicht verwenden"
             case .françaisFrance:
-                return "Aucun"
+              return "Aucun"
             case .ελληνικάΕλλάδα:
-                return "Καμία"
+              return "Καμία"
             case .עברית־ישראל:
-                return "אל תשתמש בשום אפשרות"
+              return "אל תשתמש בשום אפשרות"
             }
-        })))
-        useNone.action = #selector(NSTextView.turnOffKerning(_:))
-        return useNone
+          })
+        )
+      )
+      useNone.action = #selector(NSTextView.turnOffKerning(_:))
+      return useNone
     }
 
     private static func tighten() -> MenuEntry<MenuBarLocalization> {
-        let tighten = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let tighten = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Reducir"
+              return "Reducir"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Tighten"
+              return "Tighten"
             case .deutschDeutschland:
-                return "Enger"
+              return "Enger"
             case .françaisFrance:
-                return "Resserrer"
+              return "Resserrer"
             case .ελληνικάΕλλάδα:
-                return "Πιο κοντά"
+              return "Πιο κοντά"
             case .עברית־ישראל:
-                return "הדוק יותר"
+              return "הדוק יותר"
             }
-        })))
-        tighten.action = #selector(NSTextView.tightenKerning(_:))
-        return tighten
+          })
+        )
+      )
+      tighten.action = #selector(NSTextView.tightenKerning(_:))
+      return tighten
     }
 
     private static func loosen() -> MenuEntry<MenuBarLocalization> {
-        let loosen = MenuEntry(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let loosen = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Aumentar"
+              return "Aumentar"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Loosen"
+              return "Loosen"
             case .deutschDeutschland:
-                return "Weiter"
+              return "Weiter"
             case .françaisFrance:
-                return "Desserrer"
+              return "Desserrer"
             case .ελληνικάΕλλάδα:
-                return "Πιο αραιά"
+              return "Πιο αραιά"
             case .עברית־ישראל:
-                return "מרווח יותר"
+              return "מרווח יותר"
             }
-        })))
-        loosen.action = #selector(NSTextView.loosenKerning(_:))
-        return loosen
+          })
+        )
+      )
+      loosen.action = #selector(NSTextView.loosenKerning(_:))
+      return loosen
     }
 
     internal static func kern() -> Menu<MenuBarLocalization> {
-        let kern = Menu(label: .static(UserFacing<StrictString, MenuBarLocalization>({ localization in
+      let kern = Menu(
+        label: .static(
+          UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-                return "Interletraje"
+              return "Interletraje"
 
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Kern"
+              return "Kern"
             case .françaisFrance:
-                return "Crénage"
+              return "Crénage"
 
             case .deutschDeutschland:
-                return "Zeichenabstand"
+              return "Zeichenabstand"
             case .ελληνικάΕλλάδα:
-                return "Διαγραμμάτωση"
+              return "Διαγραμμάτωση"
             case .עברית־ישראל:
-                return "מרווח בין אותיות"
+              return "מרווח בין אותיות"
             }
-        })))
-        kern.entries = [
-            .entry(useDefault()),
-            .entry(useNone()),
-            .entry(tighten()),
-            .entry(loosen())
-        ]
-        return kern
+          })
+        )
+      )
+      kern.entries = [
+        .entry(useDefault()),
+        .entry(useNone()),
+        .entry(tighten()),
+        .entry(loosen())
+      ]
+      return kern
     }
-}
+  }
 #endif

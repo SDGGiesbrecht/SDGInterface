@@ -13,18 +13,18 @@
  */
 
 #if canImport(AppKit)
-import AppKit
+  import AppKit
 
-internal class CocoaTableView : NSTableView {
+  internal class CocoaTableView: NSTableView {
 
     internal override func setFrameSize(_ newSize: NSSize) {
-        super.setFrameSize(newSize)
-        for index in tableColumns.indices {
-            let column = tableColumns[index]
-            if let width = delegate?.tableView?(self, sizeToFitWidthOfColumn: index) {
-                column.width = width
-            }
+      super.setFrameSize(newSize)
+      for index in tableColumns.indices {
+        let column = tableColumns[index]
+        if let width = delegate?.tableView?(self, sizeToFitWidthOfColumn: index) {
+          column.width = width
         }
+      }
     }
-}
+  }
 #endif

@@ -13,18 +13,18 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS) && !os(tvOS)
-#if canImport(AppKit)
-import AppKit
-#endif
+  #if canImport(AppKit)
+    import AppKit
+  #endif
 
-import SDGControlFlow
+  import SDGControlFlow
 
-/// A menu with no particular localization.
-public protocol AnyMenu : AnyObject {
+  /// A menu with no particular localization.
+  public protocol AnyMenu: AnyObject {
 
     #if canImport(AppKit)
-    /// The native menu.
-    var native: NSMenu { get }
+      /// The native menu.
+      var native: NSMenu { get }
     #endif
 
     /// The entries.
@@ -32,15 +32,15 @@ public protocol AnyMenu : AnyObject {
 
     func _refreshBindings()
     func _refreshLabel()
-}
+  }
 
-extension AnyMenu {
+  extension AnyMenu {
 
     internal func refreshBindings() {
-        _refreshBindings()
+      _refreshBindings()
     }
     internal func refreshLabel() {
-        _refreshLabel()
+      _refreshLabel()
     }
-}
+  }
 #endif

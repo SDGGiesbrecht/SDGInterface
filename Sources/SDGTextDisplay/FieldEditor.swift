@@ -13,17 +13,17 @@
  */
 
 #if canImport(AppKit)
-import AppKit
+  import AppKit
 
-import SDGInterfaceLocalizations
+  import SDGInterfaceLocalizations
 
-internal class FieldEditor : TextView {
+  internal class FieldEditor: TextView {
     internal override init() {
-        super.init()
-        self.isFieldEditor = true
+      super.init()
+      self.isFieldEditor = true
     }
-    internal required init?(coder: NSCoder) { // @exempt(from: tests)
-        super.init(coder: coder)
+    internal required init?(coder: NSCoder) {  // @exempt(from: tests)
+      super.init(coder: coder)
     }
-}
+  }
 #endif

@@ -13,51 +13,57 @@
  */
 
 #if canImport(AppKit)
-import XCTest
+  import XCTest
 
-import SDGText
-import SDGLocalization
-import SDGPersistence
+  import SDGText
+  import SDGLocalization
+  import SDGPersistence
 
-@testable import SDGTextDisplay
+  @testable import SDGTextDisplay
 
-final class SDGInterfaceResourceGeneration : XCTestCase {
+  final class SDGInterfaceResourceGeneration: XCTestCase {
 
     // Complete the word “test” to activate and run the generators.
 
     func tesRefreshUnicodeData() throws {
-        let ucd = URL(string: "https://www.unicode.org/Public/UCD/latest/ucd")!
-        let unicodeDataURL = ucd.appendingPathComponent("UnicodeData.txt")
-        let unicodeData = try String(from: unicodeDataURL)
+      let ucd = URL(string: "https://www.unicode.org/Public/UCD/latest/ucd")!
+      let unicodeDataURL = ucd.appendingPathComponent("UnicodeData.txt")
+      let unicodeData = try String(from: unicodeDataURL)
 
-        var compatibility = [Unicode.Scalar: RichText.NormalizationAttribute]()
+      var compatibility = [Unicode.Scalar: RichText.NormalizationAttribute]()
 
-        for line in unicodeData.lines {
-            let entry = line.line
-            if entry.isEmpty {
-                continue
-            }
-
-            let fields = entry.components(separatedBy: ";".scalars)
-            XCTAssertEqual(fields.count, 15, "Unexpected number of fields. Field indices may be mismatched: \(fields.map({ String($0.contents) }))")
-
-            let decomposition = fields[5].contents
-            var possibleAttribute: RichText.NormalizationAttribute?
-            if decomposition.hasPrefix("<super>".scalars) {
-                possibleAttribute = .superscript
-            } else if decomposition.hasPrefix("<sub>".unicodeScalars) {
-                possibleAttribute = .subscript
-            }
-            if let attribute = possibleAttribute {
-                let character = Unicode.Scalar(UInt32(hexadecimal: StrictString(fields[0].contents)))!
-                compatibility[character] = attribute
-            }
+      for line in unicodeData.lines {
+        let entry = line.line
+        if entry.isEmpty {
+          continue
         }
 
-        let mapping = RichText.NormalizationAttribute.Mapping(compatibility)
-        let mappingURL = textDisplayResourcesDirectory.appendingPathComponent("Normalization Mapping.json")
-        try mapping.save(to: mappingURL)
-        try String(from: mappingURL).appending("\n").save(to: mappingURL)
+        let fields = entry.components(separatedBy: ";".scalars)
+        XCTAssertEqual(
+          fields.count,
+          15,
+          "Unexpected number of fields. Field indices may be mismatched: \(fields.map({ String($0.contents) }))"
+        )
+
+        let decomposition = fields[5].contents
+        var possibleAttribute: RichText.NormalizationAttribute?
+        if decomposition.hasPrefix("<super>".scalars) {
+          possibleAttribute = .superscript
+        } else if decomposition.hasPrefix("<sub>".unicodeScalars) {
+          possibleAttribute = .subscript
+        }
+        if let attribute = possibleAttribute {
+          let character = Unicode.Scalar(UInt32(hexadecimal: StrictString(fields[0].contents)))!
+          compatibility[character] = attribute
+        }
+      }
+
+      let mapping = RichText.NormalizationAttribute.Mapping(compatibility)
+      let mappingURL = textDisplayResourcesDirectory.appendingPathComponent(
+        "Normalization Mapping.json"
+      )
+      try mapping.save(to: mappingURL)
+      try String(from: mappingURL).appending("\n").save(to: mappingURL)
     }
-}
+  }
 #endif

@@ -13,28 +13,28 @@
  */
 
 #if canImport(AppKit)
-import AppKit
+  import AppKit
 
-import SDGViews
+  import SDGViews
 
-internal class NSTableCellView : AppKit.NSTableCellView {
+  internal class NSTableCellView: AppKit.NSTableCellView {
 
     // MARK: - Initialization
 
     internal init(view: View) {
-        self.view = view
-        super.init(frame: .zero)
-        let wrapped = AnyNativeView(self)
-        wrapped.fill(with: view, on: .vertical, margin: .specific(0))
-        wrapped.fill(with: view, on: .horizontal, margin: .specific(1))
+      self.view = view
+      super.init(frame: .zero)
+      let wrapped = AnyNativeView(self)
+      wrapped.fill(with: view, on: .vertical, margin: .specific(0))
+      wrapped.fill(with: view, on: .horizontal, margin: .specific(1))
     }
 
-    internal required init?(coder decoder: NSCoder) { // @exempt(from: tests)
-        return nil
+    internal required init?(coder decoder: NSCoder) {  // @exempt(from: tests)
+      return nil
     }
 
     // MARK: - Properties
 
     private let view: View
-}
+  }
 #endif

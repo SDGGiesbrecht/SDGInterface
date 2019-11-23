@@ -13,44 +13,44 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS) && !os(tvOS)
-/// A menu component.
-public enum MenuComponent {
+  /// A menu component.
+  public enum MenuComponent {
 
     /// A menu entry.
     case entry(AnyMenuEntry)
 
     #if canImport(AppKit)
-    /// A submenu.
-    case submenu(AnyMenu)
+      /// A submenu.
+      case submenu(AnyMenu)
 
-    /// A group separator.
-    case separator
+      /// A group separator.
+      case separator
     #endif
 
     // MARK: - Properties
 
     /// Returns the associated value if the component is a entry.
     public var asEntry: AnyMenuEntry? {
-        switch self {
-        case .entry(let entry):
-            return entry
-        #if canImport(AppKit)
+      switch self {
+      case .entry(let entry):
+        return entry
+      #if canImport(AppKit)
         case .submenu, .separator:
-            return nil
-        #endif
-        }
+          return nil
+      #endif
+      }
     }
 
     #if canImport(AppKit)
-    /// Returns the associated value if the component is a submenu.
-    public var asSubmenu: AnyMenu? {
+      /// Returns the associated value if the component is a submenu.
+      public var asSubmenu: AnyMenu? {
         switch self {
         case .submenu(let submenu):
-            return submenu
+          return submenu
         case .entry, .separator:
-            return nil
+          return nil
         }
-    }
+      }
     #endif
-}
+  }
 #endif

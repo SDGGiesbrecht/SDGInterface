@@ -13,63 +13,79 @@
  */
 
 #if canImport(AppKit)
-import SDGText
-import SDGLocalization
+  import SDGText
+  import SDGLocalization
 
-import SDGMenus
-import SDGMenuBar
+  import SDGMenus
+  import SDGMenuBar
 
-import SDGInterfaceLocalizations
+  import SDGInterfaceLocalizations
 
-extension MenuBar {
+  extension MenuBar {
 
     private static func menuEntry() -> MenuEntry<InterfaceLocalization> {
-        return MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
+      return MenuEntry(
+        label: .static(
+          UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
-                return "Menu Entry"
+              return "Menu Entry"
             }
-        })))
+          })
+        )
+      )
     }
 
     private static func indented() -> MenuEntry<InterfaceLocalization> {
-        let indented = MenuEntry(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
+      let indented = MenuEntry(
+        label: .static(
+          UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
-                return "Indented"
+              return "Indented"
             }
-        })))
-        indented.indentationLevel = 1
-        return indented
+          })
+        )
+      )
+      indented.indentationLevel = 1
+      return indented
     }
 
     private static func submenu() -> Menu<InterfaceLocalization> {
-        let submenu = Menu(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
+      let submenu = Menu(
+        label: .static(
+          UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
-                return "Submenu"
+              return "Submenu"
             }
-        })))
-        submenu.entries = [
-            .entry(menuEntry())
-        ]
-        return submenu
+          })
+        )
+      )
+      submenu.entries = [
+        .entry(menuEntry())
+      ]
+      return submenu
     }
 
     internal static func menu() -> Menu<InterfaceLocalization> {
-        let menu = Menu(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in
+      let menu = Menu(
+        label: .static(
+          UserFacing<StrictString, InterfaceLocalization>({ localization in
             switch localization {
             case .englishCanada:
-                return "Menu"
+              return "Menu"
             }
-        })))
-        menu.entries = [
-            .entry(menuEntry()),
-            .entry(indented()),
-            .separator,
-            .submenu(submenu())
-        ]
-        return menu
+          })
+        )
+      )
+      menu.entries = [
+        .entry(menuEntry()),
+        .entry(indented()),
+        .separator,
+        .submenu(submenu())
+      ]
+      return menu
     }
-}
+  }
 #endif

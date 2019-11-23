@@ -13,7 +13,7 @@
  */
 
 #if canImport(UIKit)
-import UIKit
+  import UIKit
 #endif
 
 import SDGLogic
@@ -26,7 +26,7 @@ import SDGInterfaceLocalizations
 
 /// The global context menu.
 public final class ContextMenu {
-    #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
+  #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
 
     // MARK: - Class Properties
 
@@ -36,43 +36,48 @@ public final class ContextMenu {
     // MARK: - Initialization
 
     private init() {
-        menu = Menu(label: .static(UserFacing<StrictString, InterfaceLocalization>({ localization in // @exempt(from: tests) Unreachable on iOS.
-            switch localization { // @exempt(from: tests)
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+      menu = Menu(
+        label: .static(
+          UserFacing<StrictString, InterfaceLocalization>(
+            { localization in  // @exempt(from: tests) Unreachable on iOS.
+              switch localization {  // @exempt(from: tests)
+              case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Context Menu"
-            case .deutschDeutschland:
+              case .deutschDeutschland:
                 return "Kontextmenü"
-            }
-        })))
-        var entries: [MenuComponent] = [
-            .entry(ContextMenu._normalizeText()),
-        ]
-        if #available(iOS 9, *) { // @exempt(from: unicode)
-             entries.append(.entry(ContextMenu._showCharacterInformation()))
-        }
-        menu.entries = entries
-        menuDidSet()
+              }
+            })
+        )
+      )
+      var entries: [MenuComponent] = [
+        .entry(ContextMenu._normalizeText()),
+      ]
+      if #available(iOS 9, *) {  // @exempt(from: unicode)
+        entries.append(.entry(ContextMenu._showCharacterInformation()))
+      }
+      menu.entries = entries
+      menuDidSet()
     }
 
     // MARK: - Properties
 
     /// The root menu.
     public var menu: AnyMenu {
-        didSet {
-            menuDidSet()
-        }
+      didSet {
+        menuDidSet()
+      }
     }
     private func menuDidSet() {
-        func flatten(_ menu: AnyMenu) -> [UIMenuItem] {
-            return menu.entries.flatMap { (entry) -> [UIMenuItem] in
-                switch entry {
-                case .entry(let entry):
-                    return entry.isHidden ? [] : [entry.native]
-                }
-            }
+      func flatten(_ menu: AnyMenu) -> [UIMenuItem] {
+        return menu.entries.flatMap { (entry) -> [UIMenuItem] in
+          switch entry {
+          case .entry(let entry):
+            return entry.isHidden ? [] : [entry.native]
+          }
         }
-        UIMenuController.shared.menuItems = flatten(menu)
-        UIMenuController.shared.update()
+      }
+      UIMenuController.shared.menuItems = flatten(menu)
+      UIMenuController.shared.update()
     }
-    #endif
+  #endif
 }

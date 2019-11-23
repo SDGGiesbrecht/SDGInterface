@@ -13,24 +13,24 @@
  */
 
 #if canImport(AppKit)
-import AppKit
+  import AppKit
 #endif
 
 /// Details about printing.
 public struct PrintingDetails {
 
-    // MARK: - Initialization
+  // MARK: - Initialization
 
-    /// Creates empty details.
-    public init() {}
+  /// Creates empty details.
+  public init() {}
 
-    // MARK: - Properties
+  // MARK: - Properties
 
-    #if canImport(AppKit)
+  #if canImport(AppKit)
     /// Some systems specify settings.
     public var settings: [NSPrintInfo.AttributeKey: Any] = [:]
-    #endif
+  #endif
 
-    /// Some systems may specify whether or not to display customization panels.
-    public var displayPanels: Bool? = nil
+  /// Some systems may specify whether or not to display customization panels.
+  public var displayPanels: Bool? = nil
 }

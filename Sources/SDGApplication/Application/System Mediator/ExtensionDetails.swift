@@ -13,21 +13,21 @@
  */
 
 #if canImport(UIKit)
-import UIKit
+  import UIKit
 #endif
 
 /// Details about an extension.
 public struct ExtensionDetails {
 
-    // MARK: - Initialization
+  // MARK: - Initialization
 
-    /// Creates empty details.
-    public init() {}
+  /// Creates empty details.
+  public init() {}
 
-    // MARK: - Properties
+  // MARK: - Properties
 
-    #if canImport(UIKit) && !os(watchOS)
+  #if canImport(UIKit) && !os(watchOS)
     /// Some systems provide the point identifier.
     public var pointIdentifier: UIApplication.ExtensionPointIdentifier?
-    #endif
+  #endif
 }

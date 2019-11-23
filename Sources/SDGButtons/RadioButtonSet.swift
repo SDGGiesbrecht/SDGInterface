@@ -13,21 +13,22 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-#if canImport(AppKit)
-import AppKit
-#endif
-#if canImport(UIKit)
-import UIKit
-#endif
+  #if canImport(AppKit)
+    import AppKit
+  #endif
+  #if canImport(UIKit)
+    import UIKit
+  #endif
 
-import SDGText
-import SDGLocalization
+  import SDGText
+  import SDGLocalization
 
-import SDGViews
-import SDGTextDisplay
+  import SDGViews
+  import SDGTextDisplay
 
-/// A set of radio buttons.
-public class RadioButtonSet<Option, L> : AnyRadioButtonSet, SpecificView where Option : CaseIterable, L : Localization, Option.AllCases == Array<Option> {
+  /// A set of radio buttons.
+  public class RadioButtonSet<Option, L>: AnyRadioButtonSet, SpecificView
+  where Option: CaseIterable, L: Localization, Option.AllCases == [Option] {
 
     // MARK: - Initialization
 
@@ -37,48 +38,48 @@ public class RadioButtonSet<Option, L> : AnyRadioButtonSet, SpecificView where O
     ///     - labels: A closure which generates a label from an option.
     ///     - option: The option to label.
     public init(labels: @escaping (_ option: Option) -> UserFacing<ButtonLabel, L>) {
-        self.labels = labels
-        defer {
-            LocalizationSetting.current.register(observer: bindingObserver)
-        }
+      self.labels = labels
+      defer {
+        LocalizationSetting.current.register(observer: bindingObserver)
+      }
 
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         specificNative = NSSegmentedControl()
-        #elseif canImport(UIKit)
+      #elseif canImport(UIKit)
         specificNative = UISegmentedControl()
-        #endif
-        defer {
-            bindingObserver.buttons = self
-        }
+      #endif
+      defer {
+        bindingObserver.buttons = self
+      }
 
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         (specificNative.cell as? NSSegmentedCell)?.segmentStyle = .rounded
-        #endif
+      #endif
 
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         (specificNative.cell as? NSSegmentedCell)?.trackingMode = .momentary
-        #else
+      #else
         specificNative.isMomentary = true
-        #endif
+      #endif
 
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         specificNative.font = Font.forLabels.native
-        #else
+      #else
         var attributes = specificNative.titleTextAttributes(for: .normal) ?? [:]
         attributes.font = Font.forLabels
         specificNative.setTitleTextAttributes(attributes, for: .normal)
-        #endif
+      #endif
 
-        #if canImport(AppKit)
+      #if canImport(AppKit)
         specificNative.segmentCount = Option.allCases.count
+      #endif
+      for index in Option.allCases.indices {
+        #if canImport(AppKit)
+          (specificNative.cell as? NSSegmentedCell)?.setTag(index, forSegment: index)
+        #else
+          specificNative.insertSegment(withTitle: nil, at: index, animated: false)
         #endif
-        for index in Option.allCases.indices {
-            #if canImport(AppKit)
-            (specificNative.cell as? NSSegmentedCell)?.setTag(index, forSegment: index)
-            #else
-            specificNative.insertSegment(withTitle: nil, at: index, animated: false)
-            #endif
-        }
+      }
     }
 
     // MARK: - Properties
@@ -94,32 +95,32 @@ public class RadioButtonSet<Option, L> : AnyRadioButtonSet, SpecificView where O
     // MARK: - Refreshing
 
     public func _refreshBindings() {
-        let cases = Option.allCases
-        for index in cases.indices {
-            switch labels(cases[index]).resolved() {
-            case .text(let label):
-                #if canImport(AppKit)
-                specificNative.setLabel(String(label), forSegment: index)
-                #else
-                specificNative.setTitle(String(label), forSegmentAt: index)
-                #endif
-            case .symbol(let image):
-                #if canImport(AppKit)
-                specificNative.setImage(image.native, forSegment: index)
-                specificNative.setImageScaling(.scaleProportionallyDown, forSegment: index)
-                #else
-                specificNative.setImage(image.native, forSegmentAt: index)
-                #endif
-            }
+      let cases = Option.allCases
+      for index in cases.indices {
+        switch labels(cases[index]).resolved() {
+        case .text(let label):
+          #if canImport(AppKit)
+            specificNative.setLabel(String(label), forSegment: index)
+          #else
+            specificNative.setTitle(String(label), forSegmentAt: index)
+          #endif
+        case .symbol(let image):
+          #if canImport(AppKit)
+            specificNative.setImage(image.native, forSegment: index)
+            specificNative.setImageScaling(.scaleProportionallyDown, forSegment: index)
+          #else
+            specificNative.setImage(image.native, forSegmentAt: index)
+          #endif
         }
+      }
     }
 
     // MARK: - SpecificView
 
     #if canImport(AppKit)
-    public let specificNative: NSSegmentedControl
+      public let specificNative: NSSegmentedControl
     #elseif canImport(UIKit)
-    public let specificNative: UISegmentedControl
+      public let specificNative: UISegmentedControl
     #endif
-}
+  }
 #endif
