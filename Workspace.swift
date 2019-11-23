@@ -63,3 +63,6 @@ configuration.documentation.api.ignoredDependencies = [
   "Foundation",
   "XCTest"
 ]
+
+// #workaround(workspace version 0.27.0, Exemptions don’t work for SwiftFormat?)
+configuration.proofreading.swiftFormatConfiguration?.rules["UseEnumForNamespacing"] = false
