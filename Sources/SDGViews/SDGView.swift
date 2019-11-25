@@ -31,7 +31,7 @@
       // MARK: - Initialization
 
       internal init(_ view: SDGViews.View) {
-        // @exempt(from: tests) #workaround(workspace version 0.25.0, macOS 10.15 is unavailable in CI.)
+        // @exempt(from: tests) #workaround(workspace version 0.27.0, macOS 10.15 is unavailable in CI.)
         self.sdgView = view
       }
 
@@ -43,7 +43,7 @@
         // MARK: - NSViewRepresentable
 
         func makeNSView(context: NSViewRepresentableContext<SDGView>) -> NSView {
-          // @exempt(from: tests) #workaround(workspace version 0.25.0, macOS 10.15 is unavailable in CI.)
+          // @exempt(from: tests) #workaround(workspace version 0.27.0, macOS 10.15 is unavailable in CI.)
           return sdgView.native
         }
 
