@@ -156,7 +156,9 @@
 
     private let bindingObserver = BindingObserver()
 
-    /// The name of the window. (Used in places like the title bar or dock.)
+    /// The name of the window.
+    ///
+    /// The name is used in places like the title bar and dock.
     public var name: Binding<StrictString, L> {
       willSet {
         name.shared?.cancel(observer: bindingObserver)
