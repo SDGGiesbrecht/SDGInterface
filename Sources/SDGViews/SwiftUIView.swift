@@ -32,7 +32,7 @@
       /// - Parameters:
       ///     - view: The view.
       public init(_ view: V) {
-        // @exempt(from: tests) #workaround(workspace version 0.25.0, macOS 10.15 is unavailable in CI.)
+        // @exempt(from: tests) #workaround(workspace version 0.27.0, macOS 10.15 is unavailable in CI.)
         nativeSwiftUIView = view
         #if canImport(AppKit)
           specificNative = NSHostingView(rootView: view)
@@ -54,7 +54,7 @@
       // MARK: - View
 
       public var swiftUIView: AnyView {
-        // @exempt(from: tests) #workaround(workspace version 0.25.0, macOS 10.15 is unavailable in CI.)
+        // @exempt(from: tests) #workaround(workspace version 0.27.0, macOS 10.15 is unavailable in CI.)
         return AnyView(nativeSwiftUIView)
       }
     }
