@@ -79,7 +79,9 @@
 
     // MARK: - Modification
 
-    /// Inserts a new submenu in the application‐specific section. (Before the “Window” menu.)
+    /// Inserts a new submenu in the application‐specific section.
+    ///
+    /// The application specific section is before the “Window” menu.
     ///
     /// - Parameters:
     ///     - submenu: The submenu.

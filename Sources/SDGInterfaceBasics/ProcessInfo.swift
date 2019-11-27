@@ -21,7 +21,9 @@ import SDGInterfaceLocalizations
 
 extension ProcessInfo {
 
-  /// A closure of type `(_ form: ApplicationNameForm) -> StrictString?` which resolves the application name for a particular localized grammatical form.
+  /// A closure which resolves the application name for a particular localized grammatical form.
+  ///
+  /// This is a typealias for `(_ form: ApplicationNameForm) -> StrictString?`.
   public typealias ApplicationNameResolver = (_ form: ApplicationNameForm) -> StrictString?
 
   private static var _applicationName: ApplicationNameResolver?

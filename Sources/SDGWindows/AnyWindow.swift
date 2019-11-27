@@ -94,7 +94,9 @@
       #endif
     }
 
-    /// Whether or not the window is visible. (It may still be obscured by other elements on the screen.)
+    /// Whether or not the window is visible.
+    ///
+    /// The window may still be obscured by other elements on the screen.
     public var isVisible: Bool {
       #if canImport(AppKit)
         return native.isVisible
