@@ -44,7 +44,7 @@
 
         func makeNSView(context: NSViewRepresentableContext<SDGView>) -> NSView {
           // @exempt(from: tests) #workaround(workspace version 0.27.0, macOS 10.15 is unavailable in CI.)
-          return sdgView.native
+          return sdgView.cocoaView
         }
 
         func updateNSView(_ nsView: NSView, context: NSViewRepresentableContext<SDGView>) {}

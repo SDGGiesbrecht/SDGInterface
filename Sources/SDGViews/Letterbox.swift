@@ -42,7 +42,7 @@
       AnyNativeView(container).centre(subview: content)
 
       let maxWidth = NSLayoutConstraint(
-        item: content.native,
+        item: content.cocoaView,
         attribute: .width,
         relatedBy: .lessThanOrEqual,
         toItem: container,
@@ -51,7 +51,7 @@
         constant: 0
       )
       let maxHeight = NSLayoutConstraint(
-        item: content.native,
+        item: content.cocoaView,
         attribute: .height,
         relatedBy: .lessThanOrEqual,
         toItem: container,
@@ -61,7 +61,7 @@
       )
 
       let desiredWidth = NSLayoutConstraint(
-        item: content.native,
+        item: content.cocoaView,
         attribute: .width,
         relatedBy: .equal,
         toItem: container,
@@ -75,7 +75,7 @@
         desiredWidth.priority = UILayoutPriority(rawValue: 1)
       #endif
       let desiredHeight = NSLayoutConstraint(
-        item: content.native,
+        item: content.cocoaView,
         attribute: .height,
         relatedBy: .equal,
         toItem: container,
@@ -112,11 +112,11 @@
     // MARK: - View
 
     #if canImport(AppKit)
-      public var native: NSView {
+      public var cocoaView: NSView {
         return container
       }
     #elseif canImport(UIKit)
-      public var native: UIView {
+      public var cocoaView: UIView {
         return container
       }
     #endif

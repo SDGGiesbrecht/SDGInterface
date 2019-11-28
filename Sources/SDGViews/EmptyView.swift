@@ -30,9 +30,9 @@
     // MARK: - Properties
 
     #if canImport(AppKit)
-      public let native: NSView = NSView()
+      public let cocoaView: NSView = NSView()
     #elseif canImport(UIKit)
-      public let native: UIView = UIView()
+      public let cocoaView: UIView = UIView()
     #endif
   }
 #endif

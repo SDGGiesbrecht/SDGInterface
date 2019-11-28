@@ -48,11 +48,11 @@
     // MARK: - View
 
     #if canImport(AppKit)
-      public var native: NSView {
+      public var cocoaView: NSView {
         return specificNative
       }
     #elseif canImport(UIKit)
-      public var native: UIView {
+      public var cocoaView: UIView {
         return specificNative
       }
     #endif

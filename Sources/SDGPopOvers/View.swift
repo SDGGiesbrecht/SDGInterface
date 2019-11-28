@@ -69,8 +69,8 @@
         popOver.contentViewController = controller
         popOver.behavior = .transient
         popOver.show(
-          relativeTo: sourceRectangle?.native ?? native.frame,
-          of: native,
+          relativeTo: sourceRectangle?.native ?? cocoaView.frame,
+          of: cocoaView,
           preferredEdge: .maxX
         )
       #endif
