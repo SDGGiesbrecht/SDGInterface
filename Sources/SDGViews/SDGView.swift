@@ -56,7 +56,7 @@
         func makeUIView(
           context: UIViewRepresentableContext<SDGView>
         ) -> UIView {  // @exempt(from: tests) Not reachable from tests.
-          return sdgView.native
+          return sdgView.cocoaView
         }
 
         func updateUIView(

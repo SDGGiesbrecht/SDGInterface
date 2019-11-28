@@ -76,7 +76,7 @@
           specificNative.removeArrangedSubview(view)
         }
         for view in views {
-          specificNative.addArrangedSubview(view.native)
+          specificNative.addArrangedSubview(view.cocoaView)
         }
       #endif
     }
