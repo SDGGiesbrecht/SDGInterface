@@ -69,14 +69,14 @@
           specificNative.removeView(view)
         }
         for view in views {
-          specificNative.addView(view.native, in: .trailing)
+          specificNative.addView(view.cocoaView, in: .trailing)
         }
       #elseif canImport(UIKit)
         while let view = specificNative.arrangedSubviews.first {
           specificNative.removeArrangedSubview(view)
         }
         for view in views {
-          specificNative.addArrangedSubview(view.native)
+          specificNative.addArrangedSubview(view.cocoaView)
         }
       #endif
     }

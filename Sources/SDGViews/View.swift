@@ -25,11 +25,13 @@
   /// A view.
   public protocol View: AnyObject {
     #if canImport(AppKit)
-      /// The native view.
-      var native: NSView { get }
+      // @documentation(View.cocoaView)
+      /// The `NSView` or `UIView`.
+      var cocoaView: NSView { get }
     #elseif canImport(UIKit)
-      /// The native view.
-      var native: UIView { get }
+      // #documentation(View.cocoaView)
+      /// The `NSView` or `UIView`.
+      var cocoaView: UIView { get }
     #endif
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
@@ -57,15 +59,15 @@
     ///     - aspectRatio: The aspect ratio. (*width* ∶ *height*)
     public func lockAspectRatio(to aspectRatio: Double) {
       let constraint = NSLayoutConstraint(
-        item: self.native,
+        item: self.cocoaView,
         attribute: .width,
         relatedBy: .equal,
-        toItem: self.native,
+        toItem: self.cocoaView,
         attribute: .height,
         multiplier: CGFloat(aspectRatio),
         constant: 0
       )
-      native.addConstraint(constraint)
+      cocoaView.addConstraint(constraint)
     }
   }
 #endif

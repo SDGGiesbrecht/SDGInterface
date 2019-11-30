@@ -138,7 +138,7 @@
           let exampleIndex = 0
           if data.value.indices.contains(exampleIndex) {
             let exampleView = columns[index](data.value[exampleIndex])
-            nativeTable.rowHeight.increase(to: exampleView.native.fittingSize.height)
+            nativeTable.rowHeight.increase(to: exampleView.cocoaView.fittingSize.height)
           }
         }
       #endif

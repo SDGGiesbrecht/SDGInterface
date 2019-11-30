@@ -534,7 +534,7 @@ final class APITests: ApplicationTestCase {
       Application.shared.demonstrateTextField()
       forEachWindow { window in
         #if canImport(AppKit)
-          let fieldEditor = window.native.fieldEditor(true, for: window.view.native.subviews[0])
+          let fieldEditor = window.native.fieldEditor(true, for: window.view.cocoaView.subviews[0])
             as! NSTextView
           fieldEditor.insertText("...", replacementRange: NSRange(0..<0))
           fieldEditor.insertText(

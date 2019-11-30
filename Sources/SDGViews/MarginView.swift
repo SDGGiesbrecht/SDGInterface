@@ -30,7 +30,7 @@
     ///     - contents: The content view.
     public init(contents: View) {
       self.contents = contents
-      AnyNativeView(native).fill(with: contents)
+      AnyNativeView(cocoaView).fill(with: contents)
     }
 
     // MARK: - Properties
@@ -39,9 +39,9 @@
     public let contents: View
 
     #if canImport(AppKit)
-      public let native: NSView = NSView()
+      public let cocoaView: NSView = NSView()
     #elseif canImport(UIKit)
-      public let native: UIView = UIView()
+      public let cocoaView: UIView = UIView()
     #endif
   }
 #endif

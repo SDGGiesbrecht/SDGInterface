@@ -42,7 +42,7 @@
       /// - Parameters:
       ///     - native: The native view.
       public init(_ native: NSView) {
-        self.native = native
+        self.cocoaView = native
       }
     #elseif canImport(UIKit)
       // #documentation(AnyNativeView.init(_:))
@@ -51,25 +51,25 @@
       /// - Parameters:
       ///     - native: The native view.
       public init(_ native: UIView) {
-        self.native = native
+        self.cocoaView = native
       }
     #endif
 
     // MARK: - View
 
     #if canImport(AppKit)
-      public var native: NSView
+      public var cocoaView: NSView
     #elseif canImport(UIKit)
-      public var native: UIView
+      public var cocoaView: UIView
     #endif
 
     // MARK: - Layout Constraints
 
     private func addSubviewIfNecessary(_ subview: View) {
-      subview.native.translatesAutoresizingMaskIntoConstraints = false
+      subview.cocoaView.translatesAutoresizingMaskIntoConstraints = false
 
-      if ¬native.subviews.contains(subview.native) {
-        native.addSubview(subview.native)
+      if ¬cocoaView.subviews.contains(subview.cocoaView) {
+        cocoaView.addSubview(subview.cocoaView)
       }
     }
 
@@ -189,7 +189,7 @@
           viewList += padding.string
         }
         viewList += "[v\(index)]"
-        viewDictionary["v\(index)"] = subviews[index].native
+        viewDictionary["v\(index)"] = subviews[index].cocoaView
       }
 
       let leadingMarginString = "|\(leadingMargin.string)"
@@ -202,7 +202,7 @@
         metrics: nil,
         views: viewDictionary
       )
-      native.addConstraints(constraints)
+      cocoaView.addConstraints(constraints)
     }
 
     // MARK: - Size Limits
@@ -218,9 +218,9 @@
         withVisualFormat: format,
         options: [],
         metrics: nil,
-        views: ["view": self.native]
+        views: ["view": self.cocoaView]
       )
-      native.addConstraints(constraints)
+      cocoaView.addConstraints(constraints)
     }
 
     // MARK: - Centring Subviews
@@ -256,15 +256,15 @@
       }
 
       let constraint = NSLayoutConstraint(
-        item: subview.native,
+        item: subview.cocoaView,
         attribute: attribute,
         relatedBy: .equal,
-        toItem: self.native,
+        toItem: self.cocoaView,
         attribute: attribute,
         multiplier: 1,
         constant: 0
       )
-      native.addConstraint(constraint)
+      cocoaView.addConstraint(constraint)
     }
 
     // MARK: - Subview Proportions
@@ -353,15 +353,15 @@
 
       for viewIndex in subviews.indices {
         let constraint = NSLayoutConstraint(
-          item: subviews[0].native,
+          item: subviews[0].cocoaView,
           attribute: attribute,
           relatedBy: .equal,
-          toItem: subviews[viewIndex].native,
+          toItem: subviews[viewIndex].cocoaView,
           attribute: attribute,
           multiplier: 1,
           constant: 0
         )
-        native.addConstraint(constraint)
+        cocoaView.addConstraint(constraint)
       }
     }
 
@@ -381,15 +381,15 @@
       for view in subviews {
         addSubviewIfNecessary(view)
         let constraint = NSLayoutConstraint(
-          item: self.native,
+          item: self.cocoaView,
           attribute: attribute,
           relatedBy: .equal,
-          toItem: view.native,
+          toItem: view.cocoaView,
           attribute: attribute,
           multiplier: coefficient,
           constant: 0
         )
-        native.addConstraint(constraint)
+        cocoaView.addConstraint(constraint)
       }
     }
   }
