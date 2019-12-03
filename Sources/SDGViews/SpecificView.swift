@@ -28,7 +28,7 @@
       associatedtype SpecificCocoaView: NSView
     #elseif canImport(UIKit)
       // #documentation(SpecificView.SpecificCocoaView)
-      /// The specific native view type.
+      /// The specific subclass of `NSView` or `UIView`.
       associatedtype SpecificCocoaView: UIView
     #endif
 

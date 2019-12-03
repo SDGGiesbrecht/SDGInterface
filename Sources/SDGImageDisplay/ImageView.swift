@@ -43,8 +43,14 @@
       #endif
 
       #if canImport(AppKit)
-        specificCocoaView.setContentCompressionResistancePriority(.windowSizeStayPut, for: .horizontal)
-        specificCocoaView.setContentCompressionResistancePriority(.windowSizeStayPut, for: .vertical)
+        specificCocoaView.setContentCompressionResistancePriority(
+          .windowSizeStayPut,
+          for: .horizontal
+        )
+        specificCocoaView.setContentCompressionResistancePriority(
+          .windowSizeStayPut,
+          for: .vertical
+        )
       #endif
     }
 
