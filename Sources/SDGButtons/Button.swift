@@ -43,23 +43,23 @@
       }
 
       #if canImport(AppKit)
-        specificNative = NSButton()
+        specificCocoaView = NSButton()
       #elseif canImport(UIKit)
-        specificNative = UIButton()
+        specificCocoaView = UIButton()
       #endif
       defer {
         bindingObserver.button = self
       }
 
       #if canImport(AppKit)
-        specificNative.bezelStyle = .rounded
-        specificNative.setButtonType(.momentaryPushIn)
+        specificCocoaView.bezelStyle = .rounded
+        specificCocoaView.setButtonType(.momentaryPushIn)
       #endif
 
       #if canImport(AppKit)
-        specificNative.font = Font.forLabels.native
+        specificCocoaView.font = Font.forLabels.native
       #elseif canImport(UIKit)
-        specificNative.titleLabel?.font = Font.forLabels.native
+        specificCocoaView.titleLabel?.font = Font.forLabels.native
       #endif
     }
 
@@ -85,18 +85,18 @@
     public func _refreshBindings() {
       let resolved = String(label.resolved())
       #if canImport(AppKit)
-        specificNative.title = resolved
+        specificCocoaView.title = resolved
       #elseif canImport(UIKit)
-        specificNative.titleLabel?.text = resolved
+        specificCocoaView.titleLabel?.text = resolved
       #endif
     }
 
     // MARK: - SpecificView
 
     #if canImport(AppKit)
-      public let specificNative: NSButton
+      public let specificCocoaView: NSButton
     #elseif canImport(UIKit)
-      public let specificNative: UIButton
+      public let specificCocoaView: UIButton
     #endif
   }
 #endif

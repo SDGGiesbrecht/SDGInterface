@@ -37,17 +37,17 @@
         LocalizationSetting.current.register(observer: bindingObserver)
       }
 
-      specificNative = NSButton()
+      specificCocoaView = NSButton()
       defer {
         bindingObserver.checkBox = self
       }
 
-      specificNative.bezelStyle = .rounded
-      specificNative.setButtonType(.switch)
+      specificCocoaView.bezelStyle = .rounded
+      specificCocoaView.setButtonType(.switch)
 
-      specificNative.lineBreakMode = .byTruncatingTail
+      specificCocoaView.lineBreakMode = .byTruncatingTail
 
-      specificNative.font = Font.forLabels.native
+      specificCocoaView.font = Font.forLabels.native
     }
 
     // MARK: - Properties
@@ -71,11 +71,11 @@
 
     public func _refreshBindings() {
       let resolved = String(label.resolved())
-      specificNative.title = resolved
+      specificCocoaView.title = resolved
     }
 
     // MARK: - SpecificView
 
-    public let specificNative: NSButton
+    public let specificCocoaView: NSButton
   }
 #endif

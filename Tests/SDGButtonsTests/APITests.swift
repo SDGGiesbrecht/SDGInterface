@@ -39,9 +39,9 @@ final class APITests: ApplicationTestCase {
       let button = Button(label: label)
       label.shared?.value = "Changed"
       #if canImport(AppKit)
-        XCTAssertEqual(button.specificNative.title, "Changed")
+        XCTAssertEqual(button.specificCocoaView.title, "Changed")
       #else
-        XCTAssertEqual(button.specificNative.titleLabel?.text, "Changed")
+        XCTAssertEqual(button.specificCocoaView.titleLabel?.text, "Changed")
       #endif
       button.label = .binding(Shared("Changed again."))
     #endif
@@ -55,7 +55,7 @@ final class APITests: ApplicationTestCase {
         let binding: Binding<StrictString, APILocalization> = .binding(label)
         let checkBox = CheckBox(label: binding)
         label.value = "Changed"
-        XCTAssertEqual(checkBox.specificNative.title, "Changed")
+        XCTAssertEqual(checkBox.specificCocoaView.title, "Changed")
         checkBox.label = .binding(Shared("Changed again."))
       #endif
     #endif

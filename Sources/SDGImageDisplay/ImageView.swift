@@ -37,14 +37,14 @@
       #if canImport(AppKit)
         let imageView = NSImageView()
         imageView.image = image.native
-        specificNative = imageView
+        specificCocoaView = imageView
       #elseif canImport(UIKit)
-        specificNative = UIImageView(image: image.native)
+        specificCocoaView = UIImageView(image: image.native)
       #endif
 
       #if canImport(AppKit)
-        specificNative.setContentCompressionResistancePriority(.windowSizeStayPut, for: .horizontal)
-        specificNative.setContentCompressionResistancePriority(.windowSizeStayPut, for: .vertical)
+        specificCocoaView.setContentCompressionResistancePriority(.windowSizeStayPut, for: .horizontal)
+        specificCocoaView.setContentCompressionResistancePriority(.windowSizeStayPut, for: .vertical)
       #endif
     }
 
@@ -56,9 +56,9 @@
     // MARK: - SpecificView
 
     #if canImport(AppKit)
-      public let specificNative: NSImageView
+      public let specificCocoaView: NSImageView
     #elseif canImport(UIKit)
-      public let specificNative: UIImageView
+      public let specificCocoaView: UIImageView
     #endif
   }
 #endif

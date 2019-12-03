@@ -25,13 +25,13 @@
   /// A label with no particular localization.
   public protocol AnyLabel: View {
     #if canImport(AppKit)
-      // #documentation(SpecificView.specificNative)
+      // #documentation(SpecificView.specificCocoaView)
       /// The specific native view.
-      var specificNative: NSTextField { get }
+      var specificCocoaView: NSTextField { get }
     #elseif canImport(UIKit)
-      // #documentation(SpecificView.specificNative)
+      // #documentation(SpecificView.specificCocoaView)
       /// The specific native view.
-      var specificNative: UILabel { get }
+      var specificCocoaView: UILabel { get }
     #endif
     func _refreshBindings()
   }
@@ -47,13 +47,13 @@
     /// The colour of the text.
     public var textColour: Colour? {
       get {
-        return specificNative.textColor.map { Colour($0) }
+        return specificCocoaView.textColor.map { Colour($0) }
       }
       set {
         #if canImport(AppKit)
-          specificNative.textColor = newValue?.nsColor
+          specificCocoaView.textColor = newValue?.nsColor
         #elseif canImport(UIKit)
-          specificNative.textColor = newValue?.uiColor
+          specificCocoaView.textColor = newValue?.uiColor
         #endif
       }
     }

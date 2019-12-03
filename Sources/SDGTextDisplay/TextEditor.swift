@@ -33,19 +33,19 @@
     public init() {
 
       #if canImport(AppKit)
-        specificNative = NSScrollView()
-        specificNative.documentView = TextView()
+        specificCocoaView = NSScrollView()
+        specificCocoaView.documentView = TextView()
       #else
-        specificNative = TextView()
+        specificCocoaView = TextView()
       #endif
 
       #if canImport(AppKit)
-        specificNative.borderType = .bezelBorder
+        specificCocoaView.borderType = .bezelBorder
 
-        specificNative.horizontalScrollElasticity = .automatic
-        specificNative.verticalScrollElasticity = .automatic
+        specificCocoaView.horizontalScrollElasticity = .automatic
+        specificCocoaView.verticalScrollElasticity = .automatic
 
-        specificNative.hasVerticalScroller = true
+        specificCocoaView.hasVerticalScroller = true
       #endif
     }
 
@@ -119,21 +119,21 @@
     // MARK: - SpecificView
 
     #if canImport(AppKit)
-      public let specificNative: NSScrollView
+      public let specificCocoaView: NSScrollView
     #elseif canImport(UIKit)
-      public let specificNative: UITextView
+      public let specificCocoaView: UITextView
     #endif
 
     #if canImport(AppKit)
       /// The native text view.
       public var nativeTextView: NSTextView {
-        return specificNative.documentView as? NSTextView
+        return specificCocoaView.documentView as? NSTextView
           ?? NSTextView()  // @exempt(from: tests) Never nil.
       }
     #elseif canImport(UIKit)
       /// The native text view.
       public var nativeTextView: UITextView {
-        return specificNative
+        return specificCocoaView
       }
     #endif
   }
