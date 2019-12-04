@@ -185,7 +185,7 @@
           native.rootViewController = UIViewController()
         }
         native.rootViewController?.view.map {
-          AnyNativeView($0).fill(with: view, margin: .specific(0))
+          AnyCocoaView($0).fill(with: view, margin: .specific(0))
         }
       #endif
     }

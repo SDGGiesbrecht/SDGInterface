@@ -262,7 +262,7 @@ extension Application {
               }
             })
           ),
-          view: AnyNativeView()
+          view: AnyCocoaView()
         )
         demonstrate(window)
       }

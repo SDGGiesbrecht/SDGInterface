@@ -24,7 +24,7 @@
     internal init(view: View) {
       self.view = view
       super.init(frame: .zero)
-      let wrapped = AnyNativeView(self)
+      let wrapped = AnyCocoaView(self)
       wrapped.fill(with: view, on: .vertical, margin: .specific(0))
       wrapped.fill(with: view, on: .horizontal, margin: .specific(1))
     }

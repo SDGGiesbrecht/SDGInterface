@@ -30,7 +30,7 @@
     ///     - contents: The content view.
     public init(contents: View) {
       self.contents = contents
-      AnyNativeView(cocoaView).fill(with: contents)
+      AnyCocoaView(cocoaView).fill(with: contents)
     }
 
     // MARK: - Properties

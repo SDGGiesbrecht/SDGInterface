@@ -34,7 +34,7 @@
     internal init(view: View) {
       self.view = view
       super.init(frame: .zero)
-      AnyNativeView(self).fill(with: view, margin: .automatic)
+      AnyCocoaView(self).fill(with: view, margin: .automatic)
     }
 
     internal required init?(coder decoder: NSCoder) {  // @exempt(from: tests)

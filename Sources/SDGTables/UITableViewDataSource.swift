@@ -48,7 +48,7 @@
 
       if let table = self.table {
         cell.row.views = table.columns.map { $0(table.data.value[indexPath.row]) }
-        AnyNativeView(cell.row.cocoaView).equalize(.width, amongSubviews: cell.row.views)
+        AnyCocoaView(cell.row.cocoaView).equalize(.width, amongSubviews: cell.row.views)
       }
       return cell
     }

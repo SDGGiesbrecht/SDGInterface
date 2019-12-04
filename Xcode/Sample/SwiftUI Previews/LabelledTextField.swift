@@ -24,7 +24,7 @@
   struct LabelledTextField_Previews: PreviewProvider {
     static var previews: some SwiftUI.View {
       let view = LabelledTextField<InterfaceLocalization>(labelText: .binding(Shared("Label")))
-      let margin = AnyNativeView()
+      let margin = AnyCocoaView()
       margin.fill(with: view)
       return Group {
         margin.swiftUIView

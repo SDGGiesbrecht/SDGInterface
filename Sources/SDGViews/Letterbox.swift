@@ -39,7 +39,7 @@
       self.content = content
 
       content.lockAspectRatio(to: widthToHeight)
-      AnyNativeView(container).centre(subview: content)
+      AnyCocoaView(container).centre(subview: content)
 
       let maxWidth = NSLayoutConstraint(
         item: content.cocoaView,
