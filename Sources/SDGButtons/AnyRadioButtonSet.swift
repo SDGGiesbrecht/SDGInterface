@@ -25,11 +25,11 @@
   public protocol AnyRadioButtonSet: View {
     #if canImport(AppKit)
       // #documentation(SpecificView.specificCocoaView)
-      /// The specific native view.
+      /// The specific subclass of `NSView` or `UIView`.
       var specificCocoaView: NSSegmentedControl { get }
     #elseif canImport(UIKit)
       // #documentation(SpecificView.specificCocoaView)
-      /// The specific native view.
+      /// The specific subclass of `NSView` or `UIView`.
       var specificCocoaView: UISegmentedControl { get }
     #endif
     func _refreshBindings()

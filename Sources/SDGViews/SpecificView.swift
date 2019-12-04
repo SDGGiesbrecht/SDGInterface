@@ -34,11 +34,11 @@
 
     #if canImport(AppKit)
       // @documentation(SpecificView.specificCocoaView)
-      /// The specific native view.
+      /// The specific subclass of `NSView` or `UIView`.
       var specificCocoaView: SpecificCocoaView { get }
     #elseif canImport(UIKit)
       // #documentation(SpecificView.specificCocoaView)
-      /// The specific native view.
+      /// The specific subclass of `NSView` or `UIView`.
       var specificCocoaView: SpecificCocoaView { get }
     #endif
   }

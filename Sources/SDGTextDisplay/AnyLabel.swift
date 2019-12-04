@@ -26,11 +26,11 @@
   public protocol AnyLabel: View {
     #if canImport(AppKit)
       // #documentation(SpecificView.specificCocoaView)
-      /// The specific native view.
+      /// The specific subclass of `NSView` or `UIView`.
       var specificCocoaView: NSTextField { get }
     #elseif canImport(UIKit)
       // #documentation(SpecificView.specificCocoaView)
-      /// The specific native view.
+      /// The specific subclass of `NSView` or `UIView`.
       var specificCocoaView: UILabel { get }
     #endif
     func _refreshBindings()

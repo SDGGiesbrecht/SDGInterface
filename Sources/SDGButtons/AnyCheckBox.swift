@@ -20,7 +20,7 @@
   /// A check box with no particular localization.
   public protocol AnyCheckBox: View {
     // #documentation(SpecificView.specificCocoaView)
-    /// The specific native view.
+    /// The specific subclass of `NSView` or `UIView`.
     var specificCocoaView: NSButton { get }
 
     func _refreshBindings()
