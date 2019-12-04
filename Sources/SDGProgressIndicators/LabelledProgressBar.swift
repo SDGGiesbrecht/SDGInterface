@@ -50,7 +50,7 @@
       self.label = label
       let constructedBar = progressBar ?? ProgressBar()
       self.progressBar = constructedBar
-      container = AnyNativeView()
+      container = AnyCocoaView()
       container.fill(with: label, on: .horizontal, margin: .specific(0))
       container.fill(with: constructedBar, on: .horizontal, margin: .specific(0))
       container.position(
@@ -63,7 +63,7 @@
 
     // MARK: - Properties
 
-    private let container: AnyNativeView
+    private let container: AnyCocoaView
 
     /// The label.
     public let label: Label<L>

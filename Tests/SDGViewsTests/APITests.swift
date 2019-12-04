@@ -44,9 +44,9 @@ final class APITests: ApplicationTestCase {
   func testRowView() {
     #if canImport(AppKit) || canImport(UIKit)
       if #available(iOS 9, *) {  // @exempt(from: unicode)
-        let row = RowView(views: [AnyNativeView()])
-        row.views = [AnyNativeView()]
-        _ = RowView(views: [AnyNativeView(), AnyNativeView()], spacing: .specific(0))
+        let row = RowView(views: [AnyCocoaView()])
+        row.views = [AnyCocoaView()]
+        _ = RowView(views: [AnyCocoaView(), AnyCocoaView()], spacing: .specific(0))
       }
     #endif
   }
@@ -70,13 +70,13 @@ final class APITests: ApplicationTestCase {
 
   func testView() {
     #if canImport(AppKit) || canImport(UIKit)
-      func newView() -> AnyNativeView {
+      func newView() -> AnyCocoaView {
         #if canImport(AppKit)
           let native = NSView()
         #elseif canImport(UIKit)
           let native = UIView()
         #endif
-        return AnyNativeView(native)
+        return AnyCocoaView(native)
       }
       newView().fill(with: EmptyView())
       newView().setMinimumSize(size: 10, axis: .horizontal)

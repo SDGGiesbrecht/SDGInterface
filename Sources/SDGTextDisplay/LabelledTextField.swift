@@ -49,7 +49,7 @@
       self.label = label
       let constructedField = field ?? TextField()
       self.field = constructedField
-      container = AnyNativeView()
+      container = AnyCocoaView()
       container.position(
         subviews: [label, constructedField],
         inSequenceAlong: .horizontal,
@@ -62,7 +62,7 @@
 
     // MARK: - Properties
 
-    private let container: AnyNativeView
+    private let container: AnyCocoaView
 
     /// The label.
     public let label: Label<L>

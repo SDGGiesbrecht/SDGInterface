@@ -1,5 +1,5 @@
 /*
- AnyNativeView.swift
+ AnyCocoaView.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -21,8 +21,8 @@
 
   import SDGLogic
 
-  /// A wrapper for any native view.
-  public final class AnyNativeView: View {
+  /// A wrapper for any `NSView` or `UIView`.
+  public final class AnyCocoaView: View {
 
     // MARK: - Initialization
 
@@ -36,7 +36,7 @@
     }
 
     #if canImport(AppKit)
-      // @documentation(AnyNativeView.init(_:))
+      // @documentation(AnyCocoaView.init(_:))
       /// Wraps a native view.
       ///
       /// - Parameters:
@@ -45,7 +45,7 @@
         self.cocoaView = native
       }
     #elseif canImport(UIKit)
-      // #documentation(AnyNativeView.init(_:))
+      // #documentation(AnyCocoaView.init(_:))
       /// Wraps a native view.
       ///
       /// - Parameters:
