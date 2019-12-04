@@ -55,23 +55,23 @@
     // MARK: - Aspect Ratio
 
     #if !os(watchOS)
-    // #workaround(Can this be done with SwiftUI?)
-    /// Locks the aspect ratio of the view.
-    ///
-    /// - Parameters:
-    ///     - aspectRatio: The aspect ratio. (*width* ∶ *height*)
-    public func lockAspectRatio(to aspectRatio: Double) {
-      let constraint = NSLayoutConstraint(
-        item: self.cocoaView,
-        attribute: .width,
-        relatedBy: .equal,
-        toItem: self.cocoaView,
-        attribute: .height,
-        multiplier: CGFloat(aspectRatio),
-        constant: 0
-      )
-      cocoaView.addConstraint(constraint)
-    }
+      // #workaround(Can this be done with SwiftUI?)
+      /// Locks the aspect ratio of the view.
+      ///
+      /// - Parameters:
+      ///     - aspectRatio: The aspect ratio. (*width* ∶ *height*)
+      public func lockAspectRatio(to aspectRatio: Double) {
+        let constraint = NSLayoutConstraint(
+          item: self.cocoaView,
+          attribute: .width,
+          relatedBy: .equal,
+          toItem: self.cocoaView,
+          attribute: .height,
+          multiplier: CGFloat(aspectRatio),
+          constant: 0
+        )
+        cocoaView.addConstraint(constraint)
+      }
     #endif
   }
 #endif
