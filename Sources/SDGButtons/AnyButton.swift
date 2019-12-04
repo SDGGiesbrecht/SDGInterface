@@ -24,13 +24,13 @@
   /// A button with no particular localization.
   public protocol AnyButton: View {
     #if canImport(AppKit)
-      // #documentation(SpecificView.specificNative)
+      // #documentation(SpecificView.specificCocoaView)
       /// The specific native view.
-      var specificNative: NSButton { get }
+      var specificCocoaView: NSButton { get }
     #elseif canImport(UIKit)
-      // #documentation(SpecificView.specificNative)
+      // #documentation(SpecificView.specificCocoaView)
       /// The specific native view.
-      var specificNative: UIButton { get }
+      var specificCocoaView: UIButton { get }
     #endif
     func _refreshBindings()
   }

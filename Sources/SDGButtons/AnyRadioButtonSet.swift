@@ -24,13 +24,13 @@
   /// A set of radio buttons with no particular localization.
   public protocol AnyRadioButtonSet: View {
     #if canImport(AppKit)
-      // #documentation(SpecificView.specificNative)
+      // #documentation(SpecificView.specificCocoaView)
       /// The specific native view.
-      var specificNative: NSSegmentedControl { get }
+      var specificCocoaView: NSSegmentedControl { get }
     #elseif canImport(UIKit)
-      // #documentation(SpecificView.specificNative)
+      // #documentation(SpecificView.specificCocoaView)
       /// The specific native view.
-      var specificNative: UISegmentedControl { get }
+      var specificCocoaView: UISegmentedControl { get }
     #endif
     func _refreshBindings()
   }

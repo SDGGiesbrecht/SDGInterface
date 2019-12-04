@@ -35,10 +35,10 @@
         // @exempt(from: tests) #workaround(workspace version 0.27.0, macOS 10.15 is unavailable in CI.)
         nativeSwiftUIView = view
         #if canImport(AppKit)
-          specificNative = NSHostingView(rootView: view)
+          specificCocoaView = NSHostingView(rootView: view)
         #elseif canImport(UIKit)
           let controller = UIHostingController(rootView: view)
-          specificNative = controller.view
+          specificCocoaView = controller.view
         #endif
       }
 
@@ -46,9 +46,9 @@
 
       private let nativeSwiftUIView: V
       #if canImport(AppKit)
-        public let specificNative: NSHostingView<V>
+        public let specificCocoaView: NSHostingView<V>
       #elseif canImport(UIKit)
-        public let specificNative: UIView
+        public let specificCocoaView: UIView
       #endif
 
       // MARK: - View

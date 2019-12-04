@@ -72,9 +72,9 @@
               text: .binding(Shared(StrictString(details.character)))
             )
             #if canImport(AppKit)
-              codePoint.specificNative.stringValue = details.character
+              codePoint.specificCocoaView.stringValue = details.character
             #elseif canImport(UIKit)
-              codePoint.specificNative.text = details.character
+              codePoint.specificCocoaView.text = details.character
             #endif
             codePoint.textColour = details.warningColour
             return codePoint

@@ -44,32 +44,32 @@
       }
 
       #if canImport(AppKit)
-        specificNative = NSTextField()
+        specificCocoaView = NSTextField()
       #elseif canImport(UIKit)
-        specificNative = UILabel(frame: .zero)
+        specificCocoaView = UILabel(frame: .zero)
       #endif
       defer {
         bindingObserver.label = self
       }
 
       #if canImport(AppKit)
-        specificNative.isBordered = false
-        specificNative.isBezeled = false
-        specificNative.drawsBackground = false
+        specificCocoaView.isBordered = false
+        specificCocoaView.isBezeled = false
+        specificCocoaView.drawsBackground = false
       #endif
-      specificNative.lineBreakMode = .byTruncatingTail
+      specificCocoaView.lineBreakMode = .byTruncatingTail
 
       #if canImport(AppKit)
-        if let cell = specificNative.cell as? NSTextFieldCell {
+        if let cell = specificCocoaView.cell as? NSTextFieldCell {
           cell.isScrollable = false
           cell.usesSingleLineMode = true
         }
 
-        specificNative.isSelectable = true
-        specificNative.isEditable = false
+        specificCocoaView.isSelectable = true
+        specificCocoaView.isEditable = false
       #endif
 
-      specificNative.font = Font.forLabels.native
+      specificCocoaView.font = Font.forLabels.native
     }
 
     // MARK: - Properties
@@ -94,18 +94,18 @@
     public func _refreshBindings() {
       let resolved = String(text.resolved())
       #if canImport(AppKit)
-        specificNative.stringValue = resolved
+        specificCocoaView.stringValue = resolved
       #elseif canImport(UIKit)
-        specificNative.text = resolved
+        specificCocoaView.text = resolved
       #endif
     }
 
     // MARK: - SpecificView
 
     #if canImport(AppKit)
-      public let specificNative: NSTextField
+      public let specificCocoaView: NSTextField
     #elseif canImport(UIKit)
-      public let specificNative: UILabel
+      public let specificCocoaView: UILabel
     #endif
   }
 #endif

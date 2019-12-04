@@ -44,40 +44,40 @@
       }
 
       #if canImport(AppKit)
-        specificNative = NSSegmentedControl()
+        specificCocoaView = NSSegmentedControl()
       #elseif canImport(UIKit)
-        specificNative = UISegmentedControl()
+        specificCocoaView = UISegmentedControl()
       #endif
       defer {
         bindingObserver.buttons = self
       }
 
       #if canImport(AppKit)
-        (specificNative.cell as? NSSegmentedCell)?.segmentStyle = .rounded
+        (specificCocoaView.cell as? NSSegmentedCell)?.segmentStyle = .rounded
       #endif
 
       #if canImport(AppKit)
-        (specificNative.cell as? NSSegmentedCell)?.trackingMode = .momentary
+        (specificCocoaView.cell as? NSSegmentedCell)?.trackingMode = .momentary
       #else
-        specificNative.isMomentary = true
+        specificCocoaView.isMomentary = true
       #endif
 
       #if canImport(AppKit)
-        specificNative.font = Font.forLabels.native
+        specificCocoaView.font = Font.forLabels.native
       #else
-        var attributes = specificNative.titleTextAttributes(for: .normal) ?? [:]
+        var attributes = specificCocoaView.titleTextAttributes(for: .normal) ?? [:]
         attributes.font = Font.forLabels
-        specificNative.setTitleTextAttributes(attributes, for: .normal)
+        specificCocoaView.setTitleTextAttributes(attributes, for: .normal)
       #endif
 
       #if canImport(AppKit)
-        specificNative.segmentCount = Option.allCases.count
+        specificCocoaView.segmentCount = Option.allCases.count
       #endif
       for index in Option.allCases.indices {
         #if canImport(AppKit)
-          (specificNative.cell as? NSSegmentedCell)?.setTag(index, forSegment: index)
+          (specificCocoaView.cell as? NSSegmentedCell)?.setTag(index, forSegment: index)
         #else
-          specificNative.insertSegment(withTitle: nil, at: index, animated: false)
+          specificCocoaView.insertSegment(withTitle: nil, at: index, animated: false)
         #endif
       }
     }
@@ -100,16 +100,16 @@
         switch labels(cases[index]).resolved() {
         case .text(let label):
           #if canImport(AppKit)
-            specificNative.setLabel(String(label), forSegment: index)
+            specificCocoaView.setLabel(String(label), forSegment: index)
           #else
-            specificNative.setTitle(String(label), forSegmentAt: index)
+            specificCocoaView.setTitle(String(label), forSegmentAt: index)
           #endif
         case .symbol(let image):
           #if canImport(AppKit)
-            specificNative.setImage(image.native, forSegment: index)
-            specificNative.setImageScaling(.scaleProportionallyDown, forSegment: index)
+            specificCocoaView.setImage(image.native, forSegment: index)
+            specificCocoaView.setImageScaling(.scaleProportionallyDown, forSegment: index)
           #else
-            specificNative.setImage(image.native, forSegmentAt: index)
+            specificCocoaView.setImage(image.native, forSegmentAt: index)
           #endif
         }
       }
@@ -118,9 +118,9 @@
     // MARK: - SpecificView
 
     #if canImport(AppKit)
-      public let specificNative: NSSegmentedControl
+      public let specificCocoaView: NSSegmentedControl
     #elseif canImport(UIKit)
-      public let specificNative: UISegmentedControl
+      public let specificCocoaView: UISegmentedControl
     #endif
   }
 #endif

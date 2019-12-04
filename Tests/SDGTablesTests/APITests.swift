@@ -59,12 +59,12 @@ final class APITests: ApplicationTestCase {
         window.display()
         #if canImport(UIKit)
           table.data = Shared([2, 1])
-          table.specificNative.dataSource?.tableView(
-            table.specificNative,
+          table.specificCocoaView.dataSource?.tableView(
+            table.specificCocoaView,
             cellForRowAt: IndexPath(row: 0, section: 0)
           )
-          table.specificNative.dataSource?.tableView(
-            table.specificNative,
+          table.specificCocoaView.dataSource?.tableView(
+            table.specificCocoaView,
             cellForRowAt: IndexPath(row: 0, section: 0)
           )
         #endif

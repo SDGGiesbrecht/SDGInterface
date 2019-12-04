@@ -23,23 +23,23 @@
   public protocol SpecificView: View {
 
     #if canImport(AppKit)
-      // @documentation(SpecificView.SpecificNativeView)
-      /// The specific native view type.
-      associatedtype SpecificNativeView: NSView
+      // @documentation(SpecificView.SpecificCocoaView)
+      /// The specific subclass of `NSView` or `UIView`.
+      associatedtype SpecificCocoaView: NSView
     #elseif canImport(UIKit)
-      // #documentation(SpecificView.SpecificNativeView)
-      /// The specific native view type.
-      associatedtype SpecificNativeView: UIView
+      // #documentation(SpecificView.SpecificCocoaView)
+      /// The specific subclass of `NSView` or `UIView`.
+      associatedtype SpecificCocoaView: UIView
     #endif
 
     #if canImport(AppKit)
-      // @documentation(SpecificView.specificNative)
+      // @documentation(SpecificView.specificCocoaView)
       /// The specific native view.
-      var specificNative: SpecificNativeView { get }
+      var specificCocoaView: SpecificCocoaView { get }
     #elseif canImport(UIKit)
-      // #documentation(SpecificView.specificNative)
+      // #documentation(SpecificView.specificCocoaView)
       /// The specific native view.
-      var specificNative: SpecificNativeView { get }
+      var specificCocoaView: SpecificCocoaView { get }
     #endif
   }
 
@@ -49,11 +49,11 @@
 
     #if canImport(AppKit)
       public var cocoaView: NSView {
-        return specificNative
+        return specificCocoaView
       }
     #elseif canImport(UIKit)
       public var cocoaView: UIView {
-        return specificNative
+        return specificCocoaView
       }
     #endif
   }

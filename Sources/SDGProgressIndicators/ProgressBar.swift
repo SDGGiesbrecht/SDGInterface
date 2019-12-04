@@ -33,13 +33,13 @@
     /// Creates an image view displaying an image.
     public init() {
       #if canImport(AppKit)
-        specificNative = NSProgressIndicator()
+        specificCocoaView = NSProgressIndicator()
       #elseif canImport(UIKit)
-        specificNative = UIProgressView()
+        specificCocoaView = UIProgressView()
       #endif
 
       #if canImport(AppKit)
-        specificNative.usesThreadedAnimation = true
+        specificCocoaView.usesThreadedAnimation = true
       #endif
 
       progressValue = nil
@@ -58,7 +58,7 @@
         } else {
           progress = 0
         }
-        specificNative.setProgress(progress, animated: true)
+        specificCocoaView.setProgress(progress, animated: true)
       }
     #endif
 
@@ -66,14 +66,14 @@
     public var startValue: Double {
       get {
         #if canImport(AppKit)
-          return specificNative.minValue
+          return specificCocoaView.minValue
         #elseif canImport(UIKit)
           return minValue
         #endif
       }
       set {
         #if canImport(AppKit)
-          specificNative.minValue = newValue
+          specificCocoaView.minValue = newValue
         #elseif canImport(UIKit)
           minValue = newValue
           refreshNativeBar()
@@ -85,14 +85,14 @@
     public var endValue: Double {
       get {
         #if canImport(AppKit)
-          return specificNative.maxValue
+          return specificCocoaView.maxValue
         #elseif canImport(UIKit)
           return maxValue
         #endif
       }
       set {
         #if canImport(AppKit)
-          specificNative.maxValue = newValue
+          specificCocoaView.maxValue = newValue
         #elseif canImport(UIKit)
           maxValue = newValue
           refreshNativeBar()
@@ -106,7 +106,7 @@
     public var progressValue: Double? {
       get {
         #if canImport(AppKit)
-          return specificNative.isIndeterminate ? nil : specificNative.doubleValue
+          return specificCocoaView.isIndeterminate ? nil : specificCocoaView.doubleValue
         #elseif canImport(UIKit)
           return doubleValue
         #endif
@@ -114,13 +114,13 @@
       set {
         #if canImport(AppKit)
           if let value = newValue {
-            specificNative.isIndeterminate = false
-            specificNative.stopAnimation(nil)
-            specificNative.doubleValue = value
+            specificCocoaView.isIndeterminate = false
+            specificCocoaView.stopAnimation(nil)
+            specificCocoaView.doubleValue = value
           } else {
-            specificNative.doubleValue = 0
-            specificNative.isIndeterminate = true
-            specificNative.startAnimation(nil)
+            specificCocoaView.doubleValue = 0
+            specificCocoaView.isIndeterminate = true
+            specificCocoaView.startAnimation(nil)
           }
         #elseif canImport(UIKit)
           doubleValue = newValue
@@ -132,9 +132,9 @@
     // MARK: - SpecificView
 
     #if canImport(AppKit)
-      public let specificNative: NSProgressIndicator
+      public let specificCocoaView: NSProgressIndicator
     #elseif canImport(UIKit)
-      public let specificNative: UIProgressView
+      public let specificCocoaView: UIProgressView
     #endif
   }
 #endif

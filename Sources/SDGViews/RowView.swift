@@ -32,9 +32,9 @@
     ///     - spacing: The spacing strategy.
     public init(views: [View], spacing: Spacing = .automatic) {
       #if canImport(AppKit)
-        specificNative = NSStackView()
+        specificCocoaView = NSStackView()
       #elseif canImport(UIKit)
-        specificNative = UIStackView()
+        specificCocoaView = UIStackView()
       #endif
 
       self.views = views
@@ -46,13 +46,13 @@
       case .automatic:
         break
       case .specific(let measurement):
-        specificNative.spacing = CGFloat(measurement)
+        specificCocoaView.spacing = CGFloat(measurement)
       }
 
       #if canImport(AppKit)
-        specificNative.setHuggingPriority(.required, for: .vertical)
+        specificCocoaView.setHuggingPriority(.required, for: .vertical)
       #endif
-      specificNative.alignment = .lastBaseline
+      specificCocoaView.alignment = .lastBaseline
     }
 
     // MARK: - Properties
@@ -65,26 +65,26 @@
     }
     private func viewsDidSet() {
       #if canImport(AppKit)
-        while let view = specificNative.views.first {
-          specificNative.removeView(view)
+        while let view = specificCocoaView.views.first {
+          specificCocoaView.removeView(view)
         }
         for view in views {
-          specificNative.addView(view.cocoaView, in: .trailing)
+          specificCocoaView.addView(view.cocoaView, in: .trailing)
         }
       #elseif canImport(UIKit)
-        while let view = specificNative.arrangedSubviews.first {
-          specificNative.removeArrangedSubview(view)
+        while let view = specificCocoaView.arrangedSubviews.first {
+          specificCocoaView.removeArrangedSubview(view)
         }
         for view in views {
-          specificNative.addArrangedSubview(view.cocoaView)
+          specificCocoaView.addArrangedSubview(view.cocoaView)
         }
       #endif
     }
 
     #if canImport(AppKit)
-      public let specificNative: NSStackView
+      public let specificCocoaView: NSStackView
     #elseif canImport(UIKit)
-      public let specificNative: UIStackView
+      public let specificCocoaView: UIStackView
     #endif
   }
 #endif

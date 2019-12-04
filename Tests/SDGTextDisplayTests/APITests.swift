@@ -556,7 +556,7 @@ final class APITests: ApplicationTestCase {
 
         let textField = TextField()
         #if canImport(UIKit)
-          textField.specificNative.insertText("...")
+          textField.specificCocoaView.insertText("...")
         #endif
       }
       Application.shared.demonstrateLabelledTextField()
@@ -569,18 +569,18 @@ final class APITests: ApplicationTestCase {
       )
       let textField = TextField()
       #if canImport(AppKit)
-        _ = textField.specificNative.cell?.fieldEditor(for: textField.specificNative)
+        _ = textField.specificCocoaView.cell?.fieldEditor(for: textField.specificCocoaView)
       #endif
       let shared = Shared<StrictString>("Before")
       textField.value = shared
       shared.value = "After"
       #if canImport(AppKit)
-        XCTAssertEqual(textField.specificNative.stringValue, String(shared.value))
-        textField.specificNative.stringValue = "Modifed again."
+        XCTAssertEqual(textField.specificCocoaView.stringValue, String(shared.value))
+        textField.specificCocoaView.stringValue = "Modifed again."
         NSApplication.shared.sendAction(
-          textField.specificNative.action!,
-          to: textField.specificNative.target,
-          from: textField.specificNative
+          textField.specificCocoaView.action!,
+          to: textField.specificCocoaView.target,
+          from: textField.specificCocoaView
         )
         XCTAssertEqual(shared.value, "Modifed again.")
       #endif
