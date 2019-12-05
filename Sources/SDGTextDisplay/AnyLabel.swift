@@ -23,7 +23,7 @@
   import SDGViews
 
   /// A label with no particular localization.
-  public protocol AnyLabel: View {
+  public protocol AnyLabel: AnyObject, View {
     #if canImport(AppKit)
       // #documentation(SpecificView.specificCocoaView)
       /// The specific subclass of `NSView` or `UIView`.

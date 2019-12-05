@@ -23,7 +23,7 @@
   #endif
 
   /// A view.
-  public protocol View: AnyObject {
+  public protocol View {
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       /// The SwiftUI view.
