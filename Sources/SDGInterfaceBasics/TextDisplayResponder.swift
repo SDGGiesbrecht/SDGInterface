@@ -15,7 +15,7 @@
 import Foundation
 
 /// An object which responds to actions related to displayed text.
-@objc public protocol TextDisplayResponder: AnyObject {
+@objc public protocol TextDisplayResponder {
 
   /// Shows information about the selected characters.
   ///
