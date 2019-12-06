@@ -51,19 +51,14 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
-  func testSwiftUIView() {
-    #if (canImport(AppKit) || canImport(UIKit)) && (canImport(SwiftUI) && !(os(iOS) && arch(arm)))
+  func testSwiftUIImplementation() {
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, iOS 13, tvOS 13, *) {  // @exempt(from: unicode)
-        struct SwiftUIViewType: SwiftUI.View {
-          var body: some SwiftUI.View {
-            return Text(verbatim: "...")
-          }
-        }
-        _ = SwiftUIView(SwiftUIViewType())
-
-        let view = Text(verbatim: "...")
-        let wrapped = SwiftUIView(view)
-        _ = wrapped.swiftUIView
+        let view = SwiftUIExample()
+        _ = view.swiftUIView
+        #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+          _ = view.cocoaView
+        #endif
       }
     #endif
   }
@@ -108,10 +103,10 @@ final class APITests: ApplicationTestCase {
 
       #if !(os(iOS) && arch(arm))
         if #available(macOS 10.15, iOS 13, tvOS 13, *) {
-          let swiftUI = newView().swiftUIView
+          let swiftUI = newView()
           let window = Window<InterfaceLocalization>.primaryWindow(
             name: .binding(Shared("")),
-            view: SwiftUIView(swiftUI)
+            view: swiftUI
           )
           window.display()
           window.close()
