@@ -12,13 +12,13 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(SwiftUI)
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   import SwiftUI
 
-  @available(macOS 10.15, *)
+  @available(macOS 10.15, iOS 13, *)
   public protocol SwiftUIImplementation: View, SwiftUI.View {}
 
-  @available(macOS 10.15, *)
+  @available(macOS 10.15, iOS 13, *)
   extension SwiftUIImplementation {
 
     public var swiftUIView: AnyView {
@@ -32,7 +32,7 @@
     #elseif canImport(UIKit) && !os(watchOS)
       public var cocoaView: UIView {
         let controller = UIHostingController(rootView: self)
-        specificCocoaView = controller.view
+        return controller.view
       }
     #endif
   }
