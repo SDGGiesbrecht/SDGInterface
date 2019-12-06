@@ -17,7 +17,7 @@
 
   import SDGViews
 
-  @available(macOS 10.15, iOS 13, *)
+  @available(macOS 10.15, iOS 13, tvOS 13, *)
   struct SwiftUIExample: SwiftUIImplementation {
 
     // MARK: - View
