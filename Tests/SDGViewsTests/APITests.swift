@@ -103,7 +103,7 @@ final class APITests: ApplicationTestCase {
 
       #if !(os(iOS) && arch(arm))
         if #available(macOS 10.15, iOS 13, tvOS 13, *) {
-          let swiftUI = newView()
+          let swiftUI = newView().swiftUIView
           let window = Window<InterfaceLocalization>.primaryWindow(
             name: .binding(Shared("")),
             view: swiftUI
