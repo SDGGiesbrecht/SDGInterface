@@ -22,11 +22,13 @@
   extension SwiftUIImplementation {
 
     public var swiftUIView: AnyView {
+      // @exempt(from: tests) #workaround(workspace version 0.27.0, macOS 10.15 is unavailable in CI.)
       return AnyView(self)
     }
 
     #if canImport(AppKit)
       public var cocoaView: NSView {
+        // @exempt(from: tests) #workaround(workspace version 0.27.0, macOS 10.15 is unavailable in CI.)
         return NSHostingView(rootView: self)
       }
     #elseif canImport(UIKit) && !os(watchOS)
