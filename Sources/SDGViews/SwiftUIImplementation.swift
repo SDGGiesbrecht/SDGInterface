@@ -15,6 +15,9 @@
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   import SwiftUI
 
+  /// A view that is implemented using SwiftUI.
+  ///
+  /// If a type already conforms to `SwiftUI.View`, conformance to this protocol can be declared in order to use default implementations for all the other requirements of `SDGSwift.View`.
   @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
   public protocol SwiftUIImplementation: View, SwiftUI.View {}
 
