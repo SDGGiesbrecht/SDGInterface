@@ -15,10 +15,10 @@
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   import SwiftUI
 
-  @available(macOS 10.15, iOS 13, tvOS 13, *)
+  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
   public protocol SwiftUIImplementation: View, SwiftUI.View {}
 
-  @available(macOS 10.15, iOS 13, tvOS 13, *)
+  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
   extension SwiftUIImplementation {
 
     public var swiftUIView: AnyView {
