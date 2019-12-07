@@ -107,7 +107,7 @@
         LocalizationSetting.current.register(observer: bindingObserver)
       }
 
-      self.view = view
+      self.stableCocoaView = Window.stabilize(view: view)
       defer {
         viewDidSet()
       }
@@ -171,9 +171,18 @@
       name.shared?.register(observer: bindingObserver)
     }
 
+    private var stableCocoaView: AnyCocoaView
+    /// Converts the view to ensure a stable identity.
+    private static func stabilize(view: View) -> AnyCocoaView {
+      return AnyCocoaView(view.cocoaView)
+    }
     /// The root view.
     public var view: View {
-      didSet {
+      get {
+        return stableCocoaView
+      }
+      set {
+        stableCocoaView = Window.stabilize(view: newValue)
         viewDidSet()
       }
     }
@@ -184,8 +193,8 @@
         if native.rootViewController == nil {
           native.rootViewController = UIViewController()
         }
-        native.rootViewController?.view.map {
-          AnyCocoaView($0).fill(with: view, margin: .specific(0))
+        native.rootViewController?.view.map { rootView in
+          AnyCocoaView(rootView).fill(with: view, margin: .specific(0))
         }
       #endif
     }
