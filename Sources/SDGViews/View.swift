@@ -24,7 +24,7 @@
 
   /// A view.
   ///
-  /// When conforming to `View`, it is easiest for a type to either:
+  /// When conforming to `View`, it is simplest (though not necessary) for a type to either:
   ///
   /// - implement `swiftUIView` and conform to `SwiftUIViewImplementation`, or
   /// - implement `cocoaView` and conform to `CocoaViewImplementation`.
