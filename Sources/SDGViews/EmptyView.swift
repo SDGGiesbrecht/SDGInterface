@@ -20,7 +20,7 @@
   #endif
 
   /// An empty view.
-  public final class EmptyView: View {
+  public final class EmptyView: CocoaImplementation, View {
 
     // MARK: - Initialization
 

@@ -22,7 +22,7 @@
   import SDGViews
 
   /// A button with no particular localization.
-  public protocol AnyButton: AnyObject, View {
+  public protocol AnyButton: AnyObject, CocoaImplementation {
     #if canImport(AppKit)
       // #documentation(SpecificView.specificCocoaView)
       /// The specific subclass of `NSView` or `UIView`.

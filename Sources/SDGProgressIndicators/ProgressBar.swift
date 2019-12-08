@@ -26,7 +26,7 @@
   import SDGViews
 
   /// An image view.
-  public final class ProgressBar: SpecificView {
+  public final class ProgressBar: CocoaImplementation, SpecificView {
 
     // MARK: - Initialization
 

@@ -25,7 +25,7 @@
   import SDGInterfaceLocalizations
 
   /// A letterboxing view.
-  public final class Letterbox<Content>: View where Content: View {
+  public final class Letterbox<Content>: CocoaImplementation, View where Content: View {
 
     // MARK: - Initialization
 

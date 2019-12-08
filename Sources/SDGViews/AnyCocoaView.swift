@@ -22,7 +22,7 @@
   import SDGLogic
 
   /// A wrapper for any `NSView` or `UIView`.
-  public final class AnyCocoaView: View {
+  public final class AnyCocoaView: CocoaImplementation, View {
 
     // MARK: - Initialization
 
