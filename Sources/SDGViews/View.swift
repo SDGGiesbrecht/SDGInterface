@@ -23,6 +23,13 @@
   #endif
 
   /// A view.
+  ///
+  /// When conforming to `View`, it is easiest for a type to either:
+  ///
+  /// - implement `swiftUIView` and conform to `SwiftUIViewImplementation`, or
+  /// - implement `cocoaView` and conform to `CocoaViewImplementation`.
+  ///
+  /// In each case, default implementations will cover the rest of the conformance to `View`.
   public protocol View {
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
