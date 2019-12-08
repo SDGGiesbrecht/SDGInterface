@@ -1,5 +1,5 @@
 /*
- CocoaViewImplementation.swift
+ CocoaImplementation.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -28,7 +28,7 @@
 
     @available(macOS 10.15, iOS 13, tvOS 13, *)
     public var swiftUIView: AnyView {
-      return AnyView(SDGView(self))
+      return AnyView(CocoaViewRepresentableWrapper(self))
     }
   }
 

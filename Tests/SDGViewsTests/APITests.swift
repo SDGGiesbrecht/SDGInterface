@@ -33,7 +33,7 @@ import SDGApplicationTestUtilities
 final class APITests: ApplicationTestCase {
 
   func testCocoaViewImplementation() {
-    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+    #if canImport(AppKit) || canImport(UIKit)
       let view = CocoaExample()
       _ = view.cocoaView
       if #available(macOS 10.15, iOS 13, tvOS 13, *) {
