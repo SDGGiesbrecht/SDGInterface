@@ -36,9 +36,11 @@ final class APITests: ApplicationTestCase {
     #if canImport(AppKit) || canImport(UIKit)
       let view = CocoaExample()
       _ = view.cocoaView
-      if #available(macOS 10.15, iOS 13, tvOS 13, *) {
-        _ = view.swiftUIView
-      }
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        if #available(macOS 10.15, iOS 13, tvOS 13, *) {
+          _ = view.swiftUIView
+        }
+      #endif
     #endif
   }
 

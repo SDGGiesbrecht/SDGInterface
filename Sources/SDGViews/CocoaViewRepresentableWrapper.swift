@@ -59,14 +59,14 @@
         // MARK: - UIViewRepresentable
 
         func makeUIView(
-          context: UIViewRepresentableContext<SDGView>
+          context: UIViewRepresentableContext<CocoaViewRepresentableWrapper>
         ) -> UIView {  // @exempt(from: tests) Not reachable from tests.
           return sdgView.cocoaView
         }
 
         func updateUIView(
           _ uiView: UIView,
-          context: UIViewRepresentableContext<SDGView>
+          context: UIViewRepresentableContext<CocoaViewRepresentableWrapper>
         ) {  // @exempt(from: tests) Not reachable from tests.
         }
       #endif
