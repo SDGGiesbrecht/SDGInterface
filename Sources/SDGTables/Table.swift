@@ -32,7 +32,7 @@
 
   /// Table.
   @available(iOS 9, *)  // @exempt(from: unicode)
-  public final class Table<RowData>: CocoaImplementation, SpecificView {
+  public final class Table<RowData>: CocoaViewImplementation, SpecificView {
 
     // MARK: - Initialization
 

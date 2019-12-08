@@ -1,5 +1,5 @@
 /*
- CocoaImplementation.swift
+ CocoaViewImplementation.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -22,9 +22,9 @@
   /// A view that is implemented using Cocoa.
   ///
   /// If a type provides an implementation of `cocoaView`, conformance to this protocol can be declared in order to use default implementations for all the other requirements of `SDGSwift.View`.
-  public protocol CocoaImplementation: View {}
+  public protocol CocoaViewImplementation: View {}
 
-  extension CocoaImplementation {
+  extension CocoaViewImplementation {
 
     @available(macOS 10.15, iOS 13, tvOS 13, *)
     public var swiftUIView: AnyView {
@@ -33,13 +33,13 @@
   }
 
   #if canImport(AppKit)
-    extension CocoaImplementation where Self: NSView {
+    extension CocoaViewImplementation where Self: NSView {
       public var cocoaView: NSView {
         return self
       }
     }
   #else
-    extension CocoaImplementation where Self: UIView {
+    extension CocoaViewImplementation where Self: UIView {
       public var cocoaView: UIView {
         return self
       }

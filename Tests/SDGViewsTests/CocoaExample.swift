@@ -26,5 +26,5 @@
   #else
     class CocoaExample: UIView {}
   #endif
-  extension CocoaExample: CocoaImplementation {}
+  extension CocoaExample: CocoaViewImplementation {}
 #endif

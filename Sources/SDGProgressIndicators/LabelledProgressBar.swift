@@ -28,7 +28,7 @@
   import SDGTextDisplay
 
   /// A progress bar with a label.
-  public final class LabelledProgressBar<L>: CocoaImplementation, View where L: Localization {
+  public final class LabelledProgressBar<L>: CocoaViewImplementation, View where L: Localization {
 
     // MARK: - Initialization
 

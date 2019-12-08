@@ -27,7 +27,7 @@
   import SDGViews
 
   /// A text field with a label.
-  public final class LabelledTextField<L>: CocoaImplementation, View where L: Localization {
+  public final class LabelledTextField<L>: CocoaViewImplementation, View where L: Localization {
 
     // MARK: - Initialization
 

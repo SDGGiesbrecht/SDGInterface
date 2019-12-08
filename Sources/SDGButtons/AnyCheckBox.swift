@@ -18,7 +18,7 @@
   import SDGViews
 
   /// A check box with no particular localization.
-  public protocol AnyCheckBox: AnyObject, CocoaImplementation {
+  public protocol AnyCheckBox: AnyObject, CocoaViewImplementation {
     // #documentation(SpecificView.specificCocoaView)
     /// The specific subclass of `NSView` or `UIView`.
     var specificCocoaView: NSButton { get }

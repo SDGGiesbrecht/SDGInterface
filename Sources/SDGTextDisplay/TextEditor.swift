@@ -25,7 +25,7 @@
   import SDGViews
 
   /// An editor for multiline text.
-  public final class TextEditor: CocoaImplementation, SpecificView {
+  public final class TextEditor: CocoaViewImplementation, SpecificView {
 
     // MARK: - Initialization
 
