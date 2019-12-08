@@ -156,7 +156,7 @@ extension ProcessInfo {
       assertExists(
         (
           unlocalizedDictionary?[systemLocalizationsKey] as? Bool,
-          "Info.plist" + systemLocalizationsKey
+          "Info.plist." + systemLocalizationsKey
         )
       )
 
@@ -164,7 +164,7 @@ extension ProcessInfo {
       assertExists(
         (
           unlocalizedDictionary?[hasLocalizedNameKey] as? Bool,
-          "Info.plist" + hasLocalizedNameKey
+          "Info.plist." + hasLocalizedNameKey
         )
       )
 
