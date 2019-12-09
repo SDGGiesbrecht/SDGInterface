@@ -23,6 +23,13 @@
   #endif
 
   /// A view.
+  ///
+  /// When conforming to `View`, it is simplest (though not necessary) for a type to either:
+  ///
+  /// - implement `swiftUIView` and conform to `SwiftUIViewImplementation`, or
+  /// - implement `cocoaView` and conform to `CocoaViewImplementation`.
+  ///
+  /// In each case, default implementations will cover the rest of the conformance to `View`.
   public protocol View {
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
@@ -43,14 +50,6 @@
   }
 
   extension View {
-
-    #if canImport(SwiftUI) && !os(watchOS) && !(os(iOS) && arch(arm))
-      @available(macOS 10.15, iOS 13, tvOS 13, *)
-      public var swiftUIView: AnyView {
-        // @exempt(from: tests) #workaround(workspace version 0.27.0, macOS 10.15 is unavailable in CI.)
-        return AnyView(SDGView(self))
-      }
-    #endif
 
     // MARK: - Aspect Ratio
 

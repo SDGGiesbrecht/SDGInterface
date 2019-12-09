@@ -1,5 +1,5 @@
 /*
- SwiftUIExample.swift
+ CocoaExample.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,18 +12,19 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-  import SwiftUI
+#if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+  #if canImport(AppKit)
+    import AppKit
+  #else
+    import UIKit
+  #endif
 
   import SDGViews
 
-  @available(macOS 10.15, iOS 13, tvOS 13, *)
-  struct SwiftUIExample: SwiftUI.View, SwiftUIViewImplementation {
-
-    // MARK: - View
-
-    var body: some SwiftUI.View {
-      return Text(verbatim: "...")
-    }
-  }
+  #if canImport(AppKit)
+    class CocoaExample: NSView {}
+  #else
+    class CocoaExample: UIView {}
+  #endif
+  extension CocoaExample: CocoaViewImplementation {}
 #endif

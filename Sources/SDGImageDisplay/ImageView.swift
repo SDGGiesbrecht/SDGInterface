@@ -24,7 +24,7 @@
   import SDGViews
 
   /// An image view.
-  public final class ImageView: SpecificView {
+  public final class ImageView: CocoaViewImplementation, SpecificView {
 
     // MARK: - Initialization
 

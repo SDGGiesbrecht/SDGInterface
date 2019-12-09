@@ -32,6 +32,18 @@ import SDGApplicationTestUtilities
 
 final class APITests: ApplicationTestCase {
 
+  func testCocoaViewImplementation() {
+    #if canImport(AppKit) || canImport(UIKit)
+      let view = CocoaExample()
+      _ = view.cocoaView
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        if #available(macOS 10.15, iOS 13, tvOS 13, *) {
+          _ = view.swiftUIView
+        }
+      #endif
+    #endif
+  }
+
   func testLetterbox() {
     #if canImport(AppKit) || canImport(UIKit)
       Application.shared.demonstrateLetterbox()
@@ -51,7 +63,7 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
-  func testSwiftUIImplementation() {
+  func testSwiftUIViewImplementation() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, iOS 13, tvOS 13, *) {  // @exempt(from: unicode)
         let view = SwiftUIExample()

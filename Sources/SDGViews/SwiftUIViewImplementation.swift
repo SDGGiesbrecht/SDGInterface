@@ -1,5 +1,5 @@
 /*
- SwiftUIImplementation.swift
+ SwiftUIViewImplementation.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -19,26 +19,29 @@
   ///
   /// If a type already conforms to `SwiftUI.View`, conformance to this protocol can be declared in order to use default implementations for all the other requirements of `SDGSwift.View`.
   @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
-  public protocol SwiftUIImplementation: View, SwiftUI.View {}
+  public protocol SwiftUIViewImplementation: View {}
 
   @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
-  extension SwiftUIImplementation {
-
-    public var swiftUIView: AnyView {
-      // @exempt(from: tests) #workaround(workspace version 0.27.0, macOS 10.15 is unavailable in CI.)
-      return AnyView(self)
-    }
+  extension SwiftUIViewImplementation {
 
     #if canImport(AppKit)
       public var cocoaView: NSView {
         // @exempt(from: tests) #workaround(workspace version 0.27.0, macOS 10.15 is unavailable in CI.)
-        return NSHostingView(rootView: self)
+        return NSHostingView(rootView: swiftUIView)
       }
     #elseif canImport(UIKit) && !os(watchOS)
       public var cocoaView: UIView {
-        let controller = UIHostingController(rootView: self)
+        let controller = UIHostingController(rootView: swiftUIView)
         return controller.view
       }
     #endif
+  }
+
+  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  extension SwiftUIViewImplementation where Self: SwiftUI.View {
+    public var swiftUIView: AnyView {
+      // @exempt(from: tests) #workaround(workspace version 0.27.0, macOS 10.15 is unavailable in CI.)
+      return AnyView(self)
+    }
   }
 #endif

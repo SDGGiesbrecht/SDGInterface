@@ -21,7 +21,7 @@
 
   /// A row of views.
   @available(iOS 9, *)  // @exempt(from: unicode)
-  public final class RowView: SpecificView {
+  public final class RowView: CocoaViewImplementation, SpecificView {
 
     // MARK: - Initialization
 

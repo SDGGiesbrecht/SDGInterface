@@ -20,7 +20,7 @@
   #endif
 
   /// A view providing a margin around another view.
-  public final class MarginView: View {
+  public final class MarginView: CocoaViewImplementation, View {
 
     // MARK: - Initialization
 

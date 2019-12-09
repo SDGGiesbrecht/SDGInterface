@@ -1,5 +1,5 @@
 /*
- SDGView.swift
+ CocoaViewRepresentableWrapper.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -18,15 +18,15 @@
 
     #if canImport(AppKit)
       @available(macOS 10.15, *)
-      extension SDGView: NSViewRepresentable {}
+      extension CocoaViewRepresentableWrapper: NSViewRepresentable {}
     #endif
     #if canImport(UIKit)
       @available(iOS 13, tvOS 13, *)
-      extension SDGView: UIViewRepresentable {}
+      extension CocoaViewRepresentableWrapper: UIViewRepresentable {}
     #endif
 
     @available(macOS 10.15, iOS 13, tvOS 13, *)
-    internal struct SDGView {
+    internal struct CocoaViewRepresentableWrapper {
 
       // MARK: - Initialization
 
@@ -42,26 +42,31 @@
       #if canImport(AppKit)
         // MARK: - NSViewRepresentable
 
-        func makeNSView(context: NSViewRepresentableContext<SDGView>) -> NSView {
+        func makeNSView(
+          context: NSViewRepresentableContext<CocoaViewRepresentableWrapper>
+        ) -> NSView {
           // @exempt(from: tests) #workaround(workspace version 0.27.0, macOS 10.15 is unavailable in CI.)
           return sdgView.cocoaView
         }
 
-        func updateNSView(_ nsView: NSView, context: NSViewRepresentableContext<SDGView>) {}
+        func updateNSView(
+          _ nsView: NSView,
+          context: NSViewRepresentableContext<CocoaViewRepresentableWrapper>
+        ) {}
       #endif
 
       #if canImport(UIKit)
         // MARK: - UIViewRepresentable
 
         func makeUIView(
-          context: UIViewRepresentableContext<SDGView>
+          context: UIViewRepresentableContext<CocoaViewRepresentableWrapper>
         ) -> UIView {  // @exempt(from: tests) Not reachable from tests.
           return sdgView.cocoaView
         }
 
         func updateUIView(
           _ uiView: UIView,
-          context: UIViewRepresentableContext<SDGView>
+          context: UIViewRepresentableContext<CocoaViewRepresentableWrapper>
         ) {  // @exempt(from: tests) Not reachable from tests.
         }
       #endif

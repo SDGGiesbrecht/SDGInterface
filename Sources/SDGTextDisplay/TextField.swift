@@ -28,7 +28,7 @@
   import SDGViews
 
   /// A text field.
-  public final class TextField: SpecificView {
+  public final class TextField: CocoaViewImplementation, SpecificView {
 
     // MARK: - Static Set‐Up
 
