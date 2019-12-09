@@ -30,11 +30,11 @@
   extension CocoaViewImplementation {
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-    @available(macOS 10.15, iOS 13, tvOS 13, *)
-    public var swiftUIView: AnyView {
-      // @exempt(from: tests) #workaround(workspace version 0.27.0, macOS 10.15 is unavailable in CI.)
-      return AnyView(CocoaViewRepresentableWrapper(self))
-    }
+      @available(macOS 10.15, iOS 13, tvOS 13, *)
+      public var swiftUIView: AnyView {
+        // @exempt(from: tests) #workaround(workspace version 0.27.0, macOS 10.15 is unavailable in CI.)
+        return AnyView(CocoaViewRepresentableWrapper(self))
+      }
     #endif
   }
 
