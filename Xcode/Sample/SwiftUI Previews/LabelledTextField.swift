@@ -12,24 +12,22 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-  import SwiftUI
+import SwiftUI
 
-  import SDGControlFlow
-  import SDGViews
-  import SDGTextDisplay
+import SDGControlFlow
+import SDGViews
+import SDGTextDisplay
 
-  import SDGInterfaceLocalizations
+import SDGInterfaceLocalizations
 
-  struct LabelledTextField_Previews: PreviewProvider {
-    static var previews: some SwiftUI.View {
-      let view = LabelledTextField<InterfaceLocalization>(labelText: .binding(Shared("Label")))
-      let margin = AnyCocoaView()
-      margin.fill(with: view)
-      return Group {
-        margin.swiftUIView
-          .previewLayout(.fixed(width: 256, height: 256))
-      }
+struct LabelledTextField_Previews: PreviewProvider {
+  static var previews: some SwiftUI.View {
+    let view = LabelledTextField<InterfaceLocalization>(labelText: .binding(Shared("Label")))
+    let margin = AnyCocoaView()
+    margin.fill(with: view)
+    return Group {
+      margin.swiftUIView
+        .previewLayout(.fixed(width: 256, height: 256))
     }
   }
-#endif
+}
