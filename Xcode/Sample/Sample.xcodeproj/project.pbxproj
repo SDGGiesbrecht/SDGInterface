@@ -35,6 +35,9 @@
 		3F7D730E23502C9B00A751CE /* tvOS_SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7D730D23502C9B00A751CE /* tvOS_SampleTests.swift */; };
 		3F7D731723502DDC00A751CE /* _SDGInterfaceSample in Frameworks */ = {isa = PBXBuildFile; productRef = 3F7D731623502DDC00A751CE /* _SDGInterfaceSample */; };
 		3F7D731923502DE200A751CE /* _SDGInterfaceSample in Frameworks */ = {isa = PBXBuildFile; productRef = 3F7D731823502DE200A751CE /* _SDGInterfaceSample */; };
+		3F9B50E0239F5B500027E8A6 /* Letterbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9B50DF239F5B500027E8A6 /* Letterbox.swift */; };
+		3F9B50E1239F5B500027E8A6 /* Letterbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9B50DF239F5B500027E8A6 /* Letterbox.swift */; };
+		3F9B50E2239F5B500027E8A6 /* Letterbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9B50DF239F5B500027E8A6 /* Letterbox.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +93,7 @@
 		3F7D730923502C9B00A751CE /* tvOS SampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "tvOS SampleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F7D730D23502C9B00A751CE /* tvOS_SampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tvOS_SampleTests.swift; sourceTree = "<group>"; };
 		3F7D730F23502C9B00A751CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3F9B50DF239F5B500027E8A6 /* Letterbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Letterbox.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				3F65E0EE2369232700434B9A /* LabelledTextField.swift */,
+				3F9B50DF239F5B500027E8A6 /* Letterbox.swift */,
 			);
 			path = "SwiftUI Previews";
 			sourceTree = "<group>";
@@ -472,6 +477,7 @@
 			files = (
 				3F65E0EF2369232700434B9A /* LabelledTextField.swift in Sources */,
 				3F7D722823501F4D00A751CE /* main.swift in Sources */,
+				3F9B50E0239F5B500027E8A6 /* Letterbox.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,6 +495,7 @@
 			files = (
 				3F65E0F02369303000434B9A /* LabelledTextField.swift in Sources */,
 				3F7D72D323502C8600A751CE /* main.swift in Sources */,
+				3F9B50E1239F5B500027E8A6 /* Letterbox.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -506,6 +513,7 @@
 			files = (
 				3F65E0F12369303100434B9A /* LabelledTextField.swift in Sources */,
 				3F7D72F923502C9900A751CE /* main.swift in Sources */,
+				3F9B50E2239F5B500027E8A6 /* Letterbox.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
