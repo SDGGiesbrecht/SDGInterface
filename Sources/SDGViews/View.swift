@@ -74,8 +74,32 @@
     }
 
     private func legacyAspectRatio(_ aspectRatio: Double? = nil, contentMode: SDGInterfaceBasics.ContentMode) -> View {
-      #warning("Not implemented yet.")
       fatalError()
+      #warning("Not implemented yet.")
+      /*
+      #warning("Copy?")
+      let cocoa = AnyCocoaView(self.cocoaView)
+      let container = AnyCocoaView()
+      container.fill(with: child)
+      if let aspectRatio = aspectRatio {
+        let constraint = NSLayoutConstraint(
+          item: container,
+          attribute: .width,
+          relatedBy: .equal,
+          toItem: container,
+          attribute: .height,
+          multiplier: CGFloat(aspectRatio),
+          constant: 0
+        )
+        container.cocoaView.addConstraint(constraint)
+      }
+      switch contentMode {
+      case .fill:
+        
+      case .fit:
+        #warning("What is fit?")
+      }
+      return container*/
     }
     #if !os(watchOS)
       #warning("Remove.")

@@ -107,7 +107,7 @@
         LocalizationSetting.current.register(observer: bindingObserver)
       }
 
-      self.stableCocoaView = Window.stabilize(view: view)
+      self.stabilizedView = StabilizedView(view)
       defer {
         viewDidSet()
       }
@@ -171,18 +171,14 @@
       name.shared?.register(observer: bindingObserver)
     }
 
-    private var stableCocoaView: AnyCocoaView
-    /// Converts the view to ensure a stable identity.
-    private static func stabilize(view: View) -> AnyCocoaView {
-      return AnyCocoaView(view.cocoaView)
-    }
+    private var stabilizedView: StabilizedView
     /// The root view.
     public var view: View {
       get {
-        return stableCocoaView
+        return stabilizedView.view
       }
       set {
-        stableCocoaView = Window.stabilize(view: newValue)
+        stabilizedView = StabilizedView(newValue)
         viewDidSet()
       }
     }
