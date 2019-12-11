@@ -1,5 +1,5 @@
 /*
- LabelledTextField.swift
+ Letterbox.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -14,20 +14,28 @@
 
 import SwiftUI
 
-import SDGControlFlow
+import SDGText
+import SDGLocalization
+
 import SDGViews
 import SDGTextDisplay
 
 import SDGInterfaceLocalizations
 
-struct LabelledTextField_Previews: PreviewProvider {
+struct Letterbox_Previews: PreviewProvider {
   static var previews: some SwiftUI.View {
-    let view = LabelledTextField<InterfaceLocalization>(labelText: .binding(Shared("Label")))
-    let margin = AnyCocoaView()
-    margin.fill(with: view)
+    func makeView() -> Letterbox<TextEditor> {
+      return Letterbox(content: TextEditor(), aspectRatio: 1)
+    }
     return Group {
-      margin.swiftUIView
-        .previewLayout(.fixed(width: 256, height: 256))
+
+      makeView().swiftUIView
+        .previewLayout(.fixed(width: 128, height: 64))
+        .previewDisplayName("Pillarbox")
+
+      makeView().swiftUIView
+        .previewLayout(.fixed(width: 64, height: 128))
+        .previewDisplayName("Letterbox")
     }
   }
 }
