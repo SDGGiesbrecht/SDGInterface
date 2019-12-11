@@ -22,6 +22,10 @@
     import UIKit
   #endif
 
+  import SDGLogic
+
+  import SDGInterfaceBasics
+
   /// A view.
   ///
   /// When conforming to `View`, it is simplest (though not necessary) for a type to either:
@@ -53,8 +57,28 @@
 
     // MARK: - Aspect Ratio
 
+    /// A shimmed version of `SwiftUI.View.aspectRatio(_:contentMode:)` with no availability constraints.
+    public func shimmedAspectRatio(
+      _ aspectRatio: Double? = nil,
+      contentMode: SDGInterfaceBasics.ContentMode) -> View {
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *),
+        ¬legacyMode {
+        return AnyView(swiftUIView.aspectRatio(aspectRatio.map({ CGFloat($0) }), contentMode: SwiftUI.ContentMode(contentMode)))
+      } else {
+        return legacyAspectRatio(aspectRatio, contentMode: contentMode)
+      }
+      #else
+      return legacyAspectRatio(aspectRatio, contentMode: contentMode)
+      #endif
+    }
+
+    private func legacyAspectRatio(_ aspectRatio: Double? = nil, contentMode: SDGInterfaceBasics.ContentMode) -> View {
+      #warning("Not implemented yet.")
+      fatalError()
+    }
     #if !os(watchOS)
-      // #workaround(Can this be done with SwiftUI?)
+      #warning("Remove.")
       /// Locks the aspect ratio of the view.
       ///
       /// - Parameters:
