@@ -58,7 +58,7 @@
     // MARK: - Aspect Ratio
 
     /// A shimmed version of `SwiftUI.View.aspectRatio(_:contentMode:)` with no availability constraints.
-    public func shimmedAspectRatio(
+    public func aspectRatio(
       _ aspectRatio: Double? = nil,
       contentMode: SDGInterfaceBasics.ContentMode) -> View {
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))

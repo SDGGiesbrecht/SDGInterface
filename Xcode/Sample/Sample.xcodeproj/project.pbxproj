@@ -1,19 +1,4 @@
 // !$*UTF8*$!
-
-/*
- project.pbxproj
-
- This source file is part of the SDGInterface open source project.
- https://sdggiesbrecht.github.io/SDGInterface
-
- Copyright ©2019 Jeremy David Giesbrecht and the SDGInterface project contributors.
-
- Soli Deo gloria.
-
- Licensed under the Apache Licence, Version 2.0.
- See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
- */
-
 {
 	archiveVersion = 1;
 	classes = {
@@ -38,6 +23,9 @@
 		3F9B50E0239F5B500027E8A6 /* Letterbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9B50DF239F5B500027E8A6 /* Letterbox.swift */; };
 		3F9B50E1239F5B500027E8A6 /* Letterbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9B50DF239F5B500027E8A6 /* Letterbox.swift */; };
 		3F9B50E2239F5B500027E8A6 /* Letterbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9B50DF239F5B500027E8A6 /* Letterbox.swift */; };
+		3FEC1D7E23A1AE3B008525FE /* AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEC1D7D23A1AE3B008525FE /* AspectRatio.swift */; };
+		3FEC1D7F23A1AE3B008525FE /* AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEC1D7D23A1AE3B008525FE /* AspectRatio.swift */; };
+		3FEC1D8023A1AE3B008525FE /* AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEC1D7D23A1AE3B008525FE /* AspectRatio.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +82,7 @@
 		3F7D730D23502C9B00A751CE /* tvOS_SampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tvOS_SampleTests.swift; sourceTree = "<group>"; };
 		3F7D730F23502C9B00A751CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F9B50DF239F5B500027E8A6 /* Letterbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Letterbox.swift; sourceTree = "<group>"; };
+		3FEC1D7D23A1AE3B008525FE /* AspectRatio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectRatio.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +139,7 @@
 			children = (
 				3F65E0EE2369232700434B9A /* LabelledTextField.swift */,
 				3F9B50DF239F5B500027E8A6 /* Letterbox.swift */,
+				3FEC1D7D23A1AE3B008525FE /* AspectRatio.swift */,
 			);
 			path = "SwiftUI Previews";
 			sourceTree = "<group>";
@@ -477,6 +467,7 @@
 			files = (
 				3F65E0EF2369232700434B9A /* LabelledTextField.swift in Sources */,
 				3F7D722823501F4D00A751CE /* main.swift in Sources */,
+				3FEC1D7E23A1AE3B008525FE /* AspectRatio.swift in Sources */,
 				3F9B50E0239F5B500027E8A6 /* Letterbox.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -495,6 +486,7 @@
 			files = (
 				3F65E0F02369303000434B9A /* LabelledTextField.swift in Sources */,
 				3F7D72D323502C8600A751CE /* main.swift in Sources */,
+				3FEC1D7F23A1AE3B008525FE /* AspectRatio.swift in Sources */,
 				3F9B50E1239F5B500027E8A6 /* Letterbox.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -513,6 +505,7 @@
 			files = (
 				3F65E0F12369303100434B9A /* LabelledTextField.swift in Sources */,
 				3F7D72F923502C9900A751CE /* main.swift in Sources */,
+				3FEC1D8023A1AE3B008525FE /* AspectRatio.swift in Sources */,
 				3F9B50E2239F5B500027E8A6 /* Letterbox.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
