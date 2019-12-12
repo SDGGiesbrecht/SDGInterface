@@ -12,7 +12,16 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(SwiftUI)
+  import SwiftUI
+#endif
+
+import SDGControlFlow
+
 @testable import SDGViews
+import SDGWindows
+
+import SDGInterfaceSample
 
 import SDGApplicationTestUtilities
 
@@ -20,7 +29,11 @@ final class PreviewTests: ApplicationTestCase {
 
   func testAspectRatioPreviews() {
     if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
-      _ = AspectRatioPreviews()
+      _ = AspectRatioPreviews().body
+      let window = Window<InterfaceLocalization>.primaryWindow(
+        name: .binding(Shared("")),
+        view: AnyView(AspectRatioPreviews())
+      )
     }
   }
 }
