@@ -60,7 +60,7 @@
         }
         resolvedRatio = intrinsicSize.height ÷ intrinsicSize.width
       }
-      container.cocoaView.addSubview(self.contents.cocoaView)
+      container.addSubviewIfNecessary(self.contents)
       apply(aspectRatio: resolvedRatio)
 
       switch contentMode {
