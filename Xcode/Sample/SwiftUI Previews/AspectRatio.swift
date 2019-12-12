@@ -16,20 +16,34 @@ import SwiftUI
 
 import SDGMathematics
 
-import SDGViews
+@testable import SDGViews
 
 struct AspectRatio_Previews: PreviewProvider {
   static var previews: some SwiftUI.View {
 
-    let redSquare = Ellipse()
-      .fill(Color.black)
+    /// Previews in one mode.
+    func preview<V>(_ view: () -> V, legacyMode: Bool) -> some SwiftUI.View where V: SwiftUI.View {
 
-    func preview<V>(_ view: V, name: String) -> some SwiftUI.View where V: SwiftUI.View {
+      return view()
+        .frame(width: 124, height: 64)
+        .padding(1)
+        .border(Color.gray, width: 1)
+    }
+
+    /// Previews in both modes side‐by‐side.
+    func preview<V>(_ view: @autoclosure () -> V, name: String) -> some SwiftUI.View
+    where V: SwiftUI.View {
+      let stack = HStack(spacing: 8) {
+        preview(view, legacyMode: false)
+        preview(view, legacyMode: true)
+      }
       return
-        view
-        .previewLayout(.fixed(width: 124, height: 64))
+        stack
         .previewDisplayName(name)
     }
+
+    let redSquare = Ellipse()
+      .fill(Color.black)
 
     return Group {
 
