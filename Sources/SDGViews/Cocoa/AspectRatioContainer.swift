@@ -125,9 +125,9 @@
         constant: 0
       )
       #if canImport(AppKit)
-        constraint.priority = NSLayoutConstraint.Priority(rawValue: 1)
+        constraint.priority = NSLayoutConstraint.Priority(rawValue: 250)
       #elseif canImport(UIKit)
-        constraint.priority = UILayoutPriority(rawValue: 1)
+        constraint.priority = UILayoutPriority(rawValue: 250)
       #endif
       container.cocoaView.addConstraint(constraint)
     }
