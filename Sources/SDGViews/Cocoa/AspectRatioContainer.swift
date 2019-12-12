@@ -46,7 +46,6 @@
     ///
     /// If no aspect ratio is specified and the view has no intrinsic aspect ratio, the initializer will fail and return `nil`.
     private init?(contents: View, aspectRatio: Double?, contentMode: ContentMode) {
-      #warning("Copy?")
       self.contents = StabilizedView(contents)
       self.container = AnyCocoaView()
 
