@@ -23,7 +23,9 @@ struct AspectRatio_Previews: PreviewProvider {
 
     /// Previews in one mode.
     func preview<V>(_ view: () -> V, legacyMode: Bool) -> some SwiftUI.View where V: SwiftUI.View {
-
+      let previous = SDGViews.legacyMode
+      SDGViews.legacyMode = legacyMode
+      defer { SDGViews.legacyMode = previous }
       return view()
         .frame(width: 124, height: 64)
         .padding(1)
