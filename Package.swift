@@ -299,7 +299,8 @@ let package = Package(
       name: "SDGViews",
       dependencies: [
         "SDGInterfaceBasics",
-        .product(name: "SDGLogic", package: "SDGCornerstone")
+        .product(name: "SDGLogic", package: "SDGCornerstone"),
+        .product(name: "SDGMathematics", package: "SDGCornerstone")
       ]
     ),
 

@@ -73,40 +73,21 @@
             )
           )
         } else {
-          return legacyAspectRatio(aspectRatio, contentMode: contentMode)
+          return AspectRatioContainer.constraining(
+            self,
+            toAspectRatio: aspectRatio,
+            contentMode: contentMode
+          )
         }
       #else
-        return legacyAspectRatio(aspectRatio, contentMode: contentMode)
+        return AspectRatioContainer.constraining(
+          self,
+          toAspectRatio: aspectRatio,
+          contentMode: contentMode
+        )
       #endif
     }
 
-    private func legacyAspectRatio(
-      _ aspectRatio: Double? = nil,
-      contentMode: SDGInterfaceBasics.ContentMode
-    ) -> View {
-      #warning("Copy?")
-      let stabilized = StabilizedView(self)
-      let cocoa = stabilized.cocoaView
-      if let aspectRatio = aspectRatio {
-        let constraint = NSLayoutConstraint(
-          item: cocoa,
-          attribute: .width,
-          relatedBy: .equal,
-          toItem: cocoa,
-          attribute: .height,
-          multiplier: CGFloat(aspectRatio),
-          constant: 0
-        )
-        cocoa.addConstraint(constraint)
-      }
-      switch contentMode {
-      case .fill:
-        #warning("What is fill?")
-      case .fit:
-        #warning("What is fit?")
-      }
-      return stabilized
-    }
     #if !os(watchOS)
       #warning("Remove.")
       /// Locks the aspect ratio of the view.

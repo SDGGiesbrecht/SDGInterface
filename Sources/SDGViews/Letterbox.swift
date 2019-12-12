@@ -24,6 +24,7 @@
 
   import SDGInterfaceLocalizations
 
+  #warning("Is this obsolete?")
   /// A letterboxing view.
   public final class Letterbox<Content>: CocoaViewImplementation, View where Content: View {
 
