@@ -22,19 +22,18 @@ struct AspectRatio_Previews: PreviewProvider {
   static var previews: some SwiftUI.View {
 
     /// Previews in one mode.
-    func preview<V>(_ view: () -> V, legacyMode: Bool) -> some SwiftUI.View where V: SwiftUI.View {
+    func preview(_ view: () -> SDGViews.View, legacyMode: Bool) -> some SwiftUI.View {
       let previous = SDGViews.legacyMode
       SDGViews.legacyMode = legacyMode
       defer { SDGViews.legacyMode = previous }
-      return view()
+      return view().swiftUIView
         .frame(width: 124, height: 64)
         .padding(1)
         .border(Color.gray, width: 1)
     }
 
     /// Previews in both modes side‐by‐side.
-    func preview<V>(_ view: @autoclosure () -> V, name: String) -> some SwiftUI.View
-    where V: SwiftUI.View {
+    func preview(_ view: @autoclosure () -> SDGViews.View, name: String) -> some SwiftUI.View {
       let stack = HStack(spacing: 8) {
         preview(view, legacyMode: false)
         preview(view, legacyMode: true)
@@ -44,8 +43,10 @@ struct AspectRatio_Previews: PreviewProvider {
         .previewDisplayName(name)
     }
 
-    let redSquare = Ellipse()
-      .fill(Color.black)
+    let redSquare = AnyView(
+      Ellipse()
+        .fill(Color.black)
+    )
 
     return Group {
 

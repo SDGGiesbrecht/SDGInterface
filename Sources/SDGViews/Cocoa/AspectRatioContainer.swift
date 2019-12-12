@@ -33,6 +33,7 @@
       toAspectRatio aspectRatio: Double?,
       contentMode: ContentMode
     ) -> View {
+      return AnyCocoaView()
       return AspectRatioContainer(
         contents: view,
         aspectRatio: aspectRatio,
