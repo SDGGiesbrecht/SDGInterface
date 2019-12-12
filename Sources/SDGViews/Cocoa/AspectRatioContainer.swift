@@ -49,6 +49,7 @@
       #warning("Copy?")
       self.contents = StabilizedView(contents)
       self.container = AnyCocoaView()
+      container.cocoaView.addSubview(contents.cocoaView)
 
       let resolvedRatio: CGFloat
       if let specified = aspectRatio {
