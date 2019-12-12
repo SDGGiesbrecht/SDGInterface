@@ -20,7 +20,7 @@
   @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
   internal struct AspectRatioPreviews: SwiftUI.View {
 
-    var body: some SwiftUI.View {
+    internal var body: some SwiftUI.View {
 
       /// Previews in one mode.
       func preview(_ view: () -> SDGViews.View, legacyMode: Bool) -> some SwiftUI.View {
