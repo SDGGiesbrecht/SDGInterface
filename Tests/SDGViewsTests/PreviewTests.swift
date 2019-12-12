@@ -12,33 +12,31 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(SwiftUI)
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   import SwiftUI
-#endif
 
-import SDGControlFlow
+  import SDGControlFlow
 
-@testable import SDGViews
-import SDGWindows
+  @testable import SDGViews
+  import SDGWindows
 
-import SDGInterfaceSample
+  import SDGInterfaceSample
 
-import SDGApplicationTestUtilities
-
-final class PreviewTests: ApplicationTestCase {
+  import SDGApplicationTestUtilities
 
   @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
-  func simulateUse<V>(of view: V) where V: SwiftUI.View {
-    _ = view.body
-    let window = Window<InterfaceLocalization>.primaryWindow(
-      name: .binding(Shared("")),
-      view: AnyView(view)
-    )
-  }
+  final class PreviewTests: ApplicationTestCase {
 
-  func testAspectRatioPreviews() {
-    if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
+    func simulateUse<V>(of view: V) where V: SwiftUI.View {
+      _ = view.body
+      _ = Window<InterfaceLocalization>.primaryWindow(
+        name: .binding(Shared("")),
+        view: AnyView(view)
+      )
+    }
+
+    func testAspectRatioPreviews() {
       simulateUse(of: AspectRatioPreviews())
     }
   }
-}
+#endif
