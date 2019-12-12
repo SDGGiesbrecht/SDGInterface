@@ -60,20 +60,30 @@
     /// A shimmed version of `SwiftUI.View.aspectRatio(_:contentMode:)` with no availability constraints.
     public func aspectRatio(
       _ aspectRatio: Double? = nil,
-      contentMode: SDGInterfaceBasics.ContentMode) -> View {
+      contentMode: SDGInterfaceBasics.ContentMode
+    ) -> View {
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *),
-        ¬legacyMode {
-        return AnyView(swiftUIView.aspectRatio(aspectRatio.map({ CGFloat($0) }), contentMode: SwiftUI.ContentMode(contentMode)))
-      } else {
-        return legacyAspectRatio(aspectRatio, contentMode: contentMode)
-      }
+        if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *),
+          ¬legacyMode
+        {
+          return AnyView(
+            swiftUIView.aspectRatio(
+              aspectRatio.map({ CGFloat($0) }),
+              contentMode: SwiftUI.ContentMode(contentMode)
+            )
+          )
+        } else {
+          return legacyAspectRatio(aspectRatio, contentMode: contentMode)
+        }
       #else
-      return legacyAspectRatio(aspectRatio, contentMode: contentMode)
+        return legacyAspectRatio(aspectRatio, contentMode: contentMode)
       #endif
     }
 
-    private func legacyAspectRatio(_ aspectRatio: Double? = nil, contentMode: SDGInterfaceBasics.ContentMode) -> View {
+    private func legacyAspectRatio(
+      _ aspectRatio: Double? = nil,
+      contentMode: SDGInterfaceBasics.ContentMode
+    ) -> View {
       #warning("Copy?")
       let stabilized = StabilizedView(self)
       let cocoa = stabilized.cocoaView
