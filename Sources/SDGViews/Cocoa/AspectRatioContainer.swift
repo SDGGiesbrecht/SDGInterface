@@ -60,8 +60,12 @@
         }
         resolvedRatio = intrinsicSize.height ÷ intrinsicSize.width
       }
-      container.addSubviewIfNecessary(self.contents)
-      apply(aspectRatio: resolvedRatio)
+      applyConstraints(aspectRatio: resolvedRatio, contentMode: contentMode)
+    }
+
+    private func applyConstraints(aspectRatio: CGFloat, contentMode: ContentMode) {
+      container.centre(subview: contents)
+      apply(aspectRatio: aspectRatio)
 
       switch contentMode {
       case .fill:
