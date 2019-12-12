@@ -27,13 +27,18 @@ import SDGApplicationTestUtilities
 
 final class PreviewTests: ApplicationTestCase {
 
+  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  func simulateUse<V>(of view: V) where V: SwiftUI.View {
+    _ = view.body
+    let window = Window<InterfaceLocalization>.primaryWindow(
+      name: .binding(Shared("")),
+      view: AnyView(view)
+    )
+  }
+
   func testAspectRatioPreviews() {
     if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
-      _ = AspectRatioPreviews().body
-      let window = Window<InterfaceLocalization>.primaryWindow(
-        name: .binding(Shared("")),
-        view: AnyView(AspectRatioPreviews())
-      )
+      simulateUse(of: AspectRatioPreviews())
     }
   }
 }
