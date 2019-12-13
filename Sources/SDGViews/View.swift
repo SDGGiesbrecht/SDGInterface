@@ -62,6 +62,10 @@
     // MARK: - Aspect Ratio
 
     /// A shimmed version of `SwiftUI.View.aspectRatio(_:contentMode:)` with no availability constraints.
+    ///
+    /// - Parameters:
+    ///   - aspectRatio: The aspect ratio. Pass `nil` to use the aspect ratio of the view’s intrinsic size. Views with no intrinsic size will be unaffected by this method if no aspect ratio is specified.
+    ///   - contentMode: The content mode. `.fit` performs letterboxing or pillarboxing; `.fill` crops the view to achieve the aspect ratio.
     @available(watchOS 6, *)
     public func aspectRatio(
       _ aspectRatio: Double? = nil,

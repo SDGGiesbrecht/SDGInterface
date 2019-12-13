@@ -29,6 +29,10 @@
 
     // MARK: - Initialization
 
+    /// Creates a stabilized instance of a view.
+    ///
+    /// - Parameters:
+    ///   - view: The view to stabilize.
     public init(_ view: View) {
       self.view = view
       #if !os(watchOS)
