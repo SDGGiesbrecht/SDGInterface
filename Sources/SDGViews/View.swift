@@ -83,6 +83,7 @@
             contentMode: contentMode
           )
         }
+        // @exempt(from: tests) Returned already, but the uncompiled text below confuses Xcode.
       #else
         return AspectRatioContainer.constraining(
           self,
