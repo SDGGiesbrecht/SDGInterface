@@ -12,7 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+// #workaround(watchOS disabled only until Letterbox is converted to SwiftUI.)
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm)) && !os(watchOS)
   import SwiftUI
 
   @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)

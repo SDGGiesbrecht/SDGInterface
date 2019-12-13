@@ -62,12 +62,20 @@
     // MARK: - Aspect Ratio
 
     /// A shimmed version of `SwiftUI.View.aspectRatio(_:contentMode:)` with no availability constraints.
+    @available(watchOS 6, *)
     public func aspectRatio(
       _ aspectRatio: Double? = nil,
       contentMode: SDGInterfaceBasics.ContentMode
     ) -> View {
-      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-        if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *),
+      #if os(watchOS)
+        return AnyView(
+          swiftUIView.aspectRatio(
+            aspectRatio.map({ CGFloat($0) }),
+            contentMode: SwiftUI.ContentMode(contentMode)
+          )
+        )
+      #elseif canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        if #available(macOS 10.15, iOS 13, tvOS 13, *),
           ¬legacyMode
         {
           return AnyView(
