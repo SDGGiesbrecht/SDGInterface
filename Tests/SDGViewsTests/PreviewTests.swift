@@ -38,5 +38,9 @@
     func testAspectRatioPreviews() {
       simulateUse(of: AspectRatioPreviews())
     }
+
+    func testLetterboxPreviews() {
+      simulateUse(of: LetterboxPreviews())
+    }
   }
 #endif

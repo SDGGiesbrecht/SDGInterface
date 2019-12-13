@@ -45,10 +45,14 @@
     #if canImport(AppKit)
       // @documentation(View.cocoaView)
       /// The `NSView` or `UIView`.
+      ///
+      /// - Warning: A `View` may not always return the same instance when queried for a `cocoaView` representation. If you want to use the view in a way that requires refrence semantics, such as applying Cocoa constraints or bindings, wrap the view in a `StabilizedView` and use it’s stable `cocoaView` property.
       var cocoaView: NSView { get }
     #elseif canImport(UIKit) && !os(watchOS)
       // #documentation(View.cocoaView)
       /// The `NSView` or `UIView`.
+      ///
+      /// - Warning: A `View` may not always return the same instance when queried for a `cocoaView` representation. If you want to use the view in a way that requires refrence semantics, such as applying Cocoa constraints or bindings, wrap the view in a `StabilizedView` and use it’s stable `cocoaView` property.
       var cocoaView: UIView { get }
     #endif
   }
@@ -87,25 +91,5 @@
         )
       #endif
     }
-
-    #if !os(watchOS)
-      #warning("Remove.")
-      /// Locks the aspect ratio of the view.
-      ///
-      /// - Parameters:
-      ///     - aspectRatio: The aspect ratio. (*width* ∶ *height*)
-      public func lockAspectRatio(to aspectRatio: Double) {
-        let constraint = NSLayoutConstraint(
-          item: self.cocoaView,
-          attribute: .width,
-          relatedBy: .equal,
-          toItem: self.cocoaView,
-          attribute: .height,
-          multiplier: CGFloat(aspectRatio),
-          constant: 0
-        )
-        cocoaView.addConstraint(constraint)
-      }
-    #endif
   }
 #endif

@@ -1,5 +1,5 @@
 /*
- Letterbox.swift
+ File.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,12 +12,9 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-import SwiftUI
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  import SwiftUI
 
-@testable import SDGViews
-
-struct Letterbox_Previews: PreviewProvider {
-  static var previews: some SwiftUI.View {
-    return LetterboxPreviews()
-  }
-}
+  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  extension Ellipse: SwiftUIViewImplementation {}
+#endif

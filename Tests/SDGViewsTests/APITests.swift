@@ -104,7 +104,7 @@ final class APITests: ApplicationTestCase {
       newView().alignCentres(ofSubviews: [EmptyView(), EmptyView()], on: .horizontal)
       newView().alignCentres(ofSubviews: [EmptyView(), EmptyView()], on: .vertical)
       newView().alignLastBaselines(ofSubviews: [EmptyView(), EmptyView()])
-      newView().lockAspectRatio(to: 1)
+      _ = newView().aspectRatio(1, contentMode: .fit)
       newView().position(
         subviews: [EmptyView(), EmptyView()],
         inSequenceAlong: .horizontal,

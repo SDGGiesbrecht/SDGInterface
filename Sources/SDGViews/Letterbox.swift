@@ -24,7 +24,6 @@
 
   import SDGInterfaceLocalizations
 
-  #warning("Is this obsolete?")
   /// A letterboxing view.
   public final class Letterbox<Content>: CocoaViewImplementation, View where Content: View {
 
@@ -39,58 +38,8 @@
       self.container = LetterboxContainer()
       self.content = content
 
-      content.lockAspectRatio(to: widthToHeight)
-      AnyCocoaView(container).centre(subview: content)
-
-      let maxWidth = NSLayoutConstraint(
-        item: content.cocoaView,
-        attribute: .width,
-        relatedBy: .lessThanOrEqual,
-        toItem: container,
-        attribute: .width,
-        multiplier: 1,
-        constant: 0
-      )
-      let maxHeight = NSLayoutConstraint(
-        item: content.cocoaView,
-        attribute: .height,
-        relatedBy: .lessThanOrEqual,
-        toItem: container,
-        attribute: .height,
-        multiplier: 1,
-        constant: 0
-      )
-
-      let desiredWidth = NSLayoutConstraint(
-        item: content.cocoaView,
-        attribute: .width,
-        relatedBy: .equal,
-        toItem: container,
-        attribute: .width,
-        multiplier: 1,
-        constant: 0
-      )
-      #if canImport(AppKit)
-        desiredWidth.priority = NSLayoutConstraint.Priority(rawValue: 1)
-      #elseif canImport(UIKit)
-        desiredWidth.priority = UILayoutPriority(rawValue: 1)
-      #endif
-      let desiredHeight = NSLayoutConstraint(
-        item: content.cocoaView,
-        attribute: .height,
-        relatedBy: .equal,
-        toItem: container,
-        attribute: .height,
-        multiplier: 1,
-        constant: 0
-      )
-      #if canImport(AppKit)
-        desiredHeight.priority = NSLayoutConstraint.Priority(rawValue: 1)
-      #elseif canImport(UIKit)
-        desiredHeight.priority = UILayoutPriority(rawValue: 1)
-      #endif
-
-      container.addConstraints([maxWidth, maxHeight, desiredWidth, desiredHeight])
+      let intermediate = content.aspectRatio(widthToHeight, contentMode: .fit)
+      AnyCocoaView(container).fill(with: StabilizedView(intermediate), margin: .specific(0))
     }
 
     // MARK: - Properties
