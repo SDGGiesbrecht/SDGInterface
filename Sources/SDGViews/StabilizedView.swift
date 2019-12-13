@@ -32,7 +32,7 @@
     public init(_ view: View) {
       self.view = view
       #if !os(watchOS)
-      self.stabilizedCocoaView = AnyCocoaView(view.cocoaView)
+        self.stabilizedCocoaView = AnyCocoaView(view.cocoaView)
       #endif
     }
 
@@ -43,7 +43,7 @@
     public let view: View
 
     #if !os(watchOS)
-    private let stabilizedCocoaView: AnyCocoaView
+      private let stabilizedCocoaView: AnyCocoaView
     #endif
 
     // MARK: - View
