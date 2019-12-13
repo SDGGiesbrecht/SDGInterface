@@ -65,7 +65,9 @@ final class APITests: ApplicationTestCase {
 
   func testStabilizedView() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      _ = StabilizedView(AnyCocoaView()).swiftUIView
+      if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
+        _ = StabilizedView(AnyCocoaView()).swiftUIView
+      }
     #endif
   }
 
