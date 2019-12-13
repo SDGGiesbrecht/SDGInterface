@@ -12,6 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(SwiftUI)
+  import SwiftUI
+#endif
+
 import SDGControlFlow
 import SDGLocalization
 
@@ -38,10 +42,12 @@ final class APITests: ApplicationTestCase {
 
   func testBinding() {
     LocalizationSetting(orderOfPrecedence: ["zxx"]).do {
-      let localized = Binding<Bool, InterfaceLocalization>.static(UserFacing({ _ in true }))
+      let localized = SDGInterfaceBasics.Binding<Bool, InterfaceLocalization>.static(
+        UserFacing({ _ in true })
+      )
       XCTAssert(localized.resolved())
       XCTAssertNil(localized.shared)
-      let bound = Binding<Bool, InterfaceLocalization>.binding(Shared(true))
+      let bound = SDGInterfaceBasics.Binding<Bool, InterfaceLocalization>.binding(Shared(true))
       XCTAssert(bound.resolved())
       XCTAssertNotNil(bound.shared)
     }
@@ -62,6 +68,18 @@ final class APITests: ApplicationTestCase {
     #if canImport(UIKit)
       XCTAssertEqual(Colour.cyan.blue, Colour(Colour.cyan.uiColor).blue)
     #endif
+  }
+
+  func testContentMode() {
+    for mode in SDGInterfaceBasics.ContentMode.allCases {
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
+          let swiftUI = SwiftUI.ContentMode(mode)
+          let roundTrip = SDGInterfaceBasics.ContentMode(swiftUI)
+          XCTAssertEqual(roundTrip, mode)
+        }
+      #endif
+    }
   }
 
   func testPoint() {
