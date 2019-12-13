@@ -124,6 +124,23 @@ final class APITests: ApplicationTestCase {
           window.close()
         }
       #endif
+
+      forAllLegacyModes {
+        #if canImport(AppKit)
+          class Sizeless: NSView, CocoaViewImplementation {
+            override var intrinsicContentSize: NSSize {
+              return NSSize(width: 1, height: 0)
+            }
+          }
+        #else
+          class Sizeless: UIView, CocoaViewImplementation {
+            override var intrinsicContentSize: CGSize {
+              return CGSize(width: 1, height: 0)
+            }
+          }
+        #endif
+        _ = Sizeless().aspectRatio(nil, contentMode: .fill)
+      }
     #endif
   }
 }
