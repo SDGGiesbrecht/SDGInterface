@@ -65,7 +65,7 @@
 
     // MARK: - Layout Constraints
 
-    internal func addSubviewIfNecessary(_ subview: View) {
+    private func addSubviewIfNecessary(_ subview: View) {
       subview.cocoaView.translatesAutoresizingMaskIntoConstraints = false
 
       if ¬cocoaView.subviews.contains(subview.cocoaView) {
