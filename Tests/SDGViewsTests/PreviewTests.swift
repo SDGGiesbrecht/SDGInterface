@@ -24,9 +24,9 @@
 
   import SDGApplicationTestUtilities
 
-  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
   final class PreviewTests: ApplicationTestCase {
 
+    @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
     func simulateUse<V>(of view: V) where V: SwiftUI.View {
       _ = view.body
       _ = Window<InterfaceLocalization>.primaryWindow(
@@ -36,11 +36,15 @@
     }
 
     func testAspectRatioPreviews() {
-      simulateUse(of: AspectRatioPreviews())
+      if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
+        simulateUse(of: AspectRatioPreviews())
+      }
     }
 
     func testLetterboxPreviews() {
-      simulateUse(of: LetterboxPreviews())
+      if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
+        simulateUse(of: LetterboxPreviews())
+      }
     }
   }
 #endif
