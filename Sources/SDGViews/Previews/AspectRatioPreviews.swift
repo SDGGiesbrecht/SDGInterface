@@ -12,6 +12,9 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#warning("SwiftUI temporary restricted on macOS.")
+#if os(watchOS)
+
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   import SwiftUI
 
@@ -77,4 +80,6 @@
       }
     }
   }
+#endif
+
 #endif
