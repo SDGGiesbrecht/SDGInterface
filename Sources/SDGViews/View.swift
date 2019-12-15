@@ -71,6 +71,7 @@
       _ aspectRatio: Double? = nil,
       contentMode: SDGInterfaceBasics.ContentMode
     ) -> View {
+      #warning("SwiftUI temporary restricted on macOS.")
       #if os(watchOS)
         return AnyView(
           swiftUIView.aspectRatio(
@@ -78,7 +79,7 @@
             contentMode: SwiftUI.ContentMode(contentMode)
           )
         )
-      #elseif canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      #elseif (canImport(SwiftUI) && !(os(iOS) && arch(arm))) && !os(macOS)
         if #available(macOS 10.15, iOS 13, tvOS 13, *),
           ¬legacyMode
         {
