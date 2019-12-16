@@ -37,17 +37,17 @@
 
     func testAspectRatioPreviews() {
       #if !NO_PREVIEWS
-      if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
-        simulateUse(of: AspectRatioPreviews())
-      }
+        if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
+          simulateUse(of: AspectRatioPreviews())
+        }
       #endif
     }
 
     func testLetterboxPreviews() {
       #if !NO_PREVIEWS
-      if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
-        simulateUse(of: LetterboxPreviews())
-      }
+        if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
+          simulateUse(of: LetterboxPreviews())
+        }
       #endif
     }
   }
