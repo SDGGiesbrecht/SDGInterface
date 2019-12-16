@@ -13,7 +13,7 @@
  */
 
 #warning("SwiftUI temporary restricted on macOS.")
-#if os(watchOS)
+#if !os(macOS)
 
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   import SwiftUI

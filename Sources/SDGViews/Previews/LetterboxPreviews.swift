@@ -13,7 +13,7 @@
  */
 
 #warning("SwiftUI temporary restricted on macOS.")
-#if os(watchOS)
+#if !os(macOS)
 
 // #workaround(watchOS disabled only until Letterbox is converted to SwiftUI.)
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm)) && !os(watchOS)
