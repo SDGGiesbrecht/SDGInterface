@@ -142,7 +142,7 @@ final class APITests: ApplicationTestCase {
         class IntrinsicSize: Superclass, CocoaViewImplementation {
           init(_ size: CGSize) {
             self.size = size
-            super.init(frame: NSRect(origin: CGPoint(0, 0), size: size))
+            super.init(frame: CGRect(origin: CGPoint(0, 0), size: size))
           }
           required init?(coder: NSCoder) {
             fatalError()
