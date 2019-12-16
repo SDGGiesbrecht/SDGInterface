@@ -12,11 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#warning("SwiftUI temporary restricted on macOS.")
-#if !os(macOS)
-
 // #workaround(watchOS disabled only until Letterbox is converted to SwiftUI.)
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm)) && !os(watchOS)
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm)) && !os(watchOS) && !NO_PREVIEWS
   import SwiftUI
 
   @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
@@ -38,6 +35,4 @@
       }
     }
   }
-#endif
-
 #endif

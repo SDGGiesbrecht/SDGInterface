@@ -36,8 +36,7 @@
     }
 
     func testAspectRatioPreviews() {
-      #warning("SwiftUI temporary restricted on macOS.")
-      #if !os(macOS)
+      #if !NO_PREVIEWS
       if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
         simulateUse(of: AspectRatioPreviews())
       }
@@ -45,8 +44,7 @@
     }
 
     func testLetterboxPreviews() {
-      #warning("SwiftUI temporary restricted on macOS.")
-      #if !os(macOS)
+      #if !NO_PREVIEWS
       if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
         simulateUse(of: LetterboxPreviews())
       }

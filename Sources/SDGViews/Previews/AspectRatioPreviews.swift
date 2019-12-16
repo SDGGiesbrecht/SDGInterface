@@ -12,10 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#warning("SwiftUI temporary restricted on macOS.")
-#if !os(macOS)
-
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm)) && !NO_PREVIEWS
   import SwiftUI
 
   import SDGMathematics
