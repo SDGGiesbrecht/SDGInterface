@@ -135,19 +135,26 @@ final class APITests: ApplicationTestCase {
 
       forAllLegacyModes {
         #if canImport(AppKit)
-          class Sizeless: NSView, CocoaViewImplementation {
-            override var intrinsicContentSize: NSSize {
-              return NSSize(width: 1, height: 0)
-            }
-          }
+          typealias Superclass = NSView
         #else
-          class Sizeless: UIView, CocoaViewImplementation {
-            override var intrinsicContentSize: CGSize {
-              return CGSize(width: 1, height: 0)
-            }
-          }
+          typealias Superclass = UIView
         #endif
-        _ = Sizeless().aspectRatio(nil, contentMode: .fill)
+        class IntrinsicSize: Superclass, CocoaViewImplementation {
+          init(_ size: CGSize) {
+            self.size = size
+            super.init(frame: NSRect(origin: CGPoint(0, 0), size: size))
+          }
+          required init?(coder: NSCoder) {
+            fatalError()
+          }
+          let size: CGSize
+          override var intrinsicContentSize: CGSize {
+            return size
+          }
+        }
+        _ = IntrinsicSize(CGSize(width: 0, height: 1)).aspectRatio(nil, contentMode: .fill)
+        _ = IntrinsicSize(CGSize(width: 1, height: 0)).aspectRatio(nil, contentMode: .fill)
+        _ = IntrinsicSize(CGSize(width: 1, height: 1)).aspectRatio(nil, contentMode: .fill)
       }
     #endif
   }
