@@ -23,6 +23,9 @@ final class InternalTests: ApplicationTestCase {
       _ =
         AspectRatioContainer.constraining(AnyCocoaView(), toAspectRatio: 1, contentMode: .fill)
         .cocoaView
+      _ =
+        AspectRatioContainer.constraining(AnyCocoaView(), toAspectRatio: 1, contentMode: .fit)
+        .cocoaView
     #endif
   }
 }
