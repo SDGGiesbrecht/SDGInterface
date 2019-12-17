@@ -1,5 +1,5 @@
 /*
- Letterbox.swift
+ AspectRatio.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -16,8 +16,8 @@ import SwiftUI
 
 @testable import SDGViews
 
-struct Letterbox_Previews: PreviewProvider {
+struct AspectRatio_Previews: PreviewProvider {
   static var previews: some SwiftUI.View {
-    return LetterboxPreviews()
+    return AspectRatioPreviews()
   }
 }

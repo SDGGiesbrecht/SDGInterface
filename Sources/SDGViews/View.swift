@@ -22,6 +22,10 @@
     import UIKit
   #endif
 
+  import SDGLogic
+
+  import SDGInterfaceBasics
+
   /// A view.
   ///
   /// When conforming to `View`, it is simplest (though not necessary) for a type to either:
@@ -41,10 +45,14 @@
     #if canImport(AppKit)
       // @documentation(View.cocoaView)
       /// The `NSView` or `UIView`.
+      ///
+      /// - Warning: A `View` may not always return the same instance when queried for a `cocoaView` representation. If you want to use the view in a way that requires refrence semantics, such as applying Cocoa constraints or bindings, wrap the view in a `StabilizedView` and use it’s stable `cocoaView` property.
       var cocoaView: NSView { get }
     #elseif canImport(UIKit) && !os(watchOS)
       // #documentation(View.cocoaView)
       /// The `NSView` or `UIView`.
+      ///
+      /// - Warning: A `View` may not always return the same instance when queried for a `cocoaView` representation. If you want to use the view in a way that requires refrence semantics, such as applying Cocoa constraints or bindings, wrap the view in a `StabilizedView` and use it’s stable `cocoaView` property.
       var cocoaView: UIView { get }
     #endif
   }
@@ -53,24 +61,49 @@
 
     // MARK: - Aspect Ratio
 
-    #if !os(watchOS)
-      // #workaround(Can this be done with SwiftUI?)
-      /// Locks the aspect ratio of the view.
-      ///
-      /// - Parameters:
-      ///     - aspectRatio: The aspect ratio. (*width* ∶ *height*)
-      public func lockAspectRatio(to aspectRatio: Double) {
-        let constraint = NSLayoutConstraint(
-          item: self.cocoaView,
-          attribute: .width,
-          relatedBy: .equal,
-          toItem: self.cocoaView,
-          attribute: .height,
-          multiplier: CGFloat(aspectRatio),
-          constant: 0
+    /// A shimmed version of `SwiftUI.View.aspectRatio(_:contentMode:)` with no availability constraints.
+    ///
+    /// - Parameters:
+    ///   - aspectRatio: The aspect ratio. Pass `nil` to use the aspect ratio of the view’s intrinsic size. Views with no intrinsic size will be unaffected by this method if no aspect ratio is specified.
+    ///   - contentMode: The content mode. `.fit` performs letterboxing or pillarboxing; `.fill` crops the view to achieve the aspect ratio.
+    @available(watchOS 6, *)
+    public func aspectRatio(
+      _ aspectRatio: Double? = nil,
+      contentMode: SDGInterfaceBasics.ContentMode
+    ) -> View {
+      // #workaround(workspace 0.27.1, Does not use SwiftUI on macOS because something here causes hard linking.)
+      #if os(watchOS)
+        return AnyView(
+          swiftUIView.aspectRatio(
+            aspectRatio.map({ CGFloat($0) }),
+            contentMode: SwiftUI.ContentMode(contentMode)
+          )
         )
-        cocoaView.addConstraint(constraint)
-      }
-    #endif
+      #elseif (canImport(SwiftUI) && !(os(iOS) && arch(arm))) && !os(macOS)
+        if #available(macOS 10.15, iOS 13, tvOS 13, *),
+          ¬legacyMode
+        {
+          return AnyView(
+            swiftUIView.aspectRatio(
+              aspectRatio.map({ CGFloat($0) }),
+              contentMode: SwiftUI.ContentMode(contentMode)
+            )
+          )
+        } else {
+          return AspectRatioContainer.constraining(
+            self,
+            toAspectRatio: aspectRatio,
+            contentMode: contentMode
+          )
+        }
+      // @exempt(from: tests) Returned already, but the uncompiled text below confuses Xcode.
+      #else
+        return AspectRatioContainer.constraining(
+          self,
+          toAspectRatio: aspectRatio,
+          contentMode: contentMode
+        )
+      #endif
+    }
   }
 #endif

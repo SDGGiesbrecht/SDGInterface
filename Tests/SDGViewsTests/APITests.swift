@@ -63,6 +63,14 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
+  func testStabilizedView() {
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
+        _ = StabilizedView(AnyCocoaView()).swiftUIView
+      }
+    #endif
+  }
+
   func testSwiftUIViewImplementation() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, iOS 13, tvOS 13, *) {  // @exempt(from: unicode)
@@ -104,7 +112,7 @@ final class APITests: ApplicationTestCase {
       newView().alignCentres(ofSubviews: [EmptyView(), EmptyView()], on: .horizontal)
       newView().alignCentres(ofSubviews: [EmptyView(), EmptyView()], on: .vertical)
       newView().alignLastBaselines(ofSubviews: [EmptyView(), EmptyView()])
-      newView().lockAspectRatio(to: 1)
+      _ = newView().aspectRatio(1, contentMode: .fit)
       newView().position(
         subviews: [EmptyView(), EmptyView()],
         inSequenceAlong: .horizontal,
@@ -124,6 +132,30 @@ final class APITests: ApplicationTestCase {
           window.close()
         }
       #endif
+
+      forAllLegacyModes {
+        #if canImport(AppKit)
+          typealias Superclass = NSView
+        #else
+          typealias Superclass = UIView
+        #endif
+        class IntrinsicSize: Superclass, CocoaViewImplementation {
+          init(_ size: CGSize) {
+            self.size = size
+            super.init(frame: CGRect(origin: CGPoint(0, 0), size: size))
+          }
+          required init?(coder: NSCoder) {
+            fatalError()
+          }
+          let size: CGSize
+          override var intrinsicContentSize: CGSize {
+            return size
+          }
+        }
+        _ = IntrinsicSize(CGSize(width: 0, height: 1)).aspectRatio(nil, contentMode: .fill)
+        _ = IntrinsicSize(CGSize(width: 1, height: 0)).aspectRatio(nil, contentMode: .fill)
+        _ = IntrinsicSize(CGSize(width: 1, height: 1)).aspectRatio(nil, contentMode: .fill)
+      }
     #endif
   }
 }
