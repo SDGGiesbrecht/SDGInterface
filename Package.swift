@@ -600,7 +600,7 @@ if firstEntry.hasSuffix("/Contents/Developer/usr/bin") {
   sdgXCTestUtilities.swiftSettings = settings
 }
 
-// #workaround(workspace 0.27.1, Something here causes hard linking.)
+// #workaround(workspace version 0.27.1, Something here causes hard linking.)
 for target in package.targets {
   var settings = target.swiftSettings ?? []
   defer { target.swiftSettings = settings }
