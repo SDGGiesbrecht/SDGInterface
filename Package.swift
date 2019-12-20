@@ -587,7 +587,7 @@ let package = Package(
   ]
 )
 
-// #workaround(Swift 5.1.2, The generated Xcode project cannot import XCTest on iOS devices.)
+// #workaround(Swift 5.1.3, The generated Xcode project cannot import XCTest on iOS devices.)
 import Foundation
 let path = ProcessInfo.processInfo.environment["PATH"] ?? ""
 let firstColon = path.range(of: ":")?.lowerBound ?? path.endIndex
@@ -600,7 +600,7 @@ if firstEntry.hasSuffix("/Contents/Developer/usr/bin") {
   sdgXCTestUtilities.swiftSettings = settings
 }
 
-// #workaround(workspace 0.27.1, Something here causes hard linking.)
+// #workaround(workspace version 0.27.1, Something here causes hard linking.)
 for target in package.targets {
   var settings = target.swiftSettings ?? []
   defer { target.swiftSettings = settings }

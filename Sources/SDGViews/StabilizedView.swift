@@ -55,7 +55,7 @@
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
       public var swiftUIView: AnyView {
-        // @exempt(from: tests) #workaround(workspace version 0.27.0, macOS 10.15 is unavailable in CI.)
+        // @exempt(from: tests) #workaround(workspace version 0.27.1, macOS 10.15 is unavailable in CI.)
         return view.swiftUIView
       }
     #endif

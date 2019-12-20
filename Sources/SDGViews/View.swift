@@ -71,7 +71,7 @@
       _ aspectRatio: Double? = nil,
       contentMode: SDGInterfaceBasics.ContentMode
     ) -> View {
-      // #workaround(workspace 0.27.1, Does not use SwiftUI on macOS because something here causes hard linking.)
+      // #workaround(workspace version 0.27.1, Does not use SwiftUI on macOS because something here causes hard linking.)
       #if os(watchOS)
         return AnyView(
           swiftUIView.aspectRatio(
