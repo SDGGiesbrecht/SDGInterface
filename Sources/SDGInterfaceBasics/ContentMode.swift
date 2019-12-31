@@ -25,7 +25,6 @@
     /// - Parameters:
     ///   - shimmed: The shimmed instance.
     public init(_ shimmed: SDGInterfaceBasics.ContentMode) {
-      // @exempt(from: tests) #workaround(workspace version 0.27.1, macOS 10.15 is unavailable in CI.)
       switch shimmed {
       case .fill:
         self = .fill
@@ -56,7 +55,6 @@ public enum ContentMode: CaseIterable {
     ///   - standard: The standard instance.
     @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
     public init(_ standard: SwiftUI.ContentMode) {
-      // @exempt(from: tests) #workaround(workspace version 0.27.1, macOS 10.15 is unavailable in CI.)
       switch standard {
       case .fill:
         self = .fill
