@@ -4,7 +4,7 @@
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
 
- Copyright ©2019 Jeremy David Giesbrecht and the SDGInterface project contributors.
+ Copyright ©2019–2020 Jeremy David Giesbrecht and the SDGInterface project contributors.
 
  Soli Deo gloria.
 
@@ -26,7 +26,6 @@
 
     #if canImport(AppKit)
       public var cocoaView: NSView {
-        // @exempt(from: tests) #workaround(workspace version 0.27.1, macOS 10.15 is unavailable in CI.)
         return NSHostingView(rootView: swiftUIView)
       }
     #elseif canImport(UIKit) && !os(watchOS)
@@ -40,7 +39,6 @@
   @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
   extension SwiftUIViewImplementation where Self: SwiftUI.View {
     public var swiftUIView: AnyView {
-      // @exempt(from: tests) #workaround(workspace version 0.27.1, macOS 10.15 is unavailable in CI.)
       return AnyView(self)
     }
   }

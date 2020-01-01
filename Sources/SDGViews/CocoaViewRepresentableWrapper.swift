@@ -4,7 +4,7 @@
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
 
- Copyright ©2019 Jeremy David Giesbrecht and the SDGInterface project contributors.
+ Copyright ©2019–2020 Jeremy David Giesbrecht and the SDGInterface project contributors.
 
  Soli Deo gloria.
 
@@ -31,7 +31,6 @@
       // MARK: - Initialization
 
       internal init(_ view: SDGViews.View) {
-        // @exempt(from: tests) #workaround(workspace version 0.27.1, macOS 10.15 is unavailable in CI.)
         self.sdgView = view
       }
 
@@ -45,7 +44,6 @@
         func makeNSView(
           context: NSViewRepresentableContext<CocoaViewRepresentableWrapper>
         ) -> NSView {
-          // @exempt(from: tests) #workaround(workspace version 0.27.1, macOS 10.15 is unavailable in CI.)
           return sdgView.cocoaView
         }
 
