@@ -13,7 +13,7 @@
  */
 
 // #workaround(watchOS disabled only until Letterbox is converted to SwiftUI.)
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm)) && !os(watchOS) && !NO_PREVIEWS
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm)) && !os(watchOS)
   import SwiftUI
 
   @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
