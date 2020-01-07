@@ -30,6 +30,7 @@
         let letterbox = Ellipse()
           .aspectRatio(1 as Double, contentMode: .fit)
           .swiftUIView
+          // #warning(Backport these.)
           .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
           .background(Color.red)
         anyView = AnyView(letterbox)
