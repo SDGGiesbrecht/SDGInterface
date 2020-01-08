@@ -41,6 +41,12 @@
       }
     }
 
+    func testFramePreviews() {
+      if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
+        simulateUse(of: FramePreviews())
+      }
+    }
+
     func testLetterboxPreviews() {
       if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
         simulateUse(of: LetterboxPreviews())

@@ -36,8 +36,8 @@
         previewBothModes(
           circle(radius: 16)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.red)
             .swiftUIView
+            .background(Color.red)
             .frame(width: 128, height: 64),
           name: "(≤ ∞) × (≤ ∞)"
         )

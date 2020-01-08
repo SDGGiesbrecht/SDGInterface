@@ -19,6 +19,8 @@
     import UIKit
   #endif
 
+  import SDGLogic
+
   import SDGInterfaceBasics
 
   internal struct FrameContainer: CocoaViewImplementation {
@@ -68,7 +70,9 @@
       _ relation: NSLayoutConstraint.Relation,
       to constant: Double?
     ) {
-      if let constant = constant {
+      if let constant = constant,
+        constant ≠ .infinity
+      {
         container.cocoaView.addConstraint(
           NSLayoutConstraint(
             item: container.cocoaView,
@@ -84,6 +88,7 @@
     }
 
     private func makeEqual(_ attribute: NSLayoutConstraint.Attribute) {
+      container.addSubviewIfNecessary(contents)
       container.cocoaView.addConstraint(
         NSLayoutConstraint(
           item: container.cocoaView,
