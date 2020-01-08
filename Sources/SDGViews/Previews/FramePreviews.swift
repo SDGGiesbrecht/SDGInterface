@@ -59,6 +59,15 @@
             .frame(width: 128, height: 64),
           name: "(≥ 48) × (≥ 48), ↘"
         )
+
+        previewBothModes(
+          circle(radius: 16)
+            .frame()
+            .swiftUIView
+            .background(Color.red)
+            .frame(width: 128, height: 64),
+          name: "∅"
+        )
       }
     }
   }
