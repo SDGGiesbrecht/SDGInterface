@@ -82,6 +82,9 @@
     ) {
       if minimum == nil, maximum == nil {
         make(attribute, .equal, to: Double(intrinsic(contents.cocoaView.intrinsicContentSize)))
+      } else if minimum ≠ nil, maximum == nil {
+        make(attribute, .greaterThanOrEqual, to: minimum)
+        prefer(attribute, of: minimum)
       } else {
         make(attribute, .greaterThanOrEqual, to: minimum)
         prefer(attribute, of: ideal)
