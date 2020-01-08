@@ -37,32 +37,59 @@
     ) {
       self.contents = StabilizedView(contents)
       self.container = AnyCocoaView()
+
+      make(.width, .greaterThanOrEqual, to: minWidth)
+      prefer(.width, of: idealWidth)
+      make(.width, .lessThanOrEqual, to: maxWidth)
+      make(.height, .greaterThanOrEqual, to: minHeight)
+      prefer(.height, of: idealHeight)
+      make(.height, .lessThanOrEqual, to: maxHeight)
+
+      switch alignment.horizontal {
+      case .leading:
+        makeEqual(.leading)
+      case .centre:
+        makeEqual(.centerX)
+      case .trailing:
+        makeEqual(.trailing)
+      }
+      switch alignment.vertical {
+      case .top:
+        makeEqual(.top)
+      case .centre:
+        makeEqual(.centerY)
+      case .bottom:
+        makeEqual(.bottom)
+      }
     }
 
-    private func apply(aspectRatio: CGFloat) {
-      contents.cocoaView.addConstraint(
-        NSLayoutConstraint(
-          item: contents.cocoaView,
-          attribute: .width,
-          relatedBy: .equal,
-          toItem: contents.cocoaView,
-          attribute: .height,
-          multiplier: aspectRatio,
-          constant: 0
-        )
-      )
-    }
-
-    private func limit(
+    private func make(
       _ attribute: NSLayoutConstraint.Attribute,
-      by relation: NSLayoutConstraint.Relation
+      _ relation: NSLayoutConstraint.Relation,
+      to constant: Double?
     ) {
+      if let constant = constant {
+        container.cocoaView.addConstraint(
+          NSLayoutConstraint(
+            item: container.cocoaView,
+            attribute: attribute,
+            relatedBy: relation,
+            toItem: nil,
+            attribute: .notAnAttribute,
+            multiplier: 1,
+            constant: CGFloat(constant)
+          )
+        )
+      }
+    }
+
+    private func makeEqual(_ attribute: NSLayoutConstraint.Attribute) {
       container.cocoaView.addConstraint(
         NSLayoutConstraint(
-          item: contents.cocoaView,
+          item: container.cocoaView,
           attribute: attribute,
-          relatedBy: relation,
-          toItem: container.cocoaView,
+          relatedBy: .equal,
+          toItem: contents.cocoaView,
           attribute: attribute,
           multiplier: 1,
           constant: 0
@@ -70,27 +97,24 @@
       )
     }
 
-    private func limitDimensions(by relation: NSLayoutConstraint.Relation) {
-      limit(.width, by: relation)
-      limit(.height, by: relation)
-    }
-
-    private func preferEqual(_ attribute: NSLayoutConstraint.Attribute) {
-      let constraint = NSLayoutConstraint(
-        item: contents.cocoaView,
-        attribute: attribute,
-        relatedBy: .equal,
-        toItem: container.cocoaView,
-        attribute: attribute,
-        multiplier: 1,
-        constant: 0
-      )
-      #if canImport(AppKit)
-        constraint.priority = NSLayoutConstraint.Priority(rawValue: 250)
-      #elseif canImport(UIKit)
-        constraint.priority = UILayoutPriority(rawValue: 250)
-      #endif
-      container.cocoaView.addConstraint(constraint)
+    private func prefer(_ attribute: NSLayoutConstraint.Attribute, of constant: Double?) {
+      if let constant = constant {
+        let constraint = NSLayoutConstraint(
+          item: contents.cocoaView,
+          attribute: attribute,
+          relatedBy: .equal,
+          toItem: nil,
+          attribute: .notAnAttribute,
+          multiplier: 1,
+          constant: CGFloat(constant)
+        )
+        #if canImport(AppKit)
+          constraint.priority = NSLayoutConstraint.Priority(rawValue: 250)
+        #elseif canImport(UIKit)
+          constraint.priority = UILayoutPriority(rawValue: 250)
+        #endif
+        container.cocoaView.addConstraint(constraint)
+      }
     }
 
     // MARK: - Properties
