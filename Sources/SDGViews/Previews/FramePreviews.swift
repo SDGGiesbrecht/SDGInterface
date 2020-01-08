@@ -41,6 +41,24 @@
             .frame(width: 128, height: 64),
           name: "(≤ ∞) × (≤ ∞)"
         )
+
+        previewBothModes(
+          circle(radius: 16)
+            .frame(idealWidth: 48, idealHeight: 48, alignment: .topLeading)
+            .swiftUIView
+            .background(Color.red)
+            .frame(width: 128, height: 64),
+          name: "48 × 48, ↖"
+        )
+
+        previewBothModes(
+          circle(radius: 16)
+            .frame(minWidth: 48, minHeight: 48, alignment: .bottomTrailing)
+            .swiftUIView
+            .background(Color.red)
+            .frame(width: 128, height: 64),
+          name: "(≥ 48) × (≥ 48), ↘"
+        )
       }
     }
   }
