@@ -1,5 +1,5 @@
 /*
- AspectRatioContainer.swift
+ FrameContainer.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -19,62 +19,24 @@
     import UIKit
   #endif
 
-  import SDGLogic
-  import SDGMathematics
-
   import SDGInterfaceBasics
 
-  internal struct AspectRatioContainer: CocoaViewImplementation {
-
-    // MARK: - Static Methods
-
-    internal static func constraining(
-      _ view: View,
-      toAspectRatio aspectRatio: Double?,
-      contentMode: ContentMode
-    ) -> View {
-      return AspectRatioContainer(
-        contents: view,
-        aspectRatio: aspectRatio,
-        contentMode: contentMode
-      ) ?? view
-    }
+  internal struct FrameContainer: CocoaViewImplementation {
 
     // MARK: - Initialization
 
-    /// Creates an aspect ratio container where meaningful.
-    ///
-    /// If no aspect ratio is specified and the view has no intrinsic aspect ratio, the initializer will fail and return `nil`.
-    private init?(contents: View, aspectRatio: Double?, contentMode: ContentMode) {
+    internal init(
+      contents: View,
+      minWidth: Double?,
+      idealWidth: Double?,
+      maxWidth: Double?,
+      minHeight: Double?,
+      idealHeight: Double?,
+      maxHeight: Double?,
+      alignment: SDGInterfaceBasics.Alignment
+    ) {
       self.contents = StabilizedView(contents)
       self.container = AnyCocoaView()
-
-      let resolvedRatio: CGFloat
-      if let specified = aspectRatio {
-        resolvedRatio = CGFloat(specified)
-      } else {
-        let intrinsicSize = self.contents.cocoaView.intrinsicContentSize
-        guard intrinsicSize.height ≠ 0 ∧ intrinsicSize.width ≠ 0 else {
-          return nil
-        }
-        resolvedRatio = intrinsicSize.height ÷ intrinsicSize.width
-      }
-      applyConstraints(aspectRatio: resolvedRatio, contentMode: contentMode)
-    }
-
-    private func applyConstraints(aspectRatio: CGFloat, contentMode: ContentMode) {
-      container.centre(subview: contents)
-      apply(aspectRatio: aspectRatio)
-
-      switch contentMode {
-      case .fill:
-        limitDimensions(by: .greaterThanOrEqual)
-      case .fit:
-        limitDimensions(by: .lessThanOrEqual)
-      }
-
-      preferEqual(.width)
-      preferEqual(.height)
     }
 
     private func apply(aspectRatio: CGFloat) {
