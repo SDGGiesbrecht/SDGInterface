@@ -40,12 +40,20 @@
       self.contents = StabilizedView(contents)
       self.container = AnyCocoaView()
 
-      make(.width, .greaterThanOrEqual, to: minWidth)
-      prefer(.width, of: idealWidth)
-      make(.width, .lessThanOrEqual, to: maxWidth)
-      make(.height, .greaterThanOrEqual, to: minHeight)
-      prefer(.height, of: idealHeight)
-      make(.height, .lessThanOrEqual, to: maxHeight)
+      handleDimension(
+        .width,
+        minimum: minWidth,
+        ideal: idealWidth,
+        maximum: maxWidth,
+        intrinsic: { $0.width }
+      )
+      handleDimension(
+        .height,
+        minimum: minHeight,
+        ideal: idealHeight,
+        maximum: maxHeight,
+        intrinsic: { $0.height }
+      )
 
       switch alignment.horizontal {
       case .leading:
@@ -62,6 +70,22 @@
         makeEqual(.centerY)
       case .bottom:
         makeEqual(.bottom)
+      }
+    }
+
+    private func handleDimension(
+      _ attribute: NSLayoutConstraint.Attribute,
+      minimum: Double?,
+      ideal: Double?,
+      maximum: Double?,
+      intrinsic: (CGSize) -> CGFloat
+    ) {
+      if minimum == nil, maximum == nil {
+        make(attribute, .equal, to: Double(intrinsic(contents.cocoaView.intrinsicContentSize)))
+      } else {
+        make(attribute, .greaterThanOrEqual, to: minimum)
+        prefer(attribute, of: ideal)
+        make(attribute, .lessThanOrEqual, to: maximum)
       }
     }
 
