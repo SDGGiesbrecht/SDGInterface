@@ -105,7 +105,7 @@
     private func prefer(_ attribute: NSLayoutConstraint.Attribute, of constant: Double?) {
       if let constant = constant {
         let constraint = NSLayoutConstraint(
-          item: contents.cocoaView,
+          item: container.cocoaView,
           attribute: attribute,
           relatedBy: .equal,
           toItem: nil,
