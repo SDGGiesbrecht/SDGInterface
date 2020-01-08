@@ -22,35 +22,24 @@
 
     internal var body: some SwiftUI.View {
 
-      let circle = AnyView(
-        Ellipse()
-          .fill(Color.black)
-      )
+      func circle(radius: CGFloat) -> AnyView {
+        let diameter = radius × 2
+        return AnyView(
+          Ellipse()
+            .fill(Color.black)
+            .frame(width: diameter, height: diameter)
+        )
+      }
 
       return Group {
 
         previewBothModes(
-          circle
-            .aspectRatio(nil, contentMode: .fill),
-          name: "nil + .fill"
-        )
-
-        previewBothModes(
-          circle
-            .aspectRatio(nil, contentMode: .fit),
-          name: "nil + .fit"
-        )
-
-        previewBothModes(
-          circle
-            .aspectRatio(1 ÷ 2, contentMode: .fill),
-          name: "(1 ÷ 2) + .fill"
-        )
-
-        previewBothModes(
-          circle
-            .aspectRatio(1 ÷ 2, contentMode: .fit),
-          name: "(1 ÷ 2) + .fit"
+          circle(radius: 16)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.red)
+            .swiftUIView
+            .frame(width: 128, height: 64),
+          name: "(≤ ∞) × (≤ ∞)"
         )
       }
     }
