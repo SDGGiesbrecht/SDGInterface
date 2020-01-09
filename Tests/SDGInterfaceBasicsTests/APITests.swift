@@ -34,10 +34,18 @@ final class APITests: ApplicationTestCase {
   func testAlignment() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
-        let swiftUI: SwiftUI.Alignment = .center
-        let sdgInterface = SDGInterfaceBasics.Alignment(swiftUI)!
+        var swiftUI: SwiftUI.Alignment = .center
+        var sdgInterface = SDGInterfaceBasics.Alignment(swiftUI)!
         XCTAssertEqual(sdgInterface, .centre)
         XCTAssertEqual(SwiftUI.Alignment(sdgInterface), .center)
+        swiftUI = .topLeading
+        sdgInterface = SDGInterfaceBasics.Alignment(swiftUI)!
+        XCTAssertEqual(sdgInterface, .topLeading)
+        XCTAssertEqual(SwiftUI.Alignment(sdgInterface), .topLeading)
+        swiftUI = .bottomTrailing
+        sdgInterface = SDGInterfaceBasics.Alignment(swiftUI)!
+        XCTAssertEqual(sdgInterface, .bottomTrailing)
+        XCTAssertEqual(SwiftUI.Alignment(sdgInterface), .bottomTrailing)
       }
     #endif
   }
