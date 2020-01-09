@@ -31,6 +31,17 @@ import SDGApplicationTestUtilities
 
 final class APITests: ApplicationTestCase {
 
+  func testAlignment() {
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
+        let swiftUI: SwiftUI.Alignment = .center
+        let sdgInterface = SDGInterfaceBasics.Alignment(swiftUI)!
+        XCTAssertEqual(sdgInterface, .centre)
+        XCTAssertEqual(SwiftUI.Alignment(sdgInterface), .center)
+      }
+    #endif
+  }
+
   func testApplicationName() {
     XCTAssertEqual(ProcessInfo.applicationName(.español(.de)), "del Ejemplar")
     XCTAssertEqual(ProcessInfo.applicationName(.deutsch(.akkusativ)), "Beispiel")

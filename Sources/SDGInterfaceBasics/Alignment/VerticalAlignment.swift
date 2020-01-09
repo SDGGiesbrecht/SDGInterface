@@ -65,7 +65,7 @@ public enum VerticalAlignment: Equatable {
         self = .centre
       case .bottom:
         self = .bottom
-      default:
+      default:  // @exempt(from: tests) Not sure how to create such an alignment.
         return nil
       }
     }

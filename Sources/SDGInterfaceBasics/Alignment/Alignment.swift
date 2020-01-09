@@ -87,7 +87,7 @@ public struct Alignment: Equatable {
     public init?(_ standard: SwiftUI.Alignment) {
       guard let horizontal = HorizontalAlignment(standard.horizontal),
         let vertical = VerticalAlignment(standard.vertical)
-      else {
+      else {  // @exempt(from: tests) Not sure how to create such an alignment.
         return nil
       }
       self.init(horizontal: horizontal, vertical: vertical)
