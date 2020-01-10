@@ -45,6 +45,34 @@
             .frame(width: 128, height: 64),
           name: "red"
         )
+
+        previewBothModes(
+          circle(radius: 16)
+            .shimmedBackground(
+              AnyView(
+                Color.red
+                  .frame(width: 48, height: 48)
+              ),
+              alignment: .topLeading
+            )
+            .swiftUIView
+            .frame(width: 128, height: 64),
+          name: "red, .topLeading"
+        )
+
+        previewBothModes(
+          circle(radius: 16)
+            .shimmedBackground(
+              AnyView(
+                Color.red
+                  .frame(width: 48, height: 48)
+              ),
+              alignment: .bottomTrailing
+            )
+            .swiftUIView
+            .frame(width: 128, height: 64),
+          name: "red, .bottomTrailing"
+        )
       }
     }
   }
