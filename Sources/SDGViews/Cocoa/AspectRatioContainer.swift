@@ -24,7 +24,7 @@
 
   import SDGInterfaceBasics
 
-  internal class AspectRatioContainer: CocoaViewImplementation {
+  internal struct AspectRatioContainer: CocoaViewImplementation {
 
     // MARK: - Static Methods
 
@@ -123,11 +123,7 @@
         multiplier: 1,
         constant: 0
       )
-      #if canImport(AppKit)
-        constraint.priority = NSLayoutConstraint.Priority(rawValue: 250)
-      #elseif canImport(UIKit)
-        constraint.priority = UILayoutPriority(rawValue: 250)
-      #endif
+      constraint.priority = LayoutConstraintPriority(rawValue: 250)
       container.cocoaView.addConstraint(constraint)
     }
 

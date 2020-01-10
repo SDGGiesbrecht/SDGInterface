@@ -59,8 +59,6 @@
 
   extension View {
 
-    // MARK: - Aspect Ratio
-
     /// A shimmed version of `SwiftUI.View.aspectRatio(_:contentMode:)` with no availability constraints.
     ///
     /// - Parameters:
@@ -101,6 +99,80 @@
           self,
           toAspectRatio: aspectRatio,
           contentMode: contentMode
+        )
+      #endif
+    }
+
+    /// A shimmed version of `SwiftUI.View.frame(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)` with no availability constraints.
+    ///
+    /// - Parameters:
+    ///   - minWidth: The minimum width.
+    ///   - idealWidth: The ideal width.
+    ///   - maxWidth: The maximum width.
+    ///   - minHeight: The minimum height.
+    ///   - idealHeight: The ideal height.
+    ///   - maxHeight: The maximum height.
+    ///   - alignment: The alignment.
+    @available(watchOS 6, *)
+    public func frame(
+      minWidth: Double? = nil,
+      idealWidth: Double? = nil,
+      maxWidth: Double? = nil,
+      minHeight: Double? = nil,
+      idealHeight: Double? = nil,
+      maxHeight: Double? = nil,
+      alignment: SDGInterfaceBasics.Alignment = .centre
+    ) -> View {
+      #if os(watchOS)
+        return AnyView(
+          swiftUIView.frame(
+            minWidth: minWidth.map({ CGFloat($0) }),
+            idealWidth: idealWidth.map({ CGFloat($0) }),
+            maxWidth: maxWidth.map({ CGFloat($0) }),
+            minHeight: minHeight.map({ CGFloat($0) }),
+            idealHeight: idealHeight.map({ CGFloat($0) }),
+            maxHeight: maxHeight.map({ CGFloat($0) }),
+            alignment: SwiftUI.Alignment(alignment)
+          )
+        )
+      #elseif (canImport(SwiftUI) && !(os(iOS) && arch(arm)))
+        if #available(macOS 10.15, iOS 13, tvOS 13, *),
+          ¬legacyMode
+        {
+          return AnyView(
+            swiftUIView.frame(
+              minWidth: minWidth.map({ CGFloat($0) }),
+              idealWidth: idealWidth.map({ CGFloat($0) }),
+              maxWidth: maxWidth.map({ CGFloat($0) }),
+              minHeight: minHeight.map({ CGFloat($0) }),
+              idealHeight: idealHeight.map({ CGFloat($0) }),
+              maxHeight: maxHeight.map({ CGFloat($0) }),
+              alignment: SwiftUI.Alignment(alignment)
+            )
+          )
+        } else {
+          return FrameContainer(
+            contents: self,
+            minWidth: minWidth,
+            idealWidth: idealWidth,
+            maxWidth: maxWidth,
+            minHeight: minHeight,
+            idealHeight: idealHeight,
+            maxHeight: maxHeight,
+            alignment: alignment
+          )
+        }
+      // @exempt(from: tests) Returned already, but the uncompiled text below confuses Xcode.
+      #else
+        return FrameContainer(
+          contents: self,
+          minWidth: minWidth,
+          idealWidth: idealWidth,
+          maxWidth: maxWidth,
+          minHeight: minHeight,
+          idealHeight: idealHeight,
+          maxHeight: maxHeight,
+          alignment: alignment
         )
       #endif
     }
