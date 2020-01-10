@@ -28,6 +28,7 @@
           Ellipse()
             .fill(Color.black)
             .frame(width: diameter, height: diameter)
+            .border(Color.green)
         )
       }
 
@@ -42,6 +43,7 @@
               )
             )
             .swiftUIView
+            .border(Color.blue)
             .frame(width: 128, height: 64),
           name: "red"
         )
@@ -56,6 +58,7 @@
               alignment: .topLeading
             )
             .swiftUIView
+            .border(Color.blue)
             .frame(width: 128, height: 64),
           name: "red, .topLeading"
         )
@@ -70,6 +73,7 @@
               alignment: .bottomTrailing
             )
             .swiftUIView
+            .border(Color.blue)
             .frame(width: 128, height: 64),
           name: "red, .bottomTrailing"
         )
