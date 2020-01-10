@@ -64,8 +64,7 @@
         _ background: Background,
         alignment: SDGInterfaceBasics.Alignment = .centre
       ) -> View where Background: View {
-        #warning("Not implemented yet.")
-        fatalError()
+        return BackgroundContainer(background: background, foreground: self, alignment: alignment)
       }
     #endif
     /// A shimmed version of `SwiftUI.View.background(_:alignment:)` with no availability constraints.
