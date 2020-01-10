@@ -48,10 +48,6 @@
       }
 
       container.cocoaView.translatesAutoresizingMaskIntoConstraints = false
-      if background.cocoaView.intrinsicContentSize == .zero {
-        container.fill(with: self.background, margin: .specific(0))
-      }
-
       container.fill(with: self.foreground, margin: .specific(0))
     }
 
