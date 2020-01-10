@@ -18,6 +18,7 @@
 
 import SDGControlFlow
 
+import SDGInterfaceBasics
 import SDGViews
 import SDGWindows
 import SDGApplication
@@ -41,6 +42,15 @@ final class APITests: ApplicationTestCase {
           _ = view.swiftUIView
         }
       #endif
+    #endif
+  }
+
+  func testColour() {
+    #if canImport(AppKit) || canImport(UIKit)
+      _ = Colour.red.cocoaView
+      if #available(macOS 10.15, iOS 13, tvOS 13, *) {
+        _ = Colour.green.swiftUIView
+      }
     #endif
   }
 
