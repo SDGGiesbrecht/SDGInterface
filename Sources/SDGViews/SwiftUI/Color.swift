@@ -25,7 +25,7 @@ import SDGInterfaceBasics
 
     /// The colour as a `SwiftUI.Color` instance.
     public init(_ colour: SDGInterfaceBasics.Colour) {
-      return SwiftUI.Color(red: colour.red, green: colour.green, blue: colour.blue, opacity: colour.opacity)
+      self.init(red: colour.red, green: colour.green, blue: colour.blue, opacity: colour.opacity)
     }
   }
 
