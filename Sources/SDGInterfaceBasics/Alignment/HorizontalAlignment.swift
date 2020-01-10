@@ -66,6 +66,7 @@ public enum HorizontalAlignment: Equatable {
       case .trailing:
         self = .trailing
       default:  // @exempt(from: tests) Not sure how to create such an alignment.
+        // @exempt(from: tests)
         return nil
       }
     }

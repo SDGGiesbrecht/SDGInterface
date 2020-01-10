@@ -66,6 +66,7 @@ public enum VerticalAlignment: Equatable {
       case .bottom:
         self = .bottom
       default:  // @exempt(from: tests) Not sure how to create such an alignment.
+        // @exempt(from: tests)
         return nil
       }
     }

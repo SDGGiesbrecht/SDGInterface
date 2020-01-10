@@ -88,6 +88,7 @@ public struct Alignment: Equatable {
       guard let horizontal = HorizontalAlignment(standard.horizontal),
         let vertical = VerticalAlignment(standard.vertical)
       else {  // @exempt(from: tests) Not sure how to create such an alignment.
+        // @exempt(from: tests)
         return nil
       }
       self.init(horizontal: horizontal, vertical: vertical)
