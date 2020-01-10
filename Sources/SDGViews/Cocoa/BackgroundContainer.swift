@@ -47,6 +47,7 @@
         makeEqual(.bottom)
       }
 
+      container.cocoaView.translatesAutoresizingMaskIntoConstraints = false
       container.fill(with: self.foreground)
     }
 
