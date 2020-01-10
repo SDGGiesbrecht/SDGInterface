@@ -32,6 +32,7 @@ import SDGApplicationTestUtilities
 final class APITests: ApplicationTestCase {
 
   func testAlignment() {
+    XCTAssertEqual(SDGInterfaceBasics.Alignment(horizontal: .centre, vertical: .centre), .centre)
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
         var swiftUI: SwiftUI.Alignment = .center
