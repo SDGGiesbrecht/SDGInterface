@@ -87,24 +87,22 @@ public struct Colour: Hashable {
   }
 
   #if canImport(AppKit)
-    // @documentation(Colour.init(native:))
-    /// Creates a colour from a native colour.
+    /// Creates a colour from an `NSColor`.
     ///
     /// - Parameters:
-    ///     - native: The native colour.
-    public init(_ native: NSColor) {
-      self.nsColor = native
+    ///     - colour: The colour.
+    public init(_ colour: NSColor) {
+      self.nsColor = colour
     }
   #endif
 
   #if canImport(UIKit)
-    // #documentation(Colour.init(native:))
-    /// Creates a colour from a native colour.
+    /// Creates a colour from a `UIColor`.
     ///
     /// - Parameters:
-    ///     - native: The native colour.
-    public init(_ native: UIColor) {
-      self.uiColor = native
+    ///     - colour: The colour.
+    public init(_ colour: UIColor) {
+      self.uiColor = colour
     }
   #endif
 
@@ -123,8 +121,7 @@ public struct Colour: Hashable {
   public var opacity: Double = 0
 
   #if canImport(AppKit)
-    // @documentation(Colour.native)
-    /// The native colour.
+    /// The colour as an `NSColor` instance.
     public var nsColor: NSColor {
       get {
         return NSColor(
@@ -146,8 +143,7 @@ public struct Colour: Hashable {
   #endif
 
   #if canImport(UIKit)
-    // #documentation(Colour.native)
-    /// The native colour.
+    /// The colour as a `UIColor` instance.
     public var uiColor: UIColor {
       get {
         return UIColor(
