@@ -35,7 +35,12 @@
 
         previewBothModes(
           circle(radius: 16)
-            .shimmedBackground(Color.red)
+            .shimmedBackground(
+              AnyView(
+                Color.red
+                  .frame(width: 48, height: 48)
+              )
+            )
             .swiftUIView
             .frame(width: 128, height: 64),
           name: "red"
