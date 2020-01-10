@@ -47,7 +47,7 @@
         makeEqual(.bottom)
       }
 
-      container.fill(with: foreground)
+      container.fill(with: self.foreground)
     }
 
     private func makeEqual(_ attribute: NSLayoutConstraint.Attribute) {

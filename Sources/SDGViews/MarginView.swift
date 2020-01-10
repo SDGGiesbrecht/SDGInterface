@@ -30,11 +30,13 @@
     ///     - contents: The content view.
     public init(contents: View) {
       self.contents = contents
-      AnyCocoaView(cocoaView).fill(with: contents)
+      self.stabilized = StabilizedView(contents)
+      AnyCocoaView(cocoaView).fill(with: stabilized)
     }
 
     // MARK: - Properties
 
+    private let stabilized: StabilizedView
     /// The content view.
     public let contents: View
 
