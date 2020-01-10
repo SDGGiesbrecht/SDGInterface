@@ -29,9 +29,9 @@
       } else {
         let letterbox = Ellipse()
           .aspectRatio(1 as Double, contentMode: .fit)
+          .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .centre)
           .swiftUIView
-          // #warning(Backport these.)
-          .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+          // #workaround(Backport this.)
           .background(Color.red)
         anyView = AnyView(letterbox)
       }

@@ -156,6 +156,10 @@ final class APITests: ApplicationTestCase {
         _ = IntrinsicSize(CGSize(width: 1, height: 0)).aspectRatio(nil, contentMode: .fill)
         _ = IntrinsicSize(CGSize(width: 1, height: 1)).aspectRatio(nil, contentMode: .fill)
       }
+
+      forAllLegacyModes {
+        _ = newView().frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .centre).cocoaView
+      }
     #endif
   }
 }
