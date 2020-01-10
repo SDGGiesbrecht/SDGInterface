@@ -59,6 +59,45 @@
 
   extension View {
 
+    #if canImport(AppKit) || canImport(UIKit)
+      private func legacyBackground<Background>(
+        _ background: Background,
+        alignment: SDGInterfaceBasics.Alignment = .centre
+      ) -> View where Background: View {
+        #warning("Not implemented yet.")
+        fatalError()
+      }
+    #endif
+    /// A shimmed version of `SwiftUI.View.background(_:alignment:)` with no availability constraints.
+    ///
+    /// - Parameters:
+    ///   - background: The background view.
+    ///   - contentMode: The alignment of the background.
+    @available(watchOS 6, *)
+    public func shimmedBackground<Background>(
+      _ background: Background,
+      alignment: SDGInterfaceBasics.Alignment = .centre
+    ) -> View where Background: View {
+      #if os(watchOS)
+        return AnyView(
+          swiftUIView.background(background.swiftUIView, alignment: SwiftUI.Alignment(alignment))
+        )
+      #elseif (canImport(SwiftUI) && !(os(iOS) && arch(arm)))
+        if #available(macOS 10.15, iOS 13, tvOS 13, *),
+          ¬legacyMode
+        {
+          return AnyView(
+            swiftUIView.background(background.swiftUIView, alignment: SwiftUI.Alignment(alignment))
+          )
+        } else {
+          return legacyBackground(background, alignment: alignment)
+        }
+      // @exempt(from: tests) Returned already, but the uncompiled text below confuses Xcode.
+      #else
+        return legacyBackground(background, alignment: alignment)
+      #endif
+    }
+
     /// A shimmed version of `SwiftUI.View.aspectRatio(_:contentMode:)` with no availability constraints.
     ///
     /// - Parameters:
