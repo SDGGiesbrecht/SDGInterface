@@ -24,6 +24,9 @@ import SDGInterfaceBasics
   extension SwiftUI.Color: SwiftUIViewImplementation {
 
     /// The colour as a `SwiftUI.Color` instance.
+    ///
+    /// - Parameters:
+    ///   - colour: The colour.
     public init(_ colour: SDGInterfaceBasics.Colour) {
       self.init(red: colour.red, green: colour.green, blue: colour.blue, opacity: colour.opacity)
     }

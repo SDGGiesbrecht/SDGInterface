@@ -71,7 +71,7 @@
     ///
     /// - Parameters:
     ///   - background: The background view.
-    ///   - contentMode: The alignment of the background.
+    ///   - alignment: The alignment of the background.
     @available(watchOS 6, *)
     public func shimmedBackground<Background>(
       _ background: Background,
