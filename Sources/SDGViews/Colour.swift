@@ -27,7 +27,7 @@
   extension Colour: View {
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      @available(macOS 10.15, iOS 13, tvOS 13, *)
+      @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
       public var swiftUIView: AnyView {
         return AnyView(SwiftUI.Color(self))
       }
@@ -37,7 +37,7 @@
       public var cocoaView: NSView {
         return ColourContainer(self)
       }
-    #else
+    #elseif !os(watchOS)
       public var cocoaView: UIView {
         let view = UIView()
         view.backgroundColor = self.uiColor

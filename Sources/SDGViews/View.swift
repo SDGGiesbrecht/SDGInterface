@@ -59,7 +59,7 @@
 
   extension View {
 
-    #if canImport(AppKit) || canImport(UIKit)
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       private func legacyBackground<Background>(
         _ background: Background,
         alignment: SDGInterfaceBasics.Alignment = .centre
