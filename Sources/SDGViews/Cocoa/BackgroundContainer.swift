@@ -79,8 +79,7 @@
         multiplier: 1,
         constant: 0
       )
-      #warning("Tailor priority.")
-      constraint.priority = LayoutConstraintPriority(rawValue: 255)
+      constraint.priority = FrameContainer.fillingPriority
       container.cocoaView.addConstraint(constraint)
     }
 
