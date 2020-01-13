@@ -17,6 +17,8 @@
 
   import SDGMathematics
 
+  import SDGInterfaceBasics
+
   @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
   internal struct FramePreviews: SwiftUI.View {
 
@@ -67,6 +69,15 @@
             .background(Color.red)
             .frame(width: 128, height: 64),
           name: "∅"
+        )
+
+        previewBothModes(
+          AnyView(
+            AnyView(Ellipse())
+              .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .centre).swiftUIView
+              .frame(width: 128, height: 64)
+          ),
+          name: "(≤ ∞) × (≤ ∞), no internal frame"
         )
       }
     }
