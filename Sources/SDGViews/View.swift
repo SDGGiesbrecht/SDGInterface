@@ -214,5 +214,24 @@
         )
       #endif
     }
+
+    /// Letter or pillarboxes a view, locking it to an aspect ratio and filling in the empty bars along the edges with a background.
+    ///
+    /// The resulting view
+    ///
+    /// - Parameters:
+    ///   - aspectRatio: The aspect ratio.
+    ///   - background: The background view.
+    @available(watchOS 6, *)
+    public func letterboxed<Background>(
+      aspectRatio: Double,
+      background: Background
+    ) -> View where Background: View {
+      return
+        self
+        .aspectRatio(aspectRatio, contentMode: .fit)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .centre)
+        .shimmedBackground(background)
+    }
   }
 #endif

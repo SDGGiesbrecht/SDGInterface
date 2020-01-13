@@ -49,6 +49,9 @@
 
       container.cocoaView.translatesAutoresizingMaskIntoConstraints = false
       container.fill(with: self.foreground, margin: .specific(0))
+
+      preferEqual(.width)
+      preferEqual(.height)
     }
 
     private func makeEqual(_ attribute: NSLayoutConstraint.Attribute) {
@@ -64,6 +67,20 @@
           constant: 0
         )
       )
+    }
+
+    private func preferEqual(_ attribute: NSLayoutConstraint.Attribute) {
+      let constraint = NSLayoutConstraint(
+        item: background.cocoaView,
+        attribute: attribute,
+        relatedBy: .equal,
+        toItem: container.cocoaView,
+        attribute: attribute,
+        multiplier: 1,
+        constant: 0
+      )
+      constraint.priority = FrameContainer.fillingPriority
+      container.cocoaView.addConstraint(constraint)
     }
 
     // MARK: - Properties

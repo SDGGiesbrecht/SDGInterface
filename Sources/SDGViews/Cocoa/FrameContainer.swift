@@ -54,6 +54,8 @@
         maximum: maxHeight,
         intrinsic: { $0.height }
       )
+      preferEqual(.width)
+      preferEqual(.height)
 
       switch alignment.horizontal {
       case .leading:
@@ -127,6 +129,21 @@
           constant: 0
         )
       )
+    }
+
+    internal static let fillingPriority = LayoutConstraintPriority(rawValue: 255)
+    private func preferEqual(_ attribute: NSLayoutConstraint.Attribute) {
+      let constraint = NSLayoutConstraint(
+        item: contents.cocoaView,
+        attribute: attribute,
+        relatedBy: .equal,
+        toItem: container.cocoaView,
+        attribute: attribute,
+        multiplier: 1,
+        constant: 0
+      )
+      constraint.priority = FrameContainer.fillingPriority
+      container.cocoaView.addConstraint(constraint)
     }
 
     private func prefer(_ attribute: NSLayoutConstraint.Attribute, of constant: Double?) {
