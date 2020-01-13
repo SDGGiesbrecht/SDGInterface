@@ -376,6 +376,7 @@ let package = Package(
     .testTarget(
       name: "SDGViewsTests",
       dependencies: [
+        "SDGInterfaceBasics",
         "SDGViews",
         "SDGWindows",
         "SDGApplication",
