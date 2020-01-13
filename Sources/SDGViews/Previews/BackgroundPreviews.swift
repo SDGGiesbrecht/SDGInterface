@@ -17,6 +17,8 @@
 
   import SDGMathematics
 
+  import SDGInterfaceBasics
+
   @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
   internal struct BackgroundPreviews: SwiftUI.View {
 
@@ -76,6 +78,20 @@
             .border(Color.blue)
             .frame(width: 128, height: 64),
           name: "red, .bottomTrailing"
+        )
+
+        previewBothModes(
+          AnyView(
+            Ellipse()
+              .aspectRatio(1, contentMode: .fit)
+              .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .centre)
+              .shimmedBackground(Colour.red)
+              .swiftUIView
+          )
+            .frame(width: 128, height: 64)
+            .padding(1)
+            .border(Color.gray, width: 1),
+          name: "Behind Filling Frame"
         )
       }
     }
