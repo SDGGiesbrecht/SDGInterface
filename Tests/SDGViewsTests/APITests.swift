@@ -62,15 +62,6 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
-  func testLetterbox() {
-    #if canImport(AppKit) || canImport(UIKit)
-      Application.shared.demonstrateLetterbox()
-      let letterbox = Letterbox(content: EmptyView(), aspectRatio: 1)
-      letterbox.colour = .red
-      XCTAssertEqual(letterbox.colour?.opacity, 1)
-    #endif
-  }
-
   func testRowView() {
     #if canImport(AppKit) || canImport(UIKit)
       if #available(iOS 9, *) {  // @exempt(from: unicode)

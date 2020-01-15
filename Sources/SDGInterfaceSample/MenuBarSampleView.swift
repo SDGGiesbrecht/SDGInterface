@@ -106,22 +106,6 @@
       return label
     }
 
-    private static func letterbox() -> MenuEntry<InterfaceLocalization> {
-      let letterbox = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-              return "Letterbox"
-            }
-          })
-        )
-      )
-      letterbox.action = #selector(Application.demonstrateLetterbox)
-      letterbox.target = Application.shared
-      return letterbox
-    }
-
     private static func textEditor() -> MenuEntry<InterfaceLocalization> {
       let textEditor = MenuEntry(
         label: .static(
@@ -155,7 +139,6 @@
         .entry(checkBox()),
         .entry(image()),
         .entry(label()),
-        .entry(letterbox()),
         .entry(textEditor()),
         .submenu(textField())
       ]
