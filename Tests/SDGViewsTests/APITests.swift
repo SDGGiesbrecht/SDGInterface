@@ -38,7 +38,7 @@ final class APITests: ApplicationTestCase {
       let view = CocoaExample()
       _ = view.cocoaView
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-        if #available(macOS 10.15, iOS 13, tvOS 13, *) {
+        if #available(macOS 10.15, tvOS 13, iOS 13, *) {
           _ = view.swiftUIView
         }
       #endif
@@ -56,7 +56,7 @@ final class APITests: ApplicationTestCase {
   func testColour() {
     #if canImport(AppKit) || canImport(UIKit)
       _ = Colour.red.cocoaView
-      if #available(macOS 10.15, iOS 13, tvOS 13, *) {
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
         _ = Colour.green.swiftUIView
       }
     #endif
@@ -82,7 +82,7 @@ final class APITests: ApplicationTestCase {
 
   func testSwiftUIViewImplementation() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      if #available(macOS 10.15, iOS 13, tvOS 13, *) {  // @exempt(from: unicode)
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {  // @exempt(from: unicode)
         let view = SwiftUIExample()
         _ = view.swiftUIView
         #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
@@ -131,7 +131,7 @@ final class APITests: ApplicationTestCase {
       )
 
       #if !(os(iOS) && arch(arm))
-        if #available(macOS 10.15, iOS 13, tvOS 13, *) {
+        if #available(macOS 10.15, tvOS 13, iOS 13, *) {
           let swiftUI = newView().swiftUIView
           let window = Window<InterfaceLocalization>.primaryWindow(
             name: .binding(Shared("")),

@@ -18,10 +18,10 @@
   /// A view that is implemented using SwiftUI.
   ///
   /// If a type already conforms to `SwiftUI.View`, conformance to this protocol can be declared in order to use default implementations for all the other requirements of `SDGSwift.View`.
-  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   public protocol SwiftUIViewImplementation: View {}
 
-  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension SwiftUIViewImplementation {
 
     #if canImport(AppKit)
@@ -36,7 +36,7 @@
     #endif
   }
 
-  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension SwiftUIViewImplementation where Self: SwiftUI.View {
     public var swiftUIView: AnyView {
       return AnyView(self)

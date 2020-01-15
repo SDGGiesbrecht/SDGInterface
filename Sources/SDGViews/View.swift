@@ -38,7 +38,7 @@
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       /// The SwiftUI view.
-      @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+      @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
       var swiftUIView: SwiftUI.AnyView { get }
     #endif
 
@@ -82,7 +82,7 @@
           swiftUIView.background(background.swiftUIView, alignment: SwiftUI.Alignment(alignment))
         )
       #elseif (canImport(SwiftUI) && !(os(iOS) && arch(arm)))
-        if #available(macOS 10.15, iOS 13, tvOS 13, *),
+        if #available(macOS 10.15, tvOS 13, iOS 13, *),
           ¬legacyMode
         {
           return AnyView(
@@ -115,7 +115,7 @@
           )
         )
       #elseif (canImport(SwiftUI) && !(os(iOS) && arch(arm)))
-        if #available(macOS 10.15, iOS 13, tvOS 13, *),
+        if #available(macOS 10.15, tvOS 13, iOS 13, *),
           ¬legacyMode
         {
           return AnyView(
@@ -174,7 +174,7 @@
           )
         )
       #elseif (canImport(SwiftUI) && !(os(iOS) && arch(arm)))
-        if #available(macOS 10.15, iOS 13, tvOS 13, *),
+        if #available(macOS 10.15, tvOS 13, iOS 13, *),
           ¬legacyMode
         {
           return AnyView(

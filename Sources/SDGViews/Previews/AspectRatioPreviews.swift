@@ -17,7 +17,7 @@
 
   import SDGMathematics
 
-  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   internal struct AspectRatioPreviews: SwiftUI.View {
 
     internal var body: some SwiftUI.View {

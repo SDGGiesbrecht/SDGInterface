@@ -26,7 +26,7 @@
 
   final class PreviewTests: ApplicationTestCase {
 
-    @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+    @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
     func simulateUse<V>(of view: V) where V: SwiftUI.View {
       _ = view.body
       _ = Window<InterfaceLocalization>.primaryWindow(
@@ -36,25 +36,25 @@
     }
 
     func testAspectRatioPreviews() {
-      if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
+      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         simulateUse(of: AspectRatioPreviews())
       }
     }
 
     func testBackgroundPreviews() {
-      if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
+      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         simulateUse(of: BackgroundPreviews())
       }
     }
 
     func testFramePreviews() {
-      if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
+      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         simulateUse(of: FramePreviews())
       }
     }
 
     func testLetterboxPreviews() {
-      if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
+      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         simulateUse(of: LetterboxPreviews())
       }
     }

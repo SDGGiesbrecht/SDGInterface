@@ -25,7 +25,7 @@
       extension CocoaViewRepresentableWrapper: UIViewRepresentable {}
     #endif
 
-    @available(macOS 10.15, iOS 13, tvOS 13, *)
+    @available(macOS 10.15, tvOS 13, iOS 13, *)
     internal struct CocoaViewRepresentableWrapper {
 
       // MARK: - Initialization
