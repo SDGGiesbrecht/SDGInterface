@@ -188,16 +188,6 @@ extension Application {
       demonstrate(LabelledTextField(labelText: .static(label)), windowTitle: label)
     }
 
-    @objc public func demonstrateLetterbox() {
-      let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
-        switch localization {
-        case .englishCanada:
-          return "Letterbox"
-        }
-      })
-      demonstrate(Letterbox(content: TextEditor(), aspectRatio: 1), windowTitle: label)
-    }
-
     @objc public func demonstrateRadioButtonSet() {
       let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
         switch localization {
