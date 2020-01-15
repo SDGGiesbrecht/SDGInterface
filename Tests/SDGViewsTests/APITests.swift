@@ -102,28 +102,28 @@ final class APITests: ApplicationTestCase {
         #endif
         return AnyCocoaView(native)
       }
-      newView().fill(with: EmptyView())
+      newView().fill(with: StabilizedView(EmptyView()))
       newView().setMinimumSize(size: 10, axis: .horizontal)
-      newView().position(subviews: [EmptyView(), EmptyView()], inSequenceAlong: .vertical)
-      newView().centre(subview: EmptyView())
-      newView().equalizeSize(amongSubviews: [EmptyView(), EmptyView()], on: .horizontal)
-      newView().equalizeSize(amongSubviews: [EmptyView(), EmptyView()], on: .vertical)
+      newView().position(subviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())], inSequenceAlong: .vertical)
+      newView().centre(subview: StabilizedView(EmptyView()))
+      newView().equalizeSize(amongSubviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())], on: .horizontal)
+      newView().equalizeSize(amongSubviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())], on: .vertical)
       newView().lockSizeRatio(
-        toSubviews: [EmptyView(), EmptyView()],
+        toSubviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())],
         coefficient: 1,
         axis: .horizontal
       )
       newView().lockSizeRatio(
-        toSubviews: [EmptyView(), EmptyView()],
+        toSubviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())],
         coefficient: 1,
         axis: .vertical
       )
-      newView().alignCentres(ofSubviews: [EmptyView(), EmptyView()], on: .horizontal)
-      newView().alignCentres(ofSubviews: [EmptyView(), EmptyView()], on: .vertical)
-      newView().alignLastBaselines(ofSubviews: [EmptyView(), EmptyView()])
+      newView().alignCentres(ofSubviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())], on: .horizontal)
+      newView().alignCentres(ofSubviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())], on: .vertical)
+      newView().alignLastBaselines(ofSubviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())])
       _ = newView().aspectRatio(1, contentMode: .fit)
       newView().position(
-        subviews: [EmptyView(), EmptyView()],
+        subviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())],
         inSequenceAlong: .horizontal,
         padding: .specific(0),
         leadingMargin: .specific(8),
