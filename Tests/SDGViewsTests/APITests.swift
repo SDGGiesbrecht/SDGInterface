@@ -64,9 +64,9 @@ final class APITests: ApplicationTestCase {
 
   func testEmptyView() {
     #if canImport(SwiftUI)
-    if #available(macOS 10.15, tvOS 13, iOS 13, *) {
-      _ = EmptyView().swiftUIView
-    }
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        _ = EmptyView().swiftUIView
+      }
     #endif
   }
 
@@ -112,10 +112,19 @@ final class APITests: ApplicationTestCase {
       }
       newView().fill(with: StabilizedView(EmptyView()))
       newView().setMinimumSize(size: 10, axis: .horizontal)
-      newView().position(subviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())], inSequenceAlong: .vertical)
+      newView().position(
+        subviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())],
+        inSequenceAlong: .vertical
+      )
       newView().centre(subview: StabilizedView(EmptyView()))
-      newView().equalizeSize(amongSubviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())], on: .horizontal)
-      newView().equalizeSize(amongSubviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())], on: .vertical)
+      newView().equalizeSize(
+        amongSubviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())],
+        on: .horizontal
+      )
+      newView().equalizeSize(
+        amongSubviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())],
+        on: .vertical
+      )
       newView().lockSizeRatio(
         toSubviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())],
         coefficient: 1,
@@ -126,9 +135,17 @@ final class APITests: ApplicationTestCase {
         coefficient: 1,
         axis: .vertical
       )
-      newView().alignCentres(ofSubviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())], on: .horizontal)
-      newView().alignCentres(ofSubviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())], on: .vertical)
-      newView().alignLastBaselines(ofSubviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())])
+      newView().alignCentres(
+        ofSubviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())],
+        on: .horizontal
+      )
+      newView().alignCentres(
+        ofSubviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())],
+        on: .vertical
+      )
+      newView().alignLastBaselines(ofSubviews: [
+        StabilizedView(EmptyView()), StabilizedView(EmptyView())
+      ])
       _ = newView().aspectRatio(1, contentMode: .fit)
       newView().position(
         subviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())],
