@@ -62,6 +62,14 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
+  func testEmptyView() {
+    #if canImport(SwiftUI)
+    if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+      _ = EmptyView().swiftUIView
+    }
+    #endif
+  }
+
   func testRowView() {
     #if canImport(AppKit) || canImport(UIKit)
       if #available(iOS 9, *) {  // @exempt(from: unicode)
