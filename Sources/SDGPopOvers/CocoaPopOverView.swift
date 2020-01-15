@@ -43,6 +43,6 @@
 
     // MARK: - Properties
 
-    private let view: View?
+    private let view: View
   }
 #endif

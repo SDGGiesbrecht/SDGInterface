@@ -37,7 +37,8 @@
       sourceRectangle: Rectangle? = nil,
       preferredSize: Size? = nil
     ) {
-      let popOverView = CocoaPopOverView(view: view)
+      let popOverView = CocoaPopOverView(view: StabilizedView(view))
+      let stabilizedSelf = StabilizedView(self)
 
       #if canImport(UIKit)
         let controller = UIViewController()
@@ -52,12 +53,12 @@
         #if !os(tvOS)
           popOver?.delegate = UIPopoverPresentationControllerDelegate.delegate
         #endif
-        popOver?.sourceView = cocoaView
+        popOver?.sourceView = stabilizedSelf.cocoaView
         popOver?.sourceRect = sourceRectangle?.native
-          ?? cocoaView.frame  // @exempt(from: tests) tvOS quirk.
+          ?? stabilizedSelf.cocoaView.frame  // @exempt(from: tests) tvOS quirk.
         popOver?.permittedArrowDirections = .any
 
-        cocoaView.controller?.present(controller, animated: true, completion: nil)
+        stabilizedSelf.cocoaView.controller?.present(controller, animated: true, completion: nil)
       #else
         let controller = NSViewController()
         if let specifiedSize = preferredSize {
@@ -69,8 +70,8 @@
         popOver.contentViewController = controller
         popOver.behavior = .transient
         popOver.show(
-          relativeTo: sourceRectangle?.native ?? cocoaView.frame,
-          of: cocoaView,
+          relativeTo: sourceRectangle?.native ?? stabilizedSelf.cocoaView.frame,
+          of: stabilizedSelf.cocoaView,
           preferredEdge: .maxX
         )
       #endif
