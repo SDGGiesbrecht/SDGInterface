@@ -54,7 +54,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testColour() {
-    #if canImport(AppKit) || canImport(UIKit)
+    #if canImport(AppKit) || canImport(UIKit) && !(os(iOS) && arch(arm))
       _ = Colour.red.cocoaView
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {
         _ = Colour.green.swiftUIView
@@ -63,7 +63,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testEmptyView() {
-    #if canImport(SwiftUI)
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {
         _ = EmptyView().swiftUIView
       }

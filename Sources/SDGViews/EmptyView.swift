@@ -13,7 +13,7 @@
  */
 
 #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
-  #if canImport(SwiftUI)
+  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
     import SwiftUI
   #endif
   #if canImport(AppKit)
@@ -33,7 +33,7 @@
 
     // MARK: - Properties
 
-    #if canImport(SwiftUI)
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       @available(macOS 10.15, tvOS 13, iOS 13, *)
       public var swiftUIView: AnyView {
         return AnyView(SwiftUI.EmptyView())
