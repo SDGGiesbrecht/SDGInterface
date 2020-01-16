@@ -17,7 +17,7 @@
 #endif
 
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension SwiftUI.VerticalAlignment {
 
     /// Unwraps an instance of a shimmed `SDGInterfaceBasics.VerticalAlignment`.
@@ -56,7 +56,7 @@ public enum VerticalAlignment: Equatable {
     ///
     /// - Parameters:
     ///   - standard: The standard instance.
-    @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+    @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
     public init?(_ standard: SwiftUI.VerticalAlignment) {
       switch standard {
       case .top:

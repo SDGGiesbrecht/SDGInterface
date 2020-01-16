@@ -175,7 +175,7 @@
     /// The root view.
     public var view: View {
       get {
-        return stabilizedView.view
+        return stabilizedView
       }
       set {
         stabilizedView = StabilizedView(newValue)

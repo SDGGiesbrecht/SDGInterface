@@ -37,7 +37,7 @@
       sourceRectangle: Rectangle? = nil,
       preferredSize: Size? = nil
     ) {
-      let popOverView = CocoaPopOverView(view: view)
+      let popOverView = CocoaPopOverView(view: StabilizedView(view))
 
       #if canImport(UIKit)
         let controller = UIViewController()

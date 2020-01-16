@@ -17,7 +17,7 @@
 #endif
 
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension SwiftUI.Alignment {
 
     /// Unwraps an instance of a shimmed `SDGInterfaceBasics.Alignment`.
@@ -83,7 +83,7 @@ public struct Alignment: Equatable {
     ///
     /// - Parameters:
     ///   - standard: The standard instance.
-    @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+    @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
     public init?(_ standard: SwiftUI.Alignment) {
       guard let horizontal = HorizontalAlignment(standard.horizontal),
         let vertical = VerticalAlignment(standard.vertical)

@@ -34,7 +34,7 @@ final class APITests: ApplicationTestCase {
   func testAlignment() {
     XCTAssertEqual(SDGInterfaceBasics.Alignment(horizontal: .centre, vertical: .centre), .centre)
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
+      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         var swiftUI: SwiftUI.Alignment = .center
         var sdgInterface = SDGInterfaceBasics.Alignment(swiftUI)!
         XCTAssertEqual(sdgInterface, .centre)
@@ -93,7 +93,7 @@ final class APITests: ApplicationTestCase {
   func testContentMode() {
     for mode in SDGInterfaceBasics.ContentMode.allCases {
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-        if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
+        if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
           let swiftUI = SwiftUI.ContentMode(mode)
           let roundTrip = SDGInterfaceBasics.ContentMode(swiftUI)
           XCTAssertEqual(roundTrip, mode)

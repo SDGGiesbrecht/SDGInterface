@@ -30,7 +30,7 @@
   extension CocoaViewImplementation {
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      @available(macOS 10.15, iOS 13, tvOS 13, *)
+      @available(macOS 10.15, tvOS 13, iOS 13, *)
       public var swiftUIView: AnyView {
         return AnyView(CocoaViewRepresentableWrapper(self))
       }

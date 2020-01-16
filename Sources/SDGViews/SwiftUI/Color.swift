@@ -20,7 +20,7 @@ import SDGInterfaceBasics
 
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
 
-  @available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension SwiftUI.Color: SwiftUIViewImplementation {
 
     /// The colour as a `SwiftUI.Color` instance.

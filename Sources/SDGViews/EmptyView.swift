@@ -12,7 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
+#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    import SwiftUI
+  #endif
   #if canImport(AppKit)
     import AppKit
   #elseif canImport(UIKit)
@@ -20,7 +23,8 @@
   #endif
 
   /// An empty view.
-  public final class EmptyView: CocoaViewImplementation, View {
+  @available(watchOS 9, *)
+  public struct EmptyView: View {
 
     // MARK: - Initialization
 
@@ -29,10 +33,21 @@
 
     // MARK: - Properties
 
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      @available(macOS 10.15, tvOS 13, iOS 13, *)
+      public var swiftUIView: AnyView {
+        return AnyView(SwiftUI.EmptyView())
+      }
+    #endif
+
     #if canImport(AppKit)
-      public let cocoaView: NSView = NSView()
-    #elseif canImport(UIKit)
-      public let cocoaView: UIView = UIView()
+      public var cocoaView: NSView {
+        return NSView()
+      }
+    #elseif canImport(UIKit) && !os(watchOS)
+      public var cocoaView: UIView {
+        return UIView()
+      }
     #endif
   }
 #endif

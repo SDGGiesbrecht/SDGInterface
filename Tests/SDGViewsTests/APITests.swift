@@ -38,7 +38,7 @@ final class APITests: ApplicationTestCase {
       let view = CocoaExample()
       _ = view.cocoaView
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-        if #available(macOS 10.15, iOS 13, tvOS 13, *) {
+        if #available(macOS 10.15, tvOS 13, iOS 13, *) {
           _ = view.swiftUIView
         }
       #endif
@@ -54,10 +54,18 @@ final class APITests: ApplicationTestCase {
   }
 
   func testColour() {
-    #if canImport(AppKit) || canImport(UIKit)
+    #if canImport(AppKit) || canImport(UIKit) && !(os(iOS) && arch(arm))
       _ = Colour.red.cocoaView
-      if #available(macOS 10.15, iOS 13, tvOS 13, *) {
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
         _ = Colour.green.swiftUIView
+      }
+    #endif
+  }
+
+  func testEmptyView() {
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        _ = EmptyView().swiftUIView
       }
     #endif
   }
@@ -82,7 +90,7 @@ final class APITests: ApplicationTestCase {
 
   func testSwiftUIViewImplementation() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      if #available(macOS 10.15, iOS 13, tvOS 13, *) {  // @exempt(from: unicode)
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {  // @exempt(from: unicode)
         let view = SwiftUIExample()
         _ = view.swiftUIView
         #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
@@ -102,28 +110,45 @@ final class APITests: ApplicationTestCase {
         #endif
         return AnyCocoaView(native)
       }
-      newView().fill(with: EmptyView())
+      newView().fill(with: StabilizedView(EmptyView()))
       newView().setMinimumSize(size: 10, axis: .horizontal)
-      newView().position(subviews: [EmptyView(), EmptyView()], inSequenceAlong: .vertical)
-      newView().centre(subview: EmptyView())
-      newView().equalizeSize(amongSubviews: [EmptyView(), EmptyView()], on: .horizontal)
-      newView().equalizeSize(amongSubviews: [EmptyView(), EmptyView()], on: .vertical)
+      newView().position(
+        subviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())],
+        inSequenceAlong: .vertical
+      )
+      newView().centre(subview: StabilizedView(EmptyView()))
+      newView().equalizeSize(
+        amongSubviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())],
+        on: .horizontal
+      )
+      newView().equalizeSize(
+        amongSubviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())],
+        on: .vertical
+      )
       newView().lockSizeRatio(
-        toSubviews: [EmptyView(), EmptyView()],
+        toSubviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())],
         coefficient: 1,
         axis: .horizontal
       )
       newView().lockSizeRatio(
-        toSubviews: [EmptyView(), EmptyView()],
+        toSubviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())],
         coefficient: 1,
         axis: .vertical
       )
-      newView().alignCentres(ofSubviews: [EmptyView(), EmptyView()], on: .horizontal)
-      newView().alignCentres(ofSubviews: [EmptyView(), EmptyView()], on: .vertical)
-      newView().alignLastBaselines(ofSubviews: [EmptyView(), EmptyView()])
+      newView().alignCentres(
+        ofSubviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())],
+        on: .horizontal
+      )
+      newView().alignCentres(
+        ofSubviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())],
+        on: .vertical
+      )
+      newView().alignLastBaselines(ofSubviews: [
+        StabilizedView(EmptyView()), StabilizedView(EmptyView())
+      ])
       _ = newView().aspectRatio(1, contentMode: .fit)
       newView().position(
-        subviews: [EmptyView(), EmptyView()],
+        subviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())],
         inSequenceAlong: .horizontal,
         padding: .specific(0),
         leadingMargin: .specific(8),
@@ -131,7 +156,7 @@ final class APITests: ApplicationTestCase {
       )
 
       #if !(os(iOS) && arch(arm))
-        if #available(macOS 10.15, iOS 13, tvOS 13, *) {
+        if #available(macOS 10.15, tvOS 13, iOS 13, *) {
           let swiftUI = newView().swiftUIView
           let window = Window<InterfaceLocalization>.primaryWindow(
             name: .binding(Shared("")),
