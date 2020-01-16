@@ -44,7 +44,7 @@
       public var cocoaView: NSView {
         return NSView()
       }
-    #elseif canImport(UIKit)
+    #elseif canImport(UIKit) && !os(watchOS)
       public var cocoaView: UIView {
         return UIView()
       }
