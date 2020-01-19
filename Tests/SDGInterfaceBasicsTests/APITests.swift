@@ -102,6 +102,18 @@ final class APITests: ApplicationTestCase {
     }
   }
 
+  func testEdge() {
+    for edge in SDGInterfaceBasics.Edge.allCases {
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
+          let swiftUI = SwiftUI.Edge(edge)
+          let roundTrip = SDGInterfaceBasics.Edge(swiftUI)
+          XCTAssertEqual(roundTrip, mode)
+        }
+      #endif
+    }
+  }
+
   func testPoint() {
     #if canImport(CoreGraphics)
       XCTAssertEqual(Point(CGPoint(x: 0, y: 0)), Point(0, 0))
