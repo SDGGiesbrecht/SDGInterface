@@ -300,7 +300,8 @@ let package = Package(
       dependencies: [
         "SDGInterfaceBasics",
         .product(name: "SDGLogic", package: "SDGCornerstone"),
-        .product(name: "SDGMathematics", package: "SDGCornerstone")
+        .product(name: "SDGMathematics", package: "SDGCornerstone"),
+        .product(name: "SDGCollections", package: "SDGCornerstone")
       ]
     ),
 
@@ -322,6 +323,7 @@ let package = Package(
       dependencies: [
         "SDGInterfaceLocalizations",
         .product(name: "SDGControlFlow", package: "SDGCornerstone"),
+        .product(name: "SDGCollections", package: "SDGCornerstone"),
         .product(name: "SDGText", package: "SDGCornerstone"),
         .product(name: "SDGLocalization", package: "SDGCornerstone"),
         .product(name: "SDGGeometry", package: "SDGCornerstone")

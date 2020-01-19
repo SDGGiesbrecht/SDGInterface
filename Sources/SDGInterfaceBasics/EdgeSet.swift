@@ -16,6 +16,8 @@
   import SwiftUI
 #endif
 
+import SDGCollections
+
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension SwiftUI.Edge.Set {
@@ -54,14 +56,6 @@ extension Edge {
     /// A shimmed version of `SwiftUI.Edge.Set.all` with no availability constraints.
     public static let all: Set = [.horizontal, .vertical]
 
-    // MARK: - RawRepresentable
-
-    public init(rawValue: Int8) {
-      self.rawValue = rawValue
-    }
-
-    public let rawValue: Int8
-
     // MARK: - Initialization
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
@@ -74,5 +68,27 @@ extension Edge {
         self.init(rawValue: standard.rawValue)
       }
     #endif
+
+    /// A shimmed version of `SwiftUI.Edge.Set.init` with no availability constraints.
+    public init(_ edge: Edge) {
+      switch edge {
+      case .top:
+        self = .top
+      case .leading:
+        self = .leading
+      case .trailing:
+        self = .trailing
+      case .bottom:
+        self = .bottom
+      }
+    }
+
+    // MARK: - RawRepresentable
+
+    public init(rawValue: Int8) {
+      self.rawValue = rawValue
+    }
+
+    public let rawValue: Int8
   }
 }
