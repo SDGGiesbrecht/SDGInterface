@@ -26,6 +26,7 @@
         return AnyView(
           Rectangle()
             .fill(Color.red)
+            .frame(width: 32, height: 32)
         )
       }
 
