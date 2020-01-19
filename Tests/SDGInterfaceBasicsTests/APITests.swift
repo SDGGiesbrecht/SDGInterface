@@ -108,10 +108,25 @@ final class APITests: ApplicationTestCase {
         if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
           let swiftUI = SwiftUI.Edge(edge)
           let roundTrip = SDGInterfaceBasics.Edge(swiftUI)
-          XCTAssertEqual(roundTrip, mode)
+          XCTAssertEqual(roundTrip, edge)
         }
       #endif
     }
+  }
+
+  func testEdgeSet() {
+    let horizontal = SDGInterfaceBasics.Edge.Set.horizontal
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
+        let swiftUIHorizontal = SwiftUI.Edge.Set(horizontal)
+        for edge in SDGInterfaceBasics.Edge.allCases {
+          let swiftUIEdge = SwiftUI.Edge(edge)
+          let entry = SDGInterfaceBasics.Edge.Set(edge)
+          let swiftUIEntry = SwiftUI.Edge.Set(swiftUIEdge)
+          XCTAssertEqual(horizontal.contains(entry), swiftUIHorizontal.contains(swiftUIEntry))
+        }
+      }
+    #endif
   }
 
   func testPoint() {
