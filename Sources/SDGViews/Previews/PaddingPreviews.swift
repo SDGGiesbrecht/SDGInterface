@@ -39,6 +39,14 @@
             .background(Color.blue),
           name: "Default"
         )
+
+        previewBothModes(
+          square()
+            .padding(.horizontal, 16)
+            .swiftUIView
+            .background(Color.blue),
+          name: "Horizontal, 16"
+        )
       }
     }
   }
