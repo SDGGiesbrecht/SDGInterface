@@ -58,5 +58,11 @@
         simulateUse(of: LetterboxPreviews())
       }
     }
+
+    func testPaddingPreviews() {
+      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
+        simulateUse(of: PaddingPreviews())
+      }
+    }
   }
 #endif
