@@ -19,6 +19,7 @@
     import UIKit
   #endif
 
+  import SDGLogic
   import SDGCollections
 
   import SDGInterfaceBasics
@@ -33,7 +34,7 @@
 
       for edge in Edge.allCases {
         var spacing = width
-        if edges.contains(Edge.Set(edge)) {
+        if ¬edges.contains(Edge.Set(edge)) {
           spacing = 0
         }
         handle(edge: edge, spacing: spacing)
