@@ -119,6 +119,8 @@ final class APITests: ApplicationTestCase {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         let swiftUIHorizontal = SwiftUI.Edge.Set(horizontal)
+        let roundTrip = SDGInterfaceBasics.Edge.Set(swiftUIHorizontal)
+        XCTAssertEqual(roundTrip, horizontal)
         for edge in SDGInterfaceBasics.Edge.allCases {
           let swiftUIEdge = SwiftUI.Edge(edge)
           let entry = SDGInterfaceBasics.Edge.Set(edge)
