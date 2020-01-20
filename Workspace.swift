@@ -60,3 +60,6 @@ configuration.documentation.api.ignoredDependencies = [
   "Foundation",
   "XCTest"
 ]
+
+// #workaround(workspace version 0.28.0, GitHub Action cache became invalid?)
+configuration.continuousIntegration.manage = false
