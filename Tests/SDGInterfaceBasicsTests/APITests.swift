@@ -17,6 +17,7 @@
 #endif
 
 import SDGControlFlow
+import SDGLogic
 import SDGLocalization
 
 import SDGInterfaceBasics
@@ -99,6 +100,42 @@ final class APITests: ApplicationTestCase {
           XCTAssertEqual(roundTrip, mode)
         }
       #endif
+    }
+  }
+
+  func testEdge() {
+    for edge in SDGInterfaceBasics.Edge.allCases {
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
+          let swiftUI = SwiftUI.Edge(edge)
+          let roundTrip = SDGInterfaceBasics.Edge(swiftUI)
+          XCTAssertEqual(roundTrip, edge)
+        }
+      #endif
+    }
+  }
+
+  func testEdgeSet() {
+    let horizontal = SDGInterfaceBasics.Edge.Set.horizontal
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
+        let swiftUIHorizontal = SwiftUI.Edge.Set(horizontal)
+        let roundTrip = SDGInterfaceBasics.Edge.Set(swiftUIHorizontal)
+        XCTAssertEqual(roundTrip, horizontal)
+        for edge in SDGInterfaceBasics.Edge.allCases {
+          let swiftUIEdge = SwiftUI.Edge(edge)
+          let entry = SDGInterfaceBasics.Edge.Set(edge)
+          let swiftUIEntry = SwiftUI.Edge.Set(swiftUIEdge)
+          XCTAssertEqual(horizontal.contains(entry), swiftUIHorizontal.contains(swiftUIEntry))
+        }
+      }
+    #endif
+    for edge in SDGInterfaceBasics.Edge.allCases {
+      let set = SDGInterfaceBasics.Edge.Set(edge)
+      XCTAssert(set.contains(SDGInterfaceBasics.Edge.Set(edge)))
+      for other in SDGInterfaceBasics.Edge.allCases where other ≠ edge {
+        XCTAssertFalse(set.contains(SDGInterfaceBasics.Edge.Set(other)))
+      }
     }
   }
 

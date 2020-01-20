@@ -59,6 +59,32 @@
 
   extension View {
 
+    /// A shimmed version of `SwiftUI.View.padding(_:_:)` with no availability constraints.
+    ///
+    /// - Parameters:
+    ///   - edges: The edges along which to apply the padding.
+    ///   - width: The width of the padding.
+    @available(watchOS 6, *)
+    public func padding(
+      _ edges: SDGInterfaceBasics.Edge.Set = .all,
+      _ width: Double? = nil
+    ) -> View {
+      #if os(watchOS)
+        return AnyView(swiftUIView.padding(SwiftUI.Edge.Set(edges), width.map({ CGFloat($0) })))
+      #elseif (canImport(SwiftUI) && !(os(iOS) && arch(arm)))
+        if #available(macOS 10.15, tvOS 13, iOS 13, *),
+          ¬legacyMode
+        {
+          return AnyView(swiftUIView.padding(SwiftUI.Edge.Set(edges), width.map({ CGFloat($0) })))
+        } else {
+          return PaddingContainer(contents: self, edges: edges, width: width)
+        }
+      // @exempt(from: tests) Returned already, but the uncompiled text below confuses Xcode.
+      #else
+        return PaddingContainer(contents: self, edges: edges, width: width)
+      #endif
+    }
+
     #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       private func legacyBackground<Background>(
         _ background: Background,
