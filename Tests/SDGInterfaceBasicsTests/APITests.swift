@@ -17,6 +17,7 @@
 #endif
 
 import SDGControlFlow
+import SDGLogic
 import SDGLocalization
 
 import SDGInterfaceBasics
@@ -129,6 +130,13 @@ final class APITests: ApplicationTestCase {
         }
       }
     #endif
+    for edge in SDGInterfaceBasics.Edge.allCases {
+      let set = SDGInterfaceBasics.Edge.Set(edge)
+      XCTAssert(set.contains(SDGInterfaceBasics.Edge.Set(edge)))
+      for other in SDGInterfaceBasics.Edge.allCases where other ≠ edge {
+        XCTAssertFalse(set.contains(SDGInterfaceBasics.Edge.Set(other)))
+      }
+    }
   }
 
   func testPoint() {
