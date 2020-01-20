@@ -40,13 +40,13 @@ extension Edge {
     // MARK: - Static Properties
 
     /// A shimmed version of `SwiftUI.Edge.Set.top` with no availability constraints.
-    public static let top = Set(rawValue: 1 << 0)
+    public static let top: Set = Set(rawValue: 1 << 0)
     /// A shimmed version of `SwiftUI.Edge.Set.leading` with no availability constraints.
-    public static let leading = Set(rawValue: 1 << 1)
+    public static let leading: Set = Set(rawValue: 1 << 1)
     /// A shimmed version of `SwiftUI.Edge.Set.bottom` with no availability constraints.
-    public static let bottom = Set(rawValue: 1 << 2)
+    public static let bottom: Set = Set(rawValue: 1 << 2)
     /// A shimmed version of `SwiftUI.Edge.Set.trailing` with no availability constraints.
-    public static let trailing = Set(rawValue: 1 << 3)
+    public static let trailing: Set = Set(rawValue: 1 << 3)
 
     /// A shimmed version of `SwiftUI.Edge.Set.horizontal` with no availability constraints.
     public static let horizontal: Set = [.leading, .trailing]
