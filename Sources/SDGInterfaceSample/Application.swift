@@ -122,11 +122,11 @@ extension Application {
       #if canImport(AppKit)
         let window = Window<L>.auxiliaryWindow(
           name: .static(windowTitle),
-          view: MarginView(contents: view)
+          view: view.padding()
         )
         demonstrate(window)
       #else
-        let window = Window(name: .static(windowTitle), view: MarginView(contents: view))
+        let window = Window(name: .static(windowTitle), view: view.padding())
         demonstrate(window)
       #endif
     }
