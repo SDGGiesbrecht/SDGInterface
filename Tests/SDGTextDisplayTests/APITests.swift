@@ -560,13 +560,14 @@ final class APITests: ApplicationTestCase {
         #endif
       }
       Application.shared.demonstrateLabelledTextField()
-      _ = LabelledTextField(
+      let labelled = LabelledTextField(
         label: Label(
           text: .static(
             UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in "" })
           )
         )
       )
+      _ = labelled.cocoaView
       let textField = TextField()
       #if canImport(AppKit)
         _ = textField.specificCocoaView.cell?.fieldEditor(for: textField.specificCocoaView)
