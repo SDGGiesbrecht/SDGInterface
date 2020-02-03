@@ -61,8 +61,5 @@ configuration.documentation.api.ignoredDependencies = [
   "XCTest"
 ]
 
-// #workaround(workspace version 0.28.0, GitHub Action cache became invalid?)
-configuration.continuousIntegration.manage = false
-
 // #workaround(SDGCornerstone 4.0.0, Does not support Windows yet.)
 configuration.supportedPlatforms.remove(.windows)
