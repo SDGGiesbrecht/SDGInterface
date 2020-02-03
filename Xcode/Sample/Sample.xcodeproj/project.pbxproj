@@ -38,9 +38,9 @@
 		3F7D730E23502C9B00A751CE /* tvOS_SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7D730D23502C9B00A751CE /* tvOS_SampleTests.swift */; };
 		3F7D731723502DDC00A751CE /* _SDGInterfaceSample in Frameworks */ = {isa = PBXBuildFile; productRef = 3F7D731623502DDC00A751CE /* _SDGInterfaceSample */; };
 		3F7D731923502DE200A751CE /* _SDGInterfaceSample in Frameworks */ = {isa = PBXBuildFile; productRef = 3F7D731823502DE200A751CE /* _SDGInterfaceSample */; };
-		3F8565AA23E8D3CA00228097 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8565A923E8D3CA00228097 /* Row.swift */; };
-		3F8565AB23E8D3CA00228097 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8565A923E8D3CA00228097 /* Row.swift */; };
-		3F8565AC23E8D3CA00228097 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8565A923E8D3CA00228097 /* Row.swift */; };
+		3F8565AA23E8D3CA00228097 /* HorizontalStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8565A923E8D3CA00228097 /* HorizontalStack.swift */; };
+		3F8565AB23E8D3CA00228097 /* HorizontalStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8565A923E8D3CA00228097 /* HorizontalStack.swift */; };
+		3F8565AC23E8D3CA00228097 /* HorizontalStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8565A923E8D3CA00228097 /* HorizontalStack.swift */; };
 		3F8BD33623C57B0F000931BB /* Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8BD33523C57B0E000931BB /* Frame.swift */; };
 		3F8BD33723C57B0F000931BB /* Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8BD33523C57B0E000931BB /* Frame.swift */; };
 		3F8BD33823C57B0F000931BB /* Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8BD33523C57B0E000931BB /* Frame.swift */; };
@@ -106,7 +106,7 @@
 		3F7D730923502C9B00A751CE /* tvOS SampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "tvOS SampleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F7D730D23502C9B00A751CE /* tvOS_SampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tvOS_SampleTests.swift; sourceTree = "<group>"; };
 		3F7D730F23502C9B00A751CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3F8565A923E8D3CA00228097 /* Row.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Row.swift; sourceTree = "<group>"; };
+		3F8565A923E8D3CA00228097 /* HorizontalStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalStack.swift; sourceTree = "<group>"; };
 		3F8BD33523C57B0E000931BB /* Frame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Frame.swift; sourceTree = "<group>"; };
 		3F9B50DF239F5B500027E8A6 /* Letterbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Letterbox.swift; sourceTree = "<group>"; };
 		3FEC1D7D23A1AE3B008525FE /* AspectRatio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectRatio.swift; sourceTree = "<group>"; };
@@ -169,7 +169,7 @@
 				3F8BD33523C57B0E000931BB /* Frame.swift */,
 				3F9B50DF239F5B500027E8A6 /* Letterbox.swift */,
 				3F3406D723D50D5F001A627D /* Padding.swift */,
-				3F8565A923E8D3CA00228097 /* Row.swift */,
+				3F8565A923E8D3CA00228097 /* HorizontalStack.swift */,
 			);
 			path = "SwiftUI Previews";
 			sourceTree = "<group>";
@@ -500,7 +500,7 @@
 				3F9B50E0239F5B500027E8A6 /* Letterbox.swift in Sources */,
 				3F8BD33623C57B0F000931BB /* Frame.swift in Sources */,
 				3F73232523C82AA200B16D40 /* Background.swift in Sources */,
-				3F8565AA23E8D3CA00228097 /* Row.swift in Sources */,
+				3F8565AA23E8D3CA00228097 /* HorizontalStack.swift in Sources */,
 				3F3406D823D50D5F001A627D /* Padding.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -522,7 +522,7 @@
 				3F9B50E1239F5B500027E8A6 /* Letterbox.swift in Sources */,
 				3F8BD33723C57B0F000931BB /* Frame.swift in Sources */,
 				3F73232623C82AA200B16D40 /* Background.swift in Sources */,
-				3F8565AB23E8D3CA00228097 /* Row.swift in Sources */,
+				3F8565AB23E8D3CA00228097 /* HorizontalStack.swift in Sources */,
 				3F3406D923D50D5F001A627D /* Padding.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -544,7 +544,7 @@
 				3F9B50E2239F5B500027E8A6 /* Letterbox.swift in Sources */,
 				3F8BD33823C57B0F000931BB /* Frame.swift in Sources */,
 				3F73232723C82AA200B16D40 /* Background.swift in Sources */,
-				3F8565AC23E8D3CA00228097 /* Row.swift in Sources */,
+				3F8565AC23E8D3CA00228097 /* HorizontalStack.swift in Sources */,
 				3F3406DA23D50D5F001A627D /* Padding.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

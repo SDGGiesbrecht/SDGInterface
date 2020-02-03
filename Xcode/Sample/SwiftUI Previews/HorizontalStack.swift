@@ -1,5 +1,5 @@
 /*
- Row.swift
+ HorizontalStack.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -16,8 +16,8 @@ import SwiftUI
 
 @testable import SDGViews
 
-struct Row_Previews: PreviewProvider {
+struct HorizontalStack_Previews: PreviewProvider {
   static var previews: some SwiftUI.View {
-    return RowPreviews()
+    return HorizontalStackPreviews()
   }
 }
