@@ -70,13 +70,15 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
-  func testRowView() {
-    #if canImport(AppKit) || canImport(UIKit)
-      if #available(iOS 9, *) {  // @exempt(from: unicode)
-        let row = RowView(views: [AnyCocoaView()])
-        row.views = [AnyCocoaView()]
-        _ = RowView(views: [AnyCocoaView(), AnyCocoaView()], spacing: .specific(0))
-      }
+  func testHorizontalStack() {
+    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+      let stack = HorizontalStack(spacing: 0, content: [AnyCocoaView()])
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
+          _ = stack.swiftUIView
+        }
+      #endif
+      _ = stack.cocoaView
     #endif
   }
 
