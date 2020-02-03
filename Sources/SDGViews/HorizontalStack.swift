@@ -24,12 +24,13 @@
 
   import SDGInterfaceBasics
 
-  /// A shimmed version of `SwiftUI.HStack` with no availability constraints.
+  /// A shimmed version of `SwiftUI.HStack` with relaxed availability constraints.
+  @available(iOS 9, *)
   public struct HorizontalStack: View {
 
     // MARK: - Initialization
 
-    /// A shimmed version of `SwiftUI.HStack.init(alignment:spacing:content:)` with no availability constraints.
+    /// A shimmed version of `SwiftUI.HStack.init(alignment:spacing:content:)` with relaxed availability constraints.
     ///
     /// - Parameters:
     ///   - alignment: The alignment.
@@ -54,7 +55,7 @@
     // MARK: - View
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      @available(macOS 10.15, tvOS 13, iOS 13, *)
+      @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
       public var swiftUIView: AnyView {
         return AnyView(
           HStack(

@@ -72,13 +72,15 @@ final class APITests: ApplicationTestCase {
 
   func testHorizontalStack() {
     #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
-      let stack = HorizontalStack(spacing: 0, content: [AnyCocoaView()])
-      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-        if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
-          _ = stack.swiftUIView
-        }
-      #endif
-      _ = stack.cocoaView
+      if #available(iOS 9, *) {
+        let stack = HorizontalStack(spacing: 0, content: [AnyCocoaView()])
+        #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+          if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
+            _ = stack.swiftUIView
+          }
+        #endif
+        _ = stack.cocoaView
+      }
     #endif
   }
 
