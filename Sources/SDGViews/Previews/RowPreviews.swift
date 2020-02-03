@@ -27,7 +27,7 @@
             AnyView(Ellipse().fill(Color.red)),
             AnyView(Ellipse().fill(Color.green)),
             AnyView(Ellipse().fill(Color.blue))
-          ]),
+          ]).swiftUIView,
           name: "Red, Green, Blue"
         )
       }
