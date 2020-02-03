@@ -53,6 +53,12 @@
       }
     }
 
+    func testHorizontalStackPreviews() {
+      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
+        simulateUse(of: HorizontalStackPreviews())
+      }
+    }
+
     func testLetterboxPreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         simulateUse(of: LetterboxPreviews())
