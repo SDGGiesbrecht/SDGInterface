@@ -20,28 +20,15 @@
 
     internal var body: some SwiftUI.View {
 
-      func letterbox() -> AnyView {
-        return AnyView(
-          Ellipse().letterboxed(aspectRatio: 1, background: Color.red).swiftUIView
-        )
-      }
-
       return Group {
 
         previewBothModes(
-          letterbox()
-            .frame(width: 128, height: 64)
-            .padding(1)
-            .border(Color.gray, width: 1),
-          name: "Pillarbox"
-        )
-
-        previewBothModes(
-          letterbox()
-            .frame(width: 64, height: 128)
-            .padding(1)
-            .border(Color.gray, width: 1),
-          name: "Letterbox"
+          RowView(views: [
+            AnyView(Ellipse().fill(Color.red)),
+            AnyView(Ellipse().fill(Color.green)),
+            AnyView(Ellipse().fill(Color.blue))
+          ]),
+          name: "Red, Green, Blue"
         )
       }
     }
