@@ -12,79 +12,94 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
+#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    import SwiftUI
+  #endif
   #if canImport(AppKit)
     import AppKit
   #elseif canImport(UIKit)
     import UIKit
   #endif
 
-  /// A row of views.
-  @available(iOS 9, *)  // @exempt(from: unicode)
-  public final class RowView: CocoaViewImplementation, SpecificView {
+  import SDGInterfaceBasics
+
+  /// A shimmed version of `SwiftUI.HStack` with no availability constraints.
+  public struct HorizontalStack: View {
 
     // MARK: - Initialization
 
-    /// Creates a row of views.
+    /// A shimmed version of `SwiftUI.HStack.init(alignment:spacing:content:)` with no availability constraints.
     ///
     /// - Parameters:
-    ///     - views: The subviews.
-    ///     - spacing: The spacing strategy.
-    public init(views: [View], spacing: Spacing = .automatic) {
-      #if canImport(AppKit)
-        specificCocoaView = NSStackView()
-      #elseif canImport(UIKit)
-        specificCocoaView = UIStackView()
-      #endif
-
-      self.views = views
-      defer {
-        viewsDidSet()
-      }
-
-      switch spacing {
-      case .automatic:
-        break
-      case .specific(let measurement):
-        specificCocoaView.spacing = CGFloat(measurement)
-      }
-
-      #if canImport(AppKit)
-        specificCocoaView.setHuggingPriority(.required, for: .vertical)
-      #endif
-      specificCocoaView.alignment = .lastBaseline
+    ///   - alignment: The alignment.
+    ///   - spacing: The spacing.
+    ///   - content: The content.
+    public init(
+      alignment: SDGInterfaceBasics.VerticalAlignment = .centre,
+      spacing: Double? = nil,
+      content: [View]
+    ) {
+      self.alignment = alignment
+      self.spacing = spacing
+      self.content = content
     }
 
     // MARK: - Properties
 
-    /// The arranged views.
-    public var views: [View] {
-      didSet {
-        viewsDidSet()
+    private let alignment: SDGInterfaceBasics.VerticalAlignment
+    private let spacing: Double?
+    private let content: [View]
+
+    // MARK: - View
+
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      @available(macOS 10.15, tvOS 13, iOS 13, *)
+      public var swiftUIView: AnyView {
+        return AnyView(
+          HStack(
+            alignment: SwiftUI.VerticalAlignment(alignment),
+            spacing: spacing.map({ CGFloat($0) }),
+            content: {
+              ForEach(content.indices) { self.content[$0].swiftUIView }
+            }
+          )
+        )
       }
-    }
-    private func viewsDidSet() {
-      #if canImport(AppKit)
-        while let view = specificCocoaView.views.first {
-          specificCocoaView.removeView(view)
-        }
-        for view in views {
-          specificCocoaView.addView(view.cocoaView, in: .trailing)
-        }
-      #elseif canImport(UIKit)
-        while let view = specificCocoaView.arrangedSubviews.first {
-          specificCocoaView.removeArrangedSubview(view)
-        }
-        for view in views {
-          specificCocoaView.addArrangedSubview(view.cocoaView)
-        }
-      #endif
-    }
+    #endif
 
     #if canImport(AppKit)
-      public let specificCocoaView: NSStackView
-    #elseif canImport(UIKit)
-      public let specificCocoaView: UIStackView
+      public var cocoaView: NSView {
+        let view = NSStackView(views: content.map({ $0.cocoaView }))
+        switch alignment {
+        case .top:
+          view.alignment = .top
+        case .centre:
+          view.alignment = .centerY
+        case .bottom:
+          view.alignment = .bottom
+        }
+        if let specific = spacing {
+          view.spacing = CGFloat(specific)
+        }
+        return view
+      }
+    #elseif canImport(UIKit) && !os(watchOS)
+      public var cocoaView: UIView {
+        let view = UIStackView(views: content.map({ $0.cocoaView }))
+        switch alignment {
+        case .top:
+          view.alignment = .top
+        case .centre:
+          view.alignment = .centerY
+        case .bottom:
+          view.alignment = .bottom
+        }
+        if let specific = spacing {
+          view.spacing = CGFloat(specific)
+        }
+        return view
+      }
     #endif
   }
 #endif

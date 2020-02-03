@@ -22,16 +22,16 @@
     import UIKit
   #endif
 
-  /// An empty view.
+  /// A shimmed version of `SwiftUI.EmptyView` with no availability constraints.
   @available(watchOS 9, *)
   public struct EmptyView: View {
 
     // MARK: - Initialization
 
-    /// Creates an empty view.
+    /// A shimmed version of `SwiftUI.EmptyView.init()` with no availability constraints.
     public init() {}
 
-    // MARK: - Properties
+    // MARK: - View
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       @available(macOS 10.15, tvOS 13, iOS 13, *)

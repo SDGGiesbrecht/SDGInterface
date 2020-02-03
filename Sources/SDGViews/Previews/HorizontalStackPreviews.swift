@@ -31,7 +31,7 @@
       return Group {
 
         previewBothModes(
-          RowView(views: [
+          HorizontalStack(content: [
             circle(colour: .red),
             circle(colour: .green),
             circle(colour: .blue)
