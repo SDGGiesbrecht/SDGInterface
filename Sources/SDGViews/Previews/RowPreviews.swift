@@ -20,14 +20,23 @@
 
     internal var body: some SwiftUI.View {
 
+      func circle(colour: Color) -> AnyView {
+        return AnyView(
+          Ellipse()
+            .fill(colour)
+            .frame(width: 16, height: 16)
+        )
+      }
+
       return Group {
 
         previewBothModes(
           RowView(views: [
-            AnyView(Ellipse().fill(Color.red)),
-            AnyView(Ellipse().fill(Color.green)),
-            AnyView(Ellipse().fill(Color.blue))
-          ]).swiftUIView,
+            circle(colour: .red),
+            circle(colour: .green),
+            circle(colour: .blue)
+          ]).swiftUIView
+            .frame(width: 128, height: nil, alignment: .center),
           name: "Red, Green, Blue"
         )
       }
