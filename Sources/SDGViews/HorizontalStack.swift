@@ -86,12 +86,12 @@
       }
     #elseif canImport(UIKit) && !os(watchOS)
       public var cocoaView: UIView {
-        let view = UIStackView(views: content.map({ $0.cocoaView }))
+        let view = UIStackView(arrangedSubviews: content.map({ $0.cocoaView }))
         switch alignment {
         case .top:
           view.alignment = .top
         case .centre:
-          view.alignment = .centerY
+          view.alignment = .center
         case .bottom:
           view.alignment = .bottom
         }

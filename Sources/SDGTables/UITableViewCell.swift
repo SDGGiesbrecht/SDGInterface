@@ -23,9 +23,8 @@
     // MARK: - Initialization
 
     internal init(columns: [View]) {
-      self.row = RowView(views: columns)
+      self.row = HorizontalStack(spacing: 8, content: columns)
       super.init(style: .default, reuseIdentifier: UITableViewDataSource<Bool>.reUseIdentifier)
-      row.specificCocoaView.spacing = 8
       let wrapped = AnyCocoaView(self)
       wrapped.fill(with: row, margin: .specific(0))
     }
@@ -36,6 +35,6 @@
 
     // MARK: - Properties
 
-    internal let row: RowView
+    internal var row: HorizontalStack
   }
 #endif
