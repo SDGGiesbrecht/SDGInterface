@@ -39,6 +39,22 @@
             .frame(width: 128, height: nil, alignment: .center),
           name: "Red, Green, Blue"
         )
+
+        previewBothModes(
+          HorizontalStack(content: [
+            circle(colour: .black)
+          ]).swiftUIView
+            .frame(width: 128, height: 32, alignment: .top),
+          name: "Top"
+        )
+
+        previewBothModes(
+          HorizontalStack(content: [
+            circle(colour: .black)
+          ]).swiftUIView
+            .frame(width: 128, height: 32, alignment: .bottom),
+          name: "Top"
+        )
       }
     }
   }
