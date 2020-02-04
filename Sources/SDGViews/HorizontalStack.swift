@@ -92,7 +92,7 @@
       public var cocoaView: UIView {
         let view = UIStackView()
         for entry in content {
-          view.addView(StabilizedView(entry).cocoaView, in: .center)
+          view.addArrangedSubview(StabilizedView(entry).cocoaView)
         }
         switch alignment {
         case .top:
