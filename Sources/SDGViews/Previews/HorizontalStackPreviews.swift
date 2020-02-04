@@ -20,11 +20,12 @@
 
     internal var body: some SwiftUI.View {
 
-      func circle(colour: Color) -> AnyView {
+      func circle(colour: Color, big: Bool = false) -> AnyView {
+        let diameter: CGFloat = big ? 32 : 16
         return AnyView(
           Ellipse()
             .fill(colour)
-            .frame(width: 16, height: 16)
+            .frame(width: diameter, height: diameter)
         )
       }
 
@@ -52,21 +53,23 @@
 
         previewBothModes(
           legacyOrNot(
-            HorizontalStack(content: [
-              circle(colour: .black)
+            HorizontalStack(alignment: .top, content: [
+              circle(colour: .black),
+              circle(colour: .black, big: true)
             ])
           )
-            .frame(width: 128, height: 32, alignment: .top),
+            .frame(width: 128, height: 32, alignment: .center),
           name: "Top"
         )
 
         previewBothModes(
           legacyOrNot(
-            HorizontalStack(content: [
-              circle(colour: .black)
+            HorizontalStack(alignment: .bottom, content: [
+              circle(colour: .black),
+              circle(colour: .black, big: true)
             ])
           )
-            .frame(width: 128, height: 32, alignment: .bottom),
+            .frame(width: 128, height: 32, alignment: .center),
           name: "Bottom"
         )
       }
