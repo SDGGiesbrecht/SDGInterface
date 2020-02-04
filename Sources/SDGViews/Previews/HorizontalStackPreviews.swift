@@ -36,7 +36,7 @@
           } else {
             return stack.swiftUIView
           }
-        #else
+        #else  // @exempt(from: tests)
           return stack.swiftUIView
         #endif
       }
