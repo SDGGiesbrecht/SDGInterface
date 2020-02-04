@@ -23,7 +23,7 @@
     // MARK: - Initialization
 
     internal init(columns: [View]) {
-      self.row = HorizontalStack(spacing: 8, content: columns)
+      self.row = StabilizedView(HorizontalStack(spacing: 8, content: columns))
       super.init(style: .default, reuseIdentifier: UITableViewDataSource<Bool>.reUseIdentifier)
       let wrapped = AnyCocoaView(self)
       wrapped.fill(with: row, margin: .specific(0))
@@ -35,6 +35,6 @@
 
     // MARK: - Properties
 
-    internal var row: HorizontalStack
+    internal var row: StabilizedView
   }
 #endif
