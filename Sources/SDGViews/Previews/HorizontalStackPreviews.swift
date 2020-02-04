@@ -30,11 +30,15 @@
       }
 
       func legacyOrNot(_ stack: HorizontalStack) -> AnyView {
-        if legacyMode {
-          return AnyView(AnyCocoaView(stack.cocoaView).swiftUIView)
-        } else {
+        #if !os(watchOS)
+          if legacyMode {
+            return AnyView(AnyCocoaView(stack.cocoaView).swiftUIView)
+          } else {
+            return stack.swiftUIView
+          }
+        #else
           return stack.swiftUIView
-        }
+        #endif
       }
 
       return Group {
