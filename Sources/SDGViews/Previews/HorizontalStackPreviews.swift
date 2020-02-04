@@ -53,10 +53,13 @@
 
         previewBothModes(
           legacyOrNot(
-            HorizontalStack(alignment: .top, content: [
-              circle(colour: .black),
-              circle(colour: .black, big: true)
-            ])
+            HorizontalStack(
+              alignment: .top,
+              content: [
+                circle(colour: .black),
+                circle(colour: .black, big: true)
+              ]
+            )
           )
             .frame(width: 128, height: 32, alignment: .center),
           name: "Top"
@@ -64,10 +67,13 @@
 
         previewBothModes(
           legacyOrNot(
-            HorizontalStack(alignment: .bottom, content: [
-              circle(colour: .black),
-              circle(colour: .black, big: true)
-            ])
+            HorizontalStack(
+              alignment: .bottom,
+              content: [
+                circle(colour: .black),
+                circle(colour: .black, big: true)
+              ]
+            )
           )
             .frame(width: 128, height: 32, alignment: .center),
           name: "Bottom"
