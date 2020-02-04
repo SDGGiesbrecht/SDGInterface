@@ -62,7 +62,10 @@
             alignment: SwiftUI.VerticalAlignment(alignment),
             spacing: spacing.map({ CGFloat($0) }),
             content: {
-              ForEach(content.indices) { self.content[$0].swiftUIView }
+              ForEach(content.indices) {
+                // @exempt(from: tests) Inaccurate coverage result.
+                self.content[$0].swiftUIView
+              }
             }
           )
         )
