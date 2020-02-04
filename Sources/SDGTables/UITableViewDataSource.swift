@@ -47,8 +47,11 @@
       }
 
       if let table = self.table {
-        cell.row.views = table.columns.map { $0(table.data.value[indexPath.row]) }
-        AnyCocoaView(cell.row.cocoaView).equalize(.width, amongSubviews: cell.row.views)
+        cell.row = StabilizedView(
+          HorizontalStack(
+            content: table.columns.map({ $0(table.data.value[indexPath.row]) })
+          )
+        )
       }
       return cell
     }
