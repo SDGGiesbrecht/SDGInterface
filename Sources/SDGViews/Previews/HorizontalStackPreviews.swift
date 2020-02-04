@@ -28,32 +28,46 @@
         )
       }
 
+      func legacyOrNot(_ stack: HorizontalStack) -> AnyView {
+        if legacyMode {
+          return AnyView(AnyCocoaView(stack.cocoaView).swiftUIView)
+        } else {
+          return stack.swiftUIView
+        }
+      }
+
       return Group {
 
         previewBothModes(
-          HorizontalStack(content: [
-            circle(colour: .red),
-            circle(colour: .green),
-            circle(colour: .blue)
-          ]).swiftUIView
-            .frame(width: 128, height: nil, alignment: .center),
+          legacyOrNot(
+            HorizontalStack(content: [
+              circle(colour: .red),
+              circle(colour: .green),
+              circle(colour: .blue)
+            ])
+          )
+            .frame(width: 128, height: 32, alignment: .center),
           name: "Red, Green, Blue"
         )
 
         previewBothModes(
-          HorizontalStack(content: [
-            circle(colour: .black)
-          ]).swiftUIView
+          legacyOrNot(
+            HorizontalStack(content: [
+              circle(colour: .black)
+            ])
+          )
             .frame(width: 128, height: 32, alignment: .top),
           name: "Top"
         )
 
         previewBothModes(
-          HorizontalStack(content: [
-            circle(colour: .black)
-          ]).swiftUIView
+          legacyOrNot(
+            HorizontalStack(content: [
+              circle(colour: .black)
+            ])
+          )
             .frame(width: 128, height: 32, alignment: .bottom),
-          name: "Top"
+          name: "Bottom"
         )
       }
     }

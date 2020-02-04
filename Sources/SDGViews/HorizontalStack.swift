@@ -71,7 +71,10 @@
 
     #if canImport(AppKit)
       public var cocoaView: NSView {
-        let view = NSStackView(views: content.map({ $0.cocoaView }))
+        let view = NSStackView()
+        for entry in content {
+          view.addView(StabilizedView(entry).cocoaView, in: .center)
+        }
         switch alignment {
         case .top:
           view.alignment = .top
@@ -87,7 +90,10 @@
       }
     #elseif canImport(UIKit) && !os(watchOS)
       public var cocoaView: UIView {
-        let view = UIStackView(arrangedSubviews: content.map({ $0.cocoaView }))
+        let view = UIStackView()
+        for entry in content {
+          view.addView(StabilizedView(entry).cocoaView, in: .center)
+        }
         switch alignment {
         case .top:
           view.alignment = .top
