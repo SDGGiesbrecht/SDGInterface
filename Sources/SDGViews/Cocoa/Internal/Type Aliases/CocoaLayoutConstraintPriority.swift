@@ -1,5 +1,5 @@
 /*
- LayoutConstraintPriority.swift
+ CocoaLayoutConstraintPriority.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -20,13 +20,8 @@
   #endif
 
   #if canImport(AppKit)
-    internal typealias LayoutConstraintPriority = NSLayoutConstraint.Priority
+    internal typealias CocoaLayoutConstraintPriority = NSLayoutConstraint.Priority
   #elseif canImport(UIKit) && !os(watchOS)
-    internal typealias LayoutConstraintPriority = UILayoutPriority
+    internal typealias CocoaLayoutConstraintPriority = UILayoutPriority
   #endif
-
-  extension LayoutConstraintPriority {
-
-  }
-
 #endif

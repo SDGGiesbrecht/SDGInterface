@@ -123,7 +123,7 @@
         multiplier: 1,
         constant: 0
       )
-      constraint.priority = LayoutConstraintPriority(rawValue: 250)
+      constraint.priority = CocoaLayoutConstraintPriority(rawValue: 250)
       container.cocoaView.addConstraint(constraint)
     }
 
