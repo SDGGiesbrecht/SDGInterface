@@ -131,7 +131,7 @@
       )
     }
 
-    internal static let fillingPriority = LayoutConstraintPriority(rawValue: 255)
+    internal static let fillingPriority = CocoaLayoutConstraintPriority(rawValue: 255)
     private func preferEqual(_ attribute: NSLayoutConstraint.Attribute) {
       let constraint = NSLayoutConstraint(
         item: contents.cocoaView,
