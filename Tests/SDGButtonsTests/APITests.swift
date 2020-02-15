@@ -30,7 +30,7 @@ import SDGXCTestUtilities
 
 import SDGApplicationTestUtilities
 
-final class APITests: ApplicationTestCase {
+final class SDGButtonsAPITests: ApplicationTestCase {
 
   func testButton() {
     #if canImport(AppKit) || canImport(UIKit)

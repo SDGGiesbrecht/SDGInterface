@@ -30,7 +30,7 @@ import XCTest
 @testable import SDGViewsTests
 @testable import SDGWindowsTests
 
-extension APITests {
+extension SDGApplicationAPITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
       ("testDemonstrations", testDemonstrations),
@@ -53,7 +53,7 @@ extension InternalTests {
   ]
 }
 
-extension APITests {
+extension SDGButtonsAPITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
       ("testButton", testButton),
@@ -63,7 +63,7 @@ extension APITests {
   ]
 }
 
-extension APITests {
+extension SDGContextMenuAPITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
       ("testContextMenu", testContextMenu),
@@ -71,7 +71,7 @@ extension APITests {
   ]
 }
 
-extension APITests {
+extension SDGImageDisplayAPITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
       ("testImageView", testImageView),
@@ -79,7 +79,7 @@ extension APITests {
   ]
 }
 
-extension APITests {
+extension SDGInterfaceBasicsAPITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
       ("testAlignment", testAlignment),
@@ -96,7 +96,7 @@ extension APITests {
   ]
 }
 
-extension APITests {
+extension SDGKeyboardAPITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
       ("testKey", testKey),
@@ -104,7 +104,7 @@ extension APITests {
   ]
 }
 
-extension APITests {
+extension SDGMenuBarAPITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
       ("testMenuBar", testMenuBar),
@@ -112,7 +112,7 @@ extension APITests {
   ]
 }
 
-extension APITests {
+extension SDGMenusAPITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
       ("testKeyModifiers", testKeyModifiers),
@@ -123,7 +123,7 @@ extension APITests {
   ]
 }
 
-extension APITests {
+extension SDGPopOversAPITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
       ("testPopOver", testPopOver),
@@ -131,7 +131,7 @@ extension APITests {
   ]
 }
 
-extension APITests {
+extension SDGProgressIndicatorsAPITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
       ("testLabelledProgressBar", testLabelledProgressBar),
@@ -140,7 +140,7 @@ extension APITests {
   ]
 }
 
-extension APITests {
+extension SDGTablesAPITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
       ("testTable", testTable),
@@ -148,7 +148,7 @@ extension APITests {
   ]
 }
 
-extension APITests {
+extension SDGTextDisplayAPITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
       ("testAttributedString", testAttributedString),
@@ -162,7 +162,7 @@ extension APITests {
   ]
 }
 
-extension APITests {
+extension SDGViewsAPITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
       ("testCocoaViewImplementation", testCocoaViewImplementation),
@@ -185,7 +185,7 @@ extension InternalTests {
   ]
 }
 
-extension APITests {
+extension SDGWindowsAPITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
       ("testWindow", testWindow),
@@ -194,21 +194,21 @@ extension APITests {
 }
 
 var tests = [XCTestCaseEntry]()
-tests += APITests.windowsTests
+tests += SDGApplicationAPITests.windowsTests
 tests += InternalTests.windowsTests
-tests += APITests.windowsTests
-tests += APITests.windowsTests
-tests += APITests.windowsTests
-tests += APITests.windowsTests
-tests += APITests.windowsTests
-tests += APITests.windowsTests
-tests += APITests.windowsTests
-tests += APITests.windowsTests
-tests += APITests.windowsTests
-tests += APITests.windowsTests
-tests += APITests.windowsTests
-tests += APITests.windowsTests
+tests += SDGButtonsAPITests.windowsTests
+tests += SDGContextMenuAPITests.windowsTests
+tests += SDGImageDisplayAPITests.windowsTests
+tests += SDGInterfaceBasicsAPITests.windowsTests
+tests += SDGKeyboardAPITests.windowsTests
+tests += SDGMenuBarAPITests.windowsTests
+tests += SDGMenusAPITests.windowsTests
+tests += SDGPopOversAPITests.windowsTests
+tests += SDGProgressIndicatorsAPITests.windowsTests
+tests += SDGTablesAPITests.windowsTests
+tests += SDGTextDisplayAPITests.windowsTests
+tests += SDGViewsAPITests.windowsTests
 tests += InternalTests.windowsTests
-tests += APITests.windowsTests
+tests += SDGWindowsAPITests.windowsTests
 
 XCTMain(tests)

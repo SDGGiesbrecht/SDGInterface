@@ -20,7 +20,7 @@ import SDGXCTestUtilities
 
 import SDGApplicationTestUtilities
 
-final class APITests: ApplicationTestCase {
+final class SDGKeyboardAPITests: ApplicationTestCase {
 
   func testKey() {
     XCTAssert(Key.rightIndexHome.hasConsistentPosition)

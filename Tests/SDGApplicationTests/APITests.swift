@@ -42,7 +42,7 @@ import SDGApplicationTestUtilities
 
 import SDGInterfaceSample
 
-final class APITests: ApplicationTestCase {
+final class SDGApplicationAPITests: ApplicationTestCase {
 
   func testDemonstrations() {
     #if canImport(AppKit)

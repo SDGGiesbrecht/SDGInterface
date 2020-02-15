@@ -23,7 +23,7 @@ import SDGXCTestUtilities
 
 import SDGApplicationTestUtilities
 
-final class APITests: ApplicationTestCase {
+final class SDGImageDisplayAPITests: ApplicationTestCase {
 
   func testImageView() {
     #if canImport(AppKit) || canImport(UIKit)

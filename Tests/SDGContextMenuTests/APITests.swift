@@ -26,7 +26,7 @@ import SDGXCTestUtilities
 
 import SDGApplicationTestUtilities
 
-final class APITests: ApplicationTestCase {
+final class SDGContextMenuAPITests: ApplicationTestCase {
 
   func testContextMenu() {
     #if canImport(UIKit) && !os(watchOS) && !os(tvOS)

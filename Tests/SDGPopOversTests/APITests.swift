@@ -27,7 +27,7 @@ import SDGXCTestUtilities
 
 import SDGApplicationTestUtilities
 
-final class APITests: ApplicationTestCase {
+final class SDGPopOversAPITests: ApplicationTestCase {
 
   func testPopOver() {
     #if canImport(AppKit) || canImport(UIKit)

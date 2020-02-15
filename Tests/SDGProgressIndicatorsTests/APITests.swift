@@ -25,7 +25,7 @@ import SDGXCTestUtilities
 
 import SDGApplicationTestUtilities
 
-final class APITests: ApplicationTestCase {
+final class SDGProgressIndicatorsAPITests: ApplicationTestCase {
 
   func testLabelledProgressBar() {
     #if canImport(AppKit) || canImport(UIKit)
