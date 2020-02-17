@@ -639,6 +639,7 @@ add_library("SDGPopOvers"
   "../../../Sources/SDGPopOvers/PopOverDelegate.swift"
   "../../../Sources/SDGPopOvers/UIView.swift"
   "../../../Sources/SDGPopOvers/View.swift"
+  "../../../Sources/SDGPopOvers/Windows.swift"
 )
 set_target_properties("SDGPopOvers" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
 target_compile_options("SDGPopOvers" PRIVATE -enable-testing)
@@ -656,6 +657,7 @@ add_library("SDGTables"
   "../../../Sources/SDGTables/Table.swift"
   "../../../Sources/SDGTables/UITableViewCell.swift"
   "../../../Sources/SDGTables/UITableViewDataSource.swift"
+  "../../../Sources/SDGTables/Windows.swift"
 )
 set_target_properties("SDGTables" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
 target_compile_options("SDGTables" PRIVATE -enable-testing)
@@ -672,6 +674,7 @@ add_library("SDGWindows"
   "../../../Sources/SDGWindows/FullscreenObserver.swift"
   "../../../Sources/SDGWindows/NSWindowDelegate.swift"
   "../../../Sources/SDGWindows/Window.swift"
+  "../../../Sources/SDGWindows/Windows.swift"
 )
 set_target_properties("SDGWindows" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
 target_compile_options("SDGWindows" PRIVATE -enable-testing)
