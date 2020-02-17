@@ -426,6 +426,7 @@ target_link_libraries("SDGInterfaceLocalizations" PRIVATE
 
 add_library("SDGErrorMessages"
   "../../../Sources/SDGErrorMessages/Error.swift"
+  "../../../Sources/SDGErrorMessages/Windows.swift"
 )
 set_target_properties("SDGErrorMessages" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
 target_compile_options("SDGErrorMessages" PRIVATE -enable-testing)
@@ -747,6 +748,7 @@ add_library("SDGButtons"
   "../../../Sources/SDGButtons/CheckBoxBindingObserver.swift"
   "../../../Sources/SDGButtons/RadioBindingObserver.swift"
   "../../../Sources/SDGButtons/RadioButtonSet.swift"
+  "../../../Sources/SDGButtons/Windows.swift"
 )
 set_target_properties("SDGButtons" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
 target_compile_options("SDGButtons" PRIVATE -enable-testing)
