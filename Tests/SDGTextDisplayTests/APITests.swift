@@ -244,12 +244,14 @@ final class SDGTextDisplayAPITests: ApplicationTestCase {
     #endif
     _ = richText.playgroundDescription
 
-    testCustomStringConvertibleConformance(
-      of: RichText(rawText: "..."),
-      localizations: APILocalization.self,
-      uniqueTestName: "Rich Text",
-      overwriteSpecificationInsteadOfFailing: false
-    )
+    #if !os(Android)  // #workaround(workspace version 0.30.1, Emulator lacks permissions.)
+      testCustomStringConvertibleConformance(
+        of: RichText(rawText: "..."),
+        localizations: APILocalization.self,
+        uniqueTestName: "Rich Text",
+        overwriteSpecificationInsteadOfFailing: false
+      )
+    #endif
     testEquatableConformance(differingInstances: (RichText(rawText: "1"), RichText(rawText: "2")))
     XCTAssertEqual([richText: true][richText], true)
 
