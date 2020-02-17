@@ -21,7 +21,9 @@ import Foundation
 #endif
 
 import SDGContextMenu
-import SDGMenuBar
+#if !os(Windows)  // #workaround(Swift 5.1.3, Windows cannot find the dependency.)
+  import SDGMenuBar
+#endif
 
 /// The application.
 public final class Application {

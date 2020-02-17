@@ -513,6 +513,39 @@ target_link_libraries("SDGContextMenu" PRIVATE
   "SDGLocalization"
 )
 
+add_library("SDGApplication"
+  "../../../Sources/SDGApplication/Application/Application.swift"
+  "../../../Sources/SDGApplication/Application/NSApplicationDelegate.swift"
+  "../../../Sources/SDGApplication/Application/PreferenceManager.swift"
+  "../../../Sources/SDGApplication/Application/System Mediator/ExtensionDetails.swift"
+  "../../../Sources/SDGApplication/Application/System Mediator/FetchResult.swift"
+  "../../../Sources/SDGApplication/Application/System Mediator/Handoff.swift"
+  "../../../Sources/SDGApplication/Application/System Mediator/HandoffAcceptanceDetails.swift"
+  "../../../Sources/SDGApplication/Application/System Mediator/LaunchDetails.swift"
+  "../../../Sources/SDGApplication/Application/System Mediator/OpeningDetails.swift"
+  "../../../Sources/SDGApplication/Application/System Mediator/PrintingDetails.swift"
+  "../../../Sources/SDGApplication/Application/System Mediator/PrintingResponse.swift"
+  "../../../Sources/SDGApplication/Application/System Mediator/QuickActionDetails.swift"
+  "../../../Sources/SDGApplication/Application/System Mediator/RemoteNotificationDetails.swift"
+  "../../../Sources/SDGApplication/Application/System Mediator/SystemMediator.swift"
+  "../../../Sources/SDGApplication/Application/System Mediator/SystemNotification.swift"
+  "../../../Sources/SDGApplication/Application/System Mediator/TerminationResponse.swift"
+  "../../../Sources/SDGApplication/Application/System Mediator/ViewControllerRestorationResponse.swift"
+  "../../../Sources/SDGApplication/Application/UIApplicationDelegate.swift"
+  "../../../Sources/SDGApplication/ProcessInfo.swift"
+)
+set_target_properties("SDGApplication" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
+target_compile_options("SDGApplication" PRIVATE -enable-testing)
+target_link_libraries("SDGApplication" PRIVATE
+  "SDGInterfaceLocalizations"
+  "SDGMenus"
+  "SDGContextMenu"
+  "SDGLogic"
+  "SDGText"
+  "SDGLocalization"
+  "SDGCalendar"
+)
+
 add_library("SDGMenuBar"
   "../../../Sources/SDGMenuBar/MenuBar.swift"
   "../../../Sources/SDGMenuBar/MenuBarApplication.swift"
@@ -548,40 +581,6 @@ target_link_libraries("SDGMenuBar" PRIVATE
   "SDGMathematics"
   "SDGText"
   "SDGLocalization"
-)
-
-add_library("SDGApplication"
-  "../../../Sources/SDGApplication/Application/Application.swift"
-  "../../../Sources/SDGApplication/Application/NSApplicationDelegate.swift"
-  "../../../Sources/SDGApplication/Application/PreferenceManager.swift"
-  "../../../Sources/SDGApplication/Application/System Mediator/ExtensionDetails.swift"
-  "../../../Sources/SDGApplication/Application/System Mediator/FetchResult.swift"
-  "../../../Sources/SDGApplication/Application/System Mediator/Handoff.swift"
-  "../../../Sources/SDGApplication/Application/System Mediator/HandoffAcceptanceDetails.swift"
-  "../../../Sources/SDGApplication/Application/System Mediator/LaunchDetails.swift"
-  "../../../Sources/SDGApplication/Application/System Mediator/OpeningDetails.swift"
-  "../../../Sources/SDGApplication/Application/System Mediator/PrintingDetails.swift"
-  "../../../Sources/SDGApplication/Application/System Mediator/PrintingResponse.swift"
-  "../../../Sources/SDGApplication/Application/System Mediator/QuickActionDetails.swift"
-  "../../../Sources/SDGApplication/Application/System Mediator/RemoteNotificationDetails.swift"
-  "../../../Sources/SDGApplication/Application/System Mediator/SystemMediator.swift"
-  "../../../Sources/SDGApplication/Application/System Mediator/SystemNotification.swift"
-  "../../../Sources/SDGApplication/Application/System Mediator/TerminationResponse.swift"
-  "../../../Sources/SDGApplication/Application/System Mediator/ViewControllerRestorationResponse.swift"
-  "../../../Sources/SDGApplication/Application/UIApplicationDelegate.swift"
-  "../../../Sources/SDGApplication/ProcessInfo.swift"
-)
-set_target_properties("SDGApplication" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
-target_compile_options("SDGApplication" PRIVATE -enable-testing)
-target_link_libraries("SDGApplication" PRIVATE
-  "SDGInterfaceLocalizations"
-  "SDGMenus"
-  "SDGContextMenu"
-  "SDGMenuBar"
-  "SDGLogic"
-  "SDGText"
-  "SDGLocalization"
-  "SDGCalendar"
 )
 
 add_library("SDGViews"
@@ -791,7 +790,6 @@ target_link_libraries("SDGInterfaceSample" PRIVATE
   "SDGWindows"
   "SDGMenus"
   "SDGErrorMessages"
-  "SDGMenuBar"
   "SDGApplication"
   "SDGControlFlow"
   "SDGMathematics"
@@ -825,7 +823,6 @@ target_link_libraries("SDGApplicationTests" PRIVATE
   "SDGWindows"
   "SDGMenus"
   "SDGContextMenu"
-  "SDGMenuBar"
   "SDGApplication"
   "SDGInterfaceLocalizations"
   "SDGInterfaceSample"
@@ -920,7 +917,6 @@ target_compile_options("SDGMenuBarTests" PRIVATE -enable-testing)
 target_link_libraries("SDGMenuBarTests" PRIVATE
   "SDGMenus"
   "SDGContextMenu"
-  "SDGMenuBar"
   "SDGInterfaceLocalizations"
   "SDGApplicationTestUtilities"
   "SDGControlFlow"
