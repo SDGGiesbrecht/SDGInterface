@@ -352,26 +352,26 @@ extension SystemMediator {
   public func preprocess(handoff: Handoff) {}
 
   public func finishRegistrationForRemoteNotifications(deviceToken: Data) {
-    #if UNHANDLED_SYSTEM_EVENT_LOGGING
+    #if DEBUG
       Swift.print(#function)
     #endif
   }
   public func reportFailedRegistrationForRemoteNotifications(error: Error) {
-    #if UNHANDLED_SYSTEM_EVENT_LOGGING
+    #if DEBUG
       Swift.print(#function)
     #endif
   }
   public func acceptRemoteNotification(
     details: RemoteNotificationDetails
   ) -> FetchResult {
-    #if UNHANDLED_SYSTEM_EVENT_LOGGING
+    #if DEBUG
       Swift.print(#function)
     #endif
     return .noData
   }
 
   public func open(files: [URL], details: OpeningDetails) -> Bool {
-    #if UNHANDLED_SYSTEM_EVENT_LOGGING
+    #if DEBUG
       Swift.print(#function)
     #endif
     return false
@@ -386,7 +386,7 @@ extension SystemMediator {
   }
 
   public func print(files: [URL], details: PrintingDetails) -> PrintingResponse {
-    #if UNHANDLED_SYSTEM_EVENT_LOGGING
+    #if DEBUG
       Swift.print(#function)
     #endif
     return .failure
@@ -397,7 +397,7 @@ extension SystemMediator {
   }
   public func prepareToEncodeRestorableState(coder: NSCoder) {}
   public func shouldRestorePreviousState(coder: NSCoder) -> Bool {
-    #if UNHANDLED_SYSTEM_EVENT_LOGGING
+    #if DEBUG
       Swift.print(#function)
     #endif
     return false
@@ -407,7 +407,7 @@ extension SystemMediator {
     forRestorationIdentifierPath path: [String],
     coder: NSCoder
   ) -> ViewControllerRestorationResponse {
-    #if UNHANDLED_SYSTEM_EVENT_LOGGING
+    #if DEBUG
       Swift.print(#function)
     #endif
     return ViewControllerRestorationResponse()
@@ -422,21 +422,21 @@ extension SystemMediator {
   public func handleEventsForBackgroundURLSession(_ identifier: String) {}
 
   public func performQuickAction(details: QuickActionDetails) -> Bool {
-    #if UNHANDLED_SYSTEM_EVENT_LOGGING
+    #if DEBUG
       Swift.print(#function)
     #endif
     return false
   }
 
   public func handleWatchRequest(userInformation: [AnyHashable: Any]?) -> [AnyHashable: Any]? {
-    #if UNHANDLED_SYSTEM_EVENT_LOGGING
+    #if DEBUG
       Swift.print(#function)
     #endif
     return nil
   }
 
   public func requestHealthAuthorization() {
-    #if UNHANDLED_SYSTEM_EVENT_LOGGING
+    #if DEBUG
       Swift.print(#function)
     #endif
   }

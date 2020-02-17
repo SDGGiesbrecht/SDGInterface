@@ -210,7 +210,7 @@
     public func _refreshBindings() {
       #if canImport(AppKit)
         native.title = String(name.resolved())
-      #elseif TEST_COVERAGE_AIDS
+      #elseif DEBUG  // For test coverage.
         _ = name.resolved()
       #endif
     }

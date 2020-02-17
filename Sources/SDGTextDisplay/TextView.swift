@@ -163,7 +163,7 @@
         }
         // @exempt(from: tests)
 
-        #if UNIDENTIFIED_PASTEBOARD_WARNINGS
+        #if DEBUG
           print("Unidentified text type: (\(type(of: string)))")
         #endif
         #if canImport(AppKit)

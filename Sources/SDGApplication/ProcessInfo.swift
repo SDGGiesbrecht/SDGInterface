@@ -34,7 +34,7 @@ extension ProcessInfo {
   ///     - localizations: The localizations to validate.
   public static func validate<L>(applicationBundle: Bundle, localizations: L.Type)
   where L: InputLocalization {  // @exempt(from: tests)
-    #if VALIDATION
+    #if DEBUG
       var failing = false
       defer {
         SDGLocalization.assert(
