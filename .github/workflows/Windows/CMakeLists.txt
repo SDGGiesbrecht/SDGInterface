@@ -513,6 +513,44 @@ target_link_libraries("SDGContextMenu" PRIVATE
   "SDGLocalization"
 )
 
+add_library("SDGMenuBar"
+  "../../../Sources/SDGMenuBar/MenuBar.swift"
+  "../../../Sources/SDGMenuBar/MenuBarApplication.swift"
+  "../../../Sources/SDGMenuBar/MenuBarEdit.swift"
+  "../../../Sources/SDGMenuBar/MenuBarEditFind.swift"
+  "../../../Sources/SDGMenuBar/MenuBarEditSpeech.swift"
+  "../../../Sources/SDGMenuBar/MenuBarEditSpellingAndGrammar.swift"
+  "../../../Sources/SDGMenuBar/MenuBarEditSubstitutions.swift"
+  "../../../Sources/SDGMenuBar/MenuBarEditTransformations.swift"
+  "../../../Sources/SDGMenuBar/MenuBarFile.swift"
+  "../../../Sources/SDGMenuBar/MenuBarFileOpenRecent.swift"
+  "../../../Sources/SDGMenuBar/MenuBarFormat.swift"
+  "../../../Sources/SDGMenuBar/MenuBarFormatFont.swift"
+  "../../../Sources/SDGMenuBar/MenuBarFormatFontBaseline.swift"
+  "../../../Sources/SDGMenuBar/MenuBarFormatFontCasing.swift"
+  "../../../Sources/SDGMenuBar/MenuBarFormatFontKern.swift"
+  "../../../Sources/SDGMenuBar/MenuBarFormatFontLigatures.swift"
+  "../../../Sources/SDGMenuBar/MenuBarFormatText.swift"
+  "../../../Sources/SDGMenuBar/MenuBarFormatTextWritingDirection.swift"
+  "../../../Sources/SDGMenuBar/MenuBarHelp.swift"
+  "../../../Sources/SDGMenuBar/MenuBarView.swift"
+  "../../../Sources/SDGMenuBar/MenuBarWindow.swift"
+  "../../../Sources/SDGMenuBar/NSApplicationDelegateProtocol.swift"
+  "../../../Sources/SDGMenuBar/Selector.swift"
+  "../../../Sources/SDGMenuBar/Windows.swift"
+)
+set_target_properties("SDGMenuBar" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
+target_compile_options("SDGMenuBar" PRIVATE -enable-testing)
+target_link_libraries("SDGMenuBar" PRIVATE
+  "SDGInterfaceBasics"
+  "SDGMenus"
+  "SDGContextMenu"
+  "SDGInterfaceLocalizations"
+  "SDGMathematics"
+  "SDGText"
+  "SDGLocalization"
+)
+
 add_library("SDGApplication"
   "../../../Sources/SDGApplication/Application/Application.swift"
   "../../../Sources/SDGApplication/Application/NSApplicationDelegate.swift"
@@ -540,47 +578,11 @@ target_link_libraries("SDGApplication" PRIVATE
   "SDGInterfaceLocalizations"
   "SDGMenus"
   "SDGContextMenu"
+  "SDGMenuBar"
   "SDGLogic"
   "SDGText"
   "SDGLocalization"
   "SDGCalendar"
-)
-
-add_library("SDGMenuBar"
-  "../../../Sources/SDGMenuBar/MenuBar.swift"
-  "../../../Sources/SDGMenuBar/MenuBarApplication.swift"
-  "../../../Sources/SDGMenuBar/MenuBarEdit.swift"
-  "../../../Sources/SDGMenuBar/MenuBarEditFind.swift"
-  "../../../Sources/SDGMenuBar/MenuBarEditSpeech.swift"
-  "../../../Sources/SDGMenuBar/MenuBarEditSpellingAndGrammar.swift"
-  "../../../Sources/SDGMenuBar/MenuBarEditSubstitutions.swift"
-  "../../../Sources/SDGMenuBar/MenuBarEditTransformations.swift"
-  "../../../Sources/SDGMenuBar/MenuBarFile.swift"
-  "../../../Sources/SDGMenuBar/MenuBarFileOpenRecent.swift"
-  "../../../Sources/SDGMenuBar/MenuBarFormat.swift"
-  "../../../Sources/SDGMenuBar/MenuBarFormatFont.swift"
-  "../../../Sources/SDGMenuBar/MenuBarFormatFontBaseline.swift"
-  "../../../Sources/SDGMenuBar/MenuBarFormatFontCasing.swift"
-  "../../../Sources/SDGMenuBar/MenuBarFormatFontKern.swift"
-  "../../../Sources/SDGMenuBar/MenuBarFormatFontLigatures.swift"
-  "../../../Sources/SDGMenuBar/MenuBarFormatText.swift"
-  "../../../Sources/SDGMenuBar/MenuBarFormatTextWritingDirection.swift"
-  "../../../Sources/SDGMenuBar/MenuBarHelp.swift"
-  "../../../Sources/SDGMenuBar/MenuBarView.swift"
-  "../../../Sources/SDGMenuBar/MenuBarWindow.swift"
-  "../../../Sources/SDGMenuBar/NSApplicationDelegateProtocol.swift"
-  "../../../Sources/SDGMenuBar/Selector.swift"
-)
-set_target_properties("SDGMenuBar" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
-target_compile_options("SDGMenuBar" PRIVATE -enable-testing)
-target_link_libraries("SDGMenuBar" PRIVATE
-  "SDGInterfaceBasics"
-  "SDGMenus"
-  "SDGContextMenu"
-  "SDGInterfaceLocalizations"
-  "SDGMathematics"
-  "SDGText"
-  "SDGLocalization"
 )
 
 add_library("SDGViews"
@@ -627,6 +629,7 @@ target_link_libraries("SDGViews" PRIVATE
 add_library("SDGImageDisplay"
   "../../../Sources/SDGImageDisplay/Image.swift"
   "../../../Sources/SDGImageDisplay/ImageView.swift"
+  "../../../Sources/SDGImageDisplay/Windows.swift"
 )
 set_target_properties("SDGImageDisplay" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
 target_compile_options("SDGImageDisplay" PRIVATE -enable-testing)
@@ -793,6 +796,7 @@ target_link_libraries("SDGInterfaceSample" PRIVATE
   "SDGWindows"
   "SDGMenus"
   "SDGErrorMessages"
+  "SDGMenuBar"
   "SDGApplication"
   "SDGControlFlow"
   "SDGMathematics"
@@ -826,6 +830,7 @@ target_link_libraries("SDGApplicationTests" PRIVATE
   "SDGWindows"
   "SDGMenus"
   "SDGContextMenu"
+  "SDGMenuBar"
   "SDGApplication"
   "SDGInterfaceLocalizations"
   "SDGInterfaceSample"
@@ -920,6 +925,7 @@ target_compile_options("SDGMenuBarTests" PRIVATE -enable-testing)
 target_link_libraries("SDGMenuBarTests" PRIVATE
   "SDGMenus"
   "SDGContextMenu"
+  "SDGMenuBar"
   "SDGInterfaceLocalizations"
   "SDGApplicationTestUtilities"
   "SDGControlFlow"

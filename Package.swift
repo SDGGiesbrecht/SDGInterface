@@ -593,24 +593,3 @@ if firstEntry.hasSuffix("/Contents/Developer/usr/bin") {
   settings.append(.define("MANIFEST_LOADED_BY_XCODE"))
   sdgXCTestUtilities.swiftSettings = settings
 }
-
-// #workaround(Swift 5.1.3, Windows cannot find the dependency.)
-func adjustForWindows() {
-  for target in package.targets {
-    target.dependencies.removeAll(where: { dependency in
-      switch dependency {
-      case ._byNameItem(let name):
-        return name == "SDGMenuBar"
-      default:
-        return false
-      }
-    })
-  }
-}
-#if os(Windows)
-  adjustForWindows()
-#endif
-import Foundation
-if ProcessInfo.processInfo.environment["GENERATING_CMAKE_FOR_WINDOWS"] == "true" {
-  adjustForWindows()
-}
