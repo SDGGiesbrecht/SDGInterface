@@ -12,8 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-import Foundation
+#if !os(Windows)  // #workaround(Swift 5.1.3, Windows trips over “@objc”?)
+  import Foundation
 
-@objc public protocol _NSApplicationDelegateProtocol {
-  @objc func openPreferences(_ sender: Any?)
-}
+  @objc public protocol _NSApplicationDelegateProtocol {
+    @objc func openPreferences(_ sender: Any?)
+  }
+#endif
