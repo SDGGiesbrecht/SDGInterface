@@ -43,7 +43,7 @@ extension SDGApplicationAPITests {
   ]
 }
 
-extension InternalTests {
+extension SDGApplicationInternalTests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
       ("testApplicationName", testApplicationName),
@@ -177,7 +177,7 @@ extension SDGViewsAPITests {
   ]
 }
 
-extension InternalTests {
+extension SDGViewsInternalTests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
       ("testAspectRatioContainer", testAspectRatioContainer),
@@ -195,7 +195,7 @@ extension SDGWindowsAPITests {
 
 var tests = [XCTestCaseEntry]()
 tests += SDGApplicationAPITests.windowsTests
-tests += InternalTests.windowsTests
+tests += SDGApplicationInternalTests.windowsTests
 tests += SDGButtonsAPITests.windowsTests
 tests += SDGContextMenuAPITests.windowsTests
 tests += SDGImageDisplayAPITests.windowsTests
@@ -208,7 +208,7 @@ tests += SDGProgressIndicatorsAPITests.windowsTests
 tests += SDGTablesAPITests.windowsTests
 tests += SDGTextDisplayAPITests.windowsTests
 tests += SDGViewsAPITests.windowsTests
-tests += InternalTests.windowsTests
+tests += SDGViewsInternalTests.windowsTests
 tests += SDGWindowsAPITests.windowsTests
 
 XCTMain(tests)
