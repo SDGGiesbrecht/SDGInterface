@@ -43,7 +43,7 @@
               switch localization {  // @exempt(from: tests)
               case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Context Menu"
-              case .deutschDeutschland:
+              case .deutschDeutschland:  // @exempt(from: tests)
                 return "Kontextmenü"
               }
             })

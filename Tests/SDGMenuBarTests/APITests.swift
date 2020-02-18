@@ -27,7 +27,7 @@ import SDGXCTestUtilities
 
 import SDGApplicationTestUtilities
 
-final class APITests: ApplicationTestCase {
+final class SDGMenuBarAPITests: ApplicationTestCase {
 
   func testMenuBar() {
     #if canImport(AppKit)

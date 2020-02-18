@@ -30,7 +30,7 @@ import SDGXCTestUtilities
 
 import SDGApplicationTestUtilities
 
-final class APITests: ApplicationTestCase {
+final class SDGInterfaceBasicsAPITests: ApplicationTestCase {
 
   func testAlignment() {
     XCTAssertEqual(SDGInterfaceBasics.Alignment(horizontal: .centre, vertical: .centre), .centre)

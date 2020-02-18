@@ -42,7 +42,8 @@ import SDGApplicationTestUtilities
 
 import SDGInterfaceSample
 
-final class APITests: ApplicationTestCase {
+// #workaround(workspace version 0.30.1, Test cases have redundant names only to disambiguate for WindowsMain.swift.)
+final class SDGApplicationAPITests: ApplicationTestCase {
 
   func testDemonstrations() {
     #if canImport(AppKit)

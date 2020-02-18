@@ -29,7 +29,7 @@ import SDGXCTestUtilities
 
 import SDGApplicationTestUtilities
 
-final class APITests: ApplicationTestCase {
+final class SDGTablesAPITests: ApplicationTestCase {
 
   func testTable() {
     #if canImport(AppKit) || canImport(UIKit)

@@ -28,7 +28,7 @@ import SDGXCTestUtilities
 
 import SDGApplicationTestUtilities
 
-final class APITests: ApplicationTestCase {
+final class SDGWindowsAPITests: ApplicationTestCase {
 
   func testWindow() {
     #if canImport(AppKit) || canImport(UIKit)

@@ -113,7 +113,7 @@ let package = Package(
     .library(name: "_SDGInterfaceSample", targets: ["SDGInterfaceSample"])
   ],
   dependencies: [
-    .package(url: "https://github.com/SDGGiesbrecht/SDGCornerstone", from: Version(4, 0, 0))
+    .package(url: "https://github.com/SDGGiesbrecht/SDGCornerstone", from: Version(4, 3, 0))
   ],
   targets: [
     // #documentation(SDGApplication)
@@ -129,10 +129,6 @@ let package = Package(
         .product(name: "SDGText", package: "SDGCornerstone"),
         .product(name: "SDGLocalization", package: "SDGCornerstone"),
         .product(name: "SDGCalendar", package: "SDGCornerstone")
-      ],
-      swiftSettings: [
-        .define("VALIDATION", .when(configuration: .debug)),
-        .define("UNHANDLED_SYSTEM_EVENT_LOGGING", .when(configuration: .debug))
       ]
     ),
 
@@ -212,9 +208,6 @@ let package = Package(
         .product(name: "SDGText", package: "SDGCornerstone"),
         .product(name: "SDGLocalization", package: "SDGCornerstone"),
         .product(name: "SDGGeometry", package: "SDGCornerstone")
-      ],
-      swiftSettings: [
-        .define("TEST_COVERAGE_AIDS", .when(configuration: .debug))
       ]
     ),
 
@@ -287,9 +280,6 @@ let package = Package(
         .product(name: "SDGCollections", package: "SDGCornerstone"),
         .product(name: "SDGText", package: "SDGCornerstone"),
         .product(name: "SDGLocalization", package: "SDGCornerstone")
-      ],
-      swiftSettings: [
-        .define("UNIDENTIFIED_PASTEBOARD_WARNINGS", .when(configuration: .debug))
       ]
     ),
 

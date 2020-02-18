@@ -31,11 +31,10 @@ public struct ApplicationNameLocalization: Localization {
     if let defined = _correspondingIsolatedName {
       return defined
     }
-    #if !os(Linux)
-      if let infoPropertyList = Bundle.main.infoDictionary?[kCFBundleNameKey as String] as? String {
-        return StrictString(infoPropertyList)  // @exempt(from: tests)
-      }
-    #endif  // @exempt(from: tests)
+    // #workaround(Can be smarter? CFBundleDisplayName? localizedInfoDictionary?)
+    if let infoPropertyList = Bundle.main.infoDictionary?["CFBundleName" as String] as? String {
+      return StrictString(infoPropertyList)  // @exempt(from: tests)
+    }  // @exempt(from: tests)
     return StrictString(ProcessInfo.processInfo.processName)  // @exempt(from: tests)
   }
 

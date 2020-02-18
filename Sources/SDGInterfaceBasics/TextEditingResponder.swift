@@ -12,14 +12,16 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-import Foundation
+#if !os(Windows)  // #workaround(Swift 5.1.3, Windows trips over “@objc”?)
+  import Foundation
 
-/// An object which responds to actions related to editing text.
-@objc public protocol TextEditingResponder: TextDisplayResponder {
+  /// An object which responds to actions related to editing text.
+  @objc public protocol TextEditingResponder: TextDisplayResponder {
 
-  /// Normalizes the selection to NFKD.
-  ///
-  /// - Parameters:
-  ///     - sender: The sender.
-  @objc func normalizeText(_ sender: Any?)
-}
+    /// Normalizes the selection to NFKD.
+    ///
+    /// - Parameters:
+    ///     - sender: The sender.
+    @objc func normalizeText(_ sender: Any?)
+  }
+#endif

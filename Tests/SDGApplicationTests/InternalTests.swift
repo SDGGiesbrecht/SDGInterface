@@ -30,7 +30,8 @@ import SDGApplicationTestUtilities
 
 import SDGInterfaceSample
 
-final class InternalTests: ApplicationTestCase {
+// #workaround(workspace version 0.30.1, Redundant test case names are to disambiguate for CMake.)
+final class SDGApplicationInternalTests: ApplicationTestCase {
 
   func testApplicationName() {
     let previous = ProcessInfo.applicationName
