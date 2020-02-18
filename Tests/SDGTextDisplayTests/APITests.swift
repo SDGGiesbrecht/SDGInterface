@@ -167,7 +167,7 @@ final class SDGTextDisplayAPITests: ApplicationTestCase {
         return string
       #endif
     }
-    for fontSize in sequence(first: 0, next: { $0 + 1 }).prefix(10).map({ 2 ↑ $0 }) {
+    for fontSize in sequence(first: 0 as Double, next: { $0 + 1 }).prefix(10).map({ 2 ↑ $0 }) {
       #if canImport(CoreGraphics)
         let placeholderText = "..."
         let font = Font.system.resized(to: Double(fontSize))
