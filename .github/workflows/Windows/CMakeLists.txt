@@ -969,6 +969,7 @@ target_link_libraries("SDGPopOversTests" PRIVATE
 add_library("SDGProgressIndicators"
   "../../../Sources/SDGProgressIndicators/LabelledProgressBar.swift"
   "../../../Sources/SDGProgressIndicators/ProgressBar.swift"
+  "../../../Sources/SDGProgressIndicators/Windows.swift"
 )
 set_target_properties("SDGProgressIndicators" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
 target_compile_options("SDGProgressIndicators" PRIVATE -enable-testing)
