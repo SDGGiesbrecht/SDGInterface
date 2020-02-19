@@ -34,8 +34,9 @@ public struct ApplicationNameLocalization: Localization {
       // This fallback is only for “und”.
       let information = Bundle.main.infoDictionary
       if let name = information?["CFBundleDisplayName" as String] as? String
-        ?? information?["CFBundleName" as String] as? String {
-        return StrictString(name)
+        ?? information?["CFBundleName" as String] as? String
+      {
+        return StrictString(name)  // @exempt(from: tests)
       }
       return StrictString(ProcessInfo.processInfo.processName)
     }
