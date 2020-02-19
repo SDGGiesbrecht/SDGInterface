@@ -30,12 +30,15 @@ public struct ApplicationNameLocalization: Localization {
   internal var correspondingIsolatedName: StrictString {
     if let defined = _correspondingIsolatedName {
       return defined
+    } else {
+      // This fallback is only for “und”.
+      let information = Bundle.main.infoDictionary
+      if let name = information?["CFBundleDisplayName" as String] as? String
+        ?? information?["CFBundleName" as String] as? String {
+        return StrictString(name)
+      }
+      return StrictString(ProcessInfo.processInfo.processName)
     }
-    // #workaround(Can be smarter? CFBundleDisplayName? localizedInfoDictionary?)
-    if let infoPropertyList = Bundle.main.infoDictionary?["CFBundleName" as String] as? String {
-      return StrictString(infoPropertyList)  // @exempt(from: tests)
-    }  // @exempt(from: tests)
-    return StrictString(ProcessInfo.processInfo.processName)  // @exempt(from: tests)
   }
 
   // MARK: - Localization
