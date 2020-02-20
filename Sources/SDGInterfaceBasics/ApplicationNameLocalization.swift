@@ -38,7 +38,7 @@ public struct ApplicationNameLocalization: Localization {
       {
         return StrictString(name)  // @exempt(from: tests)
       }
-      return StrictString(ProcessInfo.processInfo.processName)
+      return StrictString(ProcessInfo.processInfo.processName)  // @exempt(from: tests)
     }
   }
 
