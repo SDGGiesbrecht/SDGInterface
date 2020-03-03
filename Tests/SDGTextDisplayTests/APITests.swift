@@ -36,7 +36,7 @@ import SDGLocalizationTestUtilities
 
 import SDGApplicationTestUtilities
 
-final class SDGTextDisplayAPITests: ApplicationTestCase {
+final class APITests: ApplicationTestCase {
 
   func testAttributedString() {
     var mutable = NSMutableAttributedString(string: "...")

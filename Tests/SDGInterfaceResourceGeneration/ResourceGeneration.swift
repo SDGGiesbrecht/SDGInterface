@@ -21,7 +21,7 @@
 
   @testable import SDGTextDisplay
 
-  final class SDGInterfaceResourceGeneration: XCTestCase {
+  final class ResourceGeneration: XCTestCase {
 
     // Complete the word “test” to activate and run the generators.
 

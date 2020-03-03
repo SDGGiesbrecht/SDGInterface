@@ -31,7 +31,7 @@ import SDGXCTestUtilities
 
 import SDGApplicationTestUtilities
 
-final class SDGViewsAPITests: ApplicationTestCase {
+final class APITests: ApplicationTestCase {
 
   func testCocoaViewImplementation() {
     #if canImport(AppKit) || canImport(UIKit)

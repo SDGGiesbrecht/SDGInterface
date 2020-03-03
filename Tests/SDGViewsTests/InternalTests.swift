@@ -16,7 +16,7 @@
 
 import SDGApplicationTestUtilities
 
-final class SDGViewsInternalTests: ApplicationTestCase {
+final class InternalTests: ApplicationTestCase {
 
   func testAspectRatioContainer() {
     #if canImport(AppKit) || canImport(UIKit)
