@@ -245,14 +245,12 @@ final class APITests: ApplicationTestCase {
       #endif
       _ = richText.playgroundDescription
 
-      #if !os(Android)  // #workaround(workspace version 0.30.1, Emulator lacks permissions.)
-        testCustomStringConvertibleConformance(
-          of: RichText(rawText: "..."),
-          localizations: APILocalization.self,
-          uniqueTestName: "Rich Text",
-          overwriteSpecificationInsteadOfFailing: false
-        )
-      #endif
+      testCustomStringConvertibleConformance(
+        of: RichText(rawText: "..."),
+        localizations: APILocalization.self,
+        uniqueTestName: "Rich Text",
+        overwriteSpecificationInsteadOfFailing: false
+      )
       testEquatableConformance(differingInstances: (RichText(rawText: "1"), RichText(rawText: "2")))
       XCTAssertEqual([richText: true][richText], true)
 
