@@ -26,7 +26,7 @@ import SDGXCTestUtilities
 
 import SDGApplicationTestUtilities
 
-final class SDGMenusAPITests: ApplicationTestCase {
+final class APITests: ApplicationTestCase {
 
   func testKeyModifiers() {
     let modifiers: KeyModifiers = [.command, .shift, .option, .control, .function, .capsLock]
