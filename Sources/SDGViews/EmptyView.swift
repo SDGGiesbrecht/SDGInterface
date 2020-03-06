@@ -23,7 +23,7 @@
   #endif
 
   /// A shimmed version of `SwiftUI.EmptyView` with no availability constraints.
-  @available(watchOS 9, *)
+  @available(watchOS 6, *)
   public struct EmptyView: View {
 
     // MARK: - Initialization
