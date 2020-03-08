@@ -100,7 +100,7 @@
       idealHeight: Double? = nil,
       maxHeight: Double? = nil,
       alignment: SDGInterfaceBasics.Alignment = .centre
-    ) -> View {
+    ) -> Framed<Self> {
       return Framed(
         contents: self,
         minWidth: minWidth,
@@ -111,6 +111,25 @@
         maxHeight: maxHeight,
         alignment: alignment
       )
+    }
+
+    /// Letter or pillarboxes a view, locking it to an aspect ratio and filling in the empty bars along the edges with a background.
+    ///
+    /// The resulting view
+    ///
+    /// - Parameters:
+    ///   - aspectRatio: The aspect ratio.
+    ///   - background: The background view.
+    @available(watchOS 6, *)
+    public func letterboxed<Background>(
+      aspectRatio: Double,
+      background: Background
+    ) -> Layered<Framed<Proportioned<Self>>, Background> where Background: LegacyView {
+      return
+        self
+        .aspectRatio(aspectRatio, contentMode: .fit)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .centre)
+        .background(background)
     }
   }
 #endif
