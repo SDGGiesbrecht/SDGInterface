@@ -38,7 +38,7 @@
 
         previewBothModes(
           circle(radius: 16)
-            .shimmedBackground(
+            .background(
               AnyView(
                 Color.red
                   .frame(width: 48, height: 48)
@@ -52,7 +52,7 @@
 
         previewBothModes(
           circle(radius: 16)
-            .shimmedBackground(
+            .background(
               AnyView(
                 Color.red
                   .frame(width: 48, height: 48)
@@ -67,7 +67,7 @@
 
         previewBothModes(
           circle(radius: 16)
-            .shimmedBackground(
+            .background(
               AnyView(
                 Color.red
                   .frame(width: 48, height: 48)
@@ -85,7 +85,7 @@
             Ellipse()
               .aspectRatio(1, contentMode: .fit)
               .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .centre)
-              .shimmedBackground(Colour.red)
+              .background(Colour.red)
               .swiftUIView
           )
             .frame(width: 128, height: 64)

@@ -12,22 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#warning("Audit.")
-
 #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
   #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
     import SwiftUI
   #endif
-  #if canImport(AppKit)
-    import AppKit
-  #endif
-  #if canImport(UIKit)
-    import UIKit
-  #endif
-
-  import SDGLogic
-
-  import SDGInterfaceBasics
 
   /// A view.
   ///

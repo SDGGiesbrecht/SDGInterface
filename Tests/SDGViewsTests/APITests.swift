@@ -48,7 +48,7 @@ final class APITests: ApplicationTestCase {
   func testBackground() {
     #if canImport(AppKit) || canImport(UIKit)
       forAllLegacyModes {
-        _ = Colour.red.shimmedBackground(Colour.blue).cocoaView
+        _ = Colour.red.background(Colour.blue).cocoaView
       }
     #endif
   }

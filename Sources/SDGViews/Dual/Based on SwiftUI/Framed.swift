@@ -64,6 +64,7 @@
 
     // MARK: - LegacyView
 
+    #warning("These should all dynamically try SwiftUI first.")
     #if canImport(AppKit)
       public var cocoaView: NSView {
         return FrameContainer(
