@@ -25,6 +25,7 @@
 
   import SDGInterfaceBasics
 
+  /// The result of `padding(_:_:)`
   public struct Padded<ContentView>: LegacyView where ContentView: LegacyView {
 
     // MARK: - Properties
