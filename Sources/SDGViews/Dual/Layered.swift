@@ -26,6 +26,7 @@
   import SDGInterfaceBasics
 
   /// The result of `background(_:alignment:)`.
+  @available(watchOS 6, *)
   public struct Layered<Foreground, Background>: LegacyView
   where Foreground: LegacyView, Background: LegacyView {
 
@@ -56,7 +57,7 @@
       }
     #endif
 
-    #if canImport(UIKit)
+    #if canImport(UIKit) && !os(watchOS)
       public var cocoaView: UIView {
         return BackgroundContainer(background: background, foreground: self, alignment: alignment)
           .cocoaView

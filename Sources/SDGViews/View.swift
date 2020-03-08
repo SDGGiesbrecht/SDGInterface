@@ -52,19 +52,6 @@
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension View {
 
-    /// A shimmed version of `SwiftUI.View.padding(_:_:)` with no availability constraints.
-    ///
-    /// - Parameters:
-    ///   - edges: The edges along which to apply the padding.
-    ///   - width: The width of the padding.
-    @available(watchOS 6, *)
-    public func padding(
-      _ edges: SDGInterfaceBasics.Edge.Set = .all,
-      _ width: Double? = nil
-    ) -> Padded<Self> {
-      return Padded(contents: self, edges: edges, width: width)
-    }
-
     /// A shimmed version of `SwiftUI.View.aspectRatio(_:contentMode:)` with no availability constraints.
     ///
     /// - Parameters:

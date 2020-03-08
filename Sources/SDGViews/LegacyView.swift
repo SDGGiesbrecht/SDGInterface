@@ -20,6 +20,8 @@
     import UIKit
   #endif
 
+  import SDGInterfaceBasics
+
   /// The subset of the `View` protocol that can be conformed to even on platform versions preceding SwiftUI’s availability.
   public protocol LegacyView {
 
@@ -39,4 +41,33 @@
       var cocoaView: UIView { get }
     #endif
   }
+
+extension LegacyView {
+
+  /// A shimmed version of `SwiftUI.View.padding(_:_:)` with no availability constraints.
+  ///
+  /// - Parameters:
+  ///   - edges: The edges along which to apply the padding.
+  ///   - width: The width of the padding.
+  @available(watchOS 6, *)
+  public func padding(
+    _ edges: SDGInterfaceBasics.Edge.Set = .all,
+    _ width: Double? = nil
+  ) -> Padded<Self> {
+    return Padded(contents: self, edges: edges, width: width)
+  }
+
+  /// A shimmed version of `SwiftUI.View.background(_:alignment:)` with no availability constraints.
+  ///
+  /// - Parameters:
+  ///   - background: The background view.
+  ///   - alignment: The alignment of the background.
+  @available(watchOS 6, *)
+  public func background<Background>(
+    _ background: Background,
+    alignment: SDGInterfaceBasics.Alignment = .centre
+  ) -> Layered<Self, Background> {
+    return Layered(foreground: self, background: background, alignment: alignment)
+  }
+}
 #endif

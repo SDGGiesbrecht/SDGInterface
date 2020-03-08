@@ -26,6 +26,7 @@
   import SDGInterfaceBasics
 
   /// The result of `padding(_:_:)`
+  @available(watchOS 6, *)
   public struct Padded<ContentView>: LegacyView where ContentView: LegacyView {
 
     // MARK: - Initialization
@@ -50,7 +51,7 @@
       }
     #endif
 
-    #if canImport(UIKit)
+    #if canImport(UIKit) && !os(watchOS)
       public var cocoaView: UIView {
         return PaddingContainer(contents: contents, edges: edges, width: width)
       }
