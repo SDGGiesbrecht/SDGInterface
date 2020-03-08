@@ -1,5 +1,5 @@
 /*
- Padded.swift
+ Layered.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -25,46 +25,56 @@
 
   import SDGInterfaceBasics
 
-  /// The result of `padding(_:_:)`
-  public struct Padded<ContentView>: LegacyView where ContentView: LegacyView {
+  /// The result of `background(_:alignment:)`.
+  public struct Layered<Foreground, Background>: LegacyView
+  where Foreground: LegacyView, Background: LegacyView {
 
     // MARK: - Initialization
 
-    internal init(contents: ContentView, edges: SDGInterfaceBasics.Edge.Set, width: Double?) {
-      self.contents = contents
-      self.edges = edges
-      self.width = width
+    internal init(
+      foreground: Foreground,
+      background: Background,
+      alignment: SDGInterfaceBasics.Alignment
+    ) {
+      self.foreground = foreground
+      self.background = background
+      self.alignment = alignment
     }
 
     // MARK: - Properties
 
-    private var contents: ContentView
-    private var edges: SDGInterfaceBasics.Edge.Set
-    private var width: Double?
+    private var foreground: Foreground
+    private var background: Background
+    private var alignment: SDGInterfaceBasics.Alignment
 
     // MARK: - LegacyView
 
     #if canImport(AppKit)
       public var cocoaView: NSView {
-        return PaddingContainer(contents: contents, edges: edges, width: width).cocoaView
+        return BackgroundContainer(background: background, foreground: self, alignment: alignment)
+          .cocoaView
       }
     #endif
 
     #if canImport(UIKit)
       public var cocoaView: UIView {
-        return PaddingContainer(contents: contents, edges: edges, width: width)
+        return BackgroundContainer(background: background, foreground: self, alignment: alignment)
+          .cocoaView
       }
     #endif
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  extension Padded: View where ContentView: View {
+  extension Layered: View where Foreground: View, Background: View {
 
     // MARK: - View
 
     /// The SwiftUI view.
     public var swiftUIView: some SwiftUI.View {
-      return contents.swiftUIView.padding(SwiftUI.Edge.Set(edges), width.map({ CGFloat($0) }))
+      return foreground.swiftUIView.background(
+        background.swiftUIView,
+        alignment: SwiftUI.Alignment(alignment)
+      )
     }
   }
 #endif

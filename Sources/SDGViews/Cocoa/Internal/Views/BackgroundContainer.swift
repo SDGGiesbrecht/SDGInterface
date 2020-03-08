@@ -25,7 +25,11 @@
 
     // MARK: - Initialization
 
-    internal init(background: View, foreground: View, alignment: SDGInterfaceBasics.Alignment) {
+    internal init(
+      background: LegacyView,
+      foreground: LegacyView,
+      alignment: SDGInterfaceBasics.Alignment
+    ) {
       self.container = AnyCocoaView()
       self.background = StabilizedView(background)
       self.foreground = StabilizedView(foreground)
