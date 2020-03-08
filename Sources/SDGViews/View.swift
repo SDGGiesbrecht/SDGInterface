@@ -12,13 +12,16 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#warning("Audit.")
+
 #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
   #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
     import SwiftUI
   #endif
   #if canImport(AppKit)
     import AppKit
-  #elseif canImport(UIKit)
+  #endif
+  #if canImport(UIKit)
     import UIKit
   #endif
 
@@ -34,15 +37,19 @@
   /// - implement `cocoaView` and conform to `CocoaViewImplementation`.
   ///
   /// In each case, default implementations will cover the rest of the conformance to `View`.
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   public protocol View: LegacyView {
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      /// The type of the SwiftUIView
+      associatedtype SwiftUIView: SwiftUI.View
+
       /// The SwiftUI view.
-      @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-      var swiftUIView: SwiftUI.AnyView { get }
+      var swiftUIView: SwiftUIView { get }
     #endif
   }
 
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension View {
 
     /// A shimmed version of `SwiftUI.View.padding(_:_:)` with no availability constraints.

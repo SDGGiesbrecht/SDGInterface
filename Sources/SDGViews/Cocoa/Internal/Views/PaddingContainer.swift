@@ -28,7 +28,7 @@
 
     // MARK: - Initialization
 
-    internal init(contents: View, edges: Edge.Set, width: Double?) {
+    internal init(contents: LegacyView, edges: Edge.Set, width: Double?) {
       self.contents = StabilizedView(contents)
       self.container = AnyCocoaView()
 
