@@ -16,5 +16,5 @@
   import SwiftUI
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  extension AnyView: SwiftUIViewImplementation {}
+  extension SwiftUI.AnyView: SwiftUIViewImplementation {}
 #endif
