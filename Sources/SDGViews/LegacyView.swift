@@ -42,6 +42,8 @@
 
   extension LegacyView {
 
+    // MARK: - Cocoa Interoperability
+
     /// Returns a stabilized version of the view which behaves with consistent reference semantics.
     ///
     /// Wrap unknown `View` conformers with this method before using repeated accesses of `cocoaView` that assume the same instance will be returned each time.
@@ -49,6 +51,8 @@
     public func stabilize() -> Stabilized<Self> {
       return Stabilized(contents: self)
     }
+
+    // MARK: - Layout
 
     /// A shimmed version of `SwiftUI.View.padding(_:_:)` with no availability constraints.
     ///

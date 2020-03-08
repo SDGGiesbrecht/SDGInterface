@@ -25,9 +25,7 @@
 
   import SDGInterfaceBasics
 
-  /// Stabilizes a view to behave with consistent reference semantics.
-  ///
-  /// Wrap unknown `View` conformers in this type before using repeated accesses of `cocoaView` that assume the same instance will be returned each time.
+  /// The result of `stabilize(_:_:)`.
   @available(watchOS 6, *)
   public struct Stabilized<ContentView>: LegacyView where ContentView: LegacyView {
 
