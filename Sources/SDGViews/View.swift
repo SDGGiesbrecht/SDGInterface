@@ -34,26 +34,12 @@
   /// - implement `cocoaView` and conform to `CocoaViewImplementation`.
   ///
   /// In each case, default implementations will cover the rest of the conformance to `View`.
-  public protocol View {
+  public protocol View: LegacyView {
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       /// The SwiftUI view.
       @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
       var swiftUIView: SwiftUI.AnyView { get }
-    #endif
-
-    #if canImport(AppKit)
-      // @documentation(View.cocoaView)
-      /// The `NSView` or `UIView`.
-      ///
-      /// - Warning: A `View` may not always return the same instance when queried for a `cocoaView` representation. If you want to use the view in a way that requires refrence semantics, such as applying Cocoa constraints or bindings, wrap the view in a `StabilizedView` and use it’s stable `cocoaView` property.
-      var cocoaView: NSView { get }
-    #elseif canImport(UIKit) && !os(watchOS)
-      // #documentation(View.cocoaView)
-      /// The `NSView` or `UIView`.
-      ///
-      /// - Warning: A `View` may not always return the same instance when queried for a `cocoaView` representation. If you want to use the view in a way that requires refrence semantics, such as applying Cocoa constraints or bindings, wrap the view in a `StabilizedView` and use it’s stable `cocoaView` property.
-      var cocoaView: UIView { get }
     #endif
   }
 
