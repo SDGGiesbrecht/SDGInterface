@@ -73,7 +73,6 @@
 
     // MARK: - View
 
-    /// The SwiftUI view.
     public var swiftUIView: some SwiftUI.View {
       return contents.swiftUIView.aspectRatio(
         aspectRatio.map({ CGFloat($0) }),

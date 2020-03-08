@@ -28,7 +28,7 @@
     // MARK: - Initialization
 
     internal init(
-      contents: View,
+      contents: LegacyView,
       minWidth: Double?,
       idealWidth: Double?,
       maxWidth: Double?,

@@ -68,7 +68,6 @@
 
     // MARK: - View
 
-    /// The SwiftUI view.
     public var swiftUIView: some SwiftUI.View {
       return foreground.swiftUIView.background(
         background.swiftUIView,

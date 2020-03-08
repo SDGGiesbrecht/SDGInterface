@@ -80,5 +80,37 @@
     ) -> Proportioned<Self> {
       return Proportioned(contents: self, aspectRatio: aspectRatio, contentMode: contentMode)
     }
+
+    /// A shimmed version of `SwiftUI.View.frame(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)` with no availability constraints.
+    ///
+    /// - Parameters:
+    ///   - minWidth: The minimum width.
+    ///   - idealWidth: The ideal width.
+    ///   - maxWidth: The maximum width.
+    ///   - minHeight: The minimum height.
+    ///   - idealHeight: The ideal height.
+    ///   - maxHeight: The maximum height.
+    ///   - alignment: The alignment.
+    @available(watchOS 6, *)
+    public func frame(
+      minWidth: Double? = nil,
+      idealWidth: Double? = nil,
+      maxWidth: Double? = nil,
+      minHeight: Double? = nil,
+      idealHeight: Double? = nil,
+      maxHeight: Double? = nil,
+      alignment: SDGInterfaceBasics.Alignment = .centre
+    ) -> View {
+      return Framed(
+        contents: self,
+        minWidth: minWidth,
+        idealWidth: idealWidth,
+        maxWidth: maxWidth,
+        minHeight: minHeight,
+        idealHeight: idealHeight,
+        maxHeight: maxHeight,
+        alignment: alignment
+      )
+    }
   }
 #endif

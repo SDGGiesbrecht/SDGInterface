@@ -61,7 +61,6 @@
 
     // MARK: - View
 
-    /// The SwiftUI view.
     public var swiftUIView: some SwiftUI.View {
       return contents.swiftUIView.padding(SwiftUI.Edge.Set(edges), width.map({ CGFloat($0) }))
     }
