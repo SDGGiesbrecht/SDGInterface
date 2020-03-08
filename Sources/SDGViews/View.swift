@@ -52,50 +52,6 @@
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension View {
 
-    /// A shimmed version of `SwiftUI.View.aspectRatio(_:contentMode:)` with no availability constraints.
-    ///
-    /// - Parameters:
-    ///   - aspectRatio: The aspect ratio. Pass `nil` to use the aspect ratio of the view’s intrinsic size. Views with no intrinsic size will be unaffected by this method if no aspect ratio is specified.
-    ///   - contentMode: The content mode. `.fit` performs letterboxing or pillarboxing; `.fill` crops the view to achieve the aspect ratio.
-    @available(watchOS 6, *)
-    public func aspectRatio(
-      _ aspectRatio: Double? = nil,
-      contentMode: SDGInterfaceBasics.ContentMode
-    ) -> View {
-      #if os(watchOS)
-        return AnyView(
-          swiftUIView.aspectRatio(
-            aspectRatio.map({ CGFloat($0) }),
-            contentMode: SwiftUI.ContentMode(contentMode)
-          )
-        )
-      #elseif (canImport(SwiftUI) && !(os(iOS) && arch(arm)))
-        if #available(macOS 10.15, tvOS 13, iOS 13, *),
-          ¬legacyMode
-        {
-          return AnyView(
-            swiftUIView.aspectRatio(
-              aspectRatio.map({ CGFloat($0) }),
-              contentMode: SwiftUI.ContentMode(contentMode)
-            )
-          )
-        } else {
-          return AspectRatioContainer.constraining(
-            self,
-            toAspectRatio: aspectRatio,
-            contentMode: contentMode
-          )
-        }
-      // @exempt(from: tests) Returned already, but the uncompiled text below confuses Xcode.
-      #else
-        return AspectRatioContainer.constraining(
-          self,
-          toAspectRatio: aspectRatio,
-          contentMode: contentMode
-        )
-      #endif
-    }
-
     /// A shimmed version of `SwiftUI.View.frame(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)` with no availability constraints.
     ///
     /// - Parameters:

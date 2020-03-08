@@ -29,7 +29,7 @@
     // MARK: - Static Methods
 
     internal static func constraining(
-      _ view: View,
+      _ view: LegacyView,
       toAspectRatio aspectRatio: Double?,
       contentMode: ContentMode
     ) -> View {

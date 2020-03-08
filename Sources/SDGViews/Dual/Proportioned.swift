@@ -1,5 +1,5 @@
 /*
- Layered.swift
+ Proportioned.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -25,54 +25,59 @@
 
   import SDGInterfaceBasics
 
-  /// The result of `background(_:alignment:)`.
+  /// The result of `aspectRatio(_:contentMode:)`.
   @available(watchOS 6, *)
-  public struct Layered<Foreground, Background>: LegacyView
-  where Foreground: LegacyView, Background: LegacyView {
+  public struct Proportioned<ContentView>: LegacyView where ContentView: LegacyView {
 
     // MARK: - Initialization
 
     internal init(
-      foreground: Foreground,
-      background: Background,
-      alignment: SDGInterfaceBasics.Alignment
+      contents: ContentView,
+      aspectRatio: Double?,
+      contentMode: SDGInterfaceBasics.ContentMode
     ) {
-      self.foreground = foreground
-      self.background = background
-      self.alignment = alignment
+      self.contents = contents
+      self.aspectRatio = aspectRatio
+      self.contentMode = contentMode
     }
 
     // MARK: - Properties
 
-    private var foreground: Foreground
-    private var background: Background
-    private var alignment: SDGInterfaceBasics.Alignment
+    private var contents: ContentView
+    private var aspectRatio: Double?
+    private var contentMode: SDGInterfaceBasics.ContentMode
 
     // MARK: - LegacyView
 
     #if canImport(AppKit)
       public var cocoaView: NSView {
-        return BackgroundContainer(background: background, foreground: self, alignment: alignment)
-          .cocoaView
+        return AspectRatioContainer.constraining(
+          contents,
+          toAspectRatio: aspectRatio,
+          contentMode: contentMode
+        ).cocoaView
       }
     #elseif canImport(UIKit) && !os(watchOS)
       public var cocoaView: UIView {
-        return BackgroundContainer(background: background, foreground: self, alignment: alignment)
-          .cocoaView
+        return AspectRatioContainer.constraining(
+          contents,
+          toAspectRatio: aspectRatio,
+          contentMode: contentMode
+        ).cocoaView
       }
     #endif
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  extension Layered: View where Foreground: View, Background: View {
+  extension Proportioned: View where ContentView: View {
 
     // MARK: - View
 
     /// The SwiftUI view.
     public var swiftUIView: some SwiftUI.View {
-      return foreground.swiftUIView.background(
-        background.swiftUIView,
-        alignment: SwiftUI.Alignment(alignment)
+      return contents.swiftUIView.aspectRatio(
+        aspectRatio.map({ CGFloat($0) }),
+        contentMode: SwiftUI.ContentMode(contentMode)
       )
     }
   }
