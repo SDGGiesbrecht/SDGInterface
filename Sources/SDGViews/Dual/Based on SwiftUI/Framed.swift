@@ -77,7 +77,9 @@
           alignment: alignment
         ).cocoaView
       }
-    #elseif canImport(UIKit) && !os(watchOS)
+    #endif
+
+    #if canImport(UIKit) && !os(watchOS)
       public var cocoaView: UIView {
         return FrameContainer(
           contents: contents,

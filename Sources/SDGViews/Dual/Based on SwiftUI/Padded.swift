@@ -1,5 +1,5 @@
 /*
- Proportioned.swift
+ Padded.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -25,59 +25,46 @@
 
   import SDGInterfaceBasics
 
-  /// The result of `aspectRatio(_:contentMode:)`.
+  /// The result of `padding(_:_:)`.
   @available(watchOS 6, *)
-  public struct Proportioned<ContentView>: LegacyView where ContentView: LegacyView {
+  public struct Padded<ContentView>: LegacyView where ContentView: LegacyView {
 
     // MARK: - Initialization
 
-    internal init(
-      contents: ContentView,
-      aspectRatio: Double?,
-      contentMode: SDGInterfaceBasics.ContentMode
-    ) {
+    internal init(contents: ContentView, edges: SDGInterfaceBasics.Edge.Set, width: Double?) {
       self.contents = contents
-      self.aspectRatio = aspectRatio
-      self.contentMode = contentMode
+      self.edges = edges
+      self.width = width
     }
 
     // MARK: - Properties
 
     private var contents: ContentView
-    private var aspectRatio: Double?
-    private var contentMode: SDGInterfaceBasics.ContentMode
+    private var edges: SDGInterfaceBasics.Edge.Set
+    private var width: Double?
 
     // MARK: - LegacyView
 
     #if canImport(AppKit)
       public var cocoaView: NSView {
-        return AspectRatioContainer.constraining(
-          contents,
-          toAspectRatio: aspectRatio,
-          contentMode: contentMode
-        ).cocoaView
+        return PaddingContainer(contents: contents, edges: edges, width: width).cocoaView
       }
-    #elseif canImport(UIKit) && !os(watchOS)
+    #endif
+
+    #if canImport(UIKit) && !os(watchOS)
       public var cocoaView: UIView {
-        return AspectRatioContainer.constraining(
-          contents,
-          toAspectRatio: aspectRatio,
-          contentMode: contentMode
-        ).cocoaView
+        return PaddingContainer(contents: contents, edges: edges, width: width)
       }
     #endif
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  extension Proportioned: View where ContentView: View {
+  extension Padded: View where ContentView: View {
 
     // MARK: - View
 
     public var swiftUIView: some SwiftUI.View {
-      return contents.swiftUIView.aspectRatio(
-        aspectRatio.map({ CGFloat($0) }),
-        contentMode: SwiftUI.ContentMode(contentMode)
-      )
+      return contents.swiftUIView.padding(SwiftUI.Edge.Set(edges), width.map({ CGFloat($0) }))
     }
   }
 #endif

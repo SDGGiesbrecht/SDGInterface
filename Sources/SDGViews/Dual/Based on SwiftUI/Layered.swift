@@ -55,7 +55,9 @@
         return BackgroundContainer(background: background, foreground: self, alignment: alignment)
           .cocoaView
       }
-    #elseif canImport(UIKit) && !os(watchOS)
+    #endif
+
+    #if canImport(UIKit) && !os(watchOS)
       public var cocoaView: UIView {
         return BackgroundContainer(background: background, foreground: self, alignment: alignment)
           .cocoaView
