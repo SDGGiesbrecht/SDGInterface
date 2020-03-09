@@ -42,7 +42,7 @@
     ///     - data: The data the table represents.
     ///     - columns: An array of closures—each representing a column—which produce a corresponding cell view for a particular data entry.
     ///     - row: The data element represented by the row.
-    public init(data: Shared<[RowData]>, columns: [(_ row: RowData) -> View]) {
+    public init(data: Shared<[RowData]>, columns: [(_ row: RowData) -> AnyView]) {
       self.data = data
       defer {
         dataDidSet()
@@ -116,7 +116,7 @@
     ///
     /// - Parameters:
     ///     - row: The data entry represented by the row.
-    public var columns: [(_ row: RowData) -> View] {
+    public var columns: [(_ row: RowData) -> AnyView] {
       didSet {
         columnsDidSet()
       }
