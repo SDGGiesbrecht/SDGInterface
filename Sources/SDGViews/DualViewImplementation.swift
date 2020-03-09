@@ -1,5 +1,5 @@
 /*
- CastableView.swift
+ DualViewImplementation.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -17,14 +17,19 @@
     import SwiftUI
   #endif
 
-  /// The subset of the `View` protocol that can be used with dynamic casting.
-  ///
-  /// - Warning: Do not conform to this protocol without also conforming to `View`.
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  public protocol CastableView: LegacyView {
+  internal protocol DualViewImplementation: LegacyView {
 
     #if canImport(SwiftUI)
-      var _anySwiftUIView: SwiftUI.AnyView { get }
+      var swiftUIImplementation: SwiftUI.AnyView { get }
     #endif
+  }
+
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  extension DualViewImplementation where Self: View {
+
+    internal var swiftUIImplementation: SwiftUI.AnyView {
+      return SwiftUI.AnyView(swiftUIView)
+    }
   }
 #endif

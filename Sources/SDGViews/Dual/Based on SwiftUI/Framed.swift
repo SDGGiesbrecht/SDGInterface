@@ -93,7 +93,7 @@
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  extension Framed: CastableView, View where Content: View {
+  extension Framed: DualViewImplementation, View where Content: View {
 
     // MARK: - View
 

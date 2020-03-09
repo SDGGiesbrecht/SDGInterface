@@ -71,7 +71,7 @@
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  extension Proportioned: CastableView, View where Content: View {
+  extension Proportioned: DualViewImplementation, View where Content: View {
 
     // MARK: - View
 
