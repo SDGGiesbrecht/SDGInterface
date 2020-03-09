@@ -43,22 +43,9 @@
       /// - Warning: A `View` may not always return the same instance when queried for a `cocoaView` representation. If you want to use the view in a way that requires refrence semantics, such as applying Cocoa constraints or bindings, wrap the view in a `StabilizedView` and use it’s stable `cocoaView` property.
       var cocoaView: UIView { get }
     #endif
-
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-      var _anySwiftUIView: SwiftUI.AnyView { get }
-    #endif
   }
 
   extension LegacyView {
-
-    @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-    public var _anySwiftUIView: SwiftUI.AnyView {
-      if let view = self as? CastableView {
-        return view._castAnySwiftUIView
-      }
-      return SwiftUI.AnyView(CocoaViewRepresentableWrapper(cocoaView))
-    }
 
     // MARK: - Cocoa Interoperability
 
@@ -74,7 +61,7 @@
       if #available(macOS 10.15, tvOS 13, iOS 13, *),
         ¬legacyMode
       {
-        return _anySwiftUIView.cocoaView
+        return AnyView(self).swiftUIView.cocoaView
       } else {
         return fallback()
       }

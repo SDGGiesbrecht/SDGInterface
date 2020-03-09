@@ -24,7 +24,7 @@
   public protocol CastableView: LegacyView {
 
     #if canImport(SwiftUI)
-      var _castAnySwiftUIView: SwiftUI.AnyView { get }
+      var _anySwiftUIView: SwiftUI.AnyView { get }
     #endif
   }
 #endif

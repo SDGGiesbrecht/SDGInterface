@@ -42,12 +42,6 @@
 
     // MARK: - CastableView
 
-    public var _castAnySwiftUIView: SwiftUI.AnyView {
-      return SwiftUI.AnyView(swiftUIView)
-    }
-
-    // MARK: - LegacyView
-
     public var _anySwiftUIView: SwiftUI.AnyView {
       return SwiftUI.AnyView(swiftUIView)
     }

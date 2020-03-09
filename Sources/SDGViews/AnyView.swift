@@ -59,7 +59,10 @@
     // MARK: - View
 
     public var swiftUIView: SwiftUI.AnyView {
-      return legacyView._anySwiftUIView
+      if let view = legacyView as? CastableView {
+        return view._anySwiftUIView
+      }
+      return SwiftUI.AnyView(CocoaViewRepresentableWrapper(cocoaView))
     }
   }
 #endif
