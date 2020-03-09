@@ -26,7 +26,7 @@
   ///
   /// In each case, default implementations will cover the rest of the conformance to `View`.
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  public protocol View: LegacyView {
+  public protocol View: CastableView {
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       /// The type of the SwiftUIView
@@ -40,7 +40,14 @@
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension View {
 
+    // MARK: - CastableView
+
+    public var _castAnySwiftUIView: SwiftUI.AnyView {
+      return SwiftUI.AnyView(swiftUIView)
+    }
+
     // MARK: - LegacyView
+
     public var _anySwiftUIView: SwiftUI.AnyView {
       return SwiftUI.AnyView(swiftUIView)
     }

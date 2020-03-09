@@ -54,6 +54,9 @@
 
     @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
     public var _anySwiftUIView: SwiftUI.AnyView {
+      if let view = self as? CastableView {
+        return view._castAnySwiftUIView
+      }
       return SwiftUI.AnyView(CocoaViewRepresentableWrapper(cocoaView))
     }
 

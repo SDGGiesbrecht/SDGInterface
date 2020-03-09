@@ -72,7 +72,7 @@
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  extension Layered: View where Foreground: View, Background: View {
+  extension Layered: CastableView, View where Foreground: View, Background: View {
 
     // MARK: - View
 
