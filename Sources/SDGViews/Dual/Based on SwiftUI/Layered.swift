@@ -51,12 +51,13 @@
     // MARK: - LegacyView
 
     private var nativeCocoaView: NativeCocoaView {
-      return BackgroundContainer(
-        background: background,
-        foreground: foreground,
-        alignment: alignment
-      )
-        .cocoaView
+      return useSwiftUIOrFallback(to: {
+        return BackgroundContainer(
+          background: background,
+          foreground: foreground,
+          alignment: alignment
+        ).cocoaView
+      })
     }
 
     #if canImport(AppKit)

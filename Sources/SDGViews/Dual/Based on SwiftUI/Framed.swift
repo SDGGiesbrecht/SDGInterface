@@ -23,6 +23,8 @@
     import UIKit
   #endif
 
+  import SDGLogic
+
   import SDGInterfaceBasics
 
   /// The result of `frame(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)`.
@@ -65,16 +67,18 @@
     // MARK: - LegacyView
 
     private var nativeCocoaView: NativeCocoaView {
-      return FrameContainer(
-        content: content,
-        minWidth: minWidth,
-        idealWidth: idealWidth,
-        maxWidth: maxWidth,
-        minHeight: minHeight,
-        idealHeight: idealHeight,
-        maxHeight: maxHeight,
-        alignment: alignment
-      ).cocoaView
+      return useSwiftUIOrFallback(to: {
+        return FrameContainer(
+          content: content,
+          minWidth: minWidth,
+          idealWidth: idealWidth,
+          maxWidth: maxWidth,
+          minHeight: minHeight,
+          idealHeight: idealHeight,
+          maxHeight: maxHeight,
+          alignment: alignment
+        ).cocoaView
+      })
     }
 
     #if canImport(AppKit)

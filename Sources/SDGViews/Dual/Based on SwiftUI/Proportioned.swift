@@ -50,11 +50,13 @@
     // MARK: - LegacyView
 
     private var nativeCocoaView: NativeCocoaView {
-      return AspectRatioContainer.constraining(
-        content,
-        toAspectRatio: aspectRatio,
-        contentMode: contentMode
-      ).cocoaView
+      return useSwiftUIOrFallback(to: {
+        return AspectRatioContainer.constraining(
+          content,
+          toAspectRatio: aspectRatio,
+          contentMode: contentMode
+        ).cocoaView
+      })
     }
 
     #if canImport(AppKit)

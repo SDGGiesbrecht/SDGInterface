@@ -23,6 +23,8 @@
     import UIKit
   #endif
 
+  import SDGLogic
+
   import SDGInterfaceBasics
 
   /// The subset of the `View` protocol that can be conformed to even on platform versions preceding SwiftUI’s availability.
@@ -63,6 +65,16 @@
     @available(watchOS 6, *)
     public func stabilize() -> Stabilized<Self> {
       return Stabilized(content: self)
+    }
+
+    internal func useSwiftUIOrFallback(to fallback: () -> NativeCocoaView) -> NativeCocoaView {
+      if #available(macOS 10.15, tvOS 13, iOS 13, *),
+        ¬legacyMode
+      {
+        return _anySwiftUIView.cocoaView
+      } else {
+        return fallback()
+      }
     }
 
     // MARK: - Layout

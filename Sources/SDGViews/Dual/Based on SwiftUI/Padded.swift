@@ -46,7 +46,9 @@
     // MARK: - LegacyView
 
     private var nativeCocoaView: NativeCocoaView {
-      return PaddingContainer(content: content, edges: edges, width: width).cocoaView
+      return useSwiftUIOrFallback(to: {
+        return PaddingContainer(content: content, edges: edges, width: width).cocoaView
+      })
     }
 
     #if canImport(AppKit)
