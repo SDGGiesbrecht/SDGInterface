@@ -34,12 +34,20 @@
       func legacyOrNot(_ stack: HorizontalStack) -> SwiftUI.AnyView {
         #if !os(watchOS)
           if legacyMode {
-            return SwiftUI.AnyView(AnyCocoaView(stack.cocoaView).swiftUIView)
+            return SwiftUI.AnyView(
+              AnyCocoaView(stack.cocoaView)
+                .adjustForLegacyMode()
+            )
           } else {
-            return SwiftUI.AnyView(stack.swiftUIView)
+            return SwiftUI.AnyView(
+              stack
+                .adjustForLegacyMode()
+            )
           }
         #else  // @exempt(from: tests)
-          return stack.swiftUIView
+          return
+            stack
+            .adjustForLegacyMode()
         #endif
       }
 

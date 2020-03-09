@@ -35,7 +35,7 @@
         previewBothModes(
           square()
             .padding()
-            .swiftUIView
+            .adjustForLegacyMode()
             .background(Color.blue),
           name: "Default"
         )
@@ -43,7 +43,7 @@
         previewBothModes(
           square()
             .padding(.horizontal, 16)
-            .swiftUIView
+            .adjustForLegacyMode()
             .background(Color.blue),
           name: "Horizontal, 16"
         )

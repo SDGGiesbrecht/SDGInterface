@@ -44,7 +44,7 @@
                   .frame(width: 48, height: 48)
               )
             )
-            .swiftUIView
+            .adjustForLegacyMode()
             .border(Color.blue)
             .frame(width: 128, height: 64),
           name: "red"
@@ -59,7 +59,7 @@
               ),
               alignment: .topLeading
             )
-            .swiftUIView
+            .adjustForLegacyMode()
             .border(Color.blue)
             .frame(width: 128, height: 64),
           name: "red, .topLeading"
@@ -74,7 +74,7 @@
               ),
               alignment: .bottomTrailing
             )
-            .swiftUIView
+            .adjustForLegacyMode()
             .border(Color.blue)
             .frame(width: 128, height: 64),
           name: "red, .bottomTrailing"
@@ -86,7 +86,7 @@
               .aspectRatio(1, contentMode: .fit)
               .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .centre)
               .background(Colour.red)
-              .swiftUIView
+              .adjustForLegacyMode()
           )
             .frame(width: 128, height: 64)
             .padding(1)

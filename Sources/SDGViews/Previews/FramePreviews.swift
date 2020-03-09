@@ -38,7 +38,7 @@
         previewBothModes(
           circle(radius: 16)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .swiftUIView
+            .adjustForLegacyMode()
             .background(Color.red)
             .frame(width: 128, height: 64),
           name: "(≤ ∞) × (≤ ∞)"
@@ -47,7 +47,7 @@
         previewBothModes(
           circle(radius: 16)
             .frame(idealWidth: 48, idealHeight: 48, alignment: .topLeading)
-            .swiftUIView
+            .adjustForLegacyMode()
             .background(Color.red)
             .frame(width: 128, height: 64),
           name: "48 × 48, ↖"
@@ -56,7 +56,7 @@
         previewBothModes(
           circle(radius: 16)
             .frame(minWidth: 48, minHeight: 48, alignment: .bottomTrailing)
-            .swiftUIView
+            .adjustForLegacyMode()
             .background(Color.red)
             .frame(width: 128, height: 64),
           name: "(≥ 48) × (≥ 48), ↘"
@@ -65,7 +65,7 @@
         previewBothModes(
           circle(radius: 16)
             .frame()
-            .swiftUIView
+            .adjustForLegacyMode()
             .background(Color.red)
             .frame(width: 128, height: 64),
           name: "∅"
@@ -74,7 +74,8 @@
         previewBothModes(
           SwiftUI.AnyView(
             SwiftUI.AnyView(Ellipse())
-              .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .centre).swiftUIView
+              .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .centre)
+              .adjustForLegacyMode()
               .frame(width: 128, height: 64)
           ),
           name: "(≤ ∞) × (≤ ∞), no internal frame"

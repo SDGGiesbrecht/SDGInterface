@@ -85,6 +85,17 @@
       }
     }
 
+    #if canImport(SwiftUI)
+      @available(macOS 10.15, tvOS 13, iOS 13, *)
+      internal func adjustForLegacyMode() -> SwiftUI.AnyView {
+        if legacyMode {
+          return AnyCocoaView(cocoaView).anySwiftUIView
+        } else {
+          return anySwiftUIView
+        }
+      }
+    #endif
+
     // MARK: - Layout
 
     /// A shimmed version of `SwiftUI.View.padding(_:_:)` with no availability constraints.
