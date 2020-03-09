@@ -33,7 +33,7 @@
   public protocol AnyWindow: AnyObject {
 
     /// The root view.
-    var view: View { get set }
+    var view: LegacyView { get set }
 
     #if canImport(AppKit)
       /// The native window.

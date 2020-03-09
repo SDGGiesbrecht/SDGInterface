@@ -22,7 +22,7 @@
   import SDGInterfaceBasics
   import SDGViews
 
-  extension View {
+  extension LegacyView {
 
     // MARK: - Pop‐overs
 
@@ -32,12 +32,12 @@
     ///     - view: The view to display as a pop‐over.
     ///     - sourceRectangle: A rectangle within `self` that should be considered the origin of the pop‐over.
     ///     - preferredSize: A preferred size for the pop over. This will be used as the default size, but may be overridden by layout constraints.
-    public func displayPopOver(
-      _ view: View,
+    public func displayPopOver<Content>(
+      _ view: Content,
       sourceRectangle: Rectangle? = nil,
       preferredSize: Size? = nil
-    ) {
-      let popOverView = CocoaPopOverView(view: StabilizedView(view))
+    ) where Content: LegacyView {
+      let popOverView = CocoaPopOverView(view: view.stabilize())
 
       #if canImport(UIKit)
         let controller = UIViewController()
