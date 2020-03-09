@@ -68,8 +68,8 @@
     #if canImport(SwiftUI)
       @available(macOS 10.15, tvOS 13, iOS 13, *)
       public var anySwiftUIView: SwiftUI.AnyView {
-        if let view = self as? DualViewImplementation {
-          return view.swiftUIImplementation
+        if let view = self as? ViewProtocolShims {
+          return view._swiftUIImplementation
         }
         return SwiftUI.AnyView(CocoaViewRepresentableWrapper(cocoaView))
       }

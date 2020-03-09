@@ -63,7 +63,7 @@
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  extension Padded: DualViewImplementation, View where Content: View {
+  extension Padded: View, ViewProtocolShims where Content: View {
 
     // MARK: - View
 

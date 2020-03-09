@@ -605,7 +605,6 @@ add_library("SDGViews"
   "../../../Sources/SDGViews/Dual/Based on SwiftUI/Padded.swift"
   "../../../Sources/SDGViews/Dual/Based on SwiftUI/Proportioned.swift"
   "../../../Sources/SDGViews/Dual/Stabilized.swift"
-  "../../../Sources/SDGViews/DualViewImplementation.swift"
   "../../../Sources/SDGViews/EmptyView.swift"
   "../../../Sources/SDGViews/HorizontalStack.swift"
   "../../../Sources/SDGViews/LegacyMode.swift"
@@ -625,6 +624,7 @@ add_library("SDGViews"
   "../../../Sources/SDGViews/SwiftUI/SwiftUIAnyView.swift"
   "../../../Sources/SDGViews/SwiftUIViewImplementation.swift"
   "../../../Sources/SDGViews/View.swift"
+  "../../../Sources/SDGViews/ViewProtocolShims.swift"
 )
 set_target_properties("SDGViews" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
 target_compile_options("SDGViews" PRIVATE -enable-testing)

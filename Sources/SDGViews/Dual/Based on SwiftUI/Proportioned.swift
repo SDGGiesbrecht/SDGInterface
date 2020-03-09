@@ -71,7 +71,7 @@
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  extension Proportioned: DualViewImplementation, View where Content: View {
+  extension Proportioned: View, ViewProtocolShims where Content: View {
 
     // MARK: - View
 

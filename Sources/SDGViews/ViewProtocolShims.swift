@@ -1,5 +1,5 @@
 /*
- DualViewImplementation.swift
+ ViewProtocolShims.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -17,18 +17,21 @@
     import SwiftUI
   #endif
 
+  /// An implementation detail of the `View` protocol.
+  ///
+  /// This protocol is only part of the API because the compiler requires it to be referred to by name when conditionally conforming to `View`. Aside from this, you should never need to use it.
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  internal protocol DualViewImplementation: LegacyView {
+  public protocol ViewProtocolShims {
 
     #if canImport(SwiftUI)
-      var swiftUIImplementation: SwiftUI.AnyView { get }
+      var _swiftUIImplementation: SwiftUI.AnyView { get }
     #endif
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  extension DualViewImplementation where Self: View {
+  extension ViewProtocolShims where Self: View {
 
-    internal var swiftUIImplementation: SwiftUI.AnyView {
+    public var _swiftUIImplementation: SwiftUI.AnyView {
       return SwiftUI.AnyView(swiftUIView)
     }
   }
