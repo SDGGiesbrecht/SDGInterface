@@ -84,6 +84,25 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
+  func testLegacyView() {
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      class Legacy: LegacyView {
+        #if canImport(AppKit)
+          var cocoaView: NSView {
+            return EmptyView().cocoaView
+          }
+        #elseif canImport(UIKit)
+          var cocoaView: UIView {
+            return EmptyView().cocoaView
+          }
+        #endif
+      }
+      if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
+        _ = Legacy().anySwiftUIView
+      }
+    #endif
+  }
+
   func testStabilizedView() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {

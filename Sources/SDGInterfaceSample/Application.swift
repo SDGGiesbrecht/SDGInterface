@@ -103,7 +103,7 @@ extension Application {
       let editor = TextEditor()
       let window = Window.primaryWindow(
         name: .static(ApplicationNameForm.localizedIsolatedForm),
-        view: editor
+        view: AnyView(editor)
       )
       if ProcessInfo.processInfo
         .environment["XCTestConfigurationFilePath"] == nil
@@ -127,7 +127,7 @@ extension Application {
         )
         demonstrate(window)
       #else
-        let window = Window(name: .static(windowTitle), view: view.padding())
+        let window = Window(name: .static(windowTitle), view: AnyView(view.padding()))
         demonstrate(window)
       #endif
     }

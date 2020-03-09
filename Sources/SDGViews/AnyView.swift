@@ -58,8 +58,10 @@
 
     // MARK: - View
 
-    public var swiftUIView: SwiftUI.AnyView {
-      return legacyView.anySwiftUIView
-    }
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      public var swiftUIView: SwiftUI.AnyView {
+        return legacyView.anySwiftUIView
+      }
+    #endif
   }
 #endif

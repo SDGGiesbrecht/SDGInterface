@@ -76,11 +76,13 @@
 
     // MARK: - View
 
-    public var swiftUIView: some SwiftUI.View {
-      return foreground.swiftUIView.background(
-        background.swiftUIView,
-        alignment: SwiftUI.Alignment(alignment)
-      )
-    }
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      public var swiftUIView: some SwiftUI.View {
+        return foreground.swiftUIView.background(
+          background.swiftUIView,
+          alignment: SwiftUI.Alignment(alignment)
+        )
+      }
+    #endif
   }
 #endif

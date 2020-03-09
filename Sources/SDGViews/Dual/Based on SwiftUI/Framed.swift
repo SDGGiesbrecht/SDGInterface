@@ -97,16 +97,18 @@
 
     // MARK: - View
 
-    public var swiftUIView: some SwiftUI.View {
-      return content.swiftUIView.frame(
-        minWidth: minWidth.map({ CGFloat($0) }),
-        idealWidth: idealWidth.map({ CGFloat($0) }),
-        maxWidth: maxWidth.map({ CGFloat($0) }),
-        minHeight: minHeight.map({ CGFloat($0) }),
-        idealHeight: idealHeight.map({ CGFloat($0) }),
-        maxHeight: maxHeight.map({ CGFloat($0) }),
-        alignment: SwiftUI.Alignment(alignment)
-      )
-    }
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      public var swiftUIView: some SwiftUI.View {
+        return content.swiftUIView.frame(
+          minWidth: minWidth.map({ CGFloat($0) }),
+          idealWidth: idealWidth.map({ CGFloat($0) }),
+          maxWidth: maxWidth.map({ CGFloat($0) }),
+          minHeight: minHeight.map({ CGFloat($0) }),
+          idealHeight: idealHeight.map({ CGFloat($0) }),
+          maxHeight: maxHeight.map({ CGFloat($0) }),
+          alignment: SwiftUI.Alignment(alignment)
+        )
+      }
+    #endif
   }
 #endif

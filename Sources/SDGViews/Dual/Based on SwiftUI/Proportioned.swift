@@ -75,11 +75,13 @@
 
     // MARK: - View
 
-    public var swiftUIView: some SwiftUI.View {
-      return content.swiftUIView.aspectRatio(
-        aspectRatio.map({ CGFloat($0) }),
-        contentMode: SwiftUI.ContentMode(contentMode)
-      )
-    }
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      public var swiftUIView: some SwiftUI.View {
+        return content.swiftUIView.aspectRatio(
+          aspectRatio.map({ CGFloat($0) }),
+          contentMode: SwiftUI.ContentMode(contentMode)
+        )
+      }
+    #endif
   }
 #endif

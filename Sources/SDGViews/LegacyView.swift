@@ -44,7 +44,7 @@
       var cocoaView: UIView { get }
     #endif
 
-    #if canImport(SwiftUI)
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       /// A type‐erased version of the SwiftUI view.
       ///
       /// `View`’s `swiftUIView` is preferred instead whenever possible, since the erasing of the associated type affects performance. This property exists for use cases that would be impossible with an associated type.
@@ -65,7 +65,7 @@
       return Stabilized(content: self)
     }
 
-    #if canImport(SwiftUI)
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       @available(macOS 10.15, tvOS 13, iOS 13, *)
       public var anySwiftUIView: SwiftUI.AnyView {
         if let view = self as? ViewProtocolShims {
@@ -76,16 +76,20 @@
     #endif
 
     internal func useSwiftUIOrFallback(to fallback: () -> NativeCocoaView) -> NativeCocoaView {
-      if #available(macOS 10.15, tvOS 13, iOS 13, *),
-        ¬legacyMode
-      {
-        return anySwiftUIView.cocoaView
-      } else {
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        if #available(macOS 10.15, tvOS 13, iOS 13, *),
+          ¬legacyMode
+        {
+          return anySwiftUIView.cocoaView
+        } else {
+          return fallback()
+        }
+      #else
         return fallback()
-      }
+      #endif
     }
 
-    #if canImport(SwiftUI)
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       @available(macOS 10.15, tvOS 13, iOS 13, *)
       internal func adjustForLegacyMode() -> SwiftUI.AnyView {
         if legacyMode {

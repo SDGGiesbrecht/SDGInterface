@@ -47,11 +47,9 @@
       }
 
       if let table = self.table {
-        cell.row = StabilizedView(
-          HorizontalStack(
-            content: table.columns.map({ $0(table.data.value[indexPath.row]) })
-          )
-        )
+        cell.row = HorizontalStack(
+          content: table.columns.map({ $0(table.data.value[indexPath.row]) })
+        ).stabilize()
       }
       return cell
     }

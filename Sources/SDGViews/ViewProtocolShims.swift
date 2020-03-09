@@ -23,7 +23,7 @@
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   public protocol ViewProtocolShims {
 
-    #if canImport(SwiftUI)
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       var _swiftUIImplementation: SwiftUI.AnyView { get }
     #endif
   }
@@ -31,8 +31,10 @@
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension ViewProtocolShims where Self: View {
 
-    public var _swiftUIImplementation: SwiftUI.AnyView {
-      return SwiftUI.AnyView(swiftUIView)
-    }
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      public var _swiftUIImplementation: SwiftUI.AnyView {
+        return SwiftUI.AnyView(swiftUIView)
+      }
+    #endif
   }
 #endif

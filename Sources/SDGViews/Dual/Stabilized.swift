@@ -60,8 +60,10 @@
 
     // MARK: - View
 
-    public var swiftUIView: some SwiftUI.View {
-      return content.swiftUIView
-    }
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      public var swiftUIView: some SwiftUI.View {
+        return content.swiftUIView
+      }
+    #endif
   }
 #endif
