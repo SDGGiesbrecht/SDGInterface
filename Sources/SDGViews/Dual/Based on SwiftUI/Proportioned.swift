@@ -49,15 +49,17 @@
 
     // MARK: - LegacyView
 
-    private var nativeCocoaView: NativeCocoaView {
-      return useSwiftUIOrFallback(to: {
-        return AspectRatioContainer.constraining(
-          content,
-          toAspectRatio: aspectRatio,
-          contentMode: contentMode
-        ).cocoaView
-      })
-    }
+    #if !os(watchOS)
+      private var nativeCocoaView: NativeCocoaView {
+        return useSwiftUIOrFallback(to: {
+          return AspectRatioContainer.constraining(
+            content,
+            toAspectRatio: aspectRatio,
+            contentMode: contentMode
+          ).cocoaView
+        })
+      }
+    #endif
 
     #if canImport(AppKit)
       public var cocoaView: NSView {

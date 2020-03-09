@@ -53,7 +53,7 @@
     #endif
   }
 
-  @available(macOS 10.15, tvOS 13, iOS 13, *)
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension AnyView: View {
 
     // MARK: - View

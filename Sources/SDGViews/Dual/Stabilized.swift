@@ -36,7 +36,7 @@
       #if canImport(AppKit)
         self.cocoaView = content.cocoaView
       #endif
-      #if canImport(UIKit)
+      #if canImport(UIKit) && !os(watchOS)
         self.cocoaView = content.cocoaView
       #endif
     }

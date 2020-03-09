@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
   #if canImport(SwiftUI)
     import SwiftUI
   #endif
@@ -28,6 +28,7 @@
   import SDGInterfaceBasics
 
   /// The subset of the `View` protocol that can be conformed to even on platform versions preceding SwiftUI’s availability.
+  @available(watchOS 6, *)
   public protocol LegacyView {
 
     #if canImport(AppKit)
@@ -53,6 +54,7 @@
     #endif
   }
 
+  @available(watchOS 6, *)
   extension LegacyView {
 
     // MARK: - Cocoa Interoperability
@@ -75,28 +77,34 @@
       }
     #endif
 
-    internal func useSwiftUIOrFallback(to fallback: () -> NativeCocoaView) -> NativeCocoaView {
-      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-        if #available(macOS 10.15, tvOS 13, iOS 13, *),
-          ¬legacyMode
-        {
-          return anySwiftUIView.cocoaView
-        } else {
+    #if !os(watchOS)
+      internal func useSwiftUIOrFallback(to fallback: () -> NativeCocoaView) -> NativeCocoaView {
+        #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+          if #available(macOS 10.15, tvOS 13, iOS 13, *),
+            ¬legacyMode
+          {
+            return anySwiftUIView.cocoaView
+          } else {
+            return fallback()
+          }
+        #else
           return fallback()
-        }
-      #else
-        return fallback()
-      #endif
-    }
+        #endif
+      }
+    #endif
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       @available(macOS 10.15, tvOS 13, iOS 13, *)
       internal func adjustForLegacyMode() -> SwiftUI.AnyView {
-        if legacyMode {
-          return AnyCocoaView(cocoaView).anySwiftUIView
-        } else {
+        #if os(watchOS)
           return anySwiftUIView
-        }
+        #else
+          if legacyMode {
+            return AnyCocoaView(cocoaView).anySwiftUIView
+          } else {
+            return anySwiftUIView
+          }
+        #endif
       }
     #endif
 

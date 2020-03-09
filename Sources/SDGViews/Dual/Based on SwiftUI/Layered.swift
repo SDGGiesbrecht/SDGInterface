@@ -50,15 +50,17 @@
 
     // MARK: - LegacyView
 
-    private var nativeCocoaView: NativeCocoaView {
-      return useSwiftUIOrFallback(to: {
-        return BackgroundContainer(
-          background: background,
-          foreground: foreground,
-          alignment: alignment
-        ).cocoaView
-      })
-    }
+    #if !os(watchOS)
+      private var nativeCocoaView: NativeCocoaView {
+        return useSwiftUIOrFallback(to: {
+          return BackgroundContainer(
+            background: background,
+            foreground: foreground,
+            alignment: alignment
+          ).cocoaView
+        })
+      }
+    #endif
 
     #if canImport(AppKit)
       public var cocoaView: NSView {

@@ -66,20 +66,22 @@
 
     // MARK: - LegacyView
 
-    private var nativeCocoaView: NativeCocoaView {
-      return useSwiftUIOrFallback(to: {
-        return FrameContainer(
-          content: content,
-          minWidth: minWidth,
-          idealWidth: idealWidth,
-          maxWidth: maxWidth,
-          minHeight: minHeight,
-          idealHeight: idealHeight,
-          maxHeight: maxHeight,
-          alignment: alignment
-        ).cocoaView
-      })
-    }
+    #if !os(watchOS)
+      private var nativeCocoaView: NativeCocoaView {
+        return useSwiftUIOrFallback(to: {
+          return FrameContainer(
+            content: content,
+            minWidth: minWidth,
+            idealWidth: idealWidth,
+            maxWidth: maxWidth,
+            minHeight: minHeight,
+            idealHeight: idealHeight,
+            maxHeight: maxHeight,
+            alignment: alignment
+          ).cocoaView
+        })
+      }
+    #endif
 
     #if canImport(AppKit)
       public var cocoaView: NSView {
