@@ -73,7 +73,7 @@ final class APITests: ApplicationTestCase {
   func testHorizontalStack() {
     #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
       if #available(iOS 9, *) {
-        let stack = HorizontalStack(spacing: 0, content: [AnyCocoaView()])
+        let stack = HorizontalStack(spacing: 0, content: [AnyView(AnyCocoaView())])
         #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
           if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
             _ = stack.swiftUIView
@@ -87,7 +87,7 @@ final class APITests: ApplicationTestCase {
   func testStabilizedView() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
-        _ = StabilizedView(AnyCocoaView()).swiftUIView
+        _ = AnyCocoaView().stabilize().swiftUIView
       }
     #endif
   }
@@ -114,45 +114,45 @@ final class APITests: ApplicationTestCase {
         #endif
         return AnyCocoaView(native)
       }
-      newView().fill(with: StabilizedView(EmptyView()))
+      newView().fill(with: EmptyView().stabilize())
       newView().setMinimumSize(size: 10, axis: .horizontal)
       newView().position(
-        subviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())],
+        subviews: [EmptyView().stabilize(), EmptyView().stabilize()],
         inSequenceAlong: .vertical
       )
-      newView().centre(subview: StabilizedView(EmptyView()))
+      newView().centre(subview: EmptyView().stabilize())
       newView().equalizeSize(
-        amongSubviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())],
+        amongSubviews: [EmptyView().stabilize(), EmptyView().stabilize()],
         on: .horizontal
       )
       newView().equalizeSize(
-        amongSubviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())],
+        amongSubviews: [EmptyView().stabilize(), EmptyView().stabilize()],
         on: .vertical
       )
       newView().lockSizeRatio(
-        toSubviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())],
+        toSubviews: [EmptyView().stabilize(), EmptyView().stabilize()],
         coefficient: 1,
         axis: .horizontal
       )
       newView().lockSizeRatio(
-        toSubviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())],
+        toSubviews: [EmptyView().stabilize(), EmptyView().stabilize()],
         coefficient: 1,
         axis: .vertical
       )
       newView().alignCentres(
-        ofSubviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())],
+        ofSubviews: [EmptyView().stabilize(), EmptyView().stabilize()],
         on: .horizontal
       )
       newView().alignCentres(
-        ofSubviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())],
+        ofSubviews: [EmptyView().stabilize(), EmptyView().stabilize()],
         on: .vertical
       )
       newView().alignLastBaselines(ofSubviews: [
-        StabilizedView(EmptyView()), StabilizedView(EmptyView())
+        EmptyView().stabilize(), EmptyView().stabilize()
       ])
       _ = newView().aspectRatio(1, contentMode: .fit)
       newView().position(
-        subviews: [StabilizedView(EmptyView()), StabilizedView(EmptyView())],
+        subviews: [EmptyView().stabilize(), EmptyView().stabilize()],
         inSequenceAlong: .horizontal,
         padding: .specific(0),
         leadingMargin: .specific(8),
@@ -164,7 +164,7 @@ final class APITests: ApplicationTestCase {
           let swiftUI = newView().swiftUIView
           let window = Window<InterfaceLocalization>.primaryWindow(
             name: .binding(Shared("")),
-            view: swiftUI
+            view: AnyView(SwiftUI.AnyView(swiftUI))
           )
           window.display()
           window.close()

@@ -100,10 +100,10 @@ final class APITests: ApplicationTestCase {
         let view = AnyCocoaView()
         let window = Window<SDGInterfaceLocalizations.InterfaceLocalization>.primaryWindow(
           name: .binding(Shared("...")),
-          view: view
+          view: AnyView(view)
         )
         window.display()
-        CharacterInformation.display(for: "abc", origin: (view, nil))
+        CharacterInformation.display(for: "abc", origin: (AnyView(view), nil))
       }
     #endif
   }
@@ -350,7 +350,7 @@ final class APITests: ApplicationTestCase {
       textView.selectAll(nil)
       let window = Window<SDGInterfaceLocalizations.InterfaceLocalization>(
         name: .binding(Shared("...")),
-        view: textEditor
+        view: AnyView(textEditor)
       )
       if #available(iOS 9, *) {  // @exempt(from: unicode)
         textView.showCharacterInformation(nil)
@@ -364,7 +364,7 @@ final class APITests: ApplicationTestCase {
         compatibilityTextView.text.append(characters)
       #endif
       compatibilityTextView.selectAll(nil)
-      window.view = AnyCocoaView(compatibilityTextView)
+      window.view = AnyView(AnyCocoaView(compatibilityTextView))
       if #available(iOS 9, *) {  // @exempt(from: unicode)
         compatibilityTextView.showCharacterInformation(nil)
       }

@@ -118,11 +118,12 @@ extension Application {
     private func demonstrate(_ window: AnyWindow) {
       window.display()
     }
-    private func demonstrate<L>(_ view: View, windowTitle: UserFacing<StrictString, L>) {
+    private func demonstrate<V, L>(_ view: V, windowTitle: UserFacing<StrictString, L>)
+    where V: LegacyView {
       #if canImport(AppKit)
         let window = Window<L>.auxiliaryWindow(
           name: .static(windowTitle),
-          view: view.padding()
+          view: AnyView(view.padding())
         )
         demonstrate(window)
       #else
@@ -252,7 +253,7 @@ extension Application {
               }
             })
           ),
-          view: AnyCocoaView()
+          view: AnyView(AnyCocoaView())
         )
         demonstrate(window)
       }

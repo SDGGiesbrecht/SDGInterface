@@ -32,7 +32,10 @@ final class APITests: ApplicationTestCase {
 
   func testWindow() {
     #if canImport(AppKit) || canImport(UIKit)
-      let window = Window<InterfaceLocalization>(name: .binding(Shared("Title")), view: EmptyView())
+      let window = Window<InterfaceLocalization>(
+        name: .binding(Shared("Title")),
+        view: AnyView(EmptyView())
+      )
       #if canImport(AppKit)  // UIKit raises an exception during tests.
         window.display()
         window.location = Point(100, 200)
@@ -45,7 +48,7 @@ final class APITests: ApplicationTestCase {
         _ = window.isFullscreen
         let fullscreenWindow = Window<InterfaceLocalization>(
           name: .binding(Shared("Fullscreen")),
-          view: EmptyView()
+          view: AnyView(EmptyView())
         )
         fullscreenWindow.isFullscreen = true
         fullscreenWindow.display()
@@ -60,7 +63,7 @@ final class APITests: ApplicationTestCase {
 
       let neverOnscreen = Window<InterfaceLocalization>(
         name: .binding(Shared("Never Onscreen")),
-        view: EmptyView()
+        view: AnyView(EmptyView())
       )
       neverOnscreen.centreInScreen()
 
@@ -72,11 +75,11 @@ final class APITests: ApplicationTestCase {
 
       let primary = Window<InterfaceLocalization>.primaryWindow(
         name: .binding(Shared("...")),
-        view: EmptyView()
+        view: AnyView(EmptyView())
       )
       _ = primary.size
       _ = primary.location
-      primary.view = EmptyView()
+      primary.view = AnyView(EmptyView())
       #if canImport(AppKit)
         XCTAssert(primary.isPrimary)
         primary.isPrimary = false
@@ -87,7 +90,7 @@ final class APITests: ApplicationTestCase {
       #if canImport(AppKit)
         let auxiliary = Window<InterfaceLocalization>.auxiliaryWindow(
           name: .binding(Shared("...")),
-          view: EmptyView()
+          view: AnyView(EmptyView())
         )
         XCTAssert(auxiliary.isAuxiliary)
         primary.isAuxiliary = false

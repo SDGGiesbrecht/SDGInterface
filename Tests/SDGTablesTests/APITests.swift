@@ -42,7 +42,7 @@ final class APITests: ApplicationTestCase {
               view.fill(
                 with: Label<InterfaceLocalization>(text: .binding(Shared("\(integer.inDigits())")))
               )
-              return view
+              return AnyView(view)
             }
           ]
         )
@@ -54,7 +54,7 @@ final class APITests: ApplicationTestCase {
         table.columns = columns
         let window = Window<InterfaceLocalization>.primaryWindow(
           name: .binding(Shared("")),
-          view: table
+          view: AnyView(table)
         )
         window.display()
         #if canImport(UIKit)

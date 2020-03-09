@@ -31,7 +31,7 @@
       _ = view.body
       _ = Window<InterfaceLocalization>.primaryWindow(
         name: .binding(Shared("")),
-        view: AnyView(view)
+        view: AnyView(SwiftUI.AnyView(view))
       )
     }
 
