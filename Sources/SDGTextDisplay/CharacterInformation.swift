@@ -49,8 +49,10 @@
     ///     - view: The view the characters originate from.
     ///     - selection: The rectangle the characters originate from.
     @available(iOS 9, *)  // @exempt(from: unicode)
-    public static func display(for characters: String, origin: (view: View, selection: Rectangle?)?)
-    {
+    public static func display(
+      for characters: String,
+      origin: (view: AnyView, selection: Rectangle?)?
+    ) {
       var details: [CharacterInformation] = []
       details.reserveCapacity(characters.scalars.count)
       for scalar in characters.scalars {
@@ -64,7 +66,7 @@
             // @exempt(from: tests) iOS does not call this unless it displays.
             let codePoint = Label<InterfaceLocalization>(text: .binding(Shared(details.codePoint)))
             codePoint.textColour = details.warningColour
-            return codePoint
+            return AnyView(codePoint)
           },
           { details in
             // @exempt(from: tests) iOS does not call this unless it displays.
@@ -77,18 +79,22 @@
               codePoint.specificCocoaView.text = details.character
             #endif
             codePoint.textColour = details.warningColour
-            return codePoint
+            return AnyView(codePoint)
           },
           { details in
             // @exempt(from: tests) iOS does not call this unless it displays.
-            return Label<InterfaceLocalization>(
-              text: .binding(Shared(StrictString(details.normalizedCodePoints)))
+            return AnyView(
+              Label<InterfaceLocalization>(
+                text: .binding(Shared(StrictString(details.normalizedCodePoints)))
+              )
             )
           },
           { details in
             // @exempt(from: tests) iOS does not call this unless it displays.
-            return Label<InterfaceLocalization>(
-              text: .binding(Shared(StrictString(details.normalizedCharacters)))
+            return AnyView(
+              Label<InterfaceLocalization>(
+                text: .binding(Shared(StrictString(details.normalizedCharacters)))
+              )
             )
           }
         ]
@@ -108,7 +114,7 @@
         #if canImport(AppKit)
           let window = Window<InterfaceLocalization>.auxiliaryWindow(
             name: .binding(Shared(StrictString(characters))),
-            view: table.padding()
+            view: AnyView(table.padding())
           )
           window.display()
         #endif

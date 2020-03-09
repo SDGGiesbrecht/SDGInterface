@@ -27,7 +27,8 @@
   import SDGViews
 
   /// A button.
-  public final class Button<L>: AnyButton, SpecificView where L: Localization {
+  public final class Button<L>: AnyButton, CocoaViewImplementation, SpecificView
+  where L: Localization {
 
     // MARK: - Initialization
 

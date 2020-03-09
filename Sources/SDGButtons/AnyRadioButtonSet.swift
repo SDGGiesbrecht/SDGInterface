@@ -22,7 +22,7 @@
   import SDGViews
 
   /// A set of radio buttons with no particular localization.
-  public protocol AnyRadioButtonSet: AnyObject, CocoaViewImplementation {
+  public protocol AnyRadioButtonSet: AnyObject, LegacyView {
     #if canImport(AppKit)
       // #documentation(SpecificView.specificCocoaView)
       /// The specific subclass of `NSView` or `UIView`.

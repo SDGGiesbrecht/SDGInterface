@@ -28,7 +28,8 @@
   import SDGViews
 
   /// A text label.
-  public final class Label<L>: AnyLabel, SpecificView where L: Localization {
+  public final class Label<L>: AnyLabel, CocoaViewImplementation, SpecificView
+  where L: Localization {
 
     // MARK: - Initialization
 
