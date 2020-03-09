@@ -59,10 +59,7 @@
     // MARK: - View
 
     public var swiftUIView: SwiftUI.AnyView {
-      if let view = legacyView as? DualViewImplementation {
-        return view.swiftUIImplementation
-      }
-      return SwiftUI.AnyView(CocoaViewRepresentableWrapper(cocoaView))
+      return legacyView.anySwiftUIView
     }
   }
 #endif

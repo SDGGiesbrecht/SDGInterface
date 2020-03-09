@@ -43,6 +43,14 @@
       /// - Warning: A `View` may not always return the same instance when queried for a `cocoaView` representation. If you want to use the view in a way that requires refrence semantics, such as applying Cocoa constraints or bindings, wrap the view in a `StabilizedView` and use it’s stable `cocoaView` property.
       var cocoaView: UIView { get }
     #endif
+
+    #if canImport(SwiftUI)
+      /// A type‐erased version of the SwiftUI view.
+      ///
+      /// `View`’s `swiftUIView` is preferred instead whenever possible, since the erasing of the associated type affects performance. This property exists for use cases that would be impossible with an associated type.
+      @available(macOS 10.15, tvOS 13, iOS 13, *)
+      var anySwiftUIView: SwiftUI.AnyView { get }
+    #endif
   }
 
   extension LegacyView {
@@ -57,11 +65,21 @@
       return Stabilized(content: self)
     }
 
+    #if canImport(SwiftUI)
+      @available(macOS 10.15, tvOS 13, iOS 13, *)
+      public var anySwiftUIView: SwiftUI.AnyView {
+        if let view = self as? DualViewImplementation {
+          return view.swiftUIImplementation
+        }
+        return SwiftUI.AnyView(CocoaViewRepresentableWrapper(cocoaView))
+      }
+    #endif
+
     internal func useSwiftUIOrFallback(to fallback: () -> NativeCocoaView) -> NativeCocoaView {
       if #available(macOS 10.15, tvOS 13, iOS 13, *),
         ¬legacyMode
       {
-        return AnyView(self).swiftUIView.cocoaView
+        return anySwiftUIView.cocoaView
       } else {
         return fallback()
       }

@@ -36,4 +36,12 @@
       var swiftUIView: SwiftUIView { get }
     #endif
   }
+
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  extension View {
+
+    public var anySwiftUIView: SwiftUI.AnyView {
+      return SwiftUI.AnyView(swiftUIView)
+    }
+  }
 #endif
