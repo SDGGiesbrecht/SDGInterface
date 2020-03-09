@@ -35,8 +35,8 @@
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       @available(macOS 10.15, tvOS 13, iOS 13, *)
-      public var swiftUIView: AnyView {
-        return AnyView(SwiftUI.EmptyView())
+      public var swiftUIView: some SwiftUI.View {
+        return SwiftUI.EmptyView()
       }
     #endif
 

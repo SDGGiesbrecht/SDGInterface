@@ -27,19 +27,19 @@
 
   /// The result of `padding(_:_:)`.
   @available(watchOS 6, *)
-  public struct Padded<ContentView>: LegacyView where ContentView: LegacyView {
+  public struct Padded<Content>: LegacyView where Content: LegacyView {
 
     // MARK: - Initialization
 
-    internal init(contents: ContentView, edges: SDGInterfaceBasics.Edge.Set, width: Double?) {
-      self.contents = contents
+    internal init(content: Content, edges: SDGInterfaceBasics.Edge.Set, width: Double?) {
+      self.content = content
       self.edges = edges
       self.width = width
     }
 
     // MARK: - Properties
 
-    private let contents: ContentView
+    private let content: Content
     private let edges: SDGInterfaceBasics.Edge.Set
     private let width: Double?
 
@@ -47,22 +47,22 @@
 
     #if canImport(AppKit)
       public var cocoaView: NSView {
-        return PaddingContainer(contents: contents, edges: edges, width: width).cocoaView
+        return PaddingContainer(content: content, edges: edges, width: width).cocoaView
       }
     #elseif canImport(UIKit) && !os(watchOS)
       public var cocoaView: UIView {
-        return PaddingContainer(contents: contents, edges: edges, width: width)
+        return PaddingContainer(content: content, edges: edges, width: width)
       }
     #endif
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  extension Padded: View where ContentView: View {
+  extension Padded: View where Content: View {
 
     // MARK: - View
 
     public var swiftUIView: some SwiftUI.View {
-      return contents.swiftUIView.padding(SwiftUI.Edge.Set(edges), width.map({ CGFloat($0) }))
+      return content.swiftUIView.padding(SwiftUI.Edge.Set(edges), width.map({ CGFloat($0) }))
     }
   }
 #endif

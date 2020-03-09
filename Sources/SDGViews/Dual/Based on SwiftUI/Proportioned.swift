@@ -27,23 +27,23 @@
 
   /// The result of `aspectRatio(_:contentMode:)`.
   @available(watchOS 6, *)
-  public struct Proportioned<ContentView>: LegacyView where ContentView: LegacyView {
+  public struct Proportioned<Content>: LegacyView where Content: LegacyView {
 
     // MARK: - Initialization
 
     internal init(
-      contents: ContentView,
+      content: Content,
       aspectRatio: Double?,
       contentMode: SDGInterfaceBasics.ContentMode
     ) {
-      self.contents = contents
+      self.content = content
       self.aspectRatio = aspectRatio
       self.contentMode = contentMode
     }
 
     // MARK: - Properties
 
-    private let contents: ContentView
+    private let content: Content
     private let aspectRatio: Double?
     private let contentMode: SDGInterfaceBasics.ContentMode
 
@@ -52,7 +52,7 @@
     #if canImport(AppKit)
       public var cocoaView: NSView {
         return AspectRatioContainer.constraining(
-          contents,
+          content,
           toAspectRatio: aspectRatio,
           contentMode: contentMode
         ).cocoaView
@@ -60,7 +60,7 @@
     #elseif canImport(UIKit) && !os(watchOS)
       public var cocoaView: UIView {
         return AspectRatioContainer.constraining(
-          contents,
+          content,
           toAspectRatio: aspectRatio,
           contentMode: contentMode
         ).cocoaView
@@ -69,12 +69,12 @@
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  extension Proportioned: View where ContentView: View {
+  extension Proportioned: View where Content: View {
 
     // MARK: - View
 
     public var swiftUIView: some SwiftUI.View {
-      return contents.swiftUIView.aspectRatio(
+      return content.swiftUIView.aspectRatio(
         aspectRatio.map({ CGFloat($0) }),
         contentMode: SwiftUI.ContentMode(contentMode)
       )

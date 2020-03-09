@@ -49,7 +49,7 @@
     /// Wrap unknown `View` conformers with this method before using repeated accesses of `cocoaView` that assume the same instance will be returned each time.
     @available(watchOS 6, *)
     public func stabilize() -> Stabilized<Self> {
-      return Stabilized(contents: self)
+      return Stabilized(content: self)
     }
 
     // MARK: - Layout
@@ -64,7 +64,7 @@
       _ edges: SDGInterfaceBasics.Edge.Set = .all,
       _ width: Double? = nil
     ) -> Padded<Self> {
-      return Padded(contents: self, edges: edges, width: width)
+      return Padded(content: self, edges: edges, width: width)
     }
 
     /// A shimmed version of `SwiftUI.View.background(_:alignment:)` with no availability constraints.
@@ -90,7 +90,7 @@
       _ aspectRatio: Double? = nil,
       contentMode: SDGInterfaceBasics.ContentMode
     ) -> Proportioned<Self> {
-      return Proportioned(contents: self, aspectRatio: aspectRatio, contentMode: contentMode)
+      return Proportioned(content: self, aspectRatio: aspectRatio, contentMode: contentMode)
     }
 
     /// A shimmed version of `SwiftUI.View.frame(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)` with no availability constraints.
@@ -114,7 +114,7 @@
       alignment: SDGInterfaceBasics.Alignment = .centre
     ) -> Framed<Self> {
       return Framed(
-        contents: self,
+        content: self,
         minWidth: minWidth,
         idealWidth: idealWidth,
         maxWidth: maxWidth,

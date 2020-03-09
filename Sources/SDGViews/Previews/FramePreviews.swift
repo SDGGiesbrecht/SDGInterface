@@ -24,9 +24,9 @@
 
     internal var body: some SwiftUI.View {
 
-      func circle(radius: CGFloat) -> AnyView {
+      func circle(radius: CGFloat) -> SwiftUI.AnyView {
         let diameter = radius × 2
-        return AnyView(
+        return SwiftUI.AnyView(
           Ellipse()
             .fill(Color.black)
             .frame(width: diameter, height: diameter)
@@ -72,8 +72,8 @@
         )
 
         previewBothModes(
-          AnyView(
-            AnyView(Ellipse())
+          SwiftUI.AnyView(
+            SwiftUI.AnyView(Ellipse())
               .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .centre).swiftUIView
               .frame(width: 128, height: 64)
           ),

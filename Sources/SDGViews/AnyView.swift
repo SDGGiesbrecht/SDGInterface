@@ -37,12 +37,14 @@
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {
         swiftUIViewGenerator = { () -> SwiftUI.AnyView in
         }
+      } else {
+        swiftUIViewGenerator = Optional<Bool>.none as Any
       }
     }
 
     // MARK: - Properties
 
-    private let swiftUIViewGenerator: Any?
+    private let swiftUIViewGenerator: Any
 
     #if canImport(AppKit)
       private let cocoaViewGenerator: () -> NSView

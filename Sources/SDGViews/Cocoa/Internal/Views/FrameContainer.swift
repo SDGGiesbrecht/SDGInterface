@@ -23,12 +23,13 @@
 
   import SDGInterfaceBasics
 
-  internal struct FrameContainer: CocoaViewImplementation {
+  internal struct FrameContainer<ContentView>: CocoaViewImplementation
+  where ContentView: LegacyView {
 
     // MARK: - Initialization
 
     internal init(
-      contents: LegacyView,
+      content: ContentView,
       minWidth: Double?,
       idealWidth: Double?,
       maxWidth: Double?,
@@ -37,7 +38,7 @@
       maxHeight: Double?,
       alignment: SDGInterfaceBasics.Alignment
     ) {
-      self.contents = StabilizedView(contents)
+      self.content = content.stabilize()
       self.container = AnyCocoaView()
 
       handleDimension(
@@ -83,7 +84,7 @@
       intrinsic: (CGSize) -> CGFloat
     ) {
       if minimum == nil, maximum == nil {
-        make(attribute, .equal, to: Double(intrinsic(contents.cocoaView.intrinsicContentSize)))
+        make(attribute, .equal, to: Double(intrinsic(content.cocoaView.intrinsicContentSize)))
       } else if minimum ≠ nil, maximum == nil {
         make(attribute, .greaterThanOrEqual, to: minimum)
         prefer(attribute, of: minimum)
@@ -117,13 +118,13 @@
     }
 
     private func makeEqual(_ attribute: NSLayoutConstraint.Attribute) {
-      container.addSubviewIfNecessary(contents)
+      container.addSubviewIfNecessary(content)
       container.cocoaView.addConstraint(
         NSLayoutConstraint(
           item: container.cocoaView,
           attribute: attribute,
           relatedBy: .equal,
-          toItem: contents.cocoaView,
+          toItem: content.cocoaView,
           attribute: attribute,
           multiplier: 1,
           constant: 0
@@ -131,10 +132,12 @@
       )
     }
 
-    internal static let fillingPriority = CocoaLayoutConstraintPriority(rawValue: 255)
+    internal static var fillingPriority: CocoaLayoutConstraintPriority {
+      return CocoaLayoutConstraintPriority(rawValue: 255)
+    }
     private func preferEqual(_ attribute: NSLayoutConstraint.Attribute) {
       let constraint = NSLayoutConstraint(
-        item: contents.cocoaView,
+        item: content.cocoaView,
         attribute: attribute,
         relatedBy: .equal,
         toItem: container.cocoaView,
@@ -164,7 +167,7 @@
     // MARK: - Properties
 
     private let container: AnyCocoaView
-    private let contents: StabilizedView
+    private let content: Stabilized<ContentView>
 
     // MARK: - View
 

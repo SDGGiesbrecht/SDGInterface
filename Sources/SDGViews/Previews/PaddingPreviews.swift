@@ -22,8 +22,8 @@
 
     internal var body: some SwiftUI.View {
 
-      func square() -> AnyView {
-        return AnyView(
+      func square() -> SwiftUI.AnyView {
+        return SwiftUI.AnyView(
           Rectangle()
             .fill(Color.red)
             .frame(width: 32, height: 32)

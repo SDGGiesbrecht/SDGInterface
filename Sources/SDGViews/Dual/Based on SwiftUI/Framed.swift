@@ -27,12 +27,12 @@
 
   /// The result of `frame(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)`.
   @available(watchOS 6, *)
-  public struct Framed<ContentView>: LegacyView where ContentView: LegacyView {
+  public struct Framed<Content>: LegacyView where Content: LegacyView {
 
     // MARK: - Initialization
 
     internal init(
-      contents: ContentView,
+      content: Content,
       minWidth: Double?,
       idealWidth: Double?,
       maxWidth: Double?,
@@ -41,7 +41,7 @@
       maxHeight: Double?,
       alignment: SDGInterfaceBasics.Alignment
     ) {
-      self.contents = contents
+      self.content = content
       self.minWidth = minWidth
       self.idealWidth = idealWidth
       self.maxWidth = maxWidth
@@ -53,7 +53,7 @@
 
     // MARK: - Properties
 
-    private let contents: ContentView
+    private let content: Content
     private let minWidth: Double?
     private let idealWidth: Double?
     private let maxWidth: Double?
@@ -68,7 +68,7 @@
     #if canImport(AppKit)
       public var cocoaView: NSView {
         return FrameContainer(
-          contents: contents,
+          content: content,
           minWidth: minWidth,
           idealWidth: idealWidth,
           maxWidth: maxWidth,
@@ -81,7 +81,7 @@
     #elseif canImport(UIKit) && !os(watchOS)
       public var cocoaView: UIView {
         return FrameContainer(
-          contents: contents,
+          content: content,
           minWidth: minWidth,
           idealWidth: idealWidth,
           maxWidth: maxWidth,
@@ -95,12 +95,12 @@
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  extension Framed: View where ContentView: View {
+  extension Framed: View where Content: View {
 
     // MARK: - View
 
     public var swiftUIView: some SwiftUI.View {
-      return contents.swiftUIView.frame(
+      return content.swiftUIView.frame(
         minWidth: minWidth.map({ CGFloat($0) }),
         idealWidth: idealWidth.map({ CGFloat($0) }),
         maxWidth: maxWidth.map({ CGFloat($0) }),

@@ -27,24 +27,24 @@
 
   /// The result of `stabilize(_:_:)`.
   @available(watchOS 6, *)
-  public struct Stabilized<ContentView>: LegacyView where ContentView: LegacyView {
+  public struct Stabilized<Content>: LegacyView where Content: LegacyView {
 
     // MARK: - Initialization
 
-    internal init(contents: ContentView) {
-      self.contents = contents
+    internal init(content: Content) {
+      self.content = content
       #if canImport(AppKit)
-        self.cocoaView = contents.cocoaView
+        self.cocoaView = content.cocoaView
       #endif
       #if canImport(UIKit)
-        self.cocoaView = contents.cocoaView
+        self.cocoaView = content.cocoaView
       #endif
     }
 
     // MARK: - Properties
 
     // Maintains any strong references outside the Cocoa view.
-    private let contents: ContentView
+    private let content: Content
 
     // MARK: - LegacyView
 
@@ -56,12 +56,12 @@
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  extension Stabilized: View where ContentView: View {
+  extension Stabilized: View where Content: View {
 
     // MARK: - View
 
     public var swiftUIView: some SwiftUI.View {
-      return contents.swiftUIView
+      return content.swiftUIView
     }
   }
 #endif

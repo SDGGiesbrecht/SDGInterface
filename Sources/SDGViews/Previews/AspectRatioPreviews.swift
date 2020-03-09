@@ -22,7 +22,7 @@
 
     internal var body: some SwiftUI.View {
 
-      let circle = AnyView(
+      let circle = SwiftUI.AnyView(
         Ellipse()
           .fill(Color.black)
       )

@@ -23,18 +23,20 @@
       func circle(colour: Color, big: Bool = false) -> AnyView {
         let diameter: CGFloat = big ? 32 : 16
         return AnyView(
-          Ellipse()
-            .fill(colour)
-            .frame(width: diameter, height: diameter)
+          SwiftUI.AnyView(
+            Ellipse()
+              .fill(colour)
+              .frame(width: diameter, height: diameter)
+          )
         )
       }
 
-      func legacyOrNot(_ stack: HorizontalStack) -> AnyView {
+      func legacyOrNot(_ stack: HorizontalStack) -> SwiftUI.AnyView {
         #if !os(watchOS)
           if legacyMode {
-            return AnyView(AnyCocoaView(stack.cocoaView).swiftUIView)
+            return SwiftUI.AnyView(AnyCocoaView(stack.cocoaView).swiftUIView)
           } else {
-            return stack.swiftUIView
+            return SwiftUI.AnyView(stack.swiftUIView)
           }
         #else  // @exempt(from: tests)
           return stack.swiftUIView
