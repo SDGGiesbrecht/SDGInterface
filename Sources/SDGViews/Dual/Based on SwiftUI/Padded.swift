@@ -45,13 +45,17 @@
 
     // MARK: - LegacyView
 
+    private var nativeCocoaView: NativeCocoaView {
+      return PaddingContainer(content: content, edges: edges, width: width).cocoaView
+    }
+
     #if canImport(AppKit)
       public var cocoaView: NSView {
-        return PaddingContainer(content: content, edges: edges, width: width).cocoaView
+        return nativeCocoaView
       }
     #elseif canImport(UIKit) && !os(watchOS)
       public var cocoaView: UIView {
-        return PaddingContainer(content: content, edges: edges, width: width)
+        return nativeCocoaView
       }
     #endif
   }

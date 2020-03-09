@@ -64,32 +64,26 @@
 
     // MARK: - LegacyView
 
-    #warning("These should all dynamically try SwiftUI first.")
+    private var nativeCocoaView: NativeCocoaView {
+      return FrameContainer(
+        content: content,
+        minWidth: minWidth,
+        idealWidth: idealWidth,
+        maxWidth: maxWidth,
+        minHeight: minHeight,
+        idealHeight: idealHeight,
+        maxHeight: maxHeight,
+        alignment: alignment
+      ).cocoaView
+    }
+
     #if canImport(AppKit)
       public var cocoaView: NSView {
-        return FrameContainer(
-          content: content,
-          minWidth: minWidth,
-          idealWidth: idealWidth,
-          maxWidth: maxWidth,
-          minHeight: minHeight,
-          idealHeight: idealHeight,
-          maxHeight: maxHeight,
-          alignment: alignment
-        ).cocoaView
+        return nativeCocoaView
       }
     #elseif canImport(UIKit) && !os(watchOS)
       public var cocoaView: UIView {
-        return FrameContainer(
-          content: content,
-          minWidth: minWidth,
-          idealWidth: idealWidth,
-          maxWidth: maxWidth,
-          minHeight: minHeight,
-          idealHeight: idealHeight,
-          maxHeight: maxHeight,
-          alignment: alignment
-        ).cocoaView
+        return nativeCocoaView
       }
     #endif
   }

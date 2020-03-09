@@ -38,7 +38,6 @@
         aspectRatio: aspectRatio,
         contentMode: contentMode
       ).map({ AnyView($0) }) ?? AnyView(view)
-      #warning("↑ Does AnyView here cause trouble?")
     }
 
     // MARK: - Initialization
