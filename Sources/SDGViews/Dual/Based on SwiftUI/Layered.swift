@@ -52,12 +52,12 @@
 
     #if canImport(AppKit)
       public var cocoaView: NSView {
-        return BackgroundContainer(background: background, foreground: self, alignment: alignment)
+        return BackgroundContainer(background: background, foreground: foreground, alignment: alignment)
           .cocoaView
       }
     #elseif canImport(UIKit) && !os(watchOS)
       public var cocoaView: UIView {
-        return BackgroundContainer(background: background, foreground: self, alignment: alignment)
+        return BackgroundContainer(background: background, foreground: foreground, alignment: alignment)
           .cocoaView
       }
     #endif
