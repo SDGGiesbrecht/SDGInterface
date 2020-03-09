@@ -150,7 +150,7 @@ final class APITests: ApplicationTestCase {
       newView().alignLastBaselines(ofSubviews: [
         EmptyView().stabilize(), EmptyView().stabilize()
       ])
-      _ = newView().aspectRatio(1, contentMode: .fit)
+      _ = newView().aspectRatio(1, contentMode: .fit).cocoaView
       newView().position(
         subviews: [EmptyView().stabilize(), EmptyView().stabilize()],
         inSequenceAlong: .horizontal,
@@ -190,9 +190,12 @@ final class APITests: ApplicationTestCase {
             return size
           }
         }
-        _ = IntrinsicSize(CGSize(width: 0, height: 1)).aspectRatio(nil, contentMode: .fill)
-        _ = IntrinsicSize(CGSize(width: 1, height: 0)).aspectRatio(nil, contentMode: .fill)
-        _ = IntrinsicSize(CGSize(width: 1, height: 1)).aspectRatio(nil, contentMode: .fill)
+        _ =
+          IntrinsicSize(CGSize(width: 0, height: 1)).aspectRatio(nil, contentMode: .fill).cocoaView
+        _ =
+          IntrinsicSize(CGSize(width: 1, height: 0)).aspectRatio(nil, contentMode: .fill).cocoaView
+        _ =
+          IntrinsicSize(CGSize(width: 1, height: 1)).aspectRatio(nil, contentMode: .fill).cocoaView
       }
 
       forAllLegacyModes {
