@@ -39,9 +39,9 @@
 
     // MARK: - Properties
 
-    private var contents: ContentView
-    private var edges: SDGInterfaceBasics.Edge.Set
-    private var width: Double?
+    private let contents: ContentView
+    private let edges: SDGInterfaceBasics.Edge.Set
+    private let width: Double?
 
     // MARK: - LegacyView
 
@@ -49,9 +49,7 @@
       public var cocoaView: NSView {
         return PaddingContainer(contents: contents, edges: edges, width: width).cocoaView
       }
-    #endif
-
-    #if canImport(UIKit) && !os(watchOS)
+    #elseif canImport(UIKit) && !os(watchOS)
       public var cocoaView: UIView {
         return PaddingContainer(contents: contents, edges: edges, width: width)
       }

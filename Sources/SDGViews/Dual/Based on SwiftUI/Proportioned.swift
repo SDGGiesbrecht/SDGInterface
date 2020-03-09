@@ -43,9 +43,9 @@
 
     // MARK: - Properties
 
-    private var contents: ContentView
-    private var aspectRatio: Double?
-    private var contentMode: SDGInterfaceBasics.ContentMode
+    private let contents: ContentView
+    private let aspectRatio: Double?
+    private let contentMode: SDGInterfaceBasics.ContentMode
 
     // MARK: - LegacyView
 
@@ -57,9 +57,7 @@
           contentMode: contentMode
         ).cocoaView
       }
-    #endif
-
-    #if canImport(UIKit) && !os(watchOS)
+    #elseif canImport(UIKit) && !os(watchOS)
       public var cocoaView: UIView {
         return AspectRatioContainer.constraining(
           contents,

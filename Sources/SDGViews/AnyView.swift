@@ -31,38 +31,46 @@
 
     // MARK: - Initialization
 
-    ///
-    public init(_ contents: ContentView) {
-      self.contents = contents
+    /// Creates a type‐erases version of the view.
+    public init<V>(_ contents: V) where V: LegacyView {
+      cocoaViewGenerator = { return contents.cocoaView }
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        swiftUIViewGenerator = { () -> SwiftUI.AnyView in
+        }
+      }
     }
 
     // MARK: - Properties
 
-    private var contents: ContentView
+    private let swiftUIViewGenerator: Any?
+
+    #if canImport(AppKit)
+      private let cocoaViewGenerator: () -> NSView
+    #elseif canImport(UIKit) && !os(watchOS)
+      private let cocoaViewGenerator: () -> UIView
+    #endif
 
     // MARK: - LegacyView
 
     #if canImport(AppKit)
       public var cocoaView: NSView {
-        return contents.cocoaView
+        return cocoaViewGenerator()
       }
-    #endif
-
-    #if canImport(UIKit) && !os(watchOS)
+    #elseif canImport(UIKit) && !os(watchOS)
       public var cocoaView: UIView {
-        return contents.cocoaView
+        return cocoaViewGenerator()
       }
     #endif
   }
 
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  @available(macOS 10.15, tvOS 13, iOS 13, *)
   extension AnyView: View {
 
     // MARK: - View
 
     public var swiftUIView: SwiftUI.AnyView {
-      let swiftUI = contents.swiftUIView
-      return (swiftUI as? SwiftUI.AnyView) ?? SwiftUI.AnyView(swiftUI)
+      return (swiftUIViewGenerator as? () -> SwiftUI.AnyView)?()
+        ?? SwiftUI.AnyView(CocoaViewRepresentableWrapper(cocoaViewGenerator()))
     }
   }
 #endif

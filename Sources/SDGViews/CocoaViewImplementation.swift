@@ -31,8 +31,8 @@
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       @available(macOS 10.15, tvOS 13, iOS 13, *)
-      public var swiftUIView: AnyView {
-        return AnyView(CocoaViewRepresentableWrapper(self))
+      public var swiftUIView: some SwiftUI.View {
+        return CocoaViewRepresentableWrapper(cocoaView)
       }
     #endif
   }

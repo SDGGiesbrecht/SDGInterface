@@ -44,16 +44,14 @@
     // MARK: - Properties
 
     // Maintains any strong references outside the Cocoa view.
-    private var contents: ContentView
+    private let contents: ContentView
 
     // MARK: - LegacyView
 
     #if canImport(AppKit)
-      public var cocoaView: NSView
-    #endif
-
-    #if canImport(UIKit) && !os(watchOS)
-      public var cocoaView: UIView
+      public let cocoaView: NSView
+    #elseif canImport(UIKit) && !os(watchOS)
+      public let cocoaView: UIView
     #endif
   }
 

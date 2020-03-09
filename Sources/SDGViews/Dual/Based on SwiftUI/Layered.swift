@@ -44,9 +44,9 @@
 
     // MARK: - Properties
 
-    private var foreground: Foreground
-    private var background: Background
-    private var alignment: SDGInterfaceBasics.Alignment
+    private let foreground: Foreground
+    private let background: Background
+    private let alignment: SDGInterfaceBasics.Alignment
 
     // MARK: - LegacyView
 
@@ -55,9 +55,7 @@
         return BackgroundContainer(background: background, foreground: self, alignment: alignment)
           .cocoaView
       }
-    #endif
-
-    #if canImport(UIKit) && !os(watchOS)
+    #elseif canImport(UIKit) && !os(watchOS)
       public var cocoaView: UIView {
         return BackgroundContainer(background: background, foreground: self, alignment: alignment)
           .cocoaView

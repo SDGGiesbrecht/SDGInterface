@@ -53,14 +53,14 @@
 
     // MARK: - Properties
 
-    private var contents: ContentView
-    private var minWidth: Double?
-    private var idealWidth: Double?
-    private var maxWidth: Double?
-    private var minHeight: Double?
-    private var idealHeight: Double?
-    private var maxHeight: Double?
-    private var alignment: SDGInterfaceBasics.Alignment
+    private let contents: ContentView
+    private let minWidth: Double?
+    private let idealWidth: Double?
+    private let maxWidth: Double?
+    private let minHeight: Double?
+    private let idealHeight: Double?
+    private let maxHeight: Double?
+    private let alignment: SDGInterfaceBasics.Alignment
 
     // MARK: - LegacyView
 
@@ -78,9 +78,7 @@
           alignment: alignment
         ).cocoaView
       }
-    #endif
-
-    #if canImport(UIKit) && !os(watchOS)
+    #elseif canImport(UIKit) && !os(watchOS)
       public var cocoaView: UIView {
         return FrameContainer(
           contents: contents,
