@@ -50,8 +50,9 @@
 
   extension LegacyView {
 
+    @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
     public var _anySwiftUIView: SwiftUI.AnyView {
-      return SwiftUI.AnyView(CocoaViewRepresentableWrapper(cocoaViewGenerator()))
+      return SwiftUI.AnyView(CocoaViewRepresentableWrapper(cocoaView))
     }
 
     // MARK: - Cocoa Interoperability
