@@ -35,7 +35,9 @@ final class APITests: ApplicationTestCase {
 
   func testAnyView() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      _ = AnyView(EmptyView()).swiftUIView
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        _ = AnyView(EmptyView()).swiftUIView
+      }
     #endif
   }
 

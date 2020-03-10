@@ -25,8 +25,8 @@
       extension CocoaViewRepresentableWrapper: UIViewRepresentable {}
     #endif
 
-    @available(macOS 10.15, tvOS 13, iOS 13, *)
-    internal struct CocoaViewRepresentableWrapper {  // @exempt(from: swiftFormat[UseEnumForNamespacing])
+    @available(macOS 10.15, tvOS 13, iOS 13, *)  // @exempt(from: swiftFormat[UseEnumForNamespacing])
+    internal struct CocoaViewRepresentableWrapper {
 
       // MARK: - Initialization
 
