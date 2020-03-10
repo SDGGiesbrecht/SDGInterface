@@ -31,22 +31,22 @@
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       @available(macOS 10.15, tvOS 13, iOS 13, *)
-      public var swiftUIView: some SwiftUI.View {
-        return CocoaViewRepresentableWrapper(cocoaView)
+      public func swiftUIView() -> some SwiftUI.View {
+        return CocoaViewRepresentableWrapper(cocoa())
       }
     #endif
   }
 
   #if canImport(AppKit)
     extension CocoaViewImplementation where Self: NSView {
-      public var cocoaView: NSView {
-        return self
+      public func cocoa() -> CocoaView {
+        return CocoaView(self)
       }
     }
   #else
     extension CocoaViewImplementation where Self: UIView {
-      public var cocoaView: UIView {
-        return self
+      public func cocoa() -> CocoaView {
+        return CocoaView(self)
       }
     }
   #endif
