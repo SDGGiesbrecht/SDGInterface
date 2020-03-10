@@ -61,7 +61,7 @@
     // MARK: - View
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      public var swiftUIView: some SwiftUI.View {
+      public func swiftUI() -> some SwiftUI.View {
         return content.swiftUIView
       }
     #endif

@@ -78,10 +78,10 @@
             idealHeight: idealHeight,
             maxHeight: maxHeight,
             alignment: alignment
-          ).cocoaView
+          ).cocoa()
         })
       }
-    }
+    #endif
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
@@ -90,7 +90,7 @@
     // MARK: - View
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      public var swiftUIView: some SwiftUI.View {
+      public func swiftUI() -> some SwiftUI.View {
         return content.swiftUIView.frame(
           minWidth: minWidth.map({ CGFloat($0) }),
           idealWidth: idealWidth.map({ CGFloat($0) }),
