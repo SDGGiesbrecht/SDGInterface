@@ -66,8 +66,8 @@
 
     // MARK: - LegacyView
 
-    #if !os(watchOS)
-      private var nativeCocoaView: NativeCocoaView {
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+      public func cocoa() -> CocoaView {
         return useSwiftUIOrFallback(to: {
           return FrameContainer(
             content: content,
@@ -81,17 +81,7 @@
           ).cocoaView
         })
       }
-    #endif
-
-    #if canImport(AppKit)
-      public var cocoaView: NSView {
-        return nativeCocoaView
-      }
-    #elseif canImport(UIKit) && !os(watchOS)
-      public var cocoaView: UIView {
-        return nativeCocoaView
-      }
-    #endif
+    }
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)

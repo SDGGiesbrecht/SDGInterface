@@ -63,7 +63,7 @@
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       public var swiftUIView: SwiftUI.AnyView {
-        return legacyView.anySwiftUIView
+        return legacyView.swiftUIAnyView()
       }
     #endif
   }

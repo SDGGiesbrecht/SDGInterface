@@ -69,9 +69,9 @@
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       @available(macOS 10.15, tvOS 13, iOS 13, *)
-      public var anySwiftUIView: SwiftUI.AnyView {
+      public func swiftUIAnyView() -> SwiftUI.AnyView {
         if let view = self as? ViewShims {
-          return view._swiftUIImplementation
+          return view._swiftUIImplementation()
         }
         #if os(watchOS)
           preconditionFailure(
@@ -89,12 +89,12 @@
     #endif
 
     #if !os(watchOS)
-      internal func useSwiftUIOrFallback(to fallback: () -> NativeCocoaView) -> NativeCocoaView {
+      internal func useSwiftUIOrFallback(to fallback: () -> CocoaView) -> CocoaView {
         #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
           if #available(macOS 10.15, tvOS 13, iOS 13, *),
             ¬legacyMode
           {
-            return anySwiftUIView.cocoaView
+            return swiftUIAnyView().cocoa()
           } else {
             return fallback()
           }
@@ -108,12 +108,12 @@
       @available(macOS 10.15, tvOS 13, iOS 13, *)
       internal func adjustForLegacyMode() -> SwiftUI.AnyView {
         #if os(watchOS)
-          return anySwiftUIView
+          return swiftUIAnyView()
         #else
           if legacyMode {
-            return AnyCocoaView(cocoa()).anySwiftUIView
+            return AnyCocoaView(cocoa().native).swiftUIAnyView()
           } else {
-            return anySwiftUIView
+            return swiftUIAnyView()
           }
         #endif  // @exempt(from: tests)
       }
