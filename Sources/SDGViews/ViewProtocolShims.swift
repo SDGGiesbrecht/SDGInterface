@@ -21,19 +21,19 @@
   ///
   /// This protocol is only part of the API because the compiler requires it to be referred to by name when conditionally conforming to `View`. Aside from this, you should never need to use it.
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  public protocol ViewProtocolShims {
+  public protocol ViewShims {
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      var _swiftUIImplementation: SwiftUI.AnyView { get }
+      func _swiftUIImplementation() -> SwiftUI.AnyView
     #endif
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  extension ViewProtocolShims where Self: View {
+  extension ViewShims where Self: View {
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      public var _swiftUIImplementation: SwiftUI.AnyView {
-        return SwiftUI.AnyView(swiftUIView)
+      public func _swiftUIImplementation() -> SwiftUI.AnyView {
+        return SwiftUI.AnyView(swiftUI())
       }
     #endif
   }

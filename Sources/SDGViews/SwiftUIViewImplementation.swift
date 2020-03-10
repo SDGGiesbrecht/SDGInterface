@@ -26,15 +26,14 @@
 
     // MARK: - View
 
-    #if canImport(AppKit)
-      public var cocoaView: NSView {
-        return NSHostingView(rootView: swiftUIView)
-      }
-    #endif
-    #if canImport(UIKit) && !os(watchOS)
-      public var cocoaView: UIView {
-        let controller = UIHostingController(rootView: swiftUIView)
-        return controller.view
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+      public func cocoa() -> CocoaView {
+        #if canImport(AppKit)
+          return CocoaView(NSHostingView(rootView: swiftUI()))
+        #else
+          let controller = UIHostingController(rootView: swiftUI())
+          return CocoaView(controller.view)
+        #endif
       }
     #endif
   }
@@ -44,7 +43,7 @@
 
     // MARK: - View
 
-    public var swiftUIView: some SwiftUI.View {
+    public func swiftUI() -> some SwiftUI.View {
       return self
     }
   }
