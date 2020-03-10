@@ -12,46 +12,30 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if !os(watchOS)  // Wrapper not needed; uses SwiftUI natively.
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+#if (canImport(SwiftUI) && !(os(iOS) && arch(arm)))
+  #if (canImport(AppKit) || (canImport(UIKit) && !os(watchOS)))
     import SwiftUI
 
     #if canImport(AppKit)
       @available(macOS 10.15, *)
       extension CocoaViewRepresentableWrapper: NSViewRepresentable {}
-    #endif
-    #if canImport(UIKit)
+    #else
       @available(iOS 13, tvOS 13, *)
       extension CocoaViewRepresentableWrapper: UIViewRepresentable {}
     #endif
 
-    @available(  // @exempt(from: swiftFormat[UseEnumForNamespacing])
-      macOS 10.15,
-      tvOS 13,
-      iOS 13,
-      *
-    )
+    @available(macOS 10.15, tvOS 13, iOS 13, *)
     internal struct CocoaViewRepresentableWrapper {
 
       // MARK: - Initialization
 
-      #if canImport(AppKit)
-        internal init(_ view: NSView) {
-          self.cocoaView = view
-        }
-      #elseif canImport(UIKit)
-        internal init(_ view: UIView) {
-          self.cocoaView = view
-        }
-      #endif
+      internal init(_ view: CocoaView) {
+        self.cocoaView = view
+      }
 
       // MARK: - Properties
 
-      #if canImport(AppKit)
-        private let cocoaView: NSView
-      #elseif canImport(UIKit)
-        private let cocoaView: UIView
-      #endif
+      private let cocoaView: CocoaView
 
       #if canImport(AppKit)
         // MARK: - NSViewRepresentable
@@ -59,22 +43,20 @@
         func makeNSView(
           context: NSViewRepresentableContext<CocoaViewRepresentableWrapper>
         ) -> NSView {
-          return cocoaView
+          return cocoaView.native
         }
 
         func updateNSView(
           _ nsView: NSView,
           context: NSViewRepresentableContext<CocoaViewRepresentableWrapper>
         ) {}
-      #endif
-
-      #if canImport(UIKit)
+      #else
         // MARK: - UIViewRepresentable
 
         func makeUIView(
           context: UIViewRepresentableContext<CocoaViewRepresentableWrapper>
         ) -> UIView {  // @exempt(from: tests) Not reachable from tests.
-          return cocoaView
+          return cocoaView.native
         }
 
         func updateUIView(

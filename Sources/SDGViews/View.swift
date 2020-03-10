@@ -32,8 +32,8 @@
       /// The type of the SwiftUIView.
       associatedtype SwiftUIView: SwiftUI.View
 
-      /// The SwiftUI view.
-      var swiftUIView: SwiftUIView { get }
+      /// Constructs a SwiftUI representation of the view.
+      func swiftUI() -> SwiftUIView
     #endif
   }
 
@@ -41,8 +41,8 @@
   extension View {
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      public var anySwiftUIView: SwiftUI.AnyView {
-        return SwiftUI.AnyView(swiftUIView)
+      public func swiftUIAnyView() -> SwiftUI.AnyView {
+        return SwiftUI.AnyView(swiftUI())
       }
     #endif
   }
