@@ -71,10 +71,10 @@
     #endif
 
     #if canImport(AppKit)
-      public var cocoaView: NSView {
+      public func cocoa() -> CocoaView {
         let view = NSStackView()
         for entry in content {
-          view.addView(entry.cocoaView, in: .center)
+          view.addView(entry.cocoa().native, in: .center)
         }
         switch alignment {
         case .top:
@@ -87,13 +87,13 @@
         if let specific = spacing {
           view.spacing = CGFloat(specific)
         }
-        return view
+        return CocoaView(view)
       }
     #elseif canImport(UIKit) && !os(watchOS)
-      public var cocoaView: UIView {
+      public func cocoaView() -> CocoaView {
         let view = UIStackView()
         for entry in content {
-          view.addArrangedSubview(entry.cocoaView)
+          view.addArrangedSubview(entry.cocoa().native)
         }
         switch alignment {
         case .top:
@@ -106,7 +106,7 @@
         if let specific = spacing {
           view.spacing = CGFloat(specific)
         }
-        return view
+        return CocoaView(view)
       }
     #endif
   }

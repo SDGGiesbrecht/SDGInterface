@@ -53,7 +53,7 @@
       if let specified = aspectRatio {
         resolvedRatio = CGFloat(specified)
       } else {
-        let intrinsicSize = self.content.cocoaView.intrinsicContentSize
+        let intrinsicSize = self.content.cocoa().native.intrinsicContentSize
         guard intrinsicSize.height ≠ 0 ∧ intrinsicSize.width ≠ 0 else {
           return nil
         }
@@ -78,12 +78,12 @@
     }
 
     private func apply(aspectRatio: CGFloat) {
-      content.cocoaView.addConstraint(
+      content.cocoa().native.addConstraint(
         NSLayoutConstraint(
-          item: content.cocoaView,
+          item: content.cocoa().native,
           attribute: .width,
           relatedBy: .equal,
-          toItem: content.cocoaView,
+          toItem: content.cocoa().native,
           attribute: .height,
           multiplier: aspectRatio,
           constant: 0
@@ -97,7 +97,7 @@
     ) {
       container.cocoa().native.addConstraint(
         NSLayoutConstraint(
-          item: content.cocoaView,
+          item: content.cocoa().native,
           attribute: attribute,
           relatedBy: relation,
           toItem: container.cocoa().native,
@@ -115,7 +115,7 @@
 
     private func preferEqual(_ attribute: NSLayoutConstraint.Attribute) {
       let constraint = NSLayoutConstraint(
-        item: content.cocoaView,
+        item: content.cocoa().native,
         attribute: attribute,
         relatedBy: .equal,
         toItem: container.cocoa().native,
@@ -124,7 +124,7 @@
         constant: 0
       )
       constraint.priority = CocoaLayoutConstraintPriority(rawValue: 250)
-      container.cocoaView.addConstraint(constraint)
+      container.cocoa().native.addConstraint(constraint)
     }
 
     // MARK: - Properties

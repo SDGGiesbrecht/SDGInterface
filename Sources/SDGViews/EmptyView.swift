@@ -40,13 +40,9 @@
       }
     #endif
 
-    #if canImport(AppKit)
-      public var cocoaView: NSView {
-        return NSView()
-      }
-    #elseif canImport(UIKit) && !os(watchOS)
-      public var cocoaView: UIView {
-        return UIView()
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+      public func cocoa() -> CocoaView {
+        return CocoaView(CocoaView.NativeType())
       }
     #endif
   }
