@@ -630,9 +630,12 @@ set_target_properties("SDGViews" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAK
 target_compile_options("SDGViews" PRIVATE -enable-testing)
 target_link_libraries("SDGViews" PRIVATE
   "SDGInterfaceBasics"
+  "SDGInterfaceLocalizations"
   "SDGLogic"
   "SDGMathematics"
+  "SDGText"
   "SDGCollections"
+  "SDGLocalization"
 )
 
 add_library("SDGImageDisplay"

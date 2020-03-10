@@ -24,10 +24,16 @@
   #endif
 
   import SDGLogic
+  import SDGText
+  import SDGLocalization
 
   import SDGInterfaceBasics
 
+  import SDGInterfaceLocalizations
+
   /// The subset of the `View` protocol that can be conformed to even on platform versions preceding SwiftUI’s availability.
+  ///
+  /// - Important: On watchOS, every `LegacyView` must also conform to `View`.
   @available(watchOS 6, *)
   public protocol LegacyView {
 
@@ -73,7 +79,18 @@
         if let view = self as? ViewProtocolShims {
           return view._swiftUIImplementation
         }
-        return SwiftUI.AnyView(CocoaViewRepresentableWrapper(cocoaView))
+        #if os(watchOS)
+          preconditionFailure(
+            UserFacing<StrictString, APILocalization>({ localization in
+              switch localization {
+              case .englishCanada:
+                return "On watchOS, every “LegacyView” must also conform to “View”."
+              }
+            })
+          )
+        #else
+          return SwiftUI.AnyView(CocoaViewRepresentableWrapper(cocoaView))
+        #endif
       }
     #endif
 
