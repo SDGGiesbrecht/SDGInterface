@@ -73,7 +73,7 @@
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  extension Proportioned: View, ViewProtocolShims where Content: View {
+  extension Proportioned: View, ViewShims where Content: View {
 
     // MARK: - View
 

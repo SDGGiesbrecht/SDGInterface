@@ -70,7 +70,7 @@
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       @available(macOS 10.15, tvOS 13, iOS 13, *)
       public var anySwiftUIView: SwiftUI.AnyView {
-        if let view = self as? ViewProtocolShims {
+        if let view = self as? ViewShims {
           return view._swiftUIImplementation
         }
         #if os(watchOS)

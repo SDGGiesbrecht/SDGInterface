@@ -56,7 +56,7 @@
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  extension Stabilized: View, ViewProtocolShims where Content: View {
+  extension Stabilized: View, ViewShims where Content: View {
 
     // MARK: - View
 

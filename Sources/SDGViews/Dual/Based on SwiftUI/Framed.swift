@@ -95,7 +95,7 @@
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  extension Framed: View, ViewProtocolShims where Content: View {
+  extension Framed: View, ViewShims where Content: View {
 
     // MARK: - View
 
