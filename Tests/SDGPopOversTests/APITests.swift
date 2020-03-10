@@ -31,7 +31,10 @@ final class APITests: ApplicationTestCase {
 
   func testPopOver() {
     #if canImport(AppKit) || canImport(UIKit)
-      let window = Window<InterfaceLocalization>(name: .binding(Shared("")), view: EmptyView())
+      let window = Window<InterfaceLocalization>(
+        name: .binding(Shared("")),
+        view: AnyView(EmptyView())
+      )
       window.view.displayPopOver(EmptyView())
       #if canImport(UIKit)
         AnyCocoaView().displayPopOver(EmptyView())

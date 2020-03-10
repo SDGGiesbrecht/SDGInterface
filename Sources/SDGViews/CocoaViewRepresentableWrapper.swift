@@ -25,18 +25,33 @@
       extension CocoaViewRepresentableWrapper: UIViewRepresentable {}
     #endif
 
-    @available(macOS 10.15, tvOS 13, iOS 13, *)
+    @available(  // @exempt(from: swiftFormat[UseEnumForNamespacing])
+      macOS 10.15,
+      tvOS 13,
+      iOS 13,
+      *
+    )
     internal struct CocoaViewRepresentableWrapper {
 
       // MARK: - Initialization
 
-      internal init(_ view: SDGViews.View) {
-        self.sdgView = view
-      }
+      #if canImport(AppKit)
+        internal init(_ view: NSView) {
+          self.cocoaView = view
+        }
+      #elseif canImport(UIKit)
+        internal init(_ view: UIView) {
+          self.cocoaView = view
+        }
+      #endif
 
       // MARK: - Properties
 
-      private let sdgView: SDGViews.View
+      #if canImport(AppKit)
+        private let cocoaView: NSView
+      #elseif canImport(UIKit)
+        private let cocoaView: UIView
+      #endif
 
       #if canImport(AppKit)
         // MARK: - NSViewRepresentable
@@ -44,7 +59,7 @@
         func makeNSView(
           context: NSViewRepresentableContext<CocoaViewRepresentableWrapper>
         ) -> NSView {
-          return sdgView.cocoaView
+          return cocoaView
         }
 
         func updateNSView(
@@ -59,7 +74,7 @@
         func makeUIView(
           context: UIViewRepresentableContext<CocoaViewRepresentableWrapper>
         ) -> UIView {  // @exempt(from: tests) Not reachable from tests.
-          return sdgView.cocoaView
+          return cocoaView
         }
 
         func updateUIView(

@@ -17,11 +17,11 @@
 
   import SDGViews
 
-  internal class NSTableCellView: AppKit.NSTableCellView {
+  internal class NSTableCellView<Content>: AppKit.NSTableCellView where Content: LegacyView {
 
     // MARK: - Initialization
 
-    internal init(view: View) {
+    internal init(view: Content) {
       self.view = view
       super.init(frame: .zero)
       let wrapped = AnyCocoaView(self)
@@ -35,6 +35,6 @@
 
     // MARK: - Properties
 
-    private let view: View
+    private let view: Content
   }
 #endif

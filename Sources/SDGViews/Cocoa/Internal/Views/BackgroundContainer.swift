@@ -21,14 +21,19 @@
 
   import SDGInterfaceBasics
 
-  internal struct BackgroundContainer: CocoaViewImplementation {
+  internal struct BackgroundContainer<Foreground, Background>: CocoaViewImplementation
+  where Foreground: LegacyView, Background: LegacyView {
 
     // MARK: - Initialization
 
-    internal init(background: View, foreground: View, alignment: SDGInterfaceBasics.Alignment) {
+    internal init(
+      background: Background,
+      foreground: Foreground,
+      alignment: SDGInterfaceBasics.Alignment
+    ) {
       self.container = AnyCocoaView()
-      self.background = StabilizedView(background)
-      self.foreground = StabilizedView(foreground)
+      self.background = background.stabilize()
+      self.foreground = foreground.stabilize()
 
       switch alignment.horizontal {
       case .leading:
@@ -79,15 +84,15 @@
         multiplier: 1,
         constant: 0
       )
-      constraint.priority = FrameContainer.fillingPriority
+      constraint.priority = FrameContainer<Foreground>.fillingPriority
       container.cocoaView.addConstraint(constraint)
     }
 
     // MARK: - Properties
 
     private let container: AnyCocoaView
-    private let background: StabilizedView
-    private let foreground: StabilizedView
+    private let background: Stabilized<Background>
+    private let foreground: Stabilized<Foreground>
 
     // MARK: - View
 

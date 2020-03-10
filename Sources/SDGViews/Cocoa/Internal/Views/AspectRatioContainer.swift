@@ -24,20 +24,20 @@
 
   import SDGInterfaceBasics
 
-  internal struct AspectRatioContainer: CocoaViewImplementation {
+  internal struct AspectRatioContainer<Content>: CocoaViewImplementation where Content: LegacyView {
 
     // MARK: - Static Methods
 
     internal static func constraining(
-      _ view: View,
+      _ view: Content,
       toAspectRatio aspectRatio: Double?,
       contentMode: ContentMode
-    ) -> View {
+    ) -> AnyView {
       return AspectRatioContainer(
-        contents: view,
+        content: view,
         aspectRatio: aspectRatio,
         contentMode: contentMode
-      ) ?? view
+      ).map({ AnyView($0) }) ?? AnyView(view)
     }
 
     // MARK: - Initialization
@@ -45,15 +45,15 @@
     /// Creates an aspect ratio container where meaningful.
     ///
     /// If no aspect ratio is specified and the view has no intrinsic aspect ratio, the initializer will fail and return `nil`.
-    private init?(contents: View, aspectRatio: Double?, contentMode: ContentMode) {
-      self.contents = StabilizedView(contents)
+    private init?(content: Content, aspectRatio: Double?, contentMode: ContentMode) {
+      self.content = content.stabilize()
       self.container = AnyCocoaView()
 
       let resolvedRatio: CGFloat
       if let specified = aspectRatio {
         resolvedRatio = CGFloat(specified)
       } else {
-        let intrinsicSize = self.contents.cocoaView.intrinsicContentSize
+        let intrinsicSize = self.content.cocoaView.intrinsicContentSize
         guard intrinsicSize.height ≠ 0 ∧ intrinsicSize.width ≠ 0 else {
           return nil
         }
@@ -63,7 +63,7 @@
     }
 
     private func applyConstraints(aspectRatio: CGFloat, contentMode: ContentMode) {
-      container.centre(subview: contents)
+      container.centre(subview: content)
       apply(aspectRatio: aspectRatio)
 
       switch contentMode {
@@ -78,12 +78,12 @@
     }
 
     private func apply(aspectRatio: CGFloat) {
-      contents.cocoaView.addConstraint(
+      content.cocoaView.addConstraint(
         NSLayoutConstraint(
-          item: contents.cocoaView,
+          item: content.cocoaView,
           attribute: .width,
           relatedBy: .equal,
-          toItem: contents.cocoaView,
+          toItem: content.cocoaView,
           attribute: .height,
           multiplier: aspectRatio,
           constant: 0
@@ -97,7 +97,7 @@
     ) {
       container.cocoaView.addConstraint(
         NSLayoutConstraint(
-          item: contents.cocoaView,
+          item: content.cocoaView,
           attribute: attribute,
           relatedBy: relation,
           toItem: container.cocoaView,
@@ -115,7 +115,7 @@
 
     private func preferEqual(_ attribute: NSLayoutConstraint.Attribute) {
       let constraint = NSLayoutConstraint(
-        item: contents.cocoaView,
+        item: content.cocoaView,
         attribute: attribute,
         relatedBy: .equal,
         toItem: container.cocoaView,
@@ -130,7 +130,7 @@
     // MARK: - Properties
 
     private let container: AnyCocoaView
-    private let contents: StabilizedView
+    private let content: Stabilized<Content>
 
     // MARK: - View
 

@@ -24,11 +24,14 @@
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension SwiftUIViewImplementation {
 
+    // MARK: - View
+
     #if canImport(AppKit)
       public var cocoaView: NSView {
         return NSHostingView(rootView: swiftUIView)
       }
-    #elseif canImport(UIKit) && !os(watchOS)
+    #endif
+    #if canImport(UIKit) && !os(watchOS)
       public var cocoaView: UIView {
         let controller = UIHostingController(rootView: swiftUIView)
         return controller.view
@@ -38,8 +41,11 @@
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension SwiftUIViewImplementation where Self: SwiftUI.View {
-    public var swiftUIView: AnyView {
-      return AnyView(self)
+
+    // MARK: - View
+
+    public var swiftUIView: some SwiftUI.View {
+      return self
     }
   }
 #endif

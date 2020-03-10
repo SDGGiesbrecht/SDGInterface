@@ -65,7 +65,7 @@
 
     // MARK: - Layout Constraints
 
-    internal func addSubviewIfNecessary(_ subview: View) {
+    internal func addSubviewIfNecessary(_ subview: LegacyView) {
       subview.cocoaView.translatesAutoresizingMaskIntoConstraints = false
 
       if ¬cocoaView.subviews.contains(subview.cocoaView) {
@@ -82,7 +82,7 @@
     /// - Parameters:
     ///     - subview: The subview with which to fill the view.
     ///     - margin: The size of the margins.
-    public func fill(with subview: View, margin: Spacing = .automatic) {
+    public func fill(with subview: LegacyView, margin: Spacing = .automatic) {
       fill(with: subview, on: .horizontal, margin: margin)
       fill(with: subview, on: .vertical, margin: margin)
     }
@@ -95,7 +95,7 @@
     ///     - subview: The subview with which to fill the view.
     ///     - axis: The axis to fill.
     ///     - margin: The size of the margins.
-    public func fill(with subview: View, on axis: Axis, margin: Spacing = .automatic) {
+    public func fill(with subview: LegacyView, on axis: Axis, margin: Spacing = .automatic) {
       fill(with: subview, on: axis, leadingMargin: margin, trailingMargin: margin)
     }
 
@@ -109,7 +109,7 @@
     ///     - leadingMargin: The size of the leading margin.
     ///     - trailingMargin: The size of the trailing margin.
     public func fill(
-      with subview: View,
+      with subview: LegacyView,
       on axis: Axis,
       leadingMargin: Spacing,
       trailingMargin: Spacing
@@ -137,7 +137,7 @@
     ///     - padding: The size of the padding between views.
     ///     - margin: The size of the margins.
     public func position(
-      subviews: [View],
+      subviews: [LegacyView],
       inSequenceAlong axis: Axis,
       padding: Spacing = .automatic,
       margin: Spacing = .automatic
@@ -167,7 +167,7 @@
     ///     - leadingMargin: The size of the leading margin.
     ///     - trailingMargin: The size of the trailing margin.
     public func position(
-      subviews: [View],
+      subviews: [LegacyView],
       inSequenceAlong axis: Axis,
       padding: Spacing = .automatic,
       leadingMargin: Spacing,
@@ -231,7 +231,7 @@
     ///
     /// - Parameters:
     ///     - subview: The subview to centre.
-    public func centre(subview: View) {
+    public func centre(subview: LegacyView) {
       centre(subview: subview, on: .horizontal)
       centre(subview: subview, on: .vertical)
     }
@@ -243,7 +243,7 @@
     /// - Parameters:
     ///     - subview: The subview to centre.
     ///     - axis: An axis along which to centre the subview.
-    public func centre(subview: View, on axis: Axis) {
+    public func centre(subview: LegacyView, on axis: Axis) {
 
       addSubviewIfNecessary(subview)
 
@@ -276,7 +276,7 @@
     /// - Parameters:
     ///     - subviews: The subviews to make the same size.
     ///     - axis: An axis along which to resize the subviews.
-    public func equalizeSize(amongSubviews subviews: [View], on axis: Axis) {
+    public func equalizeSize(amongSubviews subviews: [LegacyView], on axis: Axis) {
       let attribute: NSLayoutConstraint.Attribute
       switch axis {
       case .horizontal:
@@ -295,7 +295,7 @@
     ///     - subviews: The subviews to resize.
     ///     - coefficient: The size ratio.
     ///     - axis: An axis along which to resize the subviews.
-    public func lockSizeRatio(toSubviews subviews: [View], coefficient: CGFloat, axis: Axis) {
+    public func lockSizeRatio(toSubviews subviews: [LegacyView], coefficient: CGFloat, axis: Axis) {
       let attribute: NSLayoutConstraint.Attribute
       switch axis {
       case .horizontal:
@@ -315,7 +315,7 @@
     /// - Parameters:
     ///     - subviews: The subviews to align.
     ///     - axis: An axis along which to align the subviews.
-    public func alignCentres(ofSubviews subviews: [View], on axis: Axis) {
+    public func alignCentres(ofSubviews subviews: [LegacyView], on axis: Axis) {
       let attribute: NSLayoutConstraint.Attribute
       switch axis {
       case .horizontal:
@@ -332,7 +332,7 @@
     ///
     /// - Parameters:
     ///     - subviews: The subviews to align.
-    public func alignLastBaselines(ofSubviews subviews: [View]) {
+    public func alignLastBaselines(ofSubviews subviews: [LegacyView]) {
       equalize(.lastBaseline, amongSubviews: subviews)
     }
 
@@ -345,8 +345,10 @@
     /// - Parameters:
     ///     - attribute: The attribute to equalize.
     ///     - subviews: The subviews on whose attributes should be equalized.
-    public func equalize(_ attribute: NSLayoutConstraint.Attribute, amongSubviews subviews: [View])
-    {
+    public func equalize(
+      _ attribute: NSLayoutConstraint.Attribute,
+      amongSubviews subviews: [LegacyView]
+    ) {
       for view in subviews {
         addSubviewIfNecessary(view)
       }
@@ -375,7 +377,7 @@
     ///     - coefficient: The ratio.
     public func lock(
       _ attribute: NSLayoutConstraint.Attribute,
-      ratioToSubviews subviews: [View],
+      ratioToSubviews subviews: [LegacyView],
       coefficient: CGFloat
     ) {
       for view in subviews {

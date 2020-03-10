@@ -28,8 +28,8 @@
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-      public var swiftUIView: AnyView {
-        return AnyView(SwiftUI.Color(self))
+      public var swiftUIView: some SwiftUI.View {
+        return SwiftUI.Color(self)
       }
     #endif
 

@@ -20,9 +20,10 @@
 
     internal var body: some SwiftUI.View {
 
-      func letterbox() -> AnyView {
-        return AnyView(
-          Ellipse().letterboxed(aspectRatio: 1, background: Color.red).swiftUIView
+      func letterbox() -> SwiftUI.AnyView {
+        return SwiftUI.AnyView(
+          Ellipse().letterboxed(aspectRatio: 1, background: Color.red)
+            .adjustForLegacyMode()
         )
       }
 

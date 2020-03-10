@@ -22,7 +22,8 @@
   import SDGViews
 
   /// A check box.
-  public final class CheckBox<L>: AnyCheckBox, SpecificView where L: Localization {
+  public final class CheckBox<L>: AnyCheckBox, CocoaViewImplementation, SpecificView
+  where L: Localization {
 
     // MARK: - Initialization
 

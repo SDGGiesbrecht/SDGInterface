@@ -25,7 +25,7 @@
   import SDGInterfaceBasics
 
   /// A shimmed version of `SwiftUI.HStack` with relaxed availability constraints.
-  @available(iOS 9, *)
+  @available(iOS 9, watchOS 6, *)
   public struct HorizontalStack: View {
 
     // MARK: - Initialization
@@ -39,7 +39,7 @@
     public init(
       alignment: SDGInterfaceBasics.VerticalAlignment = .centre,
       spacing: Double? = nil,
-      content: [View]
+      content: [AnyView]
     ) {
       self.alignment = alignment
       self.spacing = spacing
@@ -50,24 +50,22 @@
 
     private let alignment: SDGInterfaceBasics.VerticalAlignment
     private let spacing: Double?
-    private let content: [View]
+    private let content: [AnyView]
 
     // MARK: - View
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-      public var swiftUIView: AnyView {
-        return AnyView(
-          HStack(
-            alignment: SwiftUI.VerticalAlignment(alignment),
-            spacing: spacing.map({ CGFloat($0) }),
-            content: {
-              ForEach(content.indices) {
-                // @exempt(from: tests) Inaccurate coverage result.
-                self.content[$0].swiftUIView
-              }
+      public var swiftUIView: some SwiftUI.View {
+        return HStack(
+          alignment: SwiftUI.VerticalAlignment(alignment),
+          spacing: spacing.map({ CGFloat($0) }),
+          content: {
+            ForEach(content.indices) {
+              // @exempt(from: tests) Inaccurate coverage result.
+              self.content[$0].swiftUIView
             }
-          )
+          }
         )
       }
     #endif
@@ -76,7 +74,7 @@
       public var cocoaView: NSView {
         let view = NSStackView()
         for entry in content {
-          view.addView(StabilizedView(entry).cocoaView, in: .center)
+          view.addView(entry.cocoaView, in: .center)
         }
         switch alignment {
         case .top:
@@ -95,7 +93,7 @@
       public var cocoaView: UIView {
         let view = UIStackView()
         for entry in content {
-          view.addArrangedSubview(StabilizedView(entry).cocoaView)
+          view.addArrangedSubview(entry.cocoaView)
         }
         switch alignment {
         case .top:

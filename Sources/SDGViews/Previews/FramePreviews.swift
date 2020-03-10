@@ -24,9 +24,9 @@
 
     internal var body: some SwiftUI.View {
 
-      func circle(radius: CGFloat) -> AnyView {
+      func circle(radius: CGFloat) -> SwiftUI.AnyView {
         let diameter = radius × 2
-        return AnyView(
+        return SwiftUI.AnyView(
           Ellipse()
             .fill(Color.black)
             .frame(width: diameter, height: diameter)
@@ -38,7 +38,7 @@
         previewBothModes(
           circle(radius: 16)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .swiftUIView
+            .adjustForLegacyMode()
             .background(Color.red)
             .frame(width: 128, height: 64),
           name: "(≤ ∞) × (≤ ∞)"
@@ -47,7 +47,7 @@
         previewBothModes(
           circle(radius: 16)
             .frame(idealWidth: 48, idealHeight: 48, alignment: .topLeading)
-            .swiftUIView
+            .adjustForLegacyMode()
             .background(Color.red)
             .frame(width: 128, height: 64),
           name: "48 × 48, ↖"
@@ -56,7 +56,7 @@
         previewBothModes(
           circle(radius: 16)
             .frame(minWidth: 48, minHeight: 48, alignment: .bottomTrailing)
-            .swiftUIView
+            .adjustForLegacyMode()
             .background(Color.red)
             .frame(width: 128, height: 64),
           name: "(≥ 48) × (≥ 48), ↘"
@@ -65,16 +65,17 @@
         previewBothModes(
           circle(radius: 16)
             .frame()
-            .swiftUIView
+            .adjustForLegacyMode()
             .background(Color.red)
             .frame(width: 128, height: 64),
           name: "∅"
         )
 
         previewBothModes(
-          AnyView(
-            AnyView(Ellipse())
-              .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .centre).swiftUIView
+          SwiftUI.AnyView(
+            SwiftUI.AnyView(Ellipse())
+              .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .centre)
+              .adjustForLegacyMode()
               .frame(width: 128, height: 64)
           ),
           name: "(≤ ∞) × (≤ ∞), no internal frame"

@@ -22,7 +22,7 @@
 
     internal var body: some SwiftUI.View {
 
-      let circle = AnyView(
+      let circle = SwiftUI.AnyView(
         Ellipse()
           .fill(Color.black)
       )
@@ -31,28 +31,32 @@
 
         previewBothModes(
           circle
-            .aspectRatio(nil, contentMode: .fill).swiftUIView
+            .aspectRatio(nil, contentMode: .fill)
+            .adjustForLegacyMode()
             .frame(width: 124, height: 64),
           name: "nil + .fill"
         )
 
         previewBothModes(
           circle
-            .aspectRatio(nil, contentMode: .fit).swiftUIView
+            .aspectRatio(nil, contentMode: .fit)
+            .adjustForLegacyMode()
             .frame(width: 124, height: 64),
           name: "nil + .fit"
         )
 
         previewBothModes(
           circle
-            .aspectRatio(1 ÷ 2, contentMode: .fill).swiftUIView
+            .aspectRatio(1 ÷ 2, contentMode: .fill)
+            .adjustForLegacyMode()
             .frame(width: 124, height: 64),
           name: "(1 ÷ 2) + .fill"
         )
 
         previewBothModes(
           circle
-            .aspectRatio(1 ÷ 2, contentMode: .fit).swiftUIView
+            .aspectRatio(1 ÷ 2, contentMode: .fit)
+            .adjustForLegacyMode()
             .frame(width: 124, height: 64),
           name: "(1 ÷ 2) + .fit"
         )

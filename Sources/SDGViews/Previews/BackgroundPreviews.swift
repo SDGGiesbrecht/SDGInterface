@@ -24,9 +24,9 @@
 
     internal var body: some SwiftUI.View {
 
-      func circle(radius: CGFloat) -> AnyView {
+      func circle(radius: CGFloat) -> SwiftUI.AnyView {
         let diameter = radius × 2
-        return AnyView(
+        return SwiftUI.AnyView(
           Ellipse()
             .fill(Color.black)
             .frame(width: diameter, height: diameter)
@@ -38,13 +38,13 @@
 
         previewBothModes(
           circle(radius: 16)
-            .shimmedBackground(
-              AnyView(
+            .background(
+              SwiftUI.AnyView(
                 Color.red
                   .frame(width: 48, height: 48)
               )
             )
-            .swiftUIView
+            .adjustForLegacyMode()
             .border(Color.blue)
             .frame(width: 128, height: 64),
           name: "red"
@@ -52,14 +52,14 @@
 
         previewBothModes(
           circle(radius: 16)
-            .shimmedBackground(
-              AnyView(
+            .background(
+              SwiftUI.AnyView(
                 Color.red
                   .frame(width: 48, height: 48)
               ),
               alignment: .topLeading
             )
-            .swiftUIView
+            .adjustForLegacyMode()
             .border(Color.blue)
             .frame(width: 128, height: 64),
           name: "red, .topLeading"
@@ -67,26 +67,26 @@
 
         previewBothModes(
           circle(radius: 16)
-            .shimmedBackground(
-              AnyView(
+            .background(
+              SwiftUI.AnyView(
                 Color.red
                   .frame(width: 48, height: 48)
               ),
               alignment: .bottomTrailing
             )
-            .swiftUIView
+            .adjustForLegacyMode()
             .border(Color.blue)
             .frame(width: 128, height: 64),
           name: "red, .bottomTrailing"
         )
 
         previewBothModes(
-          AnyView(
+          SwiftUI.AnyView(
             Ellipse()
               .aspectRatio(1, contentMode: .fit)
               .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .centre)
-              .shimmedBackground(Colour.red)
-              .swiftUIView
+              .background(Colour.red)
+              .adjustForLegacyMode()
           )
             .frame(width: 128, height: 64)
             .padding(1)

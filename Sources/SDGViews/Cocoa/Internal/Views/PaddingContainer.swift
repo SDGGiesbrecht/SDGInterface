@@ -24,12 +24,12 @@
 
   import SDGInterfaceBasics
 
-  internal struct PaddingContainer: CocoaViewImplementation {
+  internal struct PaddingContainer<Content>: CocoaViewImplementation where Content: LegacyView {
 
     // MARK: - Initialization
 
-    internal init(contents: View, edges: Edge.Set, width: Double?) {
-      self.contents = StabilizedView(contents)
+    internal init(content: Content, edges: Edge.Set, width: Double?) {
+      self.content = content.stabilize()
       self.container = AnyCocoaView()
 
       for edge in Edge.allCases {
@@ -65,14 +65,14 @@
         constraintString = "[contents]\(spacing.string)|"
       }
 
-      container.addSubviewIfNecessary(contents)
+      container.addSubviewIfNecessary(content)
 
       #if canImport(AppKit)
         let viewDictionary: [String: NSView]
       #elseif canImport(UIKit)
         let viewDictionary: [String: UIView]
       #endif
-      viewDictionary = ["contents": contents.cocoaView]
+      viewDictionary = ["contents": content.cocoaView]
 
       let visualFormat = "\(axis.string)\(constraintString)"
       let constraints = NSLayoutConstraint.constraints(
@@ -87,7 +87,7 @@
     // MARK: - Properties
 
     private let container: AnyCocoaView
-    private let contents: StabilizedView
+    private let content: Stabilized<Content>
 
     // MARK: - View
 

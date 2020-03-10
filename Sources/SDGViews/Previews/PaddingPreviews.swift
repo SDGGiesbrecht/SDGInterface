@@ -22,8 +22,8 @@
 
     internal var body: some SwiftUI.View {
 
-      func square() -> AnyView {
-        return AnyView(
+      func square() -> SwiftUI.AnyView {
+        return SwiftUI.AnyView(
           Rectangle()
             .fill(Color.red)
             .frame(width: 32, height: 32)
@@ -35,7 +35,7 @@
         previewBothModes(
           square()
             .padding()
-            .swiftUIView
+            .adjustForLegacyMode()
             .background(Color.blue),
           name: "Default"
         )
@@ -43,7 +43,7 @@
         previewBothModes(
           square()
             .padding(.horizontal, 16)
-            .swiftUIView
+            .adjustForLegacyMode()
             .background(Color.blue),
           name: "Horizontal, 16"
         )
