@@ -90,7 +90,7 @@
         return CocoaView(view)
       }
     #elseif canImport(UIKit) && !os(watchOS)
-      public func cocoaView() -> CocoaView {
+      public func cocoa() -> CocoaView {
         let view = UIStackView()
         for entry in content {
           view.addArrangedSubview(entry.cocoa().native)
