@@ -26,7 +26,7 @@
     #endif
 
     @available(macOS 10.15, tvOS 13, iOS 13, *)
-    internal struct CocoaViewRepresentableWrapper {
+    internal struct CocoaViewRepresentableWrapper {  // @exempt(from: swiftFormat[UseEnumForNamespacing])
 
       // MARK: - Initialization
 

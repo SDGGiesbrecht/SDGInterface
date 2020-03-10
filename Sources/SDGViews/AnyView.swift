@@ -32,6 +32,9 @@
     // MARK: - Initialization
 
     /// Creates a type‐erases version of the view.
+    ///
+    /// - Parameters:
+    ///   - contents: The view to wrap.
     public init(_ contents: LegacyView) {
       legacyView = contents
     }

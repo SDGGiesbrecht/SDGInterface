@@ -29,7 +29,7 @@
   public protocol View: LegacyView, ViewProtocolShims {
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      /// The type of the SwiftUIView
+      /// The type of the SwiftUIView.
       associatedtype SwiftUIView: SwiftUI.View
 
       /// The SwiftUI view.
