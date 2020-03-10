@@ -95,12 +95,12 @@
       _ attribute: NSLayoutConstraint.Attribute,
       by relation: NSLayoutConstraint.Relation
     ) {
-      container.cocoaView.addConstraint(
+      container.cocoa().native.addConstraint(
         NSLayoutConstraint(
           item: content.cocoaView,
           attribute: attribute,
           relatedBy: relation,
-          toItem: container.cocoaView,
+          toItem: container.cocoa().native,
           attribute: attribute,
           multiplier: 1,
           constant: 0
@@ -118,7 +118,7 @@
         item: content.cocoaView,
         attribute: attribute,
         relatedBy: .equal,
-        toItem: container.cocoaView,
+        toItem: container.cocoa().native,
         attribute: attribute,
         multiplier: 1,
         constant: 0
@@ -134,14 +134,8 @@
 
     // MARK: - View
 
-    #if canImport(AppKit)
-      public var cocoaView: NSView {
-        return container.cocoaView
-      }
-    #elseif canImport(UIKit) && !os(watchOS)
-      public var cocoaView: UIView {
-        return container.cocoaView
-      }
-    #endif
+    public func cocoa() -> CocoaView {
+      return container.cocoa()
+    }
   }
 #endif

@@ -50,25 +50,15 @@
 
     // MARK: - LegacyView
 
-    #if !os(watchOS)
-      private var nativeCocoaView: NativeCocoaView {
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+      public func cocoa() -> CocoaView {
         return useSwiftUIOrFallback(to: {
           return BackgroundContainer(
             background: background,
             foreground: foreground,
             alignment: alignment
-          ).cocoaView
+          ).cocoa()
         })
-      }
-    #endif
-
-    #if canImport(AppKit)
-      public var cocoaView: NSView {
-        return nativeCocoaView
-      }
-    #elseif canImport(UIKit) && !os(watchOS)
-      public var cocoaView: UIView {
-        return nativeCocoaView
       }
     #endif
   }

@@ -52,7 +52,7 @@
         makeEqual(.bottom)
       }
 
-      container.cocoaView.translatesAutoresizingMaskIntoConstraints = false
+      container.cocoa().native.translatesAutoresizingMaskIntoConstraints = false
       container.fill(with: self.foreground, margin: .specific(0))
 
       preferEqual(.width)
@@ -61,9 +61,9 @@
 
     private func makeEqual(_ attribute: NSLayoutConstraint.Attribute) {
       container.addSubviewIfNecessary(background)
-      container.cocoaView.addConstraint(
+      container.cocoa().native.addConstraint(
         NSLayoutConstraint(
-          item: container.cocoaView,
+          item: container.cocoa().native,
           attribute: attribute,
           relatedBy: .equal,
           toItem: background.cocoaView,
@@ -79,7 +79,7 @@
         item: background.cocoaView,
         attribute: attribute,
         relatedBy: .equal,
-        toItem: container.cocoaView,
+        toItem: container .. cocoa().native,
         attribute: attribute,
         multiplier: 1,
         constant: 0
@@ -96,14 +96,8 @@
 
     // MARK: - View
 
-    #if canImport(AppKit)
-      public var cocoaView: NSView {
-        return container.cocoaView
-      }
-    #elseif canImport(UIKit) && !os(watchOS)
-      public var cocoaView: UIView {
-        return container.cocoaView
-      }
-    #endif
+    public func cocoa() -> CocoaView {
+      return container.cocoa()
+    }
   }
 #endif

@@ -358,7 +358,7 @@
 
       for viewIndex in subviews.indices {
         let constraint = NSLayoutConstraint(
-          item: subviews[0].cocoaView,
+          item: subviews[0].cocoa().native,
           attribute: attribute,
           relatedBy: .equal,
           toItem: subviews[viewIndex].cocoa().native,
