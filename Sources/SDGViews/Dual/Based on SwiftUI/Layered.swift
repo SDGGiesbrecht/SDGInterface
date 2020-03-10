@@ -80,8 +80,8 @@
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       public func swiftUI() -> some SwiftUI.View {
-        return foreground.swiftUIView.background(
-          background.swiftUIView,
+        return foreground.swiftUI().background(
+          background.swiftUI(),
           alignment: SwiftUI.Alignment(alignment)
         )
       }

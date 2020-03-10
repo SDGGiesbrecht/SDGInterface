@@ -91,7 +91,7 @@
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       public func swiftUI() -> some SwiftUI.View {
-        return content.swiftUIView.frame(
+        return content.swiftUI().frame(
           minWidth: minWidth.map({ CGFloat($0) }),
           idealWidth: idealWidth.map({ CGFloat($0) }),
           maxWidth: maxWidth.map({ CGFloat($0) }),

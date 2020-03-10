@@ -71,7 +71,7 @@
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       public func swiftUI() -> some SwiftUI.View {
-        return content.swiftUIView.padding(SwiftUI.Edge.Set(edges), width.map({ CGFloat($0) }))
+        return content.swiftUI().padding(SwiftUI.Edge.Set(edges), width.map({ CGFloat($0) }))
       }
     #endif
   }

@@ -63,7 +63,7 @@
           content: {
             ForEach(content.indices) {
               // @exempt(from: tests) Inaccurate coverage result.
-              self.content[$0].swiftUIView
+              self.content[$0].swiftUI()
             }
           }
         )

@@ -62,7 +62,7 @@
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       public func swiftUI() -> some SwiftUI.View {
-        return content.swiftUIView
+        return content.swiftUI()
       }
     #endif
   }
