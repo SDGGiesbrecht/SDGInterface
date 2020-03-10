@@ -35,7 +35,7 @@
         #if !os(watchOS)
           if legacyMode {
             return SwiftUI.AnyView(
-              AnyCocoaView(stack.cocoaView)
+              AnyCocoaView(stack.cocoa().native)
                 .adjustForLegacyMode()
             )
           } else {

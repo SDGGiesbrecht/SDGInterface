@@ -84,7 +84,7 @@
       intrinsic: (CGSize) -> CGFloat
     ) {
       if minimum == nil, maximum == nil {
-        make(attribute, .equal, to: Double(intrinsic(content.cocoaView.intrinsicContentSize)))
+        make(attribute, .equal, to: Double(intrinsic(content.cocoa().native.intrinsicContentSize)))
       } else if minimum ≠ nil, maximum == nil {
         make(attribute, .greaterThanOrEqual, to: minimum)
         prefer(attribute, of: minimum)
@@ -124,7 +124,7 @@
           item: container.cocoa().native,
           attribute: attribute,
           relatedBy: .equal,
-          toItem: content.cocoaView,
+          toItem: content.cocoa().native,
           attribute: attribute,
           multiplier: 1,
           constant: 0
@@ -137,7 +137,7 @@
     }
     private func preferEqual(_ attribute: NSLayoutConstraint.Attribute) {
       let constraint = NSLayoutConstraint(
-        item: content.cocoaView,
+        item: content.cocoa().native,
         attribute: attribute,
         relatedBy: .equal,
         toItem: container.cocoa().native,
