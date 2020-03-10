@@ -104,7 +104,7 @@
           } else {
             return fallback()
           }
-        #else
+        #else  // @exempt(from: tests) watchOS
           return fallback()
         #endif
       }
@@ -121,7 +121,7 @@
           } else {
             return anySwiftUIView
           }
-        #endif
+        #endif  // @exempt(from: tests)
       }
     #endif
 
