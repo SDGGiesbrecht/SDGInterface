@@ -22,7 +22,7 @@
 
       func letterbox() -> SwiftUI.AnyView {
         return SwiftUI.AnyView(
-          Ellipse().letterboxed(aspectRatio: 1, background: Color.red)
+          Ellipse().letterbox(aspectRatio: 1, background: Color.red)
             .adjustForLegacyMode()
         )
       }

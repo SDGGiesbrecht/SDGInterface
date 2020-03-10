@@ -206,7 +206,7 @@
     ///   - aspectRatio: The aspect ratio.
     ///   - background: The background view.
     @available(watchOS 6, *)
-    public func letterboxed<Background>(
+    public func letterbox<Background>(
       aspectRatio: Double,
       background: Background
     ) -> Layered<Framed<Proportioned<Self>>, Background> where Background: LegacyView {
