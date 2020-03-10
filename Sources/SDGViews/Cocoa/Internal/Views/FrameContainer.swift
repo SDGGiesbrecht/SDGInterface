@@ -105,7 +105,7 @@
       {
         container.cocoa().native.addConstraint(
           NSLayoutConstraint(
-            item: container.cocoa(),
+            item: container.cocoa().native,
             attribute: attribute,
             relatedBy: relation,
             toItem: nil,
