@@ -33,6 +33,12 @@ import SDGApplicationTestUtilities
 
 final class APITests: ApplicationTestCase {
 
+  func testAnyView() {
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      _ = AnyView(EmptyView()).swiftUIView
+    #endif
+  }
+
   func testCocoaViewImplementation() {
     #if canImport(AppKit) || canImport(UIKit)
       let view = CocoaExample()

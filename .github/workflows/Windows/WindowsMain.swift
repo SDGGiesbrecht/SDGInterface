@@ -165,6 +165,7 @@ extension SDGTextDisplayTests.APITests {
 extension SDGViewsTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
+      ("testAnyView", testAnyView),
       ("testCocoaViewImplementation", testCocoaViewImplementation),
       ("testBackground", testBackground),
       ("testColour", testColour),
