@@ -44,7 +44,7 @@ final class APITests: ApplicationTestCase {
   func testCocoaViewImplementation() {
     #if canImport(AppKit) || canImport(UIKit)
       let view = CocoaExample()
-      _ = view.cocoaView
+      _ = view.cocoa()
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
         if #available(macOS 10.15, tvOS 13, iOS 13, *) {
           _ = view.swiftUI()
@@ -56,14 +56,14 @@ final class APITests: ApplicationTestCase {
   func testBackground() {
     #if canImport(AppKit) || canImport(UIKit)
       forAllLegacyModes {
-        _ = Colour.red.background(Colour.blue).cocoaView
+        _ = Colour.red.background(Colour.blue).cocoa()
       }
     #endif
   }
 
   func testColour() {
     #if canImport(AppKit) || canImport(UIKit) && !(os(iOS) && arch(arm))
-      _ = Colour.red.cocoaView
+      _ = Colour.red.cocoa()
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {
         _ = Colour.green.swiftUI()
       }
@@ -87,7 +87,7 @@ final class APITests: ApplicationTestCase {
             _ = stack.swiftUI()
           }
         #endif
-        _ = stack.cocoaView
+        _ = stack.cocoa()
       }
     #endif
   }
@@ -95,15 +95,9 @@ final class APITests: ApplicationTestCase {
   func testLegacyView() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       class Legacy: LegacyView {
-        #if canImport(AppKit)
-          var cocoaView: NSView {
-            return EmptyView().cocoaView
-          }
-        #elseif canImport(UIKit)
-          var cocoaView: UIView {
-            return EmptyView().cocoaView
-          }
-        #endif
+        func cocoa() -> CocoaView {
+          return EmptyView().cocoa()
+        }
       }
       if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
         _ = Legacy().swiftUIAnyView()
@@ -125,7 +119,7 @@ final class APITests: ApplicationTestCase {
         let view = SwiftUIExample()
         _ = view.swiftUI()
         #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
-          _ = view.cocoaView
+          _ = view.cocoa()
         #endif
       }
     #endif
@@ -177,7 +171,7 @@ final class APITests: ApplicationTestCase {
       newView().alignLastBaselines(ofSubviews: [
         EmptyView().stabilize(), EmptyView().stabilize()
       ])
-      _ = newView().aspectRatio(1, contentMode: .fit).cocoaView
+      _ = newView().aspectRatio(1, contentMode: .fit).cocoa()
       newView().position(
         subviews: [EmptyView().stabilize(), EmptyView().stabilize()],
         inSequenceAlong: .horizontal,
@@ -218,15 +212,15 @@ final class APITests: ApplicationTestCase {
           }
         }
         _ =
-          IntrinsicSize(CGSize(width: 0, height: 1)).aspectRatio(nil, contentMode: .fill).cocoaView
+          IntrinsicSize(CGSize(width: 0, height: 1)).aspectRatio(nil, contentMode: .fill).cocoa()
         _ =
-          IntrinsicSize(CGSize(width: 1, height: 0)).aspectRatio(nil, contentMode: .fill).cocoaView
+          IntrinsicSize(CGSize(width: 1, height: 0)).aspectRatio(nil, contentMode: .fill).cocoa()
         _ =
-          IntrinsicSize(CGSize(width: 1, height: 1)).aspectRatio(nil, contentMode: .fill).cocoaView
+          IntrinsicSize(CGSize(width: 1, height: 1)).aspectRatio(nil, contentMode: .fill).cocoa()
       }
 
       forAllLegacyModes {
-        _ = newView().frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .centre).cocoaView
+        _ = newView().frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .centre).cocoa()
       }
     #endif
   }

@@ -184,7 +184,7 @@
     }
     private func viewDidSet() {
       #if canImport(AppKit)
-        native.contentView = view.cocoaView
+        native.contentView = view.cocoa().native
       #elseif canImport(UIKit)
         if native.rootViewController == nil {
           native.rootViewController = UIViewController()
