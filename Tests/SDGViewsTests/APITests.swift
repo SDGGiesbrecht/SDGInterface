@@ -105,14 +105,6 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
-  func testStabilizedView() {
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
-        _ = CocoaView().stabilize().swiftUI()
-      }
-    #endif
-  }
-
   func testSwiftUIViewImplementation() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {  // @exempt(from: unicode)
@@ -185,7 +177,7 @@ final class APITests: ApplicationTestCase {
           let swiftUI = newView().swiftUI()
           let window = Window<InterfaceLocalization>.primaryWindow(
             name: .binding(Shared("")),
-            view: AnyView(SwiftUI.AnyView(swiftUI))
+            view: SwiftUI.AnyView(swiftUI).cocoa()
           )
           window.display()
           window.close()

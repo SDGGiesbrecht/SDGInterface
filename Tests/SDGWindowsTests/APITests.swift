@@ -34,7 +34,7 @@ final class APITests: ApplicationTestCase {
     #if canImport(AppKit) || canImport(UIKit)
       let window = Window<InterfaceLocalization>(
         name: .binding(Shared("Title")),
-        view: AnyView(EmptyView())
+        view: EmptyView().cocoa()
       )
       #if canImport(AppKit)  // UIKit raises an exception during tests.
         window.display()
@@ -48,7 +48,7 @@ final class APITests: ApplicationTestCase {
         _ = window.isFullscreen
         let fullscreenWindow = Window<InterfaceLocalization>(
           name: .binding(Shared("Fullscreen")),
-          view: AnyView(EmptyView())
+          view: EmptyView().cocoa()
         )
         fullscreenWindow.isFullscreen = true
         fullscreenWindow.display()
@@ -63,14 +63,14 @@ final class APITests: ApplicationTestCase {
 
       let neverOnscreen = Window<InterfaceLocalization>(
         name: .binding(Shared("Never Onscreen")),
-        view: AnyView(EmptyView())
+        view: EmptyView().cocoa()
       )
       neverOnscreen.centreInScreen()
 
       #if canImport(UIKit)
         _ = Window<InterfaceLocalization>(
           name: .binding(Shared("Title")),
-          view: AnyView(EmptyView())
+          view: EmptyView().cocoa()
         )
       #endif
 
@@ -78,11 +78,11 @@ final class APITests: ApplicationTestCase {
 
       let primary = Window<InterfaceLocalization>.primaryWindow(
         name: .binding(Shared("...")),
-        view: AnyView(EmptyView())
+        view: EmptyView().cocoa()
       )
       _ = primary.size
       _ = primary.location
-      primary.view = AnyView(EmptyView())
+      primary.view = EmptyView().cocoa()
       #if canImport(AppKit)
         XCTAssert(primary.isPrimary)
         primary.isPrimary = false
@@ -93,7 +93,7 @@ final class APITests: ApplicationTestCase {
       #if canImport(AppKit)
         let auxiliary = Window<InterfaceLocalization>.auxiliaryWindow(
           name: .binding(Shared("...")),
-          view: AnyView(EmptyView())
+          view: EmptyView().cocoa()
         )
         XCTAssert(auxiliary.isAuxiliary)
         primary.isAuxiliary = false

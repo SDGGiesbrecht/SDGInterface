@@ -103,7 +103,7 @@ extension Application {
       let editor = TextEditor()
       let window = Window.primaryWindow(
         name: .static(ApplicationNameForm.localizedIsolatedForm),
-        view: AnyView(editor)
+        view: editor.cocoa()
       )
       if ProcessInfo.processInfo
         .environment["XCTestConfigurationFilePath"] == nil
@@ -123,11 +123,11 @@ extension Application {
       #if canImport(AppKit)
         let window = Window<L>.auxiliaryWindow(
           name: .static(windowTitle),
-          view: AnyView(view.padding())
+          view: view.padding().cocoa()
         )
         demonstrate(window)
       #else
-        let window = Window(name: .static(windowTitle), view: AnyView(view.padding()))
+        let window = Window(name: .static(windowTitle), view: view.padding().cocoa())
         demonstrate(window)
       #endif
     }
@@ -253,7 +253,7 @@ extension Application {
               }
             })
           ),
-          view: AnyView(CocoaView())
+          view: CocoaView()
         )
         demonstrate(window)
       }

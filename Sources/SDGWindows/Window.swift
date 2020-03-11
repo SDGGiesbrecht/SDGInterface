@@ -48,7 +48,7 @@
     /// - Parameters:
     ///     - name: The name of the window. (Used in places like the title bar or dock.)
     ///     - view: The view.
-    public static func primaryWindow(name: Binding<StrictString, L>, view: AnyView) -> Window {
+    public static func primaryWindow(name: Binding<StrictString, L>, view: CocoaView) -> Window {
       let window = Window(name: name, view: view)
       window.size = availableSize
       #if canImport(UIKit)
@@ -66,7 +66,8 @@
       /// - Parameters:
       ///     - name: The name of the window. (Used in places like the title bar or dock.)
       ///     - view: The view.
-      public static func auxiliaryWindow(name: Binding<StrictString, L>, view: AnyView) -> Window {
+      public static func auxiliaryWindow(name: Binding<StrictString, L>, view: CocoaView) -> Window
+      {
         let window = Window(name: name, view: view)
         window.size = auxiliarySize
         window.isAuxiliary = true
@@ -78,7 +79,8 @@
       /// - Parameters:
       ///     - name: The name of the window. (Used in places like the title bar or dock.)
       ///     - view: The view.
-      public static func fullscreenWindow(name: Binding<StrictString, L>, view: AnyView) -> Window {
+      public static func fullscreenWindow(name: Binding<StrictString, L>, view: CocoaView) -> Window
+      {
         let window = primaryWindow(name: name, view: view)
         window.isFullscreen = true
         return window
@@ -92,7 +94,7 @@
     /// - Parameters:
     ///     - name: The name of the window. (Used in places like the title bar or dock.)
     ///     - view: The view.
-    public init(name: Binding<StrictString, L>, view: AnyView) {
+    public init(name: Binding<StrictString, L>, view: CocoaView) {
       #if canImport(AppKit)
         setUpFieldEditorReset
       #endif
@@ -107,7 +109,7 @@
         LocalizationSetting.current.register(observer: bindingObserver)
       }
 
-      self.stabilizedView = view.stabilize()
+      self.view = view
       defer {
         viewDidSet()
       }
@@ -171,26 +173,21 @@
       name.shared?.register(observer: bindingObserver)
     }
 
-    private var stabilizedView: Stabilized<AnyView>
     /// The root view.
-    public var view: AnyView {
-      get {
-        return AnyView(stabilizedView)
-      }
-      set {
-        stabilizedView = newValue.stabilize()
+    public var view: CocoaView {
+      didSet {
         viewDidSet()
       }
     }
     private func viewDidSet() {
       #if canImport(AppKit)
-        native.contentView = view.cocoa().native
+        native.contentView = view.native
       #elseif canImport(UIKit)
         if native.rootViewController == nil {
           native.rootViewController = UIViewController()
         }
         native.rootViewController?.view.map { rootView in
-          CocoaView(rootView).fill(with: stabilizedView.cocoa(), margin: 0)
+          CocoaView(rootView).fill(with: view, margin: 0)
         }
       #endif
     }

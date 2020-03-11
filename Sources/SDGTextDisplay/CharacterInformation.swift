@@ -114,7 +114,7 @@
         #if canImport(AppKit)
           let window = Window<InterfaceLocalization>.auxiliaryWindow(
             name: .binding(Shared(StrictString(characters))),
-            view: AnyView(table.padding())
+            view: table.padding().cocoa()
           )
           window.display()
         #endif

@@ -37,7 +37,7 @@
       sourceRectangle: Rectangle? = nil,
       preferredSize: Size? = nil
     ) where Content: LegacyView {
-      let popOverView = CocoaPopOverView(view: view.stabilize())
+      let popOverView = CocoaPopOverView(view: view)
 
       #if canImport(UIKit)
         let controller = UIViewController()
