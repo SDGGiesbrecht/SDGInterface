@@ -190,7 +190,7 @@
           native.rootViewController = UIViewController()
         }
         native.rootViewController?.view.map { rootView in
-          AnyCocoaView(rootView).fill(with: stabilizedView, margin: .specific(0))
+          CocoaView(rootView).fill(with: stabilizedView.cocoa(), margin: 0)
         }
       #endif
     }
