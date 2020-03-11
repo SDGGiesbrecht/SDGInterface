@@ -39,7 +39,7 @@
       alignment: SDGInterfaceBasics.Alignment
     ) {
       self.content = content.stabilize()
-      self.container = AnyCocoaView()
+      self.container = CocoaView()
 
       handleDimension(
         .width,
@@ -166,7 +166,7 @@
 
     // MARK: - Properties
 
-    private let container: AnyCocoaView
+    private let container: CocoaView
     private let content: Stabilized<ContentView>
 
     // MARK: - View

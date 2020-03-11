@@ -111,7 +111,7 @@
           return swiftUIAnyView()
         #else
           if legacyMode {
-            return AnyCocoaView(cocoa().native).swiftUIAnyView()
+            return cocoa().swiftUIAnyView()
           } else {
             return swiftUIAnyView()
           }

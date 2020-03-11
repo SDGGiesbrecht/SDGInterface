@@ -129,7 +129,7 @@
 
     // MARK: - Properties
 
-    private let container: AnyCocoaView
+    private let container: CocoaView
     private let content: Stabilized<Content>
 
     // MARK: - View

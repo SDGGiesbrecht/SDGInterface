@@ -90,7 +90,7 @@
 
     // MARK: - Properties
 
-    private let container: AnyCocoaView
+    private let container: CocoaView
     private let background: Stabilized<Background>
     private let foreground: Stabilized<Foreground>
 
