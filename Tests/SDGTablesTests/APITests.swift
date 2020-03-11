@@ -55,7 +55,7 @@ final class APITests: ApplicationTestCase {
         table.columns = columns
         let window = Window<InterfaceLocalization>.primaryWindow(
           name: .binding(Shared("")),
-          view: AnyView(table)
+          view: table.cocoa()
         )
         window.display()
         #if canImport(UIKit)

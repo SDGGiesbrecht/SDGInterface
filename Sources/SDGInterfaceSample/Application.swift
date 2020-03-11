@@ -123,7 +123,7 @@ extension Application {
       #if canImport(AppKit)
         let window = Window<L>.auxiliaryWindow(
           name: .static(windowTitle),
-          view: AnyView(view.padding())
+          view: view.padding().cocoa()
         )
         demonstrate(window)
       #else
@@ -253,7 +253,7 @@ extension Application {
               }
             })
           ),
-          view: AnyView(CocoaView())
+          view: CocoaView()
         )
         demonstrate(window)
       }

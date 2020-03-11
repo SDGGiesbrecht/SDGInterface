@@ -33,7 +33,7 @@ final class APITests: ApplicationTestCase {
     #if canImport(AppKit) || canImport(UIKit)
       let window = Window<InterfaceLocalization>(
         name: .binding(Shared("")),
-        view: AnyView(EmptyView())
+        view: EmptyView().cocoa()
       )
       window.view.displayPopOver(EmptyView())
       #if canImport(UIKit)

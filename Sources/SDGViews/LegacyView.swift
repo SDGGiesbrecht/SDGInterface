@@ -41,7 +41,7 @@
       // @documentation(View.cocoaView)
       /// Constructs a Cocoa representation of the view.
       ///
-      /// - Warning: A `View` may not always return the same instance when queried for a Cocoa view representation. If you want to use the view in a way that requires refrence semantics, such as applying Cocoa constraints or bindings, `stabilize()` the view and use it’s stable `cocoa()` method.
+      /// - Warning: This method may not return the same instance each time it is called. If you want to use the view in a way that requires consistent refrence semantics—such as applying Cocoa constraints or bindings—call this method only once and store the result for re‐use.
       func cocoa() -> CocoaView
     #endif
 
@@ -58,14 +58,6 @@
   extension LegacyView {
 
     // MARK: - Cocoa Interoperability
-
-    /// Returns a stabilized version of the view which behaves with consistent reference semantics.
-    ///
-    /// Wrap unknown `View` conformers with this method before using repeated accesses of `cocoa()` that assume the same instance will be returned each time.
-    @available(watchOS 6, *)
-    public func stabilize() -> Stabilized<Self> {
-      return Stabilized(content: self)
-    }
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       @available(macOS 10.15, tvOS 13, iOS 13, *)
