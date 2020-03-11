@@ -70,7 +70,7 @@ final class APITests: ApplicationTestCase {
       #if canImport(UIKit)
         _ = Window<InterfaceLocalization>(
           name: .binding(Shared("Title")),
-          view: AnyView(EmptyView())
+          view: EmptyView().cocoa()
         )
       #endif
 
