@@ -587,7 +587,6 @@ target_link_libraries("SDGApplication" PRIVATE
 )
 
 add_library("SDGViews"
-  "../../../Sources/SDGViews/AnyCocoaView.swift"
   "../../../Sources/SDGViews/AnyView.swift"
   "../../../Sources/SDGViews/Axis.swift"
   "../../../Sources/SDGViews/Cocoa/Internal/Type Aliases/CocoaLayoutConstraintPriority.swift"
@@ -617,7 +616,6 @@ add_library("SDGViews"
   "../../../Sources/SDGViews/Previews/LetterboxPreviews.swift"
   "../../../Sources/SDGViews/Previews/PaddingPreviews.swift"
   "../../../Sources/SDGViews/Previews/Previews.swift"
-  "../../../Sources/SDGViews/Spacing.swift"
   "../../../Sources/SDGViews/SpecificView.swift"
   "../../../Sources/SDGViews/SwiftUI/Color.swift"
   "../../../Sources/SDGViews/SwiftUI/Ellipse.swift"

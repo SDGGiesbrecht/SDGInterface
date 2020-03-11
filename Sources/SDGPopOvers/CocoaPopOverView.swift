@@ -27,14 +27,14 @@
     internal typealias NSUIView = UIView
   #endif
 
-  internal class CocoaPopOverView<Content>: NSUIView where Content: LegacyView {
+  internal class CocoaPopOverView: NSUIView {
 
     // MARK: - Initialization
 
-    internal init(view: Content) {
-      self.view = view
+    internal init<Content>(view: Content) where Content: LegacyView {
+      self.view = view.cocoa()
       super.init(frame: .zero)
-      AnyCocoaView(self).fill(with: view, margin: .automatic)
+      CocoaView(self).fill(with: self.view, margin: nil)
     }
 
     internal required init?(coder decoder: NSCoder) {  // @exempt(from: tests)
@@ -43,6 +43,6 @@
 
     // MARK: - Properties
 
-    private let view: Content
+    private let view: CocoaView
   }
 #endif

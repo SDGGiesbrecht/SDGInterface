@@ -46,8 +46,8 @@
     ///
     /// If no aspect ratio is specified and the view has no intrinsic aspect ratio, the initializer will fail and return `nil`.
     private init?(content: Content, aspectRatio: Double?, contentMode: ContentMode) {
-      self.content = content.stabilize()
-      self.container = AnyCocoaView()
+      self.content = content.cocoa()
+      self.container = CocoaView()
 
       let resolvedRatio: CGFloat
       if let specified = aspectRatio {
@@ -129,8 +129,8 @@
 
     // MARK: - Properties
 
-    private let container: AnyCocoaView
-    private let content: Stabilized<Content>
+    private let container: CocoaView
+    private let content: CocoaView
 
     // MARK: - View
 

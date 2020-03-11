@@ -97,7 +97,7 @@ final class APITests: ApplicationTestCase {
     #if canImport(AppKit) || canImport(UIKit)
       if #available(iOS 9, *) {  // @exempt(from: unicode)
         CharacterInformation.display(for: "abc", origin: nil)
-        let view = AnyCocoaView()
+        let view = CocoaView()
         let window = Window<SDGInterfaceLocalizations.InterfaceLocalization>.primaryWindow(
           name: .binding(Shared("...")),
           view: AnyView(view)
@@ -364,7 +364,7 @@ final class APITests: ApplicationTestCase {
         compatibilityTextView.text.append(characters)
       #endif
       compatibilityTextView.selectAll(nil)
-      window.view = AnyView(AnyCocoaView(compatibilityTextView))
+      window.view = AnyView(CocoaView(compatibilityTextView))
       if #available(iOS 9, *) {  // @exempt(from: unicode)
         compatibilityTextView.showCharacterInformation(nil)
       }

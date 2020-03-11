@@ -31,9 +31,9 @@
       foreground: Foreground,
       alignment: SDGInterfaceBasics.Alignment
     ) {
-      self.container = AnyCocoaView()
-      self.background = background.stabilize()
-      self.foreground = foreground.stabilize()
+      self.container = CocoaView()
+      self.background = background.cocoa()
+      self.foreground = foreground.cocoa()
 
       switch alignment.horizontal {
       case .leading:
@@ -53,7 +53,7 @@
       }
 
       container.cocoa().native.translatesAutoresizingMaskIntoConstraints = false
-      container.fill(with: self.foreground, margin: .specific(0))
+      container.fill(with: self.foreground, margin: 0)
 
       preferEqual(.width)
       preferEqual(.height)
@@ -90,9 +90,9 @@
 
     // MARK: - Properties
 
-    private let container: AnyCocoaView
-    private let background: Stabilized<Background>
-    private let foreground: Stabilized<Foreground>
+    private let container: CocoaView
+    private let background: CocoaView
+    private let foreground: CocoaView
 
     // MARK: - View
 

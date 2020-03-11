@@ -81,7 +81,7 @@ final class APITests: ApplicationTestCase {
   func testHorizontalStack() {
     #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
       if #available(iOS 9, *) {
-        let stack = HorizontalStack(spacing: 0, content: [AnyView(AnyCocoaView())])
+        let stack = HorizontalStack(spacing: 0, content: [AnyView(CocoaView())])
         #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
           if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
             _ = stack.swiftUI()
@@ -108,7 +108,7 @@ final class APITests: ApplicationTestCase {
   func testStabilizedView() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
-        _ = AnyCocoaView().stabilize().swiftUI()
+        _ = CocoaView().stabilize().swiftUI()
       }
     #endif
   }
@@ -127,57 +127,57 @@ final class APITests: ApplicationTestCase {
 
   func testView() {
     #if canImport(AppKit) || canImport(UIKit)
-      func newView() -> AnyCocoaView {
+      func newView() -> CocoaView {
         #if canImport(AppKit)
           let native = NSView()
         #elseif canImport(UIKit)
           let native = UIView()
         #endif
-        return AnyCocoaView(native)
+        return CocoaView(native)
       }
-      newView().fill(with: EmptyView().stabilize())
+      newView().fill(with: EmptyView().cocoa())
       newView().setMinimumSize(size: 10, axis: .horizontal)
       newView().position(
-        subviews: [EmptyView().stabilize(), EmptyView().stabilize()],
+        subviews: [EmptyView().cocoa(), EmptyView().cocoa()],
         inSequenceAlong: .vertical
       )
-      newView().centre(subview: EmptyView().stabilize())
+      newView().centre(subview: EmptyView().cocoa())
       newView().equalizeSize(
-        amongSubviews: [EmptyView().stabilize(), EmptyView().stabilize()],
+        amongSubviews: [EmptyView().cocoa(), EmptyView().cocoa()],
         on: .horizontal
       )
       newView().equalizeSize(
-        amongSubviews: [EmptyView().stabilize(), EmptyView().stabilize()],
+        amongSubviews: [EmptyView().cocoa(), EmptyView().cocoa()],
         on: .vertical
       )
       newView().lockSizeRatio(
-        toSubviews: [EmptyView().stabilize(), EmptyView().stabilize()],
+        toSubviews: [EmptyView().cocoa(), EmptyView().cocoa()],
         coefficient: 1,
         axis: .horizontal
       )
       newView().lockSizeRatio(
-        toSubviews: [EmptyView().stabilize(), EmptyView().stabilize()],
+        toSubviews: [EmptyView().cocoa(), EmptyView().cocoa()],
         coefficient: 1,
         axis: .vertical
       )
       newView().alignCentres(
-        ofSubviews: [EmptyView().stabilize(), EmptyView().stabilize()],
+        ofSubviews: [EmptyView().cocoa(), EmptyView().cocoa()],
         on: .horizontal
       )
       newView().alignCentres(
-        ofSubviews: [EmptyView().stabilize(), EmptyView().stabilize()],
+        ofSubviews: [EmptyView().cocoa(), EmptyView().cocoa()],
         on: .vertical
       )
       newView().alignLastBaselines(ofSubviews: [
-        EmptyView().stabilize(), EmptyView().stabilize()
+        EmptyView().cocoa(), EmptyView().cocoa()
       ])
       _ = newView().aspectRatio(1, contentMode: .fit).cocoa()
       newView().position(
-        subviews: [EmptyView().stabilize(), EmptyView().stabilize()],
+        subviews: [EmptyView().cocoa(), EmptyView().cocoa()],
         inSequenceAlong: .horizontal,
-        padding: .specific(0),
-        leadingMargin: .specific(8),
-        trailingMargin: .automatic
+        padding: 0,
+        leadingMargin: 0,
+        trailingMargin: nil
       )
 
       #if !(os(iOS) && arch(arm))

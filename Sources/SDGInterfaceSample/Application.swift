@@ -253,7 +253,7 @@ extension Application {
               }
             })
           ),
-          view: AnyView(AnyCocoaView())
+          view: AnyView(CocoaView())
         )
         demonstrate(window)
       }

@@ -37,7 +37,7 @@ final class APITests: ApplicationTestCase {
       )
       window.view.displayPopOver(EmptyView())
       #if canImport(UIKit)
-        AnyCocoaView().displayPopOver(EmptyView())
+        CocoaView().displayPopOver(EmptyView())
       #endif
     #endif
   }

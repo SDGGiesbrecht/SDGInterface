@@ -38,9 +38,10 @@ final class APITests: ApplicationTestCase {
           data: Shared([0]),
           columns: [
             { integer in
-              let view = AnyCocoaView()
+              let view = CocoaView()
               view.fill(
                 with: Label<InterfaceLocalization>(text: .binding(Shared("\(integer.inDigits())")))
+                  .cocoa()
               )
               return AnyView(view)
             }

@@ -23,10 +23,10 @@
     // MARK: - Initialization
 
     internal init(columns: [AnyView]) {
-      self.row = HorizontalStack(spacing: 8, content: columns).stabilize()
+      self.row = HorizontalStack(spacing: 8, content: columns).cocoa()
       super.init(style: .default, reuseIdentifier: UITableViewDataSource<Bool>.reUseIdentifier)
-      let wrapped = AnyCocoaView(self)
-      wrapped.fill(with: row, margin: .specific(0))
+      let wrapped = CocoaView(self)
+      wrapped.fill(with: row, margin: 0)
     }
 
     internal required init?(coder decoder: NSCoder) {  // @exempt(from: tests)
@@ -35,6 +35,6 @@
 
     // MARK: - Properties
 
-    internal var row: Stabilized<HorizontalStack>
+    internal var row: CocoaView
   }
 #endif

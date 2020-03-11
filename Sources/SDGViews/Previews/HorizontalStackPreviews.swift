@@ -31,64 +31,38 @@
         )
       }
 
-      func legacyOrNot(_ stack: HorizontalStack) -> SwiftUI.AnyView {
-        #if !os(watchOS)
-          if legacyMode {
-            return SwiftUI.AnyView(
-              AnyCocoaView(stack.cocoa().native)
-                .adjustForLegacyMode()
-            )
-          } else {
-            return SwiftUI.AnyView(
-              stack
-                .adjustForLegacyMode()
-            )
-          }
-        #else  // @exempt(from: tests)
-          return
-            stack
-            .adjustForLegacyMode()
-        #endif
-      }
-
       return Group {
 
         previewBothModes(
-          legacyOrNot(
-            HorizontalStack(content: [
-              circle(colour: .red),
-              circle(colour: .green),
-              circle(colour: .blue)
-            ])
-          )
+          HorizontalStack(content: [
+            circle(colour: .red),
+            circle(colour: .green),
+            circle(colour: .blue)
+          ]).adjustForLegacyMode()
             .frame(width: 128, height: 32, alignment: .center),
           name: "Red, Green, Blue"
         )
 
         previewBothModes(
-          legacyOrNot(
-            HorizontalStack(
-              alignment: .top,
-              content: [
-                circle(colour: .black),
-                circle(colour: .black, big: true)
-              ]
-            )
-          )
+          HorizontalStack(
+            alignment: .top,
+            content: [
+              circle(colour: .black),
+              circle(colour: .black, big: true)
+            ]
+          ).adjustForLegacyMode()
             .frame(width: 128, height: 32, alignment: .center),
           name: "Top"
         )
 
         previewBothModes(
-          legacyOrNot(
-            HorizontalStack(
-              alignment: .bottom,
-              content: [
-                circle(colour: .black),
-                circle(colour: .black, big: true)
-              ]
-            )
-          )
+          HorizontalStack(
+            alignment: .bottom,
+            content: [
+              circle(colour: .black),
+              circle(colour: .black, big: true)
+            ]
+          ).adjustForLegacyMode()
             .frame(width: 128, height: 32, alignment: .center),
           name: "Bottom"
         )
