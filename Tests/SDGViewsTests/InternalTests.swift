@@ -21,10 +21,10 @@ final class InternalTests: ApplicationTestCase {
   func testAspectRatioContainer() {
     #if canImport(AppKit) || canImport(UIKit)
       _ =
-        AspectRatioContainer.constraining(AnyCocoaView(), toAspectRatio: 1, contentMode: .fill)
+        AspectRatioContainer.constraining(CocoaView(), toAspectRatio: 1, contentMode: .fill)
         .cocoa()
       _ =
-        AspectRatioContainer.constraining(AnyCocoaView(), toAspectRatio: 1, contentMode: .fit)
+        AspectRatioContainer.constraining(CocoaView(), toAspectRatio: 1, contentMode: .fit)
         .cocoa()
     #endif
   }

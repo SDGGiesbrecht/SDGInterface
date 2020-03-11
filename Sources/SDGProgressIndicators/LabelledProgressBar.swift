@@ -48,22 +48,24 @@
     ///     - progressBar: Optional. A specific progress bar.
     public init(label: Label<L>, progressBar: ProgressBar? = nil) {
       self.label = label
+      let cocoaLabel = label.cocoa()
       let constructedBar = progressBar ?? ProgressBar()
       self.progressBar = constructedBar
-      container = AnyCocoaView()
-      container.fill(with: label, on: .horizontal, margin: .specific(0))
-      container.fill(with: constructedBar, on: .horizontal, margin: .specific(0))
+      let cocoaBar = constructedBar.cocoa()
+      container = CocoaView()
+      container.fill(with: cocoaLabel, on: .horizontal, margin: 0)
+      container.fill(with: cocoaBar, on: .horizontal, margin: 0)
       container.position(
-        subviews: [label, constructedBar],
+        subviews: [cocoaLabel, cocoaBar],
         inSequenceAlong: .vertical,
-        padding: .automatic,
-        margin: .specific(0)
+        padding: nil,
+        margin: 0
       )
     }
 
     // MARK: - Properties
 
-    private let container: AnyCocoaView
+    private let container: CocoaView
 
     /// The label.
     public let label: Label<L>

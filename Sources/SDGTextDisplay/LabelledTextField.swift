@@ -47,22 +47,24 @@
     ///     - field: Optional. A specific field.
     public init(label: Label<L>, field: TextField? = nil) {
       self.label = label
+      let cocoaLabel = label.cocoa()
       let constructedField = field ?? TextField()
       self.field = constructedField
-      container = AnyCocoaView()
+      let cocoaField = constructedField.cocoa()
+      container = CocoaView()
       container.position(
-        subviews: [label, constructedField],
+        subviews: [cocoaLabel, cocoaField],
         inSequenceAlong: .horizontal,
-        padding: .automatic,
-        margin: .specific(0)
+        padding: nil,
+        margin: 0
       )
-      container.alignLastBaselines(ofSubviews: [label, constructedField])
-      container.fill(with: constructedField, on: .vertical, margin: .specific(0))
+      container.alignLastBaselines(ofSubviews: [cocoaLabel, cocoaField])
+      container.fill(with: cocoaField, on: .vertical, margin: 0)
     }
 
     // MARK: - Properties
 
-    private let container: AnyCocoaView
+    private let container: CocoaView
 
     /// The label.
     public let label: Label<L>

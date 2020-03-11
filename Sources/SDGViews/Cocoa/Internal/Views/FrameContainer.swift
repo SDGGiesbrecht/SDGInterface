@@ -38,7 +38,7 @@
       maxHeight: Double?,
       alignment: SDGInterfaceBasics.Alignment
     ) {
-      self.content = content.stabilize()
+      self.content = content.cocoa()
       self.container = CocoaView()
 
       handleDimension(
@@ -167,7 +167,7 @@
     // MARK: - Properties
 
     private let container: CocoaView
-    private let content: Stabilized<ContentView>
+    private let content: CocoaView
 
     // MARK: - View
 

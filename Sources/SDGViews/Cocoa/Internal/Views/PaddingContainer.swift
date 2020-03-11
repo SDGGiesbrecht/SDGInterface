@@ -29,8 +29,8 @@
     // MARK: - Initialization
 
     internal init(content: Content, edges: Edge.Set, width: Double?) {
-      self.content = content.stabilize()
-      self.container = AnyCocoaView()
+      self.content = content.cocoa()
+      self.container = CocoaView()
 
       for edge in Edge.allCases {
         var spacing = width
@@ -50,19 +50,12 @@
         axis = .horizontal
       }
 
-      let spacing: Spacing
-      if let specific = width {
-        spacing = .specific(specific)
-      } else {
-        spacing = .automatic
-      }
-
       let constraintString: String
       switch edge {
       case .top, .leading:
-        constraintString = "|\(spacing.string)[contents]"
+        constraintString = "|\(CocoaView.spacingString(for: width))[contents]"
       case .trailing, .bottom:
-        constraintString = "[contents]\(spacing.string)|"
+        constraintString = "[contents]\(CocoaView.spacingString(for: width))|"
       }
 
       container.addSubviewIfNecessary(content)
@@ -87,7 +80,7 @@
     // MARK: - Properties
 
     private let container: CocoaView
-    private let content: Stabilized<Content>
+    private let content: CocoaView
 
     // MARK: - View
 

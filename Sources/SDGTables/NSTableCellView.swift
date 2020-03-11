@@ -17,16 +17,16 @@
 
   import SDGViews
 
-  internal class NSTableCellView<Content>: AppKit.NSTableCellView where Content: LegacyView {
+  internal class NSTableCellView: AppKit.NSTableCellView {
 
     // MARK: - Initialization
 
-    internal init(view: Content) {
-      self.view = view
+    internal init<Content>(view: Content) where Content: LegacyView {
+      self.view = view.cocoa()
       super.init(frame: .zero)
-      let wrapped = AnyCocoaView(self)
-      wrapped.fill(with: view, on: .vertical, margin: .specific(0))
-      wrapped.fill(with: view, on: .horizontal, margin: .specific(1))
+      let wrapped = CocoaView(self)
+      wrapped.fill(with: self.view, on: .vertical, margin: 0)
+      wrapped.fill(with: self.view, on: .horizontal, margin: 1)
     }
 
     internal required init?(coder decoder: NSCoder) {  // @exempt(from: tests)
@@ -35,6 +35,6 @@
 
     // MARK: - Properties
 
-    private let view: Content
+    private let view: CocoaView
   }
 #endif
