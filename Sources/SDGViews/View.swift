@@ -26,14 +26,14 @@
   ///
   /// In each case, default implementations will cover the rest of the conformance to `View`.
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  public protocol View: LegacyView, ViewProtocolShims {
+  public protocol View: LegacyView, ViewShims {
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       /// The type of the SwiftUIView.
       associatedtype SwiftUIView: SwiftUI.View
 
-      /// The SwiftUI view.
-      var swiftUIView: SwiftUIView { get }
+      /// Constructs a SwiftUI representation of the view.
+      func swiftUI() -> SwiftUIView
     #endif
   }
 
@@ -41,8 +41,8 @@
   extension View {
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      public var anySwiftUIView: SwiftUI.AnyView {
-        return SwiftUI.AnyView(swiftUIView)
+      public func swiftUIAnyView() -> SwiftUI.AnyView {
+        return SwiftUI.AnyView(swiftUI())
       }
     #endif
   }

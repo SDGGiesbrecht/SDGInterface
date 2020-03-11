@@ -33,11 +33,8 @@
 
     internal init(content: Content) {
       self.content = content
-      #if canImport(AppKit)
-        self.cocoaView = content.cocoaView
-      #endif
-      #if canImport(UIKit) && !os(watchOS)
-        self.cocoaView = content.cocoaView
+      #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+        self.cocoaView = content.cocoa()
       #endif
     }
 
@@ -48,21 +45,22 @@
 
     // MARK: - LegacyView
 
-    #if canImport(AppKit)
-      public let cocoaView: NSView
-    #elseif canImport(UIKit) && !os(watchOS)
-      public let cocoaView: UIView
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+      private let cocoaView: CocoaView
+      public func cocoa() -> CocoaView {
+        return cocoaView
+      }
     #endif
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  extension Stabilized: View, ViewProtocolShims where Content: View {
+  extension Stabilized: View, ViewShims where Content: View {
 
     // MARK: - View
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      public var swiftUIView: some SwiftUI.View {
-        return content.swiftUIView
+      public func swiftUI() -> some SwiftUI.View {
+        return content.swiftUI()
       }
     #endif
   }

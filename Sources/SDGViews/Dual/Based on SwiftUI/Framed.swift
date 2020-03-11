@@ -66,8 +66,8 @@
 
     // MARK: - LegacyView
 
-    #if !os(watchOS)
-      private var nativeCocoaView: NativeCocoaView {
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+      public func cocoa() -> CocoaView {
         return useSwiftUIOrFallback(to: {
           return FrameContainer(
             content: content,
@@ -78,30 +78,20 @@
             idealHeight: idealHeight,
             maxHeight: maxHeight,
             alignment: alignment
-          ).cocoaView
+          ).cocoa()
         })
-      }
-    #endif
-
-    #if canImport(AppKit)
-      public var cocoaView: NSView {
-        return nativeCocoaView
-      }
-    #elseif canImport(UIKit) && !os(watchOS)
-      public var cocoaView: UIView {
-        return nativeCocoaView
       }
     #endif
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  extension Framed: View, ViewProtocolShims where Content: View {
+  extension Framed: View, ViewShims where Content: View {
 
     // MARK: - View
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      public var swiftUIView: some SwiftUI.View {
-        return content.swiftUIView.frame(
+      public func swiftUI() -> some SwiftUI.View {
+        return content.swiftUI().frame(
           minWidth: minWidth.map({ CGFloat($0) }),
           idealWidth: idealWidth.map({ CGFloat($0) }),
           maxWidth: maxWidth.map({ CGFloat($0) }),

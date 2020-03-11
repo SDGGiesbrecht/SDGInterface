@@ -45,33 +45,23 @@
 
     // MARK: - LegacyView
 
-    #if !os(watchOS)
-      private var nativeCocoaView: NativeCocoaView {
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+      public func cocoa() -> CocoaView {
         return useSwiftUIOrFallback(to: {
-          return PaddingContainer(content: content, edges: edges, width: width).cocoaView
+          return PaddingContainer(content: content, edges: edges, width: width).cocoa()
         })
-      }
-    #endif
-
-    #if canImport(AppKit)
-      public var cocoaView: NSView {
-        return nativeCocoaView
-      }
-    #elseif canImport(UIKit) && !os(watchOS)
-      public var cocoaView: UIView {
-        return nativeCocoaView
       }
     #endif
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  extension Padded: View, ViewProtocolShims where Content: View {
+  extension Padded: View, ViewShims where Content: View {
 
     // MARK: - View
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      public var swiftUIView: some SwiftUI.View {
-        return content.swiftUIView.padding(SwiftUI.Edge.Set(edges), width.map({ CGFloat($0) }))
+      public func swiftUI() -> some SwiftUI.View {
+        return content.swiftUI().padding(SwiftUI.Edge.Set(edges), width.map({ CGFloat($0) }))
       }
     #endif
   }

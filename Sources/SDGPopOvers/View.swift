@@ -52,12 +52,12 @@
         #if !os(tvOS)
           popOver?.delegate = UIPopoverPresentationControllerDelegate.delegate
         #endif
-        popOver?.sourceView = cocoaView
+        popOver?.sourceView = cocoa().native
         popOver?.sourceRect = sourceRectangle?.native
-          ?? cocoaView.frame  // @exempt(from: tests) tvOS quirk.
+          ?? cocoa().native.frame  // @exempt(from: tests) tvOS quirk.
         popOver?.permittedArrowDirections = .any
 
-        cocoaView.controller?.present(controller, animated: true, completion: nil)
+        cocoa().native.controller?.present(controller, animated: true, completion: nil)
       #else
         let controller = NSViewController()
         if let specifiedSize = preferredSize {
@@ -69,8 +69,8 @@
         popOver.contentViewController = controller
         popOver.behavior = .transient
         popOver.show(
-          relativeTo: sourceRectangle?.native ?? cocoaView.frame,
-          of: cocoaView,
+          relativeTo: sourceRectangle?.native ?? cocoa().native.frame,
+          of: cocoa().native,
           preferredEdge: .maxX
         )
       #endif

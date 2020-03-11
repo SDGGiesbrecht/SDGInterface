@@ -45,13 +45,9 @@
 
     // MARK: - LegacyView
 
-    #if canImport(AppKit)
-      public var cocoaView: NSView {
-        return legacyView.cocoaView
-      }
-    #elseif canImport(UIKit) && !os(watchOS)
-      public var cocoaView: UIView {
-        return legacyView.cocoaView
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+      public func cocoa() -> CocoaView {
+        return legacyView.cocoa()
       }
     #endif
   }
@@ -62,8 +58,8 @@
     // MARK: - View
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      public var swiftUIView: SwiftUI.AnyView {
-        return legacyView.anySwiftUIView
+      public func swiftUI() -> SwiftUI.AnyView {
+        return legacyView.swiftUIAnyView()
       }
     #endif
   }

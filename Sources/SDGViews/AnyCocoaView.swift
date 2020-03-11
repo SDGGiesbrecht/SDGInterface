@@ -58,18 +58,21 @@
     // MARK: - View
 
     #if canImport(AppKit)
-      public var cocoaView: NSView
+      private var cocoaView: NSView
     #elseif canImport(UIKit)
-      public var cocoaView: UIView
+      private var cocoaView: UIView
     #endif
+    public func cocoa() -> CocoaView {
+      return CocoaView(cocoaView)
+    }
 
     // MARK: - Layout Constraints
 
     internal func addSubviewIfNecessary(_ subview: LegacyView) {
-      subview.cocoaView.translatesAutoresizingMaskIntoConstraints = false
+      subview.cocoa().native.translatesAutoresizingMaskIntoConstraints = false
 
-      if ¬cocoaView.subviews.contains(subview.cocoaView) {
-        cocoaView.addSubview(subview.cocoaView)
+      if ¬cocoaView.subviews.contains(subview.cocoa().native) {
+        cocoaView.addSubview(subview.cocoa().native)
       }
     }
 
@@ -189,7 +192,7 @@
           viewList += padding.string
         }
         viewList += "[v\(index)]"
-        viewDictionary["v\(index)"] = subviews[index].cocoaView
+        viewDictionary["v\(index)"] = subviews[index].cocoa().native
       }
 
       let leadingMarginString = "|\(leadingMargin.string)"
@@ -256,7 +259,7 @@
       }
 
       let constraint = NSLayoutConstraint(
-        item: subview.cocoaView,
+        item: subview.cocoa().native,
         attribute: attribute,
         relatedBy: .equal,
         toItem: self.cocoaView,
@@ -355,10 +358,10 @@
 
       for viewIndex in subviews.indices {
         let constraint = NSLayoutConstraint(
-          item: subviews[0].cocoaView,
+          item: subviews[0].cocoa().native,
           attribute: attribute,
           relatedBy: .equal,
-          toItem: subviews[viewIndex].cocoaView,
+          toItem: subviews[viewIndex].cocoa().native,
           attribute: attribute,
           multiplier: 1,
           constant: 0
@@ -386,7 +389,7 @@
           item: self.cocoaView,
           attribute: attribute,
           relatedBy: .equal,
-          toItem: view.cocoaView,
+          toItem: view.cocoa().native,
           attribute: attribute,
           multiplier: coefficient,
           constant: 0

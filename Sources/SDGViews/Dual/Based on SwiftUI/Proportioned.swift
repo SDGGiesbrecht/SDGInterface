@@ -49,37 +49,27 @@
 
     // MARK: - LegacyView
 
-    #if !os(watchOS)
-      private var nativeCocoaView: NativeCocoaView {
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+      public func cocoa() -> CocoaView {
         return useSwiftUIOrFallback(to: {
           return AspectRatioContainer.constraining(
             content,
             toAspectRatio: aspectRatio,
             contentMode: contentMode
-          ).cocoaView
+          ).cocoa()
         })
-      }
-    #endif
-
-    #if canImport(AppKit)
-      public var cocoaView: NSView {
-        return nativeCocoaView
-      }
-    #elseif canImport(UIKit) && !os(watchOS)
-      public var cocoaView: UIView {
-        return nativeCocoaView
       }
     #endif
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  extension Proportioned: View, ViewProtocolShims where Content: View {
+  extension Proportioned: View, ViewShims where Content: View {
 
     // MARK: - View
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      public var swiftUIView: some SwiftUI.View {
-        return content.swiftUIView.aspectRatio(
+      public func swiftUI() -> some SwiftUI.View {
+        return content.swiftUI().aspectRatio(
           aspectRatio.map({ CGFloat($0) }),
           contentMode: SwiftUI.ContentMode(contentMode)
         )

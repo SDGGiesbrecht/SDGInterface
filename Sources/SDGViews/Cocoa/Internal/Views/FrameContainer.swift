@@ -84,7 +84,7 @@
       intrinsic: (CGSize) -> CGFloat
     ) {
       if minimum == nil, maximum == nil {
-        make(attribute, .equal, to: Double(intrinsic(content.cocoaView.intrinsicContentSize)))
+        make(attribute, .equal, to: Double(intrinsic(content.cocoa().native.intrinsicContentSize)))
       } else if minimum ≠ nil, maximum == nil {
         make(attribute, .greaterThanOrEqual, to: minimum)
         prefer(attribute, of: minimum)
@@ -103,9 +103,9 @@
       if let constant = constant,
         constant ≠ .infinity
       {
-        container.cocoaView.addConstraint(
+        container.cocoa().native.addConstraint(
           NSLayoutConstraint(
-            item: container.cocoaView,
+            item: container.cocoa().native,
             attribute: attribute,
             relatedBy: relation,
             toItem: nil,
@@ -119,12 +119,12 @@
 
     private func makeEqual(_ attribute: NSLayoutConstraint.Attribute) {
       container.addSubviewIfNecessary(content)
-      container.cocoaView.addConstraint(
+      container.cocoa().native.addConstraint(
         NSLayoutConstraint(
-          item: container.cocoaView,
+          item: container.cocoa().native,
           attribute: attribute,
           relatedBy: .equal,
-          toItem: content.cocoaView,
+          toItem: content.cocoa().native,
           attribute: attribute,
           multiplier: 1,
           constant: 0
@@ -137,22 +137,22 @@
     }
     private func preferEqual(_ attribute: NSLayoutConstraint.Attribute) {
       let constraint = NSLayoutConstraint(
-        item: content.cocoaView,
+        item: content.cocoa().native,
         attribute: attribute,
         relatedBy: .equal,
-        toItem: container.cocoaView,
+        toItem: container.cocoa().native,
         attribute: attribute,
         multiplier: 1,
         constant: 0
       )
       constraint.priority = FrameContainer.fillingPriority
-      container.cocoaView.addConstraint(constraint)
+      container.cocoa().native.addConstraint(constraint)
     }
 
     private func prefer(_ attribute: NSLayoutConstraint.Attribute, of constant: Double?) {
       if let constant = constant {
         let constraint = NSLayoutConstraint(
-          item: container.cocoaView,
+          item: container.cocoa().native,
           attribute: attribute,
           relatedBy: .equal,
           toItem: nil,
@@ -160,7 +160,7 @@
           multiplier: 1,
           constant: CGFloat(constant)
         )
-        container.cocoaView.addConstraint(constraint)
+        container.cocoa().native.addConstraint(constraint)
       }
     }
 
@@ -171,14 +171,8 @@
 
     // MARK: - View
 
-    #if canImport(AppKit)
-      public var cocoaView: NSView {
-        return container.cocoaView
-      }
-    #elseif canImport(UIKit) && !os(watchOS)
-      public var cocoaView: UIView {
-        return container.cocoaView
-      }
-    #endif
+    public func cocoa() -> CocoaView {
+      return container.cocoa()
+    }
   }
 #endif

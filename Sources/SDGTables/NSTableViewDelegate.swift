@@ -48,7 +48,7 @@
           let view = generator(data)
 
           /// Prevent constraints from conflicting with NSTableView’s self‐imposed constraints.
-          for constraint in view.cocoaView.constraints {
+          for constraint in view.cocoa().native.constraints {
             var priority = constraint.priority.rawValue
             priority −= 1
             constraint.priority = NSLayoutConstraint.Priority(rawValue: priority)

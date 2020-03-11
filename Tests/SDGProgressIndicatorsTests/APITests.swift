@@ -32,7 +32,7 @@ final class APITests: ApplicationTestCase {
       let bar = LabelledProgressBar<InterfaceLocalization>(labelText: .binding(Shared("")))
       XCTAssertEqual(bar.progressBar.progressValue, nil)
       XCTAssertEqual(bar.label.text.resolved(), "")
-      _ = bar.cocoaView
+      _ = bar.cocoa()
     #endif
   }
 

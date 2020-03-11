@@ -22,10 +22,10 @@ final class InternalTests: ApplicationTestCase {
     #if canImport(AppKit) || canImport(UIKit)
       _ =
         AspectRatioContainer.constraining(AnyCocoaView(), toAspectRatio: 1, contentMode: .fill)
-        .cocoaView
+        .cocoa()
       _ =
         AspectRatioContainer.constraining(AnyCocoaView(), toAspectRatio: 1, contentMode: .fit)
-        .cocoaView
+        .cocoa()
     #endif
   }
 }

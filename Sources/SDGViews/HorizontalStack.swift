@@ -56,14 +56,14 @@
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-      public var swiftUIView: some SwiftUI.View {
+      public func swiftUI() -> some SwiftUI.View {
         return HStack(
           alignment: SwiftUI.VerticalAlignment(alignment),
           spacing: spacing.map({ CGFloat($0) }),
           content: {
             ForEach(content.indices) {
               // @exempt(from: tests) Inaccurate coverage result.
-              self.content[$0].swiftUIView
+              self.content[$0].swiftUI()
             }
           }
         )
@@ -71,10 +71,10 @@
     #endif
 
     #if canImport(AppKit)
-      public var cocoaView: NSView {
+      public func cocoa() -> CocoaView {
         let view = NSStackView()
         for entry in content {
-          view.addView(entry.cocoaView, in: .center)
+          view.addView(entry.cocoa().native, in: .center)
         }
         switch alignment {
         case .top:
@@ -87,13 +87,13 @@
         if let specific = spacing {
           view.spacing = CGFloat(specific)
         }
-        return view
+        return CocoaView(view)
       }
     #elseif canImport(UIKit) && !os(watchOS)
-      public var cocoaView: UIView {
+      public func cocoa() -> CocoaView {
         let view = UIStackView()
         for entry in content {
-          view.addArrangedSubview(entry.cocoaView)
+          view.addArrangedSubview(entry.cocoa().native)
         }
         switch alignment {
         case .top:
@@ -106,7 +106,7 @@
         if let specific = spacing {
           view.spacing = CGFloat(specific)
         }
-        return view
+        return CocoaView(view)
       }
     #endif
   }

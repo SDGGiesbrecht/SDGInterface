@@ -28,20 +28,20 @@
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-      public var swiftUIView: some SwiftUI.View {
+      public func swiftUI() -> some SwiftUI.View {
         return SwiftUI.Color(self)
       }
     #endif
 
-    #if canImport(AppKit)
-      public var cocoaView: NSView {
-        return ColourContainer(self)
-      }
-    #elseif !os(watchOS)
-      public var cocoaView: UIView {
-        let view = UIView()
-        view.backgroundColor = self.uiColor
-        return view
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+      public func cocoa() -> CocoaView {
+        #if canImport(AppKit)
+          return CocoaView(ColourContainer(self))
+        #else
+          let view = UIView()
+          view.backgroundColor = self.uiColor
+          return CocoaView(view)
+        #endif
       }
     #endif
   }

@@ -72,14 +72,8 @@
 
     // MARK: - View
 
-    #if canImport(AppKit)
-      public var cocoaView: NSView {
-        return container.cocoaView
-      }
-    #elseif canImport(UIKit)
-      public var cocoaView: UIView {
-        return container.cocoaView
-      }
-    #endif
+    public func cocoa() -> CocoaView {
+      return container.cocoa()
+    }
   }
 #endif

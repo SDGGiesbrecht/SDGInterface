@@ -37,26 +37,20 @@
   @available(watchOS 6, *)
   public protocol LegacyView {
 
-    #if canImport(AppKit)
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       // @documentation(View.cocoaView)
-      /// The `NSView` or `UIView`.
+      /// Constructs a Cocoa representation of the view.
       ///
-      /// - Warning: A `View` may not always return the same instance when queried for a `cocoaView` representation. If you want to use the view in a way that requires refrence semantics, such as applying Cocoa constraints or bindings, wrap the view in a `StabilizedView` and use it’s stable `cocoaView` property.
-      var cocoaView: NSView { get }
-    #elseif canImport(UIKit) && !os(watchOS)
-      // #documentation(View.cocoaView)
-      /// The `NSView` or `UIView`.
-      ///
-      /// - Warning: A `View` may not always return the same instance when queried for a `cocoaView` representation. If you want to use the view in a way that requires refrence semantics, such as applying Cocoa constraints or bindings, wrap the view in a `StabilizedView` and use it’s stable `cocoaView` property.
-      var cocoaView: UIView { get }
+      /// - Warning: A `View` may not always return the same instance when queried for a Cocoa view representation. If you want to use the view in a way that requires refrence semantics, such as applying Cocoa constraints or bindings, `stabilize()` the view and use it’s stable `cocoa()` method.
+      func cocoa() -> CocoaView
     #endif
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       /// A type‐erased version of the SwiftUI view.
       ///
-      /// `View`’s `swiftUIView` is preferred instead whenever possible, since the erasing of the associated type affects performance. This property exists for use cases that would be impossible with an associated type.
+      /// `View`’s `swiftUI()` is preferred instead whenever possible, since the erasing of the associated type affects performance. This method exists for use cases that would be impossible with an associated type.
       @available(macOS 10.15, tvOS 13, iOS 13, *)
-      var anySwiftUIView: SwiftUI.AnyView { get }
+      func swiftUIAnyView() -> SwiftUI.AnyView
     #endif
   }
 
@@ -67,7 +61,7 @@
 
     /// Returns a stabilized version of the view which behaves with consistent reference semantics.
     ///
-    /// Wrap unknown `View` conformers with this method before using repeated accesses of `cocoaView` that assume the same instance will be returned each time.
+    /// Wrap unknown `View` conformers with this method before using repeated accesses of `cocoa()` that assume the same instance will be returned each time.
     @available(watchOS 6, *)
     public func stabilize() -> Stabilized<Self> {
       return Stabilized(content: self)
@@ -75,9 +69,9 @@
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       @available(macOS 10.15, tvOS 13, iOS 13, *)
-      public var anySwiftUIView: SwiftUI.AnyView {
-        if let view = self as? ViewProtocolShims {
-          return view._swiftUIImplementation
+      public func swiftUIAnyView() -> SwiftUI.AnyView {
+        if let view = self as? ViewShims {
+          return view._swiftUIImplementation()
         }
         #if os(watchOS)
           preconditionFailure(
@@ -89,18 +83,18 @@
             })
           )
         #else
-          return SwiftUI.AnyView(CocoaViewRepresentableWrapper(cocoaView))
+          return SwiftUI.AnyView(CocoaViewRepresentableWrapper(cocoa()))
         #endif
       }
     #endif
 
     #if !os(watchOS)
-      internal func useSwiftUIOrFallback(to fallback: () -> NativeCocoaView) -> NativeCocoaView {
+      internal func useSwiftUIOrFallback(to fallback: () -> CocoaView) -> CocoaView {
         #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
           if #available(macOS 10.15, tvOS 13, iOS 13, *),
             ¬legacyMode
           {
-            return anySwiftUIView.cocoaView
+            return swiftUIAnyView().cocoa()
           } else {
             return fallback()
           }
@@ -114,12 +108,12 @@
       @available(macOS 10.15, tvOS 13, iOS 13, *)
       internal func adjustForLegacyMode() -> SwiftUI.AnyView {
         #if os(watchOS)
-          return anySwiftUIView
+          return swiftUIAnyView()
         #else
           if legacyMode {
-            return AnyCocoaView(cocoaView).anySwiftUIView
+            return AnyCocoaView(cocoa().native).swiftUIAnyView()
           } else {
-            return anySwiftUIView
+            return swiftUIAnyView()
           }
         #endif  // @exempt(from: tests)
       }
