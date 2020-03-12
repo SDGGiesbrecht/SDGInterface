@@ -349,7 +349,8 @@
       toBe relation: NSLayoutConstraint.Relation,
       _ property2: (view2: CocoaView, attribute2: NSLayoutConstraint.Attribute),
       times coefficient: Double = 1,
-      plus constant: Double = 0
+      plus constant: Double = 0,
+      priority: LayoutConstraintPriority = .required
     ) {
       let constraint = NSLayoutConstraint(
         item: property1.view1.native,
@@ -360,6 +361,7 @@
         multiplier: CGFloat(coefficient),
         constant: CGFloat(constant)
       )
+      constraint.priority = LayoutConstraintPriority.NativeType(priority)
       native.addConstraint(constraint)
     }
 
