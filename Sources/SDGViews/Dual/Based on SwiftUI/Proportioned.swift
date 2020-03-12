@@ -23,6 +23,9 @@
     import UIKit
   #endif
 
+  import SDGLogic
+  import SDGMathematics
+
   import SDGInterfaceBasics
 
   /// The result of `aspectRatio(_:contentMode:)`.
@@ -52,12 +55,74 @@
     #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       public func cocoa() -> CocoaView {
         return useSwiftUIOrFallback(to: {
-          return (
-            AspectRatioContainer(
-              content: self,
-              aspectRatio: aspectRatio,
-              contentMode: contentMode
-            )?.cocoa() ?? self.cocoa()
+
+          // Parameter Resolution
+
+          let cocoaContent = content.cocoa()
+
+          let resolvedRatio: Double
+          if let specified = aspectRatio {
+            resolvedRatio = specified
+          } else {
+            let intrinsicSize = cocoaContent.intrinsicSize()
+            guard intrinsicSize.height ≠ 0 ∧ intrinsicSize.width ≠ 0 else {
+              // No meaningful aspect ratio.
+              return self.cocoa()
+            }
+            resolvedRatio = intrinsicSize.height ÷ intrinsicSize.width
+          }
+
+          // Constraints
+
+          let container = CocoaView()
+
+          container.centre(subview: cocoaContent)
+          cocoaContent.lock(aspectRatio: resolvedRatio)
+
+          func limit(
+            _ attribute: NSLayoutConstraint.Attribute,
+            by relation: NSLayoutConstraint.Relation
+          ) {
+            container.native.addConstraint(
+              NSLayoutConstraint(
+                item: cocoaContent.native,
+                attribute: attribute,
+                relatedBy: relation,
+                toItem: container.native,
+                attribute: attribute,
+                multiplier: 1,
+                constant: 0
+              )
+            )
+          }
+          func limitDimensions(by relation: NSLayoutConstraint.Relation) {
+            limit(.width, by: relation)
+            limit(.height, by: relation)
+          }
+          switch contentMode {
+          case .fill:
+            limitDimensions(by: .greaterThanOrEqual)
+          case .fit:
+            limitDimensions(by: .lessThanOrEqual)
+          }
+
+          func preferEqual(_ attribute: NSLayoutConstraint.Attribute) {
+            let constraint = NSLayoutConstraint(
+              item: cocoaContent.native,
+              attribute: attribute,
+              relatedBy: .equal,
+              toItem: container.native,
+              attribute: attribute,
+              multiplier: 1,
+              constant: 0
+            )
+            constraint.priority = CocoaLayoutConstraintPriority(rawValue: 250)
+            container.native.addConstraint(constraint)
+          }
+          preferEqual(.width)
+          preferEqual(.height)
+
+          return container
         })
       }
     #endif

@@ -81,10 +81,10 @@
       minimum: Double?,
       ideal: Double?,
       maximum: Double?,
-      intrinsic: (CGSize) -> CGFloat
+      intrinsic: (Size) -> Double
     ) {
       if minimum == nil, maximum == nil {
-        make(attribute, .equal, to: Double(intrinsic(content.cocoa().native.intrinsicContentSize)))
+        make(attribute, .equal, to: intrinsic(content.cocoa().intrinsicSize()))
       } else if minimum ≠ nil, maximum == nil {
         make(attribute, .greaterThanOrEqual, to: minimum)
         prefer(attribute, of: minimum)

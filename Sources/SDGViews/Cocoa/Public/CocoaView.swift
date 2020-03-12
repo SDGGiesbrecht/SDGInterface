@@ -22,6 +22,8 @@
 
   import SDGLogic
 
+  import SDGInterfaceBasics
+
   /// A Cocoa view.
   public struct CocoaView: CocoaViewImplementation {
 
@@ -56,6 +58,10 @@
 
     /// The native view.
     public let native: NativeType
+
+    public func intrinsicSize() -> Size {
+      return Size(native.intrinsicContentSize)
+    }
 
     // MARK: - Layout Constraints
 
@@ -208,14 +214,14 @@
       native.addConstraints(constraints)
     }
 
-    // MARK: - Size Limits
+    // MARK: - Size
 
     /// Sets the minimum size for the view along a given axis.
     ///
     /// - Parameters:
     ///     - size: The minimum size.
     ///     - axis: The axis to constrain.
-    public func setMinimumSize(size: CGFloat, axis: Axis) {
+    public func setMinimumSize(size: Double, axis: Axis) {
       let format = "\(axis.string)[view(\u{3E}=\(size))]"
       let constraints = NSLayoutConstraint.constraints(
         withVisualFormat: format,
@@ -224,6 +230,24 @@
         views: ["view": native]
       )
       native.addConstraints(constraints)
+    }
+
+    /// Sets the aspect ratio of the view.
+    ///
+    /// - Parameters:
+    ///   - aspectRatio: The aspect ratio.
+    public func lock(aspectRatio: Double) {
+      native.addConstraint(
+        NSLayoutConstraint(
+          item: native,
+          attribute: .width,
+          relatedBy: .equal,
+          toItem: native,
+          attribute: .height,
+          multiplier: CGFloat(aspectRatio),
+          constant: 0
+        )
+      )
     }
 
     // MARK: - Centring Subviews
