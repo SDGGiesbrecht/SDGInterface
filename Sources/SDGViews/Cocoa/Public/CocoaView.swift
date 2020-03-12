@@ -237,17 +237,7 @@
     /// - Parameters:
     ///   - aspectRatio: The aspect ratio.
     public func lock(aspectRatio: Double) {
-      native.addConstraint(
-        NSLayoutConstraint(
-          item: native,
-          attribute: .width,
-          relatedBy: .equal,
-          toItem: native,
-          attribute: .height,
-          multiplier: CGFloat(aspectRatio),
-          constant: 0
-        )
-      )
+      constrain((self, .width), toBe: .equal, (self, .height), times: aspectRatio)
     }
 
     // MARK: - Centring Subviews
@@ -282,16 +272,7 @@
         attribute = .centerY
       }
 
-      let constraint = NSLayoutConstraint(
-        item: subview.native,
-        attribute: attribute,
-        relatedBy: .equal,
-        toItem: native,
-        attribute: attribute,
-        multiplier: 1,
-        constant: 0
-      )
-      native.addConstraint(constraint)
+      constrain((subview, attribute), toBe: .equal, (self, attribute))
     }
 
     // MARK: - Subview Proportions
@@ -381,16 +362,7 @@
       }
 
       for viewIndex in subviews.indices {
-        let constraint = NSLayoutConstraint(
-          item: subviews[0].native,
-          attribute: attribute,
-          relatedBy: .equal,
-          toItem: subviews[viewIndex].native,
-          attribute: attribute,
-          multiplier: 1,
-          constant: 0
-        )
-        native.addConstraint(constraint)
+        constrain((subviews[0], attribute), toBe: .equal, (subviews[viewIndex], attribute))
       }
     }
 
@@ -409,16 +381,7 @@
     ) {
       for view in subviews {
         addSubviewIfNecessary(view)
-        let constraint = NSLayoutConstraint(
-          item: native,
-          attribute: attribute,
-          relatedBy: .equal,
-          toItem: view.native,
-          attribute: attribute,
-          multiplier: CGFloat(coefficient),
-          constant: 0
-        )
-        native.addConstraint(constraint)
+        constrain((self, attribute), toBe: .equal, (view, attribute), times: coefficient)
       }
     }
 
