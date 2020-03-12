@@ -67,7 +67,7 @@
             let intrinsicSize = cocoaContent.intrinsicSize()
             guard intrinsicSize.height ≠ 0 ∧ intrinsicSize.width ≠ 0 else {
               // No meaningful aspect ratio.
-              return self.cocoa()
+              return cocoaContent
             }
             resolvedRatio = intrinsicSize.height ÷ intrinsicSize.width
           }
