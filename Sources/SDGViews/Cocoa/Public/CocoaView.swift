@@ -422,6 +422,35 @@
       }
     }
 
+    /// Applies a layout constraint.
+    ///
+    /// - Parameters:
+    ///   - property1: The first property of the view hierarchy.
+    ///   - view1: The view the first property comes from.
+    ///   - attribute1: The attribute of the first property.
+    ///   - relation: The relationship between the two attributes.
+    ///   - property2: The second property of the view hierarchy.
+    ///   - view2: The view the second property comes from.
+    ///   - attribute2: The attribute of the second property.
+    public func constrain(
+      _ property1: (view1: CocoaView, attribute1: NSLayoutConstraint.Attribute),
+      toBe relation: NSLayoutConstraint.Relation,
+      _ property2: (view2: CocoaView, attribute2: NSLayoutConstraint.Attribute),
+      times coefficient: Double = 1,
+      plus constant: Double = 0
+    ) {
+      let constraint = NSLayoutConstraint(
+        item: property1.view1.native,
+        attribute: property1.attribute1,
+        relatedBy: relation,
+        toItem: property2.view2.native,
+        attribute: property2.attribute2,
+        multiplier: CGFloat(coefficient),
+        constant: CGFloat(constant)
+      )
+      native.addConstraint(constraint)
+    }
+
     // MARK: - CocoaViewImplementation
 
     public func cocoa() -> CocoaView {
