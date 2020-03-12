@@ -216,22 +216,6 @@
 
     // MARK: - Size
 
-    /// Sets the minimum size for the view along a given axis.
-    ///
-    /// - Parameters:
-    ///     - size: The minimum size.
-    ///     - axis: The axis to constrain.
-    public func setMinimumSize(size: Double, axis: Axis) {
-      let format = "\(axis.string)[view(\u{3E}=\(size))]"
-      let constraints = NSLayoutConstraint.constraints(
-        withVisualFormat: format,
-        options: [],
-        metrics: nil,
-        views: ["view": native]
-      )
-      native.addConstraints(constraints)
-    }
-
     /// Sets the aspect ratio of the view.
     ///
     /// - Parameters:
@@ -276,24 +260,6 @@
     }
 
     // MARK: - Subview Proportions
-
-    /// Makes the width or height of subviews equal.
-    ///
-    /// The subviews will be automatically added if they have not been added already.
-    ///
-    /// - Parameters:
-    ///     - subviews: The subviews to make the same size.
-    ///     - axis: An axis along which to resize the subviews.
-    public func equalizeSize(amongSubviews subviews: [CocoaView], on axis: Axis) {
-      let attribute: NSLayoutConstraint.Attribute
-      switch axis {
-      case .horizontal:
-        attribute = .width
-      case .vertical:
-        attribute = .height
-      }
-      equalize(attribute, amongSubviews: subviews)
-    }
 
     /// Makes the length or width of subviews a fraction of the same attribute on the superview.
     ///
@@ -383,6 +349,33 @@
         addSubviewIfNecessary(view)
         constrain((self, attribute), toBe: .equal, (view, attribute), times: coefficient)
       }
+    }
+
+    /// Applies an intrinsic layout constraint.
+    ///
+    /// - Parameters:
+    ///   - property1: The first property of the view hierarchy.
+    ///   - view1: The view the first property comes from.
+    ///   - attribute1: The attribute of the first property.
+    ///   - relation: The relationship between the two attributes.
+    ///   - property2: The second property of the view hierarchy.
+    ///   - view2: The view the second property comes from.
+    ///   - attribute2: The attribute of the second property.
+    public func constrain(
+      _ attribute: NSLayoutConstraint.Attribute,
+      toBe relation: NSLayoutConstraint.Relation,
+      _ constant: Double
+    ) {
+      let constraint = NSLayoutConstraint(
+        item: native,
+        attribute: attribute,
+        relatedBy: relation,
+        toItem: nil,
+        attribute: .notAnAttribute,
+        multiplier: 1,
+        constant: CGFloat(constant)
+      )
+      native.addConstraint(constraint)
     }
 
     /// Applies a layout constraint.

@@ -128,20 +128,14 @@ final class APITests: ApplicationTestCase {
         return CocoaView(native)
       }
       newView().fill(with: EmptyView().cocoa())
-      newView().setMinimumSize(size: 10, axis: .horizontal)
+      newView().constrain(.width, toBe: .greaterThanOrEqual, 10)
       newView().position(
         subviews: [EmptyView().cocoa(), EmptyView().cocoa()],
         inSequenceAlong: .vertical
       )
       newView().centre(subview: EmptyView().cocoa())
-      newView().equalizeSize(
-        amongSubviews: [EmptyView().cocoa(), EmptyView().cocoa()],
-        on: .horizontal
-      )
-      newView().equalizeSize(
-        amongSubviews: [EmptyView().cocoa(), EmptyView().cocoa()],
-        on: .vertical
-      )
+      newView().equalize(.width, amongSubviews: [EmptyView().cocoa(), EmptyView().cocoa()])
+      newView().equalize(.height, amongSubviews: [EmptyView().cocoa(), EmptyView().cocoa()])
       newView().lockSizeRatio(
         toSubviews: [EmptyView().cocoa(), EmptyView().cocoa()],
         coefficient: 1,
