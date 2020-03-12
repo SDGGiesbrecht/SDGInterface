@@ -73,7 +73,17 @@
       }
     }
 
-    // MARK: - Subview Sequences
+    // MARK: - Size
+
+    /// Sets the aspect ratio of the view.
+    ///
+    /// - Parameters:
+    ///   - aspectRatio: The aspect ratio.
+    public func lock(aspectRatio: Double) {
+      constrain((self, .width), toBe: .equal, (self, .height), times: aspectRatio)
+    }
+
+    // MARK: - Subview Arrangement
 
     internal static func spacingString(for double: Double?) -> String {
       switch double {
@@ -214,17 +224,7 @@
       native.addConstraints(constraints)
     }
 
-    // MARK: - Size
-
-    /// Sets the aspect ratio of the view.
-    ///
-    /// - Parameters:
-    ///   - aspectRatio: The aspect ratio.
-    public func lock(aspectRatio: Double) {
-      constrain((self, .width), toBe: .equal, (self, .height), times: aspectRatio)
-    }
-
-    // MARK: - Centring Subviews
+    // MARK: - Subview Alignment
 
     /// Centres a subview.
     ///
@@ -258,29 +258,6 @@
 
       constrain((subview, attribute), toBe: .equal, (self, attribute))
     }
-
-    // MARK: - Subview Proportions
-
-    /// Makes the length or width of subviews a fraction of the same attribute on the superview.
-    ///
-    /// The subviews will be automatically added if they have not been added already.
-    ///
-    /// - Parameters:
-    ///     - subviews: The subviews to resize.
-    ///     - coefficient: The size ratio.
-    ///     - axis: An axis along which to resize the subviews.
-    public func lockSizeRatio(toSubviews subviews: [CocoaView], coefficient: Double, axis: Axis) {
-      let attribute: NSLayoutConstraint.Attribute
-      switch axis {
-      case .horizontal:
-        attribute = .width
-      case .vertical:
-        attribute = .height
-      }
-      lock(attribute, ratioToSubviews: subviews, coefficient: coefficient)
-    }
-
-    // MARK: - Subview Alignment
 
     /// Aligns subviews according to their centre.
     ///
@@ -332,35 +309,12 @@
       }
     }
 
-    /// Makes an attribute of subviews a fraction of the same attribute on the superview.
-    ///
-    /// The subviews will be automatically added if they have not been added already.
-    ///
-    /// - Parameters:
-    ///     - attribute: The attribute to lock.
-    ///     - subviews: The subviews on whose attributes should be locked.
-    ///     - coefficient: The ratio.
-    public func lock(
-      _ attribute: NSLayoutConstraint.Attribute,
-      ratioToSubviews subviews: [CocoaView],
-      coefficient: Double
-    ) {
-      for view in subviews {
-        addSubviewIfNecessary(view)
-        constrain((self, attribute), toBe: .equal, (view, attribute), times: coefficient)
-      }
-    }
-
     /// Applies an intrinsic layout constraint.
     ///
     /// - Parameters:
-    ///   - property1: The first property of the view hierarchy.
-    ///   - view1: The view the first property comes from.
-    ///   - attribute1: The attribute of the first property.
-    ///   - relation: The relationship between the two attributes.
-    ///   - property2: The second property of the view hierarchy.
-    ///   - view2: The view the second property comes from.
-    ///   - attribute2: The attribute of the second property.
+    ///   - attribute: The attribute to constrain.
+    ///   - relation: The relationship between the attribute and the constant.
+    ///   - constant: A constant.
     public func constrain(
       _ attribute: NSLayoutConstraint.Attribute,
       toBe relation: NSLayoutConstraint.Relation,
@@ -388,6 +342,8 @@
     ///   - property2: The second property of the view hierarchy.
     ///   - view2: The view the second property comes from.
     ///   - attribute2: The attribute of the second property.
+    ///   - coefficient: A coefficient by which to multiply the second attribute.
+    ///   - constant: A constant to add to the second attribute.
     public func constrain(
       _ property1: (view1: CocoaView, attribute1: NSLayoutConstraint.Attribute),
       toBe relation: NSLayoutConstraint.Relation,
@@ -405,6 +361,36 @@
         constant: CGFloat(constant)
       )
       native.addConstraint(constraint)
+    }
+
+    /// Applies a layout constraint to several subviews at once.
+    ///
+    /// - Parameters:
+    ///   - attribute: The attribute of the main view.
+    ///   - relation: The relationship between the two attributes.
+    ///   - property2: The second property of the view hierarchy.
+    ///   - view2: The view the second property comes from.
+    ///   - attribute2: The attribute of the second property.
+    ///   - coefficient: A coefficient by which to multiply the second attribute.
+    ///   - constant: A constant to add to the second attribute.
+    public func constrain(
+      _ attribute: NSLayoutConstraint.Attribute,
+      toBe relation: NSLayoutConstraint.Relation,
+      _ subviewAttribute: NSLayoutConstraint.Attribute,
+      ofSubviews subviews: [CocoaView],
+      times coefficient: Double = 1,
+      plus constant: Double = 0
+    ) {
+      for view in subviews {
+        addSubviewIfNecessary(view)
+        constrain(
+          (self, attribute),
+          toBe: relation,
+          (view, attribute),
+          times: coefficient,
+          plus: constant
+        )
+      }
     }
 
     // MARK: - CocoaViewImplementation

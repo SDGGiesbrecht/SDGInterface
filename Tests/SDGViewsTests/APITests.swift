@@ -136,15 +136,17 @@ final class APITests: ApplicationTestCase {
       newView().centre(subview: EmptyView().cocoa())
       newView().equalize(.width, amongSubviews: [EmptyView().cocoa(), EmptyView().cocoa()])
       newView().equalize(.height, amongSubviews: [EmptyView().cocoa(), EmptyView().cocoa()])
-      newView().lockSizeRatio(
-        toSubviews: [EmptyView().cocoa(), EmptyView().cocoa()],
-        coefficient: 1,
-        axis: .horizontal
+      newView().constrain(
+        .width,
+        toBe: .equal,
+        .width,
+        ofSubviews: [EmptyView().cocoa(), EmptyView().cocoa()]
       )
-      newView().lockSizeRatio(
-        toSubviews: [EmptyView().cocoa(), EmptyView().cocoa()],
-        coefficient: 1,
-        axis: .vertical
+      newView().constrain(
+        .height,
+        toBe: .equal,
+        .height,
+        ofSubviews: [EmptyView().cocoa(), EmptyView().cocoa()]
       )
       newView().alignCentres(
         ofSubviews: [EmptyView().cocoa(), EmptyView().cocoa()],
