@@ -30,9 +30,9 @@
       return LayoutConstraintPriority(NativeType.required)
     }
 
+    /// The priority with which a view fills its letterbox.
     public static var letterboxFill: LayoutConstraintPriority {
-      #warning("Need to make 250.")
-      return .required
+      return LayoutConstraintPriority(NativeType.defaultLow)
     }
 
     // MARK: - Initialization
