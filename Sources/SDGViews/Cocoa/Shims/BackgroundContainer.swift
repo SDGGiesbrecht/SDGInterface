@@ -84,7 +84,9 @@
         multiplier: 1,
         constant: 0
       )
-      constraint.priority = FrameContainer<Foreground>.fillingPriority
+      constraint.priority = LayoutConstraintPriority.NativeType(
+        FrameContainer<Foreground>.fillingPriority
+      )
       container.cocoa().native.addConstraint(constraint)
     }
 

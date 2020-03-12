@@ -132,8 +132,8 @@
       )
     }
 
-    internal static var fillingPriority: CocoaLayoutConstraintPriority {
-      return CocoaLayoutConstraintPriority(rawValue: 255)
+    internal static var fillingPriority: LayoutConstraintPriority {
+      return LayoutConstraintPriority(LayoutConstraintPriority.NativeType(rawValue: 255))
     }
     private func preferEqual(_ attribute: NSLayoutConstraint.Attribute) {
       let constraint = NSLayoutConstraint(
@@ -145,7 +145,7 @@
         multiplier: 1,
         constant: 0
       )
-      constraint.priority = FrameContainer.fillingPriority
+      constraint.priority = LayoutConstraintPriority.NativeType(FrameContainer.fillingPriority)
       container.cocoa().native.addConstraint(constraint)
     }
 
