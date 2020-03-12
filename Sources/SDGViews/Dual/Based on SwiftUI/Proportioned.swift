@@ -90,21 +90,18 @@
             limitDimensions(by: .lessThanOrEqual)
           }
 
-          func preferEqual(_ attribute: NSLayoutConstraint.Attribute) {
-            let constraint = NSLayoutConstraint(
-              item: cocoaContent.native,
-              attribute: attribute,
-              relatedBy: .equal,
-              toItem: container.native,
-              attribute: attribute,
-              multiplier: 1,
-              constant: 0
-            )
-            constraint.priority = CocoaLayoutConstraintPriority(rawValue: 250)
-            container.native.addConstraint(constraint)
-          }
-          preferEqual(.width)
-          preferEqual(.height)
+          container.constrain(
+            (cocoaContent, .width),
+            toBe: .equal,
+            (container, .width),
+            priority: .letterboxFill
+          )
+          container.constrain(
+            (cocoaContent, .height),
+            toBe: .equal,
+            (container, .height),
+            priority: .letterboxFill
+          )
 
           return container
         })
