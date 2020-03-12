@@ -52,11 +52,12 @@
     #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       public func cocoa() -> CocoaView {
         return useSwiftUIOrFallback(to: {
-          return AspectRatioContainer.constraining(
-            content,
-            toAspectRatio: aspectRatio,
-            contentMode: contentMode
-          ).cocoa()
+          return (
+            AspectRatioContainer(
+              content: self,
+              aspectRatio: aspectRatio,
+              contentMode: contentMode
+            )?.cocoa() ?? self.cocoa()
         })
       }
     #endif

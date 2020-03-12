@@ -26,26 +26,12 @@
 
   internal struct AspectRatioContainer<Content>: CocoaViewImplementation where Content: LegacyView {
 
-    // MARK: - Static Methods
-
-    internal static func constraining(
-      _ view: Content,
-      toAspectRatio aspectRatio: Double?,
-      contentMode: ContentMode
-    ) -> AnyView {
-      return AspectRatioContainer(
-        content: view,
-        aspectRatio: aspectRatio,
-        contentMode: contentMode
-      ).map({ AnyView($0) }) ?? AnyView(view)
-    }
-
     // MARK: - Initialization
 
     /// Creates an aspect ratio container where meaningful.
     ///
     /// If no aspect ratio is specified and the view has no intrinsic aspect ratio, the initializer will fail and return `nil`.
-    private init?(content: Content, aspectRatio: Double?, contentMode: ContentMode) {
+    internal init?(content: Content, aspectRatio: Double?, contentMode: ContentMode) {
       self.content = content.cocoa()
       self.container = CocoaView()
 
