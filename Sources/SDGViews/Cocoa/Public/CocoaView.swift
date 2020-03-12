@@ -318,7 +318,8 @@
     public func constrain(
       _ attribute: NSLayoutConstraint.Attribute,
       toBe relation: NSLayoutConstraint.Relation,
-      _ constant: Double
+      _ constant: Double,
+      priority: LayoutConstraintPriority = .required
     ) {
       let constraint = NSLayoutConstraint(
         item: native,
@@ -329,6 +330,7 @@
         multiplier: 1,
         constant: CGFloat(constant)
       )
+      constraint.priority = LayoutConstraintPriority.NativeType(priority)
       native.addConstraint(constraint)
     }
 
