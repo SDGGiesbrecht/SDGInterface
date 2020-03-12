@@ -79,25 +79,9 @@
           container.centre(subview: cocoaContent)
           cocoaContent.lock(aspectRatio: resolvedRatio)
 
-          func limit(
-            _ attribute: NSLayoutConstraint.Attribute,
-            by relation: NSLayoutConstraint.Relation
-          ) {
-            container.native.addConstraint(
-              NSLayoutConstraint(
-                item: cocoaContent.native,
-                attribute: attribute,
-                relatedBy: relation,
-                toItem: container.native,
-                attribute: attribute,
-                multiplier: 1,
-                constant: 0
-              )
-            )
-          }
           func limitDimensions(by relation: NSLayoutConstraint.Relation) {
-            limit(.width, by: relation)
-            limit(.height, by: relation)
+            container.constrain((cocoaContent, .width), toBe: relation, (container, .width))
+            container.constrain((cocoaContent, .height), toBe: relation, (container, .height))
           }
           switch contentMode {
           case .fill:
