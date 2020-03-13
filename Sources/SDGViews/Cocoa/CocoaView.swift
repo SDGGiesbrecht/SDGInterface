@@ -59,6 +59,7 @@
     /// The native view.
     public let native: NativeType
 
+    /// Calculates the view’s natural size according to its contents.
     public func intrinsicSize() -> Size {
       return Size(native.intrinsicContentSize)
     }
@@ -315,6 +316,7 @@
     ///   - attribute: The attribute to constrain.
     ///   - relation: The relationship between the attribute and the constant.
     ///   - constant: A constant.
+    ///   - priority: The priority of the constraint.
     public func constrain(
       _ attribute: NSLayoutConstraint.Attribute,
       toBe relation: NSLayoutConstraint.Relation,
@@ -346,6 +348,7 @@
     ///   - attribute2: The attribute of the second property.
     ///   - coefficient: A coefficient by which to multiply the second attribute.
     ///   - constant: A constant to add to the second attribute.
+    ///   - priority: The priority of the constraint.
     public func constrain(
       _ property1: (view1: CocoaView, attribute1: NSLayoutConstraint.Attribute),
       toBe relation: NSLayoutConstraint.Relation,
@@ -372,11 +375,10 @@
     /// - Parameters:
     ///   - attribute: The attribute of the main view.
     ///   - relation: The relationship between the two attributes.
-    ///   - property2: The second property of the view hierarchy.
-    ///   - view2: The view the second property comes from.
-    ///   - attribute2: The attribute of the second property.
-    ///   - coefficient: A coefficient by which to multiply the second attribute.
-    ///   - constant: A constant to add to the second attribute.
+    ///   - subviewAttribute: The property of the subviews.
+    ///   - subviews: The subviews.
+    ///   - coefficient: A coefficient by which to multiply the subview attribute.
+    ///   - constant: A constant to add to the subview attribute.
     public func constrain(
       _ attribute: NSLayoutConstraint.Attribute,
       toBe relation: NSLayoutConstraint.Relation,
