@@ -81,10 +81,10 @@
       minimum: Double?,
       ideal: Double?,
       maximum: Double?,
-      intrinsic: (CGSize) -> CGFloat
+      intrinsic: (Size) -> Double
     ) {
       if minimum == nil, maximum == nil {
-        make(attribute, .equal, to: Double(intrinsic(content.cocoa().native.intrinsicContentSize)))
+        make(attribute, .equal, to: intrinsic(content.cocoa().intrinsicSize()))
       } else if minimum ≠ nil, maximum == nil {
         make(attribute, .greaterThanOrEqual, to: minimum)
         prefer(attribute, of: minimum)
@@ -132,8 +132,8 @@
       )
     }
 
-    internal static var fillingPriority: CocoaLayoutConstraintPriority {
-      return CocoaLayoutConstraintPriority(rawValue: 255)
+    internal static var fillingPriority: LayoutConstraintPriority {
+      return LayoutConstraintPriority(LayoutConstraintPriority.NativeType(rawValue: 255))
     }
     private func preferEqual(_ attribute: NSLayoutConstraint.Attribute) {
       let constraint = NSLayoutConstraint(
@@ -145,7 +145,7 @@
         multiplier: 1,
         constant: 0
       )
-      constraint.priority = FrameContainer.fillingPriority
+      constraint.priority = LayoutConstraintPriority.NativeType(FrameContainer.fillingPriority)
       container.cocoa().native.addConstraint(constraint)
     }
 

@@ -22,6 +22,8 @@
 
   import SDGLogic
 
+  import SDGInterfaceBasics
+
   /// A Cocoa view.
   public struct CocoaView: CocoaViewImplementation {
 
@@ -57,6 +59,11 @@
     /// The native view.
     public let native: NativeType
 
+    /// Calculates the view’s natural size according to its contents.
+    public func intrinsicSize() -> Size {
+      return Size(native.intrinsicContentSize)
+    }
+
     // MARK: - Layout Constraints
 
     internal func addSubviewIfNecessary(_ subview: CocoaView) {
@@ -67,7 +74,17 @@
       }
     }
 
-    // MARK: - Subview Sequences
+    // MARK: - Size
+
+    /// Sets the aspect ratio of the view.
+    ///
+    /// - Parameters:
+    ///   - aspectRatio: The aspect ratio.
+    public func lock(aspectRatio: Double) {
+      constrain((self, .width), toBe: .equal, (self, .height), times: aspectRatio)
+    }
+
+    // MARK: - Subview Arrangement
 
     internal static func spacingString(for double: Double?) -> String {
       switch double {
@@ -208,25 +225,7 @@
       native.addConstraints(constraints)
     }
 
-    // MARK: - Size Limits
-
-    /// Sets the minimum size for the view along a given axis.
-    ///
-    /// - Parameters:
-    ///     - size: The minimum size.
-    ///     - axis: The axis to constrain.
-    public func setMinimumSize(size: CGFloat, axis: Axis) {
-      let format = "\(axis.string)[view(\u{3E}=\(size))]"
-      let constraints = NSLayoutConstraint.constraints(
-        withVisualFormat: format,
-        options: [],
-        metrics: nil,
-        views: ["view": native]
-      )
-      native.addConstraints(constraints)
-    }
-
-    // MARK: - Centring Subviews
+    // MARK: - Subview Alignment
 
     /// Centres a subview.
     ///
@@ -258,58 +257,8 @@
         attribute = .centerY
       }
 
-      let constraint = NSLayoutConstraint(
-        item: subview.native,
-        attribute: attribute,
-        relatedBy: .equal,
-        toItem: native,
-        attribute: attribute,
-        multiplier: 1,
-        constant: 0
-      )
-      native.addConstraint(constraint)
+      constrain((subview, attribute), toBe: .equal, (self, attribute))
     }
-
-    // MARK: - Subview Proportions
-
-    /// Makes the width or height of subviews equal.
-    ///
-    /// The subviews will be automatically added if they have not been added already.
-    ///
-    /// - Parameters:
-    ///     - subviews: The subviews to make the same size.
-    ///     - axis: An axis along which to resize the subviews.
-    public func equalizeSize(amongSubviews subviews: [CocoaView], on axis: Axis) {
-      let attribute: NSLayoutConstraint.Attribute
-      switch axis {
-      case .horizontal:
-        attribute = .width
-      case .vertical:
-        attribute = .height
-      }
-      equalize(attribute, amongSubviews: subviews)
-    }
-
-    /// Makes the length or width of subviews a fraction of the same attribute on the superview.
-    ///
-    /// The subviews will be automatically added if they have not been added already.
-    ///
-    /// - Parameters:
-    ///     - subviews: The subviews to resize.
-    ///     - coefficient: The size ratio.
-    ///     - axis: An axis along which to resize the subviews.
-    public func lockSizeRatio(toSubviews subviews: [CocoaView], coefficient: Double, axis: Axis) {
-      let attribute: NSLayoutConstraint.Attribute
-      switch axis {
-      case .horizontal:
-        attribute = .width
-      case .vertical:
-        attribute = .height
-      }
-      lock(attribute, ratioToSubviews: subviews, coefficient: coefficient)
-    }
-
-    // MARK: - Subview Alignment
 
     /// Aligns subviews according to their centre.
     ///
@@ -357,44 +306,96 @@
       }
 
       for viewIndex in subviews.indices {
-        let constraint = NSLayoutConstraint(
-          item: subviews[0].native,
-          attribute: attribute,
-          relatedBy: .equal,
-          toItem: subviews[viewIndex].native,
-          attribute: attribute,
-          multiplier: 1,
-          constant: 0
-        )
-        native.addConstraint(constraint)
+        constrain((subviews[0], attribute), toBe: .equal, (subviews[viewIndex], attribute))
       }
     }
 
-    /// Makes an attribute of subviews a fraction of the same attribute on the superview.
-    ///
-    /// The subviews will be automatically added if they have not been added already.
+    /// Applies an intrinsic layout constraint.
     ///
     /// - Parameters:
-    ///     - attribute: The attribute to lock.
-    ///     - subviews: The subviews on whose attributes should be locked.
-    ///     - coefficient: The ratio.
-    public func lock(
+    ///   - attribute: The attribute to constrain.
+    ///   - relation: The relationship between the attribute and the constant.
+    ///   - constant: A constant.
+    ///   - priority: The priority of the constraint.
+    public func constrain(
       _ attribute: NSLayoutConstraint.Attribute,
-      ratioToSubviews subviews: [CocoaView],
-      coefficient: Double
+      toBe relation: NSLayoutConstraint.Relation,
+      _ constant: Double,
+      priority: LayoutConstraintPriority = .required
+    ) {
+      let constraint = NSLayoutConstraint(
+        item: native,
+        attribute: attribute,
+        relatedBy: relation,
+        toItem: nil,
+        attribute: .notAnAttribute,
+        multiplier: 1,
+        constant: CGFloat(constant)
+      )
+      constraint.priority = LayoutConstraintPriority.NativeType(priority)
+      native.addConstraint(constraint)
+    }
+
+    /// Applies a layout constraint.
+    ///
+    /// - Parameters:
+    ///   - property1: The first property of the view hierarchy.
+    ///   - view1: The view the first property comes from.
+    ///   - attribute1: The attribute of the first property.
+    ///   - relation: The relationship between the two attributes.
+    ///   - property2: The second property of the view hierarchy.
+    ///   - view2: The view the second property comes from.
+    ///   - attribute2: The attribute of the second property.
+    ///   - coefficient: A coefficient by which to multiply the second attribute.
+    ///   - constant: A constant to add to the second attribute.
+    ///   - priority: The priority of the constraint.
+    public func constrain(
+      _ property1: (view1: CocoaView, attribute1: NSLayoutConstraint.Attribute),
+      toBe relation: NSLayoutConstraint.Relation,
+      _ property2: (view2: CocoaView, attribute2: NSLayoutConstraint.Attribute),
+      times coefficient: Double = 1,
+      plus constant: Double = 0,
+      priority: LayoutConstraintPriority = .required
+    ) {
+      let constraint = NSLayoutConstraint(
+        item: property1.view1.native,
+        attribute: property1.attribute1,
+        relatedBy: relation,
+        toItem: property2.view2.native,
+        attribute: property2.attribute2,
+        multiplier: CGFloat(coefficient),
+        constant: CGFloat(constant)
+      )
+      constraint.priority = LayoutConstraintPriority.NativeType(priority)
+      native.addConstraint(constraint)
+    }
+
+    /// Applies a layout constraint to several subviews at once.
+    ///
+    /// - Parameters:
+    ///   - attribute: The attribute of the main view.
+    ///   - relation: The relationship between the two attributes.
+    ///   - subviewAttribute: The property of the subviews.
+    ///   - subviews: The subviews.
+    ///   - coefficient: A coefficient by which to multiply the subview attribute.
+    ///   - constant: A constant to add to the subview attribute.
+    public func constrain(
+      _ attribute: NSLayoutConstraint.Attribute,
+      toBe relation: NSLayoutConstraint.Relation,
+      _ subviewAttribute: NSLayoutConstraint.Attribute,
+      ofSubviews subviews: [CocoaView],
+      times coefficient: Double = 1,
+      plus constant: Double = 0
     ) {
       for view in subviews {
         addSubviewIfNecessary(view)
-        let constraint = NSLayoutConstraint(
-          item: native,
-          attribute: attribute,
-          relatedBy: .equal,
-          toItem: view.native,
-          attribute: attribute,
-          multiplier: CGFloat(coefficient),
-          constant: 0
+        constrain(
+          (self, attribute),
+          toBe: relation,
+          (view, attribute),
+          times: coefficient,
+          plus: constant
         )
-        native.addConstraint(constraint)
       }
     }
 

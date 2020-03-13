@@ -181,7 +181,7 @@ extension SDGViewsTests.APITests {
 extension SDGViewsTests.InternalTests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
-      ("testAspectRatioContainer", testAspectRatioContainer),
+      ("testProportionedView", testProportionedView),
     ])
   ]
 }

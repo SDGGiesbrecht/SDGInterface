@@ -23,6 +23,9 @@
     import UIKit
   #endif
 
+  import SDGLogic
+  import SDGMathematics
+
   import SDGInterfaceBasics
 
   /// The result of `aspectRatio(_:contentMode:)`.
@@ -52,11 +55,55 @@
     #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       public func cocoa() -> CocoaView {
         return useSwiftUIOrFallback(to: {
-          return AspectRatioContainer.constraining(
-            content,
-            toAspectRatio: aspectRatio,
-            contentMode: contentMode
-          ).cocoa()
+
+          // Parameter Resolution
+
+          let cocoaContent = content.cocoa()
+
+          let resolvedRatio: Double
+          if let specified = aspectRatio {
+            resolvedRatio = specified
+          } else {
+            let intrinsicSize = cocoaContent.intrinsicSize()
+            guard intrinsicSize.height ≠ 0 ∧ intrinsicSize.width ≠ 0 else {
+              // No meaningful aspect ratio.
+              return cocoaContent
+            }
+            resolvedRatio = intrinsicSize.height ÷ intrinsicSize.width
+          }
+
+          // Constraints
+
+          let container = CocoaView()
+
+          container.centre(subview: cocoaContent)
+          cocoaContent.lock(aspectRatio: resolvedRatio)
+
+          func limitDimensions(by relation: NSLayoutConstraint.Relation) {
+            container.constrain((cocoaContent, .width), toBe: relation, (container, .width))
+            container.constrain((cocoaContent, .height), toBe: relation, (container, .height))
+          }
+          switch contentMode {
+          case .fill:
+            limitDimensions(by: .greaterThanOrEqual)
+          case .fit:
+            limitDimensions(by: .lessThanOrEqual)
+          }
+
+          container.constrain(
+            (cocoaContent, .width),
+            toBe: .equal,
+            (container, .width),
+            priority: .letterboxFill
+          )
+          container.constrain(
+            (cocoaContent, .height),
+            toBe: .equal,
+            (container, .height),
+            priority: .letterboxFill
+          )
+
+          return container
         })
       }
     #endif

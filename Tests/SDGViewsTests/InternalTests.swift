@@ -18,14 +18,10 @@ import SDGApplicationTestUtilities
 
 final class InternalTests: ApplicationTestCase {
 
-  func testAspectRatioContainer() {
+  func testProportionedView() {
     #if canImport(AppKit) || canImport(UIKit)
-      _ =
-        AspectRatioContainer.constraining(CocoaView(), toAspectRatio: 1, contentMode: .fill)
-        .cocoa()
-      _ =
-        AspectRatioContainer.constraining(CocoaView(), toAspectRatio: 1, contentMode: .fit)
-        .cocoa()
+      _ = Proportioned(content: CocoaView(), aspectRatio: 1, contentMode: .fill).cocoa()
+      _ = Proportioned(content: CocoaView(), aspectRatio: 1, contentMode: .fit).cocoa()
     #endif
   }
 }
