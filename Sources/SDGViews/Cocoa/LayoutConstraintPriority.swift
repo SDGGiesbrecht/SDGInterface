@@ -20,7 +20,7 @@
     import UIKit
   #endif
 
-  // A layout constraint priority.
+  /// A layout constraint priority.
   public struct LayoutConstraintPriority {
 
     // MARK: - Static Properties
