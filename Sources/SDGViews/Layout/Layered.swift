@@ -81,13 +81,13 @@
             (background, .width),
             toBe: .equal,
             (container, .width),
-            priority: FrameContainer<Foreground>.fillingPriority
+            priority: .frameFill
           )
           container.constrain(
             (background, .height),
             toBe: .equal,
             (container, .height),
-            priority: FrameContainer<Foreground>.fillingPriority
+            priority: .frameFill
           )
 
           return container
