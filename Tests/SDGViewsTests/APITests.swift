@@ -92,7 +92,7 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
-  func testLayoutConstraintPriority {
+  func testLayoutConstraintPriority() {
     _ = LayoutConstraintPriority(rawValue: 500)
   }
 
