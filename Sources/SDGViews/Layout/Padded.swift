@@ -23,6 +23,8 @@
     import UIKit
   #endif
 
+  import SDGLogic
+
   import SDGInterfaceBasics
 
   /// The result of `padding(_:_:)`.
@@ -48,7 +50,31 @@
     #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       public func cocoa() -> CocoaView {
         return useSwiftUIOrFallback(to: {
-          return PaddingContainer(content: content, edges: edges, width: width).cocoa()
+
+          let content = self.content.cocoa()
+          let container = CocoaView()
+
+          func spacing(for edge: SDGInterfaceBasics.Edge) -> Double? {
+            var spacing = width
+            if ¬edges.contains(Edge.Set(edge)) {
+              spacing = 0
+            }
+            return spacing
+          }
+          container.fill(
+            with: content,
+            on: .horizontal,
+            leadingMargin: spacing(for: .leading),
+            trailingMargin: spacing(for: .trailing)
+          )
+          container.fill(
+            with: content,
+            on: .vertical,
+            leadingMargin: spacing(for: .top),
+            trailingMargin: spacing(for: .bottom)
+          )
+
+          return container
         })
       }
     #endif
