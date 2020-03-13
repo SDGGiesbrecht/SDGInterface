@@ -66,6 +66,10 @@
 
     // MARK: - Layout Constraints
 
+    /// Adds the subview to this view unless has already been added.
+    ///
+    /// - Parameters:
+    ///   - subview: The new subview.
     internal func addSubviewIfNecessary(_ subview: CocoaView) {
       subview.disableAutoresizingMask()
 

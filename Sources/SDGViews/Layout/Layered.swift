@@ -57,6 +57,7 @@
           let background = self.background.cocoa()
           let foreground = self.foreground.cocoa()
 
+          container.addSubviewIfNecessary(background)
           switch alignment.horizontal {
           case .leading:
             container.constrain((background, .leading), toBe: .equal, (container, .leading))
