@@ -53,11 +53,44 @@
     #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       public func cocoa() -> CocoaView {
         return useSwiftUIOrFallback(to: {
-          return BackgroundContainer(
-            background: background,
-            foreground: foreground,
-            alignment: alignment
-          ).cocoa()
+          let container = CocoaView()
+          let background = self.background.cocoa()
+          let foreground = self.foreground.cocoa()
+
+          switch alignment.horizontal {
+          case .leading:
+            container.constrain((background, .leading), toBe: .equal, (container, .leading))
+          case .centre:
+            container.constrain((background, .centerX), toBe: .equal, (container, .centerX))
+          case .trailing:
+            container.constrain((background, .trailing), toBe: .equal, (container, .trailing))
+          }
+          switch alignment.vertical {
+          case .top:
+            container.constrain((background, .top), toBe: .equal, (container, .top))
+          case .centre:
+            container.constrain((background, .centerY), toBe: .equal, (container, .centerY))
+          case .bottom:
+            container.constrain((background, .bottom), toBe: .equal, (container, .bottom))
+          }
+
+          container.disableAutoresizingMask()
+          container.fill(with: foreground, margin: 0)
+
+          container.constrain(
+            (background, .width),
+            toBe: .equal,
+            (container, .width),
+            priority: FrameContainer<Foreground>.fillingPriority
+          )
+          container.constrain(
+            (background, .height),
+            toBe: .equal,
+            (container, .height),
+            priority: FrameContainer<Foreground>.fillingPriority
+          )
+
+          return container
         })
       }
     #endif

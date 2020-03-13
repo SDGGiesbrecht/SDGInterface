@@ -67,11 +67,16 @@
     // MARK: - Layout Constraints
 
     internal func addSubviewIfNecessary(_ subview: CocoaView) {
-      subview.native.translatesAutoresizingMaskIntoConstraints = false
+      subview.disableAutoresizingMask()
 
       if ¬native.subviews.contains(subview.native) {
         native.addSubview(subview.native)
       }
+    }
+
+    /// Disables constraints inherited from the autoresizing mask.
+    public func disableAutoresizingMask() {
+      native.translatesAutoresizingMaskIntoConstraints = false
     }
 
     // MARK: - Size
