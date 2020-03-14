@@ -93,7 +93,9 @@ final class APITests: ApplicationTestCase {
   }
 
   func testLayoutConstraintPriority() {
-    _ = LayoutConstraintPriority(rawValue: 500)
+    #if canImport(AppKit) || canImport(UIKit)
+      _ = LayoutConstraintPriority(rawValue: 500)
+    #endif
   }
 
   func testLegacyView() {
