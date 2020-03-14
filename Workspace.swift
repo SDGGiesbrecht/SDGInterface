@@ -60,3 +60,6 @@ configuration.documentation.api.ignoredDependencies = [
   "Foundation",
   "XCTest"
 ]
+
+// #workaround(For now.)
+configuration.supportedPlatforms.remove(.web)
