@@ -92,6 +92,12 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
+  func testLayoutConstraintPriority() {
+    #if canImport(AppKit) || canImport(UIKit)
+      _ = LayoutConstraintPriority(rawValue: 500)
+    #endif
+  }
+
   func testLegacyView() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       class Legacy: LegacyView {

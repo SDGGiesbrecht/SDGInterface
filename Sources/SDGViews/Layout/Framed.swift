@@ -69,16 +69,88 @@
     #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       public func cocoa() -> CocoaView {
         return useSwiftUIOrFallback(to: {
-          return FrameContainer(
-            content: content,
-            minWidth: minWidth,
-            idealWidth: idealWidth,
-            maxWidth: maxWidth,
-            minHeight: minHeight,
-            idealHeight: idealHeight,
-            maxHeight: maxHeight,
-            alignment: alignment
-          ).cocoa()
+
+          let content = self.content.cocoa()
+          let container = CocoaView()
+          container.addSubviewIfNecessary(content)
+
+          func handleDimension(
+            _ attribute: NSLayoutConstraint.Attribute,
+            minimum: Double?,
+            ideal: Double?,
+            maximum: Double?,
+            intrinsic: (Size) -> Double
+          ) {
+            func constrainSize(
+              toBe relation: NSLayoutConstraint.Relation,
+              _ constant: Double?
+            ) {
+              if let constant = constant,
+                constant ≠ .infinity
+              {
+                container.constrain(attribute, toBe: relation, constant)
+              }
+            }
+            func prefer(size constant: Double?) {
+              if let constant = constant {
+                container.constrain(attribute, toBe: .equal, constant)
+              }
+            }
+            if minimum == nil, maximum == nil {
+              constrainSize(toBe: .equal, intrinsic(content.intrinsicSize()))
+            } else if minimum ≠ nil, maximum == nil {
+              constrainSize(toBe: .greaterThanOrEqual, minimum)
+              prefer(size: minimum)
+            } else {
+              constrainSize(toBe: .greaterThanOrEqual, minimum)
+              prefer(size: ideal)
+              constrainSize(toBe: .lessThanOrEqual, maximum)
+            }
+
+            container.constrain(
+              (content, attribute),
+              toBe: .equal,
+              (container, attribute),
+              priority: .frameFill
+            )
+          }
+
+          handleDimension(
+            .width,
+            minimum: minWidth,
+            ideal: idealWidth,
+            maximum: maxWidth,
+            intrinsic: { $0.width }
+          )
+          handleDimension(
+            .height,
+            minimum: minHeight,
+            ideal: idealHeight,
+            maximum: maxHeight,
+            intrinsic: { $0.height }
+          )
+
+          func align(_ attribute: NSLayoutConstraint.Attribute) {
+            container.constrain((content, attribute), toBe: .equal, (container, attribute))
+          }
+          switch alignment.horizontal {
+          case .leading:
+            align(.leading)
+          case .centre:
+            align(.centerX)
+          case .trailing:
+            align(.trailing)
+          }
+          switch alignment.vertical {
+          case .top:
+            align(.top)
+          case .centre:
+            align(.centerY)
+          case .bottom:
+            align(.bottom)
+          }
+
+          return container
         })
       }
     #endif

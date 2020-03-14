@@ -21,13 +21,20 @@
   #endif
 
   /// A layout constraint priority.
-  public struct LayoutConstraintPriority {
+  public struct LayoutConstraintPriority: RawRepresentable {
 
     // MARK: - Static Properties
 
     /// A required constraint.
     public static var required: LayoutConstraintPriority {
       return LayoutConstraintPriority(NativeType.required)
+    }
+
+    /// The priority with which a resizable view fills its frame.
+    public static var frameFill: LayoutConstraintPriority {
+      var priority = LayoutConstraintPriority(NativeType.defaultLow)
+      priority.rawValue += 5
+      return LayoutConstraintPriority(LayoutConstraintPriority.NativeType(rawValue: 255))
     }
 
     /// The priority with which a view fills its letterbox.
@@ -48,6 +55,21 @@
     // MARK: - Properties
 
     internal var native: NativeType
+
+    // MARK: - RawRepresentable
+
+    public init(rawValue: Float) {
+      native = NativeType(rawValue: rawValue)
+    }
+
+    public var rawValue: Float {
+      get {
+        return native.rawValue
+      }
+      set {
+        native = NativeType(rawValue: newValue)
+      }
+    }
   }
 
 #endif
