@@ -21,8 +21,8 @@
   ///
   /// When conforming to `View`, it is simplest (though not necessary) for a type to either:
   ///
-  /// - implement `swiftUIView` and conform to `SwiftUIViewImplementation`, or
-  /// - implement `cocoaView` and conform to `CocoaViewImplementation`.
+  /// - implement `swiftUI()` and conform to `SwiftUIViewImplementation`, or
+  /// - implement `cocoa()` and conform to `CocoaViewImplementation`.
   ///
   /// In each case, default implementations will cover the rest of the conformance to `View`.
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)

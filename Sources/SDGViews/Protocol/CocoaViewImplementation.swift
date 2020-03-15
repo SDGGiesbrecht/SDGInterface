@@ -24,7 +24,7 @@
 
   /// A view that is implemented using Cocoa.
   ///
-  /// If a type provides an implementation of `cocoaView`, conformance to this protocol can be declared in order to use default implementations for all the other requirements of `SDGSwift.View`.
+  /// If a type provides an implementation of `cocoa()`, conformance to this protocol can be declared in order to use default implementations for all the other requirements of `SDGSwift.View`.
   public protocol CocoaViewImplementation: View {}
 
   extension CocoaViewImplementation {
