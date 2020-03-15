@@ -38,7 +38,6 @@
   public protocol LegacyView {
 
     #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
-      // @documentation(View.cocoaView)
       /// Constructs a Cocoa representation of the view.
       ///
       /// - Warning: This method may not return the same instance each time it is called. If you want to use the view in a way that requires consistent refrence semantics—such as applying Cocoa constraints or bindings—call this method only once and store the result for re‐use.
