@@ -263,6 +263,9 @@ extension Application {
     #endif
   #endif
 
-  @objc private func doNothing() {  // @exempt(from: tests)
-  }
+  // #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
+  #if canImport(Foundation)
+    @objc private func doNothing() {  // @exempt(from: tests)
+    }
+  #endif
 }

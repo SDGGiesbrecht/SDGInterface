@@ -16,16 +16,16 @@
   // #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
   #if canImport(Foundation)
     import Foundation
+
+    /// An object which responds to actions related to displayed text.
+    @objc public protocol TextDisplayResponder {
+
+      /// Shows information about the selected characters.
+      ///
+      /// - Parameters:
+      ///     - sender: The sender.
+      @available(iOS 9, *)  // @exempt(from: unicode)
+      @objc func showCharacterInformation(_ sender: Any?)
+    }
   #endif
-
-  /// An object which responds to actions related to displayed text.
-  @objc public protocol TextDisplayResponder {
-
-    /// Shows information about the selected characters.
-    ///
-    /// - Parameters:
-    ///     - sender: The sender.
-    @available(iOS 9, *)  // @exempt(from: unicode)
-    @objc func showCharacterInformation(_ sender: Any?)
-  }
 #endif
