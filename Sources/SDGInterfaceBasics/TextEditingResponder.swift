@@ -13,7 +13,10 @@
  */
 
 #if !os(Windows)  // #workaround(Swift 5.1.3, Windows trips over “@objc”?)
-  import Foundation
+  // #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
+  #if canImport(Foundation)
+    import Foundation
+  #endif
 
   /// An object which responds to actions related to editing text.
   @objc public protocol TextEditingResponder: TextDisplayResponder {
