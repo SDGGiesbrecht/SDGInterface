@@ -75,29 +75,32 @@ public final class Application {
   }
 
   #if !os(watchOS)
-    /// Starts the application’s main run loop.
-    ///
-    /// - Parameters:
-    ///     - mediator: An object which will mediate between the application and system events.
-    public class func main(mediator: SystemMediator) -> Never {  // @exempt(from: tests)
-      prepareForMain(mediator: mediator)
-      #if canImport(AppKit)
-        exit(NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv))
-      #elseif canImport(UIKit)
-        exit(
-          UIApplicationMain(
-            CommandLine.argc,
-            CommandLine.unsafeArgv,
-            nil,
-            NSStringFromClass(UIApplicationDelegate.self)
+    // #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
+    #if canImport(Foundation)
+      /// Starts the application’s main run loop.
+      ///
+      /// - Parameters:
+      ///     - mediator: An object which will mediate between the application and system events.
+      public class func main(mediator: SystemMediator) -> Never {  // @exempt(from: tests)
+        prepareForMain(mediator: mediator)
+        #if canImport(AppKit)
+          exit(NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv))
+        #elseif canImport(UIKit)
+          exit(
+            UIApplicationMain(
+              CommandLine.argc,
+              CommandLine.unsafeArgv,
+              nil,
+              NSStringFromClass(UIApplicationDelegate.self)
+            )
           )
-        )
-      #else
-        while true {
-          RunLoop.current.run()
-        }
-      #endif
-    }
+        #else
+          while true {
+            RunLoop.current.run()
+          }
+        #endif
+      }
+    #endif
   #endif
 
   internal class func postLaunchSetUp() {

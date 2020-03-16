@@ -388,12 +388,15 @@ extension SystemMediator {
     return .noData
   }
 
-  public func open(files: [URL], details: OpeningDetails) -> Bool {
-    #if DEBUG
-      Swift.print(#function)
-    #endif
-    return false
-  }
+  // #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
+  #if canImport(Foundation)
+    public func open(files: [URL], details: OpeningDetails) -> Bool {
+      #if DEBUG
+        Swift.print(#function)
+      #endif
+      return false
+    }
+  #endif
 
   public func createNewBlankFile() -> Bool {
     return false
