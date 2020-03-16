@@ -12,7 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-import Foundation
+// #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
+#if canImport(Foundation)
+  import Foundation
+#endif
 
 import SDGText
 import SDGLocalization
@@ -31,27 +34,37 @@ public struct ApplicationNameLocalization: Localization {
     if let defined = _correspondingIsolatedName {
       return defined
     } else {
-      // This fallback is only for “und”.
-      let information = Bundle.main.infoDictionary
-      if let name = information?["CFBundleDisplayName" as String] as? String
-        ?? information?["CFBundleName" as String] as? String
-      {
-        return StrictString(name)  // @exempt(from: tests)
-      }
-      return StrictString(ProcessInfo.processInfo.processName)  // @exempt(from: tests)
+      // #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
+      #if !canImport(Foundation)
+        return ""
+      #else
+        // This fallback is only for “und”.
+        let information = Bundle.main.infoDictionary
+        if let name = information?["CFBundleDisplayName" as String] as? String
+          ?? information?["CFBundleName" as String] as? String
+        {
+          return StrictString(name)  // @exempt(from: tests)
+        }
+        return StrictString(ProcessInfo.processInfo.processName)  // @exempt(from: tests)
+      #endif
     }
   }
 
   // MARK: - Localization
 
   public init?(exactly code: String) {
-    guard let form = ApplicationNameForm._isolatedForm(for: code),
-      let name = ProcessInfo.applicationName(form)
-    else {
+    // #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
+    #if !canImport(Foundation)
       return nil
-    }
-    self.code = code
-    _correspondingIsolatedName = name
+    #else
+      guard let form = ApplicationNameForm._isolatedForm(for: code),
+        let name = ProcessInfo.applicationName(form)
+      else {
+        return nil
+      }
+      self.code = code
+      _correspondingIsolatedName = name
+    #endif
   }
 
   public var code: String
