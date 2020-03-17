@@ -12,7 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-import Foundation
+// #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
+#if canImport(Foundation)
+  import Foundation
+#endif
 
 import SDGMenus
 
@@ -170,11 +173,14 @@ public protocol SystemMediator {
   ///     - handoff: The handoff activity.
   func preprocess(handoff: Handoff)
 
-  /// Called by some systems as the remote notification registration finishes.
-  ///
-  /// - Parameters:
-  ///     - deviceToken: The device token
-  func finishRegistrationForRemoteNotifications(deviceToken: Data)
+  // #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
+  #if canImport(Foundation)
+    /// Called by some systems as the remote notification registration finishes.
+    ///
+    /// - Parameters:
+    ///     - deviceToken: The device token
+    func finishRegistrationForRemoteNotifications(deviceToken: Data)
+  #endif
 
   /// Called by some systems when remote notification registration fails.
   ///
@@ -192,14 +198,17 @@ public protocol SystemMediator {
     details: RemoteNotificationDetails
   ) -> FetchResult
 
-  /// Called by some systems to request that one or more files be opened.
-  ///
-  /// - Parameters:
-  ///     - files: The files to open.
-  ///     - details: Details provided by the system.
-  ///
-  /// - Returns: Whether or not the files could be opened successfully.
-  func open(files: [URL], details: OpeningDetails) -> Bool
+  // #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
+  #if canImport(Foundation)
+    /// Called by some systems to request that one or more files be opened.
+    ///
+    /// - Parameters:
+    ///     - files: The files to open.
+    ///     - details: Details provided by the system.
+    ///
+    /// - Returns: Whether or not the files could be opened successfully.
+    func open(files: [URL], details: OpeningDetails) -> Bool
+  #endif
 
   /// Called by some systems to request that a new, blank file be created.
   ///
@@ -211,46 +220,52 @@ public protocol SystemMediator {
   /// - Returns: Whether or not a file should be created.
   func shouldCreateNewBlankFile() -> Bool
 
-  /// Called by some systems to request that a file be printed.
-  ///
-  /// - Parameters:
-  ///     - files: The files to open.
-  ///     - details: Details provided by the system.
-  func print(files: [URL], details: PrintingDetails) -> PrintingResponse
+  // #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
+  #if canImport(Foundation)
+    /// Called by some systems to request that a file be printed.
+    ///
+    /// - Parameters:
+    ///     - files: The files to open.
+    ///     - details: Details provided by the system.
+    func print(files: [URL], details: PrintingDetails) -> PrintingResponse
+  #endif
 
-  /// Called by some systems to ask whether to encode a restorable state.
-  ///
-  /// - Parameters:
-  ///     - coder: The coder.
-  func shouldEncodeRestorableState(coder: NSCoder) -> Bool
+  // #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
+  #if canImport(Foundation)
+    /// Called by some systems to ask whether to encode a restorable state.
+    ///
+    /// - Parameters:
+    ///     - coder: The coder.
+    func shouldEncodeRestorableState(coder: NSCoder) -> Bool
 
-  /// Called by some systems before encoding a restorable state.
-  ///
-  /// - Parameters:
-  ///     - coder: The coder.
-  func prepareToEncodeRestorableState(coder: NSCoder)
+    /// Called by some systems before encoding a restorable state.
+    ///
+    /// - Parameters:
+    ///     - coder: The coder.
+    func prepareToEncodeRestorableState(coder: NSCoder)
 
-  /// Called by some systems to ask whether to restore a previous state.
-  ///
-  /// - Parameters:
-  ///     - coder: The coder.
-  func shouldRestorePreviousState(coder: NSCoder) -> Bool
+    /// Called by some systems to ask whether to restore a previous state.
+    ///
+    /// - Parameters:
+    ///     - coder: The coder.
+    func shouldRestorePreviousState(coder: NSCoder) -> Bool
 
-  /// Called by some systems as restoration finishes.
-  ///
-  /// - Parameters:
-  ///     - coder: The coder.
-  func finishRestoring(coder: NSCoder)
+    /// Called by some systems as restoration finishes.
+    ///
+    /// - Parameters:
+    ///     - coder: The coder.
+    func finishRestoring(coder: NSCoder)
 
-  /// Returns the controller for a particular restoration identifier path.
-  ///
-  /// - Parameters:
-  ///     - path: The path.
-  ///     - coder: The coder.
-  func viewController(
-    forRestorationIdentifierPath path: [String],
-    coder: NSCoder
-  ) -> ViewControllerRestorationResponse
+    /// Returns the controller for a particular restoration identifier path.
+    ///
+    /// - Parameters:
+    ///     - path: The path.
+    ///     - coder: The coder.
+    func viewController(
+      forRestorationIdentifierPath path: [String],
+      coder: NSCoder
+    ) -> ViewControllerRestorationResponse
+  #endif
 
   /// Called by some systems when the application’s occlusion changes.
   ///
@@ -351,11 +366,14 @@ extension SystemMediator {
   }
   public func preprocess(handoff: Handoff) {}
 
-  public func finishRegistrationForRemoteNotifications(deviceToken: Data) {
-    #if DEBUG
-      Swift.print(#function)
-    #endif
-  }
+  // #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
+  #if canImport(Foundation)
+    public func finishRegistrationForRemoteNotifications(deviceToken: Data) {
+      #if DEBUG
+        Swift.print(#function)
+      #endif
+    }
+  #endif
   public func reportFailedRegistrationForRemoteNotifications(error: Error) {
     #if DEBUG
       Swift.print(#function)
@@ -370,12 +388,15 @@ extension SystemMediator {
     return .noData
   }
 
-  public func open(files: [URL], details: OpeningDetails) -> Bool {
-    #if DEBUG
-      Swift.print(#function)
-    #endif
-    return false
-  }
+  // #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
+  #if canImport(Foundation)
+    public func open(files: [URL], details: OpeningDetails) -> Bool {
+      #if DEBUG
+        Swift.print(#function)
+      #endif
+      return false
+    }
+  #endif
 
   public func createNewBlankFile() -> Bool {
     return false
@@ -385,33 +406,36 @@ extension SystemMediator {
     return true
   }
 
-  public func print(files: [URL], details: PrintingDetails) -> PrintingResponse {
-    #if DEBUG
-      Swift.print(#function)
-    #endif
-    return .failure
-  }
+  // #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
+  #if canImport(Foundation)
+    public func print(files: [URL], details: PrintingDetails) -> PrintingResponse {
+      #if DEBUG
+        Swift.print(#function)
+      #endif
+      return .failure
+    }
 
-  public func shouldEncodeRestorableState(coder: NSCoder) -> Bool {
-    return false
-  }
-  public func prepareToEncodeRestorableState(coder: NSCoder) {}
-  public func shouldRestorePreviousState(coder: NSCoder) -> Bool {
-    #if DEBUG
-      Swift.print(#function)
-    #endif
-    return false
-  }
-  public func finishRestoring(coder: NSCoder) {}
-  public func viewController(
-    forRestorationIdentifierPath path: [String],
-    coder: NSCoder
-  ) -> ViewControllerRestorationResponse {
-    #if DEBUG
-      Swift.print(#function)
-    #endif
-    return ViewControllerRestorationResponse()
-  }
+    public func shouldEncodeRestorableState(coder: NSCoder) -> Bool {
+      return false
+    }
+    public func prepareToEncodeRestorableState(coder: NSCoder) {}
+    public func shouldRestorePreviousState(coder: NSCoder) -> Bool {
+      #if DEBUG
+        Swift.print(#function)
+      #endif
+      return false
+    }
+    public func finishRestoring(coder: NSCoder) {}
+    public func viewController(
+      forRestorationIdentifierPath path: [String],
+      coder: NSCoder
+    ) -> ViewControllerRestorationResponse {
+      #if DEBUG
+        Swift.print(#function)
+      #endif
+      return ViewControllerRestorationResponse()
+    }
+  #endif
 
   public func updateAccordingToOcclusionChange(_ notification: SystemNotification?) {}
 

@@ -12,7 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-import Foundation
+// #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
+#if canImport(Foundation)
+  import Foundation
+#endif
 
 /// A system notification.
 public struct SystemNotification {
@@ -25,7 +28,10 @@ public struct SystemNotification {
   // MARK: - Properties
 
   #if !os(Linux)
-    /// The native notification.
-    public var native: Notification?
+    // #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
+    #if canImport(Foundation)
+      /// The native notification.
+      public var native: Notification?
+    #endif
   #endif
 }

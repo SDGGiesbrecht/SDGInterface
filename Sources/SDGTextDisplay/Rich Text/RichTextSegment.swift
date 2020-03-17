@@ -12,49 +12,52 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-import Foundation
+// #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
+#if canImport(Foundation)
+  import Foundation
 
-import SDGLogic
-import SDGText
+  import SDGLogic
+  import SDGText
 
-extension RichText {
+  extension RichText {
 
-  internal struct Segment: Equatable, Hashable {
+    internal struct Segment: Equatable, Hashable {
 
-    // MARK: - Initialization
+      // MARK: - Initialization
 
-    internal init(rawText: StrictString, attributes: [NSAttributedString.Key: Any] = [:]) {
-      self.rawText = rawText
-      self.attributes = attributes
-    }
+      internal init(rawText: StrictString, attributes: [NSAttributedString.Key: Any] = [:]) {
+        self.rawText = rawText
+        self.attributes = attributes
+      }
 
-    // MARK: - Properties
+      // MARK: - Properties
 
-    internal var rawText: StrictString
-    internal var attributes: [NSAttributedString.Key: Any]
+      internal var rawText: StrictString
+      internal var attributes: [NSAttributedString.Key: Any]
 
-    private var attributesProxy: NSAttributedString {
-      return NSAttributedString(string: " ", attributes: attributes)
-    }
+      private var attributesProxy: NSAttributedString {
+        return NSAttributedString(string: " ", attributes: attributes)
+      }
 
-    // MARK: - Attributes
+      // MARK: - Attributes
 
-    internal func attributesEqual(_ other: Segment) -> Bool {
-      return attributesProxy == other.attributesProxy
-    }
+      internal func attributesEqual(_ other: Segment) -> Bool {
+        return attributesProxy == other.attributesProxy
+      }
 
-    // MARK: - Equatable
+      // MARK: - Equatable
 
-    internal static func == (precedingValue: Segment, followingValue: Segment) -> Bool {
-      return precedingValue.rawText == followingValue.rawText
-        ∧ precedingValue.attributesEqual(followingValue)
-    }
+      internal static func == (precedingValue: Segment, followingValue: Segment) -> Bool {
+        return precedingValue.rawText == followingValue.rawText
+          ∧ precedingValue.attributesEqual(followingValue)
+      }
 
-    // MARK: - Hashable
+      // MARK: - Hashable
 
-    internal func hash(into hasher: inout Hasher) {
-      hasher.combine(rawText)
-      hasher.combine(attributesProxy)
+      internal func hash(into hasher: inout Hasher) {
+        hasher.combine(rawText)
+        hasher.combine(attributesProxy)
+      }
     }
   }
-}
+#endif

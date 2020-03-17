@@ -12,21 +12,24 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-import Foundation
+// #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
+#if canImport(Foundation)
+  import Foundation
 
-extension RichText {
-  internal enum NormalizationAttribute: String, Codable {
+  extension RichText {
+    internal enum NormalizationAttribute: String, Codable {
 
-    // MARK: - Type Properties
-    internal static let mapping: [Unicode.Scalar: NormalizationAttribute] = {
-      let data = Resources.normalizationMapping
-      let wrapper = (try? JSONDecoder().decode(NormalizationAttribute.Mapping.self, from: data))!
-      return wrapper.mapping
-    }()
+      // MARK: - Type Properties
+      internal static let mapping: [Unicode.Scalar: NormalizationAttribute] = {
+        let data = Resources.normalizationMapping
+        let wrapper = (try? JSONDecoder().decode(NormalizationAttribute.Mapping.self, from: data))!
+        return wrapper.mapping
+      }()
 
-    // MARK: - Cases
+      // MARK: - Cases
 
-    case superscript
-    case `subscript`
+      case superscript
+      case `subscript`
+    }
   }
-}
+#endif

@@ -113,7 +113,7 @@ let package = Package(
     .library(name: "_SDGInterfaceSample", targets: ["SDGInterfaceSample"])
   ],
   dependencies: [
-    .package(url: "https://github.com/SDGGiesbrecht/SDGCornerstone", from: Version(4, 4, 0))
+    .package(url: "https://github.com/SDGGiesbrecht/SDGCornerstone", from: Version(4, 6, 0))
   ],
   targets: [
     // #documentation(SDGApplication)
@@ -595,4 +595,11 @@ if firstEntry.hasSuffix("/Contents/Developer/usr/bin") {
   var settings = sdgXCTestUtilities.swiftSettings ?? []
   settings.append(.define("MANIFEST_LOADED_BY_XCODE"))
   sdgXCTestUtilities.swiftSettings = settings
+}
+
+if ProcessInfo.processInfo.environment["TARGETING_WEB"] == "true" {
+  for target in package.targets {
+    // #workaround(Swift 5.1.5, Web lacks foundation.)
+    target.exclude.append("Resources.swift")
+  }
 }

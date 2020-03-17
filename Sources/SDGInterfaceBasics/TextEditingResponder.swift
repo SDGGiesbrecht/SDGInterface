@@ -13,15 +13,18 @@
  */
 
 #if !os(Windows)  // #workaround(Swift 5.1.3, Windows trips over “@objc”?)
-  import Foundation
+  // #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
+  #if canImport(Foundation)
+    import Foundation
 
-  /// An object which responds to actions related to editing text.
-  @objc public protocol TextEditingResponder: TextDisplayResponder {
+    /// An object which responds to actions related to editing text.
+    @objc public protocol TextEditingResponder: TextDisplayResponder {
 
-    /// Normalizes the selection to NFKD.
-    ///
-    /// - Parameters:
-    ///     - sender: The sender.
-    @objc func normalizeText(_ sender: Any?)
-  }
+      /// Normalizes the selection to NFKD.
+      ///
+      /// - Parameters:
+      ///     - sender: The sender.
+      @objc func normalizeText(_ sender: Any?)
+    }
+  #endif
 #endif

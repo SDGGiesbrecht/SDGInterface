@@ -12,7 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-import Foundation
+// #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
+#if canImport(Foundation)
+  import Foundation
+#endif
 
 /// An activity handoff.
 public struct Handoff {
@@ -25,7 +28,10 @@ public struct Handoff {
   // MARK: - Properties
 
   #if !(os(Windows) || os(Linux) || os(Android))
-    /// The native activity.
-    public var activity: NSUserActivity?
+    // #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
+    #if canImport(Foundation)
+      /// The native activity.
+      public var activity: NSUserActivity?
+    #endif
   #endif
 }

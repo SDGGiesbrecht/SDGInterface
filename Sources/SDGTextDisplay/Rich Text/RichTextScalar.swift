@@ -12,30 +12,33 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-import Foundation
+// #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
+#if canImport(Foundation)
+  import Foundation
 
-extension RichText {
+  extension RichText {
 
-  /// A single Unicode scalar of rich text.
-  public struct Scalar {
+    /// A single Unicode scalar of rich text.
+    public struct Scalar {
 
-    // MARK: - Initialization
+      // MARK: - Initialization
 
-    /// Creates a rich text scalar.
-    ///
-    /// - Parameters:
-    ///     - rawScalar: The raw Unicode scalar.
-    ///     - attributes: The rich text attributes.
-    public init(_ rawScalar: Unicode.Scalar, attributes: [NSAttributedString.Key: Any] = [:]) {
-      self.rawScalar = rawScalar
-      self.attributes = attributes
+      /// Creates a rich text scalar.
+      ///
+      /// - Parameters:
+      ///     - rawScalar: The raw Unicode scalar.
+      ///     - attributes: The rich text attributes.
+      public init(_ rawScalar: Unicode.Scalar, attributes: [NSAttributedString.Key: Any] = [:]) {
+        self.rawScalar = rawScalar
+        self.attributes = attributes
+      }
+
+      // MARK: - Properties
+
+      /// The raw text scalar.
+      public var rawScalar: Unicode.Scalar
+      /// The attributes applied to the scalar.
+      public var attributes: [NSAttributedString.Key: Any]
     }
-
-    // MARK: - Properties
-
-    /// The raw text scalar.
-    public var rawScalar: Unicode.Scalar
-    /// The attributes applied to the scalar.
-    public var attributes: [NSAttributedString.Key: Any]
   }
-}
+#endif

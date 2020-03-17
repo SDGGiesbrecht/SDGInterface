@@ -12,7 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-import Foundation
+// #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
+#if canImport(Foundation)
+  import Foundation
+#endif
 #if canImport(AppKit)
   import AppKit
 #endif
@@ -38,55 +41,61 @@ import SDGApplication
 extension Application {
 
   public static func setUp() {
-    ProcessInfo.applicationName = { form in
-      switch form {
-      case .english(let region):
-        switch region {
-        case .unitedKingdom, .unitedStates, .canada:
-          return "Sample"
-        }
-      case .español(let preposición):
-        switch preposición {
-        case .ninguna:
-          return "Ejemplar"
-        case .de:
-          return "del Ejemplar"
-        }
-      case .deutsch(let fall):
-        switch fall {
-        case .nominativ, .akkusativ, .dativ:
-          return "Beispiel"
-        }
-      case .français(let préposition):
-        switch préposition {
-        case .aucune:
-          return "Exemple"
-        case .de:
-          return "de l’Exemple"
-        }
+    // #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
+    #if canImport(Foundation)
+      ProcessInfo.applicationName = { form in
+        switch form {
+        case .english(let region):
+          switch region {
+          case .unitedKingdom, .unitedStates, .canada:
+            return "Sample"
+          }
+        case .español(let preposición):
+          switch preposición {
+          case .ninguna:
+            return "Ejemplar"
+          case .de:
+            return "del Ejemplar"
+          }
+        case .deutsch(let fall):
+          switch fall {
+          case .nominativ, .akkusativ, .dativ:
+            return "Beispiel"
+          }
+        case .français(let préposition):
+          switch préposition {
+          case .aucune:
+            return "Exemple"
+          case .de:
+            return "de l’Exemple"
+          }
 
-      case .ελληνικά(let πτώση):
-        switch πτώση {
-        case .ονομαστική:
-          return "Παράδειγμα"
-        case .αιτιατική:
-          return "το Παράδειγμα"
-        case .γενική:
-          return "του Παραδείγματος"
+        case .ελληνικά(let πτώση):
+          switch πτώση {
+          case .ονομαστική:
+            return "Παράδειγμα"
+          case .αιτιατική:
+            return "το Παράδειγμα"
+          case .γενική:
+            return "του Παραδείγματος"
+          }
+        case .עברית:
+          return "דוגמה"
         }
-      case .עברית:
-        return "דוגמה"
       }
-    }
+    #endif
   }
 
   #if !os(watchOS)
-    public class func setUpAndMain() -> Never {  // @exempt(from: tests)
-      setUp()
-      // @example(main)
-      Application.main(mediator: SystemMediator())
-      // @endExample
-    }
+    // #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
+    #if canImport(Foundation)
+      public class func setUpAndMain() -> Never {  // @exempt(from: tests)
+        setUp()
+        // @example(main)
+        Application.main(mediator: SystemMediator())
+        // @endExample
+      }
+    #endif
   #endif
 
   internal static func setSamplesUp() {
@@ -260,6 +269,9 @@ extension Application {
     #endif
   #endif
 
-  @objc private func doNothing() {  // @exempt(from: tests)
-  }
+  // #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
+  #if canImport(Foundation)
+    @objc private func doNothing() {  // @exempt(from: tests)
+    }
+  #endif
 }

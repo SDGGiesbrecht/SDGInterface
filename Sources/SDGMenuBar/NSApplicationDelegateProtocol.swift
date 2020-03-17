@@ -12,8 +12,11 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-import Foundation
+// #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
+#if canImport(Foundation)
+  import Foundation
 
-@objc public protocol _NSApplicationDelegateProtocol {
-  @objc func openPreferences(_ sender: Any?)
-}
+  @objc public protocol _NSApplicationDelegateProtocol {
+    @objc func openPreferences(_ sender: Any?)
+  }
+#endif

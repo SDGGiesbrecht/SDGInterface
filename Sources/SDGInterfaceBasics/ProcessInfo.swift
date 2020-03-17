@@ -12,41 +12,44 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-import Foundation
+// #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
+#if canImport(Foundation)
+  import Foundation
 
-import SDGText
-import SDGLocalization
+  import SDGText
+  import SDGLocalization
 
-import SDGInterfaceLocalizations
+  import SDGInterfaceLocalizations
 
-extension ProcessInfo {
+  extension ProcessInfo {
 
-  /// A closure which resolves the application name for a particular localized grammatical form.
-  ///
-  /// This is a typealias for `(_ form: ApplicationNameForm) -> StrictString?`.
-  public typealias ApplicationNameResolver = (_ form: ApplicationNameForm) -> StrictString?
+    /// A closure which resolves the application name for a particular localized grammatical form.
+    ///
+    /// This is a typealias for `(_ form: ApplicationNameForm) -> StrictString?`.
+    public typealias ApplicationNameResolver = (_ form: ApplicationNameForm) -> StrictString?
 
-  private static var _applicationName: ApplicationNameResolver?
-  /// A closure which produces the declined application name suitable for use in various gramatical contexts.
-  ///
-  /// Applications must assign this property a value at the very beginning of program execution. Failing to do so before the first attempt to read this property will trigger a precondition failure.
-  public static var applicationName: ApplicationNameResolver {
-    get {
-      guard let result = _applicationName else {
-        preconditionFailure(
-          UserFacing<StrictString, APILocalization>({ localization in
-            switch localization {
-            case .englishCanada:  // @exempt(from: tests)
-              return
-                "“ProcessInfo.applicationName” has not been set yet. (Import Foundation, SDGText and SDGInterfaceBasics.)"
-            }
-          })
-        )
+    private static var _applicationName: ApplicationNameResolver?
+    /// A closure which produces the declined application name suitable for use in various gramatical contexts.
+    ///
+    /// Applications must assign this property a value at the very beginning of program execution. Failing to do so before the first attempt to read this property will trigger a precondition failure.
+    public static var applicationName: ApplicationNameResolver {
+      get {
+        guard let result = _applicationName else {
+          preconditionFailure(
+            UserFacing<StrictString, APILocalization>({ localization in
+              switch localization {
+              case .englishCanada:  // @exempt(from: tests)
+                return
+                  "“ProcessInfo.applicationName” has not been set yet. (Import Foundation, SDGText and SDGInterfaceBasics.)"
+              }
+            })
+          )
+        }
+        return result
       }
-      return result
-    }
-    set {
-      _applicationName = newValue
+      set {
+        _applicationName = newValue
+      }
     }
   }
-}
+#endif
