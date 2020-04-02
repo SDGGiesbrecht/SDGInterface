@@ -96,7 +96,7 @@
                 text: .binding(Shared(StrictString(details.normalizedCharacters)))
               )
             )
-          }
+          },
         ]
       )
 

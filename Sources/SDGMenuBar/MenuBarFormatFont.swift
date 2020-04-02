@@ -322,7 +322,7 @@
         .entry(showColours()),
         .separator,
         .entry(copyStyle()),
-        .entry(pasteStyle())
+        .entry(pasteStyle()),
       ]
       return font
     }

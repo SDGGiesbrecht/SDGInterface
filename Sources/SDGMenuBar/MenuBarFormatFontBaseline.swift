@@ -178,7 +178,7 @@
         .entry(superscript()),
         .entry(`subscript`()),
         .entry(raise()),
-        .entry(lower())
+        .entry(lower()),
       ]
       return baseline
     }

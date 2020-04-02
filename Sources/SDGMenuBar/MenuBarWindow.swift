@@ -130,7 +130,7 @@
         .entry(minimize()),
         .entry(zoom()),
         .separator,
-        .entry(bringAllToFront())
+        .entry(bringAllToFront()),
       ]
       NSApplication.shared.windowsMenu = window.native
       return window

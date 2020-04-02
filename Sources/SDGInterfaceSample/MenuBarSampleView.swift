@@ -140,7 +140,7 @@
         .entry(image()),
         .entry(label()),
         .entry(textEditor()),
-        .submenu(textField())
+        .submenu(textField()),
       ]
       return view
     }

@@ -151,7 +151,7 @@
         .entry(useDefault()),
         .entry(useNone()),
         .entry(tighten()),
-        .entry(loosen())
+        .entry(loosen()),
       ]
       return kern
     }

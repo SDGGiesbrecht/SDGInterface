@@ -199,7 +199,7 @@
         .entry(selection()),
         .entry(selectionDefault()),
         .entry(selectionRightToLeft()),
-        .entry(selectionLeftToRight())
+        .entry(selectionLeftToRight()),
       ]
       return writingDirection
     }

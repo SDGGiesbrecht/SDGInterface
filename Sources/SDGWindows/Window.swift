@@ -123,7 +123,7 @@
             .miniaturizable,
             .resizable,
             .texturedBackground,
-            .unifiedTitleAndToolbar
+            .unifiedTitleAndToolbar,
           ],
           backing: .buffered,
           defer: true

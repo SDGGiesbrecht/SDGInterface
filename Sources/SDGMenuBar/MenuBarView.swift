@@ -158,7 +158,7 @@
         .entry(customizeToolbar()),
         .separator,
         .entry(showSideBar()),
-        .entry(enterFullScreen())
+        .entry(enterFullScreen()),
       ]
       return view
     }

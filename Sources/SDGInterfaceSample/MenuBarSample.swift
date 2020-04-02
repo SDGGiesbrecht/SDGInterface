@@ -57,7 +57,7 @@
         .entry(error()),
         .submenu(menu()),
         .submenu(view()),
-        .submenu(window())
+        .submenu(window()),
       ]
       return sample
     }

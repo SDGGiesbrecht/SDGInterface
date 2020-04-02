@@ -150,8 +150,9 @@
           })
         )
       )
-      correctSpellingAutomatically.action = #selector(NSTextView
-        .toggleAutomaticSpellingCorrection(_:))
+      correctSpellingAutomatically.action = #selector(
+        NSTextView
+          .toggleAutomaticSpellingCorrection(_:))
       return correctSpellingAutomatically
     }
 
@@ -183,7 +184,7 @@
         .separator,
         .entry(checkSpellingWhileTyping()),
         .entry(checkGrammarWithSpelling()),
-        .entry(correctSpellingAutomatically())
+        .entry(correctSpellingAutomatically()),
       ]
       return spellingAndGrammar
     }

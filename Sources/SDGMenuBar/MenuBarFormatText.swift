@@ -244,7 +244,7 @@
         .separator,
         .entry(showRuler()),
         .entry(copyRuler()),
-        .entry(pasteRuler())
+        .entry(pasteRuler()),
       ]
       return text
     }

@@ -65,10 +65,9 @@
     public static var availableSize: Size {
       #if canImport(AppKit)
         return Size(
-          (
-            NSScreen.main
-              ?? NSScreen()  // @exempt(from: tests) Screen should not be nil.
-          ).frame.size
+          (NSScreen.main
+            ?? NSScreen()  // @exempt(from: tests) Screen should not be nil.
+            ).frame.size
         )
       #elseif canImport(UIKit)
         return Size(UIScreen.main.bounds.size)

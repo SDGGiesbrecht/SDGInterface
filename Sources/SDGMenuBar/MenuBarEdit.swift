@@ -281,7 +281,7 @@
         .submenu(substitutions()),
         .submenu(transformations()),
         .entry(ContextMenu._showCharacterInformation()),
-        .submenu(speech())
+        .submenu(speech()),
       ]
       return edit
     }

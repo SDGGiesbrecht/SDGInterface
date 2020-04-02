@@ -74,7 +74,8 @@
       Application.shared.systemMediator?.finishResigningFocus(system)
     }
 
-    internal func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication
+    internal func applicationShouldTerminate(_ sender: NSApplication)
+      -> NSApplication
       .TerminateReply
     {
       return (Application.shared.systemMediator?.terminate() ?? .now).native
@@ -250,10 +251,11 @@
       var details = PrintingDetails()
       details.settings = printSettings
       details.displayPanels = showPrintPanels
-      let result = Application.shared.systemMediator?.print(
-        files: fileNames.map({ URL(fileURLWithPath: $0) }),
-        details: details
-      ) ?? .failure
+      let result =
+        Application.shared.systemMediator?.print(
+          files: fileNames.map({ URL(fileURLWithPath: $0) }),
+          details: details
+        ) ?? .failure
       return result.native
     }
 

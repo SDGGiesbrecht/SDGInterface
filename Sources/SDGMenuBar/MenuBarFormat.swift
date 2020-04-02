@@ -46,7 +46,7 @@
       )
       format.entries = [
         .submenu(font()),
-        .submenu(text())
+        .submenu(text()),
       ]
       return format
     }
