@@ -61,7 +61,8 @@
           let markedUp = SemanticMarkup("_").richText(
             font: font.resized(to: font.size × htmlCorrection)
           )
-          let paragraph = markedUp.attribute(.paragraphStyle, at: 0, effectiveRange: nil)
+          let paragraph =
+            markedUp.attribute(.paragraphStyle, at: 0, effectiveRange: nil)
             as! NSParagraphStyle
           return Double(paragraph.minimumLineHeight)
         }
@@ -71,9 +72,9 @@
         _ attributes: inout [NSAttributedString.Key: Any]
       ) {
         var font = attributes.font ?? Font.default
-        let paragraphStyle = (
-          attributes[.paragraphStyle] as? NSParagraphStyle ?? NSParagraphStyle.default
-        ).mutableCopy() as! NSMutableParagraphStyle
+        let paragraphStyle =
+          (attributes[.paragraphStyle] as? NSParagraphStyle ?? NSParagraphStyle.default)
+          .mutableCopy() as! NSMutableParagraphStyle
 
         font = font.resized(to: superscriptPointSize(forBasePointSize: font.size))
         paragraphStyle.minimumLineHeight = CGFloat(lineHeight(for: font))
@@ -101,9 +102,9 @@
       fileprivate static func resetBaseline(for attributes: inout [NSAttributedString.Key: Any]) {
         var level = |(attributes[.superscript] as? Int ?? 0)|
         var font = attributes.font ?? Font.default
-        let paragraphStyle = (
-          attributes[.paragraphStyle] as? NSParagraphStyle ?? NSParagraphStyle.default
-        ).mutableCopy() as! NSMutableParagraphStyle
+        let paragraphStyle =
+          (attributes[.paragraphStyle] as? NSParagraphStyle ?? NSParagraphStyle.default)
+          .mutableCopy() as! NSMutableParagraphStyle
 
         while level ≠ 0 {
           defer { level −= 1 }
@@ -215,9 +216,8 @@
               {
                 let characterRange = NSRange(scalarStart..<scalarEnd, in: section)
                 let charactersRangeInContext = NSRange(
-                  (characterRange.lowerBound + sectionRange.lowerBound)..<(
-                    characterRange.upperBound + sectionRange.lowerBound
-                  )
+                  (characterRange.lowerBound + sectionRange.lowerBound)..<(characterRange.upperBound
+                    + sectionRange.lowerBound)
                 )
                 addAttribute(.glyphInfo, value: glyphInfo, range: charactersRangeInContext)
 

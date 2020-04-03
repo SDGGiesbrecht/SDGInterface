@@ -178,7 +178,7 @@ final class APITests: ApplicationTestCase {
           )
           let basicHTML = try NSAttributedString.from(html: placeholderText, font: font)
           let ignored: [NSAttributedString.Key] = [
-            .foregroundColor, .kern, .paragraphStyle, .strokeColor, .strokeWidth
+            .foregroundColor, .kern, .paragraphStyle, .strokeColor, .strokeWidth,
           ]
           XCTAssertEqual(
             prepareForEqualityCheck(basicString, ignoring: ignored),
@@ -266,7 +266,8 @@ final class APITests: ApplicationTestCase {
       XCTAssertEqual(
         RichText(
           richText[
-            richText.index(after: richText.startIndex)..<richText.index(before: richText.endIndex)]
+            richText.index(after: richText.startIndex)..<richText.index(before: richText.endIndex)
+          ]
         ).count,
         4
       )
@@ -310,10 +311,11 @@ final class APITests: ApplicationTestCase {
         XCTAssertEqual(nothingConcatenated, half)
       #endif
       richText = RichText(rawText: "......")
-      let subrange = richText.index(
-        richText.startIndex,
-        offsetBy: 2
-      )..<richText.index(richText.endIndex, offsetBy: −2)
+      let subrange =
+        richText.index(
+          richText.startIndex,
+          offsetBy: 2
+        )..<richText.index(richText.endIndex, offsetBy: −2)
       let text = RichText(richText[subrange]).rawText()
       richText.replaceSubrange(
         subrange,
@@ -325,7 +327,8 @@ final class APITests: ApplicationTestCase {
       XCTAssertEqual(
         RichText(
           richText[
-            richText.index(after: richText.startIndex)..<richText.index(before: richText.endIndex)]
+            richText.index(after: richText.startIndex)..<richText.index(before: richText.endIndex)
+          ]
         ).count,
         4
       )
@@ -536,10 +539,11 @@ final class APITests: ApplicationTestCase {
       Application.shared.demonstrateTextField()
       forEachWindow { window in
         #if canImport(AppKit)
-          let fieldEditor = window.native.fieldEditor(
-            true,
-            for: window.view.cocoa().native.subviews[0]
-          )
+          let fieldEditor =
+            window.native.fieldEditor(
+              true,
+              for: window.view.cocoa().native.subviews[0]
+            )
             as! NSTextView
           fieldEditor.insertText("...", replacementRange: NSRange(0..<0))
           fieldEditor.insertText(

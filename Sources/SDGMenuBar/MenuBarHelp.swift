@@ -30,37 +30,45 @@
           UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-              let deLaAplicación = ProcessInfo.applicationName(.español(.de))
+              let deLaAplicación =
+                ProcessInfo.applicationName(.español(.de))
                 ?? "de \(MenuBar.fallbackApplicationName(quotationMarks: ("«", "»")))"
               return "Ayuda \(deLaAplicación)"
             case .françaisFrance:
-              let deLApplication = ProcessInfo.applicationName(.français(.de))
+              let deLApplication =
+                ProcessInfo.applicationName(.français(.de))
                 ?? "de \(MenuBar.fallbackApplicationName(quotationMarks: ("« ", " »")))"
               return "Aide \(deLApplication)"
 
             case .englishUnitedKingdom:
-              let theApplication = ProcessInfo.applicationName(.english(.unitedKingdom))
+              let theApplication =
+                ProcessInfo.applicationName(.english(.unitedKingdom))
                 ?? MenuBar.fallbackApplicationName(quotationMarks: ("‘", "’"))
               return "\(theApplication) Help"
             case .englishUnitedStates:
-              let theApplication = ProcessInfo.applicationName(.english(.unitedStates))
+              let theApplication =
+                ProcessInfo.applicationName(.english(.unitedStates))
                 ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”"))
               return "\(theApplication) Help"
             case .englishCanada:
-              let theApplication = ProcessInfo.applicationName(.english(.canada))
+              let theApplication =
+                ProcessInfo.applicationName(.english(.canada))
                 ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”"))
               return "\(theApplication) Help"
             case .deutschDeutschland:
-              let derAnwendung = ProcessInfo.applicationName(.deutsch(.dativ))
+              let derAnwendung =
+                ProcessInfo.applicationName(.deutsch(.dativ))
                 ?? MenuBar.fallbackApplicationName(quotationMarks: ("„", "“"))
               return "Hilfe zu \(derAnwendung)"
 
             case .ελληνικάΕλλάδα:
-              let τηνΕφαρμογή = ProcessInfo.applicationName(.ελληνικά(.αιτιατική))
+              let τηνΕφαρμογή =
+                ProcessInfo.applicationName(.ελληνικά(.αιτιατική))
                 ?? MenuBar.fallbackApplicationName(quotationMarks: ("«", "»"))
               return "Βοήθεια για \(τηνΕφαρμογή)"
             case .עברית־ישראל:
-              let היישום = ProcessInfo.applicationName(.עברית)
+              let היישום =
+                ProcessInfo.applicationName(.עברית)
                 ?? MenuBar.fallbackApplicationName(quotationMarks: ("”", "“"))
               return "עזרה עבור \(היישום)"
             }

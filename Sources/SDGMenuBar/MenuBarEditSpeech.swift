@@ -99,7 +99,7 @@
       )
       speech.entries = [
         .entry(startSpeaking()),
-        .entry(stopSpeaking())
+        .entry(stopSpeaking()),
       ]
       return speech
     }

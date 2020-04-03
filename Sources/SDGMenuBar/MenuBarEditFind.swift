@@ -219,7 +219,7 @@
         .entry(findNext()),
         .entry(findPrevious()),
         .entry(jumpToSelection()),
-        .entry(useSelectionForFind())
+        .entry(useSelectionForFind()),
       ]
       return find
     }

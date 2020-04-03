@@ -163,7 +163,7 @@ final class APITests: ApplicationTestCase {
         on: .vertical
       )
       newView().alignLastBaselines(ofSubviews: [
-        EmptyView().cocoa(), EmptyView().cocoa()
+        EmptyView().cocoa(), EmptyView().cocoa(),
       ])
       _ = newView().aspectRatio(1, contentMode: .fit).cocoa()
       newView().position(

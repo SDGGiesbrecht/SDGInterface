@@ -94,11 +94,10 @@
               subdirectory: nil,
               localization: localization.code
             )
-            let dictionary: NSDictionary? = (
-              infoPlist.flatMap({ (url: URL) -> NSDictionary? in
+            let dictionary: NSDictionary? =
+              (infoPlist.flatMap({ (url: URL) -> NSDictionary? in
                 return NSDictionary(contentsOfFile: url.path)
-              })
-            )
+              }))
             let nameKey = "CFBundleDisplayName"
             let shortKey = "CFBundleName"
             let systemName: String? = dictionary?[nameKey] as? String

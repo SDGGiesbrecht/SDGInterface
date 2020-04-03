@@ -60,7 +60,7 @@
         .submenu(MenuBar.format()),
         .submenu(MenuBar.view()),
         .submenu(MenuBar.window()),
-        .submenu(MenuBar.help())
+        .submenu(MenuBar.help()),
       ]
       menuDidSet()
     }

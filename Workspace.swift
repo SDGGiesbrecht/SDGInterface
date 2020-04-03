@@ -58,5 +58,5 @@ configuration.documentation.api.ignoredDependencies = [
   // Swift
   "Dispatch",
   "Foundation",
-  "XCTest"
+  "XCTest",
 ]

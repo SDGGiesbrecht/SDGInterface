@@ -124,7 +124,7 @@
         #selector(TextEditingResponder.normalizeText(_:)),
         #selector(RichTextEditingResponder.makeSuperscript(_:)),
         #selector(RichTextEditingResponder.makeSubscript(_:)),
-        #selector(RichTextEditingResponder.resetBaseline(_:))
+        #selector(RichTextEditingResponder.resetBaseline(_:)),
       ]
       if #available(iOS 9, *) {  // @exempt(from: unicode)
         result.insert(#selector(TextDisplayResponder.showCharacterInformation(_:)))
@@ -137,7 +137,7 @@
           #selector(RichTextEditingResponder.makeLatinateSmallCaps(_:)),
           #selector(RichTextEditingResponder.makeTurkicSmallCaps(_:)),
           #selector(RichTextEditingResponder.makeLatinateLowerCase(_:)),
-          #selector(RichTextEditingResponder.makeTurkicLowerCase(_:))
+          #selector(RichTextEditingResponder.makeTurkicLowerCase(_:)),
         ]
       #endif
       return result
@@ -148,7 +148,7 @@
         #selector(TextEditingResponder.normalizeText(_:)),
         #selector(RichTextEditingResponder.makeSuperscript(_:)),
         #selector(RichTextEditingResponder.makeSubscript(_:)),
-        #selector(RichTextEditingResponder.resetBaseline(_:))
+        #selector(RichTextEditingResponder.resetBaseline(_:)),
       ]
       #if canImport(AppKit)
         result ∪= [
@@ -158,7 +158,7 @@
           #selector(RichTextEditingResponder.makeLatinateSmallCaps(_:)),
           #selector(RichTextEditingResponder.makeTurkicSmallCaps(_:)),
           #selector(RichTextEditingResponder.makeLatinateLowerCase(_:)),
-          #selector(RichTextEditingResponder.makeTurkicLowerCase(_:))
+          #selector(RichTextEditingResponder.makeTurkicLowerCase(_:)),
         ]
       #endif
       return result
@@ -168,7 +168,7 @@
       var result: Set<Selector> = [
         #selector(RichTextEditingResponder.makeSuperscript(_:)),
         #selector(RichTextEditingResponder.makeSubscript(_:)),
-        #selector(RichTextEditingResponder.resetBaseline(_:))
+        #selector(RichTextEditingResponder.resetBaseline(_:)),
       ]
       #if canImport(AppKit)
         result ∪= [
@@ -178,7 +178,7 @@
           #selector(RichTextEditingResponder.makeLatinateSmallCaps(_:)),
           #selector(RichTextEditingResponder.makeTurkicSmallCaps(_:)),
           #selector(RichTextEditingResponder.makeLatinateLowerCase(_:)),
-          #selector(RichTextEditingResponder.makeTurkicLowerCase(_:))
+          #selector(RichTextEditingResponder.makeTurkicLowerCase(_:)),
         ]
       #endif
       return result

@@ -46,7 +46,8 @@
     ///     - rawText: The raw text.
     ///     - attributes: The rich text attributes.
     public init(rawText: StrictString, attributes: [NSAttributedString.Key: Any] = [:]) {
-      let segments: [Segment] = rawText.isEmpty
+      let segments: [Segment] =
+        rawText.isEmpty
         ? [] : [Segment(rawText: rawText, attributes: attributes)]
       self.init(unsafeSegments: segments)
     }

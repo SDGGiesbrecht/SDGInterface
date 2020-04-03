@@ -123,7 +123,7 @@
       ligatures.entries = [
         .entry(useDefault()),
         .entry(useNone()),
-        .entry(useAll())
+        .entry(useAll()),
       ]
       return ligatures
     }

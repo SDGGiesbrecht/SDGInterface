@@ -88,9 +88,9 @@
               .background(Colour.red)
               .adjustForLegacyMode()
           )
-            .frame(width: 128, height: 64)
-            .padding(1)
-            .border(Color.gray, width: 1),
+          .frame(width: 128, height: 64)
+          .padding(1)
+          .border(Color.gray, width: 1),
           name: "Behind Filling Frame"
         )
       }

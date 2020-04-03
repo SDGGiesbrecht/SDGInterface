@@ -71,7 +71,7 @@
       )
       textField.entries = [
         .entry(textFieldEntry()),
-        .entry(labelledTextField())
+        .entry(labelledTextField()),
       ]
       return textField
     }

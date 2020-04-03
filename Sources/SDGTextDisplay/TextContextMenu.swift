@@ -54,7 +54,7 @@
       )
       let adjustments: [MenuComponent] = [
         .entry(SDGContextMenu.ContextMenu._normalizeText()),
-        .entry(SDGContextMenu.ContextMenu._showCharacterInformation())
+        .entry(SDGContextMenu.ContextMenu._showCharacterInformation()),
       ]
       var appendix: [MenuComponent] = []
       for adjustment in adjustments {
@@ -85,8 +85,9 @@
             })
             transformations.entries.append(adjustment)
             handled = true
-          } else if entry.native.action == #selector(TextDisplayResponder
-            .showCharacterInformation(_:)),
+          } else if entry.native.action == #selector(
+            TextDisplayResponder
+              .showCharacterInformation(_:)),
             let transformations = systemMenu.entries.indices.lazy
               .first(where: { index in
                 let submenu = systemMenu.entries[index].asSubmenu

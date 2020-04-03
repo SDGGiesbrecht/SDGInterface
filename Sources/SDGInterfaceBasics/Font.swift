@@ -56,8 +56,9 @@
       #if canImport(AppKit)
         return Font(NSFontManager.shared.convert(native, toHaveTrait: .boldFontMask))
       #else
-        let descriptor = native.fontDescriptor.withSymbolicTraits(.traitBold)
-        // Unknown why the descriptor would be nil.
+        let descriptor =
+          native.fontDescriptor.withSymbolicTraits(.traitBold)
+          // Unknown why the descriptor would be nil.
           ?? native.fontDescriptor  // @exempt(from: tests)
         return Font(UIFont(descriptor: descriptor, size: 0))
       #endif
@@ -68,8 +69,9 @@
       #if canImport(AppKit)
         return Font(NSFontManager.shared.convert(native, toHaveTrait: .italicFontMask))
       #else
-        let descriptor = native.fontDescriptor.withSymbolicTraits(.traitItalic)
-        // Unknown why the descriptor would be nil.
+        let descriptor =
+          native.fontDescriptor.withSymbolicTraits(.traitItalic)
+          // Unknown why the descriptor would be nil.
           ?? native.fontDescriptor  // @exempt(from: tests)
         return Font(UIFont(descriptor: descriptor, size: 0))
       #endif

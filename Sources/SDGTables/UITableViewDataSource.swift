@@ -34,7 +34,8 @@
       return "row"
     }
 
-    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UIKit
+    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
+      -> UIKit
       .UITableViewCell
     {
       let cell: UITableViewCell

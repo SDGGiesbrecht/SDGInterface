@@ -149,9 +149,10 @@
     ) {
       var details = RemoteNotificationDetails()
       details.userInformation = userInfo
-      let result = Application.shared.systemMediator?.acceptRemoteNotification(
-        details: details
-      ) ?? .noData
+      let result =
+        Application.shared.systemMediator?.acceptRemoteNotification(
+          details: details
+        ) ?? .noData
       completionHandler(result.native)
     }
 
@@ -193,9 +194,10 @@
       ) {
         var details = QuickActionDetails()
         details.shortcutItem = shortcutItem
-        let result = Application.shared.systemMediator?.performQuickAction(
-          details: details
-        ) ?? false
+        let result =
+          Application.shared.systemMediator?.performQuickAction(
+            details: details
+          ) ?? false
         completionHandler(result)
       }
     #endif

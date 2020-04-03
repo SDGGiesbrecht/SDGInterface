@@ -29,8 +29,7 @@ jobs:
       shell: bash
       run: |
         set -x
-        export DEVELOPER_DIR=/Applications/Xcode_11.3.1.app/Contents/Developer
-        echo "::set-env name=DEVELOPER_DIR::${DEVELOPER_DIR}"
+        sudo xcode-select -switch /Applications/Xcode_11.4.app
         xcodebuild -version
     - name: Install Workspace
       shell: bash
@@ -38,15 +37,15 @@ jobs:
         set -x
         if workspace version > /dev/null 2>&1 ; then
             echo "Using system install of Workspace..."
-            workspace version •language '🇨🇦EN' •use‐version 0.31.0
+            workspace version •language '🇨🇦EN' •use‐version 0.32.0
         elif .build/SDG/Workspace/workspace version > /dev/null 2>&1 ; then
             echo "Using repository cache of Workspace..."
-            .build/SDG/Workspace/workspace version •language '🇨🇦EN' •use‐version 0.31.0
+            .build/SDG/Workspace/workspace version •language '🇨🇦EN' •use‐version 0.32.0
         else
             echo "No cached build detected; fetching Workspace..."
             export OVERRIDE_INSTALLATION_DIRECTORY=.build/SDG
-            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.31.0 "" workspace
-            .build/SDG/Workspace/workspace version •language '🇨🇦EN' •use‐version 0.31.0
+            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.32.0 "" workspace
+            .build/SDG/Workspace/workspace version •language '🇨🇦EN' •use‐version 0.32.0
         fi
     - name: Refresh
       shell: bash
@@ -54,15 +53,15 @@ jobs:
         set -x
         if workspace version > /dev/null 2>&1 ; then
             echo "Using system install of Workspace..."
-            workspace refresh •language '🇨🇦EN' •use‐version 0.31.0
+            workspace refresh •language '🇨🇦EN' •use‐version 0.32.0
         elif .build/SDG/Workspace/workspace version > /dev/null 2>&1 ; then
             echo "Using repository cache of Workspace..."
-            .build/SDG/Workspace/workspace refresh •language '🇨🇦EN' •use‐version 0.31.0
+            .build/SDG/Workspace/workspace refresh •language '🇨🇦EN' •use‐version 0.32.0
         else
             echo "No cached build detected; fetching Workspace..."
             export OVERRIDE_INSTALLATION_DIRECTORY=.build/SDG
-            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.31.0 "" workspace
-            .build/SDG/Workspace/workspace refresh •language '🇨🇦EN' •use‐version 0.31.0
+            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.32.0 "" workspace
+            .build/SDG/Workspace/workspace refresh •language '🇨🇦EN' •use‐version 0.32.0
         fi
     - name: Validate
       shell: bash
@@ -70,15 +69,15 @@ jobs:
         set -x
         if workspace version > /dev/null 2>&1 ; then
             echo "Using system install of Workspace..."
-            workspace validate •job macos •language '🇨🇦EN' •use‐version 0.31.0
+            workspace validate •job macos •language '🇨🇦EN' •use‐version 0.32.0
         elif .build/SDG/Workspace/workspace version > /dev/null 2>&1 ; then
             echo "Using repository cache of Workspace..."
-            .build/SDG/Workspace/workspace validate •job macos •language '🇨🇦EN' •use‐version 0.31.0
+            .build/SDG/Workspace/workspace validate •job macos •language '🇨🇦EN' •use‐version 0.32.0
         else
             echo "No cached build detected; fetching Workspace..."
             export OVERRIDE_INSTALLATION_DIRECTORY=.build/SDG
-            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.31.0 "" workspace
-            .build/SDG/Workspace/workspace validate •job macos •language '🇨🇦EN' •use‐version 0.31.0
+            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.32.0 "" workspace
+            .build/SDG/Workspace/workspace validate •job macos •language '🇨🇦EN' •use‐version 0.32.0
         fi
   Windows:
     runs-on: windows-2019
@@ -211,7 +210,7 @@ jobs:
         .build/SDG/Swift/usr/bin/swift build --triple wasm32-unknown-wasi
   Linux:
     runs-on: ubuntu-18.04
-    container: swift:5.1.3-bionic
+    container: swift:5.2-bionic
     steps:
     - name: Check out
       uses: actions/checkout@v1
@@ -238,15 +237,15 @@ jobs:
         set -x
         if workspace version > /dev/null 2>&1 ; then
             echo "Using system install of Workspace..."
-            workspace version •language '🇨🇦EN' •use‐version 0.31.0
+            workspace version •language '🇨🇦EN' •use‐version 0.32.0
         elif .build/SDG/Workspace/workspace version > /dev/null 2>&1 ; then
             echo "Using repository cache of Workspace..."
-            .build/SDG/Workspace/workspace version •language '🇨🇦EN' •use‐version 0.31.0
+            .build/SDG/Workspace/workspace version •language '🇨🇦EN' •use‐version 0.32.0
         else
             echo "No cached build detected; fetching Workspace..."
             export OVERRIDE_INSTALLATION_DIRECTORY=.build/SDG
-            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.31.0 "" workspace
-            .build/SDG/Workspace/workspace version •language '🇨🇦EN' •use‐version 0.31.0
+            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.32.0 "" workspace
+            .build/SDG/Workspace/workspace version •language '🇨🇦EN' •use‐version 0.32.0
         fi
     - name: Refresh
       shell: bash
@@ -254,15 +253,15 @@ jobs:
         set -x
         if workspace version > /dev/null 2>&1 ; then
             echo "Using system install of Workspace..."
-            workspace refresh •language '🇨🇦EN' •use‐version 0.31.0
+            workspace refresh •language '🇨🇦EN' •use‐version 0.32.0
         elif .build/SDG/Workspace/workspace version > /dev/null 2>&1 ; then
             echo "Using repository cache of Workspace..."
-            .build/SDG/Workspace/workspace refresh •language '🇨🇦EN' •use‐version 0.31.0
+            .build/SDG/Workspace/workspace refresh •language '🇨🇦EN' •use‐version 0.32.0
         else
             echo "No cached build detected; fetching Workspace..."
             export OVERRIDE_INSTALLATION_DIRECTORY=.build/SDG
-            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.31.0 "" workspace
-            .build/SDG/Workspace/workspace refresh •language '🇨🇦EN' •use‐version 0.31.0
+            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.32.0 "" workspace
+            .build/SDG/Workspace/workspace refresh •language '🇨🇦EN' •use‐version 0.32.0
         fi
     - name: Validate
       shell: bash
@@ -270,15 +269,15 @@ jobs:
         set -x
         if workspace version > /dev/null 2>&1 ; then
             echo "Using system install of Workspace..."
-            workspace validate •job linux •language '🇨🇦EN' •use‐version 0.31.0
+            workspace validate •job linux •language '🇨🇦EN' •use‐version 0.32.0
         elif .build/SDG/Workspace/workspace version > /dev/null 2>&1 ; then
             echo "Using repository cache of Workspace..."
-            .build/SDG/Workspace/workspace validate •job linux •language '🇨🇦EN' •use‐version 0.31.0
+            .build/SDG/Workspace/workspace validate •job linux •language '🇨🇦EN' •use‐version 0.32.0
         else
             echo "No cached build detected; fetching Workspace..."
             export OVERRIDE_INSTALLATION_DIRECTORY=.build/SDG
-            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.31.0 "" workspace
-            .build/SDG/Workspace/workspace validate •job linux •language '🇨🇦EN' •use‐version 0.31.0
+            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.32.0 "" workspace
+            .build/SDG/Workspace/workspace validate •job linux •language '🇨🇦EN' •use‐version 0.32.0
         fi
     - name: Grant permission to cache
       shell: bash
@@ -299,8 +298,7 @@ jobs:
       shell: bash
       run: |
         set -x
-        export DEVELOPER_DIR=/Applications/Xcode_11.3.1.app/Contents/Developer
-        echo "::set-env name=DEVELOPER_DIR::${DEVELOPER_DIR}"
+        sudo xcode-select -switch /Applications/Xcode_11.4.app
         xcodebuild -version
     - name: Install Workspace
       shell: bash
@@ -308,15 +306,15 @@ jobs:
         set -x
         if workspace version > /dev/null 2>&1 ; then
             echo "Using system install of Workspace..."
-            workspace version •language '🇨🇦EN' •use‐version 0.31.0
+            workspace version •language '🇨🇦EN' •use‐version 0.32.0
         elif .build/SDG/Workspace/workspace version > /dev/null 2>&1 ; then
             echo "Using repository cache of Workspace..."
-            .build/SDG/Workspace/workspace version •language '🇨🇦EN' •use‐version 0.31.0
+            .build/SDG/Workspace/workspace version •language '🇨🇦EN' •use‐version 0.32.0
         else
             echo "No cached build detected; fetching Workspace..."
             export OVERRIDE_INSTALLATION_DIRECTORY=.build/SDG
-            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.31.0 "" workspace
-            .build/SDG/Workspace/workspace version •language '🇨🇦EN' •use‐version 0.31.0
+            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.32.0 "" workspace
+            .build/SDG/Workspace/workspace version •language '🇨🇦EN' •use‐version 0.32.0
         fi
     - name: Refresh
       shell: bash
@@ -324,15 +322,15 @@ jobs:
         set -x
         if workspace version > /dev/null 2>&1 ; then
             echo "Using system install of Workspace..."
-            workspace refresh •language '🇨🇦EN' •use‐version 0.31.0
+            workspace refresh •language '🇨🇦EN' •use‐version 0.32.0
         elif .build/SDG/Workspace/workspace version > /dev/null 2>&1 ; then
             echo "Using repository cache of Workspace..."
-            .build/SDG/Workspace/workspace refresh •language '🇨🇦EN' •use‐version 0.31.0
+            .build/SDG/Workspace/workspace refresh •language '🇨🇦EN' •use‐version 0.32.0
         else
             echo "No cached build detected; fetching Workspace..."
             export OVERRIDE_INSTALLATION_DIRECTORY=.build/SDG
-            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.31.0 "" workspace
-            .build/SDG/Workspace/workspace refresh •language '🇨🇦EN' •use‐version 0.31.0
+            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.32.0 "" workspace
+            .build/SDG/Workspace/workspace refresh •language '🇨🇦EN' •use‐version 0.32.0
         fi
     - name: Validate
       shell: bash
@@ -340,15 +338,15 @@ jobs:
         set -x
         if workspace version > /dev/null 2>&1 ; then
             echo "Using system install of Workspace..."
-            workspace validate •job tvos •language '🇨🇦EN' •use‐version 0.31.0
+            workspace validate •job tvos •language '🇨🇦EN' •use‐version 0.32.0
         elif .build/SDG/Workspace/workspace version > /dev/null 2>&1 ; then
             echo "Using repository cache of Workspace..."
-            .build/SDG/Workspace/workspace validate •job tvos •language '🇨🇦EN' •use‐version 0.31.0
+            .build/SDG/Workspace/workspace validate •job tvos •language '🇨🇦EN' •use‐version 0.32.0
         else
             echo "No cached build detected; fetching Workspace..."
             export OVERRIDE_INSTALLATION_DIRECTORY=.build/SDG
-            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.31.0 "" workspace
-            .build/SDG/Workspace/workspace validate •job tvos •language '🇨🇦EN' •use‐version 0.31.0
+            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.32.0 "" workspace
+            .build/SDG/Workspace/workspace validate •job tvos •language '🇨🇦EN' •use‐version 0.32.0
         fi
   iOS:
     runs-on: macos-10.15
@@ -364,8 +362,7 @@ jobs:
       shell: bash
       run: |
         set -x
-        export DEVELOPER_DIR=/Applications/Xcode_11.3.1.app/Contents/Developer
-        echo "::set-env name=DEVELOPER_DIR::${DEVELOPER_DIR}"
+        sudo xcode-select -switch /Applications/Xcode_11.4.app
         xcodebuild -version
     - name: Install Workspace
       shell: bash
@@ -373,15 +370,15 @@ jobs:
         set -x
         if workspace version > /dev/null 2>&1 ; then
             echo "Using system install of Workspace..."
-            workspace version •language '🇨🇦EN' •use‐version 0.31.0
+            workspace version •language '🇨🇦EN' •use‐version 0.32.0
         elif .build/SDG/Workspace/workspace version > /dev/null 2>&1 ; then
             echo "Using repository cache of Workspace..."
-            .build/SDG/Workspace/workspace version •language '🇨🇦EN' •use‐version 0.31.0
+            .build/SDG/Workspace/workspace version •language '🇨🇦EN' •use‐version 0.32.0
         else
             echo "No cached build detected; fetching Workspace..."
             export OVERRIDE_INSTALLATION_DIRECTORY=.build/SDG
-            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.31.0 "" workspace
-            .build/SDG/Workspace/workspace version •language '🇨🇦EN' •use‐version 0.31.0
+            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.32.0 "" workspace
+            .build/SDG/Workspace/workspace version •language '🇨🇦EN' •use‐version 0.32.0
         fi
     - name: Refresh
       shell: bash
@@ -389,15 +386,15 @@ jobs:
         set -x
         if workspace version > /dev/null 2>&1 ; then
             echo "Using system install of Workspace..."
-            workspace refresh •language '🇨🇦EN' •use‐version 0.31.0
+            workspace refresh •language '🇨🇦EN' •use‐version 0.32.0
         elif .build/SDG/Workspace/workspace version > /dev/null 2>&1 ; then
             echo "Using repository cache of Workspace..."
-            .build/SDG/Workspace/workspace refresh •language '🇨🇦EN' •use‐version 0.31.0
+            .build/SDG/Workspace/workspace refresh •language '🇨🇦EN' •use‐version 0.32.0
         else
             echo "No cached build detected; fetching Workspace..."
             export OVERRIDE_INSTALLATION_DIRECTORY=.build/SDG
-            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.31.0 "" workspace
-            .build/SDG/Workspace/workspace refresh •language '🇨🇦EN' •use‐version 0.31.0
+            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.32.0 "" workspace
+            .build/SDG/Workspace/workspace refresh •language '🇨🇦EN' •use‐version 0.32.0
         fi
     - name: Validate
       shell: bash
@@ -405,15 +402,15 @@ jobs:
         set -x
         if workspace version > /dev/null 2>&1 ; then
             echo "Using system install of Workspace..."
-            workspace validate •job ios •language '🇨🇦EN' •use‐version 0.31.0
+            workspace validate •job ios •language '🇨🇦EN' •use‐version 0.32.0
         elif .build/SDG/Workspace/workspace version > /dev/null 2>&1 ; then
             echo "Using repository cache of Workspace..."
-            .build/SDG/Workspace/workspace validate •job ios •language '🇨🇦EN' •use‐version 0.31.0
+            .build/SDG/Workspace/workspace validate •job ios •language '🇨🇦EN' •use‐version 0.32.0
         else
             echo "No cached build detected; fetching Workspace..."
             export OVERRIDE_INSTALLATION_DIRECTORY=.build/SDG
-            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.31.0 "" workspace
-            .build/SDG/Workspace/workspace validate •job ios •language '🇨🇦EN' •use‐version 0.31.0
+            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.32.0 "" workspace
+            .build/SDG/Workspace/workspace validate •job ios •language '🇨🇦EN' •use‐version 0.32.0
         fi
   Android:
     runs-on: ubuntu-18.04
@@ -430,11 +427,11 @@ jobs:
       run: |
         set -x
         curl --location \
-          'https://swift.org/builds/swift-5.1.1-release/ubuntu1804/swift-5.1.1-RELEASE/swift-5.1.1-RELEASE-ubuntu18.04.tar.gz' \
-          --output '/tmp/swift-5.1.1-RELEASE-ubuntu18.04.tar.gz'
-        tar --extract --file /tmp/swift-5.1.1-RELEASE-ubuntu18.04.tar.gz --directory /tmp
+          'https://swift.org/builds/swift-5.2-release/ubuntu1804/swift-5.2-RELEASE/swift-5.2-RELEASE-ubuntu18.04.tar.gz' \
+          --output '/tmp/swift-5.2-RELEASE-ubuntu18.04.tar.gz'
+        tar --extract --file /tmp/swift-5.2-RELEASE-ubuntu18.04.tar.gz --directory /tmp
         mkdir -p /
-        sudo cp -R /tmp/swift-5.1.1-RELEASE-ubuntu18.04/* /
+        sudo cp -R /tmp/swift-5.2-RELEASE-ubuntu18.04/* /
         swift --version
     - name: Fetch cross‐compilation toolchain
       shell: bash
@@ -463,8 +460,6 @@ jobs:
         sudo apt-get install --assume-yes patchelf
         patchelf --replace-needed lib/swift/android/x86_64/libswiftCore.so libswiftCore.so /Library/Developer/Platforms/Android.platform/Developer/SDKs/Android.sdk/usr/lib/swift/android/libswiftSwiftOnoneSupport.so
         patchelf --replace-needed lib/swift/android/x86_64/libswiftCore.so libswiftCore.so /Library/Developer/Platforms/Android.platform/Developer/SDKs/Android.sdk/usr/lib/swift/android/libswiftGlibc.so
-        mkdir -p /Library/Developer/Platforms/Android.platform/Developer/SDKs/Android.sdk
-        cp -R ${ANDROID_HOME}/ndk-bundle/platforms/android-29/arch-x86_64/* /Library/Developer/Platforms/Android.platform/Developer/SDKs/Android.sdk
     - name: Fetch ICU
       shell: bash
       run: |
@@ -486,10 +481,10 @@ jobs:
         swift build --destination .github/workflows/Android/SDK.json \
           --build-tests --enable-test-discovery \
           -Xswiftc -resource-dir -Xswiftc /Library/Developer/Platforms/Android.platform/Developer/SDKs/Android.sdk/usr/lib/swift \
+          -Xcc --sysroot=${ANDROID_HOME}/ndk-bundle/sysroot \
           -Xswiftc -tools-directory -Xswiftc ${ANDROID_HOME}/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin \
           -Xswiftc -Xclang-linker -Xswiftc --gcc-toolchain=${ANDROID_HOME}/ndk-bundle/toolchains/x86_64-4.9/prebuilt/linux-x86_64 \
-          -Xcc -I${ANDROID_HOME}/ndk-bundle/sysroot/usr/include \
-          -Xcc -I${ANDROID_HOME}/ndk-bundle/sysroot/usr/include/x86_64-linux-android \
+          -Xswiftc -Xclang-linker -Xswiftc --sysroot=${ANDROID_HOME}/ndk-bundle/platforms/android-29/arch-x86_64 \
           -Xswiftc -I -Xswiftc /Library/Developer/Platforms/Android.platform/Developer/Library/XCTest-development/usr/lib/swift/android/x86_64 \
           -Xswiftc -L -Xswiftc /Library/Developer/Platforms/Android.platform/Developer/Library/XCTest-development/usr/lib/swift/android
     - name: Copy libraries
@@ -558,8 +553,7 @@ jobs:
       shell: bash
       run: |
         set -x
-        export DEVELOPER_DIR=/Applications/Xcode_11.3.1.app/Contents/Developer
-        echo "::set-env name=DEVELOPER_DIR::${DEVELOPER_DIR}"
+        sudo xcode-select -switch /Applications/Xcode_11.4.app
         xcodebuild -version
     - name: Install Workspace
       shell: bash
@@ -567,15 +561,15 @@ jobs:
         set -x
         if workspace version > /dev/null 2>&1 ; then
             echo "Using system install of Workspace..."
-            workspace version •language '🇨🇦EN' •use‐version 0.31.0
+            workspace version •language '🇨🇦EN' •use‐version 0.32.0
         elif .build/SDG/Workspace/workspace version > /dev/null 2>&1 ; then
             echo "Using repository cache of Workspace..."
-            .build/SDG/Workspace/workspace version •language '🇨🇦EN' •use‐version 0.31.0
+            .build/SDG/Workspace/workspace version •language '🇨🇦EN' •use‐version 0.32.0
         else
             echo "No cached build detected; fetching Workspace..."
             export OVERRIDE_INSTALLATION_DIRECTORY=.build/SDG
-            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.31.0 "" workspace
-            .build/SDG/Workspace/workspace version •language '🇨🇦EN' •use‐version 0.31.0
+            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.32.0 "" workspace
+            .build/SDG/Workspace/workspace version •language '🇨🇦EN' •use‐version 0.32.0
         fi
     - name: Refresh
       shell: bash
@@ -583,15 +577,15 @@ jobs:
         set -x
         if workspace version > /dev/null 2>&1 ; then
             echo "Using system install of Workspace..."
-            workspace refresh •language '🇨🇦EN' •use‐version 0.31.0
+            workspace refresh •language '🇨🇦EN' •use‐version 0.32.0
         elif .build/SDG/Workspace/workspace version > /dev/null 2>&1 ; then
             echo "Using repository cache of Workspace..."
-            .build/SDG/Workspace/workspace refresh •language '🇨🇦EN' •use‐version 0.31.0
+            .build/SDG/Workspace/workspace refresh •language '🇨🇦EN' •use‐version 0.32.0
         else
             echo "No cached build detected; fetching Workspace..."
             export OVERRIDE_INSTALLATION_DIRECTORY=.build/SDG
-            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.31.0 "" workspace
-            .build/SDG/Workspace/workspace refresh •language '🇨🇦EN' •use‐version 0.31.0
+            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.32.0 "" workspace
+            .build/SDG/Workspace/workspace refresh •language '🇨🇦EN' •use‐version 0.32.0
         fi
     - name: Validate
       shell: bash
@@ -599,19 +593,19 @@ jobs:
         set -x
         if workspace version > /dev/null 2>&1 ; then
             echo "Using system install of Workspace..."
-            workspace validate •job watchos •language '🇨🇦EN' •use‐version 0.31.0
+            workspace validate •job watchos •language '🇨🇦EN' •use‐version 0.32.0
         elif .build/SDG/Workspace/workspace version > /dev/null 2>&1 ; then
             echo "Using repository cache of Workspace..."
-            .build/SDG/Workspace/workspace validate •job watchos •language '🇨🇦EN' •use‐version 0.31.0
+            .build/SDG/Workspace/workspace validate •job watchos •language '🇨🇦EN' •use‐version 0.32.0
         else
             echo "No cached build detected; fetching Workspace..."
             export OVERRIDE_INSTALLATION_DIRECTORY=.build/SDG
-            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.31.0 "" workspace
-            .build/SDG/Workspace/workspace validate •job watchos •language '🇨🇦EN' •use‐version 0.31.0
+            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.32.0 "" workspace
+            .build/SDG/Workspace/workspace validate •job watchos •language '🇨🇦EN' •use‐version 0.32.0
         fi
   Miscellaneous:
     runs-on: ubuntu-18.04
-    container: swift:5.1.3-bionic
+    container: swift:5.2-bionic
     steps:
     - name: Check out
       uses: actions/checkout@v1
@@ -638,15 +632,15 @@ jobs:
         set -x
         if workspace version > /dev/null 2>&1 ; then
             echo "Using system install of Workspace..."
-            workspace version •language '🇨🇦EN' •use‐version 0.31.0
+            workspace version •language '🇨🇦EN' •use‐version 0.32.0
         elif .build/SDG/Workspace/workspace version > /dev/null 2>&1 ; then
             echo "Using repository cache of Workspace..."
-            .build/SDG/Workspace/workspace version •language '🇨🇦EN' •use‐version 0.31.0
+            .build/SDG/Workspace/workspace version •language '🇨🇦EN' •use‐version 0.32.0
         else
             echo "No cached build detected; fetching Workspace..."
             export OVERRIDE_INSTALLATION_DIRECTORY=.build/SDG
-            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.31.0 "" workspace
-            .build/SDG/Workspace/workspace version •language '🇨🇦EN' •use‐version 0.31.0
+            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.32.0 "" workspace
+            .build/SDG/Workspace/workspace version •language '🇨🇦EN' •use‐version 0.32.0
         fi
     - name: Refresh
       shell: bash
@@ -654,15 +648,15 @@ jobs:
         set -x
         if workspace version > /dev/null 2>&1 ; then
             echo "Using system install of Workspace..."
-            workspace refresh •language '🇨🇦EN' •use‐version 0.31.0
+            workspace refresh •language '🇨🇦EN' •use‐version 0.32.0
         elif .build/SDG/Workspace/workspace version > /dev/null 2>&1 ; then
             echo "Using repository cache of Workspace..."
-            .build/SDG/Workspace/workspace refresh •language '🇨🇦EN' •use‐version 0.31.0
+            .build/SDG/Workspace/workspace refresh •language '🇨🇦EN' •use‐version 0.32.0
         else
             echo "No cached build detected; fetching Workspace..."
             export OVERRIDE_INSTALLATION_DIRECTORY=.build/SDG
-            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.31.0 "" workspace
-            .build/SDG/Workspace/workspace refresh •language '🇨🇦EN' •use‐version 0.31.0
+            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.32.0 "" workspace
+            .build/SDG/Workspace/workspace refresh •language '🇨🇦EN' •use‐version 0.32.0
         fi
     - name: Validate
       shell: bash
@@ -670,15 +664,15 @@ jobs:
         set -x
         if workspace version > /dev/null 2>&1 ; then
             echo "Using system install of Workspace..."
-            workspace validate •job miscellaneous •language '🇨🇦EN' •use‐version 0.31.0
+            workspace validate •job miscellaneous •language '🇨🇦EN' •use‐version 0.32.0
         elif .build/SDG/Workspace/workspace version > /dev/null 2>&1 ; then
             echo "Using repository cache of Workspace..."
-            .build/SDG/Workspace/workspace validate •job miscellaneous •language '🇨🇦EN' •use‐version 0.31.0
+            .build/SDG/Workspace/workspace validate •job miscellaneous •language '🇨🇦EN' •use‐version 0.32.0
         else
             echo "No cached build detected; fetching Workspace..."
             export OVERRIDE_INSTALLATION_DIRECTORY=.build/SDG
-            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.31.0 "" workspace
-            .build/SDG/Workspace/workspace validate •job miscellaneous •language '🇨🇦EN' •use‐version 0.31.0
+            curl -sL https://gist.github.com/SDGGiesbrecht/4d76ad2f2b9c7bf9072ca1da9815d7e2/raw/update.sh | bash -s Workspace "https://github.com/SDGGiesbrecht/Workspace" 0.32.0 "" workspace
+            .build/SDG/Workspace/workspace validate •job miscellaneous •language '🇨🇦EN' •use‐version 0.32.0
         fi
     - name: Grant permission to cache
       shell: bash

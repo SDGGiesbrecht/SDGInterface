@@ -37,7 +37,7 @@
           HorizontalStack(content: [
             circle(colour: .red),
             circle(colour: .green),
-            circle(colour: .blue)
+            circle(colour: .blue),
           ]).adjustForLegacyMode()
             .frame(width: 128, height: 32, alignment: .center),
           name: "Red, Green, Blue"
@@ -48,7 +48,7 @@
             alignment: .top,
             content: [
               circle(colour: .black),
-              circle(colour: .black, big: true)
+              circle(colour: .black, big: true),
             ]
           ).adjustForLegacyMode()
             .frame(width: 128, height: 32, alignment: .center),
@@ -60,7 +60,7 @@
             alignment: .bottom,
             content: [
               circle(colour: .black),
-              circle(colour: .black, big: true)
+              circle(colour: .black, big: true),
             ]
           ).adjustForLegacyMode()
             .frame(width: 128, height: 32, alignment: .center),

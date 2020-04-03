@@ -230,7 +230,7 @@
         .entry(smartDashes()),
         .entry(smartLinks()),
         .entry(dataDetectors()),
-        .entry(textReplacement())
+        .entry(textReplacement()),
       ]
       return substitutions
     }

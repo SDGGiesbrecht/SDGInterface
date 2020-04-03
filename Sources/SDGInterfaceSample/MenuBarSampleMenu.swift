@@ -83,7 +83,7 @@
         .entry(menuEntry()),
         .entry(indented()),
         .separator,
-        .submenu(submenu())
+        .submenu(submenu()),
       ]
       return menu
     }
