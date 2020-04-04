@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.2
 
 /*
  Package.swift
@@ -152,9 +152,9 @@ let package = Package(
     .target(
       name: "SDGContextMenu",
       dependencies: [
-        "SDGLogic",
         "SDGMenus",
         "SDGInterfaceLocalizations",
+        .product(name: "SDGLogic", package: "SDGCornerstone"),
         .product(name: "SDGText", package: "SDGCornerstone"),
         .product(name: "SDGLocalization", package: "SDGCornerstone"),
       ]
