@@ -12,8 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-// #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
-#if canImport(Foundation)
+// #workaround(Swift 5.2, Web doesn’t have Foundation yet.)
+#if !os(WASI)
   import Foundation
 #endif
 #if canImport(AppKit)
@@ -41,8 +41,8 @@ import SDGApplication
 extension Application {
 
   public static func setUp() {
-    // #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
-    #if canImport(Foundation)
+    // #workaround(Swift 5.2, Web doesn’t have Foundation yet.)
+    #if !os(WASI)
       ProcessInfo.applicationName = { form in
         switch form {
         case .english(let region):
@@ -87,8 +87,8 @@ extension Application {
   }
 
   #if !os(watchOS)
-    // #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
-    #if canImport(Foundation)
+    // #workaround(Swift 5.2, Web doesn’t have Foundation yet.)
+    #if !os(WASI)
       public class func setUpAndMain() -> Never {  // @exempt(from: tests)
         setUp()
         // @example(main)
@@ -269,8 +269,8 @@ extension Application {
     #endif
   #endif
 
-  // #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
-  #if canImport(Foundation)
+  // #workaround(Swift 5.2, Web doesn’t have Foundation yet.)
+  #if !os(WASI)
     @objc private func doNothing() {  // @exempt(from: tests)
     }
   #endif

@@ -13,8 +13,8 @@
  */
 
 #if !os(Windows)  // #workaround(Swift 5.1.3, Windows trips over “@objc”?)
-  // #workaround(Swift 5.1.5, Web doesn’t have foundation yet; compiler doesn’t recognize os(WASI).)
-  #if canImport(Foundation)
+  // #workaround(Swift 5.2, Web doesn’t have Foundation yet.)
+  #if !os(WASI)
     import Foundation
 
     /// An object which responds to actions related to editing text.
