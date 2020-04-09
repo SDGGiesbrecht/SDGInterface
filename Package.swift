@@ -599,7 +599,7 @@ if firstEntry.hasSuffix("/Contents/Developer/usr/bin") {
 
 if ProcessInfo.processInfo.environment["TARGETING_WEB"] == "true" {
   for target in package.targets {
-    // #workaround(workspace version 0.32.0, Web lacks foundation.)
+    // #workaround(Swift 5.2.1, Web lacks Foundation.)
     target.exclude.append("Resources.swift")
   }
 }
