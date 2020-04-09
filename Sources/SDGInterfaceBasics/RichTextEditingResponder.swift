@@ -12,74 +12,76 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-// #workaround(Swift 5.2, Web doesn’t have Foundation yet.)
-#if !os(WASI)
-  import Foundation
+#if !os(Windows)  // #workaround(workspace version 0.32.0, Windows trips over “@objc”?)
+  // #workaround(Swift 5.2, Web doesn’t have Foundation yet.)
+  #if !os(WASI)
+    import Foundation
 
-  /// An object which responds to actions related to editing rich text.
-  @objc public protocol RichTextEditingResponder: TextEditingResponder {
+    /// An object which responds to actions related to editing rich text.
+    @objc public protocol RichTextEditingResponder: TextEditingResponder {
 
-    // MARK: - Superscripts & Subscripts
+      // MARK: - Superscripts & Subscripts
 
-    /// Superscripts the selection.
-    ///
-    /// - Parameters:
-    ///     - sender: The sender.
-    @objc func makeSuperscript(_ sender: Any?)
-
-    /// Subscripts the selection.
-    ///
-    /// - Parameters:
-    ///     - sender: The sender.
-    @objc func makeSubscript(_ sender: Any?)
-
-    /// Resets the baseline of the selection.
-    ///
-    /// - Parameters:
-    ///     - sender: The sender.
-    @objc func resetBaseline(_ sender: Any?)
-
-    #if canImport(AppKit)
-      // MARK: - Case
-
-      /// Resets the casing of the selection.
+      /// Superscripts the selection.
       ///
       /// - Parameters:
       ///     - sender: The sender.
-      @objc func resetCasing(_ sender: Any?)
+      @objc func makeSuperscript(_ sender: Any?)
 
-      /// Converts the selection to a Latinate upper case font (where “i” becomes “I”).
+      /// Subscripts the selection.
       ///
       /// - Parameters:
       ///     - sender: The sender.
-      @objc func makeLatinateUpperCase(_ sender: Any?)
-      /// Converts the selection to a Turkic upper case font (where “i” becomes “İ”).
-      ///
-      /// - Parameters:
-      ///     - sender: The sender.
-      @objc func makeTurkicUpperCase(_ sender: Any?)
+      @objc func makeSubscript(_ sender: Any?)
 
-      /// Converts the selection to a Latinate small caps font (where “i” becomes “I”).
+      /// Resets the baseline of the selection.
       ///
       /// - Parameters:
       ///     - sender: The sender.
-      @objc func makeLatinateSmallCaps(_ sender: Any?)
-      /// Converts the selection to a Turkic small caps font (where “i” becomes “İ”).
-      ///
-      /// - Parameters:
-      ///     - sender: The sender.
-      @objc func makeTurkicSmallCaps(_ sender: Any?)
+      @objc func resetBaseline(_ sender: Any?)
 
-      /// Converts the selection to a Latinate lower case font (where “I” becomes “i”).
-      ///
-      /// - Parameters:
-      ///     - sender: The sender.
-      @objc func makeLatinateLowerCase(_ sender: Any?)
-      /// Converts the selection to a Turkic lower case font (where “I” becomes “ı”).
-      ///
-      /// - Parameters:
-      ///     - sender: The sender.
-      @objc func makeTurkicLowerCase(_ sender: Any?)
-    #endif
-  }
+      #if canImport(AppKit)
+        // MARK: - Case
+
+        /// Resets the casing of the selection.
+        ///
+        /// - Parameters:
+        ///     - sender: The sender.
+        @objc func resetCasing(_ sender: Any?)
+
+        /// Converts the selection to a Latinate upper case font (where “i” becomes “I”).
+        ///
+        /// - Parameters:
+        ///     - sender: The sender.
+        @objc func makeLatinateUpperCase(_ sender: Any?)
+        /// Converts the selection to a Turkic upper case font (where “i” becomes “İ”).
+        ///
+        /// - Parameters:
+        ///     - sender: The sender.
+        @objc func makeTurkicUpperCase(_ sender: Any?)
+
+        /// Converts the selection to a Latinate small caps font (where “i” becomes “I”).
+        ///
+        /// - Parameters:
+        ///     - sender: The sender.
+        @objc func makeLatinateSmallCaps(_ sender: Any?)
+        /// Converts the selection to a Turkic small caps font (where “i” becomes “İ”).
+        ///
+        /// - Parameters:
+        ///     - sender: The sender.
+        @objc func makeTurkicSmallCaps(_ sender: Any?)
+
+        /// Converts the selection to a Latinate lower case font (where “I” becomes “i”).
+        ///
+        /// - Parameters:
+        ///     - sender: The sender.
+        @objc func makeLatinateLowerCase(_ sender: Any?)
+        /// Converts the selection to a Turkic lower case font (where “I” becomes “ı”).
+        ///
+        /// - Parameters:
+        ///     - sender: The sender.
+        @objc func makeTurkicLowerCase(_ sender: Any?)
+      #endif
+    }
+  #endif
 #endif
