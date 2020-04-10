@@ -12,6 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if !os(Windows)  // #workaround(Swift 5.2.1, Causes linker error.)
   // #workaround(Swift 5.2, Web doesn’t have Foundation yet.)
   #if !os(WASI)
     import Foundation
@@ -26,3 +27,4 @@
       @objc func normalizeText(_ sender: Any?)
     }
   #endif
+#endif
