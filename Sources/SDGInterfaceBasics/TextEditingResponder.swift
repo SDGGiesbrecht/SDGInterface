@@ -12,7 +12,6 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if !os(Windows)  // #workaround(workspace version 0.32.0, Windows trips over “@objc”?)
   // #workaround(Swift 5.2, Web doesn’t have Foundation yet.)
   #if !os(WASI)
     import Foundation
@@ -27,4 +26,3 @@
       @objc func normalizeText(_ sender: Any?)
     }
   #endif
-#endif
