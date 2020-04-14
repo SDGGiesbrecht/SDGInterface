@@ -139,7 +139,6 @@ final class APITests: ApplicationTestCase {
   }
 
   func testRichText() throws {
-    #if !os(Windows)  // #workaround(workspace version 0.32.0, SegFault)
       let fontNameKey = NSAttributedString.Key(rawValue: "SDGTestFontName")
       func prepareForEqualityCheck(
         _ string: NSAttributedString,
@@ -339,7 +338,6 @@ final class APITests: ApplicationTestCase {
           attributes: [NSAttributedString.Key(rawValue: "Key"): NSNumber(value: 0)]
         )
       )
-    #endif
   }
 
   func testTextEditor() {
