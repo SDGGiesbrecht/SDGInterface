@@ -139,7 +139,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testRichText() throws {
-    #if !os(Windows)  // #workaround(Swift 5.2.1, SegFault)
+    #if !os(Windows)  // #workaround(Swift 5.2.2, SegFault)
       let fontNameKey = NSAttributedString.Key(rawValue: "SDGTestFontName")
       func prepareForEqualityCheck(
         _ string: NSAttributedString,
