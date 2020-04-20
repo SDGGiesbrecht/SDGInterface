@@ -70,36 +70,29 @@
       }
     #endif
 
-    #if canImport(AppKit)
+    #if canImport(AppKit) || canImport(UIKit)
       public func cocoa() -> CocoaView {
-        let view = NSStackView()
+        #if canImport(AppKit)
+          let view = NSStackView()
+        #else
+          let view = UIStackView()
+        #endif
         for entry in content {
-          view.addView(entry.cocoa().native, in: .center)
+          #if canImport(AppKit)
+            view.addView(entry.cocoa().native, in: .center)
+          #else
+            view.addArrangedSubview(entry.cocoa().native)
+          #endif
         }
         switch alignment {
         case .top:
           view.alignment = .top
         case .centre:
-          view.alignment = .centerY
-        case .bottom:
-          view.alignment = .bottom
-        }
-        if let specific = spacing {
-          view.spacing = CGFloat(specific)
-        }
-        return CocoaView(view)
-      }
-    #elseif canImport(UIKit) && !os(watchOS)
-      public func cocoa() -> CocoaView {
-        let view = UIStackView()
-        for entry in content {
-          view.addArrangedSubview(entry.cocoa().native)
-        }
-        switch alignment {
-        case .top:
-          view.alignment = .top
-        case .centre:
-          view.alignment = .center
+          #if canImport(AppKit)
+            view.alignment = .centerY
+          #else
+            view.alignment = .center
+          #endif
         case .bottom:
           view.alignment = .bottom
         }
