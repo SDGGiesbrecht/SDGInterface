@@ -619,6 +619,8 @@ add_library("SDGViews"
   "../../../Sources/SDGViews/SwiftUI/Ellipse.swift"
   "../../../Sources/SDGViews/SwiftUI/Rectangle.swift"
   "../../../Sources/SDGViews/SwiftUI/SwiftUIAnyView.swift"
+  "../../../Sources/SDGViews/SwiftUI/SwiftUITupleView.swift"
+  "../../../Sources/SDGViews/TupleView.swift"
 )
 set_target_properties("SDGViews" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
 target_compile_options("SDGViews" PRIVATE -enable-testing)
