@@ -36,7 +36,7 @@
     #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       public func cocoa() -> CocoaView {
         #if canImport(AppKit)
-          return CocoaView(ColourContainer(self))
+          return CocoaView(Colour.Container(self))
         #else
           let view = UIView()
           view.backgroundColor = self.uiColor
