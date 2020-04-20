@@ -25,6 +25,20 @@
   /// A shimmed version of `SwiftUI.TupleView` with relaxed availability constraints.
   public struct TupleView<T>: View {
 
+    // MARK: - Initialization
+
+    /// A shimmed version of `SwiftUI.TupleView.init(_:)` with relaxed availability constraints.
+    ///
+    /// - Parameters:
+    ///   - value: The value.
+    public init(_ value: T) {
+      self.value = value
+    }
+
+    // MARK: - Properties
+
+    private let value: T
+
     // MARK: - LegacyView
 
     #if canImport(AppKit) || canImport(UIKit)
@@ -37,8 +51,8 @@
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-      public func swiftUI() -> some View {
-        fatalError()
+      public func swiftUI() -> some SwiftUI.View {
+        return SwiftUI.TupleView(value)
       }
     #endif
   }
