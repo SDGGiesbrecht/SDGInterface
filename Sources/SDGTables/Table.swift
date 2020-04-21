@@ -32,7 +32,7 @@
 
   /// Table.
   @available(iOS 9, *)  // @exempt(from: unicode)
-  public final class Table<RowData>: CocoaViewImplementation, View {
+  public final class Table<RowData>: CocoaViewImplementation, SpecificView {
 
     // MARK: - Initialization
 
@@ -54,15 +54,15 @@
       }
 
       #if canImport(AppKit)
-        frameView = NSScrollView()
-        frameView.documentView = CocoaTableView()
+        specificCocoaView = NSScrollView()
+        specificCocoaView.documentView = CocoaTableView()
         defer {
           delegate.table = self
           nativeTable.delegate = delegate
           nativeTable.dataSource = delegate
         }
       #elseif canImport(UIKit)
-        frameView = UITableView(frame: .zero, style: .plain)
+        specificCocoaView = UITableView(frame: .zero, style: .plain)
         defer {
           dataSource.table = self
           nativeTable.dataSource = dataSource
@@ -75,14 +75,14 @@
 
       #if canImport(AppKit)
         nativeTable.headerView = nil
-        frameView.borderType = .bezelBorder
+        specificCocoaView.borderType = .bezelBorder
       #endif
       #if canImport(AppKit)
-        frameView.hasHorizontalScroller = true
-        frameView.hasVerticalScroller = true
+        specificCocoaView.hasHorizontalScroller = true
+        specificCocoaView.hasVerticalScroller = true
       #else
-        frameView.showsHorizontalScrollIndicator = true
-        frameView.showsVerticalScrollIndicator = true
+        specificCocoaView.showsHorizontalScrollIndicator = true
+        specificCocoaView.showsVerticalScrollIndicator = true
       #endif
 
       #if canImport(AppKit)
@@ -159,21 +159,21 @@
     }
 
     #if canImport(AppKit)
-      private var frameView: NSScrollView
+      public var specificCocoaView: NSScrollView
       private var delegate = NSTableViewDelegate<RowData>()
     #elseif canImport(UIKit)
-      private var frameView: UITableView
+      public var specificCocoaView: UITableView
       private var dataSource = UITableViewDataSource<RowData>()
     #endif
 
     #if canImport(AppKit)
       internal var nativeTable: NSTableView {
-        return frameView.documentView as? NSTableView
+        return specificCocoaView.documentView as? NSTableView
           ?? NSTableView()  // @exempt(from: tests) Never nil.
       }
     #elseif canImport(UIKit)
       internal var nativeTable: UITableView {
-        return frameView
+        return specificCocoaView
       }
     #endif
 
@@ -194,12 +194,6 @@
         }
       }
       nativeTable.reloadData()
-    }
-
-    // MARK: - LegacyView
-
-    public func cocoa() -> CocoaView {
-      return CocoaView(frameView)
     }
   }
 #endif

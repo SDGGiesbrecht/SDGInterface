@@ -28,7 +28,7 @@
   import SDGViews
 
   /// A text label.
-  public final class Label<L>: AnyLabel, CocoaViewImplementation, View
+  public final class Label<L>: AnyLabel, CocoaViewImplementation, SpecificView
   where L: Localization {
 
     // MARK: - Initialization
@@ -75,12 +75,6 @@
 
     // MARK: - Properties
 
-    #if canImport(AppKit)
-      private let specificCocoaView: NSTextField
-    #elseif canImport(UIKit)
-      private let specificCocoaView: UILabel
-    #endif
-
     private let bindingObserver = LabelBindingObserver()
 
     /// The text.
@@ -107,10 +101,12 @@
       #endif
     }
 
-    // MARK: - LegacyView
+    // MARK: - SpecificView
 
-    public func cocoa() -> CocoaView {
-      return CocoaView(specificCocoaView)
-    }
+    #if canImport(AppKit)
+      public let specificCocoaView: NSTextField
+    #elseif canImport(UIKit)
+      public let specificCocoaView: UILabel
+    #endif
   }
 #endif
