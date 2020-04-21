@@ -12,7 +12,12 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import SDGControlFlow
+
 import SDGViews
+import SDGWindows
+
+import SDGInterfaceLocalizations
 
 import SDGTesting
 
@@ -27,8 +32,14 @@ public func testLegacyViewConformance<T>(
   file: StaticString = #file,
   line: UInt = #line
 ) where T: LegacyView {
+
   _ = view.cocoa()
   if #available(macOS 10.15, *) {
     _ = view.swiftUIAnyView()
   }
+
+  _ = Window<InterfaceLocalization>.primaryWindow(
+    name: .binding(Shared("")),
+    view: view.cocoa()
+  )
 }

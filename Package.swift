@@ -305,7 +305,11 @@ let package = Package(
     .target(
       name: "SDGViewsTestUtilities",
       dependencies: [
-        "SDGViews"
+        "SDGViews",
+        "SDGWindows",
+        "SDGInterfaceLocalizations",
+        .product(name: "SDGControlFlow", package: "SDGCornerstone"),
+        .product(name: "SDGTesting", package: "SDGCornerstone"),
       ]
     ),
 

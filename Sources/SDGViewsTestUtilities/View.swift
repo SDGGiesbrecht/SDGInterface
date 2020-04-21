@@ -28,6 +28,9 @@ public func testViewConformance<T>(
   file: StaticString = #file,
   line: UInt = #line
 ) where T: View {
+
   testLegacyViewConformance(of: view, file: file, line: line)
-  _ = view.swiftUI()
+
+  let swiftUI = view.swiftUI()
+  _ = swiftUI.body
 }

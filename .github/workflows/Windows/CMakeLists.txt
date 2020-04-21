@@ -677,16 +677,6 @@ target_link_libraries("SDGTables" PRIVATE
   "SDGMathematics"
 )
 
-add_library("SDGViewsTestUtilities"
-  "../../../Sources/SDGViewsTestUtilities/LegacyView.swift"
-  "../../../Sources/SDGViewsTestUtilities/View.swift"
-)
-set_target_properties("SDGViewsTestUtilities" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
-target_compile_options("SDGViewsTestUtilities" PRIVATE -enable-testing)
-target_link_libraries("SDGViewsTestUtilities" PRIVATE
-  "SDGViews"
-)
-
 add_library("SDGWindows"
   "../../../Sources/SDGWindows/AnyWindow.swift"
   "../../../Sources/SDGWindows/BindingObserver.swift"
@@ -1051,6 +1041,20 @@ target_link_libraries("SDGTextDisplayTests" PRIVATE
   "SDGXCTestUtilities"
   "SDGLogicTestUtilities"
   "SDGLocalizationTestUtilities"
+)
+
+add_library("SDGViewsTestUtilities"
+  "../../../Sources/SDGViewsTestUtilities/LegacyView.swift"
+  "../../../Sources/SDGViewsTestUtilities/View.swift"
+)
+set_target_properties("SDGViewsTestUtilities" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
+target_compile_options("SDGViewsTestUtilities" PRIVATE -enable-testing)
+target_link_libraries("SDGViewsTestUtilities" PRIVATE
+  "SDGViews"
+  "SDGWindows"
+  "SDGInterfaceLocalizations"
+  "SDGControlFlow"
+  "SDGTesting"
 )
 
 add_library("SDGViewsTests"
