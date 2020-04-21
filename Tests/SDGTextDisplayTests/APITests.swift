@@ -565,7 +565,7 @@ final class APITests: ApplicationTestCase {
 
         let textField = TextField()
         #if canImport(UIKit)
-          textField.specificCocoaView.insertText("...")
+          (textField.cocoa().native as! UITextField).insertText("...")
         #endif
       }
       Application.shared.demonstrateLabelledTextField()
