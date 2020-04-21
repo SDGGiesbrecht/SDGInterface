@@ -101,6 +101,9 @@ let package = Package(
     // @documentation(SDGViews)
     /// The view protocol.
     .library(name: "SDGViews", targets: ["SDGViews"]),
+    // @documentation(SDGViewsTestUtilities)
+    /// Utilities for testing code which uses `SDGViews`.
+    .library(name: "SDGViewsTestUtilities", targets: ["SDGViewsTestUtilities"]),
 
     // @documentation(SDGKeyboard)
     /// Utilities for working with keyboard input.
@@ -295,6 +298,14 @@ let package = Package(
         .product(name: "SDGText", package: "SDGCornerstone"),
         .product(name: "SDGCollections", package: "SDGCornerstone"),
         .product(name: "SDGLocalization", package: "SDGCornerstone"),
+      ]
+    ),
+    // #documentation(SDGViewsTestUtilities)
+    /// Utilities for testing code which uses `SDGViews`.
+    .target(
+      name: "SDGViewsTestUtilities",
+      dependencies: [
+        "SDGViews"
       ]
     ),
 
@@ -602,5 +613,4 @@ if ProcessInfo.processInfo.environment["TARGETING_WEB"] == "true" {
     // #workaround(Swift 5.2.2, Web lacks Foundation.)
     target.exclude.append("Resources.swift")
   }
-
 }
