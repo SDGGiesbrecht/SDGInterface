@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-// #workaround(Swift 5.2, Web doesn’t have Foundation yet.)
+// #workaround(Swift 5.2.2, Web doesn’t have Foundation yet.)
 #if !os(WASI)
   import Foundation
 #endif
@@ -73,7 +73,7 @@ public final class Application {
   }
 
   #if !os(watchOS)
-    // #workaround(Swift 5.2, Web doesn’t have Foundation yet.)
+    // #workaround(Swift 5.2.2, Web doesn’t have Foundation yet.)
     #if !os(WASI)
       /// Starts the application’s main run loop.
       ///
