@@ -16,21 +16,25 @@ import SDGViews
 
 import SDGTesting
 
-/// Tests a type’s conformance to View.
-///
-/// - Parameters:
-///     - view: A view.
-///     - file: Optional. A different source file to associate with any failures.
-///     - line: Optional. A different line to associate with any failures.
-@available(macOS 10.15, *)
-public func testViewConformance<T>(
-  of view: T,
-  file: StaticString = #file,
-  line: UInt = #line
-) where T: View {
+#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+  /// Tests a type’s conformance to View.
+  ///
+  /// - Parameters:
+  ///     - view: A view.
+  ///     - file: Optional. A different source file to associate with any failures.
+  ///     - line: Optional. A different line to associate with any failures.
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  public func testViewConformance<T>(
+    of view: T,
+    file: StaticString = #file,
+    line: UInt = #line
+  ) where T: View {
 
-  testLegacyViewConformance(of: view, file: file, line: line)
+    testLegacyViewConformance(of: view, file: file, line: line)
 
-  let swiftUI = view.swiftUI()
-  _ = swiftUI.body
-}
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      let swiftUI = view.swiftUI()
+      _ = swiftUI.body
+    #endif
+  }
+#endif

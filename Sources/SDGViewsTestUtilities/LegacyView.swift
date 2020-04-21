@@ -34,9 +34,11 @@ public func testLegacyViewConformance<T>(
 ) where T: LegacyView {
 
   _ = view.cocoa()
-  if #available(macOS 10.15, *) {
-    _ = view.swiftUIAnyView()
-  }
+  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
+      _ = view.swiftUIAnyView()
+    }
+  #endif
 
   _ = Window<InterfaceLocalization>.primaryWindow(
     name: .binding(Shared("")),
