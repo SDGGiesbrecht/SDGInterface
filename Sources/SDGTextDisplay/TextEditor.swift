@@ -33,23 +33,29 @@
     public init() {
 
       #if canImport(AppKit)
-        specificCocoaView = NSScrollView()
-        specificCocoaView.documentView = TextView()
+        frameView = NSScrollView()
+        frameView.documentView = TextView()
       #else
-        specificCocoaView = TextView()
+        frameView = TextView()
       #endif
 
       #if canImport(AppKit)
-        specificCocoaView.borderType = .bezelBorder
+        frameView.borderType = .bezelBorder
 
-        specificCocoaView.horizontalScrollElasticity = .automatic
-        specificCocoaView.verticalScrollElasticity = .automatic
+        frameView.horizontalScrollElasticity = .automatic
+        frameView.verticalScrollElasticity = .automatic
 
-        specificCocoaView.hasVerticalScroller = true
+        frameView.hasVerticalScroller = true
       #endif
     }
 
     // MARK: - Properties
+
+    #if canImport(AppKit)
+      private let frameView: NSScrollView
+    #elseif canImport(UIKit)
+      private let frameView: UITextView
+    #endif
 
     /// Whether or not the background is transparent.
     public var drawsBackground: Bool {
@@ -119,27 +125,21 @@
     // MARK: - LegacyView
 
     public func cocoa() -> CocoaView {
-      return CocoaView(specificCocoaView)
+      return CocoaView(frameView)
     }
 
     // MARK: - SpecificView
 
     #if canImport(AppKit)
-      public let specificCocoaView: NSScrollView
-    #elseif canImport(UIKit)
-      public let specificCocoaView: UITextView
-    #endif
-
-    #if canImport(AppKit)
       /// The native text view.
       public var nativeTextView: NSTextView {
-        return specificCocoaView.documentView as? NSTextView
+        return frameView.documentView as? NSTextView
           ?? NSTextView()  // @exempt(from: tests) Never nil.
       }
     #elseif canImport(UIKit)
       /// The native text view.
       public var nativeTextView: UITextView {
-        return specificCocoaView
+        return frameView
       }
     #endif
   }
