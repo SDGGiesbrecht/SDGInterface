@@ -22,7 +22,7 @@
   import SDGViews
 
   /// A check box.
-  public final class CheckBox<L>: AnyCheckBox, CocoaViewImplementation, SpecificView
+  public final class CheckBox<L>: AnyCheckBox, CocoaViewImplementation, View
   where L: Localization {
 
     // MARK: - Initialization
@@ -73,6 +73,12 @@
     public func _refreshBindings() {
       let resolved = String(label.resolved())
       specificCocoaView.title = resolved
+    }
+
+    // MARK: - LegacyView
+
+    public func cocoa() -> CocoaView {
+      return CocoaView(specificCocoaView)
     }
 
     // MARK: - SpecificView

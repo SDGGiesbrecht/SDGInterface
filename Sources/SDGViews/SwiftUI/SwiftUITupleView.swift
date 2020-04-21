@@ -1,5 +1,5 @@
 /*
- Windows.swift
+ SwiftUITupleView.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,7 +12,9 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if os(Windows)
-  // #workaround(workspace version 0.32.2, CMake cannot link an empty library.)
-  public func _preventEmptyLibrary() {}
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  import SwiftUI
+
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  extension SwiftUI.TupleView: SwiftUIViewImplementation {}
 #endif

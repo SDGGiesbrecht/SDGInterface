@@ -43,7 +43,7 @@
 
     // MARK: - View
 
-    // #workaround(Swift 5.2, “→ some View” leads to segmentation faults.)
+    // #workaround(Swift 5.2.2, “→ some View” leads to segmentation faults.)
     public func swiftUI() -> Self {
       return self
     }

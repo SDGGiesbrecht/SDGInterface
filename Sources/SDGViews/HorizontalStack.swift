@@ -26,7 +26,7 @@
 
   /// A shimmed version of `SwiftUI.HStack` with relaxed availability constraints.
   @available(iOS 9, watchOS 6, *)
-  public struct HorizontalStack: View {
+  public struct HorizontalStack<Entry>: LegacyView where Entry: LegacyView {
 
     // MARK: - Initialization
 
@@ -39,7 +39,7 @@
     public init(
       alignment: SDGInterfaceBasics.VerticalAlignment = .centre,
       spacing: Double? = nil,
-      content: [AnyView]
+      content: [Entry]
     ) {
       self.alignment = alignment
       self.spacing = spacing
@@ -50,7 +50,46 @@
 
     private let alignment: SDGInterfaceBasics.VerticalAlignment
     private let spacing: Double?
-    private let content: [AnyView]
+    private let content: [Entry]
+
+    // MARK: - LegacyView
+
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+      public func cocoa() -> CocoaView {
+        #if canImport(AppKit)
+          let view = NSStackView()
+        #else
+          let view = UIStackView()
+        #endif
+        for entry in content {
+          #if canImport(AppKit)
+            view.addView(entry.cocoa().native, in: .center)
+          #else
+            view.addArrangedSubview(entry.cocoa().native)
+          #endif
+        }
+        switch alignment {
+        case .top:
+          view.alignment = .top
+        case .centre:
+          #if canImport(AppKit)
+            view.alignment = .centerY
+          #else
+            view.alignment = .center
+          #endif
+        case .bottom:
+          view.alignment = .bottom
+        }
+        if let specific = spacing {
+          view.spacing = CGFloat(specific)
+        }
+        return CocoaView(view)
+      }
+    #endif
+  }
+
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  extension HorizontalStack: View, ViewShims where Entry: View {
 
     // MARK: - View
 
@@ -67,46 +106,6 @@
             }
           }
         )
-      }
-    #endif
-
-    #if canImport(AppKit)
-      public func cocoa() -> CocoaView {
-        let view = NSStackView()
-        for entry in content {
-          view.addView(entry.cocoa().native, in: .center)
-        }
-        switch alignment {
-        case .top:
-          view.alignment = .top
-        case .centre:
-          view.alignment = .centerY
-        case .bottom:
-          view.alignment = .bottom
-        }
-        if let specific = spacing {
-          view.spacing = CGFloat(specific)
-        }
-        return CocoaView(view)
-      }
-    #elseif canImport(UIKit) && !os(watchOS)
-      public func cocoa() -> CocoaView {
-        let view = UIStackView()
-        for entry in content {
-          view.addArrangedSubview(entry.cocoa().native)
-        }
-        switch alignment {
-        case .top:
-          view.alignment = .top
-        case .centre:
-          view.alignment = .center
-        case .bottom:
-          view.alignment = .bottom
-        }
-        if let specific = spacing {
-          view.spacing = CGFloat(specific)
-        }
-        return CocoaView(view)
       }
     #endif
   }

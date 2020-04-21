@@ -26,26 +26,32 @@
   import SDGViews
 
   /// An image view.
-  public final class ProgressBar: CocoaViewImplementation, SpecificView {
+  public final class ProgressBar: CocoaViewImplementation, View {
 
     // MARK: - Initialization
 
     /// Creates an image view displaying an image.
     public init() {
       #if canImport(AppKit)
-        specificCocoaView = NSProgressIndicator()
+        nativeView = NSProgressIndicator()
       #elseif canImport(UIKit)
-        specificCocoaView = UIProgressView()
+        nativeView = UIProgressView()
       #endif
 
       #if canImport(AppKit)
-        specificCocoaView.usesThreadedAnimation = true
+        nativeView.usesThreadedAnimation = true
       #endif
 
       progressValue = nil
     }
 
     // MARK: - Properties
+
+    #if canImport(AppKit)
+      private let nativeView: NSProgressIndicator
+    #elseif canImport(UIKit)
+      private let nativeView: UIProgressView
+    #endif
 
     #if canImport(UIKit)
       private var minValue: Double = 0
@@ -58,7 +64,7 @@
         } else {
           progress = 0
         }
-        specificCocoaView.setProgress(progress, animated: true)
+        nativeView.setProgress(progress, animated: true)
       }
     #endif
 
@@ -66,14 +72,14 @@
     public var startValue: Double {
       get {
         #if canImport(AppKit)
-          return specificCocoaView.minValue
+          return nativeView.minValue
         #elseif canImport(UIKit)
           return minValue
         #endif
       }
       set {
         #if canImport(AppKit)
-          specificCocoaView.minValue = newValue
+          nativeView.minValue = newValue
         #elseif canImport(UIKit)
           minValue = newValue
           refreshNativeBar()
@@ -85,14 +91,14 @@
     public var endValue: Double {
       get {
         #if canImport(AppKit)
-          return specificCocoaView.maxValue
+          return nativeView.maxValue
         #elseif canImport(UIKit)
           return maxValue
         #endif
       }
       set {
         #if canImport(AppKit)
-          specificCocoaView.maxValue = newValue
+          nativeView.maxValue = newValue
         #elseif canImport(UIKit)
           maxValue = newValue
           refreshNativeBar()
@@ -106,7 +112,7 @@
     public var progressValue: Double? {
       get {
         #if canImport(AppKit)
-          return specificCocoaView.isIndeterminate ? nil : specificCocoaView.doubleValue
+          return nativeView.isIndeterminate ? nil : nativeView.doubleValue
         #elseif canImport(UIKit)
           return doubleValue
         #endif
@@ -114,13 +120,13 @@
       set {
         #if canImport(AppKit)
           if let value = newValue {
-            specificCocoaView.isIndeterminate = false
-            specificCocoaView.stopAnimation(nil)
-            specificCocoaView.doubleValue = value
+            nativeView.isIndeterminate = false
+            nativeView.stopAnimation(nil)
+            nativeView.doubleValue = value
           } else {
-            specificCocoaView.doubleValue = 0
-            specificCocoaView.isIndeterminate = true
-            specificCocoaView.startAnimation(nil)
+            nativeView.doubleValue = 0
+            nativeView.isIndeterminate = true
+            nativeView.startAnimation(nil)
           }
         #elseif canImport(UIKit)
           doubleValue = newValue
@@ -129,12 +135,10 @@
       }
     }
 
-    // MARK: - SpecificView
+    // MARK: - LegacyView
 
-    #if canImport(AppKit)
-      public let specificCocoaView: NSProgressIndicator
-    #elseif canImport(UIKit)
-      public let specificCocoaView: UIProgressView
-    #endif
+    public func cocoa() -> CocoaView {
+      return CocoaView(nativeView)
+    }
   }
 #endif

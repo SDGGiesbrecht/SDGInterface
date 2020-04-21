@@ -27,7 +27,7 @@
   import SDGViews
 
   /// A button.
-  public final class Button<L>: AnyButton, CocoaViewImplementation, SpecificView
+  public final class Button<L>: AnyButton, CocoaViewImplementation, View
   where L: Localization {
 
     // MARK: - Initialization
@@ -90,6 +90,12 @@
       #elseif canImport(UIKit)
         specificCocoaView.titleLabel?.text = resolved
       #endif
+    }
+
+    // MARK: - LegacyView
+
+    public func cocoa() -> CocoaView {
+      return CocoaView(specificCocoaView)
     }
 
     // MARK: - SpecificView

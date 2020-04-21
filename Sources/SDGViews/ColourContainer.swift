@@ -17,30 +17,32 @@
 
   import SDGInterfaceBasics
 
-  internal class ColourContainer: NSView, CocoaViewImplementation {
+  extension Colour {
+    internal class Container: NSView, CocoaViewImplementation {
 
-    // MARK: - Initialization
+      // MARK: - Initialization
 
-    internal init(_ colour: Colour) {
-      self.colour = colour
-      super.init(frame: NSRect.zero)
-    }
+      internal init(_ colour: Colour) {
+        self.colour = colour
+        super.init(frame: NSRect.zero)
+      }
 
-    required init?(coder: NSCoder) {  // @exempt(from: tests)
-      return nil
-    }
+      required init?(coder: NSCoder) {  // @exempt(from: tests)
+        return nil
+      }
 
-    // MARK: - Properties
+      // MARK: - Properties
 
-    private let colour: Colour
+      private let colour: Colour
 
-    // MARK: - NSView
+      // MARK: - NSView
 
-    internal override func draw(_ dirtyRect: CGRect) {
-      // @exempt(from: tests) Crashes without actual display available.
-      colour.nsColor.setFill()
-      dirtyRect.fill(using: .sourceOver)
-      super.draw(dirtyRect)
+      internal override func draw(_ dirtyRect: CGRect) {
+        // @exempt(from: tests) Crashes without actual display available.
+        colour.nsColor.setFill()
+        dirtyRect.fill(using: .sourceOver)
+        super.draw(dirtyRect)
+      }
     }
   }
 #endif

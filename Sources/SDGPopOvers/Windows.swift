@@ -13,6 +13,6 @@
  */
 
 #if os(Windows)
-  // #workaround(workspace version 0.32.1, CMake cannot link an empty library.)
+  // #workaround(workspace version 0.32.2, CMake cannot link an empty library.)
   public func _preventEmptyLibrary() {}
 #endif
