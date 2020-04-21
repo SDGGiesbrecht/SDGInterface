@@ -24,7 +24,7 @@
   import SDGViews
 
   /// An image view.
-  public final class ImageView: CocoaViewImplementation, SpecificView {
+  public final class ImageView: CocoaViewImplementation, View {
 
     // MARK: - Initialization
 
@@ -37,17 +37,17 @@
       #if canImport(AppKit)
         let imageView = NSImageView()
         imageView.image = image.native
-        specificCocoaView = imageView
+        self.imageView = imageView
       #elseif canImport(UIKit)
-        specificCocoaView = UIImageView(image: image.native)
+        self.imageView = UIImageView(image: image.native)
       #endif
 
       #if canImport(AppKit)
-        specificCocoaView.setContentCompressionResistancePriority(
+        self.imageView.setContentCompressionResistancePriority(
           .windowSizeStayPut,
           for: .horizontal
         )
-        specificCocoaView.setContentCompressionResistancePriority(
+        self.imageView.setContentCompressionResistancePriority(
           .windowSizeStayPut,
           for: .vertical
         )
@@ -59,12 +59,16 @@
     /// The image.
     public var image: Image
 
-    // MARK: - SpecificView
-
     #if canImport(AppKit)
-      public let specificCocoaView: NSImageView
+      private let imageView: NSImageView
     #elseif canImport(UIKit)
-      public let specificCocoaView: UIImageView
+      private let imageView: UIImageView
     #endif
+
+    // MARK: - LegacyView
+
+    public func cocoa() -> CocoaView {
+      return CocoaView(imageView)
+    }
   }
 #endif
