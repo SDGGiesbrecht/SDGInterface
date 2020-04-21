@@ -602,4 +602,5 @@ if ProcessInfo.processInfo.environment["TARGETING_WEB"] == "true" {
     // #workaround(Swift 5.2.2, Web lacks Foundation.)
     target.exclude.append("Resources.swift")
   }
+
 }
