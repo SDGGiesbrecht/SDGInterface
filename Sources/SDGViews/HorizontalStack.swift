@@ -26,7 +26,7 @@
 
   /// A shimmed version of `SwiftUI.HStack` with relaxed availability constraints.
   @available(iOS 9, watchOS 6, *)
-  public struct HorizontalStack: View {
+  public struct HorizontalStack<Entry>: LegacyView where Entry: LegacyView {
 
     // MARK: - Initialization
 
@@ -39,7 +39,7 @@
     public init(
       alignment: SDGInterfaceBasics.VerticalAlignment = .centre,
       spacing: Double? = nil,
-      content: [AnyView]
+      content: [Entry]
     ) {
       self.alignment = alignment
       self.spacing = spacing
@@ -50,25 +50,9 @@
 
     private let alignment: SDGInterfaceBasics.VerticalAlignment
     private let spacing: Double?
-    private let content: [AnyView]
+    private let content: [Entry]
 
-    // MARK: - View
-
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-      public func swiftUI() -> some SwiftUI.View {
-        return HStack(
-          alignment: SwiftUI.VerticalAlignment(alignment),
-          spacing: spacing.map({ CGFloat($0) }),
-          content: {
-            ForEach(content.indices) {
-              // @exempt(from: tests) Inaccurate coverage result.
-              self.content[$0].swiftUI()
-            }
-          }
-        )
-      }
-    #endif
+    // MARK: - LegacyView
 
     #if canImport(AppKit) || canImport(UIKit)
       public func cocoa() -> CocoaView {
@@ -100,6 +84,28 @@
           view.spacing = CGFloat(specific)
         }
         return CocoaView(view)
+      }
+    #endif
+  }
+
+  @available(macOS 10.15, tvOS 13, iOS 13, *)
+  extension HorizontalStack: View, ViewShims where Entry: View {
+
+    // MARK: - View
+
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+      public func swiftUI() -> some SwiftUI.View {
+        return HStack(
+          alignment: SwiftUI.VerticalAlignment(alignment),
+          spacing: spacing.map({ CGFloat($0) }),
+          content: {
+            ForEach(content.indices) {
+              // @exempt(from: tests) Inaccurate coverage result.
+              self.content[$0].swiftUI()
+            }
+          }
+        )
       }
     #endif
   }
