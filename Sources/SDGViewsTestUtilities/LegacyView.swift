@@ -21,27 +21,34 @@ import SDGInterfaceLocalizations
 
 import SDGTesting
 
-/// Tests a type’s conformance to LegacyView.
-///
-/// - Parameters:
-///     - view: A view.
-///     - file: Optional. A different source file to associate with any failures.
-///     - line: Optional. A different line to associate with any failures.
-public func testLegacyViewConformance<T>(
-  of view: T,
-  file: StaticString = #file,
-  line: UInt = #line
-) where T: LegacyView {
+#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+  /// Tests a type’s conformance to LegacyView.
+  ///
+  /// - Parameters:
+  ///     - view: A view.
+  ///     - file: Optional. A different source file to associate with any failures.
+  ///     - line: Optional. A different line to associate with any failures.
+  @available(watchOS 6, *)
+  public func testLegacyViewConformance<T>(
+    of view: T,
+    file: StaticString = #file,
+    line: UInt = #line
+  ) where T: LegacyView {
 
-  _ = view.cocoa()
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-    if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-      _ = view.swiftUIAnyView()
-    }
-  #endif
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+      _ = view.cocoa()
+    #endif
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        _ = view.swiftUIAnyView()
+      }
+    #endif
 
-  _ = Window<InterfaceLocalization>.primaryWindow(
-    name: .binding(Shared("")),
-    view: view.cocoa()
-  )
-}
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+      _ = Window<InterfaceLocalization>.primaryWindow(
+        name: .binding(Shared("")),
+        view: view.cocoa()
+      )
+    #endif
+  }
+#endif
