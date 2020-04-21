@@ -54,7 +54,7 @@
 
     // MARK: - LegacyView
 
-    #if canImport(AppKit) || canImport(UIKit)
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       public func cocoa() -> CocoaView {
         #if canImport(AppKit)
           let view = NSStackView()
@@ -88,7 +88,7 @@
     #endif
   }
 
-  @available(macOS 10.15, tvOS 13, iOS 13, *)
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension HorizontalStack: View, ViewShims where Entry: View {
 
     // MARK: - View
