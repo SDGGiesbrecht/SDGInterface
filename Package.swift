@@ -309,6 +309,7 @@ let package = Package(
         "SDGWindows",
         "SDGInterfaceLocalizations",
         .product(name: "SDGControlFlow", package: "SDGCornerstone"),
+        .product(name: "SDGLogic", package: "SDGCornerstone"),
         .product(name: "SDGTesting", package: "SDGCornerstone"),
       ]
     ),

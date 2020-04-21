@@ -12,6 +12,12 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  import SwiftUI
+#endif
+
+import SDGLogic
+
 import SDGViews
 
 import SDGTesting
@@ -28,13 +34,15 @@ import SDGTesting
     of view: T,
     file: StaticString = #file,
     line: UInt = #line
-  ) where T: View {
+  ) where T: SDGViews.View {
 
     testLegacyViewConformance(of: view, file: file, line: line)
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       let swiftUI = view.swiftUI()
-      _ = swiftUI.body
+      if ¬(swiftUI is SwiftUI.AnyView) {
+        _ = swiftUI.body
+      }
     #endif
   }
 #endif

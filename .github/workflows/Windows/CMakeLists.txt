@@ -1054,6 +1054,7 @@ target_link_libraries("SDGViewsTestUtilities" PRIVATE
   "SDGWindows"
   "SDGInterfaceLocalizations"
   "SDGControlFlow"
+  "SDGLogic"
   "SDGTesting"
 )
 
