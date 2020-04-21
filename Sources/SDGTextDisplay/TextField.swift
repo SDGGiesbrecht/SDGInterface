@@ -28,7 +28,7 @@
   import SDGViews
 
   /// A text field.
-  public final class TextField: CocoaViewImplementation, SpecificView {
+  public final class TextField: CocoaViewImplementation, View {
 
     // MARK: - Static Set‐Up
 
@@ -123,6 +123,12 @@
       if new ≠ value.value {
         value.value = new
       }
+    }
+
+    // MARK: - LegacyView
+
+    public func cocoa() -> CocoaView {
+      return CocoaView(specificCocoaView)
     }
 
     // MARK: - SpecificView

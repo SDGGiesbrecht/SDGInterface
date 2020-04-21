@@ -26,7 +26,7 @@
   import SDGViews
 
   /// An image view.
-  public final class ProgressBar: CocoaViewImplementation, SpecificView {
+  public final class ProgressBar: CocoaViewImplementation, View {
 
     // MARK: - Initialization
 
@@ -127,6 +127,12 @@
           refreshNativeBar()
         #endif
       }
+    }
+
+    // MARK: - LegacyView
+
+    public func cocoa() -> CocoaView {
+      return CocoaView(specificCocoaView)
     }
 
     // MARK: - SpecificView

@@ -27,7 +27,7 @@
   import SDGTextDisplay
 
   /// A set of radio buttons.
-  public class RadioButtonSet<Option, L>: AnyRadioButtonSet, CocoaViewImplementation, SpecificView
+  public class RadioButtonSet<Option, L>: AnyRadioButtonSet, CocoaViewImplementation, View
   where Option: CaseIterable, L: Localization, Option.AllCases == [Option] {
 
     // MARK: - Initialization
@@ -113,6 +113,12 @@
           #endif
         }
       }
+    }
+
+    // MARK: - LegacyView
+
+    public func cocoa() -> CocoaView {
+      return CocoaView(specificCocoaView)
     }
 
     // MARK: - SpecificView

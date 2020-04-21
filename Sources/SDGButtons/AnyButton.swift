@@ -24,11 +24,9 @@
   /// A button with no particular localization.
   public protocol AnyButton: AnyObject, LegacyView {
     #if canImport(AppKit)
-      // #documentation(SpecificView.specificCocoaView)
       /// The specific subclass of `NSView` or `UIView`.
       var specificCocoaView: NSButton { get }
     #elseif canImport(UIKit)
-      // #documentation(SpecificView.specificCocoaView)
       /// The specific subclass of `NSView` or `UIView`.
       var specificCocoaView: UIButton { get }
     #endif

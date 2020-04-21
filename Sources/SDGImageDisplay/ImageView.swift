@@ -24,7 +24,7 @@
   import SDGViews
 
   /// An image view.
-  public final class ImageView: CocoaViewImplementation, SpecificView {
+  public final class ImageView: CocoaViewImplementation, View {
 
     // MARK: - Initialization
 
@@ -58,6 +58,12 @@
 
     /// The image.
     public var image: Image
+
+    // MARK: - LegacyView
+
+    public func cocoa() -> CocoaView {
+      return CocoaView(specificCocoaView)
+    }
 
     // MARK: - SpecificView
 

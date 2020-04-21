@@ -28,7 +28,7 @@
   import SDGViews
 
   /// A text label.
-  public final class Label<L>: AnyLabel, CocoaViewImplementation, SpecificView
+  public final class Label<L>: AnyLabel, CocoaViewImplementation, View
   where L: Localization {
 
     // MARK: - Initialization
@@ -99,6 +99,12 @@
       #elseif canImport(UIKit)
         specificCocoaView.text = resolved
       #endif
+    }
+
+    // MARK: - LegacyView
+
+    public func cocoa() -> CocoaView {
+      return CocoaView(specificCocoaView)
     }
 
     // MARK: - SpecificView

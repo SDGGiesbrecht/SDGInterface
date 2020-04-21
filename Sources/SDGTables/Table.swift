@@ -32,7 +32,7 @@
 
   /// Table.
   @available(iOS 9, *)  // @exempt(from: unicode)
-  public final class Table<RowData>: CocoaViewImplementation, SpecificView {
+  public final class Table<RowData>: CocoaViewImplementation, View {
 
     // MARK: - Initialization
 
@@ -194,6 +194,12 @@
         }
       }
       nativeTable.reloadData()
+    }
+
+    // MARK: - LegacyView
+
+    public func cocoa() -> CocoaView {
+      return CocoaView(specificCocoaView)
     }
   }
 #endif

@@ -24,11 +24,9 @@
   /// A set of radio buttons with no particular localization.
   public protocol AnyRadioButtonSet: AnyObject, LegacyView {
     #if canImport(AppKit)
-      // #documentation(SpecificView.specificCocoaView)
       /// The specific subclass of `NSView` or `UIView`.
       var specificCocoaView: NSSegmentedControl { get }
     #elseif canImport(UIKit)
-      // #documentation(SpecificView.specificCocoaView)
       /// The specific subclass of `NSView` or `UIView`.
       var specificCocoaView: UISegmentedControl { get }
     #endif

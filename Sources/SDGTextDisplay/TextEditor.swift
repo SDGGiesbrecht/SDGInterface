@@ -25,7 +25,7 @@
   import SDGViews
 
   /// An editor for multiline text.
-  public final class TextEditor: CocoaViewImplementation, SpecificView {
+  public final class TextEditor: CocoaViewImplementation, View {
 
     // MARK: - Initialization
 
@@ -114,6 +114,12 @@
       let range = NSRange(content.endIndex..., in: content)
 
       nativeTextView.scrollRangeToVisible(range)
+    }
+
+    // MARK: - LegacyView
+
+    public func cocoa() -> CocoaView {
+      return CocoaView(specificCocoaView)
     }
 
     // MARK: - SpecificView

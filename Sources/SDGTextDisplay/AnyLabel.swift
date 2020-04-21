@@ -25,11 +25,9 @@
   /// A label with no particular localization.
   public protocol AnyLabel: AnyObject, LegacyView {
     #if canImport(AppKit)
-      // #documentation(SpecificView.specificCocoaView)
       /// The specific subclass of `NSView` or `UIView`.
       var specificCocoaView: NSTextField { get }
     #elseif canImport(UIKit)
-      // #documentation(SpecificView.specificCocoaView)
       /// The specific subclass of `NSView` or `UIView`.
       var specificCocoaView: UILabel { get }
     #endif
