@@ -15,59 +15,46 @@
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   import SwiftUI
 
-  import SDGControlFlow
-
   @testable import SDGViews
-  import SDGWindows
 
-  import SDGInterfaceSample
-
+  import SDGViewsTestUtilities
   import SDGApplicationTestUtilities
 
   final class PreviewTests: ApplicationTestCase {
 
-    @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-    func simulateUse<V>(of view: V) where V: SwiftUI.View {
-      _ = view.body
-      _ = Window<InterfaceLocalization>.primaryWindow(
-        name: .binding(Shared("")),
-        view: SwiftUI.AnyView(view).cocoa()
-      )
-    }
-
     func testAspectRatioPreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-        simulateUse(of: AspectRatioPreviews())
+        testViewConformance(of: SwiftUI.AnyView(AspectRatioPreviews()))
       }
     }
 
     func testBackgroundPreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-        simulateUse(of: BackgroundPreviews())
+        testViewConformance(of: SwiftUI.AnyView(BackgroundPreviews()))
       }
     }
 
     func testFramePreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-        simulateUse(of: FramePreviews())
+        testViewConformance(of: SwiftUI.AnyView(FramePreviews()))
       }
     }
 
     func testHorizontalStackPreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-        simulateUse(of: HorizontalStackPreviews())
+        testViewConformance(of: SwiftUI.AnyView(HorizontalStackPreviews()))
       }
     }
 
     func testLetterboxPreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-        simulateUse(of: LetterboxPreviews())
+        testViewConformance(of: SwiftUI.AnyView(LetterboxPreviews()))
       }
     }
 
     func testPaddingPreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-        simulateUse(of: PaddingPreviews())
+        testViewConformance(of: SwiftUI.AnyView(PaddingPreviews()))
       }
     }
   }

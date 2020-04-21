@@ -1073,6 +1073,7 @@ target_link_libraries("SDGViewsTests" PRIVATE
   "SDGWindows"
   "SDGApplication"
   "SDGInterfaceSample"
+  "SDGViewsTestUtilities"
   "SDGApplicationTestUtilities"
   "SDGControlFlow"
   "SDGXCTestUtilities"

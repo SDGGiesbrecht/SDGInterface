@@ -392,6 +392,7 @@ let package = Package(
         "SDGWindows",
         "SDGApplication",
         "SDGInterfaceSample",
+        "SDGViewsTestUtilities",
         "SDGApplicationTestUtilities",
         .product(name: "SDGControlFlow", package: "SDGCornerstone"),
         .product(name: "SDGXCTestUtilities", package: "SDGCornerstone"),
