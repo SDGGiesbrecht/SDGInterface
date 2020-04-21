@@ -26,6 +26,9 @@ public func testLegacyViewConformance<T>(
   of view: T,
   file: StaticString = #file,
   line: UInt = #line
-) where T: BidirectionalCollection {
-
+) where T: LegacyView {
+  _ = view.cocoa()
+  if #available(macOS 10.15, *) {
+    _ = view.swiftUIAnyView()
+  }
 }

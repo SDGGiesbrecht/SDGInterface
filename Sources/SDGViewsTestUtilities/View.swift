@@ -22,10 +22,12 @@ import SDGTesting
 ///     - view: A view.
 ///     - file: Optional. A different source file to associate with any failures.
 ///     - line: Optional. A different line to associate with any failures.
+@available(macOS 10.15, *)
 public func testViewConformance<T>(
   of view: T,
   file: StaticString = #file,
   line: UInt = #line
-) where T: BidirectionalCollection {
+) where T: View {
   testLegacyViewConformance(of: view, file: file, line: line)
+  _ = view.swiftUI()
 }
