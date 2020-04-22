@@ -65,7 +65,7 @@ final class APITests: ApplicationTestCase {
   func testColour() {
     #if canImport(SwiftUI) || canImport(AppKit) || (canImport(UIKit) && !(os(iOS) && arch(arm)))
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {
-        _ = testViewConformance(of: Colour.red)
+        _ = testViewConformance(of: Colour.red, testBody: false)
       }
     #endif
   }
@@ -84,10 +84,9 @@ final class APITests: ApplicationTestCase {
         let stack = HorizontalStack(spacing: 0, content: [AnyView(CocoaView())])
         #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
           if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
-            _ = stack.swiftUI()
+            testViewConformance(of: stack, testBody: false)
           }
         #endif
-        _ = stack.cocoa()
       }
     #endif
   }
@@ -215,6 +214,11 @@ final class APITests: ApplicationTestCase {
 
       forAllLegacyModes {
         _ = newView().frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .centre).cocoa()
+      }
+    #endif
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        testViewConformance(of: SwiftUIExample())
       }
     #endif
   }

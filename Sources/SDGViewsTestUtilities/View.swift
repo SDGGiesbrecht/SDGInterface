@@ -27,11 +27,13 @@ import SDGTesting
   ///
   /// - Parameters:
   ///     - view: A view.
+  ///     - testBody: Optional. Whether or not to test the `body` property.
   ///     - file: Optional. A different source file to associate with any failures.
   ///     - line: Optional. A different line to associate with any failures.
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   public func testViewConformance<T>(
     of view: T,
+    testBody: Bool = true,
     file: StaticString = #file,
     line: UInt = #line
   ) where T: SDGViews.View {
@@ -40,7 +42,7 @@ import SDGTesting
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       let swiftUI = view.swiftUI()
-      if ¬(swiftUI is SwiftUI.AnyView) {
+      if testBody {
         _ = swiftUI.body
       }
     #endif
