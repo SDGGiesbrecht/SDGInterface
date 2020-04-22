@@ -29,6 +29,7 @@ import XCTest
 
 import SDGXCTestUtilities
 
+import SDGViewsTestUtilities
 import SDGApplicationTestUtilities
 
 final class APITests: ApplicationTestCase {
@@ -62,10 +63,9 @@ final class APITests: ApplicationTestCase {
   }
 
   func testColour() {
-    #if canImport(AppKit) || canImport(UIKit) && !(os(iOS) && arch(arm))
-      _ = Colour.red.cocoa()
+    #if canImport(SwiftUI) || canImport(AppKit) || (canImport(UIKit) && !(os(iOS) && arch(arm)))
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {
-        _ = Colour.green.swiftUI()
+        _ = testViewConformance(of: Colour.red)
       }
     #endif
   }
