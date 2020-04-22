@@ -170,6 +170,7 @@ extension SDGViewsTests.APITests {
       ("testBackground", testBackground),
       ("testColour", testColour),
       ("testEmptyView", testEmptyView),
+      ("testFramed", testFramed),
       ("testHorizontalStack", testHorizontalStack),
       ("testLayoutConstraintPriority", testLayoutConstraintPriority),
       ("testLegacyView", testLegacyView),
