@@ -31,7 +31,7 @@ final class APITests: ApplicationTestCase {
   func testKeyModifiers() {
     let modifiers: KeyModifiers = [.command, .shift, .option, .control, .function, .capsLock]
     #if canImport(AppKit)
-      XCTAssertEqual(KeyModifiers(modifiers.native), modifiers)
+      XCTAssertEqual(KeyModifiers(modifiers.cocoa), modifiers)
     #endif
   }
 
@@ -48,7 +48,7 @@ final class APITests: ApplicationTestCase {
       menuLabel.value = "unrelated"
       XCTAssertEqual(menu.label.resolved(), separateMenuLabel.value)
       #if canImport(AppKit)
-        _ = menu.native.title
+        _ = menu.cocoa.title
       #endif
     #endif
   }
@@ -116,7 +116,7 @@ final class APITests: ApplicationTestCase {
       menu.tag = 1
       XCTAssertEqual(menu.tag, 1)
       #if !os(watchOS) && !os(tvOS)
-        _ = menu.native.title
+        _ = menu.cocoa.title
       #endif
     #endif
   }

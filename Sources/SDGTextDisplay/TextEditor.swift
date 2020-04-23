@@ -61,20 +61,20 @@
     public var drawsBackground: Bool {
       get {
         #if canImport(AppKit)
-          return nativeTextView.drawsBackground
+          return cocoaTextView.drawsBackground
         #else
-          return nativeTextView.backgroundColor ≠ nil
+          return cocoaTextView.backgroundColor ≠ nil
         #endif
       }
       set {
         #if canImport(AppKit)
-          nativeTextView.drawsBackground = newValue
+          cocoaTextView.drawsBackground = newValue
         #else
           if drawsBackground ≠ newValue {
             if newValue {
-              nativeTextView.backgroundColor = .white
+              cocoaTextView.backgroundColor = .white
             } else {
-              nativeTextView.backgroundColor = nil
+              cocoaTextView.backgroundColor = nil
             }
           }
         #endif
@@ -85,10 +85,10 @@
       /// Whether or not editing is enabled.
       public var isEditable: Bool {
         get {
-          return nativeTextView.isEditable
+          return cocoaTextView.isEditable
         }
         set {
-          nativeTextView.isEditable = newValue
+          cocoaTextView.isEditable = newValue
         }
       }
     #endif
@@ -103,23 +103,23 @@
 
       let possibleStorage: NSTextStorage?
       #if canImport(AppKit)
-        possibleStorage = nativeTextView.textStorage
+        possibleStorage = cocoaTextView.textStorage
       #elseif canImport(UIKit)
-        possibleStorage = nativeTextView.textStorage
+        possibleStorage = cocoaTextView.textStorage
       #endif
 
       possibleStorage?.append(NSAttributedString(appendix))
 
       let content: String
       #if canImport(AppKit)
-        content = nativeTextView.string
+        content = cocoaTextView.string
       #else
-        content = nativeTextView.text
+        content = cocoaTextView.text
       #endif
 
       let range = NSRange(content.endIndex..., in: content)
 
-      nativeTextView.scrollRangeToVisible(range)
+      cocoaTextView.scrollRangeToVisible(range)
     }
 
     // MARK: - LegacyView
@@ -131,14 +131,14 @@
     // MARK: - SpecificView
 
     #if canImport(AppKit)
-      /// The native text view.
-      public var nativeTextView: NSTextView {
+      /// The Cocoa text view.
+      public var cocoaTextView: NSTextView {
         return frameView.documentView as? NSTextView
           ?? NSTextView()  // @exempt(from: tests) Never nil.
       }
     #elseif canImport(UIKit)
-      /// The native text view.
-      public var nativeTextView: UITextView {
+      /// The Cocoa text view.
+      public var cocoaTextView: UITextView {
         return frameView
       }
     #endif

@@ -36,18 +36,18 @@
       self.image = image
       #if canImport(AppKit)
         let imageView = NSImageView()
-        imageView.image = image.native
-        nativeView = imageView
+        imageView.image = image.cocoa
+        cocoaView = imageView
       #elseif canImport(UIKit)
-        nativeView = UIImageView(image: image.native)
+        cocoaView = UIImageView(image: image.cocoa)
       #endif
 
       #if canImport(AppKit)
-        nativeView.setContentCompressionResistancePriority(
+        cocoaView.setContentCompressionResistancePriority(
           .windowSizeStayPut,
           for: .horizontal
         )
-        nativeView.setContentCompressionResistancePriority(
+        cocoaView.setContentCompressionResistancePriority(
           .windowSizeStayPut,
           for: .vertical
         )
@@ -57,9 +57,9 @@
     // MARK: - Properties
 
     #if canImport(AppKit)
-      private let nativeView: NSImageView
+      private let cocoaView: NSImageView
     #elseif canImport(UIKit)
-      private let nativeView: UIImageView
+      private let cocoaView: UIImageView
     #endif
 
     /// The image.
@@ -68,7 +68,7 @@
     // MARK: - LegacyView
 
     public func cocoa() -> CocoaView {
-      return CocoaView(nativeView)
+      return CocoaView(cocoaView)
     }
   }
 #endif

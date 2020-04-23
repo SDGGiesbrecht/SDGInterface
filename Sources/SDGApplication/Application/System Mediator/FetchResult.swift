@@ -22,12 +22,12 @@ public enum FetchResult: CaseIterable {
   // MARK: - Initialization
 
   #if canImport(UIKit) && !os(watchOS)
-    /// Creates a fetch result from a native result.
+    /// Creates a fetch result from a Cocoa result.
     ///
     /// - Parameters:
-    ///     - native: The native result.
-    public init(_ native: UIBackgroundFetchResult) {
-      switch native {
+    ///     - cocoa: The Cocoa result.
+    public init(_ cocoa: UIBackgroundFetchResult) {
+      switch cocoa {
       case .newData:
         self = .newData
       case .noData:
@@ -54,8 +54,8 @@ public enum FetchResult: CaseIterable {
   // MARK: - Properties
 
   #if canImport(UIKit) && !os(watchOS)
-    /// The native result.
-    public var native: UIBackgroundFetchResult {
+    /// The Cocoa result.
+    public var cocoa: UIBackgroundFetchResult {
       switch self {
       case .newData:
         return .newData

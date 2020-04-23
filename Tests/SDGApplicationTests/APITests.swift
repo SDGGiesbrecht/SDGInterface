@@ -53,8 +53,8 @@ final class APITests: ApplicationTestCase {
   func testFetchResult() {
     #if canImport(UIKit)
       for result in FetchResult.allCases {
-        let native = result.native
-        XCTAssertEqual(result, FetchResult(native))
+        let cocoa = result.cocoa
+        XCTAssertEqual(result, FetchResult(cocoa))
       }
     #endif
   }
@@ -135,14 +135,14 @@ final class APITests: ApplicationTestCase {
 
     for response in PrintingResponse.allCases {
       #if canImport(AppKit)
-        let native = response.native
-        XCTAssertEqual(PrintingResponse(native), response)
+        let cocoa = response.cocoa
+        XCTAssertEqual(PrintingResponse(cocoa), response)
       #endif
     }
     for response in TerminationResponse.allCases {
       #if canImport(AppKit)
-        let native = response.native
-        XCTAssertEqual(TerminationResponse(native), response)
+        let cocoa = response.cocoa
+        XCTAssertEqual(TerminationResponse(cocoa), response)
       #endif
     }
   }

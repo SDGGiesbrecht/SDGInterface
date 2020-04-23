@@ -33,13 +33,13 @@
     /// Creates an image view displaying an image.
     public init() {
       #if canImport(AppKit)
-        nativeView = NSProgressIndicator()
+        cocoaView = NSProgressIndicator()
       #elseif canImport(UIKit)
-        nativeView = UIProgressView()
+        cocoaView = UIProgressView()
       #endif
 
       #if canImport(AppKit)
-        nativeView.usesThreadedAnimation = true
+        cocoaView.usesThreadedAnimation = true
       #endif
 
       progressValue = nil
@@ -48,23 +48,23 @@
     // MARK: - Properties
 
     #if canImport(AppKit)
-      private let nativeView: NSProgressIndicator
+      private let cocoaView: NSProgressIndicator
     #elseif canImport(UIKit)
-      private let nativeView: UIProgressView
+      private let cocoaView: UIProgressView
     #endif
 
     #if canImport(UIKit)
       private var minValue: Double = 0
       private var maxValue: Double = 1
       private var doubleValue: Double? = 0
-      private func refreshNativeBar() {
+      private func refreshCocoaBar() {
         let progress: Float
         if let value = doubleValue {
           progress = Float((value − minValue) ÷ (maxValue − minValue))
         } else {
           progress = 0
         }
-        nativeView.setProgress(progress, animated: true)
+        cocoaView.setProgress(progress, animated: true)
       }
     #endif
 
@@ -72,17 +72,17 @@
     public var startValue: Double {
       get {
         #if canImport(AppKit)
-          return nativeView.minValue
+          return cocoaView.minValue
         #elseif canImport(UIKit)
           return minValue
         #endif
       }
       set {
         #if canImport(AppKit)
-          nativeView.minValue = newValue
+          cocoaView.minValue = newValue
         #elseif canImport(UIKit)
           minValue = newValue
-          refreshNativeBar()
+          refreshCocoaBar()
         #endif
       }
     }
@@ -91,17 +91,17 @@
     public var endValue: Double {
       get {
         #if canImport(AppKit)
-          return nativeView.maxValue
+          return cocoaView.maxValue
         #elseif canImport(UIKit)
           return maxValue
         #endif
       }
       set {
         #if canImport(AppKit)
-          nativeView.maxValue = newValue
+          cocoaView.maxValue = newValue
         #elseif canImport(UIKit)
           maxValue = newValue
-          refreshNativeBar()
+          refreshCocoaBar()
         #endif
       }
     }
@@ -112,7 +112,7 @@
     public var progressValue: Double? {
       get {
         #if canImport(AppKit)
-          return nativeView.isIndeterminate ? nil : nativeView.doubleValue
+          return cocoaView.isIndeterminate ? nil : cocoaView.doubleValue
         #elseif canImport(UIKit)
           return doubleValue
         #endif
@@ -120,17 +120,17 @@
       set {
         #if canImport(AppKit)
           if let value = newValue {
-            nativeView.isIndeterminate = false
-            nativeView.stopAnimation(nil)
-            nativeView.doubleValue = value
+            cocoaView.isIndeterminate = false
+            cocoaView.stopAnimation(nil)
+            cocoaView.doubleValue = value
           } else {
-            nativeView.doubleValue = 0
-            nativeView.isIndeterminate = true
-            nativeView.startAnimation(nil)
+            cocoaView.doubleValue = 0
+            cocoaView.isIndeterminate = true
+            cocoaView.startAnimation(nil)
           }
         #elseif canImport(UIKit)
           doubleValue = newValue
-          refreshNativeBar()
+          refreshCocoaBar()
         #endif
       }
     }
@@ -138,7 +138,7 @@
     // MARK: - LegacyView
 
     public func cocoa() -> CocoaView {
-      return CocoaView(nativeView)
+      return CocoaView(cocoaView)
     }
   }
 #endif

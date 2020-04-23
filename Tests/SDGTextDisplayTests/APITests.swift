@@ -346,7 +346,7 @@ final class APITests: ApplicationTestCase {
     #if canImport(AppKit) || canImport(UIKit)
       Application.shared.demonstrateTextEditor()
       let textEditor = TextEditor()
-      let textView = textEditor.nativeTextView
+      let textView = textEditor.cocoaTextView
 
       let characters = "\u{20}\u{21}\u{22}\u{AA}\u{C0}"
       textEditor.append(RichText(rawText: StrictString(characters)))
@@ -453,7 +453,7 @@ final class APITests: ApplicationTestCase {
         XCTAssertFalse(validate(#selector(NSTextView.normalizeText(_:))))
         textView.selectAll(nil)
         textEditor.isEditable = false
-        XCTAssertFalse(textEditor.nativeTextView.isEditable)
+        XCTAssertFalse(textEditor.cocoaTextView.isEditable)
         XCTAssertFalse(validate(#selector(NSTextView.normalizeText(_:))))
       #endif
 
@@ -540,7 +540,7 @@ final class APITests: ApplicationTestCase {
       forEachWindow { window in
         #if canImport(AppKit)
           let fieldEditor =
-            window.native.fieldEditor(
+            window.cocoa.fieldEditor(
               true,
               for: window.view.cocoa().native.subviews[0]
             )

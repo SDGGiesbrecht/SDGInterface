@@ -125,7 +125,7 @@
           })
         )
       )
-      NSApplication.shared.servicesMenu = services.native
+      NSApplication.shared.servicesMenu = services.cocoa
       return services
     }
 

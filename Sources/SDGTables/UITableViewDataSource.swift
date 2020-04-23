@@ -34,12 +34,12 @@
       return "row"
     }
 
-    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
-      -> UIKit
-      .UITableViewCell
-    {
+    internal func tableView(
+      _ tableView: UITableView,
+      cellForRowAt indexPath: IndexPath
+    ) -> UIKit.UITableViewCell {
       let cell: UITableViewCell
-      if let reUsable = table?.nativeTable.dequeueReusableCell(
+      if let reUsable = table?.cocoaTable.dequeueReusableCell(
         withIdentifier: UITableViewDataSource.reUseIdentifier
       ) as? UITableViewCell {
         cell = reUsable  // @exempt(from: tests) Hard to predicably reproduce.

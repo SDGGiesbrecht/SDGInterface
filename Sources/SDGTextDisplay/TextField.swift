@@ -50,22 +50,22 @@
       #endif
 
       #if canImport(AppKit)
-        nativeField = NSTextField()
+        cocoaField = NSTextField()
       #else
-        nativeField = CocoaTextField()
+        cocoaField = CocoaTextField()
       #endif
       bindingObserver.field = self
 
       #if canImport(AppKit)
         let cell = NormalizingCell()
-        nativeField.cell = cell
+        cocoaField.cell = cell
       #endif
 
       #if canImport(AppKit)
-        nativeField.action = #selector(TextFieldBindingObserver.actionOccurred)
-        nativeField.target = bindingObserver
+        cocoaField.action = #selector(TextFieldBindingObserver.actionOccurred)
+        cocoaField.target = bindingObserver
       #elseif canImport(UIKit)
-        nativeField.addTarget(
+        cocoaField.addTarget(
           bindingObserver,
           action: #selector(TextFieldBindingObserver.actionOccurred),
           for: .editingDidEnd
@@ -73,28 +73,28 @@
       #endif
 
       #if canImport(AppKit)
-        nativeField.isBordered = true
-        nativeField.isBezeled = true
-        nativeField.bezelStyle = .squareBezel
-        nativeField.drawsBackground = true
-        nativeField.lineBreakMode = .byClipping
+        cocoaField.isBordered = true
+        cocoaField.isBezeled = true
+        cocoaField.bezelStyle = .squareBezel
+        cocoaField.drawsBackground = true
+        cocoaField.lineBreakMode = .byClipping
         cell.isScrollable = true
         cell.usesSingleLineMode = true
         cell.sendsActionOnEndEditing = true
-        nativeField.isSelectable = true
-        nativeField.isEditable = true
+        cocoaField.isSelectable = true
+        cocoaField.isEditable = true
       #endif
-      nativeField.allowsEditingTextAttributes = false
+      cocoaField.allowsEditingTextAttributes = false
 
-      nativeField.font = Font.forLabels.native
+      cocoaField.font = Font.forLabels.native
     }
 
     // MARK: - Properties
 
     #if canImport(AppKit)
-      private let nativeField: NSTextField
+      private let cocoaField: NSTextField
     #elseif canImport(UIKit)
-      private let nativeField: UITextField
+      private let cocoaField: UITextField
     #endif
 
     private let bindingObserver = TextFieldBindingObserver()
@@ -114,17 +114,17 @@
     internal func refreshBindings() {
       let resolved = String(value.value)
       #if canImport(AppKit)
-        nativeField.stringValue = resolved
+        cocoaField.stringValue = resolved
       #elseif canImport(UIKit)
-        nativeField.text = resolved
+        cocoaField.text = resolved
       #endif
     }
 
     internal func actionOccurred() {  // @exempt(from: tests) Unreachable in tests on iOS.
       #if canImport(AppKit)
-        let new = StrictString(nativeField.stringValue)
+        let new = StrictString(cocoaField.stringValue)
       #elseif canImport(UIKit)
-        let new = StrictString(nativeField.text ?? "")
+        let new = StrictString(cocoaField.text ?? "")
       #endif
       if new ≠ value.value {
         value.value = new
@@ -134,7 +134,7 @@
     // MARK: - LegacyView
 
     public func cocoa() -> CocoaView {
-      return CocoaView(nativeField)
+      return CocoaView(cocoaField)
     }
   }
 #endif

@@ -26,20 +26,20 @@ extension Point {
   // MARK: - Initialization
 
   #if canImport(CoreGraphics)
-    /// Creates a size from a native point.
+    /// Creates a size from a CoreGraphics point.
     ///
     /// - Parameters:
-    ///     - native: The native point.
-    public init(_ native: CGPoint) {
-      self.init(Double(native.x), Double(native.y))
+    ///     - coreGraphics: The CoreGraphics point.
+    public init(_ coreGraphics: CGPoint) {
+      self.init(Double(coreGraphics.x), Double(coreGraphics.y))
     }
   #endif
 
   // MARK: - Properties
 
   #if canImport(CoreGraphics)
-    /// The native point.
-    public var native: CGPoint {
+    /// The CoreGraphics point.
+    public var coreGraphics: CGPoint {
       return CGPoint(x: CGFloat(x), y: CGFloat(y))
     }
   #endif

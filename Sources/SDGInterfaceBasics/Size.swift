@@ -38,12 +38,12 @@ public struct Size: Equatable, Hashable {
   }
 
   #if canImport(CoreGraphics)
-    /// Creates a size from a native size.
+    /// Creates a size from a CoreGraphics size.
     ///
     /// - Parameters:
-    ///     - native: The native size.
-    public init(_ native: CGSize) {
-      self.init(width: Double(native.width), height: Double(native.height))
+    ///     - coreGraphics: The CoreGraphics size.
+    public init(_ coreGraphics: CGSize) {
+      self.init(width: Double(coreGraphics.width), height: Double(coreGraphics.height))
     }
   #endif
 
@@ -56,8 +56,8 @@ public struct Size: Equatable, Hashable {
   public var height: Double
 
   #if canImport(CoreGraphics)
-    /// The native size.
-    public var native: CGSize {
+    /// The CoreGraphics size.
+    public var coreGraphics: CGSize {
       return CGSize(width: CGFloat(width), height: CGFloat(height))
     }
   #endif

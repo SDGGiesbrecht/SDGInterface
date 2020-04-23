@@ -44,21 +44,21 @@
         bindingObserver.menu = self
       }
       #if canImport(AppKit)
-        native = NSMenu()
+        cocoa = NSMenu()
       #endif
     }
 
     #if canImport(AppKit)
-      /// Creates an unlocalized menu with a native menu.
+      /// Creates an unlocalized menu with a Cocoa menu.
       ///
       /// - Parameters:
-      ///     - native: The native menu.
-      public init(native: NSMenu) {
-        let title = native.title
-        let items = native.items
+      ///     - cocoa: The cocoa menu.
+      public init(_ cocoa: NSMenu) {
+        let title = cocoa.title
+        let items = cocoa.items
 
-        self.native = native
-        defer { refreshNative() }
+        self.cocoa = cocoa
+        defer { refreshCocoa() }
 
         self.label = .binding(Shared(StrictString(title)))
         labelDidSet()
@@ -67,9 +67,9 @@
           if item.isSeparatorItem {
             return .separator
           } else if let submenu = item.submenu {
-            return .submenu(Menu<InterfaceLocalization>(native: submenu))
+            return .submenu(Menu<InterfaceLocalization>(submenu))
           } else {
-            return .entry(MenuEntry<InterfaceLocalization>(native: item))
+            return .entry(MenuEntry<InterfaceLocalization>(item))
           }
         }
         refreshEntries()
@@ -96,34 +96,34 @@
     // MARK: - Refreshing
 
     #if canImport(AppKit)
-      private func refreshNative() {
+      private func refreshCocoa() {
         refreshLabel()
         refreshEntries()
       }
     #endif
     public func _refreshLabel() {
       #if canImport(AppKit)
-        native.title = String(label.resolved())
-        if let index = native.supermenu?.indexOfItem(withSubmenu: native) {
-          native.supermenu?.item(at: index)?.title = String(label.resolved())
+        cocoa.title = String(label.resolved())
+        if let index = cocoa.supermenu?.indexOfItem(withSubmenu: cocoa) {
+          cocoa.supermenu?.item(at: index)?.title = String(label.resolved())
         }
       #endif
     }
     private func refreshEntries() {
       #if canImport(AppKit)
-        native.items = entries.map { component in
+        cocoa.items = entries.map { component in
           switch component {
           case .entry(let entry):
-            if let index = entry.native.menu?.index(of: entry.native) {
-              entry.native.menu?.removeItem(at: index)
+            if let index = entry.cocoa.menu?.index(of: entry.cocoa) {
+              entry.cocoa.menu?.removeItem(at: index)
             }
-            return entry.native
+            return entry.cocoa
           case .submenu(let menu):
-            if let index = menu.native.supermenu?.indexOfItem(withSubmenu: menu.native) {
-              menu.native.supermenu?.removeItem(at: index)
+            if let index = menu.cocoa.supermenu?.indexOfItem(withSubmenu: menu.cocoa) {
+              menu.cocoa.supermenu?.removeItem(at: index)
             }
             let entry = NSMenuItem()
-            entry.submenu = menu.native
+            entry.submenu = menu.cocoa
             return entry
           case .separator:
             return NSMenuItem.separator()
@@ -151,7 +151,7 @@
     }
 
     #if canImport(AppKit)
-      public let native: NSMenu
+      public let cocoa: NSMenu
     #endif
   }
 #endif

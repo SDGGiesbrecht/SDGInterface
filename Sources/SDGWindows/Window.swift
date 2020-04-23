@@ -52,7 +52,7 @@
       let window = Window(name: name, view: view)
       window.size = availableSize
       #if canImport(UIKit)
-        window.native.frame.origin = CGPoint(x: 0, y: 0)
+        window.cocoa.frame.origin = CGPoint(x: 0, y: 0)
       #endif
       #if canImport(AppKit)
         window.isPrimary = true
@@ -115,7 +115,7 @@
       }
 
       #if canImport(AppKit)
-        native = NSWindow(
+        cocoa = NSWindow(
           contentRect: NSRect.zero,
           styleMask: [
             .titled,
@@ -129,7 +129,7 @@
           defer: true
         )
       #elseif canImport(UIKit)
-        native = UIWindow(frame: CGRect.zero)
+        cocoa = UIWindow(frame: CGRect.zero)
       #endif
 
       defer {
@@ -138,19 +138,19 @@
 
       #if canImport(AppKit)
         defer {
-          native.delegate = delegate
+          cocoa.delegate = delegate
           delegate.window = self
         }
       #endif
 
       #if canImport(AppKit)
-        native.isReleasedWhenClosed = false
+        cocoa.isReleasedWhenClosed = false
       #endif
 
       #if canImport(AppKit)
-        native.titleVisibility = .hidden
-        native.setAutorecalculatesContentBorderThickness(false, for: NSRectEdge.minY)
-        native.setContentBorderThickness(0, for: NSRectEdge.minY)
+        cocoa.titleVisibility = .hidden
+        cocoa.setAutorecalculatesContentBorderThickness(false, for: NSRectEdge.minY)
+        cocoa.setContentBorderThickness(0, for: NSRectEdge.minY)
       #endif
     }
 
@@ -181,32 +181,32 @@
     }
     private func viewDidSet() {
       #if canImport(AppKit)
-        native.contentView = view.native
+        cocoa.contentView = view.native
       #elseif canImport(UIKit)
-        if native.rootViewController == nil {
-          native.rootViewController = UIViewController()
+        if cocoa.rootViewController == nil {
+          cocoa.rootViewController = UIViewController()
         }
-        native.rootViewController?.view.map { rootView in
+        cocoa.rootViewController?.view.map { rootView in
           CocoaView(rootView).fill(with: view, margin: 0)
         }
       #endif
     }
 
     #if canImport(AppKit)
-      /// The native window.
-      public let native: NSWindow
+      /// The Cocoa window.
+      public let cocoa: NSWindow
       private let delegate = NSWindowDelegate()
       public var _fieldEditor = _getFieldEditor()
     #elseif canImport(UIKit)
-      /// The native window.
-      public let native: UIWindow
+      /// The Cocoa window.
+      public let cocoa: UIWindow
     #endif
 
     // MARK: - Refreshing
 
     public func _refreshBindings() {
       #if canImport(AppKit)
-        native.title = String(name.resolved())
+        cocoa.title = String(name.resolved())
       #elseif DEBUG  // For test coverage.
         _ = name.resolved()
       #endif

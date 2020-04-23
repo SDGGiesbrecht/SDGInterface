@@ -110,7 +110,7 @@
       help.entries = [
         .entry(helpEntry())
       ]
-      NSApplication.shared.helpMenu = help.native
+      NSApplication.shared.helpMenu = help.cocoa
       return help
     }
   }

@@ -53,7 +53,7 @@
 
     private func setFullscreenMode(setting: Bool) {
       if self.window?.isFullscreen ≠ setting {
-        self.window?.native.toggleFullScreen(self)
+        self.window?.cocoa.toggleFullScreen(self)
       }
     }
   }

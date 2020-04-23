@@ -22,12 +22,12 @@ public enum TerminationResponse: CaseIterable {
   // MARK: - Initialization
 
   #if canImport(AppKit)
-    /// Creates a termination response from a native response.
+    /// Creates a termination response from a Cocoa termination response.
     ///
     /// - Parameters:
-    ///     - native: The native termination response.
-    public init(_ native: NSApplication.TerminateReply) {
-      switch native {
+    ///     - cocoa: The Cocoa termination response.
+    public init(_ cocoa: NSApplication.TerminateReply) {
+      switch cocoa {
       case .terminateNow:
         self = .now
       case .terminateLater:
@@ -56,8 +56,8 @@ public enum TerminationResponse: CaseIterable {
   // MARK: - Properties
 
   #if canImport(AppKit)
-    /// The native termination response.
-    public var native: NSApplication.TerminateReply {
+    /// The Cocoa termination response.
+    public var cocoa: NSApplication.TerminateReply {
       switch self {
       case .now:
         return .terminateNow

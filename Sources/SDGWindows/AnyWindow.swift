@@ -36,11 +36,11 @@
     var view: CocoaView { get set }
 
     #if canImport(AppKit)
-      /// The native window.
-      var native: NSWindow { get }
+      /// The Cocoa window.
+      var cocoa: NSWindow { get }
     #elseif canImport(UIKit)
-      /// The native window.
-      var native: UIWindow { get }
+      /// The Cocoa window.
+      var cocoa: UIWindow { get }
     #endif
 
     /// An action performed when the window closes.
@@ -87,9 +87,9 @@
     public func display() {
       allWindows[ObjectIdentifier(self)] = self
       #if canImport(AppKit)
-        native.makeKeyAndOrderFront(nil)
+        cocoa.makeKeyAndOrderFront(nil)
       #elseif canImport(UIKit)
-        native.makeKeyAndVisible()
+        cocoa.makeKeyAndVisible()
       #endif
     }
 
@@ -98,9 +98,9 @@
     /// The window may still be obscured by other elements on the screen.
     public var isVisible: Bool {
       #if canImport(AppKit)
-        return native.isVisible
+        return cocoa.isVisible
       #elseif canImport(UIKit)
-        return native.isHidden
+        return cocoa.isHidden
       #endif
     }
 
@@ -114,7 +114,7 @@
     /// Closes the window.
     public func close() {
       #if canImport(AppKit)
-        native.close()
+        cocoa.close()
       #else
         finishClosing()
       #endif
@@ -130,7 +130,7 @@
         return Size(frame.size)
       }
       set {
-        frame.size = newValue.native
+        frame.size = newValue.coreGraphics
       }
     }
 
@@ -142,23 +142,23 @@
         return TwoDimensionalPoint(frame.origin)
       }
       set {
-        frame.origin = newValue.native
+        frame.origin = newValue.coreGraphics
       }
     }
 
     private var frame: CGRect {
       get {
-        return native.frame
+        return cocoa.frame
       }
       set {
         #if canImport(AppKit)
-          if native.isVisible {
-            native.setFrame(newValue, display: true, animate: true)
+          if cocoa.isVisible {
+            cocoa.setFrame(newValue, display: true, animate: true)
           } else {
-            native.setFrame(newValue, display: true, animate: false)
+            cocoa.setFrame(newValue, display: true, animate: false)
           }
         #elseif canImport(UIKit)
-          native.frame = newValue
+          cocoa.frame = newValue
         #endif
       }
     }
@@ -166,7 +166,7 @@
     private var nearestScreenFrame: CGRect {
       #if canImport(AppKit)
         let screen: NSScreen
-        if let theScreen = native.screen {  // @exempt(from: tests) Not on screen during tests.
+        if let theScreen = cocoa.screen {  // @exempt(from: tests) Not on screen during tests.
           screen = theScreen
         } else if let theScreen = NSScreen.main {
           screen = theScreen
@@ -175,7 +175,7 @@
         }
         return screen.frame
       #elseif canImport(UIKit)
-        return native.screen.bounds
+        return cocoa.screen.bounds
       #endif
     }
 
@@ -214,7 +214,7 @@
       /// For a smoother transition, the effect of setting this property may be delayed until the window is ready to switch.
       public var isFullscreen: Bool {
         get {
-          return native.styleMask.contains(.fullScreen)
+          return cocoa.styleMask.contains(.fullScreen)
         }
         set {
           let observer = FullscreenObserver(window: self)
@@ -227,13 +227,13 @@
       /// Primary windows can be the main window of fullscreen mode.
       public var isPrimary: Bool {
         get {
-          return native.collectionBehavior.contains(.fullScreenPrimary)
+          return cocoa.collectionBehavior.contains(.fullScreenPrimary)
         }
         set {
           if newValue {
-            native.collectionBehavior.insert(.fullScreenPrimary)
+            cocoa.collectionBehavior.insert(.fullScreenPrimary)
           } else {
-            native.collectionBehavior.remove(.fullScreenPrimary)
+            cocoa.collectionBehavior.remove(.fullScreenPrimary)
           }
         }
       }
@@ -243,13 +243,13 @@
       /// Auxiliary windows can appear on top of another fullscreen window.
       public var isAuxiliary: Bool {
         get {
-          return native.collectionBehavior.contains(.fullScreenAuxiliary)
+          return cocoa.collectionBehavior.contains(.fullScreenAuxiliary)
         }
         set {
           if newValue {
-            native.collectionBehavior.insert(.fullScreenAuxiliary)
+            cocoa.collectionBehavior.insert(.fullScreenAuxiliary)
           } else {
-            native.collectionBehavior.remove(.fullScreenAuxiliary)
+            cocoa.collectionBehavior.remove(.fullScreenAuxiliary)
           }
         }
       }

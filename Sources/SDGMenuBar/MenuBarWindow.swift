@@ -132,7 +132,7 @@
         .separator,
         .entry(bringAllToFront()),
       ]
-      NSApplication.shared.windowsMenu = window.native
+      NSApplication.shared.windowsMenu = window.cocoa
       return window
     }
   }

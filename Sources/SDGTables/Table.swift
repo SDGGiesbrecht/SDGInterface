@@ -58,14 +58,14 @@
         frameView.documentView = CocoaTableView()
         defer {
           delegate.table = self
-          nativeTable.delegate = delegate
-          nativeTable.dataSource = delegate
+          cocoaTable.delegate = delegate
+          cocoaTable.dataSource = delegate
         }
       #elseif canImport(UIKit)
         frameView = UITableView(frame: .zero, style: .plain)
         defer {
           dataSource.table = self
-          nativeTable.dataSource = dataSource
+          cocoaTable.dataSource = dataSource
         }
       #endif
 
@@ -74,7 +74,7 @@
       }
 
       #if canImport(AppKit)
-        nativeTable.headerView = nil
+        cocoaTable.headerView = nil
         frameView.borderType = .bezelBorder
       #endif
       #if canImport(AppKit)
@@ -86,11 +86,11 @@
       #endif
 
       #if canImport(AppKit)
-        nativeTable.usesAlternatingRowBackgroundColors = true
+        cocoaTable.usesAlternatingRowBackgroundColors = true
       #endif
 
       #if canImport(AppKit)
-        nativeTable.columnAutoresizingStyle = .sequentialColumnAutoresizingStyle
+        cocoaTable.columnAutoresizingStyle = .sequentialColumnAutoresizingStyle
       #endif
     }
 
@@ -123,26 +123,26 @@
     }
     private func columnsDidSet() {
       #if canImport(AppKit)
-        while nativeTable.tableColumns.count > columns.count {
-          nativeTable.removeTableColumn(nativeTable.tableColumns.last!)
+        while cocoaTable.tableColumns.count > columns.count {
+          cocoaTable.removeTableColumn(cocoaTable.tableColumns.last!)
         }
-        while nativeTable.tableColumns.count < columns.count {
-          let index = nativeTable.tableColumns.count
+        while cocoaTable.tableColumns.count < columns.count {
+          let index = cocoaTable.tableColumns.count
           let newColumn = NSTableColumn(
             identifier: NSUserInterfaceItemIdentifier("\(columnIdentifiers.next()!)")
           )
           newColumn.title = ""
           newColumn.resizingMask = [.autoresizingMask, .userResizingMask]
-          nativeTable.addTableColumn(newColumn)
+          cocoaTable.addTableColumn(newColumn)
 
           let exampleIndex = 0
           if data.value.indices.contains(exampleIndex) {
             let exampleView = columns[index](data.value[exampleIndex])
-            nativeTable.rowHeight.increase(to: exampleView.cocoa().native.fittingSize.height)
+            cocoaTable.rowHeight.increase(to: exampleView.cocoa().native.fittingSize.height)
           }
         }
       #endif
-      nativeTable.reloadData()
+      cocoaTable.reloadData()
     }
 
     /// A sort order to impose on the data.
@@ -167,12 +167,12 @@
     #endif
 
     #if canImport(AppKit)
-      internal var nativeTable: NSTableView {
+      internal var cocoaTable: NSTableView {
         return frameView.documentView as? NSTableView
           ?? NSTableView()  // @exempt(from: tests) Never nil.
       }
     #elseif canImport(UIKit)
-      internal var nativeTable: UITableView {
+      internal var cocoaTable: UITableView {
         return frameView
       }
     #endif
@@ -193,7 +193,7 @@
           data.value.sort(by: areSorted)
         }
       }
-      nativeTable.reloadData()
+      cocoaTable.reloadData()
     }
 
     // MARK: - LegacyView
