@@ -66,7 +66,7 @@
         }
         switch adjustment {
         case .entry(let entry):
-          if entry.native.action == #selector(TextEditingResponder.normalizeText(_:)),
+          if entry.cocoa.action == #selector(TextEditingResponder.normalizeText(_:)),
             let transformations = systemMenu.entries.lazy.compactMap({ $0.asSubmenu })
               .first(where: {
                 $0.entries.contains(
@@ -85,7 +85,7 @@
             })
             transformations.entries.append(adjustment)
             handled = true
-          } else if entry.native.action == #selector(
+          } else if entry.cocoa.action == #selector(
             TextDisplayResponder
               .showCharacterInformation(_:)),
             let transformations = systemMenu.entries.indices.lazy

@@ -45,21 +45,21 @@
         bindingObserver.entry = self
       }
       #if canImport(AppKit)
-        native = NSMenuItem()
+        cocoa = NSMenuItem()
       #elseif canImport(UIKit)
-        native = UIMenuItem()
+        cocoa = UIMenuItem()
       #endif
     }
 
     #if canImport(AppKit)
-      /// Creates an unlocalized menu entry with a native menu item.
+      /// Creates an unlocalized menu entry with a Cocoa menu item.
       ///
       /// - Parameters:
-      ///     - native: The native menu item.
-      public init(native: NSMenuItem) {
-        let title = native.title
+      ///     - cocoa: The Cocoa menu item.
+      public init(_ cocoa: NSMenuItem) {
+        let title = cocoa.title
 
-        self.native = native
+        self.cocoa = cocoa
         defer { refreshNative() }
         self.label = .binding(Shared(StrictString(title)))
         labelDidSet()
@@ -91,7 +91,7 @@
       }
     #endif
     private func refreshLabel() {
-      native.title = String(label.resolved())
+      cocoa.title = String(label.resolved())
     }
     public func _refreshBindings() {
       refreshLabel()
@@ -100,9 +100,9 @@
     // MARK: - AnyMenuEntry
 
     #if canImport(AppKit)
-      public let native: NSMenuItem
+      public let cocoa: NSMenuItem
     #elseif canImport(UIKit)
-      public let native: UIMenuItem
+      public let cocoa: UIMenuItem
       public var _isHidden: Bool = false
       public var _tag: Int = 0
     #endif

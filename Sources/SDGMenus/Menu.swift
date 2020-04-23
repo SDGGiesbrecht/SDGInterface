@@ -69,7 +69,7 @@
           } else if let submenu = item.submenu {
             return .submenu(Menu<InterfaceLocalization>(submenu))
           } else {
-            return .entry(MenuEntry<InterfaceLocalization>(native: item))
+            return .entry(MenuEntry<InterfaceLocalization>(item))
           }
         }
         refreshEntries()
@@ -114,10 +114,10 @@
         cocoa.items = entries.map { component in
           switch component {
           case .entry(let entry):
-            if let index = entry.native.menu?.index(of: entry.native) {
-              entry.native.menu?.removeItem(at: index)
+            if let index = entry.cocoa.menu?.index(of: entry.cocoa) {
+              entry.cocoa.menu?.removeItem(at: index)
             }
-            return entry.native
+            return entry.cocoa
           case .submenu(let menu):
             if let index = menu.cocoa.supermenu?.indexOfItem(withSubmenu: menu.cocoa) {
               menu.cocoa.supermenu?.removeItem(at: index)

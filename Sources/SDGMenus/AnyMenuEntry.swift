@@ -26,11 +26,11 @@
   public protocol AnyMenuEntry: AnyObject {
 
     #if canImport(AppKit)
-      /// The native menu item.
-      var native: NSMenuItem { get }
+      /// The Cocoa menu item.
+      var cocoa: NSMenuItem { get }
     #elseif canImport(UIKit)
-      /// The native menu item.
-      var native: UIMenuItem { get }
+      /// The Cocoa menu item.
+      var cocoa: UIMenuItem { get }
       var _isHidden: Bool { get set }
       var _tag: Int { get set }
     #endif
@@ -47,16 +47,16 @@
     /// The action.
     public var action: Selector? {
       get {
-        return native.action
+        return cocoa.action
       }
       set {
         #if canImport(AppKit)
-          native.action = newValue
+          cocoa.action = newValue
         #elseif canImport(UIKit)
           if let new = newValue {
-            native.action = new
+            cocoa.action = new
           } else {
-            native.action = Selector.none
+            cocoa.action = Selector.none
           }
         #endif
       }
@@ -66,30 +66,30 @@
       /// The target for the action.
       public var target: AnyObject? {
         get {
-          return native.target
+          return cocoa.target
         }
         set {
-          native.target = newValue
+          cocoa.target = newValue
         }
       }
 
       /// The hot key.
       public var hotKey: String {
         get {
-          return native.keyEquivalent
+          return cocoa.keyEquivalent
         }
         set {
-          native.keyEquivalent = newValue
+          cocoa.keyEquivalent = newValue
         }
       }
 
       /// The hot key modifiers.
       public var hotKeyModifiers: KeyModifiers {
         get {
-          return KeyModifiers(native.keyEquivalentModifierMask)
+          return KeyModifiers(cocoa.keyEquivalentModifierMask)
         }
         set {
-          native.keyEquivalentModifierMask = newValue.native
+          cocoa.keyEquivalentModifierMask = newValue.native
         }
       }
     #endif
@@ -98,14 +98,14 @@
     public var isHidden: Bool {
       get {
         #if canImport(AppKit)
-          return native.isHidden
+          return cocoa.isHidden
         #elseif canImport(UIKit)
           return _isHidden
         #endif
       }
       set {
         #if canImport(AppKit)
-          native.isHidden = newValue
+          cocoa.isHidden = newValue
         #elseif canImport(UIKit)
           _isHidden = newValue
         #endif
@@ -116,10 +116,10 @@
       /// The indentation level.
       public var indentationLevel: Int {
         get {
-          return native.indentationLevel
+          return cocoa.indentationLevel
         }
         set {
-          native.indentationLevel = newValue
+          cocoa.indentationLevel = newValue
         }
       }
     #endif
@@ -128,14 +128,14 @@
     public var tag: Int {
       get {
         #if canImport(AppKit)
-          return native.tag
+          return cocoa.tag
         #elseif canImport(UIKit)
           return _tag
         #endif
       }
       set {
         #if canImport(AppKit)
-          native.tag = newValue
+          cocoa.tag = newValue
         #elseif canImport(UIKit)
           _tag = newValue
         #endif

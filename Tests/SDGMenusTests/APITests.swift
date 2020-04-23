@@ -116,7 +116,7 @@ final class APITests: ApplicationTestCase {
       menu.tag = 1
       XCTAssertEqual(menu.tag, 1)
       #if !os(watchOS) && !os(tvOS)
-        _ = menu.native.title
+        _ = menu.cocoa.title
       #endif
     #endif
   }
