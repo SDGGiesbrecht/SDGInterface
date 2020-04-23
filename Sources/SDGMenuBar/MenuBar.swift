@@ -74,7 +74,7 @@
       }
     }
     private func menuDidSet() {
-      NSApplication.shared.mainMenu = menu.native
+      NSApplication.shared.mainMenu = menu.cocoa
     }
 
     // MARK: - Modification

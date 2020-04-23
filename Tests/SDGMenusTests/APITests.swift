@@ -48,7 +48,7 @@ final class APITests: ApplicationTestCase {
       menuLabel.value = "unrelated"
       XCTAssertEqual(menu.label.resolved(), separateMenuLabel.value)
       #if canImport(AppKit)
-        _ = menu.native.title
+        _ = menu.cocoa.title
       #endif
     #endif
   }

@@ -23,8 +23,8 @@
   public protocol AnyMenu: AnyObject {
 
     #if canImport(AppKit)
-      /// The native menu.
-      var native: NSMenu { get }
+      /// The Cocoa menu.
+      var cocoa: NSMenu { get }
     #endif
 
     /// The entries.
