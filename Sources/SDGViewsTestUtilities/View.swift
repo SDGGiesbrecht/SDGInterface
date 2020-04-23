@@ -86,7 +86,7 @@ import SDGTesting
   ///
   /// - Parameters:
   ///     - view: A view.
-  ///     - testBody: Optional. Whether or not to test the `body` property.     
+  ///     - testBody: Optional. Whether or not to test the `body` property.
   ///     - file: Optional. A different source file to associate with any failures.
   ///     - line: Optional. A different line to associate with any failures.
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
