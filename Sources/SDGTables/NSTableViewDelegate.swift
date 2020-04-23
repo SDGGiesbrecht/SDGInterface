@@ -37,9 +37,9 @@
       -> NSView?
     {
       if let identifier = tableColumn?.identifier {
-        if let view = table?.nativeTable.makeView(withIdentifier: identifier, owner: self) {
+        if let view = table?.cocoaTable.makeView(withIdentifier: identifier, owner: self) {
           return view  // @exempt(from: tests)
-        } else if let nativeTableColumns = table?.nativeTable.tableColumns,
+        } else if let nativeTableColumns = table?.cocoaTable.tableColumns,
           let index = nativeTableColumns.indices.first(
             where: { nativeTableColumns[$0].identifier == identifier }),
           let data = table?.data.value[row],
@@ -63,11 +63,11 @@
 
     internal func tableView(_ tableView: NSTableView, sizeToFitWidthOfColumn column: Int) -> CGFloat
     {
-      if var width = table?.nativeTable.tableColumns[column].headerCell.cellSize.width,
-        let numberOfRows = table?.nativeTable.numberOfRows
+      if var width = table?.cocoaTable.tableColumns[column].headerCell.cellSize.width,
+        let numberOfRows = table?.cocoaTable.numberOfRows
       {
         for row in 0..<numberOfRows {
-          if let view = table?.nativeTable.view(atColumn: column, row: row, makeIfNecessary: true) {
+          if let view = table?.cocoaTable.view(atColumn: column, row: row, makeIfNecessary: true) {
             width.increase(to: view.fittingSize.width)
           }
         }
