@@ -109,7 +109,7 @@
             specificCocoaView.setImage(image.cocoa, forSegment: index)
             specificCocoaView.setImageScaling(.scaleProportionallyDown, forSegment: index)
           #else
-            specificCocoaView.setImage(image.native, forSegmentAt: index)
+            specificCocoaView.setImage(image.cocoa, forSegmentAt: index)
           #endif
         }
       }
