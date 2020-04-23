@@ -74,11 +74,10 @@
       Application.shared.systemMediator?.finishResigningFocus(system)
     }
 
-    internal func applicationShouldTerminate(_ sender: NSApplication)
-      -> NSApplication
-      .TerminateReply
-    {
-      return (Application.shared.systemMediator?.terminate() ?? .now).native
+    internal func applicationShouldTerminate(
+      _ sender: NSApplication
+    ) -> NSApplication.TerminateReply {
+      return (Application.shared.systemMediator?.terminate() ?? .now).cocoa
     }
 
     internal func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
