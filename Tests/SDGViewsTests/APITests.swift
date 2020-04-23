@@ -29,6 +29,7 @@ import XCTest
 
 import SDGXCTestUtilities
 
+import SDGViewsTestUtilities
 import SDGApplicationTestUtilities
 
 final class APITests: ApplicationTestCase {
@@ -62,10 +63,9 @@ final class APITests: ApplicationTestCase {
   }
 
   func testColour() {
-    #if canImport(AppKit) || canImport(UIKit) && !(os(iOS) && arch(arm))
-      _ = Colour.red.cocoa()
+    #if canImport(SwiftUI) || canImport(AppKit) || (canImport(UIKit) && !(os(iOS) && arch(arm)))
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {
-        _ = Colour.green.swiftUI()
+        _ = testViewConformance(of: Colour.red, testBody: false)
       }
     #endif
   }
@@ -79,15 +79,20 @@ final class APITests: ApplicationTestCase {
   }
 
   func testHorizontalStack() {
-    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
-      if #available(iOS 9, *) {
-        let stack = HorizontalStack(spacing: 0, content: [AnyView(CocoaView())])
-        #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-          if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
-            _ = stack.swiftUI()
-          }
-        #endif
-        _ = stack.cocoa()
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      if #available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *) {
+        testViewConformance(
+          of: HorizontalStack(spacing: 0, content: [AnyView(CocoaView())]),
+          testBody: false
+        )
+        testViewConformance(
+          of: HorizontalStack(alignment: .top, spacing: 1, content: [AnyView(CocoaView())]),
+          testBody: false
+        )
+        testViewConformance(
+          of: HorizontalStack(alignment: .bottom, spacing: 2, content: [AnyView(CocoaView())]),
+          testBody: false
+        )
       }
     #endif
   }
@@ -215,6 +220,11 @@ final class APITests: ApplicationTestCase {
 
       forAllLegacyModes {
         _ = newView().frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .centre).cocoa()
+      }
+    #endif
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        testViewConformance(of: SwiftUIExample())
       }
     #endif
   }
