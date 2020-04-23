@@ -72,7 +72,7 @@ public final class ContextMenu {
         return menu.entries.flatMap { (entry) -> [UIMenuItem] in
           switch entry {
           case .entry(let entry):
-            return entry.isHidden ? [] : [entry.native]
+            return entry.isHidden ? [] : [entry.cocoa]
           }
         }
       }
