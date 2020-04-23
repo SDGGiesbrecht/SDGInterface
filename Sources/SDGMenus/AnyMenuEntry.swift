@@ -89,7 +89,7 @@
           return KeyModifiers(cocoa.keyEquivalentModifierMask)
         }
         set {
-          cocoa.keyEquivalentModifierMask = newValue.native
+          cocoa.keyEquivalentModifierMask = newValue.cocoa
         }
       }
     #endif

@@ -42,25 +42,25 @@ public struct KeyModifiers: OptionSet {
   // MARK: - Initialization
 
   #if canImport(AppKit)
-    /// Creates key modifiers from native flags.
-    public init(_ native: NSEvent.ModifierFlags) {
+    /// Creates key modifiers from Cocoa modifier flags.
+    public init(_ cocoa: NSEvent.ModifierFlags) {
       self.init()
-      if native.contains(.command) {
+      if cocoa.contains(.command) {
         insert(.command)
       }
-      if native.contains(.shift) {
+      if cocoa.contains(.shift) {
         insert(.shift)
       }
-      if native.contains(.option) {
+      if cocoa.contains(.option) {
         insert(.option)
       }
-      if native.contains(.control) {
+      if cocoa.contains(.control) {
         insert(.control)
       }
-      if native.contains(.function) {
+      if cocoa.contains(.function) {
         insert(.function)
       }
-      if native.contains(.capsLock) {
+      if cocoa.contains(.capsLock) {
         insert(.capsLock)
       }
     }
@@ -69,8 +69,8 @@ public struct KeyModifiers: OptionSet {
   // MARK: - Properties
 
   #if canImport(AppKit)
-    /// The native flags.
-    public var native: NSEvent.ModifierFlags {
+    /// The Cocoa modifier flags.
+    public var cocoa: NSEvent.ModifierFlags {
       var result = NSEvent.ModifierFlags()
       if contains(.command) {
         result.insert(.command)

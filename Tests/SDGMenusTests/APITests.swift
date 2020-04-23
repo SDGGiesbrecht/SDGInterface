@@ -31,7 +31,7 @@ final class APITests: ApplicationTestCase {
   func testKeyModifiers() {
     let modifiers: KeyModifiers = [.command, .shift, .option, .control, .function, .capsLock]
     #if canImport(AppKit)
-      XCTAssertEqual(KeyModifiers(modifiers.native), modifiers)
+      XCTAssertEqual(KeyModifiers(modifiers.cocoa), modifiers)
     #endif
   }
 
