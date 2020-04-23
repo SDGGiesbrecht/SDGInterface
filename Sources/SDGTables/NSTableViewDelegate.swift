@@ -39,9 +39,9 @@
       if let identifier = tableColumn?.identifier {
         if let view = table?.cocoaTable.makeView(withIdentifier: identifier, owner: self) {
           return view  // @exempt(from: tests)
-        } else if let nativeTableColumns = table?.cocoaTable.tableColumns,
-          let index = nativeTableColumns.indices.first(
-            where: { nativeTableColumns[$0].identifier == identifier }),
+        } else if let cocoaTableColumns = table?.cocoaTable.tableColumns,
+          let index = cocoaTableColumns.indices.first(
+            where: { cocoaTableColumns[$0].identifier == identifier }),
           let data = table?.data.value[row],
           let generator = table?.columns[index]
         {
