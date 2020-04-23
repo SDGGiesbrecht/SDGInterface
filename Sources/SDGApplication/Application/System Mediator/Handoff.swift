@@ -30,7 +30,7 @@ public struct Handoff {
   #if !(os(Windows) || os(Linux) || os(Android))
     // #workaround(Swift 5.2.2, Web doesn’t have Foundation yet.)
     #if !os(WASI)
-      /// The native activity.
+      /// The activity.
       public var activity: NSUserActivity?
     #endif
   #endif
