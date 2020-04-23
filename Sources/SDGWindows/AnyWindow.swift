@@ -130,7 +130,7 @@
         return Size(frame.size)
       }
       set {
-        frame.size = newValue.native
+        frame.size = newValue.coreGraphics
       }
     }
 
@@ -142,7 +142,7 @@
         return TwoDimensionalPoint(frame.origin)
       }
       set {
-        frame.origin = newValue.native
+        frame.origin = newValue.coreGraphics
       }
     }
 

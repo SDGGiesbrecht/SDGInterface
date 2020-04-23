@@ -30,13 +30,13 @@ public struct Rectangle {
   }
 
   #if canImport(CoreGraphics)
-    /// Creates a rectangle from a native rectangle.
+    /// Creates a rectangle from a CoreGraphics rectangle.
     ///
     /// - Parameters:
-    ///     - native: The native rectangle.
-    public init(_ native: CGRect) {
-      origin = Point(native.origin)
-      size = Size(native.size)
+    ///     - coreGraphics: The CoreGraphics rectangle.
+    public init(_ coreGraphics: CGRect) {
+      origin = Point(coreGraphics.origin)
+      size = Size(coreGraphics.size)
     }
   #endif
 
@@ -49,9 +49,9 @@ public struct Rectangle {
   public var size: Size
 
   #if canImport(CoreGraphics)
-    /// The native rectangle.
-    public var native: CGRect {
-      return CGRect(origin: origin.native, size: size.native)
+    /// The CoreGraphics rectangle.
+    public var coreGraphics: CGRect {
+      return CGRect(origin: origin.coreGraphics, size: size.coreGraphics)
     }
   #endif
 }

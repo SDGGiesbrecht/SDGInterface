@@ -54,7 +54,7 @@
         #endif
         popOver?.sourceView = cocoa().native
         popOver?.sourceRect =
-          sourceRectangle?.native
+          sourceRectangle?.coreGraphics
           ?? cocoa().native.frame  // @exempt(from: tests) tvOS quirk.
         popOver?.permittedArrowDirections = .any
 
@@ -62,7 +62,7 @@
       #else
         let controller = NSViewController()
         if let specifiedSize = preferredSize {
-          popOverView.frame.size = specifiedSize.native
+          popOverView.frame.size = specifiedSize.coreGraphics
         }
         controller.view = popOverView
 
@@ -70,7 +70,7 @@
         popOver.contentViewController = controller
         popOver.behavior = .transient
         popOver.show(
-          relativeTo: sourceRectangle?.native ?? cocoa().native.frame,
+          relativeTo: sourceRectangle?.coreGraphics ?? cocoa().native.frame,
           of: cocoa().native,
           preferredEdge: .maxX
         )
