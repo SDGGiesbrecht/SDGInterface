@@ -106,7 +106,7 @@
           #endif
         case .symbol(let image):
           #if canImport(AppKit)
-            specificCocoaView.setImage(image.native, forSegment: index)
+            specificCocoaView.setImage(image.cocoa, forSegment: index)
             specificCocoaView.setImageScaling(.scaleProportionallyDown, forSegment: index)
           #else
             specificCocoaView.setImage(image.native, forSegmentAt: index)

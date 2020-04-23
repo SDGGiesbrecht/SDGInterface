@@ -36,7 +36,7 @@
       self.image = image
       #if canImport(AppKit)
         let imageView = NSImageView()
-        imageView.image = image.native
+        imageView.image = image.cocoa
         nativeView = imageView
       #elseif canImport(UIKit)
         nativeView = UIImageView(image: image.native)

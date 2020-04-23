@@ -35,31 +35,31 @@
     // MARK: - Initialization
 
     #if canImport(AppKit)
-      /// Creates an image from a native image.
+      /// Creates an image from a Cocoa image.
       ///
       /// - Parameters:
-      ///     - native: The native image.
-      public init(_ native: NSImage) {
-        self.native = native
+      ///     - cocoa: The Cocoa image.
+      public init(_ cocoa: NSImage) {
+        self.cocoa = cocoa
       }
     #elseif canImport(UIKit)
-      /// Creates an image from a native image.
+      /// Creates an image from a Cocoa image.
       ///
       /// - Parameters:
-      ///     - native: The native image.
-      public init(_ native: UIImage) {
-        self.native = native
+      ///     - cocoa: The Cocoa image.
+      public init(_ cocoa: UIImage) {
+        self.cocoa = cocoa
       }
     #endif
 
     // MARK: - Properties
 
     #if canImport(AppKit)
-      /// The native image.
-      public var native: NSImage
+      /// The Cocoa image.
+      public var cocoa: NSImage
     #elseif canImport(UIKit)
-      /// The native image.
-      public var native: UIImage
+      /// The Cocoa image.
+      public var cocoa: UIImage
     #endif
   }
 #endif
