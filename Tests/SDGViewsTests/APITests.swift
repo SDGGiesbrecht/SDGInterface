@@ -78,39 +78,6 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
-  func testFramed() {
-    forAllLegacyModes {
-      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-        if #available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *) {
-          testViewConformance(
-            of: EmptyView().frame(
-              minWidth: 10,
-              idealWidth: 50,
-              maxWidth: .infinity,
-              minHeight: nil,
-              idealHeight: 50,
-              maxHeight: nil,
-              alignment: .topLeading
-            ),
-            testBody: false
-          )
-          testViewConformance(
-            of: EmptyView().frame(
-              minWidth: 10,
-              idealWidth: 50,
-              maxWidth: nil,
-              minHeight: 10,
-              idealHeight: 50,
-              maxHeight: 100,
-              alignment: .bottomTrailing
-            ),
-            testBody: false
-          )
-        }
-      #endif
-    }
-  }
-
   func testHorizontalStack() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *) {
