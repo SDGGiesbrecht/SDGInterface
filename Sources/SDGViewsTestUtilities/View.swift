@@ -41,6 +41,7 @@ import SDGTesting
     #endif
   }
 
+  // @documentation(testViewConformance)
   /// Tests a type’s conformance to View.
   ///
   /// - Parameters:
@@ -57,16 +58,18 @@ import SDGTesting
   ) where T: SDGViews.View {
     testSDGViewsViewConformance(of: view, testBody: testBody, file: file, line: line)
   }
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  public func testViewConformance<T>(
-    of view: T,
-    testBody: Bool = true,
-    file: StaticString = #file,
-    line: UInt = #line
-  ) where T: SDGViews.View, T: SwiftUI.View {
-    testSDGViewsViewConformance(of: view, testBody: testBody, file: file, line: line)
-    testSwiftUIViewConformance(of: view, testBody: testBody, file: file, line: line)
-  }
+  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+    public func testViewConformance<T>(
+      of view: T,
+      testBody: Bool = true,
+      file: StaticString = #file,
+      line: UInt = #line
+    ) where T: SDGViews.View, T: SwiftUI.View {
+      testSDGViewsViewConformance(of: view, testBody: testBody, file: file, line: line)
+      testSwiftUIViewConformance(of: view, testBody: testBody, file: file, line: line)
+    }
+  #endif
 #endif
 
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
@@ -82,7 +85,8 @@ import SDGTesting
     }
   }
 
-  /// Tests a type’s conformance to SwiftUI.View.
+  // #documentation(testViewConformance)
+  /// Tests a type’s conformance to View.
   ///
   /// - Parameters:
   ///     - view: A view.
