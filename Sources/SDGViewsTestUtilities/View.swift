@@ -23,15 +23,8 @@ import SDGViews
 import SDGTesting
 
 #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
-  /// Tests a type’s conformance to View.
-  ///
-  /// - Parameters:
-  ///     - view: A view.
-  ///     - testBody: Optional. Whether or not to test the `body` property.
-  ///     - file: Optional. A different source file to associate with any failures.
-  ///     - line: Optional. A different line to associate with any failures.
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  public func testViewConformance<T>(
+  private func testSDGViewsViewConformance<T>(
     of view: T,
     testBody: Bool = true,
     file: StaticString = #file,
@@ -46,5 +39,63 @@ import SDGTesting
         _ = swiftUI.body
       }
     #endif
+  }
+
+  /// Tests a type’s conformance to View.
+  ///
+  /// - Parameters:
+  ///     - view: A view.
+  ///     - testBody: Optional. Whether or not to test the `body` property.
+  ///     - file: Optional. A different source file to associate with any failures.
+  ///     - line: Optional. A different line to associate with any failures.
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  public func testViewConformance<T>(
+    of view: T,
+    testBody: Bool = true,
+    file: StaticString = #file,
+    line: UInt = #line
+  ) where T: SDGViews.View {
+    testSDGViewsViewConformance(of: view, testBody: testBody, file: file, line: line)
+  }
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  public func testViewConformance<T>(
+    of view: T,
+    testBody: Bool = true,
+    file: StaticString = #file,
+    line: UInt = #line
+  ) where T: SDGViews.View, T: SwiftUI.View {
+    testSDGViewsViewConformance(of: view, testBody: testBody, file: file, line: line)
+    testSwiftUIViewConformance(of: view, testBody: testBody, file: file, line: line)
+  }
+#endif
+
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  private func testSwiftUIViewConformance<T>(
+    of view: T,
+    testBody: Bool = true,
+    file: StaticString = #file,
+    line: UInt = #line
+  ) where T: SwiftUI.View {
+    if testBody {
+      _ = view.body
+    }
+  }
+
+  /// Tests a type’s conformance to SwiftUI.View.
+  ///
+  /// - Parameters:
+  ///     - view: A view.
+  ///     - testBody: Optional. Whether or not to test the `body` property.     
+  ///     - file: Optional. A different source file to associate with any failures.
+  ///     - line: Optional. A different line to associate with any failures.
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  public func testViewConformance<T>(
+    of view: T,
+    testBody: Bool = true,
+    file: StaticString = #file,
+    line: UInt = #line
+  ) where T: SwiftUI.View {
+    testSwiftUIViewConformance(of: view, testBody: testBody, file: file, line: line)
   }
 #endif

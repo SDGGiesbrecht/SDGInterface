@@ -23,7 +23,7 @@
       let previous = SDGViews.legacyMode
       SDGViews.legacyMode = legacyMode
       defer { SDGViews.legacyMode = previous }
-      return Resolved(SwiftUI.AnyView(view())).swiftUI()
+      return view()
         .padding(1)
         .border(Color.gray, width: 1)
     }

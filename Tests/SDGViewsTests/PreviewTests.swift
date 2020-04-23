@@ -24,37 +24,37 @@
 
     func testAspectRatioPreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-        testViewConformance(of: SwiftUI.AnyView(AspectRatioPreviews()), testBody: false)
+        testViewConformance(of: AspectRatioPreviews())
       }
     }
 
     func testBackgroundPreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-        testViewConformance(of: SwiftUI.AnyView(BackgroundPreviews()), testBody: false)
+        testViewConformance(of: BackgroundPreviews())
       }
     }
 
     func testFramePreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-        testViewConformance(of: SwiftUI.AnyView(FramePreviews()), testBody: false)
+        testViewConformance(of: FramePreviews())
       }
     }
 
     func testHorizontalStackPreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-        testViewConformance(of: SwiftUI.AnyView(HorizontalStackPreviews()), testBody: false)
+        testViewConformance(of: HorizontalStackPreviews())
       }
     }
 
     func testLetterboxPreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-        testViewConformance(of: SwiftUI.AnyView(LetterboxPreviews()), testBody: false)
+        testViewConformance(of: LetterboxPreviews())
       }
     }
 
     func testPaddingPreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-        testViewConformance(of: SwiftUI.AnyView(PaddingPreviews()), testBody: false)
+        testViewConformance(of: PaddingPreviews())
       }
     }
   }
