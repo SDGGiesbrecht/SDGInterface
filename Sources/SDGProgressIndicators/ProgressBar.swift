@@ -57,7 +57,7 @@
       private var minValue: Double = 0
       private var maxValue: Double = 1
       private var doubleValue: Double? = 0
-      private func refreshNativeBar() {
+      private func refreshCocoaBar() {
         let progress: Float
         if let value = doubleValue {
           progress = Float((value − minValue) ÷ (maxValue − minValue))
@@ -82,7 +82,7 @@
           cocoaView.minValue = newValue
         #elseif canImport(UIKit)
           minValue = newValue
-          refreshNativeBar()
+          refreshCocoaBar()
         #endif
       }
     }
@@ -101,7 +101,7 @@
           cocoaView.maxValue = newValue
         #elseif canImport(UIKit)
           maxValue = newValue
-          refreshNativeBar()
+          refreshCocoaBar()
         #endif
       }
     }
@@ -130,7 +130,7 @@
           }
         #elseif canImport(UIKit)
           doubleValue = newValue
-          refreshNativeBar()
+          refreshCocoaBar()
         #endif
       }
     }
