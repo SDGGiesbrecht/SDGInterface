@@ -57,8 +57,8 @@ final class APITests: ApplicationTestCase {
       RunLoop.main.run(until: Date() + 3)
 
       #if canImport(AppKit)
-        window.native.title = "Replaced Title"
-        XCTAssert(window.native.title == "Replaced Title")
+        window.cocoa.title = "Replaced Title"
+        XCTAssert(window.cocoa.title == "Replaced Title")
       #endif
 
       let neverOnscreen = Window<InterfaceLocalization>(

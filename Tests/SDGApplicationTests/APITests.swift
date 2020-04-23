@@ -141,8 +141,8 @@ final class APITests: ApplicationTestCase {
     }
     for response in TerminationResponse.allCases {
       #if canImport(AppKit)
-        let native = response.cocoa
-        XCTAssertEqual(TerminationResponse(native), response)
+        let cocoa = response.cocoa
+        XCTAssertEqual(TerminationResponse(cocoa), response)
       #endif
     }
   }
