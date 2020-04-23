@@ -256,7 +256,7 @@
           files: fileNames.map({ URL(fileURLWithPath: $0) }),
           details: details
         ) ?? .failure
-      return result.native
+      return result.cocoa
     }
 
     internal func application(_ app: NSApplication, didDecodeRestorableState coder: NSCoder) {

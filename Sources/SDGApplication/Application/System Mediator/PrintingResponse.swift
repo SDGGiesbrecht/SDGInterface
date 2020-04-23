@@ -22,12 +22,12 @@ public enum PrintingResponse: CaseIterable {
   // MARK: - Initialization
 
   #if canImport(AppKit)
-    /// Creates a printing response from a native response.
+    /// Creates a printing response from a Cocoa printing response.
     ///
     /// - Parameters:
-    ///     - native: The native printing response.
-    public init(_ native: NSApplication.PrintReply) {
-      switch native {
+    ///     - cocoa: The Cocoa printing response.
+    public init(_ cocoa: NSApplication.PrintReply) {
+      switch cocoa {
       case .printingSuccess:
         self = .success
       case .printingReplyLater:
@@ -61,8 +61,8 @@ public enum PrintingResponse: CaseIterable {
   // MARK: - Properties
 
   #if canImport(AppKit)
-    /// The native response.
-    public var native: NSApplication.PrintReply {
+    /// The Cocoa printing response.
+    public var cocoa: NSApplication.PrintReply {
       switch self {
       case .success:
         return .printingSuccess
