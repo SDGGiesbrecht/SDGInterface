@@ -38,18 +38,18 @@ public final class Application {
 
   private init() {
     #if canImport(AppKit)
-      nativeDelegate = NSApplicationDelegate()
+      cocoaDelegate = NSApplicationDelegate()
     #elseif canImport(UIKit) && !os(watchOS)
-      nativeDelegate = UIApplicationDelegate()
+      cocoaDelegate = UIApplicationDelegate()
     #endif
   }
 
   // MARK: - Properties
 
   #if canImport(AppKit)
-    private var nativeDelegate: NSApplicationDelegate
+    private var cocoaDelegate: NSApplicationDelegate
   #elseif canImport(UIKit) && !os(watchOS)
-    private var nativeDelegate: UIApplicationDelegate
+    private var cocoaDelegate: UIApplicationDelegate
   #endif
 
   internal var systemMediator: SystemMediator?
@@ -68,7 +68,7 @@ public final class Application {
   private class func prepareForMain(mediator: SystemMediator) {
     Application.shared.systemMediator = mediator
     #if canImport(AppKit)
-      NSApplication.shared.delegate = shared.nativeDelegate
+      NSApplication.shared.delegate = shared.cocoaDelegate
     #endif
   }
 
