@@ -60,7 +60,7 @@
         let title = cocoa.title
 
         self.cocoa = cocoa
-        defer { refreshNative() }
+        defer { refreshCocoa() }
         self.label = .binding(Shared(StrictString(title)))
         labelDidSet()
       }
@@ -86,7 +86,7 @@
     // MARK: - Refreshing
 
     #if canImport(AppKit)
-      private func refreshNative() {
+      private func refreshCocoa() {
         refreshLabel()
       }
     #endif
