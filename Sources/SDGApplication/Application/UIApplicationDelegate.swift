@@ -153,7 +153,7 @@
         Application.shared.systemMediator?.acceptRemoteNotification(
           details: details
         ) ?? .noData
-      completionHandler(result.native)
+      completionHandler(result.cocoa)
     }
 
     internal func application(
