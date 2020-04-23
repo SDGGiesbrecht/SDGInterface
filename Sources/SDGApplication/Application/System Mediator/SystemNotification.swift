@@ -30,8 +30,8 @@ public struct SystemNotification {
   #if !os(Linux)
     // #workaround(Swift 5.2.2, Web doesn’t have Foundation yet.)
     #if !os(WASI)
-      /// The native notification.
-      public var native: Notification?
+      /// The `Foundation` notification.
+      public var foundation: Notification?
     #endif
   #endif
 }
