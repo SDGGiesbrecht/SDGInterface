@@ -54,7 +54,10 @@
     /// The bold version of `self`.
     public var bold: Font {
       #if canImport(AppKit)
-        return Font(NSFontManager.shared.convert(native, toHaveTrait: .boldFontMask))
+        guard let cocoa = NSFont.from(self) else {
+          return self
+        }
+        return Font(NSFontManager.shared.convert(cocoa, toHaveTrait: .boldFontMask))
       #else
         let descriptor =
           native.fontDescriptor.withSymbolicTraits(.traitBold)
@@ -67,7 +70,10 @@
     /// The italic version of `self`.
     public var italic: Font {
       #if canImport(AppKit)
-        return Font(NSFontManager.shared.convert(native, toHaveTrait: .italicFontMask))
+        guard let cocoa = NSFont.from(self) else {
+          return self
+        }
+        return Font(NSFontManager.shared.convert(cocoa, toHaveTrait: .italicFontMask))
       #else
         let descriptor =
           native.fontDescriptor.withSymbolicTraits(.traitItalic)

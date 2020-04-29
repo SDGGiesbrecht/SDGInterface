@@ -63,7 +63,7 @@
       #endif
 
       #if canImport(AppKit)
-        specificCocoaView.font = Font.forLabels.native
+        specificCocoaView.font = NSFont.from(Font.forLabels)
       #else
         var attributes = specificCocoaView.titleTextAttributes(for: .normal) ?? [:]
         attributes.font = Font.forLabels

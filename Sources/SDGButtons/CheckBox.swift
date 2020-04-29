@@ -48,7 +48,11 @@
 
       specificCocoaView.lineBreakMode = .byTruncatingTail
 
-      specificCocoaView.font = Font.forLabels.native
+      #if canImport(AppKit)
+        specificCocoaView.font = NSFont.from(Font.forLabels)
+      #elseif canImport(UIKit)
+        specificCocoaView.font = UIFont.from(Font.forLabels)
+      #endif
     }
 
     // MARK: - Properties

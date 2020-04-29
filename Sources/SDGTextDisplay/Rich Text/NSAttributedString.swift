@@ -51,13 +51,9 @@
       }
 
       internal static let htmlCorrection: Double = 3 ÷ 4
-      #if canImport(AppKit)
-        private static var lineHeightTable: [NSFont: [Double: Double]] = [:]
-      #elseif canImport(UIKit)
-        private static var lineHeightTable: [UIFont: [Double: Double]] = [:]
-      #endif
+      private static var lineHeightTable: [String: [Double: Double]] = [:]
       private static func lineHeight(for font: Font) -> Double {
-        return cached(in: &lineHeightTable[font.native, default: [:]][font.size]) {
+        return cached(in: &lineHeightTable[font.fontName, default: [:]][font.size]) {
           let markedUp = SemanticMarkup("_").richText(
             font: font.resized(to: font.size × htmlCorrection)
           )
@@ -173,7 +169,15 @@
           let section = attributedSubstring(from: sectionRange).string
           let font = sectionAttributes.font ?? Font.default
 
-          let prototypeAttributes: [NSAttributedString.Key: Any] = [.font: font.native]
+          #if canImport(AppKit)
+            let cocoaFont = NSFont.from(font)
+          #elseif canImport(UIKit)
+            let cocoaFont = UIFont.from(font)
+          #endif
+          var prototypeAttributes: [NSAttributedString.Key: Any] = [:]
+          if let cocoa = cocoaFont {
+            prototypeAttributes[.font] = cocoa
+          }
 
           // ===== ===== NOTE ===== =====
           // Glyph interaction after substitution does not work, so glyphs must be as precomposed as possible to begin with. (The base string does not matter.)
@@ -212,7 +216,8 @@
 
               let glyph = replacementLayout.glyph(at: 0)
               let baseString = character
-              if let glyphInfo = NSGlyphInfo(glyph: glyph, for: font.native, baseString: baseString)
+              if let cocoa = cocoaFont,
+                let glyphInfo = NSGlyphInfo(glyph: glyph, for: cocoa, baseString: baseString)
               {
                 let characterRange = NSRange(scalarStart..<scalarEnd, in: section)
                 let charactersRangeInContext = NSRange(
@@ -266,10 +271,19 @@
 
       private static var smallCapsSizeReduction: [String: [Int: Int]] = [:]
       private static func smallCapsMetrics(for font: Font, baseSize: Int) -> Int {
+        guard let cocoa = NSFont.from(font) else {
+          return baseSize
+        }
         return cached(in: &smallCapsSizeReduction[font.fontName, default: [:]][baseSize]) {
           return findLocalMinimum(near: baseSize) { (attemptedFontSize: Int) -> CGFloat in
             let attemptedFont = font.resized(to: Double(attemptedFontSize))
-            return |(font.native.xHeight − attemptedFont.native.capHeight)|
+            let attemptedCapitalHeight: CGFloat
+            if let attemptedCocoa = NSFont.from(attemptedFont) {
+              attemptedCapitalHeight = attemptedCocoa.capHeight
+            } else {
+              attemptedCapitalHeight = CGFloat(attemptedFont.size)
+            }
+            return |(cocoa.xHeight − attemptedCapitalHeight)|
           }
         }
       }
@@ -287,7 +301,7 @@
             attributes[.smallCaps] = nil
 
             let font = attributes.font ?? Font.default  // @exempt(from: tests) Never nil.
-            let actualSmallCapsSize = Int(font.native.pointSize.rounded(.toNearestOrEven))
+            let actualSmallCapsSize = Int(font.size.rounded(.toNearestOrEven))
 
             let baseSize = findLocalMinimum(
               near: actualSmallCapsSize
@@ -326,7 +340,7 @@
             let font = attributes.font ?? Font.default
             let smallCapsSize = NSMutableAttributedString.smallCapsMetrics(
               for: font,
-              baseSize: Int(font.native.pointSize.rounded(.toNearestOrEven))
+              baseSize: Int(font.size.rounded(.toNearestOrEven))
             )
 
             attributes.font = font.resized(to: Double(smallCapsSize))

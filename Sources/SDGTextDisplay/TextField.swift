@@ -86,7 +86,11 @@
       #endif
       cocoaField.allowsEditingTextAttributes = false
 
-      cocoaField.font = Font.forLabels.native
+      #if canImport(AppKit)
+        cocoaField.font = NSFont.from(Font.forLabels)
+      #elseif canImport(UIKit)
+        cocoaField.font = UIFont.from(Font.forLabels)
+      #endif
     }
 
     // MARK: - Properties

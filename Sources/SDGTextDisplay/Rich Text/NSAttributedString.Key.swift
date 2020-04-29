@@ -50,7 +50,12 @@
           }
         }
         set {
-          self[.font] = newValue?.native
+          #if canImport(AppKit)
+            typealias NativeFont = NSFont
+          #elseif canImport(UIKit)
+            typealias NativeFont = UIFont
+          #endif
+          self[.font] = newValue.flatMap { NativeFont.from($0) }
         }
       }
     #endif
