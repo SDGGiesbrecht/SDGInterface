@@ -39,30 +39,30 @@ import SDGApplicationTestUtilities
 final class APITests: ApplicationTestCase {
 
   func testAttributedString() {
+    #if canImport(AppKit)
+      typealias NativeFont = NSFont
+    #elseif canImport(UIKit)
+      typealias NativeFont = UIFont
+    #endif
     var mutable = NSMutableAttributedString(string: "...")
     #if canImport(AppKit) || canImport(UIKit)
       mutable.addAttribute(
         NSAttributedString.Key.font,
-        value: Font.system.resized(to: 24).native,
+        value: NativeFont.from(Font.system.resized(to: 24))!,
         range: NSRange(0..<3)
       )
       let attributed = mutable.copy() as! NSAttributedString
       mutable = attributed.mutableCopy() as! NSMutableAttributedString
       mutable.superscript(NSRange(0..<mutable.length))
-      #if canImport(AppKit)
-        typealias NativeFont = NSFont
-      #elseif canImport(UIKit)
-        typealias NativeFont = UIFont
-      #endif
       XCTAssert(
-        (mutable.attributes(at: 0, effectiveRange: nil).font!.native).pointSize < 24,
-        "\((mutable.attributes(at: 0, effectiveRange: nil).font!.native).pointSize)"
+        (NativeFont.from(mutable.attributes(at: 0, effectiveRange: nil).font!)!).pointSize < 24,
+        "\((NativeFont.from(mutable.attributes(at: 0, effectiveRange: nil).font!)!).pointSize)"
       )
       mutable = attributed.mutableCopy() as! NSMutableAttributedString
       mutable.subscript(NSRange(0..<mutable.length))
       XCTAssert(
-        (mutable.attributes(at: 0, effectiveRange: nil).font!.native).pointSize < 24,
-        "\((mutable.attributes(at: 0, effectiveRange: nil).font!.native).pointSize)"
+        (NativeFont.from(mutable.attributes(at: 0, effectiveRange: nil).font!)!).pointSize < 24,
+        "\((NativeFont.from(mutable.attributes(at: 0, effectiveRange: nil).font!)!).pointSize)"
       )
     #endif
 
@@ -157,7 +157,7 @@ final class APITests: ApplicationTestCase {
           mutable.addAttribute(fontNameKey, value: font.fontName, range: all)
           mutable.addAttribute(
             NSAttributedString.Key(rawValue: "SDGTestFontSize"),
-            value: font.native.pointSize.rounded(.toNearestOrEven),
+            value: CGFloat(font.size.rounded(.toNearestOrEven)),
             range: all
           )
           for attribute in ignored {
@@ -170,11 +170,17 @@ final class APITests: ApplicationTestCase {
       }
       for fontSize in sequence(first: 0 as Double, next: { $0 + 1 }).prefix(10).map({ 2 ↑ $0 }) {
         #if canImport(CoreGraphics)
+          #if canImport(AppKit)
+            typealias NativeFont = NSFont
+          #elseif canImport(UIKit)
+            typealias NativeFont = UIFont
+          #endif
           let placeholderText = "..."
           let font = Font.system.resized(to: Double(fontSize))
+          let nativeFont = NativeFont.from(font)!
           let basicString = NSAttributedString(
             string: placeholderText,
-            attributes: [.font: font.native]
+            attributes: [.font: nativeFont]
           )
           let basicHTML = try NSAttributedString.from(html: placeholderText, font: font)
           let ignored: [NSAttributedString.Key] = [

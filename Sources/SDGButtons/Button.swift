@@ -58,9 +58,9 @@
       #endif
 
       #if canImport(AppKit)
-        specificCocoaView.font = Font.forLabels.native
+        specificCocoaView.font = NSFont.from(Font.forLabels)
       #elseif canImport(UIKit)
-        specificCocoaView.titleLabel?.font = Font.forLabels.native
+        specificCocoaView.titleLabel?.font = UIFont.from(Font.forLabels)
       #endif
     }
 

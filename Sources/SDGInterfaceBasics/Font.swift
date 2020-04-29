@@ -54,12 +54,18 @@
     /// The bold version of `self`.
     public var bold: Font {
       #if canImport(AppKit)
-        return Font(NSFontManager.shared.convert(native, toHaveTrait: .boldFontMask))
+        guard let cocoa = NSFont.from(self) else {
+          return self  // @exempt(from: tests)
+        }
+        return Font(NSFontManager.shared.convert(cocoa, toHaveTrait: .boldFontMask))
       #else
+        guard let cocoa = UIFont.from(self) else {
+          return self  // @exempt(from: tests)
+        }
         let descriptor =
-          native.fontDescriptor.withSymbolicTraits(.traitBold)
+          cocoa.fontDescriptor.withSymbolicTraits(.traitBold)
           // Unknown why the descriptor would be nil.
-          ?? native.fontDescriptor  // @exempt(from: tests)
+          ?? cocoa.fontDescriptor  // @exempt(from: tests)
         return Font(UIFont(descriptor: descriptor, size: 0))
       #endif
     }
@@ -67,12 +73,18 @@
     /// The italic version of `self`.
     public var italic: Font {
       #if canImport(AppKit)
-        return Font(NSFontManager.shared.convert(native, toHaveTrait: .italicFontMask))
+        guard let cocoa = NSFont.from(self) else {
+          return self  // @exempt(from: tests)
+        }
+        return Font(NSFontManager.shared.convert(cocoa, toHaveTrait: .italicFontMask))
       #else
+        guard let cocoa = UIFont.from(self) else {
+          return self  // @exempt(from: tests)
+        }
         let descriptor =
-          native.fontDescriptor.withSymbolicTraits(.traitItalic)
+          cocoa.fontDescriptor.withSymbolicTraits(.traitItalic)
           // Unknown why the descriptor would be nil.
-          ?? native.fontDescriptor  // @exempt(from: tests)
+          ?? cocoa.fontDescriptor  // @exempt(from: tests)
         return Font(UIFont(descriptor: descriptor, size: 0))
       #endif
     }
