@@ -55,12 +55,12 @@
     public var bold: Font {
       #if canImport(AppKit)
         guard let cocoa = NSFont.from(self) else {
-          return self
+          return self  // @exempt(from: tests)
         }
         return Font(NSFontManager.shared.convert(cocoa, toHaveTrait: .boldFontMask))
       #else
         guard let cocoa = UIFont.from(self) else {
-          return self
+          return self  // @exempt(from: tests)
         }
         let descriptor =
           cocoa.fontDescriptor.withSymbolicTraits(.traitBold)
@@ -74,12 +74,12 @@
     public var italic: Font {
       #if canImport(AppKit)
         guard let cocoa = NSFont.from(self) else {
-          return self
+          return self  // @exempt(from: tests)
         }
         return Font(NSFontManager.shared.convert(cocoa, toHaveTrait: .italicFontMask))
       #else
         guard let cocoa = UIFont.from(self) else {
-          return self
+          return self  // @exempt(from: tests)
         }
         let descriptor =
           cocoa.fontDescriptor.withSymbolicTraits(.traitItalic)
