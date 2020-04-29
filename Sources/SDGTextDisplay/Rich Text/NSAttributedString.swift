@@ -272,7 +272,7 @@
       private static var smallCapsSizeReduction: [String: [Int: Int]] = [:]
       private static func smallCapsMetrics(for font: Font, baseSize: Int) -> Int {
         guard let cocoa = NSFont.from(font) else {
-          return baseSize
+          return baseSize  // @exempt(from: tests)
         }
         return cached(in: &smallCapsSizeReduction[font.fontName, default: [:]][baseSize]) {
           return findLocalMinimum(near: baseSize) { (attemptedFontSize: Int) -> CGFloat in
@@ -281,7 +281,7 @@
             if let attemptedCocoa = NSFont.from(attemptedFont) {
               attemptedCapitalHeight = attemptedCocoa.capHeight
             } else {
-              attemptedCapitalHeight = CGFloat(attemptedFont.size)
+              attemptedCapitalHeight = CGFloat(attemptedFont.size)  // @exempt(from: tests)
             }
             return |(cocoa.xHeight − attemptedCapitalHeight)|
           }
