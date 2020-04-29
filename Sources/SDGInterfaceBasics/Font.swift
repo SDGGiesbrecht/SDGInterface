@@ -59,10 +59,13 @@
         }
         return Font(NSFontManager.shared.convert(cocoa, toHaveTrait: .boldFontMask))
       #else
+        guard let cocoa = UIFont.from(self) else {
+          return self
+        }
         let descriptor =
-          native.fontDescriptor.withSymbolicTraits(.traitBold)
+          cocoa.fontDescriptor.withSymbolicTraits(.traitBold)
           // Unknown why the descriptor would be nil.
-          ?? native.fontDescriptor  // @exempt(from: tests)
+          ?? cocoa.fontDescriptor  // @exempt(from: tests)
         return Font(UIFont(descriptor: descriptor, size: 0))
       #endif
     }
@@ -75,10 +78,13 @@
         }
         return Font(NSFontManager.shared.convert(cocoa, toHaveTrait: .italicFontMask))
       #else
+        guard let cocoa = UIFont.from(self) else {
+          return self
+        }
         let descriptor =
-          native.fontDescriptor.withSymbolicTraits(.traitItalic)
+          cocoa.fontDescriptor.withSymbolicTraits(.traitItalic)
           // Unknown why the descriptor would be nil.
-          ?? native.fontDescriptor  // @exempt(from: tests)
+          ?? cocoa.fontDescriptor  // @exempt(from: tests)
         return Font(UIFont(descriptor: descriptor, size: 0))
       #endif
     }
