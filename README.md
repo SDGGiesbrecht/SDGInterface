@@ -57,30 +57,37 @@ Simply add SDGInterface as a dependency in `Package.swift` and specify which of 
 
 ```swift
 let package = Package(
-    name: "MyPackage",
-    dependencies: [
-        .package(url: "https://github.com/SDGGiesbrecht/SDGInterface", .upToNextMinor(from: Version(0, 8, 0))),
-    ],
-    targets: [
-        .target(name: "MyTarget", dependencies: [
-            .productItem(name: "SDGApplication", package: "SDGInterface"),
-            .productItem(name: "SDGMenuBar", package: "SDGInterface"),
-            .productItem(name: "SDGContextMenu", package: "SDGInterface"),
-            .productItem(name: "SDGErrorMessages", package: "SDGInterface"),
-            .productItem(name: "SDGMenus", package: "SDGInterface"),
-            .productItem(name: "SDGPopOvers", package: "SDGInterface"),
-            .productItem(name: "SDGWindows", package: "SDGInterface"),
-            .productItem(name: "SDGTables", package: "SDGInterface"),
-            .productItem(name: "SDGProgressIndicators", package: "SDGInterface"),
-            .productItem(name: "SDGButtons", package: "SDGInterface"),
-            .productItem(name: "SDGImageDisplay", package: "SDGInterface"),
-            .productItem(name: "SDGTextDisplay", package: "SDGInterface"),
-            .productItem(name: "SDGViews", package: "SDGInterface"),
-            .productItem(name: "SDGViewsTestUtilities", package: "SDGInterface"),
-            .productItem(name: "SDGKeyboard", package: "SDGInterface"),
-            .productItem(name: "SDGInterfaceBasics", package: "SDGInterface"),
-        ])
-    ]
+  name: "MyPackage",
+  dependencies: [
+    .package(
+      name: "SDGInterface",
+      url: "https://github.com/SDGGiesbrecht/SDGInterface",
+      .upToNextMinor(from: Version(0, 8, 0))
+    ),
+  ],
+  targets: [
+    .target(
+      name: "MyTarget",
+      dependencies: [
+        .product(name: "SDGApplication", package: "SDGInterface"),
+        .product(name: "SDGMenuBar", package: "SDGInterface"),
+        .product(name: "SDGContextMenu", package: "SDGInterface"),
+        .product(name: "SDGErrorMessages", package: "SDGInterface"),
+        .product(name: "SDGMenus", package: "SDGInterface"),
+        .product(name: "SDGPopOvers", package: "SDGInterface"),
+        .product(name: "SDGWindows", package: "SDGInterface"),
+        .product(name: "SDGTables", package: "SDGInterface"),
+        .product(name: "SDGProgressIndicators", package: "SDGInterface"),
+        .product(name: "SDGButtons", package: "SDGInterface"),
+        .product(name: "SDGImageDisplay", package: "SDGInterface"),
+        .product(name: "SDGTextDisplay", package: "SDGInterface"),
+        .product(name: "SDGViews", package: "SDGInterface"),
+        .product(name: "SDGViewsTestUtilities", package: "SDGInterface"),
+        .product(name: "SDGKeyboard", package: "SDGInterface"),
+        .product(name: "SDGInterfaceBasics", package: "SDGInterface"),
+      ]
+    )
+  ]
 )
 ```
 
