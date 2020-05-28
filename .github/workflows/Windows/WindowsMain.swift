@@ -66,7 +66,7 @@ extension SDGButtonsTests.APITests {
 extension SDGContextMenuTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
-      ("testContextMenu", testContextMenu),
+      ("testContextMenu", testContextMenu)
     ])
   ]
 }
@@ -74,7 +74,7 @@ extension SDGContextMenuTests.APITests {
 extension SDGImageDisplayTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
-      ("testImageView", testImageView),
+      ("testImageView", testImageView)
     ])
   ]
 }
@@ -99,7 +99,7 @@ extension SDGInterfaceBasicsTests.APITests {
 extension SDGKeyboardTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
-      ("testKey", testKey),
+      ("testKey", testKey)
     ])
   ]
 }
@@ -107,7 +107,7 @@ extension SDGKeyboardTests.APITests {
 extension SDGMenuBarTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
-      ("testMenuBar", testMenuBar),
+      ("testMenuBar", testMenuBar)
     ])
   ]
 }
@@ -126,7 +126,7 @@ extension SDGMenusTests.APITests {
 extension SDGPopOversTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
-      ("testPopOver", testPopOver),
+      ("testPopOver", testPopOver)
     ])
   ]
 }
@@ -143,7 +143,7 @@ extension SDGProgressIndicatorsTests.APITests {
 extension SDGTablesTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
-      ("testTable", testTable),
+      ("testTable", testTable)
     ])
   ]
 }
@@ -182,7 +182,7 @@ extension SDGViewsTests.APITests {
 extension SDGViewsTests.InternalTests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
-      ("testProportionedView", testProportionedView),
+      ("testProportionedView", testProportionedView)
     ])
   ]
 }
@@ -190,7 +190,7 @@ extension SDGViewsTests.InternalTests {
 extension SDGWindowsTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
-      ("testWindow", testWindow),
+      ("testWindow", testWindow)
     ])
   ]
 }
