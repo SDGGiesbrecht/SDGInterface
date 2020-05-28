@@ -12,4 +12,4 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-@usableFromInline internal var legacyMode = false
+internal var legacyMode = false
