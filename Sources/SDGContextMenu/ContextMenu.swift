@@ -50,7 +50,7 @@ public final class ContextMenu {
         )
       )
       var entries: [MenuComponent] = [
-        .entry(ContextMenu._normalizeText()),
+        .entry(ContextMenu._normalizeText())
       ]
       if #available(iOS 9, *) {  // @exempt(from: unicode)
         entries.append(.entry(ContextMenu._showCharacterInformation()))
