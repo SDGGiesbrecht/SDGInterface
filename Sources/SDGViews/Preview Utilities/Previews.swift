@@ -15,6 +15,7 @@
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   import SwiftUI
 
+  #warning("Does this make sense as public?")
   /// Arranges the view side‐by‐side with and without the mode engaged.
   ///
   /// - Parameters:
