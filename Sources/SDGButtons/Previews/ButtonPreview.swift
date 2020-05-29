@@ -31,7 +31,7 @@
       return Group {
 
         previewBothModes(
-          Button(
+          RefactoredButton(
             label: .static(
               UserFacing<StrictString, InterfaceLocalization>({ localization in
                 switch localization {
