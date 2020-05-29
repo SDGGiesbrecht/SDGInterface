@@ -16,7 +16,7 @@ import SwiftUI
 
 @testable import SDGButtons
 
-struct Background_Previews: PreviewProvider {
+struct Button_Previews: PreviewProvider {
   static var previews: some SwiftUI.View {
     return ButtonPreviews()
   }
