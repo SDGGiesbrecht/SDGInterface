@@ -15,26 +15,11 @@
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   import SwiftUI
 
-  #error("Unify this.")
+  import SDGViews
+
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   internal func previewBothModes<V>(_ view: @autoclosure () -> V, name: String) -> some SwiftUI.View
   where V: SwiftUI.View {
-
-    func preview(_ view: () -> V, legacyMode: Bool) -> some SwiftUI.View {
-      let previous = SDGButtons.legacyMode
-      SDGButtons.legacyMode = legacyMode
-      defer { SDGButtons.legacyMode = previous }
-      return view()
-        .padding(1)
-        .border(Color.gray, width: 1)
-    }
-
-    let stack = HStack(spacing: 8) {
-      preview(view, legacyMode: false)
-      preview(view, legacyMode: true)
-    }
-    return
-      stack
-      .previewDisplayName(name)
+    return preview(withAndWithout: &SDGButtons.legacyMode, view(), name: name)
   }
 #endif
