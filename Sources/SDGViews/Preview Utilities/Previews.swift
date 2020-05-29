@@ -17,16 +17,16 @@
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   public func _preview<V>(
-    withAndWithout mode: inout Bool,
+    withAndWithout mode: (get: () -> Bool, set: (Bool) -> Void),
     _ view: @autoclosure () -> V,
     name: String
   ) -> some SwiftUI.View
   where V: SwiftUI.View {
 
     func preview(_ view: () -> V, modeEngaged: Bool) -> some SwiftUI.View {
-      let previous = mode
-      mode = modeEngaged
-      defer { mode = previous }
+      let previous = mode.get()
+      mode.set(modeEngaged)
+      defer { mode.set(previous) }
       return view()
         .padding(1)
         .border(Color.gray, width: 1)
@@ -44,6 +44,10 @@
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   internal func previewBothModes<V>(_ view: @autoclosure () -> V, name: String) -> some SwiftUI.View
   where V: SwiftUI.View {
-    return _preview(withAndWithout: &SDGViews.legacyMode, view(), name: name)
+    return _preview(
+      withAndWithout: ({ legacyMode }, { legacyMode = $0 }),
+      view(),
+      name: name
+    )
   }
 #endif

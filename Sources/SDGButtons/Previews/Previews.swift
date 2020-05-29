@@ -20,6 +20,10 @@
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   internal func previewBothModes<V>(_ view: @autoclosure () -> V, name: String) -> some SwiftUI.View
   where V: SwiftUI.View {
-    return _preview(withAndWithout: &SDGButtons.legacyMode, view(), name: name)
+    return _preview(
+      withAndWithout: ({ legacyMode }, { legacyMode = $0 }),
+      view(),
+      name: name
+    )
   }
 #endif
