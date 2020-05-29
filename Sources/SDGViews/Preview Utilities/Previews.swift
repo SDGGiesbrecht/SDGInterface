@@ -15,15 +15,8 @@
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   import SwiftUI
 
-  #warning("Does this make sense as public?")
-  /// Arranges the view side‐by‐side with and without the mode engaged.
-  ///
-  /// - Parameters:
-  ///   - mode: The mode to turn on and off.
-  ///   - view: A closure which constructs the view.
-  ///   - name: The name of the preview.
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  @inlinable public func preview<V>(
+  @inlinable public func _preview<V>(
     withAndWithout mode: inout Bool,
     _ view: @autoclosure () -> V,
     name: String
@@ -51,6 +44,6 @@
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   internal func previewBothModes<V>(_ view: @autoclosure () -> V, name: String) -> some SwiftUI.View
   where V: SwiftUI.View {
-    return preview(withAndWithout: &SDGViews.legacyMode, view(), name: name)
+    return _preview(withAndWithout: &SDGViews.legacyMode, view(), name: name)
   }
 #endif
