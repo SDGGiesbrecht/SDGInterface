@@ -62,8 +62,15 @@
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       public func swiftUI() -> some SwiftUI.View {
-        #warning("Not implemented.")
-        return SwiftUI.EmptyView()
+        return SwiftUI.Button(
+          action: {
+            #warning("What goes here?")
+          },
+          label: {
+            #warning("Not hooked up to detect localization changes.")
+            Text(verbatim: String(label.resolved()))
+          }
+        )
       }
     #endif
   }
