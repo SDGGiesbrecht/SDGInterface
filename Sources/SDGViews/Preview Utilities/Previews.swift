@@ -22,7 +22,7 @@
   ///   - view: A closure which constructs the view.
   ///   - name: The name of the preview.
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  public func preview<V>(
+  @inlinable public func preview<V>(
     withAndWithout mode: inout Bool,
     _ view: @autoclosure () -> V,
     name: String
