@@ -12,7 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
+#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+  #if canImport(SwiftUI)
+    import SwiftUI
+  #endif
   #if canImport(AppKit)
     import AppKit
   #endif
@@ -27,7 +30,52 @@
   import SDGViews
 
   /// A button.
-  public final class Button<L>: AnyButton, CocoaViewImplementation, View
+  @available(watchOS 6, *)
+  public struct RefactoredButton<L>: LegacyView where L: Localization {
+    #warning("Rename.")
+
+    // MARK: - Initialization
+
+    public init(label: SDGInterfaceBasics.Binding<StrictString, L>) {
+      self.label = label
+    }
+
+    // MARK: - Properties
+
+    private let label: SDGInterfaceBasics.Binding<StrictString, L>
+
+    // MARK: - LegacyView
+
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+      public func cocoa() -> CocoaView {
+        #warning("Should attempt SwiftUI first.")
+        return CocoaButtonImplementation(label: label).cocoa()
+      }
+    #endif
+  }
+
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  extension RefactoredButton: SDGViews.View {
+
+    // MARK: - View
+
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      public func swiftUI() -> some SwiftUI.View {
+        #warning("Not implemented.")
+        return SwiftUI.EmptyView()
+      }
+    #endif
+  }
+
+  #warning("Reduce and move elsewhere.")
+  private typealias CocoaButtonImplementation = Button
+#endif
+
+#warning("Remove?")
+#if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
+
+  #warning("Protocols?")
+  public final class Button<L>: AnyButton, CocoaViewImplementation, SDGViews.View
   where L: Localization {
 
     // MARK: - Initialization
@@ -36,7 +84,7 @@
     ///
     /// - Parameters:
     ///     - label: The label on the button.
-    public init(label: Binding<StrictString, L>) {
+    public init(label: SDGInterfaceBasics.Binding<StrictString, L>) {
       self.label = label
       defer {
         labelDidSet()
@@ -69,7 +117,7 @@
     private let bindingObserver = ButtonBindingObserver()
 
     /// The label.
-    public var label: Binding<StrictString, L> {
+    public var label: SDGInterfaceBasics.Binding<StrictString, L> {
       willSet {
         label.shared?.cancel(observer: bindingObserver)
       }
