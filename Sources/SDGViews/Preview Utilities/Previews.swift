@@ -16,7 +16,7 @@
   import SwiftUI
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  @inlinable public func _preview<V>(
+  public func _preview<V>(
     withAndWithout mode: inout Bool,
     _ view: @autoclosure () -> V,
     name: String
