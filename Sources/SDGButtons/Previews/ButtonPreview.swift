@@ -42,7 +42,8 @@
                 }
               })
             )
-          ).swiftUI(),
+          ).swiftUI()
+            .padding(),
           name: "Button"
         )
       }
