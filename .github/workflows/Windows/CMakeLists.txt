@@ -747,16 +747,18 @@ target_link_libraries("SDGTextDisplay" PRIVATE
 )
 
 add_library("SDGButtons"
-  "../../../Sources/SDGButtons/AnyButton.swift"
-  "../../../Sources/SDGButtons/AnyCheckBox.swift"
-  "../../../Sources/SDGButtons/AnyRadioButtonSet.swift"
-  "../../../Sources/SDGButtons/Button.swift"
-  "../../../Sources/SDGButtons/ButtonBindingObserver.swift"
-  "../../../Sources/SDGButtons/ButtonLabel.swift"
-  "../../../Sources/SDGButtons/CheckBox.swift"
-  "../../../Sources/SDGButtons/CheckBoxBindingObserver.swift"
-  "../../../Sources/SDGButtons/RadioBindingObserver.swift"
-  "../../../Sources/SDGButtons/RadioButtonSet.swift"
+  "../../../Sources/SDGButtons/Button/AnyButton.swift"
+  "../../../Sources/SDGButtons/Button/Button.swift"
+  "../../../Sources/SDGButtons/Button/ButtonBindingObserver.swift"
+  "../../../Sources/SDGButtons/Button/ButtonLabel.swift"
+  "../../../Sources/SDGButtons/Check Box/AnyCheckBox.swift"
+  "../../../Sources/SDGButtons/Check Box/CheckBox.swift"
+  "../../../Sources/SDGButtons/Check Box/CheckBoxBindingObserver.swift"
+  "../../../Sources/SDGButtons/LegacyMode.swift"
+  "../../../Sources/SDGButtons/Previews/Previews.swift"
+  "../../../Sources/SDGButtons/Radio Buttons/AnyRadioButtonSet.swift"
+  "../../../Sources/SDGButtons/Radio Buttons/RadioBindingObserver.swift"
+  "../../../Sources/SDGButtons/Radio Buttons/RadioButtonSet.swift"
   "../../../Sources/SDGButtons/Windows.swift"
 )
 set_target_properties("SDGButtons" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
