@@ -48,8 +48,9 @@
 
     #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       public func cocoa() -> CocoaView {
-        #warning("Should attempt SwiftUI first.")
-        return CocoaButtonImplementation(label: label).cocoa()
+        return useSwiftUIOrFallback(to: {
+          return CocoaButtonImplementation(label: label).cocoa()
+        })
       }
     #endif
   }

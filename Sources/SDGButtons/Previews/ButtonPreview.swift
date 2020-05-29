@@ -42,7 +42,7 @@
                 }
               })
             )
-          ).swiftUI()
+          ).adjustForLegacyMode()
             .padding(),
           name: "Button"
         )
