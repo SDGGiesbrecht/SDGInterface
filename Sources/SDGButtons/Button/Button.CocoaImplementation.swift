@@ -31,6 +31,7 @@
     #warning("Remove?")
     #warning("Re‐do access control.")
     #warning("Protocols?")
+    #warning("Handle support types.")
     #if canImport(AppKit)
       internal typealias Superclass = NSButton
     #else
