@@ -41,7 +41,12 @@ public final class _Observable<Value>: ObservableObject {
   // MARK: - Bindings
 
   fileprivate func sharedStateChanged() {
-    value = shared.value
+    if expectingRebound {
+      expectingRebound = false
+    } else {
+      expectingRebound = true
+      value = shared.value
+    }
   }
 
   // MARK: - Properties
@@ -51,6 +56,8 @@ public final class _Observable<Value>: ObservableObject {
 
   @Published public var value: Value
   private var subscriber: AnyCancellable?
+
+  var expectingRebound: Bool = false
 }
 
 #warning("Move elsewhere.")

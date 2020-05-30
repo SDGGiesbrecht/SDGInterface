@@ -139,6 +139,21 @@ final class APITests: ApplicationTestCase {
     }
   }
 
+  func testObservable() {
+    if #available(macOS 10.15, *) {
+      let shared = Shared("A")
+      XCTAssertEqual(shared.value, "A")
+      let observable = _Observable(shared)
+      XCTAssertEqual(observable.value, "A")
+
+      shared.value = "B"
+      XCTAssertEqual(observable.value, "B")
+
+      observable.value = "C"
+      XCTAssertEqual(shared.value, "C")
+    }
+  }
+
   func testPoint() {
     #if canImport(CoreGraphics)
       XCTAssertEqual(Point(CGPoint(x: 0, y: 0)), Point(0, 0))
