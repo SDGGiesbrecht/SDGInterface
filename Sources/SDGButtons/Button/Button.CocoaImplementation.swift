@@ -35,10 +35,10 @@
 
       // MARK: - Initialization
 
-      internal init(label: SDGInterfaceBasics.Binding<StrictString, L>) {
+      internal init(label: UserFacing<StrictString, L>, action: @escaping () -> Void) {
+        #warning("Deal with action.")
         self.label = label
         defer {
-          labelDidSet()
           LocalizationSetting.current.register(observer: bindingObserver)
         }
 
@@ -67,17 +67,7 @@
 
       private let bindingObserver = ButtonBindingObserver()
 
-      internal var label: SDGInterfaceBasics.Binding<StrictString, L> {
-        willSet {
-          label.shared?.cancel(observer: bindingObserver)
-        }
-        didSet {
-          labelDidSet()
-        }
-      }
-      private func labelDidSet() {
-        label.shared?.register(observer: bindingObserver)
-      }
+      private var label: UserFacing<StrictString, L>
 
       // MARK: - Refreshing
 

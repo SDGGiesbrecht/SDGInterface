@@ -40,20 +40,22 @@
     ///
     /// - Parameters:
     ///     - label: The label on the button.
-    public init(label: UserFacing<StrictString, L>) {
+    public init(label: UserFacing<StrictString, L>, action: @escaping () -> Void) {
       self.label = label
+      self.action = action
     }
 
     // MARK: - Properties
 
     private let label: UserFacing<StrictString, L>
+    private let action: () -> Void
 
     // MARK: - LegacyView
 
     #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       public func cocoa() -> CocoaView {
         return useSwiftUIOrFallback(to: {
-          return CocoaButtonImplementation(label: label).cocoa()
+          return CocoaImplementation(label: label, action: action).cocoa()
         })
       }
     #endif
@@ -68,15 +70,10 @@
       public func swiftUI() -> some SwiftUI.View {
         return SwiftUIImplementation(
           label: label,
-          action: {
-            #warning("What goes here?")
-          },
+          action: action,
           localization: LocalizationSetting._observableCurrent
         )
       }
     #endif
   }
-
-  #warning("Reduce and move elsewhere.")
-  private typealias CocoaButtonImplementation = Button
 #endif

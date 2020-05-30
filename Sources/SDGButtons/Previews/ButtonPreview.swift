@@ -39,7 +39,8 @@
               case .deutschDeutschland:
                 return "Taste"
               }
-            })
+            }),
+            action: {}
           ).adjustForLegacyMode()
             .padding(),
           name: "Button"
