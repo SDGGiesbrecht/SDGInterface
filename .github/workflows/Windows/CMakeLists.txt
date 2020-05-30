@@ -750,6 +750,7 @@ target_link_libraries("SDGTextDisplay" PRIVATE
 
 add_library("SDGButtons"
   "../../../Sources/SDGButtons/Button/AnyButton.swift"
+  "../../../Sources/SDGButtons/Button/Button.SwiftUIImplementation.swift"
   "../../../Sources/SDGButtons/Button/Button.swift"
   "../../../Sources/SDGButtons/Button/ButtonBindingObserver.swift"
   "../../../Sources/SDGButtons/Button/ButtonLabel.swift"

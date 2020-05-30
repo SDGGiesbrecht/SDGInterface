@@ -69,7 +69,7 @@
         case .static(let `static`):
           labelString = `static`
         }
-        return SwiftUIButton(
+        return SwiftUIImplementation(
           label: .constant(labelString),
           action: {
             #warning("What goes here?")
@@ -82,30 +82,6 @@
 
   #warning("Reduce and move elsewhere.")
   private typealias CocoaButtonImplementation = Button
-#endif
-
-#warning("Move elsewhere.")
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  private struct SwiftUIButton<L>: SwiftUI.View where L: Localization {
-
-    // MARK: - Properties
-
-    @SwiftUI.Binding var label: UserFacing<StrictString, L>
-    var action: () -> Void
-    @ObservedObject var localization: _Observable<LocalizationSetting>
-
-    // MARK: - View
-
-    fileprivate var body: some SwiftUI.View {
-      return SwiftUI.Button(
-        action: action,
-        label: {
-          Text(verbatim: String(label.resolved(for: localization.value.resolved())))
-        }
-      )
-    }
-  }
 #endif
 
 #warning("Remove?")
