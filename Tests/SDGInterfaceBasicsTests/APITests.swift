@@ -139,6 +139,15 @@ final class APITests: ApplicationTestCase {
     }
   }
 
+  func testLocalizationSetting() {
+    if #available(macOS 10.15, *) {
+      let setting = LocalizationSetting(orderOfPrecedence: ["zxx"])
+      setting.do {
+        XCTAssertEqual(LocalizationSetting._observableCurrent.value, setting)
+      }
+    }
+  }
+
   func testObservable() {
     if #available(macOS 10.15, *) {
       let shared = Shared("A")
