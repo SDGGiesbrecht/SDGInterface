@@ -29,8 +29,8 @@ import SDGInterfaceBasics
 
       // MARK: - Properties
 
-      @SwiftUI.Binding internal var label: UserFacing<StrictString, L>
-      internal var action: () -> Void
+      internal let label: UserFacing<StrictString, L>
+      internal let action: () -> Void
       @ObservedObject internal var localization: _Observable<LocalizationSetting>
 
       // MARK: - View

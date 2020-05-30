@@ -32,16 +32,14 @@
 
         previewBothModes(
           Button(
-            label: .static(
-              UserFacing<StrictString, InterfaceLocalization>({ localization in
-                switch localization {
-                case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                  return "Button"
-                case .deutschDeutschland:
-                  return "Taste"
-                }
-              })
-            )
+            label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+              switch localization {
+              case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+                return "Button"
+              case .deutschDeutschland:
+                return "Taste"
+              }
+            })
           ).adjustForLegacyMode()
             .padding(),
           name: "Button"

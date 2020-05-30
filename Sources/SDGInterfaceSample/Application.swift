@@ -148,7 +148,7 @@ extension Application {
           return "Button"
         }
       })
-      demonstrate(Button(label: .static(label)), windowTitle: label)
+      demonstrate(Button(label: label), windowTitle: label)
     }
 
     @objc public func demonstrateCheckBox() {

@@ -23,6 +23,7 @@
     import UIKit
   #endif
 
+  import SDGControlFlow
   import SDGText
   import SDGLocalization
 
@@ -35,18 +36,17 @@
 
     // MARK: - Initialization
 
-    #warning("Rethink binding.")
     /// Creates a button.
     ///
     /// - Parameters:
     ///     - label: The label on the button.
-    public init(label: SDGInterfaceBasics.Binding<StrictString, L>) {
+    public init(label: UserFacing<StrictString, L>) {
       self.label = label
     }
 
     // MARK: - Properties
 
-    private let label: SDGInterfaceBasics.Binding<StrictString, L>
+    private let label: UserFacing<StrictString, L>
 
     // MARK: - LegacyView
 
@@ -66,15 +66,8 @@
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       public func swiftUI() -> some SwiftUI.View {
-        let labelString: UserFacing<StrictString, L>
-        switch label {
-        case .binding(let binding):
-          labelString = UserFacing({ _ in binding.value })
-        case .static(let `static`):
-          labelString = `static`
-        }
         return SwiftUIImplementation(
-          label: .constant(labelString),
+          label: label,
           action: {
             #warning("What goes here?")
           },
