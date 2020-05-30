@@ -31,8 +31,7 @@
     #warning("Remove?")
     #warning("Re‐do access control.")
     #warning("Protocols?")
-    public final class Button<L>: AnyButton, CocoaViewImplementation, SDGViews.View
-    where L: Localization {
+    public final class CocoaImplementation: AnyButton, CocoaViewImplementation, SDGViews.View {
 
       // MARK: - Initialization
 

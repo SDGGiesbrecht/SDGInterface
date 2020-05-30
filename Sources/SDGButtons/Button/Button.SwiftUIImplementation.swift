@@ -25,7 +25,7 @@ import SDGInterfaceBasics
   extension Button {
 
     @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-    internal struct SwiftUIImplementation<L>: SwiftUI.View where L: Localization {
+    internal struct SwiftUIImplementation: SwiftUI.View {
 
       // MARK: - Properties
 
