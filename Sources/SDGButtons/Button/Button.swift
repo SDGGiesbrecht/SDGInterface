@@ -35,6 +35,11 @@
 
     // MARK: - Initialization
 
+    #warning("Rethink binding.")
+    /// Creates a button.
+    ///
+    /// - Parameters:
+    ///     - label: The label on the button.
     public init(label: SDGInterfaceBasics.Binding<StrictString, L>) {
       self.label = label
     }

@@ -31,15 +31,11 @@
     #warning("Remove?")
     #warning("Re‐do access control.")
     #warning("Protocols?")
-    public final class CocoaImplementation: AnyButton, CocoaViewImplementation, SDGViews.View {
+    internal final class CocoaImplementation: AnyButton, CocoaViewImplementation, SDGViews.View {
 
       // MARK: - Initialization
 
-      /// Creates a button.
-      ///
-      /// - Parameters:
-      ///     - label: The label on the button.
-      public init(label: SDGInterfaceBasics.Binding<StrictString, L>) {
+      internal init(label: SDGInterfaceBasics.Binding<StrictString, L>) {
         self.label = label
         defer {
           labelDidSet()
@@ -71,8 +67,7 @@
 
       private let bindingObserver = ButtonBindingObserver()
 
-      /// The label.
-      public var label: SDGInterfaceBasics.Binding<StrictString, L> {
+      internal var label: SDGInterfaceBasics.Binding<StrictString, L> {
         willSet {
           label.shared?.cancel(observer: bindingObserver)
         }
@@ -86,7 +81,7 @@
 
       // MARK: - Refreshing
 
-      public func _refreshBindings() {
+      internal func _refreshBindings() {
         let resolved = String(label.resolved())
         #if canImport(AppKit)
           specificCocoaView.title = resolved
@@ -97,16 +92,16 @@
 
       // MARK: - LegacyView
 
-      public func cocoa() -> CocoaView {
+      internal func cocoa() -> CocoaView {
         return CocoaView(specificCocoaView)
       }
 
       // MARK: - SpecificView
 
       #if canImport(AppKit)
-        public let specificCocoaView: NSButton
+        internal let specificCocoaView: NSButton
       #elseif canImport(UIKit)
-        public let specificCocoaView: UIButton
+        internal let specificCocoaView: UIButton
       #endif
     }
   }
