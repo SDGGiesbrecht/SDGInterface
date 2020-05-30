@@ -55,7 +55,7 @@
     #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       public func cocoa() -> CocoaView {
         return useSwiftUIOrFallback(to: {
-          return CocoaImplementation(label: label, action: action).cocoa()
+          return CocoaView(CocoaImplementation(label: label, action: action))
         })
       }
     #endif

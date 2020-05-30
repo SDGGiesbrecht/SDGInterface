@@ -31,68 +31,70 @@
     #warning("Remove?")
     #warning("Re‐do access control.")
     #warning("Protocols?")
-    internal final class CocoaImplementation: AnyButton, CocoaViewImplementation, SDGViews.View {
+    #if canImport(AppKit)
+      internal typealias Superclass = NSButton
+    #else
+      internal typealias Superclass = UIButton
+    #endif
+    internal final class CocoaImplementation: Superclass, AnyButton {
 
       // MARK: - Initialization
 
       internal init(label: UserFacing<StrictString, L>, action: @escaping () -> Void) {
-        #warning("Deal with action.")
         self.label = label
         defer {
+          bindingObserver.button = self
           LocalizationSetting.current.register(observer: bindingObserver)
         }
 
-        #if canImport(AppKit)
-          specificCocoaView = NSButton()
-        #elseif canImport(UIKit)
-          specificCocoaView = UIButton()
-        #endif
+        self.actionClosure = action
         defer {
-          bindingObserver.button = self
+          self.target = self
+          self.action = #selector(triggerAction)
         }
 
+        super.init(frame: CGRect.zero)
+
         #if canImport(AppKit)
-          specificCocoaView.bezelStyle = .rounded
-          specificCocoaView.setButtonType(.momentaryPushIn)
+          bezelStyle = .rounded
+          setButtonType(.momentaryPushIn)
         #endif
 
         #if canImport(AppKit)
-          specificCocoaView.font = NSFont.from(Font.forLabels)
+          font = NSFont.from(Font.forLabels)
         #elseif canImport(UIKit)
-          specificCocoaView.titleLabel?.font = UIFont.from(Font.forLabels)
+          titleLabel?.font = UIFont.from(Font.forLabels)
         #endif
+      }
+
+      required init?(coder: NSCoder) {
+        #warning("What to do with this?")
+        fatalError("init(coder:) has not been implemented")
       }
 
       // MARK: - Properties
 
+      private var label: UserFacing<StrictString, L>
+      private var actionClosure: () -> Void
+
       private let bindingObserver = ButtonBindingObserver()
 
-      private var label: UserFacing<StrictString, L>
+      // MARK: - NSButton
+
+      @objc private func triggerAction() {
+        actionClosure()
+      }
 
       // MARK: - Refreshing
 
       internal func _refreshBindings() {
         let resolved = String(label.resolved())
         #if canImport(AppKit)
-          specificCocoaView.title = resolved
+          title = resolved
         #elseif canImport(UIKit)
-          specificCocoaView.titleLabel?.text = resolved
+          titleLabel?.text = resolved
         #endif
       }
-
-      // MARK: - LegacyView
-
-      internal func cocoa() -> CocoaView {
-        return CocoaView(specificCocoaView)
-      }
-
-      // MARK: - SpecificView
-
-      #if canImport(AppKit)
-        internal let specificCocoaView: NSButton
-      #elseif canImport(UIKit)
-        internal let specificCocoaView: UIButton
-      #endif
     }
   }
 #endif

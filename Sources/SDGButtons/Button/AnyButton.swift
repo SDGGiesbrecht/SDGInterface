@@ -22,14 +22,7 @@
   import SDGViews
 
   /// A button with no particular localization.
-  public protocol AnyButton: AnyObject, LegacyView {
-    #if canImport(AppKit)
-      /// The specific subclass of `NSView` or `UIView`.
-      var specificCocoaView: NSButton { get }
-    #elseif canImport(UIKit)
-      /// The specific subclass of `NSView` or `UIView`.
-      var specificCocoaView: UIButton { get }
-    #endif
+  public protocol AnyButton: AnyObject {
     func _refreshBindings()
   }
 
