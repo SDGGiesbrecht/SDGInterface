@@ -12,19 +12,21 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-import SDGControlFlow
+#if canImport(Combine)
+  import SDGControlFlow
 
-// #workaround(SDGCornerstone 5.0.0, Belongs in SDGCornerstone.)
-@available(macOS 10.15, *)
-internal class ObservableSharedValueObserver<Value>: SharedValueObserver {
+  // #workaround(SDGCornerstone 5.0.0, Belongs in SDGCornerstone.)
+  @available(macOS 10.15, *)
+  internal class ObservableSharedValueObserver<Value>: SharedValueObserver {
 
-  // MARK: - Properties
+    // MARK: - Properties
 
-  internal weak var observable: _Observable<Value>?
+    internal weak var observable: _Observable<Value>?
 
-  // MARK: - SharedValueObserver
+    // MARK: - SharedValueObserver
 
-  internal func valueChanged(for identifier: String) {
-    observable?.sharedStateChanged()
+    internal func valueChanged(for identifier: String) {
+      observable?.sharedStateChanged()
+    }
   }
-}
+#endif

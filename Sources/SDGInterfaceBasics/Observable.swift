@@ -14,48 +14,48 @@
 
 #if canImport(Combine)
   import Combine
-#endif
 
-import SDGControlFlow
+  import SDGControlFlow
 
-// #workaround(SDGCornerstone 5.0.0, Belongs in SDGCornerstone.)
-@available(macOS 10.15, *)
-public final class _Observable<Value>: ObservableObject {
+  // #workaround(SDGCornerstone 5.0.0, Belongs in SDGCornerstone.)
+  @available(macOS 10.15, *)
+  public final class _Observable<Value>: ObservableObject {
 
-  // MARK: - Initialization
+    // MARK: - Initialization
 
-  public init(_ shared: Shared<Value>) {
-    // Shared
-    self.shared = shared
-    self.observer = ObservableSharedValueObserver()
-    defer {
-      observer.observable = self
-      shared.register(observer: observer)
-    }
+    public init(_ shared: Shared<Value>) {
+      // Shared
+      self.shared = shared
+      self.observer = ObservableSharedValueObserver()
+      defer {
+        observer.observable = self
+        shared.register(observer: observer)
+      }
 
-    // Published
-    value = shared.value
-    subscriber = $value.assign(to: \.value, on: shared)
-  }
-
-  // MARK: - Bindings
-
-  internal func sharedStateChanged() {
-    if expectingRebound {
-      expectingRebound = false
-    } else {
-      expectingRebound = true
+      // Published
       value = shared.value
+      subscriber = $value.assign(to: \.value, on: shared)
     }
+
+    // MARK: - Bindings
+
+    internal func sharedStateChanged() {
+      if expectingRebound {
+        expectingRebound = false
+      } else {
+        expectingRebound = true
+        value = shared.value
+      }
+    }
+
+    // MARK: - Properties
+
+    private let shared: Shared<Value>
+    private let observer: ObservableSharedValueObserver<Value>
+
+    @Published public var value: Value
+    private var subscriber: AnyCancellable?
+
+    var expectingRebound: Bool = false
   }
-
-  // MARK: - Properties
-
-  private let shared: Shared<Value>
-  private let observer: ObservableSharedValueObserver<Value>
-
-  @Published public var value: Value
-  private var subscriber: AnyCancellable?
-
-  var expectingRebound: Bool = false
-}
+#endif
