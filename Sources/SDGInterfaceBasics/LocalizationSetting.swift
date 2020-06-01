@@ -16,7 +16,7 @@ import SDGLocalization
 
 extension LocalizationSetting {
 
-  #warning("Will this be needed if it can be sunk into SDGCornerstone?")
+  // #workaround(SDGCornerstone 5.0.0, Belongs in SDGCornerstone.)
   @available(macOS 10.15, *)
   public static let _observableCurrent: _Observable<LocalizationSetting> = _Observable(
     LocalizationSetting.current

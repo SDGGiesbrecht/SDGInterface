@@ -18,7 +18,7 @@
 
 import SDGControlFlow
 
-#warning("Move to SDGControlFlow? Or remove underscore?")
+// #workaround(SDGCornerstone 5.0.0, Belongs in SDGCornerstone.)
 @available(macOS 10.15, *)
 public final class _Observable<Value>: ObservableObject {
 
@@ -40,7 +40,7 @@ public final class _Observable<Value>: ObservableObject {
 
   // MARK: - Bindings
 
-  fileprivate func sharedStateChanged() {
+  internal func sharedStateChanged() {
     if expectingRebound {
       expectingRebound = false
     } else {
@@ -58,19 +58,4 @@ public final class _Observable<Value>: ObservableObject {
   private var subscriber: AnyCancellable?
 
   var expectingRebound: Bool = false
-}
-
-#warning("Move elsewhere.")
-@available(macOS 10.15, *)
-private class ObservableSharedValueObserver<Value>: SharedValueObserver {
-
-  // MARK: - Properties
-
-  internal weak var observable: _Observable<Value>?
-
-  // MARK: - SharedValueObserver
-
-  internal func valueChanged(for identifier: String) {
-    observable?.sharedStateChanged()
-  }
 }
