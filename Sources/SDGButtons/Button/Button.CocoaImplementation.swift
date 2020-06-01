@@ -29,8 +29,6 @@
 
   extension Button {
 
-    #warning("Re‐do access control.")
-    #warning("Handle support types.")
     #if canImport(AppKit)
       internal typealias Superclass = NSButton
     #else
