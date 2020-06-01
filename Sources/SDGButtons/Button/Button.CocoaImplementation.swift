@@ -64,9 +64,8 @@
         #endif
       }
 
-      required init?(coder: NSCoder) {
-        #warning("What to do with this?")
-        fatalError("init(coder:) has not been implemented")
+      internal required init?(coder decoder: NSCoder) {  // @exempt(from: tests)
+        return nil
       }
 
       // MARK: - Properties
