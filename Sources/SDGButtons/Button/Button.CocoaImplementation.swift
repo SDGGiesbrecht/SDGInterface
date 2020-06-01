@@ -20,6 +20,7 @@
     import UIKit
   #endif
 
+  import SDGControlFlow
   import SDGText
   import SDGLocalization
 
@@ -29,22 +30,20 @@
   extension Button {
 
     #warning("Re‐do access control.")
-    #warning("Protocols?")
     #warning("Handle support types.")
     #if canImport(AppKit)
       internal typealias Superclass = NSButton
     #else
       internal typealias Superclass = UIButton
     #endif
-    internal final class CocoaImplementation: Superclass, AnyButton {
+    internal final class CocoaImplementation: Superclass, SharedValueObserver {
 
       // MARK: - Initialization
 
       internal init(label: UserFacing<StrictString, L>, action: @escaping () -> Void) {
         self.label = label
         defer {
-          bindingObserver.button = self
-          LocalizationSetting.current.register(observer: bindingObserver)
+          LocalizationSetting.current.register(observer: self)
         }
 
         self.actionClosure = action
@@ -77,17 +76,15 @@
       private var label: UserFacing<StrictString, L>
       private var actionClosure: () -> Void
 
-      private let bindingObserver = ButtonBindingObserver()
-
       // MARK: - NSButton
 
       @objc private func triggerAction() {
         actionClosure()
       }
 
-      // MARK: - Refreshing
+      // MARK: - SharedValueObserver
 
-      internal func _refreshBindings() {
+      internal func valueChanged(for identifier: String) {
         let resolved = String(label.resolved())
         #if canImport(AppKit)
           title = resolved
