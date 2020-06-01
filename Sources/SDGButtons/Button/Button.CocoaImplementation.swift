@@ -28,7 +28,6 @@
 
   extension Button {
 
-    #warning("Remove?")
     #warning("Re‐do access control.")
     #warning("Protocols?")
     #warning("Handle support types.")
