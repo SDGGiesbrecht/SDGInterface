@@ -863,24 +863,6 @@ target_link_libraries("SDGApplicationTests" PRIVATE
   "SDGLocalizationTestUtilities"
 )
 
-add_library("SDGButtonsTests"
-  "../../../Tests/SDGButtonsTests/APITests.swift"
-)
-set_target_properties("SDGButtonsTests" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
-target_compile_options("SDGButtonsTests" PRIVATE -enable-testing)
-target_link_libraries("SDGButtonsTests" PRIVATE
-  "SDGInterfaceBasics"
-  "SDGButtons"
-  "SDGApplication"
-  "SDGInterfaceSample"
-  "SDGInterfaceLocalizations"
-  "SDGApplicationTestUtilities"
-  "SDGControlFlow"
-  "SDGText"
-  "SDGLocalization"
-  "SDGXCTestUtilities"
-)
-
 add_library("SDGContextMenuTests"
   "../../../Tests/SDGContextMenuTests/APITests.swift"
 )
@@ -1070,6 +1052,26 @@ target_link_libraries("SDGViewsTestUtilities" PRIVATE
   "SDGTesting"
 )
 
+add_library("SDGButtonsTests"
+  "../../../Tests/SDGButtonsTests/APITests.swift"
+  "../../../Tests/SDGButtonsTests/PreviewTests.swift"
+)
+set_target_properties("SDGButtonsTests" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
+target_compile_options("SDGButtonsTests" PRIVATE -enable-testing)
+target_link_libraries("SDGButtonsTests" PRIVATE
+  "SDGInterfaceBasics"
+  "SDGButtons"
+  "SDGApplication"
+  "SDGInterfaceSample"
+  "SDGInterfaceLocalizations"
+  "SDGViewsTestUtilities"
+  "SDGApplicationTestUtilities"
+  "SDGControlFlow"
+  "SDGText"
+  "SDGLocalization"
+  "SDGXCTestUtilities"
+)
+
 add_library("SDGViewsTests"
   "../../../Tests/SDGViewsTests/APITests.swift"
   "../../../Tests/SDGViewsTests/CocoaExample.swift"
@@ -1115,7 +1117,6 @@ add_executable(WindowsMain
 target_link_libraries(WindowsMain PRIVATE
   "SDGInterfaceResourceGeneration"
   "SDGApplicationTests"
-  "SDGButtonsTests"
   "SDGContextMenuTests"
   "SDGImageDisplayTests"
   "SDGInterfaceBasicsTests"
@@ -1126,6 +1127,7 @@ target_link_libraries(WindowsMain PRIVATE
   "SDGProgressIndicatorsTests"
   "SDGTablesTests"
   "SDGTextDisplayTests"
+  "SDGButtonsTests"
   "SDGViewsTests"
   "SDGWindowsTests"
 )

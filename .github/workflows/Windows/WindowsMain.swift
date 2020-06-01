@@ -16,7 +16,6 @@ import XCTest
 
 @testable import SDGInterfaceResourceGeneration
 @testable import SDGApplicationTests
-@testable import SDGButtonsTests
 @testable import SDGContextMenuTests
 @testable import SDGImageDisplayTests
 @testable import SDGInterfaceBasicsTests
@@ -27,6 +26,7 @@ import XCTest
 @testable import SDGProgressIndicatorsTests
 @testable import SDGTablesTests
 @testable import SDGTextDisplayTests
+@testable import SDGButtonsTests
 @testable import SDGViewsTests
 @testable import SDGWindowsTests
 
@@ -49,16 +49,6 @@ extension SDGApplicationTests.InternalTests {
       ("testApplicationName", testApplicationName),
       ("testNSApplicationDelegate", testNSApplicationDelegate),
       ("testUIApplicationDelegate", testUIApplicationDelegate),
-    ])
-  ]
-}
-
-extension SDGButtonsTests.APITests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
-      ("testButton", testButton),
-      ("testCheckBox", testCheckBox),
-      ("testRadioButtonSet", testRadioButtonSet),
     ])
   ]
 }
@@ -164,6 +154,16 @@ extension SDGTextDisplayTests.APITests {
   ]
 }
 
+extension SDGButtonsTests.APITests {
+  static let windowsTests: [XCTestCaseEntry] = [
+    testCase([
+      ("testButton", testButton),
+      ("testCheckBox", testCheckBox),
+      ("testRadioButtonSet", testRadioButtonSet),
+    ])
+  ]
+}
+
 extension SDGViewsTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
@@ -200,7 +200,6 @@ extension SDGWindowsTests.APITests {
 var tests = [XCTestCaseEntry]()
 tests += SDGApplicationTests.APITests.windowsTests
 tests += SDGApplicationTests.InternalTests.windowsTests
-tests += SDGButtonsTests.APITests.windowsTests
 tests += SDGContextMenuTests.APITests.windowsTests
 tests += SDGImageDisplayTests.APITests.windowsTests
 tests += SDGInterfaceBasicsTests.APITests.windowsTests
@@ -211,6 +210,7 @@ tests += SDGPopOversTests.APITests.windowsTests
 tests += SDGProgressIndicatorsTests.APITests.windowsTests
 tests += SDGTablesTests.APITests.windowsTests
 tests += SDGTextDisplayTests.APITests.windowsTests
+tests += SDGButtonsTests.APITests.windowsTests
 tests += SDGViewsTests.APITests.windowsTests
 tests += SDGViewsTests.InternalTests.windowsTests
 tests += SDGWindowsTests.APITests.windowsTests
