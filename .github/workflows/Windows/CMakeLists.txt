@@ -1054,6 +1054,7 @@ target_link_libraries("SDGViewsTestUtilities" PRIVATE
 
 add_library("SDGButtonsTests"
   "../../../Tests/SDGButtonsTests/APITests.swift"
+  "../../../Tests/SDGButtonsTests/InternalTests.swift"
   "../../../Tests/SDGButtonsTests/PreviewTests.swift"
 )
 set_target_properties("SDGButtonsTests" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})

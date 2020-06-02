@@ -164,6 +164,14 @@ extension SDGButtonsTests.APITests {
   ]
 }
 
+extension SDGButtonsTests.InternalTests {
+  static let windowsTests: [XCTestCaseEntry] = [
+    testCase([
+      ("testButtonCocoaImplementation", testButtonCocoaImplementation)
+    ])
+  ]
+}
+
 extension SDGViewsTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
@@ -211,6 +219,7 @@ tests += SDGProgressIndicatorsTests.APITests.windowsTests
 tests += SDGTablesTests.APITests.windowsTests
 tests += SDGTextDisplayTests.APITests.windowsTests
 tests += SDGButtonsTests.APITests.windowsTests
+tests += SDGButtonsTests.InternalTests.windowsTests
 tests += SDGViewsTests.APITests.windowsTests
 tests += SDGViewsTests.InternalTests.windowsTests
 tests += SDGWindowsTests.APITests.windowsTests
