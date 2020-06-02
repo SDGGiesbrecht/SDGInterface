@@ -39,7 +39,8 @@
     /// Creates a button.
     ///
     /// - Parameters:
-    ///     - label: The label on the button.
+    ///    - label: The label on the button.
+    ///    - action: The action the button should trigger.
     public init(label: UserFacing<StrictString, L>, action: @escaping () -> Void) {
       self.label = label
       self.action = action

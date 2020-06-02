@@ -151,7 +151,7 @@ extension Application {
       demonstrate(
         Button(
           label: label,
-          action: { // @exempt(from: tests)
+          action: {  // @exempt(from: tests)
             print(
               UserFacing<StrictString, InterfaceLocalization>({ localization in
                 switch localization {
