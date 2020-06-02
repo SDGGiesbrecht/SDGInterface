@@ -35,10 +35,11 @@ final class APITests: ApplicationTestCase {
   func testButton() {
     #if canImport(AppKit) || canImport(UIKit)
       Application.shared.demonstrateButton()
-      let label = UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>({
-        localizatoin in
-        return "Button"
-      })
+      let label = UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
+        { localization in
+          return "Button"
+        }
+      )
       _ = Button(label: label, action: {})
     #endif
   }
