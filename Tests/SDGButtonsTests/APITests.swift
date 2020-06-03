@@ -28,19 +28,23 @@ import XCTest
 
 import SDGXCTestUtilities
 
+import SDGViewsTestUtilities
 import SDGApplicationTestUtilities
 
 final class APITests: ApplicationTestCase {
 
   func testButton() {
-    #if canImport(AppKit) || canImport(UIKit)
+    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
       Application.shared.demonstrateButton()
       let label = UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
         { localization in
           return "Button"
         }
       )
-      _ = Button(label: label, action: {})
+      let button = Button(label: label, action: {})
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        testViewConformance(of: button)
+      }
     #endif
   }
 
