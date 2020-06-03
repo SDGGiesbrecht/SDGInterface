@@ -36,8 +36,12 @@ import SDGInterfaceBasics
       // MARK: - View
 
       internal var body: some SwiftUI.View {
-        #warning("Not implemented yet.")
-        return EmptyView()
+        #warning("Hook up Boolean.")
+        return Toggle(
+          isOn: .constant(false),
+          label: {
+            Text(verbatim: String(label.resolved(for: localization.value.resolved())))
+        })
       }
     }
   }
