@@ -143,7 +143,9 @@ final class APITests: ApplicationTestCase {
     if #available(macOS 10.15, *) {
       let setting = LocalizationSetting(orderOfPrecedence: ["zxx"])
       setting.do {
-        XCTAssertEqual(LocalizationSetting._observableCurrent.value, setting)
+        #if canImport(Combine)
+          XCTAssertEqual(LocalizationSetting._observableCurrent.value, setting)
+        #endif
       }
     }
   }
