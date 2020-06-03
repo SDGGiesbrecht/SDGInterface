@@ -53,4 +53,17 @@
       }
     #endif
   }
+
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  extension CheckBox: View {
+
+    // MARK: - View
+
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      public func swiftUI() -> some SwiftUI.View {
+        #warning("Not implemented yet.")
+        return SwiftUI.EmptyView()
+      }
+    #endif
+  }
 #endif

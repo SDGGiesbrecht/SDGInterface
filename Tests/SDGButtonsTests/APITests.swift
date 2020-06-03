@@ -52,12 +52,14 @@ final class APITests: ApplicationTestCase {
     #if canImport(AppKit) || canImport(UIKit)
       Application.shared.demonstrateCheckBox()
       #if canImport(AppKit)
-        let label = Shared<StrictString>("Check Box")
-        let binding: Binding<StrictString, APILocalization> = .binding(label)
-        let checkBox = CheckBox(label: binding)
-        label.value = "Changed"
-        XCTAssertEqual(checkBox.specificCocoaView.title, "Changed")
-        checkBox.label = .binding(Shared("Changed again."))
+        let label = UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
+          { _ in
+            "Check Box"
+          })
+        let checkBox = CheckBox(label: label)
+        if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+          testViewConformance(of: checkBox)
+        }
       #endif
     #endif
   }
