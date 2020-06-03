@@ -18,7 +18,7 @@
   extension LocalizationSetting {
 
     // #workaround(SDGCornerstone 5.0.0, Belongs in SDGCornerstone.)
-    @available(macOS 10.15, *)
+    @available(macOS 10.15, tvOS 13, *)
     public static let _observableCurrent: _Observable<LocalizationSetting> = _Observable(
       LocalizationSetting.current
     )

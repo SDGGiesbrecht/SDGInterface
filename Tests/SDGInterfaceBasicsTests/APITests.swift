@@ -140,7 +140,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testLocalizationSetting() {
-    if #available(macOS 10.15, *) {
+    if #available(macOS 10.15, tvOS 13, *) {
       let setting = LocalizationSetting(orderOfPrecedence: ["zxx"])
       setting.do {
         #if canImport(Combine)
@@ -154,7 +154,7 @@ final class APITests: ApplicationTestCase {
     let shared = Shared("A")
     XCTAssertEqual(shared.value, "A")
     #if canImport(Combine)
-      if #available(macOS 10.15, *) {
+      if #available(macOS 10.15, tvOS 13, *) {
         let observable = _Observable(shared)
         XCTAssertEqual(observable.value, "A")
 

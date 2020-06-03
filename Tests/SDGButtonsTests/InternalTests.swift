@@ -32,7 +32,11 @@ final class InternalTests: ApplicationTestCase {
       legacyMode = true
       defer { legacyMode = false }
       let cocoa = button.cocoa().native as! Button.Superclass
-      cocoa.sendAction(cocoa.action, to: cocoa.target)
+      #if canImport(AppKit)
+        cocoa.sendAction(cocoa.action, to: cocoa.target)
+      #else
+        cocoa.sendActions(for: .primaryActionTriggered)
+      #endif
     #endif
   }
 }

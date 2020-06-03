@@ -46,8 +46,16 @@
 
         self.actionClosure = action
         defer {
-          self.target = self
-          self.action = #selector(triggerAction)
+          #if canImport(AppKit)
+            self.target = self
+            self.action = #selector(triggerAction)
+          #else
+            self.addTarget(
+              target,
+              action: #selector(triggerAction),
+              for: .primaryActionTriggered
+            )
+          #endif
         }
 
         super.init(frame: CGRect.zero)
