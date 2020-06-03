@@ -44,6 +44,9 @@
 		3F8BD33623C57B0F000931BB /* Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8BD33523C57B0E000931BB /* Frame.swift */; };
 		3F8BD33723C57B0F000931BB /* Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8BD33523C57B0E000931BB /* Frame.swift */; };
 		3F8BD33823C57B0F000931BB /* Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8BD33523C57B0E000931BB /* Frame.swift */; };
+		3F93A38A2481AA1A00A10F0E /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F93A3892481AA1A00A10F0E /* Button.swift */; };
+		3F93A38B2481AA1A00A10F0E /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F93A3892481AA1A00A10F0E /* Button.swift */; };
+		3F93A38C2481AA1A00A10F0E /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F93A3892481AA1A00A10F0E /* Button.swift */; };
 		3F9B50E0239F5B500027E8A6 /* Letterbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9B50DF239F5B500027E8A6 /* Letterbox.swift */; };
 		3F9B50E1239F5B500027E8A6 /* Letterbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9B50DF239F5B500027E8A6 /* Letterbox.swift */; };
 		3F9B50E2239F5B500027E8A6 /* Letterbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9B50DF239F5B500027E8A6 /* Letterbox.swift */; };
@@ -108,6 +111,8 @@
 		3F7D730F23502C9B00A751CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F8565A923E8D3CA00228097 /* HorizontalStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalStack.swift; sourceTree = "<group>"; };
 		3F8BD33523C57B0E000931BB /* Frame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Frame.swift; sourceTree = "<group>"; };
+		3F93A3892481AA1A00A10F0E /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		3F93A38D2481AAB100A10F0E /* SDGInterface */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SDGInterface; path = ../..; sourceTree = "<group>"; };
 		3F9B50DF239F5B500027E8A6 /* Letterbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Letterbox.swift; sourceTree = "<group>"; };
 		3FEC1D7D23A1AE3B008525FE /* AspectRatio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectRatio.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -165,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				3FEC1D7D23A1AE3B008525FE /* AspectRatio.swift */,
+				3F93A3892481AA1A00A10F0E /* Button.swift */,
 				3F73232423C82AA200B16D40 /* Background.swift */,
 				3F8BD33523C57B0E000931BB /* Frame.swift */,
 				3F9B50DF239F5B500027E8A6 /* Letterbox.swift */,
@@ -177,6 +183,7 @@
 		3F7D721923501E8100A751CE = {
 			isa = PBXGroup;
 			children = (
+				3F93A38D2481AAB100A10F0E /* SDGInterface */,
 				3F65E0ED236922FD00434B9A /* SwiftUI Previews */,
 				3F7D722623501F4D00A751CE /* macOS Sample */,
 				3F7D723C23501F4F00A751CE /* macOS SampleTests */,
@@ -498,6 +505,7 @@
 				3F7D722823501F4D00A751CE /* main.swift in Sources */,
 				3FEC1D7E23A1AE3B008525FE /* AspectRatio.swift in Sources */,
 				3F9B50E0239F5B500027E8A6 /* Letterbox.swift in Sources */,
+				3F93A38A2481AA1A00A10F0E /* Button.swift in Sources */,
 				3F8BD33623C57B0F000931BB /* Frame.swift in Sources */,
 				3F73232523C82AA200B16D40 /* Background.swift in Sources */,
 				3F8565AA23E8D3CA00228097 /* HorizontalStack.swift in Sources */,
@@ -520,6 +528,7 @@
 				3F7D72D323502C8600A751CE /* main.swift in Sources */,
 				3FEC1D7F23A1AE3B008525FE /* AspectRatio.swift in Sources */,
 				3F9B50E1239F5B500027E8A6 /* Letterbox.swift in Sources */,
+				3F93A38B2481AA1A00A10F0E /* Button.swift in Sources */,
 				3F8BD33723C57B0F000931BB /* Frame.swift in Sources */,
 				3F73232623C82AA200B16D40 /* Background.swift in Sources */,
 				3F8565AB23E8D3CA00228097 /* HorizontalStack.swift in Sources */,
@@ -542,6 +551,7 @@
 				3F7D72F923502C9900A751CE /* main.swift in Sources */,
 				3FEC1D8023A1AE3B008525FE /* AspectRatio.swift in Sources */,
 				3F9B50E2239F5B500027E8A6 /* Letterbox.swift in Sources */,
+				3F93A38C2481AA1A00A10F0E /* Button.swift in Sources */,
 				3F8BD33823C57B0F000931BB /* Frame.swift in Sources */,
 				3F73232723C82AA200B16D40 /* Background.swift in Sources */,
 				3F8565AC23E8D3CA00228097 /* HorizontalStack.swift in Sources */,

@@ -1,10 +1,10 @@
 /*
- LegacyMode.swift
+ Button.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
 
- Copyright ©2019–2020 Jeremy David Giesbrecht and the SDGInterface project contributors.
+ Copyright ©2020 Jeremy David Giesbrecht and the SDGInterface project contributors.
 
  Soli Deo gloria.
 
@@ -12,4 +12,12 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-internal var legacyMode = false
+import SwiftUI
+
+@testable import SDGButtons
+
+struct Button_Previews: PreviewProvider {
+  static var previews: some SwiftUI.View {
+    return ButtonPreviews()
+  }
+}

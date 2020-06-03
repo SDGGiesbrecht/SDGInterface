@@ -453,6 +453,9 @@ add_library("SDGInterfaceBasics"
   "../../../Sources/SDGInterfaceBasics/EdgeSet.swift"
   "../../../Sources/SDGInterfaceBasics/FieldEditor.swift"
   "../../../Sources/SDGInterfaceBasics/Font.swift"
+  "../../../Sources/SDGInterfaceBasics/LocalizationSetting.swift"
+  "../../../Sources/SDGInterfaceBasics/Observable.swift"
+  "../../../Sources/SDGInterfaceBasics/ObservableSharedValueObserver.swift"
   "../../../Sources/SDGInterfaceBasics/Point.swift"
   "../../../Sources/SDGInterfaceBasics/ProcessInfo.swift"
   "../../../Sources/SDGInterfaceBasics/Rectangle.swift"
@@ -605,13 +608,13 @@ add_library("SDGViews"
   "../../../Sources/SDGViews/Layout/Padded.swift"
   "../../../Sources/SDGViews/Layout/Proportioned.swift"
   "../../../Sources/SDGViews/LegacyMode.swift"
+  "../../../Sources/SDGViews/Preview Utilities/Previews.swift"
   "../../../Sources/SDGViews/Previews/AspectRatioPreviews.swift"
   "../../../Sources/SDGViews/Previews/BackgroundPreviews.swift"
   "../../../Sources/SDGViews/Previews/FramePreviews.swift"
   "../../../Sources/SDGViews/Previews/HorizontalStackPreviews.swift"
   "../../../Sources/SDGViews/Previews/LetterboxPreviews.swift"
   "../../../Sources/SDGViews/Previews/PaddingPreviews.swift"
-  "../../../Sources/SDGViews/Previews/Previews.swift"
   "../../../Sources/SDGViews/Protocol/CocoaViewImplementation.swift"
   "../../../Sources/SDGViews/Protocol/CocoaViewRepresentableWrapper.swift"
   "../../../Sources/SDGViews/Protocol/LegacyView.swift"
@@ -747,16 +750,20 @@ target_link_libraries("SDGTextDisplay" PRIVATE
 )
 
 add_library("SDGButtons"
-  "../../../Sources/SDGButtons/AnyButton.swift"
-  "../../../Sources/SDGButtons/AnyCheckBox.swift"
-  "../../../Sources/SDGButtons/AnyRadioButtonSet.swift"
-  "../../../Sources/SDGButtons/Button.swift"
-  "../../../Sources/SDGButtons/ButtonBindingObserver.swift"
-  "../../../Sources/SDGButtons/ButtonLabel.swift"
-  "../../../Sources/SDGButtons/CheckBox.swift"
-  "../../../Sources/SDGButtons/CheckBoxBindingObserver.swift"
-  "../../../Sources/SDGButtons/RadioBindingObserver.swift"
-  "../../../Sources/SDGButtons/RadioButtonSet.swift"
+  "../../../Sources/SDGButtons/Button/Button.CocoaImplementation.swift"
+  "../../../Sources/SDGButtons/Button/Button.SwiftUIImplementation.swift"
+  "../../../Sources/SDGButtons/Button/Button.swift"
+  "../../../Sources/SDGButtons/Check Box/AnyCheckBox.swift"
+  "../../../Sources/SDGButtons/Check Box/CheckBox.swift"
+  "../../../Sources/SDGButtons/Check Box/CheckBoxBindingObserver.swift"
+  "../../../Sources/SDGButtons/LegacyMode.swift"
+  "../../../Sources/SDGButtons/LegacyView.swift"
+  "../../../Sources/SDGButtons/Previews/ButtonPreview.swift"
+  "../../../Sources/SDGButtons/Previews/Previews.swift"
+  "../../../Sources/SDGButtons/Radio Buttons/AnyRadioButtonSet.swift"
+  "../../../Sources/SDGButtons/Radio Buttons/ButtonLabel.swift"
+  "../../../Sources/SDGButtons/Radio Buttons/RadioBindingObserver.swift"
+  "../../../Sources/SDGButtons/Radio Buttons/RadioButtonSet.swift"
   "../../../Sources/SDGButtons/Windows.swift"
 )
 set_target_properties("SDGButtons" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
@@ -854,24 +861,6 @@ target_link_libraries("SDGApplicationTests" PRIVATE
   "SDGXCTestUtilities"
   "SDGLogicTestUtilities"
   "SDGLocalizationTestUtilities"
-)
-
-add_library("SDGButtonsTests"
-  "../../../Tests/SDGButtonsTests/APITests.swift"
-)
-set_target_properties("SDGButtonsTests" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
-target_compile_options("SDGButtonsTests" PRIVATE -enable-testing)
-target_link_libraries("SDGButtonsTests" PRIVATE
-  "SDGInterfaceBasics"
-  "SDGButtons"
-  "SDGApplication"
-  "SDGInterfaceSample"
-  "SDGInterfaceLocalizations"
-  "SDGApplicationTestUtilities"
-  "SDGControlFlow"
-  "SDGText"
-  "SDGLocalization"
-  "SDGXCTestUtilities"
 )
 
 add_library("SDGContextMenuTests"
@@ -1063,6 +1052,27 @@ target_link_libraries("SDGViewsTestUtilities" PRIVATE
   "SDGTesting"
 )
 
+add_library("SDGButtonsTests"
+  "../../../Tests/SDGButtonsTests/APITests.swift"
+  "../../../Tests/SDGButtonsTests/InternalTests.swift"
+  "../../../Tests/SDGButtonsTests/PreviewTests.swift"
+)
+set_target_properties("SDGButtonsTests" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
+target_compile_options("SDGButtonsTests" PRIVATE -enable-testing)
+target_link_libraries("SDGButtonsTests" PRIVATE
+  "SDGInterfaceBasics"
+  "SDGButtons"
+  "SDGApplication"
+  "SDGInterfaceSample"
+  "SDGInterfaceLocalizations"
+  "SDGViewsTestUtilities"
+  "SDGApplicationTestUtilities"
+  "SDGControlFlow"
+  "SDGText"
+  "SDGLocalization"
+  "SDGXCTestUtilities"
+)
+
 add_library("SDGViewsTests"
   "../../../Tests/SDGViewsTests/APITests.swift"
   "../../../Tests/SDGViewsTests/CocoaExample.swift"
@@ -1108,7 +1118,6 @@ add_executable(WindowsMain
 target_link_libraries(WindowsMain PRIVATE
   "SDGInterfaceResourceGeneration"
   "SDGApplicationTests"
-  "SDGButtonsTests"
   "SDGContextMenuTests"
   "SDGImageDisplayTests"
   "SDGInterfaceBasicsTests"
@@ -1119,6 +1128,7 @@ target_link_libraries(WindowsMain PRIVATE
   "SDGProgressIndicatorsTests"
   "SDGTablesTests"
   "SDGTextDisplayTests"
+  "SDGButtonsTests"
   "SDGViewsTests"
   "SDGWindowsTests"
 )

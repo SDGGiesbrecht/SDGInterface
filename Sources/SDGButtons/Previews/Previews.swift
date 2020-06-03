@@ -15,25 +15,15 @@
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   import SwiftUI
 
+  import SDGViews
+
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   internal func previewBothModes<V>(_ view: @autoclosure () -> V, name: String) -> some SwiftUI.View
   where V: SwiftUI.View {
-
-    func preview(_ view: () -> V, legacyMode: Bool) -> some SwiftUI.View {
-      let previous = SDGViews.legacyMode
-      SDGViews.legacyMode = legacyMode
-      defer { SDGViews.legacyMode = previous }
-      return view()
-        .padding(1)
-        .border(Color.gray, width: 1)
-    }
-
-    let stack = HStack(spacing: 8) {
-      preview(view, legacyMode: false)
-      preview(view, legacyMode: true)
-    }
-    return
-      stack
-      .previewDisplayName(name)
+    return _preview(
+      withAndWithout: ({ legacyMode }, { legacyMode = $0 }),
+      view(),
+      name: name
+    )
   }
 #endif

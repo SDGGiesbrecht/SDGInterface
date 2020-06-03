@@ -28,22 +28,23 @@ import XCTest
 
 import SDGXCTestUtilities
 
+import SDGViewsTestUtilities
 import SDGApplicationTestUtilities
 
 final class APITests: ApplicationTestCase {
 
   func testButton() {
-    #if canImport(AppKit) || canImport(UIKit)
+    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
       Application.shared.demonstrateButton()
-      let label: Binding<StrictString, APILocalization> = .binding(Shared("Button"))
-      let button = Button(label: label)
-      label.shared?.value = "Changed"
-      #if canImport(AppKit)
-        XCTAssertEqual(button.specificCocoaView.title, "Changed")
-      #else
-        XCTAssertEqual(button.specificCocoaView.titleLabel?.text, "Changed")
-      #endif
-      button.label = .binding(Shared("Changed again."))
+      let label = UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
+        { localization in
+          return "Button"
+        }
+      )
+      let button = Button(label: label, action: {})
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        testViewConformance(of: button)
+      }
     #endif
   }
 

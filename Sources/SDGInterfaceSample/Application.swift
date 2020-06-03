@@ -148,7 +148,23 @@ extension Application {
           return "Button"
         }
       })
-      demonstrate(Button(label: .static(label)), windowTitle: label)
+      demonstrate(
+        Button(
+          label: label,
+          action: {
+            // @exempt(from: tests)
+            print(
+              UserFacing<StrictString, InterfaceLocalization>({ localization in
+                switch localization {
+                case .englishCanada:
+                  return "Button pressed."
+                }
+              })
+            )
+          }
+        ),
+        windowTitle: label
+      )
     }
 
     @objc public func demonstrateCheckBox() {

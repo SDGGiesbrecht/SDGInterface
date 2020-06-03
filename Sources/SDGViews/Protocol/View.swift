@@ -32,6 +32,7 @@
       /// The type of the SwiftUIView.
       associatedtype SwiftUIView: SwiftUI.View
 
+      // @documentation(View.swiftUI())
       /// Constructs a SwiftUI representation of the view.
       func swiftUI() -> SwiftUIView
     #endif
