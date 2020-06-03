@@ -12,18 +12,22 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit)
-  import AppKit
+#if canImport(SwiftUI) || canImport(AppKit)
+  #if canImport(SwiftUI)
+    import SwiftUI
+  #endif
+  #if canImport(AppKit)
+    import AppKit
+  #endif
 
   import SDGText
   import SDGLocalization
 
-  import SDGInterfaceBasics
   import SDGViews
 
   /// A check box.
-  public final class CheckBox<L>: AnyCheckBox, CocoaViewImplementation, View
-  where L: Localization {
+  @available(watchOS 6, *)
+  public struct CheckBox<L>: LegacyView where L: Localization {
 
     // MARK: - Initialization
 
@@ -31,62 +35,22 @@
     ///
     /// - Parameters:
     ///     - label: The label on the button.
-    public init(label: Binding<StrictString, L>) {
+    public init(label: UserFacing<StrictString, L>) {
       self.label = label
-      defer {
-        labelDidSet()
-        LocalizationSetting.current.register(observer: bindingObserver)
-      }
-
-      specificCocoaView = NSButton()
-      defer {
-        bindingObserver.checkBox = self
-      }
-
-      specificCocoaView.bezelStyle = .rounded
-      specificCocoaView.setButtonType(.switch)
-
-      specificCocoaView.lineBreakMode = .byTruncatingTail
-
-      #if canImport(AppKit)
-        specificCocoaView.font = NSFont.from(Font.forLabels)
-      #elseif canImport(UIKit)
-        specificCocoaView.font = UIFont.from(Font.forLabels)
-      #endif
     }
 
     // MARK: - Properties
 
-    private let bindingObserver = CheckBoxBindingObserver()
-
-    /// The label.
-    public var label: Binding<StrictString, L> {
-      willSet {
-        label.shared?.cancel(observer: bindingObserver)
-      }
-      didSet {
-        labelDidSet()
-      }
-    }
-    private func labelDidSet() {
-      label.shared?.register(observer: bindingObserver)
-    }
-
-    // MARK: - Refreshing
-
-    public func _refreshBindings() {
-      let resolved = String(label.resolved())
-      specificCocoaView.title = resolved
-    }
+    private let label: UserFacing<StrictString, L>
 
     // MARK: - LegacyView
 
-    public func cocoa() -> CocoaView {
-      return CocoaView(specificCocoaView)
-    }
-
-    // MARK: - SpecificView
-
-    public let specificCocoaView: NSButton
+    #if canImport(AppKit)
+      public func cocoa() -> CocoaView {
+        return useSwiftUIOrFallback(to: {
+          return CocoaView(CocoaImplementation(label: label))
+        })
+      }
+    #endif
   }
 #endif

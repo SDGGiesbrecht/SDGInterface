@@ -21,7 +21,7 @@
 
   extension CheckBox {
 
-    internal final class CheckBox: NSButton, SharedValueObserver {
+    internal final class CocoaImplementation: NSButton, SharedValueObserver {
 
       // MARK: - Initialization
 
