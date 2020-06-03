@@ -68,6 +68,8 @@
     // MARK: - View
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      // #documentation(View.swiftUI())
+      /// Constructs a SwiftUI representation of the view.
       public func swiftUI() -> some SwiftUI.View {
         return SwiftUIImplementation(
           label: label,
