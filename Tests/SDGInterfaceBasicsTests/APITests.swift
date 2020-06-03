@@ -151,18 +151,20 @@ final class APITests: ApplicationTestCase {
   }
 
   func testObservable() {
-    if #available(macOS 10.15, *) {
-      let shared = Shared("A")
-      XCTAssertEqual(shared.value, "A")
-      let observable = _Observable(shared)
-      XCTAssertEqual(observable.value, "A")
+    let shared = Shared("A")
+    XCTAssertEqual(shared.value, "A")
+    #if canImport(Combine)
+      if #available(macOS 10.15, *) {
+        let observable = _Observable(shared)
+        XCTAssertEqual(observable.value, "A")
 
-      shared.value = "B"
-      XCTAssertEqual(observable.value, "B")
+        shared.value = "B"
+        XCTAssertEqual(observable.value, "B")
 
-      observable.value = "C"
-      XCTAssertEqual(shared.value, "C")
-    }
+        observable.value = "C"
+        XCTAssertEqual(shared.value, "C")
+      }
+    #endif
   }
 
   func testPoint() {
