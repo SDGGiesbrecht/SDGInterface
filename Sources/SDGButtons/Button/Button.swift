@@ -61,8 +61,6 @@
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  private typealias View = SDGViews.View
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension Button: View {
 
     // MARK: - View

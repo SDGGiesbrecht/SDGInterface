@@ -765,6 +765,7 @@ add_library("SDGButtons"
   "../../../Sources/SDGButtons/Radio Buttons/ButtonLabel.swift"
   "../../../Sources/SDGButtons/Radio Buttons/RadioBindingObserver.swift"
   "../../../Sources/SDGButtons/Radio Buttons/RadioButtonSet.swift"
+  "../../../Sources/SDGButtons/View.swift"
   "../../../Sources/SDGButtons/Windows.swift"
 )
 set_target_properties("SDGButtons" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})

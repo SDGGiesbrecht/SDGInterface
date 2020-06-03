@@ -175,7 +175,7 @@ extension Application {
             return "Check Box"
           }
         })
-        demonstrate(CheckBox(label: .static(label)), windowTitle: label)
+        demonstrate(CheckBox(label: label), windowTitle: label)
       #endif
     }
 
