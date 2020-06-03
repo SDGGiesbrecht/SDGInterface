@@ -63,13 +63,13 @@
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  extension Button: SDGViews.View {
+  private typealias View = SDGViews.View
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  extension Button: View {
 
     // MARK: - View
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      // #documentation(View.swiftUI())
-      /// Constructs a SwiftUI representation of the view.
       public func swiftUI() -> some SwiftUI.View {
         return SwiftUIImplementation(
           label: label,
