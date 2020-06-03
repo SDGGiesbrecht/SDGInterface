@@ -26,7 +26,7 @@
   import SDGViews
 
   /// A check box.
-  @available(watchOS 6, *)
+  @available(tvOS 13, iOS 13, watchOS 6, *)
   public struct CheckBox<L>: LegacyView where L: Localization {
 
     // MARK: - Initialization
@@ -61,8 +61,10 @@
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       public func swiftUI() -> some SwiftUI.View {
-        #warning("Not implemented yet.")
-        return SwiftUI.EmptyView()
+        return SwiftUIImplementation(
+          label: label,
+          localization: LocalizationSetting._observableCurrent
+        )
       }
     #endif
   }
