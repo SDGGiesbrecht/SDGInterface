@@ -19,6 +19,7 @@
 import SDGViews
 
 #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+  @available(watchOS 6, *)
   extension LegacyView {
 
     #if !os(watchOS)

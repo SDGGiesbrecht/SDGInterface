@@ -18,7 +18,7 @@
   import SDGControlFlow
 
   // #workaround(SDGCornerstone 5.0.0, Belongs in SDGCornerstone.)
-  @available(macOS 10.15, tvOS 13, iOS 13, *)
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   public final class _Observable<Value>: ObservableObject {
 
     // MARK: - Initialization
