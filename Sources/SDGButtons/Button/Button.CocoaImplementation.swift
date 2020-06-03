@@ -50,10 +50,16 @@
             self.target = self
             self.action = #selector(triggerAction)
           #else
+            let event: UIControl.Event
+            if #available(iOS 9, *) {
+              event = .primaryActionTriggered
+            } else { // @exempt(from: tests)
+              event = .touchUpInside
+            }
             self.addTarget(
               target,
               action: #selector(triggerAction),
-              for: .primaryActionTriggered
+              for: event
             )
           #endif
         }
