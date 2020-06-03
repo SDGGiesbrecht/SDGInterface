@@ -89,7 +89,8 @@
 
       // MARK: - NSButton
 
-      @objc private func triggerAction() {  // @exempt(from: tests)
+      @objc private func triggerAction() {
+        // @exempt(from: tests) tvOS tests cannot dispatch actions.
         actionClosure()
       }
 
