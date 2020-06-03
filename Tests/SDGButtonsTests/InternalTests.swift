@@ -35,9 +35,7 @@ final class InternalTests: ApplicationTestCase {
       #if canImport(AppKit)
         cocoa.sendAction(cocoa.action, to: cocoa.target)
       #else
-        if #available(iOS 9, *) {
-          cocoa.sendActions(for: .primaryActionTriggered)
-        }
+        _ = cocoa
       #endif
     #endif
   }

@@ -57,7 +57,7 @@
               event = .touchUpInside
             }
             self.addTarget(
-              target,
+              self,
               action: #selector(triggerAction),
               for: event
             )
@@ -89,7 +89,7 @@
 
       // MARK: - NSButton
 
-      @objc private func triggerAction() {
+      @objc private func triggerAction() {  // @exempt(from: tests)
         actionClosure()
       }
 
