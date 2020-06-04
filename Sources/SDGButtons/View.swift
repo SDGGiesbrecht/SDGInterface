@@ -14,5 +14,7 @@
 
 import SDGViews
 
-@available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-internal typealias View = SDGViews.View
+#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  internal typealias View = SDGViews.View
+#endif
