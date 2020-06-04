@@ -41,7 +41,8 @@ import SDGInterfaceBasics
           isOn: .constant(false),
           label: {
             Text(verbatim: String(label.resolved(for: localization.value.resolved())))
-        })
+          }
+        )
       }
     }
   }

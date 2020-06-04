@@ -15,6 +15,7 @@
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   import SwiftUI
 
+  import SDGControlFlow
   import SDGText
   import SDGLocalization
 
@@ -38,7 +39,8 @@
               case .deutschDeutschland:
                 return "Kontrollkästchen"
               }
-            })
+            }),
+            value: Shared(false)
           ).adjustForLegacyMode()
             .padding(),
           name: "Check Box"

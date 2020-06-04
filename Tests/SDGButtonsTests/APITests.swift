@@ -56,7 +56,7 @@ final class APITests: ApplicationTestCase {
           { _ in
             "Check Box"
           })
-        let checkBox = CheckBox(label: label)
+        let checkBox = CheckBox(label: label, value: Shared(false))
         if #available(macOS 10.15, tvOS 13, iOS 13, *) {
           testViewConformance(of: checkBox)
         }

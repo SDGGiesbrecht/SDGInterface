@@ -175,7 +175,7 @@ extension Application {
             return "Check Box"
           }
         })
-        demonstrate(CheckBox(label: label), windowTitle: label)
+        demonstrate(CheckBox(label: label, value: Shared(false)), windowTitle: label)
       #endif
     }
 

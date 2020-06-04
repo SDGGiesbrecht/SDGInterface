@@ -45,7 +45,7 @@
         defer {
           #if canImport(AppKit)
             self.target = self
-            self.action = #selector(triggerAction)
+            self.action = #selector(Button.CocoaImplementation.triggerAction)
           #else
             let event: UIControl.Event
             if #available(iOS 9, *) {

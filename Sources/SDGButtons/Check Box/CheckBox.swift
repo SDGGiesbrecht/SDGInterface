@@ -20,6 +20,7 @@
     import AppKit
   #endif
 
+  import SDGControlFlow
   import SDGText
   import SDGLocalization
 
@@ -35,20 +36,23 @@
     ///
     /// - Parameters:
     ///     - label: The label on the button.
-    public init(label: UserFacing<StrictString, L>) {
+    ///     - value: The value the check box should represent.
+    public init(label: UserFacing<StrictString, L>, value: Shared<Bool>) {
       self.label = label
+      self.value = value
     }
 
     // MARK: - Properties
 
     private let label: UserFacing<StrictString, L>
+    private let value: Shared<Bool>
 
     // MARK: - LegacyView
 
     #if canImport(AppKit)
       public func cocoa() -> CocoaView {
         return useSwiftUIOrFallback(to: {
-          return CocoaView(CocoaImplementation(label: label))
+          return CocoaView(CocoaImplementation(label: label, value: value))
         })
       }
     #endif

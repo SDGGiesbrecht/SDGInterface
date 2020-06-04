@@ -776,6 +776,7 @@ target_link_libraries("SDGButtons" PRIVATE
   "SDGTextDisplay"
   "SDGImageDisplay"
   "SDGControlFlow"
+  "SDGLogic"
   "SDGText"
   "SDGLocalization"
 )
