@@ -17,7 +17,7 @@
 
   // #workaround(SDGCornerstone 5.0.0, Belongs in SDGCornerstone.)
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  internal class ObservableSharedValueObserver<Value>: SharedValueObserver {
+  internal class ObservableSharedValueObserver<Value>: SharedValueObserver where Value: Equatable {
 
     // MARK: - Properties
 
