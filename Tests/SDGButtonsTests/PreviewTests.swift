@@ -40,7 +40,7 @@
       for localization in InterfaceLocalization.allCases {
         LocalizationSetting(orderOfPrecedence: [localization.code]).do {
           if #available(macOS 10.15, iOS 13, watchOS 6, *) {
-            #if !os(tvOS)
+            #if !(os(tvOS) || os(iOS))
               testViewConformance(of: CheckBoxPreviews())
             #endif
           }

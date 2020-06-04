@@ -22,8 +22,8 @@ import SDGLocalization
 
 import SDGInterfaceBasics
 
-#if canImport(SwiftUI) && !os(tvOS) && !(os(iOS) && arch(arm))
-  @available(tvOS 13, iOS 13, watchOS 6, *)
+#if canImport(SwiftUI) && !(os(tvOS) || os(iOS))
+  @available(watchOS 6, *)
   extension CheckBox {
 
     @available(macOS 10.15, *)
