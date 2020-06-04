@@ -32,7 +32,7 @@ import SDGInterfaceBasics
       // MARK: - Properties
 
       internal let label: UserFacing<StrictString, L>
-      internal var isChecked: Shared<Bool>
+      internal var isChecked: SharedBinding<Bool>
       @ObservedObject internal var localization: _Observable<LocalizationSetting>
 
       // MARK: - View

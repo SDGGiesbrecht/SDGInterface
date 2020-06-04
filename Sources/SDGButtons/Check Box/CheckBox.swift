@@ -24,6 +24,7 @@
   import SDGText
   import SDGLocalization
 
+  import SDGInterfaceBasics
   import SDGViews
 
   /// A check box.
@@ -67,7 +68,7 @@
       public func swiftUI() -> some SwiftUI.View {
         return SwiftUIImplementation(
           label: label,
-          isChecked: isChecked,
+          isChecked: SharedBinding(isChecked),
           localization: LocalizationSetting._observableCurrent
         )
       }
