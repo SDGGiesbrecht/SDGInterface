@@ -16,6 +16,7 @@
   import SwiftUI
 #endif
 
+import SDGControlFlow
 import SDGText
 import SDGLocalization
 
@@ -31,14 +32,14 @@ import SDGInterfaceBasics
       // MARK: - Properties
 
       internal let label: UserFacing<StrictString, L>
+      internal var boolean: Shared<Bool>
       @ObservedObject internal var localization: _Observable<LocalizationSetting>
 
       // MARK: - View
 
       internal var body: some SwiftUI.View {
-        #warning("Hook up Boolean.")
         return Toggle(
-          isOn: .constant(false),
+          isOn: boolean.binding,
           label: {
             Text(verbatim: String(label.resolved(for: localization.value.resolved())))
           }
