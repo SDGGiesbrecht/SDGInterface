@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(SwiftUI) || canImport(AppKit)
+#if (canImport(SwiftUI) && !os(tvOS)) || canImport(AppKit)
   #if canImport(SwiftUI)
     import SwiftUI
   #endif
@@ -74,4 +74,9 @@
       }
     #endif
   }
+
+  #if !canImport(AppKit)
+    @available(tvOS 13, iOS 13, watchOS 6, *)
+    extension CheckBox: SwiftUIViewImplementation {}
+  #endif
 #endif
