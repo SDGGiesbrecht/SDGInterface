@@ -35,7 +35,11 @@
 
       // Published
       value = shared.value
-      subscriber = $value.assign(to: \.value, on: shared)
+      subscriber = $value.sink(receiveValue: { newValue in
+        if newValue ≠ shared.value {
+          shared.value = newValue
+        }
+      })
     }
 
     // MARK: - Bindings
