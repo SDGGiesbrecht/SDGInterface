@@ -60,6 +60,8 @@ final class InternalTests: ApplicationTestCase {
       let cocoa = checkBox.cocoa().native as! NSButton
       cocoa.state = .on
       XCTAssert(isChecked.value)
+      isChecked.value = false
+      XCTAssertEqual(cocoa.state, .off)
     #endif
   }
 }
