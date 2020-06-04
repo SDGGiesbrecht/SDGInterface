@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if (canImport(SwiftUI) && !(os(tvOS) || os(iOS))) || canImport(AppKit)
+#if (canImport(SwiftUI) && !(os(tvOS) || os(iOS) || os(watchOS))) || canImport(AppKit)
   #if canImport(SwiftUI)
     import SwiftUI
   #endif
@@ -28,7 +28,6 @@
   import SDGViews
 
   /// A check box.
-  @available(tvOS 13, iOS 13, watchOS 6, *)
   public struct CheckBox<L>: LegacyView where L: Localization {
 
     // MARK: - Initialization
@@ -59,12 +58,12 @@
     #endif
   }
 
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  @available(macOS 10.15, *)
   extension CheckBox: View {
 
     // MARK: - View
 
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI)
       public func swiftUI() -> some SwiftUI.View {
         return SwiftUIImplementation(
           label: label,
@@ -74,9 +73,4 @@
       }
     #endif
   }
-
-  #if !canImport(AppKit)
-    @available(tvOS 13, iOS 13, watchOS 6, *)
-    extension CheckBox: SwiftUIViewImplementation {}
-  #endif
 #endif

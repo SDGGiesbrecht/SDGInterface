@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(SwiftUI) && !(os(tvOS) || os(iOS))
+#if canImport(SwiftUI) && !(os(tvOS) || os(iOS) || os(watchOS))
   import SwiftUI
 
   import SDGControlFlow
@@ -23,7 +23,7 @@
 
   import SDGInterfaceLocalizations
 
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  @available(macOS 10.15, *)
   internal struct CheckBoxPreviews: SwiftUI.View {
 
     internal var body: some SwiftUI.View {
