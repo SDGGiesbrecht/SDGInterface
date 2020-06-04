@@ -21,6 +21,7 @@ import SDGControlFlow
 extension Shared {
 
   #if canImport(SwiftUI)
+    /// Returns a SwiftUI binding to the shared value.
     @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
     public var binding: SwiftUI.Binding<Value> {
       return SwiftUI.Binding(get: { self.value }, set: { self.value = $0 })
