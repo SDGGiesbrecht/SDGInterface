@@ -40,7 +40,7 @@
                 return "Kontrollkästchen"
               }
             }),
-            value: Shared(false)
+            isChecked: Shared(false)
           ).adjustForLegacyMode()
             .padding(),
           name: "Check Box"

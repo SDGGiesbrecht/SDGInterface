@@ -37,22 +37,22 @@
     /// - Parameters:
     ///     - label: The label on the button.
     ///     - value: The value the check box should represent.
-    public init(label: UserFacing<StrictString, L>, value: Shared<Bool>) {
+    public init(label: UserFacing<StrictString, L>, isChecked: Shared<Bool>) {
       self.label = label
-      self.value = value
+      self.isChecked = isChecked
     }
 
     // MARK: - Properties
 
     private let label: UserFacing<StrictString, L>
-    private let value: Shared<Bool>
+    private let isChecked: Shared<Bool>
 
     // MARK: - LegacyView
 
     #if canImport(AppKit)
       public func cocoa() -> CocoaView {
         return useSwiftUIOrFallback(to: {
-          return CocoaView(CocoaImplementation(label: label, value: value))
+          return CocoaView(CocoaImplementation(label: label, isChecked: isChecked))
         })
       }
     #endif
@@ -67,6 +67,7 @@
       public func swiftUI() -> some SwiftUI.View {
         return SwiftUIImplementation(
           label: label,
+          isChecked: isChecked,
           localization: LocalizationSetting._observableCurrent
         )
       }

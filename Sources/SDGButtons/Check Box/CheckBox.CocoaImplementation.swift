@@ -28,16 +28,16 @@
 
       public init(
         label: UserFacing<StrictString, L>,
-        value: Shared<Bool>
+        isChecked: Shared<Bool>
       ) {
         self.label = label
         defer {
           LocalizationSetting.current.register(observer: self, identifier: localizationIdentifier)
         }
 
-        self.boolean = value
+        self.isChecked = isChecked
         defer {
-          self.boolean.register(observer: self, identifier: booleanIdentifier)
+          self.isChecked.register(observer: self, identifier: isCheckedIdentifier)
         }
 
         super.init(frame: CGRect.zero)
@@ -57,15 +57,15 @@
       // MARK: - Properties
 
       private let label: UserFacing<StrictString, L>
-      private let boolean: Shared<Bool>
+      private let isChecked: Shared<Bool>
 
       // MARK: - NSButton
 
       override var state: NSControl.StateValue {
         didSet {
           let booleanState = (state == .on)
-          if boolean.value ≠ booleanState {
-            boolean.value = booleanState
+          if isChecked.value ≠ booleanState {
+            isChecked.value = booleanState
           }
         }
       }
@@ -73,12 +73,12 @@
       // MARK: - SharedValueObserver
 
       private var localizationIdentifier: String { "localization" }
-      private var booleanIdentifier: String { "Boolean" }
+      private var isCheckedIdentifier: String { "is checked" }
       internal func valueChanged(for identifier: String) {
         if identifier == localizationIdentifier {
           title = String(label.resolved())
-        } else if identifier == booleanIdentifier {
-          let expected: NSControl.StateValue = boolean.value ? .on : .off
+        } else if identifier == isCheckedIdentifier {
+          let expected: NSControl.StateValue = isChecked.value ? .on : .off
           if state ≠ expected {
             state = expected
           }
