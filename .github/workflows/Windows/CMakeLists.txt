@@ -469,6 +469,7 @@ target_compile_options("SDGInterfaceBasics" PRIVATE -enable-testing)
 target_link_libraries("SDGInterfaceBasics" PRIVATE
   "SDGInterfaceLocalizations"
   "SDGControlFlow"
+  "SDGLogic"
   "SDGCollections"
   "SDGText"
   "SDGLocalization"

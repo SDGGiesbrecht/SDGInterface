@@ -37,7 +37,7 @@
     ///
     /// - Parameters:
     ///     - label: The label on the button.
-    ///     - value: The value the check box should represent.
+    ///     - isChecked: The state of the check box.
     public init(label: UserFacing<StrictString, L>, isChecked: Shared<Bool>) {
       self.label = label
       self.isChecked = isChecked
