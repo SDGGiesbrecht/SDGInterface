@@ -68,7 +68,7 @@
       public func swiftUI() -> some SwiftUI.View {
         return SwiftUIImplementation(
           label: label,
-          isChecked: SharedBinding(isChecked),
+          isChecked: _Observable(isChecked),
           localization: LocalizationSetting._observableCurrent
         )
       }

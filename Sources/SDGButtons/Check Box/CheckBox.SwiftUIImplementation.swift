@@ -32,14 +32,14 @@ import SDGInterfaceBasics
       // MARK: - Properties
 
       internal let label: UserFacing<StrictString, L>
-      internal var isChecked: SharedBinding<Bool>
+      @ObservedObject internal var isChecked: _Observable<Bool>
       @ObservedObject internal var localization: _Observable<LocalizationSetting>
 
       // MARK: - View
 
       internal var body: some SwiftUI.View {
         return Toggle(
-          isOn: isChecked.binding,
+          isOn: $isChecked.value,
           label: {
             Text(verbatim: String(label.resolved(for: localization.value.resolved())))
           }
