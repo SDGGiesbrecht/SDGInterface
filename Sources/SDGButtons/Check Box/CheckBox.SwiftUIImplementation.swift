@@ -43,7 +43,7 @@ import SDGInterfaceBasics
           label: {
             Text(verbatim: String(label.resolved(for: localization.value.resolved())))
           }
-        )
+        ).toggleStyle(CheckboxToggleStyle())
       }
     }
   }
