@@ -23,11 +23,9 @@
     import UIKit
   #endif
 
-  import SDGControlFlow
   import SDGText
   import SDGLocalization
 
-  import SDGInterfaceBasics
   import SDGViews
 
   /// A button.
@@ -62,8 +60,6 @@
     #endif
   }
 
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  private typealias View = SDGViews.View
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension Button: View {
 

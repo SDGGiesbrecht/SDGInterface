@@ -22,6 +22,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F06856C24886C19006891AD /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F06856B24886C19006891AD /* CheckBox.swift */; };
+		3F06856D24886C19006891AD /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F06856B24886C19006891AD /* CheckBox.swift */; };
+		3F06856E24886C19006891AD /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F06856B24886C19006891AD /* CheckBox.swift */; };
 		3F3406D823D50D5F001A627D /* Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3406D723D50D5F001A627D /* Padding.swift */; };
 		3F3406D923D50D5F001A627D /* Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3406D723D50D5F001A627D /* Padding.swift */; };
 		3F3406DA23D50D5F001A627D /* Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3406D723D50D5F001A627D /* Padding.swift */; };
@@ -80,6 +83,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3F06856B24886C19006891AD /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		3F3406D723D50D5F001A627D /* Padding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Padding.swift; sourceTree = "<group>"; };
 		3F73232423C82AA200B16D40 /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
 		3F7D722423501F4D00A751CE /* macOS Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "macOS Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -171,6 +175,7 @@
 			children = (
 				3FEC1D7D23A1AE3B008525FE /* AspectRatio.swift */,
 				3F93A3892481AA1A00A10F0E /* Button.swift */,
+				3F06856B24886C19006891AD /* CheckBox.swift */,
 				3F73232423C82AA200B16D40 /* Background.swift */,
 				3F8BD33523C57B0E000931BB /* Frame.swift */,
 				3F9B50DF239F5B500027E8A6 /* Letterbox.swift */,
@@ -504,6 +509,7 @@
 			files = (
 				3F7D722823501F4D00A751CE /* main.swift in Sources */,
 				3FEC1D7E23A1AE3B008525FE /* AspectRatio.swift in Sources */,
+				3F06856C24886C19006891AD /* CheckBox.swift in Sources */,
 				3F9B50E0239F5B500027E8A6 /* Letterbox.swift in Sources */,
 				3F93A38A2481AA1A00A10F0E /* Button.swift in Sources */,
 				3F8BD33623C57B0F000931BB /* Frame.swift in Sources */,
@@ -527,6 +533,7 @@
 			files = (
 				3F7D72D323502C8600A751CE /* main.swift in Sources */,
 				3FEC1D7F23A1AE3B008525FE /* AspectRatio.swift in Sources */,
+				3F06856D24886C19006891AD /* CheckBox.swift in Sources */,
 				3F9B50E1239F5B500027E8A6 /* Letterbox.swift in Sources */,
 				3F93A38B2481AA1A00A10F0E /* Button.swift in Sources */,
 				3F8BD33723C57B0F000931BB /* Frame.swift in Sources */,
@@ -550,6 +557,7 @@
 			files = (
 				3F7D72F923502C9900A751CE /* main.swift in Sources */,
 				3FEC1D8023A1AE3B008525FE /* AspectRatio.swift in Sources */,
+				3F06856E24886C19006891AD /* CheckBox.swift in Sources */,
 				3F9B50E2239F5B500027E8A6 /* Letterbox.swift in Sources */,
 				3F93A38C2481AA1A00A10F0E /* Button.swift in Sources */,
 				3F8BD33823C57B0F000931BB /* Frame.swift in Sources */,

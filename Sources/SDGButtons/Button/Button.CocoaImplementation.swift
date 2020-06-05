@@ -24,9 +24,6 @@
   import SDGText
   import SDGLocalization
 
-  import SDGInterfaceBasics
-  import SDGViews
-
   extension Button {
 
     #if canImport(AppKit)
@@ -48,7 +45,7 @@
         defer {
           #if canImport(AppKit)
             self.target = self
-            self.action = #selector(triggerAction)
+            self.action = #selector(Button.CocoaImplementation.triggerAction)
           #else
             let event: UIControl.Event
             if #available(iOS 9, *) {
@@ -84,8 +81,8 @@
 
       // MARK: - Properties
 
-      private var label: UserFacing<StrictString, L>
-      private var actionClosure: () -> Void
+      private let label: UserFacing<StrictString, L>
+      private let actionClosure: () -> Void
 
       // MARK: - NSButton
 

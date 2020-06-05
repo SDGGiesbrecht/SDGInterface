@@ -12,12 +12,19 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(AppKit)
+  import AppKit
+#endif
+
+import SDGControlFlow
 import SDGText
 import SDGLocalization
 
 @testable import SDGButtons
 
 import SDGInterfaceLocalizations
+
+import XCTest
 
 import SDGApplicationTestUtilities
 
@@ -37,6 +44,24 @@ final class InternalTests: ApplicationTestCase {
       #else
         _ = cocoa
       #endif
+    #endif
+  }
+
+  func testCheckBoxCocoaImplementation() {
+    #if canImport(AppKit)
+      let isChecked = Shared(false)
+      let label = UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
+        { _ in
+          "Check Box"
+        })
+      let checkBox = CheckBox(label: label, isChecked: isChecked)
+      legacyMode = true
+      defer { legacyMode = false }
+      let cocoa = checkBox.cocoa().native as! NSButton
+      cocoa.state = .on
+      XCTAssert(isChecked.value)
+      isChecked.value = false
+      XCTAssertEqual(cocoa.state, .off)
     #endif
   }
 }

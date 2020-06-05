@@ -12,9 +12,15 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit)
-  import AppKit
+#if (canImport(SwiftUI) && !(os(tvOS) || os(iOS) || os(watchOS))) || canImport(AppKit)
+  #if canImport(SwiftUI)
+    import SwiftUI
+  #endif
+  #if canImport(AppKit)
+    import AppKit
+  #endif
 
+  import SDGControlFlow
   import SDGText
   import SDGLocalization
 
@@ -22,8 +28,7 @@
   import SDGViews
 
   /// A check box.
-  public final class CheckBox<L>: AnyCheckBox, CocoaViewImplementation, View
-  where L: Localization {
+  public struct CheckBox<L>: LegacyView where L: Localization {
 
     // MARK: - Initialization
 
@@ -31,62 +36,41 @@
     ///
     /// - Parameters:
     ///     - label: The label on the button.
-    public init(label: Binding<StrictString, L>) {
+    ///     - isChecked: The state of the check box.
+    public init(label: UserFacing<StrictString, L>, isChecked: Shared<Bool>) {
       self.label = label
-      defer {
-        labelDidSet()
-        LocalizationSetting.current.register(observer: bindingObserver)
-      }
-
-      specificCocoaView = NSButton()
-      defer {
-        bindingObserver.checkBox = self
-      }
-
-      specificCocoaView.bezelStyle = .rounded
-      specificCocoaView.setButtonType(.switch)
-
-      specificCocoaView.lineBreakMode = .byTruncatingTail
-
-      #if canImport(AppKit)
-        specificCocoaView.font = NSFont.from(Font.forLabels)
-      #elseif canImport(UIKit)
-        specificCocoaView.font = UIFont.from(Font.forLabels)
-      #endif
+      self.isChecked = isChecked
     }
 
     // MARK: - Properties
 
-    private let bindingObserver = CheckBoxBindingObserver()
-
-    /// The label.
-    public var label: Binding<StrictString, L> {
-      willSet {
-        label.shared?.cancel(observer: bindingObserver)
-      }
-      didSet {
-        labelDidSet()
-      }
-    }
-    private func labelDidSet() {
-      label.shared?.register(observer: bindingObserver)
-    }
-
-    // MARK: - Refreshing
-
-    public func _refreshBindings() {
-      let resolved = String(label.resolved())
-      specificCocoaView.title = resolved
-    }
+    private let label: UserFacing<StrictString, L>
+    private let isChecked: Shared<Bool>
 
     // MARK: - LegacyView
 
-    public func cocoa() -> CocoaView {
-      return CocoaView(specificCocoaView)
-    }
+    #if canImport(AppKit)
+      public func cocoa() -> CocoaView {
+        return useSwiftUIOrFallback(to: {
+          return CocoaView(CocoaImplementation(label: label, isChecked: isChecked))
+        })
+      }
+    #endif
+  }
 
-    // MARK: - SpecificView
+  @available(macOS 10.15, *)
+  extension CheckBox: View {
 
-    public let specificCocoaView: NSButton
+    // MARK: - View
+
+    #if canImport(SwiftUI)
+      public func swiftUI() -> some SwiftUI.View {
+        return SwiftUIImplementation(
+          label: label,
+          isChecked: _Observable(isChecked),
+          localization: LocalizationSetting._observableCurrent
+        )
+      }
+    #endif
   }
 #endif

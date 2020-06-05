@@ -163,6 +163,10 @@ final class APITests: ApplicationTestCase {
 
         observable.value = "C"
         XCTAssertEqual(shared.value, "C")
+
+        let secondObservable = _Observable(shared)
+        observable.value = "D"
+        XCTAssertEqual(secondObservable.value, "D")
       }
     #endif
   }

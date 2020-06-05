@@ -167,7 +167,8 @@ extension SDGButtonsTests.APITests {
 extension SDGButtonsTests.InternalTests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
-      ("testButtonCocoaImplementation", testButtonCocoaImplementation)
+      ("testButtonCocoaImplementation", testButtonCocoaImplementation),
+      ("testCheckBoxCocoaImplementation", testCheckBoxCocoaImplementation),
     ])
   ]
 }

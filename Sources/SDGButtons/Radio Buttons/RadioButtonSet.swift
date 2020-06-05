@@ -27,7 +27,7 @@
   import SDGTextDisplay
 
   /// A set of radio buttons.
-  public class RadioButtonSet<Option, L>: AnyRadioButtonSet, CocoaViewImplementation, View
+  public class RadioButtonSet<Option, L>: AnyRadioButtonSet, CocoaViewImplementation, SDGViews.View
   where Option: CaseIterable, L: Localization, Option.AllCases == [Option] {
 
     // MARK: - Initialization

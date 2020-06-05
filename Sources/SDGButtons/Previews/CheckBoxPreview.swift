@@ -1,5 +1,5 @@
 /*
- ButtonPreview.swift
+ CheckBoxPreview.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,9 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+#if canImport(SwiftUI) && !(os(tvOS) || os(iOS) || os(watchOS))
   import SwiftUI
 
+  import SDGControlFlow
   import SDGText
   import SDGLocalization
 
@@ -22,27 +23,27 @@
 
   import SDGInterfaceLocalizations
 
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  internal struct ButtonPreviews: SwiftUI.View {
+  @available(macOS 10.15, *)
+  internal struct CheckBoxPreviews: SwiftUI.View {
 
     internal var body: some SwiftUI.View {
 
       return Group {
 
         previewBothModes(
-          Button(
+          CheckBox(
             label: UserFacing<StrictString, InterfaceLocalization>({ localization in
               switch localization {
               case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Button"
+                return "Check Box"
               case .deutschDeutschland:
-                return "Taste"
+                return "Kontrollkästchen"
               }
             }),
-            action: {}
+            isChecked: Shared(false)
           ).adjustForLegacyMode()
             .padding(),
-          name: "Button"
+          name: "Check Box"
         )
       }
     }
