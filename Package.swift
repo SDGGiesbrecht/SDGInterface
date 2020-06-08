@@ -604,7 +604,7 @@ let package = Package(
   ]
 )
 
-// #workaround(Swift 5.2.2, The generated Xcode project cannot import XCTest on iOS devices.)
+// #workaround(Swift 5.2.4, The generated Xcode project cannot import XCTest on iOS devices.)
 import Foundation
 let path = ProcessInfo.processInfo.environment["PATH"] ?? ""
 let firstColon = path.range(of: ":")?.lowerBound ?? path.endIndex
@@ -619,7 +619,7 @@ if firstEntry.hasSuffix("/Contents/Developer/usr/bin") {
 
 if ProcessInfo.processInfo.environment["TARGETING_WEB"] == "true" {
   for target in package.targets {
-    // #workaround(Swift 5.2.2, Web lacks Foundation.)
+    // #workaround(Swift 5.2.4, Web lacks Foundation.)
     target.exclude.append("Resources.swift")
   }
 

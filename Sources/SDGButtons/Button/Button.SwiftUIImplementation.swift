@@ -16,6 +16,7 @@
   import SwiftUI
 #endif
 
+import SDGControlFlow
 import SDGText
 import SDGLocalization
 
@@ -32,7 +33,7 @@ import SDGInterfaceBasics
 
       internal let label: UserFacing<StrictString, L>
       internal let action: () -> Void
-      @ObservedObject internal var localization: _Observable<LocalizationSetting>
+      @ObservedObject internal var localization: Shared<LocalizationSetting>
 
       // MARK: - View
 
