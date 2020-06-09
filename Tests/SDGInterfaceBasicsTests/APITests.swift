@@ -139,38 +139,6 @@ final class APITests: ApplicationTestCase {
     }
   }
 
-  func testLocalizationSetting() {
-    if #available(macOS 10.15, tvOS 13, iOS 13, *) {
-      let setting = LocalizationSetting(orderOfPrecedence: ["zxx"])
-      setting.do {
-        #if canImport(Combine)
-          XCTAssertEqual(LocalizationSetting._observableCurrent.value, setting)
-        #endif
-      }
-    }
-  }
-
-  func testObservable() {
-    let shared = Shared("A")
-    XCTAssertEqual(shared.value, "A")
-    #if canImport(Combine)
-      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
-        let observable = _Observable(shared)
-        XCTAssertEqual(observable.value, "A")
-
-        shared.value = "B"
-        XCTAssertEqual(observable.value, "B")
-
-        observable.value = "C"
-        XCTAssertEqual(shared.value, "C")
-
-        let secondObservable = _Observable(shared)
-        observable.value = "D"
-        XCTAssertEqual(secondObservable.value, "D")
-      }
-    #endif
-  }
-
   func testPoint() {
     #if canImport(CoreGraphics)
       XCTAssertEqual(Point(CGPoint(x: 0, y: 0)), Point(0, 0))

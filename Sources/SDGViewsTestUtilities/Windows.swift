@@ -13,6 +13,6 @@
  */
 
 #if os(Windows)
-  // #workaround(Swift 5.2.3, CMake cannot link an empty library.)
+  // #workaround(Swift 5.2.4, CMake cannot link an empty library.)
   public func _preventEmptyLibrary() {}
 #endif

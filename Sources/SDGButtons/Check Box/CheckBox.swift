@@ -67,8 +67,8 @@
       public func swiftUI() -> some SwiftUI.View {
         return SwiftUIImplementation(
           label: label,
-          isChecked: _Observable(isChecked),
-          localization: LocalizationSetting._observableCurrent
+          isChecked: isChecked,
+          localization: LocalizationSetting.current
         )
       }
     #endif

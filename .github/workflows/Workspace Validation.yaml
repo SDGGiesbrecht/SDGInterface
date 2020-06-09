@@ -161,7 +161,7 @@ jobs:
       shell: bash
       run: |
         set -x
-        git clone https://github.com/SDGGiesbrecht/SDGCornerstone .build/SDG/Dependencies/SDGCornerstone --branch 5.0.0 --depth 1 --config advice.detachedHead=false
+        git clone https://github.com/SDGGiesbrecht/SDGCornerstone .build/SDG/Dependencies/SDGCornerstone --branch 5.1.0 --depth 1 --config advice.detachedHead=false
     - name: Build
       shell: bash
       run: |

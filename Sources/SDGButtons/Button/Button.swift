@@ -70,7 +70,7 @@
         return SwiftUIImplementation(
           label: label,
           action: action,
-          localization: LocalizationSetting._observableCurrent
+          localization: LocalizationSetting.current
         )
       }
     #endif

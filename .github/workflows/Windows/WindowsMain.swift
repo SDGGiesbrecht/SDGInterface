@@ -79,8 +79,6 @@ extension SDGInterfaceBasicsTests.APITests {
       ("testContentMode", testContentMode),
       ("testEdge", testEdge),
       ("testEdgeSet", testEdgeSet),
-      ("testLocalizationSetting", testLocalizationSetting),
-      ("testObservable", testObservable),
       ("testPoint", testPoint),
       ("testRectangle", testRectangle),
       ("testSize", testSize),
