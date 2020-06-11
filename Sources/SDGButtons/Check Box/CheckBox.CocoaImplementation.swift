@@ -75,13 +75,16 @@
       private var localizationIdentifier: String { "localization" }
       private var isCheckedIdentifier: String { "is checked" }
       internal func valueChanged(for identifier: String) {
-        if identifier == localizationIdentifier {
+        switch identifier {
+        case localizationIdentifier:
           title = String(label.resolved())
-        } else if identifier == isCheckedIdentifier {
+        case isCheckedIdentifier:
           let expected: NSControl.StateValue = isChecked.value ? .on : .off
           if state ≠ expected {
             state = expected
           }
+        default:
+          break
         }
       }
     }
