@@ -21,6 +21,7 @@
   #endif
 
   import SDGControlFlow
+  import SDGLogic
   import SDGText
   import SDGLocalization
 
@@ -52,14 +53,17 @@
 
         super.init(frame: .zero)
 
+        target = self
+        action = #selector(Self.triggerAction)
+
         #if canImport(AppKit)
           (cell as? NSSegmentedCell)?.segmentStyle = .rounded
         #endif
 
         #if canImport(AppKit)
-          (cell as? NSSegmentedCell)?.trackingMode = .momentary
+          (cell as? NSSegmentedCell)?.trackingMode = .selectOne
         #else
-          isMomentary = true
+          isMomentary = false
         #endif
 
         #if canImport(AppKit)
@@ -91,6 +95,18 @@
       private let labels: (_ option: Option) -> UserFacing<ButtonLabel, L>
       private let selection: Shared<Option>
 
+      // MARK: - Action
+
+      @objc func triggerAction() {
+        let newIndex = selectedTag()
+        if let option = Option.allCases.enumerated().first(where: { indexed in
+          indexed.offset == newIndex
+        })?.element,
+          option ≠ selection.value {
+          selection.value = option
+        }
+      }
+
       // MARK: - Updating
 
       private func updateLocalization() {
@@ -115,7 +131,7 @@
 
       private func updateSelection() {
         if let index = Option.allCases.enumerated().first(where: { indexed in
-          indexed.element == self.selection.value
+          indexed.element == selection.value
         })?.offset {
           selectSegment(withTag: index)
         }
