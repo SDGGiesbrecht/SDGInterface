@@ -46,7 +46,7 @@ import SDGInterfaceBasics
               return self.labels(option).resolved().swiftUI()
             }
           }
-        ).pickerStyle(RadioGroupPickerStyle())
+        ).pickerStyle(SegmentedPickerStyle())
       }
     }
   }
