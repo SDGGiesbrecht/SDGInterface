@@ -238,7 +238,7 @@ extension Application {
         }
       }
       demonstrate(
-        RadioButtonSet<Value, InterfaceLocalization>(labels: { $0.label }),
+        RadioButtonGroup<Value, InterfaceLocalization>(labels: { $0.label }, selection: Shared(.text)),
         windowTitle: label
       )
     }
