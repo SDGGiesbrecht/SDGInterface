@@ -73,8 +73,8 @@
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       public func swiftUI() -> some SwiftUI.View {
         return SwiftUIImplementation(
-          label: label,
-          action: action,
+          labels: labels,
+          selection: selection,
           localization: LocalizationSetting.current
         )
       }
