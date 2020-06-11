@@ -1,5 +1,5 @@
 /*
- RadioButtonGroupPreview.swift
+ SegmentedControlPreview.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -24,7 +24,7 @@
   import SDGInterfaceLocalizations
 
   @available(macOS 10.15, *)
-  internal struct RadioButtonGroupPreviews: SwiftUI.View {
+  internal struct SegmentedControlPreviews: SwiftUI.View {
 
     internal var body: some SwiftUI.View {
 
@@ -36,7 +36,7 @@
       return Group {
 
         previewBothModes(
-          RadioButtonGroup<Direction, InterfaceLocalization>(
+          SegmentedControl<Direction, InterfaceLocalization>(
             labels: { direction in
               switch direction {
               case .up:

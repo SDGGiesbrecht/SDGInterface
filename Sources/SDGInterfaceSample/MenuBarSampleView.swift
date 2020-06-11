@@ -53,7 +53,7 @@
           })
         )
       )
-      buttonSet.action = #selector(Application.demonstrateRadioButtonSet)
+      buttonSet.action = #selector(Application.demonstrateSegmentedControl)
       buttonSet.target = Application.shared
       return buttonSet
     }

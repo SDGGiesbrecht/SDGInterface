@@ -157,7 +157,7 @@ extension SDGButtonsTests.APITests {
     testCase([
       ("testButton", testButton),
       ("testCheckBox", testCheckBox),
-      ("testRadioButtonSet", testRadioButtonSet),
+      ("testSegmentedControl", testSegmentedControl),
     ])
   ]
 }

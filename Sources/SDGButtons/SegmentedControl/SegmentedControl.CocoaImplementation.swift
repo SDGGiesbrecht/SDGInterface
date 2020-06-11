@@ -1,5 +1,5 @@
 /*
- RadioButtonGroup.CocoaImplementation.swift
+ SegmentedControl.CocoaImplementation.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -25,7 +25,7 @@
   import SDGText
   import SDGLocalization
 
-  extension RadioButtonGroup {
+  extension SegmentedControl {
 
     #if canImport(AppKit)
       internal typealias Superclass = NSSegmentedControl
@@ -102,7 +102,8 @@
         if let option = Option.allCases.enumerated().first(where: { indexed in
           indexed.offset == newIndex
         })?.element,
-          option ≠ selection.value {
+          option ≠ selection.value
+        {
           selection.value = option
         }
       }

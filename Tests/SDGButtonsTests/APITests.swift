@@ -64,9 +64,9 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
-  func testRadioButtonSet() {
+  func testSegmentedControl() {
     #if canImport(AppKit) || canImport(UIKit)
-      Application.shared.demonstrateRadioButtonSet()
+      Application.shared.demonstrateSegmentedControl()
     #endif
   }
 }

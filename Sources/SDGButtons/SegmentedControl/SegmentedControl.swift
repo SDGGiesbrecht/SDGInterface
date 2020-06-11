@@ -1,5 +1,5 @@
 /*
- RadioButtonGroup.swift
+ SegmentedControl.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -31,7 +31,7 @@
 
   /// A button.
   @available(watchOS 6, *)
-  public struct RadioButtonGroup<Option, L>: LegacyView
+  public struct SegmentedControl<Option, L>: LegacyView
   where Option: CaseIterable, Option: Equatable, L: Localization {
 
     // MARK: - Initialization
@@ -66,7 +66,7 @@
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  extension RadioButtonGroup: View {
+  extension SegmentedControl: View {
 
     // MARK: - View
 

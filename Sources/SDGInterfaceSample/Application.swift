@@ -214,11 +214,11 @@ extension Application {
       demonstrate(LabelledTextField(labelText: .static(label)), windowTitle: label)
     }
 
-    @objc public func demonstrateRadioButtonSet() {
+    @objc public func demonstrateSegmentedControl() {
       let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
         switch localization {
         case .englishCanada:
-          return "Radio Button Set"
+          return "Segmented Control"
         }
       })
       enum Value: CaseIterable {
@@ -238,7 +238,7 @@ extension Application {
         }
       }
       demonstrate(
-        RadioButtonGroup<Value, InterfaceLocalization>(
+        SegmentedControl<Value, InterfaceLocalization>(
           labels: { $0.label },
           selection: Shared(.text)
         ),

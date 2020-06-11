@@ -1,5 +1,5 @@
 /*
- RadioButtonGroup.SwiftUIImplementation.swift
+ SegmentedControl.SwiftUIImplementation.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -24,7 +24,7 @@ import SDGInterfaceBasics
 
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   @available(watchOS 6, *)
-  extension RadioButtonGroup {
+  extension SegmentedControl {
 
     @available(macOS 10.15, tvOS 13, iOS 13, *)
     internal struct SwiftUIImplementation: SwiftUI.View {

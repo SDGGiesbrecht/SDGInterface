@@ -1,5 +1,5 @@
 /*
- RadioButtonGroup.swift
+ SegmentedControl.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -16,8 +16,8 @@ import SwiftUI
 
 @testable import SDGButtons
 
-struct RadioButtonGroup_Previews: PreviewProvider {
+struct SegmentedControl_Previews: PreviewProvider {
   static var previews: some SwiftUI.View {
-    return RadioButtonGroupPreviews()
+    return SegmentedControlPreviews()
   }
 }
