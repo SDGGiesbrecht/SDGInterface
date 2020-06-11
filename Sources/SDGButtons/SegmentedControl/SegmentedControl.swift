@@ -32,7 +32,7 @@
   /// A button.
   @available(watchOS 6, *)
   public struct SegmentedControl<Option, L>: LegacyView
-  where Option: CaseIterable, Option: Equatable, L: Localization {
+  where Option: CaseIterable, Option: Hashable, L: Localization {
 
     // MARK: - Initialization
 

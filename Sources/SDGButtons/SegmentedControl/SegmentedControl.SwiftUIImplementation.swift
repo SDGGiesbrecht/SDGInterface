@@ -38,8 +38,15 @@ import SDGInterfaceBasics
       // MARK: - View
 
       internal var body: some SwiftUI.View {
-        #warning("Not implemented yet.")
-        return SwiftUI.EmptyView()
+        return Picker(
+          selection: $selection.value,
+          label: EmptyView(),
+          content: {
+            return ForEach(Array(Option.allCases), id: \.self) { option in
+              return self.labels(option).resolved().swiftUI()
+            }
+          }
+        ).pickerStyle(RadioGroupPickerStyle())
       }
     }
   }

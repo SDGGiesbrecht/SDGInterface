@@ -12,9 +12,14 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit) || canImport(UIKit)
+#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+  #if canImport(SwiftUI)
+    import SwiftUI
+  #endif
+
   import SDGText
 
+  import SDGViews
   import SDGImageDisplay
 
   /// A button label.
@@ -24,6 +29,20 @@
     case text(StrictString)
 
     /// A symbol.
-    case symbol(Image)
+    case symbol(SDGImageDisplay.Image)
+
+    // MARK: - View
+
+    #if canImport(SwiftUI)
+      @available(macOS 10.15, *)
+      internal func swiftUI() -> some SwiftUI.View {
+        switch self {
+        case .text(let text):
+          return SwiftUI.AnyView(Text(verbatim: String(text)))
+        case .symbol(let symbol):
+          return SwiftUI.AnyView(SwiftUI.Image(nsImage: symbol.cocoa))
+        }
+      }
+    #endif
   }
 #endif
