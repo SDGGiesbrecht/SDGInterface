@@ -91,6 +91,36 @@
       private let labels: (_ option: Option) -> UserFacing<ButtonLabel, L>
       private let selection: Shared<Option>
 
+      // MARK: - Updating
+
+      private func updateLocalization() {
+        for (index, option) in Option.allCases.enumerated() {
+          switch labels(option).resolved() {
+          case .text(let label):
+            #if canImport(AppKit)
+              setLabel(String(label), forSegment: index)
+            #else
+              setTitle(String(label), forSegmentAt: index)
+            #endif
+          case .symbol(let image):
+            #if canImport(AppKit)
+              setImage(image.cocoa, forSegment: index)
+              setImageScaling(.scaleProportionallyDown, forSegment: index)
+            #else
+              setImage(image.cocoa, forSegmentAt: index)
+            #endif
+          }
+        }
+      }
+
+      private func updateSelection() {
+        if let index = Option.allCases.enumerated().first(where: { indexed in
+          indexed.element == self.selection.value
+        })?.offset {
+          selectSegment(withTag: index)
+        }
+      }
+
       // MARK: - SharedValueObserver
 
       private var localizationIdentifier: String { "localization" }
@@ -98,33 +128,9 @@
       internal func valueChanged(for identifier: String) {
         switch identifier {
         case localizationIdentifier:
-          for (index, option) in Option.allCases.enumerated() {
-            switch labels(option).resolved() {
-            case .text(let label):
-              #if canImport(AppKit)
-                setLabel(String(label), forSegment: index)
-              #else
-                setTitle(String(label), forSegmentAt: index)
-              #endif
-            case .symbol(let image):
-              #if canImport(AppKit)
-                setImage(image.cocoa, forSegment: index)
-                setImageScaling(.scaleProportionallyDown, forSegment: index)
-              #else
-                setImage(image.cocoa, forSegmentAt: index)
-              #endif
-            }
-          }
+          updateLocalization()
         case selectionIdentifier:
-          if let index = Option.allCases.enumerated().first(where: { indexed in
-            indexed.element == self.selection.value
-          })?.offset {
-            #if canImport(AppKit)
-              (cell as? NSSegmentedCell)?.selectSegment(withTag: index)
-            #else
-              insertSegment(withTitle: nil, at: index, animated: false)
-            #endif
-          }
+          updateSelection()
         default:
           break
         }
