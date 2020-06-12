@@ -38,8 +38,9 @@
     /// Creates a button.
     ///
     /// - Parameters:
-    ///    - label: A closure which generates a label from an option.
-    ///    - selected: The selected option.
+    ///    - labels: A closure which generates a label from an option.
+    ///    - option: The option for which to generate a label.
+    ///    - selection: The selected option.
     public init(
       labels: @escaping (_ option: Option) -> UserFacing<ButtonLabel, L>,
       selection: Shared<Option>
