@@ -66,23 +66,25 @@ final class APITests: ApplicationTestCase {
   }
 
   func testSegmentedControl() {
-    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
-      Application.shared.demonstrateSegmentedControl()
+    #if swift(>=5.2.1)  // #workaround(workspace version 0.32.4, CI fails to build this test.)
+      #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+        Application.shared.demonstrateSegmentedControl()
 
-      enum Enumeration: CaseIterable {
-        case a, b
-      }
-      let segmentedControl = SegmentedControl(
-        labels: { _ in
-          UserFacing<ButtonLabel, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in
-            .text("label")
-          })
-        },
-        selection: Shared(Enumeration.a)
-      )
-      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
-        _ = segmentedControl.swiftUI().body
-      }
+        enum Enumeration: CaseIterable {
+          case a, b
+        }
+        let segmentedControl = SegmentedControl(
+          labels: { _ in
+            UserFacing<ButtonLabel, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in
+              .text("label")
+            })
+          },
+          selection: Shared(Enumeration.a)
+        )
+        if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+          _ = segmentedControl.swiftUI().body
+        }
+      #endif
     #endif
   }
 }
