@@ -74,7 +74,11 @@
                   switch localization {
                   case .englishUnitedKingdom, .englishUnitedStates, .englishCanada,
                     .deutschDeutschland:
-                    return .symbol(.goLeft)
+                    #if canImport(AppKit)
+                      return .symbol(.goLeft)
+                    #else
+                      return .symbol(.empty)
+                    #endif
                   }
                 })
               case .right:
@@ -82,7 +86,11 @@
                   switch localization {
                   case .englishUnitedKingdom, .englishUnitedStates, .englishCanada,
                     .deutschDeutschland:
-                    return .symbol(.goRight)
+                    #if canImport(AppKit)
+                      return .symbol(.goRight)
+                    #else
+                      return .symbol(.empty)
+                    #endif
                   }
                 })
               }
