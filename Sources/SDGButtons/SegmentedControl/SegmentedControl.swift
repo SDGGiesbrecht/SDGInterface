@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+#if (canImport(SwiftUI) && !os(watchOS)) || canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
   #if canImport(SwiftUI)
     import SwiftUI
   #endif
@@ -30,7 +30,6 @@
   import SDGViews
 
   /// A button.
-  @available(watchOS 6, *)
   public struct SegmentedControl<Option, L>: LegacyView
   where Option: CaseIterable, Option: Hashable, L: Localization {
 
@@ -56,7 +55,7 @@
 
     // MARK: - LegacyView
 
-    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+    #if canImport(AppKit) || canImport(UIKit)
       public func cocoa() -> CocoaView {
         return useSwiftUIOrFallback(to: {
           return CocoaView(CocoaImplementation(labels: labels, selection: selection))

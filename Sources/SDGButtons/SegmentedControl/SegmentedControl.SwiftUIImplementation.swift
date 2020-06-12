@@ -22,8 +22,7 @@ import SDGLocalization
 
 import SDGInterfaceBasics
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-  @available(watchOS 6, *)
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm)) && !os(watchOS)
   extension SegmentedControl {
 
     @available(macOS 10.15, tvOS 13, iOS 13, *)
