@@ -36,14 +36,16 @@ import SDGInterfaceBasics
 
       // MARK: - View
 
+      internal func segment(for option: Option) -> some SwiftUI.View {
+        return labels(option).resolved().swiftUI()
+      }
+
       internal var body: some SwiftUI.View {
         return Picker(
           selection: $selection.value,
           label: EmptyView(),
           content: {
-            return ForEach(Array(Option.allCases), id: \.self) { option in
-              return self.labels(option).resolved().swiftUI()
-            }
+            return ForEach(Array(Option.allCases), id: \.self, content: segment)
           }
         ).pickerStyle(SegmentedPickerStyle())
       }

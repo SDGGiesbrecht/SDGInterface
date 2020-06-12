@@ -170,6 +170,7 @@ extension SDGButtonsTests.InternalTests {
       ("testButtonLabel", testButtonLabel),
       ("testCheckBoxCocoaImplementation", testCheckBoxCocoaImplementation),
       ("testSegmentedControlCocoaImplementation", testSegmentedControlCocoaImplementation),
+      ("testSegmentedControlSwiftUIImplementation", testSegmentedControlSwiftUIImplementation),
     ])
   ]
 }
