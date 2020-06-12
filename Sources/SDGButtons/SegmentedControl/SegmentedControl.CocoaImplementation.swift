@@ -134,7 +134,7 @@
         if let index = Option.allCases.enumerated().first(where: { indexed in
           indexed.element == selection.value
         })?.offset {
-          selectSegment(withTag: index)
+          _ = selectSegment(withTag: index)
         }
       }
 
