@@ -77,7 +77,11 @@ final class InternalTests: ApplicationTestCase {
       legacyMode = true
       defer { legacyMode = false }
       let cocoa = segmentedControl.cocoa().native as! SegmentedControl.Superclass
-      cocoa.selectSegment(withTag: 1)
+      #if canImport(AppKit)
+        cocoa.selectSegment(withTag: 1)
+      #else
+        cocoa.selectedSegmentIndex = 1
+      #endif
     #endif
   }
 }

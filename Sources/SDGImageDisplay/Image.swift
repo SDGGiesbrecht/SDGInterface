@@ -13,6 +13,10 @@
  */
 
 #if canImport(AppKit) || canImport(UIKit)
+  #if canImport(SwiftUI)
+    import SwiftUI
+  #endif
+
   #if canImport(AppKit)
     import AppKit
   #endif
@@ -34,12 +38,24 @@
 
     /// The system image indicating “go left”.
     public static var goLeft: Image {
-      return Image(systemIdentifier: NSImage.goLeftTemplateName)!
+      let identifier: String
+      #if canImport(AppKit)
+        identifier = NSImage.goLeftTemplateName
+      #elseif canImport(UIKit)
+        identifier = "gobackward"
+      #endif
+      return Image(systemIdentifier: identifier)!
     }
 
     /// The system image indicating “go right”.
     public static var goRight: Image {
-      return Image(systemIdentifier: NSImage.goRightTemplateName)!
+      let identifier: String
+      #if canImport(AppKit)
+        identifier = NSImage.goRightTemplateName
+      #elseif canImport(UIKit)
+        identifier = "goforward"
+      #endif
+      return Image(systemIdentifier: identifier)!
     }
 
     // MARK: - Initialization
@@ -87,6 +103,18 @@
     #elseif canImport(UIKit)
       /// The Cocoa image.
       public var cocoa: UIImage
+    #endif
+
+    #if canImport(SwiftUI)
+      /// The SwiftUI image.
+      @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+      public func swiftUI() -> SwiftUI.Image {
+        #if canImport(AppKit)
+          return SwiftUI.Image(nsImage: cocoa)
+        #elseif canImport(UIKit)
+          return SwiftUI.Image(uiImage: cocoa)
+        #endif
+      }
     #endif
   }
 #endif

@@ -34,13 +34,13 @@
     // MARK: - View
 
     #if canImport(SwiftUI)
-      @available(macOS 10.15, *)
+      @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
       internal func swiftUI() -> some SwiftUI.View {
         switch self {
         case .text(let text):
           return SwiftUI.AnyView(Text(verbatim: String(text)))
         case .symbol(let symbol):
-          return SwiftUI.AnyView(SwiftUI.Image(nsImage: symbol.cocoa))
+          return SwiftUI.AnyView(symbol.swiftUI())
         }
       }
     #endif

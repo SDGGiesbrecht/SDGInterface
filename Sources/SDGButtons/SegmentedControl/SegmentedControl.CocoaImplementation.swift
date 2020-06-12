@@ -25,6 +25,8 @@
   import SDGText
   import SDGLocalization
 
+  import SDGTextDisplay
+
   extension SegmentedControl {
 
     #if canImport(AppKit)
@@ -53,8 +55,12 @@
 
         super.init(frame: .zero)
 
-        target = self
-        action = #selector(Self.triggerAction)
+        #if canImport(AppKit)
+          target = self
+          action = #selector(Self.triggerAction)
+        #else
+          addTarget(self, action: #selector(Self.triggerAction), for: .valueChanged)
+        #endif
 
         #if canImport(AppKit)
           (cell as? NSSegmentedCell)?.segmentStyle = .rounded
@@ -98,7 +104,11 @@
       // MARK: - Action
 
       @objc func triggerAction() {
-        let newIndex = selectedTag()
+        #if canImport(AppKit)
+          let newIndex = selectedTag()
+        #else
+          let newIndex = selectedSegmentIndex
+        #endif
         if let option = Option.allCases.enumerated().first(where: { indexed in
           indexed.offset == newIndex
         })?.element,
@@ -134,17 +144,29 @@
         if let index = Option.allCases.enumerated().first(where: { indexed in
           indexed.element == selection.value
         })?.offset {
-          _ = selectSegment(withTag: index)
+          #if canImport(AppKit)
+            _ = selectSegment(withTag: index)
+          #elseif canImport(UIKit)
+            selectedSegmentIndex = index
+          #endif
         }
       }
 
-      // MARK: - NSSegmentedControl
+      #if canImport(AppKit)
+        // MARK: - NSSegmentedControl
 
-      internal override func selectSegment(withTag tag: Int) -> Bool {
-        let result = super.selectSegment(withTag: tag)
-        triggerAction()
-        return result
-      }
+        internal override func selectSegment(withTag tag: Int) -> Bool {
+          let result = super.selectSegment(withTag: tag)
+          triggerAction()
+          return result
+        }
+      #elseif canImport(UIKit)
+        internal override var selectedSegmentIndex: Int {
+          didSet {
+            triggerAction()
+          }
+        }
+      #endif
 
       // MARK: - SharedValueObserver
 
