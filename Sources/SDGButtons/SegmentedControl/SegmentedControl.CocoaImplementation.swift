@@ -138,6 +138,14 @@
         }
       }
 
+      // MARK: - NSSegmentedControl
+
+      internal override func selectSegment(withTag tag: Int) -> Bool {
+        let result = super.selectSegment(withTag: tag)
+        triggerAction()
+        return result
+      }
+
       // MARK: - SharedValueObserver
 
       private var localizationIdentifier: String { "localization" }

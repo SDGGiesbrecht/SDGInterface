@@ -64,4 +64,20 @@ final class InternalTests: ApplicationTestCase {
       XCTAssertEqual(cocoa.state, .off)
     #endif
   }
+
+  func testSegmentedControlCocoaImplementation() {
+    #if canImport(AppKit) || canImport(UIKit)
+      enum Enumeration: CaseIterable {
+        case a, b
+      }
+      let segmentedControl = SegmentedControl(
+        labels: { _ in UserFacing<ButtonLabel, InterfaceLocalization>({ _ in .text("label") })},
+        selection: Shared(Enumeration.a)
+      )
+      legacyMode = true
+      defer { legacyMode = false }
+      let cocoa = segmentedControl.cocoa().native as! SegmentedControl.Superclass
+      cocoa.selectSegment(withTag: 1)
+    #endif
+  }
 }

@@ -83,7 +83,7 @@
           if state ≠ expected {
             state = expected
           }
-        default:
+        default:  // @exempt(from: tests)
           break
         }
       }
