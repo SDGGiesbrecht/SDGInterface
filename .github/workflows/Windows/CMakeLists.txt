@@ -1063,6 +1063,7 @@ set_target_properties("SDGButtonsTests" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES
 target_compile_options("SDGButtonsTests" PRIVATE -enable-testing)
 target_link_libraries("SDGButtonsTests" PRIVATE
   "SDGInterfaceBasics"
+  "SDGViews"
   "SDGImageDisplay"
   "SDGButtons"
   "SDGApplication"

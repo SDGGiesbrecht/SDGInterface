@@ -17,6 +17,7 @@ import SDGText
 import SDGLocalization
 
 import SDGInterfaceBasics
+import SDGViews
 import SDGButtons
 import SDGApplication
 
