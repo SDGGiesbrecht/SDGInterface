@@ -179,7 +179,7 @@
         case selectionIdentifier:
           updateSelection()
         default:  // @exempt(from: tests)
-          break
+          break  // @exempt(from: tests)
         }
       }
     }

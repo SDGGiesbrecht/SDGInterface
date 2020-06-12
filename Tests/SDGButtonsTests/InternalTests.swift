@@ -20,6 +20,7 @@ import SDGControlFlow
 import SDGText
 import SDGLocalization
 
+import SDGImageDisplay
 @testable import SDGButtons
 
 import SDGInterfaceLocalizations
@@ -44,6 +45,15 @@ final class InternalTests: ApplicationTestCase {
       #else
         _ = cocoa
       #endif
+    #endif
+  }
+
+  func testButtonLabel() {
+    #if canImport(SwiftUI)
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        _ = ButtonLabel.text("text").swiftUI()
+        _ = ButtonLabel.symbol(Image.empty).swiftUI()
+      }
     #endif
   }
 

@@ -167,6 +167,7 @@ extension SDGButtonsTests.InternalTests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
       ("testButtonCocoaImplementation", testButtonCocoaImplementation),
+      ("testButtonLabel", testButtonLabel),
       ("testCheckBoxCocoaImplementation", testCheckBoxCocoaImplementation),
       ("testSegmentedControlCocoaImplementation", testSegmentedControlCocoaImplementation),
     ])
