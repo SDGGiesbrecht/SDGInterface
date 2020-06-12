@@ -71,7 +71,7 @@ final class InternalTests: ApplicationTestCase {
         case a, b
       }
       let segmentedControl = SegmentedControl(
-        labels: { _ in UserFacing<ButtonLabel, InterfaceLocalization>({ _ in .text("label") })},
+        labels: { _ in UserFacing<ButtonLabel, InterfaceLocalization>({ _ in .text("label") }) },
         selection: Shared(Enumeration.a)
       )
       legacyMode = true

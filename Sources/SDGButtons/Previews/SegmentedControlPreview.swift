@@ -29,8 +29,8 @@
     internal var body: some SwiftUI.View {
 
       enum Direction: CaseIterable {
-        case up
-        case down
+        case left
+        case right
       }
 
       return Group {
@@ -39,30 +39,58 @@
           SegmentedControl<Direction, InterfaceLocalization>(
             labels: { direction in
               switch direction {
-              case .up:
+              case .left:
                 return UserFacing<ButtonLabel, InterfaceLocalization>({ localization in
                   switch localization {
                   case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                    return .text("Up")
+                    return .text("Left")
                   case .deutschDeutschland:
-                    return .text("Auf")
+                    return .text("Links")
                   }
                 })
-              case .down:
+              case .right:
                 return UserFacing<ButtonLabel, InterfaceLocalization>({ localization in
                   switch localization {
                   case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                    return .text("Down")
+                    return .text("Right")
                   case .deutschDeutschland:
-                    return .text("Ab")
+                    return .text("Rechts")
                   }
                 })
               }
             },
-            selection: Shared(.up)
+            selection: Shared(.left)
           ).adjustForLegacyMode()
             .padding(),
-          name: "Radio Buttons"
+          name: "Text"
+        )
+
+        previewBothModes(
+          SegmentedControl<Direction, InterfaceLocalization>(
+            labels: { direction in
+              switch direction {
+              case .left:
+                return UserFacing<ButtonLabel, InterfaceLocalization>({ localization in
+                  switch localization {
+                  case .englishUnitedKingdom, .englishUnitedStates, .englishCanada,
+                    .deutschDeutschland:
+                    return .symbol(.goLeft)
+                  }
+                })
+              case .right:
+                return UserFacing<ButtonLabel, InterfaceLocalization>({ localization in
+                  switch localization {
+                  case .englishUnitedKingdom, .englishUnitedStates, .englishCanada,
+                    .deutschDeutschland:
+                    return .symbol(.goRight)
+                  }
+                })
+              }
+            },
+            selection: Shared(.left)
+          ).adjustForLegacyMode()
+            .padding(),
+          name: "Symbols"
         )
       }
     }

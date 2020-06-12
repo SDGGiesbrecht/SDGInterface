@@ -167,6 +167,7 @@ extension SDGButtonsTests.InternalTests {
     testCase([
       ("testButtonCocoaImplementation", testButtonCocoaImplementation),
       ("testCheckBoxCocoaImplementation", testCheckBoxCocoaImplementation),
+      ("testSegmentedControlCocoaImplementation", testSegmentedControlCocoaImplementation),
     ])
   ]
 }

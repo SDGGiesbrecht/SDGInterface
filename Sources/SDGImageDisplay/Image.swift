@@ -32,6 +32,16 @@
       #endif
     }
 
+    /// The system image indicating “go left”.
+    public static var goLeft: Image {
+      return Image(systemIdentifier: NSImage.goLeftTemplateName)!
+    }
+
+    /// The system image indicating “go right”.
+    public static var goRight: Image {
+      return Image(systemIdentifier: NSImage.goRightTemplateName)!
+    }
+
     // MARK: - Initialization
 
     #if canImport(AppKit)
@@ -51,6 +61,23 @@
         self.cocoa = cocoa
       }
     #endif
+
+    /// Creates an image from a system image identifier.
+    ///
+    /// - Parameters:
+    ///   - systemIdentifier: The system identifier.
+    public init?(systemIdentifier: String) {
+      #if canImport(AppKit)
+        typealias CocoaImage = NSImage
+      #elseif canImport(UIKit)
+        typealias CocoaImage = UIImage
+      #endif
+      if let image = CocoaImage(named: systemIdentifier) {
+        self.init(image)
+      } else {
+        return nil
+      }
+    }
 
     // MARK: - Properties
 
