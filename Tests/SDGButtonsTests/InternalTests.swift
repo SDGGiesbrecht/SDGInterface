@@ -94,27 +94,4 @@ final class InternalTests: ApplicationTestCase {
       #endif
     #endif
   }
-
-  func testSegmentedControlSwiftUIImplementation() {
-    #if canImport(SwiftUI)
-      enum Enumeration: CaseIterable {
-        case a, b
-      }
-      let segmentedControl = SegmentedControl(
-        labels: { _ in
-          UserFacing<ButtonLabel, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in
-            .text("label")
-          })
-        },
-        selection: Shared(Enumeration.a)
-      )
-      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
-        let swiftUI =
-          segmentedControl.swiftUI()
-          as! SegmentedControl<Enumeration, SDGInterfaceLocalizations.InterfaceLocalization>
-          .SwiftUIImplementation
-        _ = swiftUI.segment(for: .a)
-      }
-    #endif
-  }
 }
