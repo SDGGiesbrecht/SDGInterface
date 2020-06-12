@@ -156,7 +156,7 @@
           updateLocalization()
         case selectionIdentifier:
           updateSelection()
-        default:
+        default:  // @exempt(from: tests)
           break
         }
       }
