@@ -26,7 +26,7 @@ import SDGApplicationTestUtilities
 final class APITests: ApplicationTestCase {
 
   func testImage() {
-    #if canImport(AppKit) || canImport(UIKit)
+    #if canImport(AppKit)
       XCTAssertNil(Image(systemIdentifier: "no such image"))
     #endif
   }

@@ -68,22 +68,19 @@
       }
     #endif
 
-    /// Creates an image from a system image identifier.
-    ///
-    /// - Parameters:
-    ///   - systemIdentifier: The system identifier.
-    public init?(systemIdentifier: String) {
-      #if canImport(AppKit)
-        typealias CocoaImage = NSImage
-      #elseif canImport(UIKit)
-        typealias CocoaImage = UIImage
-      #endif
-      if let image = CocoaImage(named: systemIdentifier) {
-        self.init(image)
-      } else {
-        return nil
+    #if canImport(AppKit)
+      /// Creates an image from a system image identifier.
+      ///
+      /// - Parameters:
+      ///   - systemIdentifier: The system identifier.
+      public init?(systemIdentifier: String) {
+        if let image = NSImage(named: systemIdentifier) {
+          self.init(image)
+        } else {
+          return nil
+        }
       }
-    }
+    #endif
 
     // MARK: - Properties
 
