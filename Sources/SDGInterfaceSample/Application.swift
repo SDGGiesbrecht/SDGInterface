@@ -237,11 +237,17 @@ extension Application {
           }
         }
       }
+      let segmentedControl = SegmentedControl<Value, InterfaceLocalization>(
+        labels: { $0.label },
+        selection: Shared(.text)
+      )
+      #if canImport(SwiftUI)
+        if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
+          _ = segmentedControl.swiftUI().body  // Eager execution to simplify testing.
+        }
+      #endif
       demonstrate(
-        SegmentedControl<Value, InterfaceLocalization>(
-          labels: { $0.label },
-          selection: Shared(.text)
-        ),
+        segmentedControl,
         windowTitle: label
       )
     }
