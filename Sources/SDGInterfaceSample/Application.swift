@@ -214,6 +214,22 @@ extension Application {
       demonstrate(LabelledTextField(labelText: .static(label)), windowTitle: label)
     }
 
+    private enum Value: CaseIterable {
+      case text
+      case symbol
+      fileprivate var label: UserFacing<ButtonLabel, InterfaceLocalization> {
+        switch self {
+        case .text:
+          return UserFacing<ButtonLabel, InterfaceLocalization>({ _ in
+            return .text("Segment")
+          })
+        case .symbol:
+          return UserFacing<ButtonLabel, InterfaceLocalization>({ _ in
+            return .symbol(Image.empty)
+          })
+        }
+      }
+    }
     @objc public func demonstrateSegmentedControl() {
       let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
         switch localization {
@@ -221,22 +237,6 @@ extension Application {
           return "Segmented Control"
         }
       })
-      enum Value: CaseIterable {
-        case text
-        case symbol
-        var label: UserFacing<ButtonLabel, InterfaceLocalization> {
-          switch self {
-          case .text:
-            return UserFacing<ButtonLabel, InterfaceLocalization>({ _ in
-              return .text("Segment")
-            })
-          case .symbol:
-            return UserFacing<ButtonLabel, InterfaceLocalization>({ _ in
-              return .symbol(Image.empty)
-            })
-          }
-        }
-      }
       let segmentedControl = SegmentedControl<Value, InterfaceLocalization>(
         labels: { $0.label },
         selection: Shared(.text)
