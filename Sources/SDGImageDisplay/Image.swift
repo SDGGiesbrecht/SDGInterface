@@ -70,11 +70,7 @@
     #endif
 
     #if canImport(AppKit)
-      /// Creates an image from a system image identifier.
-      ///
-      /// - Parameters:
-      ///   - systemIdentifier: The system identifier.
-      public init?(systemIdentifier: String) {
+      internal init?(systemIdentifier: String) {
         if let image = NSImage(named: systemIdentifier) {
           self.init(image)
         } else {
