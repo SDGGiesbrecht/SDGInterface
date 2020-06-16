@@ -638,8 +638,9 @@ target_link_libraries("SDGViews" PRIVATE
 )
 
 add_library("SDGImageDisplay"
+  "../../../Sources/SDGImageDisplay/Image.CocoaImplementation.swift"
+  "../../../Sources/SDGImageDisplay/Image.SwiftUIImplementation.swift"
   "../../../Sources/SDGImageDisplay/Image.swift"
-  "../../../Sources/SDGImageDisplay/ImageView.swift"
   "../../../Sources/SDGImageDisplay/Windows.swift"
 )
 set_target_properties("SDGImageDisplay" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
