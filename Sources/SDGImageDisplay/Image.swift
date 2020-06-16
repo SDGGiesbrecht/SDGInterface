@@ -62,7 +62,7 @@
       ///
       /// - Parameters:
       ///     - swiftUI: The SwiftUI image.
-      @available(macOS 10.15, *)
+      @available(macOS 10.15, tvOS 13, *)
       public init(_ swiftUI: SwiftUI.Image) {
         definition = .swiftUI(swiftUI)
       }
@@ -84,7 +84,7 @@
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       /// Returns the image converted into a SwiftUI image.
-      @available(macOS 10.15, *)
+      @available(macOS 10.15, tvOS 13, *)
       public func swiftUIImage() -> SwiftUI.Image {
         switch definition {
         case .cocoa(let image):

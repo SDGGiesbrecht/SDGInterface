@@ -134,7 +134,7 @@
               setImage(image.cocoaImage()?.native, forSegment: index)
               setImageScaling(.scaleProportionallyDown, forSegment: index)
             #else
-              setImage(image.cocoa, forSegmentAt: index)
+              setImage(image.cocoaImage()?.native, forSegmentAt: index)
             #endif
           }
         }

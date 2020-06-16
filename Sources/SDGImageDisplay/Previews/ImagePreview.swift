@@ -22,10 +22,17 @@
 
     internal var body: some SwiftUI.View {
 
+      let image: Image
+      #if os(macOS)
+        image = .goRight
+      #else
+        image = .empty
+      #endif
+
       return Group {
 
         previewBothModes(
-          Image.goRight
+          image
             .adjustForLegacyMode()
             .padding(),
           name: "Image"

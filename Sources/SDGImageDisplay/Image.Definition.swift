@@ -32,7 +32,7 @@
       #endif
 
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-        @available(macOS 10.15, *)
+        @available(macOS 10.15, tvOS 13, *)
         case swiftUI(SwiftUI.Image)
       #endif
     }
