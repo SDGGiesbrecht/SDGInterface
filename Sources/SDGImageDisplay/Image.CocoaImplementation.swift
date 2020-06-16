@@ -21,7 +21,7 @@
   #endif
 
   extension Image {
-    
+
     #warning("Does this need to exist separately?")
     #if canImport(AppKit)
       internal typealias Superclass = NSImageView

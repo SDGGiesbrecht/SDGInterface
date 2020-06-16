@@ -641,6 +641,8 @@ add_library("SDGImageDisplay"
   "../../../Sources/SDGImageDisplay/Image.CocoaImplementation.swift"
   "../../../Sources/SDGImageDisplay/Image.SwiftUIImplementation.swift"
   "../../../Sources/SDGImageDisplay/Image.swift"
+  "../../../Sources/SDGImageDisplay/LegacyMode.swift"
+  "../../../Sources/SDGImageDisplay/LegacyView.swift"
   "../../../Sources/SDGImageDisplay/View.swift"
   "../../../Sources/SDGImageDisplay/Windows.swift"
 )
