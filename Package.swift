@@ -438,6 +438,8 @@ let package = Package(
       name: "SDGButtonsTests",
       dependencies: [
         "SDGInterfaceBasics",
+        "SDGViews",
+        "SDGImageDisplay",
         "SDGButtons",
         "SDGApplication",
         "SDGInterfaceSample",

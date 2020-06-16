@@ -17,6 +17,7 @@ import SDGText
 import SDGLocalization
 
 import SDGInterfaceBasics
+import SDGViews
 import SDGButtons
 import SDGApplication
 
@@ -64,9 +65,24 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
-  func testRadioButtonSet() {
-    #if canImport(AppKit) || canImport(UIKit)
-      Application.shared.demonstrateRadioButtonSet()
+  func testSegmentedControl() {
+    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+      Application.shared.demonstrateSegmentedControl()
+
+      enum Enumeration: CaseIterable {
+        case a, b
+      }
+      let segmentedControl = SegmentedControl(
+        labels: { _ in
+          UserFacing<ButtonLabel, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in
+            .text("label")
+          })
+        },
+        selection: Shared(Enumeration.a)
+      )
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        testViewConformance(of: segmentedControl)
+      }
     #endif
   }
 }

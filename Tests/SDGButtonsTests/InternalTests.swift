@@ -20,6 +20,7 @@ import SDGControlFlow
 import SDGText
 import SDGLocalization
 
+import SDGImageDisplay
 @testable import SDGButtons
 
 import SDGInterfaceLocalizations
@@ -47,6 +48,15 @@ final class InternalTests: ApplicationTestCase {
     #endif
   }
 
+  func testButtonLabel() {
+    #if canImport(SwiftUI)
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        _ = ButtonLabel.text("text").swiftUI()
+        _ = ButtonLabel.symbol(Image.empty).swiftUI()
+      }
+    #endif
+  }
+
   func testCheckBoxCocoaImplementation() {
     #if canImport(AppKit)
       let isChecked = Shared(false)
@@ -62,6 +72,26 @@ final class InternalTests: ApplicationTestCase {
       XCTAssert(isChecked.value)
       isChecked.value = false
       XCTAssertEqual(cocoa.state, .off)
+    #endif
+  }
+
+  func testSegmentedControlCocoaImplementation() {
+    #if canImport(AppKit) || canImport(UIKit)
+      enum Enumeration: CaseIterable {
+        case a, b
+      }
+      let segmentedControl = SegmentedControl(
+        labels: { _ in UserFacing<ButtonLabel, InterfaceLocalization>({ _ in .text("label") }) },
+        selection: Shared(Enumeration.a)
+      )
+      legacyMode = true
+      defer { legacyMode = false }
+      let cocoa = segmentedControl.cocoa().native as! SegmentedControl.Superclass
+      #if canImport(AppKit)
+        cocoa.selectSegment(withTag: 1)
+      #else
+        cocoa.selectedSegmentIndex = 1
+      #endif
     #endif
   }
 }

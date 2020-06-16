@@ -64,7 +64,8 @@ extension SDGContextMenuTests.APITests {
 extension SDGImageDisplayTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
-      ("testImageView", testImageView)
+      ("testImage", testImage),
+      ("testImageView", testImageView),
     ])
   ]
 }
@@ -157,7 +158,7 @@ extension SDGButtonsTests.APITests {
     testCase([
       ("testButton", testButton),
       ("testCheckBox", testCheckBox),
-      ("testRadioButtonSet", testRadioButtonSet),
+      ("testSegmentedControl", testSegmentedControl),
     ])
   ]
 }
@@ -166,7 +167,9 @@ extension SDGButtonsTests.InternalTests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
       ("testButtonCocoaImplementation", testButtonCocoaImplementation),
+      ("testButtonLabel", testButtonLabel),
       ("testCheckBoxCocoaImplementation", testCheckBoxCocoaImplementation),
+      ("testSegmentedControlCocoaImplementation", testSegmentedControlCocoaImplementation),
     ])
   ]
 }

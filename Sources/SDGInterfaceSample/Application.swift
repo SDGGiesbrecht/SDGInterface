@@ -214,33 +214,45 @@ extension Application {
       demonstrate(LabelledTextField(labelText: .static(label)), windowTitle: label)
     }
 
-    @objc public func demonstrateRadioButtonSet() {
-      let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
-        switch localization {
-        case .englishCanada:
-          return "Radio Button Set"
-        }
-      })
-      enum Value: CaseIterable {
-        case text
-        case symbol
-        var label: UserFacing<ButtonLabel, InterfaceLocalization> {
-          switch self {
-          case .text:
-            return UserFacing<ButtonLabel, InterfaceLocalization>({ _ in
-              return .text("Segment")
-            })
-          case .symbol:
-            return UserFacing<ButtonLabel, InterfaceLocalization>({ _ in
-              return .symbol(Image.empty)
-            })
+    @objc public func demonstrateSegmentedControl() {
+      // #workaround(workspace version 0.32.4, Compiler crashes in CI.)
+      #if compiler(>=5.2.1)
+        enum Value: CaseIterable {
+          case text
+          case symbol
+          fileprivate var label: UserFacing<ButtonLabel, InterfaceLocalization> {
+            switch self {
+            case .text:
+              return UserFacing<ButtonLabel, InterfaceLocalization>({ _ in
+                return .text("Segment")
+              })
+            case .symbol:
+              return UserFacing<ButtonLabel, InterfaceLocalization>({ _ in
+                return .symbol(Image.empty)
+              })
+            }
           }
         }
-      }
-      demonstrate(
-        RadioButtonSet<Value, InterfaceLocalization>(labels: { $0.label }),
-        windowTitle: label
-      )
+        let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishCanada:
+            return "Segmented Control"
+          }
+        })
+        let segmentedControl = SegmentedControl<Value, InterfaceLocalization>(
+          labels: { $0.label },
+          selection: Shared(.text)
+        )
+        #if canImport(SwiftUI)
+          if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
+            _ = segmentedControl.swiftUI().body  // Eager execution to simplify testing.
+          }
+        #endif
+        demonstrate(
+          segmentedControl,
+          windowTitle: label
+        )
+      #endif
     }
 
     @objc public func demonstrateTextEditor() {
