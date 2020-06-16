@@ -231,25 +231,28 @@ extension Application {
       }
     }
     @objc public func demonstrateSegmentedControl() {
-      let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
-        switch localization {
-        case .englishCanada:
-          return "Segmented Control"
-        }
-      })
-      let segmentedControl = SegmentedControl<Value, InterfaceLocalization>(
-        labels: { $0.label },
-        selection: Shared(.text)
-      )
-      #if canImport(SwiftUI)
-        if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-          _ = segmentedControl.swiftUI().body  // Eager execution to simplify testing.
-        }
+      // #workaround(workspace version 0.32.4, Compiler crashes in CI.)
+      #if compiler(>=5.2.1)
+        let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishCanada:
+            return "Segmented Control"
+          }
+        })
+        let segmentedControl = SegmentedControl<Value, InterfaceLocalization>(
+          labels: { $0.label },
+          selection: Shared(.text)
+        )
+        #if canImport(SwiftUI)
+          if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
+            _ = segmentedControl.swiftUI().body  // Eager execution to simplify testing.
+          }
+        #endif
+        demonstrate(
+          segmentedControl,
+          windowTitle: label
+        )
       #endif
-      demonstrate(
-        segmentedControl,
-        windowTitle: label
-      )
     }
 
     @objc public func demonstrateTextEditor() {
