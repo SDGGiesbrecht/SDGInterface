@@ -34,7 +34,7 @@
 
       internal init(image: Image) {
         super.init(frame: .zero)
-        self.image = image.cocoaImage
+        self.image = image.cocoaImage.native
 
         #if canImport(AppKit)
           setContentCompressionResistancePriority(

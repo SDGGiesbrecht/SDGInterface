@@ -638,6 +638,7 @@ target_link_libraries("SDGViews" PRIVATE
 )
 
 add_library("SDGImageDisplay"
+  "../../../Sources/SDGImageDisplay/Cocoa/CocoaImage.swift"
   "../../../Sources/SDGImageDisplay/Image.CocoaImplementation.swift"
   "../../../Sources/SDGImageDisplay/Image.SwiftUIImplementation.swift"
   "../../../Sources/SDGImageDisplay/Image.swift"

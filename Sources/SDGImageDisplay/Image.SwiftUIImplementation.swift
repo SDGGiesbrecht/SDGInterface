@@ -32,9 +32,9 @@
 
       internal var body: some SwiftUI.View {
         #if canImport(AppKit)
-          return SwiftUI.Image(nsImage: image.cocoaImage)
+          return SwiftUI.Image(nsImage: image.cocoaImage.native)
         #elseif canImport(UIKit)
-          return SwiftUI.Image(uiImage: image.cocoaImage)
+          return SwiftUI.Image(uiImage: image.cocoaImage.native)
         #endif
       }
     }

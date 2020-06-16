@@ -30,11 +30,7 @@
 
     /// Returns an empty image.
     public static var empty: Image {
-      #if canImport(AppKit)
-        return Image(NSImage())
-      #elseif canImport(UIKit)
-        return Image(UIImage())
-      #endif
+      return Image(CocoaImage())
     }
 
     #if canImport(AppKit)
@@ -51,27 +47,19 @@
 
     // MARK: - Initialization
 
-    #if canImport(AppKit)
+    #if canImport(AppKit) || canImport(UIKit)
       /// Creates an image from a Cocoa image.
       ///
       /// - Parameters:
       ///     - cocoa: The Cocoa image.
-      public init(_ cocoa: NSImage) {
+      public init(_ cocoa: CocoaImage) {
         self.cocoaImage = cocoa
-      }
-    #elseif canImport(UIKit)
-      /// Creates an image from a Cocoa image.
-      ///
-      /// - Parameters:
-      ///     - cocoa: The Cocoa image.
-      public init(_ cocoa: UIImage) {
-        self.cocoa = cocoa
       }
     #endif
 
     #if canImport(AppKit)
       internal init?(systemIdentifier: String) {
-        if let image = NSImage(named: systemIdentifier) {
+        if let image = CocoaImage(systemIdentifier: systemIdentifier) {
           self.init(image)
         } else {
           return nil
@@ -81,12 +69,9 @@
 
     // MARK: - Properties
 
-    #if canImport(AppKit)
+    #if canImport(AppKit) || canImport(UIKit)
       /// The Cocoa image.
-      public var cocoaImage: NSImage
-    #elseif canImport(UIKit)
-      /// The Cocoa image.
-      public var cocoaImage: UIImage
+      public var cocoaImage: CocoaImage
     #endif
 
     // MARK: - LegacyView
