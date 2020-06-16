@@ -214,25 +214,25 @@ extension Application {
       demonstrate(LabelledTextField(labelText: .static(label)), windowTitle: label)
     }
 
-    private enum Value: CaseIterable {
-      case text
-      case symbol
-      fileprivate var label: UserFacing<ButtonLabel, InterfaceLocalization> {
-        switch self {
-        case .text:
-          return UserFacing<ButtonLabel, InterfaceLocalization>({ _ in
-            return .text("Segment")
-          })
-        case .symbol:
-          return UserFacing<ButtonLabel, InterfaceLocalization>({ _ in
-            return .symbol(Image.empty)
-          })
-        }
-      }
-    }
     @objc public func demonstrateSegmentedControl() {
       // #workaround(workspace version 0.32.4, Compiler crashes in CI.)
       #if compiler(>=5.2.1)
+        enum Value: CaseIterable {
+          case text
+          case symbol
+          fileprivate var label: UserFacing<ButtonLabel, InterfaceLocalization> {
+            switch self {
+            case .text:
+              return UserFacing<ButtonLabel, InterfaceLocalization>({ _ in
+                return .text("Segment")
+              })
+            case .symbol:
+              return UserFacing<ButtonLabel, InterfaceLocalization>({ _ in
+                return .symbol(Image.empty)
+              })
+            }
+          }
+        }
         let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
           switch localization {
           case .englishCanada:
