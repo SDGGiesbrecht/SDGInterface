@@ -49,7 +49,7 @@ final class InternalTests: ApplicationTestCase {
   }
 
   func testButtonLabel() {
-    #if canImport(SwiftUI)
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {
         _ = ButtonLabel.text("text").swiftUI()
         _ = ButtonLabel.symbol(Image.empty).swiftUI()
