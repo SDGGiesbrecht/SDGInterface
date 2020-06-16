@@ -15,7 +15,7 @@
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   import SwiftUI
 
-  @available(macOS 10.15, tvOS 13, iOS 13, *)
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension SwiftUI.Image {
 
     #if canImport(AppKit) || canImport(UIKit)

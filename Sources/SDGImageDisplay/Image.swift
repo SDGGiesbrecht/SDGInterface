@@ -62,7 +62,7 @@
       ///
       /// - Parameters:
       ///     - swiftUI: The SwiftUI image.
-      @available(macOS 10.15, tvOS 13, iOS 13, *)
+      @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
       public init(_ swiftUI: SwiftUI.Image) {
         definition = .swiftUI(swiftUI)
       }
@@ -84,7 +84,7 @@
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       /// Returns the image converted into a SwiftUI image.
-      @available(macOS 10.15, tvOS 13, iOS 13, *)
+      @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
       public func swiftUIImage() -> SwiftUI.Image {
         switch definition {
         case .cocoa(let image):
@@ -111,29 +111,31 @@
 
     // MARK: - LegacyView
 
-    public func cocoa() -> CocoaView {
-      return useSwiftUIOrFallback(to: {
-        #if canImport(AppKit)
-          typealias CocoaImageView = NSImageView
-        #else
-          typealias CocoaImageView = UIImageView
-        #endif
-        let view = CocoaImageView(frame: .zero)
-        view.image = cocoaImage()?.native
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+      public func cocoa() -> CocoaView {
+        return useSwiftUIOrFallback(to: {
+          #if canImport(AppKit)
+            typealias CocoaImageView = NSImageView
+          #else
+            typealias CocoaImageView = UIImageView
+          #endif
+          let view = CocoaImageView(frame: .zero)
+          view.image = cocoaImage()?.native
 
-        #if canImport(AppKit)
-          view.setContentCompressionResistancePriority(
-            .windowSizeStayPut,
-            for: .horizontal
-          )
-          view.setContentCompressionResistancePriority(
-            .windowSizeStayPut,
-            for: .vertical
-          )
-        #endif
-        return CocoaView(view)
-      })
-    }
+          #if canImport(AppKit)
+            view.setContentCompressionResistancePriority(
+              .windowSizeStayPut,
+              for: .horizontal
+            )
+            view.setContentCompressionResistancePriority(
+              .windowSizeStayPut,
+              for: .vertical
+            )
+          #endif
+          return CocoaView(view)
+        })
+      }
+    #endif
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
