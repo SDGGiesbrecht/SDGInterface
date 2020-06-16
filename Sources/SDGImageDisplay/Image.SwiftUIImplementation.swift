@@ -12,4 +12,31 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-import Foundation
+#if canImport(SwiftUI)
+  import SwiftUI
+#endif
+
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  @available(watchOS 6, *)
+  extension Image {
+
+    #warning("Does this need to exist separately?")
+    @available(macOS 10.15, tvOS 13, iOS 13, *)
+    internal struct SwiftUIImplementation: SwiftUI.View {
+
+      // MARK: - Properties
+
+      internal let image: Image
+
+      // MARK: - View
+
+      internal var body: some SwiftUI.View {
+        #if canImport(AppKit)
+          return SwiftUI.Image(nsImage: image.cocoaImage)
+        #elseif canImport(UIKit)
+          return SwiftUI.Image(uiImage: image.cocoaImage)
+        #endif
+      }
+    }
+  }
+#endif

@@ -641,6 +641,7 @@ add_library("SDGImageDisplay"
   "../../../Sources/SDGImageDisplay/Image.CocoaImplementation.swift"
   "../../../Sources/SDGImageDisplay/Image.SwiftUIImplementation.swift"
   "../../../Sources/SDGImageDisplay/Image.swift"
+  "../../../Sources/SDGImageDisplay/View.swift"
   "../../../Sources/SDGImageDisplay/Windows.swift"
 )
 set_target_properties("SDGImageDisplay" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})

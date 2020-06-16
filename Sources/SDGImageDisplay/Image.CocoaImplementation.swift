@@ -21,19 +21,20 @@
   #endif
 
   extension Image {
-
+    
+    #warning("Does this need to exist separately?")
     #if canImport(AppKit)
       internal typealias Superclass = NSImageView
     #else
       internal typealias Superclass = UIImageView
     #endif
-    internal class ImageView: Superclass {
+    internal class CocoaImplementation: Superclass {
 
       // MARK: - Initialization
 
       internal init(image: Image) {
         super.init(frame: .zero)
-        self.image = image.cocoa
+        self.image = image.cocoaImage
 
         #if canImport(AppKit)
           setContentCompressionResistancePriority(
