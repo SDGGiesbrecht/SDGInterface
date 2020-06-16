@@ -12,13 +12,29 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-extension Image {
+#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+  #if canImport(SwiftUI)
+    import SwiftUI
+  #endif
+  #if canImport(AppKit)
+    import AppKit
+  #endif
+  #if canImport(UIKit)
+    import UIKit
+  #endif
 
-  internal enum Definition {
+  extension Image {
 
-    case cocoa(CocoaImage)
+    internal enum Definition {
 
-    @available(macOS 10.15, *)
-    case swiftUI(SwiftUI.Image)
+      #if canImport(AppKit) || canImport(UIKit)
+        case cocoa(CocoaImage)
+      #endif
+
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        @available(macOS 10.15, *)
+        case swiftUI(SwiftUI.Image)
+      #endif
+    }
   }
-}
+#endif
