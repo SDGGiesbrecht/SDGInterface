@@ -14,7 +14,7 @@
 
 import SwiftUI
 
-@testable import SDGButtons
+@testable import SDGImageDisplay
 
 struct Image_Previews: PreviewProvider {
   static var previews: some SwiftUI.View {
