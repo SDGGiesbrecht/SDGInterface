@@ -64,8 +64,15 @@ extension SDGContextMenuTests.APITests {
 extension SDGImageDisplayTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
-      ("testImage", testImage),
-      ("testImageView", testImageView),
+      ("testImageView", testImageView)
+    ])
+  ]
+}
+
+extension SDGImageDisplayTests.InternalTests {
+  static let windowsTests: [XCTestCaseEntry] = [
+    testCase([
+      ("testImage", testImage)
     ])
   ]
 }
@@ -212,6 +219,7 @@ tests += SDGApplicationTests.APITests.windowsTests
 tests += SDGApplicationTests.InternalTests.windowsTests
 tests += SDGContextMenuTests.APITests.windowsTests
 tests += SDGImageDisplayTests.APITests.windowsTests
+tests += SDGImageDisplayTests.InternalTests.windowsTests
 tests += SDGInterfaceBasicsTests.APITests.windowsTests
 tests += SDGKeyboardTests.APITests.windowsTests
 tests += SDGMenuBarTests.APITests.windowsTests

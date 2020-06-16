@@ -889,6 +889,7 @@ target_link_libraries("SDGContextMenuTests" PRIVATE
 
 add_library("SDGImageDisplayTests"
   "../../../Tests/SDGImageDisplayTests/APITests.swift"
+  "../../../Tests/SDGImageDisplayTests/InternalTests.swift"
 )
 set_target_properties("SDGImageDisplayTests" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
 target_compile_options("SDGImageDisplayTests" PRIVATE -enable-testing)

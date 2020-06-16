@@ -191,7 +191,7 @@ extension Application {
           return "Image"
         }
       })
-      demonstrate(ImageView(image: Image.empty), windowTitle: label)
+      demonstrate(Image.empty, windowTitle: label)
     }
 
     @objc public func demonstrateLabel() {

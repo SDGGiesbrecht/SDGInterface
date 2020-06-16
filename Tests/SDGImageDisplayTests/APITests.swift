@@ -25,12 +25,6 @@ import SDGApplicationTestUtilities
 
 final class APITests: ApplicationTestCase {
 
-  func testImage() {
-    #if canImport(AppKit)
-      XCTAssertNil(Image(systemIdentifier: "no such image"))
-    #endif
-  }
-
   func testImageView() {
     #if canImport(AppKit) || canImport(UIKit)
       Application.shared.demonstrateImage()
