@@ -640,10 +640,12 @@ target_link_libraries("SDGViews" PRIVATE
 add_library("SDGImageDisplay"
   "../../../Sources/SDGImageDisplay/Cocoa/CocoaImage.swift"
   "../../../Sources/SDGImageDisplay/Image.CocoaImplementation.swift"
+  "../../../Sources/SDGImageDisplay/Image.Definition.swift"
   "../../../Sources/SDGImageDisplay/Image.SwiftUIImplementation.swift"
   "../../../Sources/SDGImageDisplay/Image.swift"
   "../../../Sources/SDGImageDisplay/LegacyMode.swift"
   "../../../Sources/SDGImageDisplay/LegacyView.swift"
+  "../../../Sources/SDGImageDisplay/SwiftUI/SwiftUI.Image.swift"
   "../../../Sources/SDGImageDisplay/View.swift"
   "../../../Sources/SDGImageDisplay/Windows.swift"
 )

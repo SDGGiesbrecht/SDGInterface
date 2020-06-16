@@ -32,9 +32,20 @@
 
       // MARK: - Initialization
 
-      internal init(image: Image) {
+      internal convenience init?(image: Image) {
+        guard let cocoa = image.cocoaImage() else {
+          return nil
+        }
+        self.init(image: cocoa)
+      }
+
+      internal static func empty() -> CocoaImplementation {
+        return CocoaImplementation(image: CocoaImage())
+      }
+
+      private init(image: CocoaImage) {
         super.init(frame: .zero)
-        self.image = image.cocoaImage.native
+        self.image = image.native
 
         #if canImport(AppKit)
           setContentCompressionResistancePriority(

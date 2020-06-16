@@ -26,7 +26,7 @@
   import SDGViews
 
   /// An image.
-  public struct Image: LegacyView {  // @exempt(from: swiftFormat[UseEnumForNamespacing])
+  public struct Image: LegacyView {
 
     /// Returns an empty image.
     public static var empty: Image {
@@ -53,7 +53,18 @@
       /// - Parameters:
       ///     - cocoa: The Cocoa image.
       public init(_ cocoa: CocoaImage) {
-        self.cocoaImage = cocoa
+        definition = .cocoa(cocoa)
+      }
+    #endif
+
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      /// Creates an image from a SwiftUI image.
+      ///
+      /// - Parameters:
+      ///     - swiftUI: The SwiftUI image.
+      @available(macOS 10.15, *)
+      public init(_ swiftUI: SwiftUI.Image) {
+        definition = .swiftUI(swiftUI)
       }
     #endif
 
@@ -69,16 +80,38 @@
 
     // MARK: - Properties
 
+    private var definition: Definition
+
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      /// Returns the image converted into a SwiftUI image.
+      @available(macOS 10.15, *)
+      public func swiftUIImage() -> SwiftUI.Image {
+        switch definition {
+        case .cocoa(let image):
+          return SwiftUI.Image(image)
+        case .swiftUI(let image):
+          return image
+        }
+      }
+    #endif
+
     #if canImport(AppKit) || canImport(UIKit)
-      /// The Cocoa image.
-      public var cocoaImage: CocoaImage
+      /// Returns the image converted into a Cocoa image, if possible.
+      public func cocoaImage() -> CocoaImage? {
+        switch definition {
+        case .cocoa(let image):
+          return image
+        case .swiftUI:
+          return nil
+        }
+      }
     #endif
 
     // MARK: - LegacyView
 
     public func cocoa() -> CocoaView {
       return useSwiftUIOrFallback(to: {
-        return CocoaView(CocoaImplementation(image: self))
+        return CocoaView(CocoaImplementation(image: self) ?? CocoaImplementation.empty())
       })
     }
   }
