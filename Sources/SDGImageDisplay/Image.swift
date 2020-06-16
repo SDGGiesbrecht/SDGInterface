@@ -111,7 +111,25 @@
 
     public func cocoa() -> CocoaView {
       return useSwiftUIOrFallback(to: {
-        return CocoaView(CocoaImplementation(image: self) ?? CocoaImplementation.empty())
+        #if canImport(AppKit)
+          typealias CocoaImageView = NSImageView
+        #else
+          typealias CocoaImageView = UIImageView
+        #endif
+        let view = CocoaImageView(frame: .zero)
+        view.image = cocoaImage()?.native
+
+        #if canImport(AppKit)
+          view.setContentCompressionResistancePriority(
+            .windowSizeStayPut,
+            for: .horizontal
+          )
+          view.setContentCompressionResistancePriority(
+            .windowSizeStayPut,
+            for: .vertical
+          )
+        #endif
+        return CocoaView(view)
       })
     }
   }
@@ -123,7 +141,7 @@
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       public func swiftUI() -> some SwiftUI.View {
-        return SwiftUIImplementation(image: self)
+        return swiftUIImage()
       }
     #endif
   }
