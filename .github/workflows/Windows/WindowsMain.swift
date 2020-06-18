@@ -17,7 +17,6 @@ import XCTest
 @testable import SDGInterfaceResourceGeneration
 @testable import SDGApplicationTests
 @testable import SDGContextMenuTests
-@testable import SDGImageDisplayTests
 @testable import SDGInterfaceBasicsTests
 @testable import SDGKeyboardTests
 @testable import SDGMenuBarTests
@@ -27,6 +26,7 @@ import XCTest
 @testable import SDGTablesTests
 @testable import SDGTextDisplayTests
 @testable import SDGButtonsTests
+@testable import SDGImageDisplayTests
 @testable import SDGViewsTests
 @testable import SDGWindowsTests
 
@@ -57,22 +57,6 @@ extension SDGContextMenuTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
       ("testContextMenu", testContextMenu)
-    ])
-  ]
-}
-
-extension SDGImageDisplayTests.APITests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
-      ("testImageView", testImageView)
-    ])
-  ]
-}
-
-extension SDGImageDisplayTests.InternalTests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
-      ("testImage", testImage)
     ])
   ]
 }
@@ -181,6 +165,23 @@ extension SDGButtonsTests.InternalTests {
   ]
 }
 
+extension SDGImageDisplayTests.APITests {
+  static let windowsTests: [XCTestCaseEntry] = [
+    testCase([
+      ("testCocoaImage", testCocoaImage),
+      ("testImage", testImage),
+    ])
+  ]
+}
+
+extension SDGImageDisplayTests.InternalTests {
+  static let windowsTests: [XCTestCaseEntry] = [
+    testCase([
+      ("testImage", testImage)
+    ])
+  ]
+}
+
 extension SDGViewsTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
@@ -218,8 +219,6 @@ var tests = [XCTestCaseEntry]()
 tests += SDGApplicationTests.APITests.windowsTests
 tests += SDGApplicationTests.InternalTests.windowsTests
 tests += SDGContextMenuTests.APITests.windowsTests
-tests += SDGImageDisplayTests.APITests.windowsTests
-tests += SDGImageDisplayTests.InternalTests.windowsTests
 tests += SDGInterfaceBasicsTests.APITests.windowsTests
 tests += SDGKeyboardTests.APITests.windowsTests
 tests += SDGMenuBarTests.APITests.windowsTests
@@ -230,6 +229,8 @@ tests += SDGTablesTests.APITests.windowsTests
 tests += SDGTextDisplayTests.APITests.windowsTests
 tests += SDGButtonsTests.APITests.windowsTests
 tests += SDGButtonsTests.InternalTests.windowsTests
+tests += SDGImageDisplayTests.APITests.windowsTests
+tests += SDGImageDisplayTests.InternalTests.windowsTests
 tests += SDGViewsTests.APITests.windowsTests
 tests += SDGViewsTests.InternalTests.windowsTests
 tests += SDGWindowsTests.APITests.windowsTests
