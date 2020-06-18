@@ -19,6 +19,10 @@
   extension SwiftUI.Image {
 
     #if canImport(AppKit) || canImport(UIKit)
+      /// Creates an image from a Cocoa image.
+      ///
+      /// - Parameters:
+      ///   - cocoa: The Cocoa image.
       public init(_ cocoa: CocoaImage) {
         #if canImport(AppKit)
           self.init(nsImage: cocoa.native)

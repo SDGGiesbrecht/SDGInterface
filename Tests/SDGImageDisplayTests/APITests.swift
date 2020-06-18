@@ -12,6 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(SwiftUI)
+  import SwiftUI
+#endif
+
 import SDGImageDisplay
 import SDGApplication
 
@@ -37,6 +41,15 @@ final class APITests: ApplicationTestCase {
   func testImage() {
     #if canImport(AppKit) || canImport(UIKit)
       Application.shared.demonstrateImage()
+
+      #if canImport(SwiftUI)
+        if #available(macOS 10.15, *) {
+          let swiftUI = SwiftUI.Image(CocoaImage())
+          let image = Image(swiftUI)
+          _ = image.swiftUI()
+          _ = image.cocoaImage()
+        }
+      #endif
     #endif
   }
 }
