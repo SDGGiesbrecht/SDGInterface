@@ -25,7 +25,16 @@ import SDGApplicationTestUtilities
 
 final class APITests: ApplicationTestCase {
 
-  func testImageView() {
+  func testCocoaImage() {
+    #if canImport(AppKit) || canImport(UIKit)
+      var image = CocoaImage()
+      let native = CocoaImage.NativeType()
+      image.native = native
+      XCTAssertFalse(image.native === native)
+    #endif
+  }
+
+  func testImage() {
     #if canImport(AppKit) || canImport(UIKit)
       Application.shared.demonstrateImage()
     #endif
