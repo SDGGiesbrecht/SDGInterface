@@ -34,7 +34,7 @@ final class APITests: ApplicationTestCase {
       var image = CocoaImage()
       let native = CocoaImage.NativeType()
       image.native = native
-      XCTAssertFalse(image.native === native)
+      _ = image.native
     #endif
   }
 
