@@ -43,7 +43,7 @@ final class APITests: ApplicationTestCase {
       Application.shared.demonstrateImage()
 
       #if canImport(SwiftUI)
-        if #available(macOS 10.15, *) {
+        if #available(macOS 10.15, tvOS 13, iOS 13, *) {
           let swiftUI = SwiftUI.Image(CocoaImage())
           let image = Image(swiftUI)
           _ = image.swiftUI()
