@@ -429,6 +429,7 @@ let package = Package(
         "SDGTextDisplay",
         "SDGApplication",
         "SDGInterfaceSample",
+        "SDGViewsTestUtilities",
         "SDGApplicationTestUtilities",
         .product(name: "SDGXCTestUtilities", package: "SDGCornerstone"),
       ]

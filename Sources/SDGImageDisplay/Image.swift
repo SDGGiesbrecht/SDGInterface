@@ -12,11 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit) || canImport(UIKit)
+#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
   #if canImport(SwiftUI)
     import SwiftUI
   #endif
-
   #if canImport(AppKit)
     import AppKit
   #endif
@@ -24,16 +23,14 @@
     import UIKit
   #endif
 
+  import SDGViews
+
   /// An image.
-  public struct Image {  // @exempt(from: swiftFormat[UseEnumForNamespacing])
+  public struct Image: LegacyView {
 
     /// Returns an empty image.
     public static var empty: Image {
-      #if canImport(AppKit)
-        return Image(NSImage())
-      #elseif canImport(UIKit)
-        return Image(UIImage())
-      #endif
+      return Image(CocoaImage())
     }
 
     #if canImport(AppKit)
@@ -50,31 +47,30 @@
 
     // MARK: - Initialization
 
-    #if canImport(AppKit)
+    #if canImport(AppKit) || canImport(UIKit)
       /// Creates an image from a Cocoa image.
       ///
       /// - Parameters:
       ///     - cocoa: The Cocoa image.
-      public init(_ cocoa: NSImage) {
-        self.cocoa = cocoa
+      public init(_ cocoa: CocoaImage) {
+        definition = .cocoa(cocoa)
       }
-    #elseif canImport(UIKit)
-      /// Creates an image from a Cocoa image.
+    #endif
+
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      /// Creates an image from a SwiftUI image.
       ///
       /// - Parameters:
-      ///     - cocoa: The Cocoa image.
-      public init(_ cocoa: UIImage) {
-        self.cocoa = cocoa
+      ///     - swiftUI: The SwiftUI image.
+      @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+      public init(_ swiftUI: SwiftUI.Image) {
+        definition = .swiftUI(swiftUI)
       }
     #endif
 
     #if canImport(AppKit)
-      /// Creates an image from a system image identifier.
-      ///
-      /// - Parameters:
-      ///   - systemIdentifier: The system identifier.
-      public init?(systemIdentifier: String) {
-        if let image = NSImage(named: systemIdentifier) {
+      internal init?(systemIdentifier: String) {
+        if let image = CocoaImage(systemIdentifier: systemIdentifier) {
           self.init(image)
         } else {
           return nil
@@ -84,23 +80,72 @@
 
     // MARK: - Properties
 
-    #if canImport(AppKit)
-      /// The Cocoa image.
-      public var cocoa: NSImage
-    #elseif canImport(UIKit)
-      /// The Cocoa image.
-      public var cocoa: UIImage
-    #endif
+    private var definition: Definition
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      /// The SwiftUI image.
+      /// Returns the image converted into a SwiftUI image.
       @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-      public func swiftUI() -> SwiftUI.Image {
-        #if canImport(AppKit)
-          return SwiftUI.Image(nsImage: cocoa)
-        #elseif canImport(UIKit)
-          return SwiftUI.Image(uiImage: cocoa)
+      public func swiftUIImage() -> SwiftUI.Image {
+        switch definition {
+        case .cocoa(let image):
+          return SwiftUI.Image(image)
+        case .swiftUI(let image):
+          return image
+        }
+      }
+    #endif
+
+    #if canImport(AppKit) || canImport(UIKit)
+      /// Returns the image converted into a Cocoa image, if possible.
+      public func cocoaImage() -> CocoaImage? {
+        switch definition {
+        case .cocoa(let image):
+          return image
+        #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+          case .swiftUI:
+            return nil
         #endif
+        }
+      }
+    #endif
+
+    // MARK: - LegacyView
+
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+      public func cocoa() -> CocoaView {
+        return useSwiftUIOrFallback(to: {
+          #if canImport(AppKit)
+            typealias CocoaImageView = NSImageView
+          #else
+            typealias CocoaImageView = UIImageView
+          #endif
+          let view = CocoaImageView(frame: .zero)
+          view.image = cocoaImage()?.native
+
+          #if canImport(AppKit)
+            view.setContentCompressionResistancePriority(
+              .windowSizeStayPut,
+              for: .horizontal
+            )
+            view.setContentCompressionResistancePriority(
+              .windowSizeStayPut,
+              for: .vertical
+            )
+          #endif
+          return CocoaView(view)
+        })
+      }
+    #endif
+  }
+
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  extension Image: View {
+
+    // MARK: - View
+
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      public func swiftUI() -> some SwiftUI.View {
+        return swiftUIImage()
       }
     #endif
   }
