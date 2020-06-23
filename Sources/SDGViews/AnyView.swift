@@ -41,7 +41,7 @@
 
     // MARK: - Properties
 
-    let legacyView: LegacyView
+    private let legacyView: LegacyView
 
     // MARK: - LegacyView
 

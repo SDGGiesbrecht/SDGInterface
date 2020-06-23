@@ -36,7 +36,7 @@
           super.setUp()
           ApplicationTestCase.launch
         }
-        static let launch: Void = {
+        private static let launch: Void = {
           Application.setUp()
           let mediator = getSystemMediator()
           Application.setUpWithoutMain(mediator: mediator)

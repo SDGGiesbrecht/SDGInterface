@@ -61,7 +61,7 @@
 
       // MARK: - NSButton
 
-      override var state: NSControl.StateValue {
+      internal override var state: NSControl.StateValue {
         didSet {
           let booleanState = (state == .on)
           if isChecked.value ≠ booleanState {

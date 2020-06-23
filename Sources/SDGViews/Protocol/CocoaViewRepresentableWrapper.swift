@@ -40,26 +40,26 @@
       #if canImport(AppKit)
         // MARK: - NSViewRepresentable
 
-        func makeNSView(
+        internal func makeNSView(
           context: NSViewRepresentableContext<CocoaViewRepresentableWrapper>
         ) -> NSView {
           return cocoaView.native
         }
 
-        func updateNSView(
+        internal func updateNSView(
           _ nsView: NSView,
           context: NSViewRepresentableContext<CocoaViewRepresentableWrapper>
         ) {}
       #else
         // MARK: - UIViewRepresentable
 
-        func makeUIView(
+        private func makeUIView(
           context: UIViewRepresentableContext<CocoaViewRepresentableWrapper>
         ) -> UIView {  // @exempt(from: tests) Not reachable from tests.
           return cocoaView.native
         }
 
-        func updateUIView(
+        private func updateUIView(
           _ uiView: UIView,
           context: UIViewRepresentableContext<CocoaViewRepresentableWrapper>
         ) {  // @exempt(from: tests) Not reachable from tests.
