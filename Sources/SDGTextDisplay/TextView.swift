@@ -171,16 +171,16 @@
         #endif
       }
       #if canImport(AppKit)
-        override func insertText(_ string: Any, replacementRange: NSRange) {
+        internal override func insertText(_ string: Any, replacementRange: NSRange) {
           insert(text: string, at: replacementRange)
         }
       #else
-        override func insertText(_ text: String) {
+        internal override func insertText(_ text: String) {
           super.insertText(String(StrictString(text)))
         }
       #endif
 
-      override func paste(_ sender: Any?) {
+      internal override func paste(_ sender: Any?) {
         #if canImport(AppKit)
           let pasteboard = NSPasteboard.general
         #elseif canImport(UIKit)
@@ -214,7 +214,7 @@
     #if canImport(AppKit)
       // MARK: - NSMenuItemValidation
 
-      override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+      internal override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         if let action = menuItem.action,
           let known = canPerform(action: action)
         {

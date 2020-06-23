@@ -27,7 +27,7 @@
         super.init(frame: NSRect.zero)
       }
 
-      required init?(coder: NSCoder) {  // @exempt(from: tests)
+      internal required init?(coder: NSCoder) {  // @exempt(from: tests)
         return nil
       }
 

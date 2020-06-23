@@ -103,7 +103,7 @@
 
       // MARK: - Action
 
-      @objc func triggerAction() {
+      @objc private func triggerAction() {
         #if canImport(AppKit)
           let newIndex = selectedTag()
         #else
