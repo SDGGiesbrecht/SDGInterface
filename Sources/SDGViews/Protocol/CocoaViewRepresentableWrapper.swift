@@ -53,13 +53,13 @@
       #else
         // MARK: - UIViewRepresentable
 
-        private func makeUIView(
+        internal func makeUIView(
           context: UIViewRepresentableContext<CocoaViewRepresentableWrapper>
         ) -> UIView {  // @exempt(from: tests) Not reachable from tests.
           return cocoaView.native
         }
 
-        private func updateUIView(
+        internal func updateUIView(
           _ uiView: UIView,
           context: UIViewRepresentableContext<CocoaViewRepresentableWrapper>
         ) {  // @exempt(from: tests) Not reachable from tests.

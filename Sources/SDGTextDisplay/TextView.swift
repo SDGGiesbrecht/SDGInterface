@@ -175,7 +175,7 @@
           insert(text: string, at: replacementRange)
         }
       #else
-        private override func insertText(_ text: String) {
+        internal override func insertText(_ text: String) {
           super.insertText(String(StrictString(text)))
         }
       #endif
