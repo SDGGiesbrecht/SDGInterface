@@ -24,17 +24,17 @@
 
     // MARK: - Encodable
 
-    public func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {  // @exempt(from: accessControl)
       try encode(to: encoder, via: mapping.mapKeys({ String($0.hexadecimalCode) }))
     }
 
     // MARK: - FileConvertible
 
-    public init(file: Data, origin: URL?) throws {
+    public init(file: Data, origin: URL?) throws {  // @exempt(from: accessControl)
       self = try JSONDecoder().decode(RichText.NormalizationAttribute.Mapping.self, from: file)
     }
 
-    public var file: Data {
+    public var file: Data {  // @exempt(from: accessControl)
       let encoder = JSONEncoder()
       if #available(macOS 10.13, *) {  // @exempt(from: unicode)
         encoder.outputFormatting.insert(.sortedKeys)
