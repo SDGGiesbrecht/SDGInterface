@@ -962,6 +962,7 @@ target_link_libraries("SDGPopOversTests" PRIVATE
 
 add_library("SDGProgressIndicators"
   "../../../Sources/SDGProgressIndicators/LabelledProgressBar.swift"
+  "../../../Sources/SDGProgressIndicators/ProgressBar.CocoaImplementation.swift"
   "../../../Sources/SDGProgressIndicators/ProgressBar.swift"
   "../../../Sources/SDGProgressIndicators/Windows.swift"
 )
@@ -971,6 +972,7 @@ target_link_libraries("SDGProgressIndicators" PRIVATE
   "SDGInterfaceBasics"
   "SDGViews"
   "SDGTextDisplay"
+  "SDGControlFlow"
   "SDGMathematics"
   "SDGText"
   "SDGLocalization"
