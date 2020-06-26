@@ -984,6 +984,7 @@ add_library("SDGProgressIndicatorsTests"
 set_target_properties("SDGProgressIndicatorsTests" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
 target_compile_options("SDGProgressIndicatorsTests" PRIVATE -enable-testing)
 target_link_libraries("SDGProgressIndicatorsTests" PRIVATE
+  "SDGTextDisplay"
   "SDGProgressIndicators"
   "SDGApplication"
   "SDGInterfaceSample"

@@ -458,6 +458,7 @@ let package = Package(
     .testTarget(
       name: "SDGProgressIndicatorsTests",
       dependencies: [
+        "SDGTextDisplay",
         "SDGProgressIndicators",
         "SDGApplication",
         "SDGInterfaceSample",

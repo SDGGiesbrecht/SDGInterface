@@ -32,24 +32,15 @@
 
     // MARK: - Initialization
 
-    /// Creates a text field with label text.
-    ///
-    /// - Parameters:
-    /// 	- labelText: The text for the label.
-    public convenience init(labelText: Binding<StrictString, L>) {
-      let label = Label(text: labelText)
-      self.init(label: label)
-    }
-
     /// Creates a text field with label and a text field instances.
     ///
     /// - Parameters:
     ///     - label: The label.
-    ///     - progressBar: Optional. A specific progress bar.
-    public init(label: Label<L>, progressBar: ProgressBar? = nil) {
+    ///     - progressBar: A specific progress bar.
+    public init(label: Label<L>, progressBar: ProgressBar) {
       self.label = label
       let cocoaLabel = label.cocoa()
-      let constructedBar = progressBar ?? ProgressBar()
+      let constructedBar = progressBar
       self.progressBar = constructedBar
       let cocoaBar = constructedBar.cocoa()
       container = CocoaView()
