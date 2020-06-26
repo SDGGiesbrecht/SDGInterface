@@ -16,7 +16,7 @@ import SwiftUI
 
 @testable import SDGProgressIndicators
 
-struct Padding_Previews: PreviewProvider {
+struct ProgressBar_Previews: PreviewProvider {
   static var previews: some SwiftUI.View {
     return ProgressBarPreviews()
   }

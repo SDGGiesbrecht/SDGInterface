@@ -595,6 +595,7 @@ let package = Package(
         "SDGTextDisplay",
         "SDGImageDisplay",
         "SDGButtons",
+        "SDGProgressIndicators",
         "SDGWindows",
         "SDGMenus",
         "SDGErrorMessages",
