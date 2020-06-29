@@ -462,6 +462,7 @@ let package = Package(
         "SDGProgressIndicators",
         "SDGApplication",
         "SDGInterfaceSample",
+        "SDGViewsTestUtilities",
         "SDGApplicationTestUtilities",
         .product(name: "SDGControlFlow", package: "SDGCornerstone"),
         .product(name: "SDGXCTestUtilities", package: "SDGCornerstone"),
