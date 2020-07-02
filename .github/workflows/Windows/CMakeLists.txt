@@ -801,6 +801,25 @@ target_link_libraries("SDGInterfaceResourceGeneration" PRIVATE
   "SDGPersistence"
 )
 
+add_library("SDGProgressIndicators"
+  "../../../Sources/SDGProgressIndicators/LabelledProgressBar.swift"
+  "../../../Sources/SDGProgressIndicators/Previews/ProgressBarPreview.swift"
+  "../../../Sources/SDGProgressIndicators/ProgressBar.CocoaImplementation.swift"
+  "../../../Sources/SDGProgressIndicators/ProgressBar.swift"
+  "../../../Sources/SDGProgressIndicators/Windows.swift"
+)
+set_target_properties("SDGProgressIndicators" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
+target_compile_options("SDGProgressIndicators" PRIVATE -enable-testing)
+target_link_libraries("SDGProgressIndicators" PRIVATE
+  "SDGInterfaceBasics"
+  "SDGViews"
+  "SDGTextDisplay"
+  "SDGControlFlow"
+  "SDGMathematics"
+  "SDGText"
+  "SDGLocalization"
+)
+
 add_library("SDGInterfaceSample"
   "../../../Sources/SDGInterfaceSample/Application.swift"
   "../../../Sources/SDGInterfaceSample/InterfaceLocalization.swift"
@@ -820,6 +839,7 @@ target_link_libraries("SDGInterfaceSample" PRIVATE
   "SDGTextDisplay"
   "SDGImageDisplay"
   "SDGButtons"
+  "SDGProgressIndicators"
   "SDGWindows"
   "SDGMenus"
   "SDGErrorMessages"
@@ -960,36 +980,6 @@ target_link_libraries("SDGPopOversTests" PRIVATE
   "SDGXCTestUtilities"
 )
 
-add_library("SDGProgressIndicators"
-  "../../../Sources/SDGProgressIndicators/LabelledProgressBar.swift"
-  "../../../Sources/SDGProgressIndicators/ProgressBar.swift"
-  "../../../Sources/SDGProgressIndicators/Windows.swift"
-)
-set_target_properties("SDGProgressIndicators" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
-target_compile_options("SDGProgressIndicators" PRIVATE -enable-testing)
-target_link_libraries("SDGProgressIndicators" PRIVATE
-  "SDGInterfaceBasics"
-  "SDGViews"
-  "SDGTextDisplay"
-  "SDGMathematics"
-  "SDGText"
-  "SDGLocalization"
-)
-
-add_library("SDGProgressIndicatorsTests"
-  "../../../Tests/SDGProgressIndicatorsTests/APITests.swift"
-)
-set_target_properties("SDGProgressIndicatorsTests" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
-target_compile_options("SDGProgressIndicatorsTests" PRIVATE -enable-testing)
-target_link_libraries("SDGProgressIndicatorsTests" PRIVATE
-  "SDGProgressIndicators"
-  "SDGApplication"
-  "SDGInterfaceSample"
-  "SDGApplicationTestUtilities"
-  "SDGControlFlow"
-  "SDGXCTestUtilities"
-)
-
 add_library("SDGTablesTests"
   "../../../Tests/SDGTablesTests/APITests.swift"
 )
@@ -1087,6 +1077,23 @@ target_link_libraries("SDGImageDisplayTests" PRIVATE
   "SDGXCTestUtilities"
 )
 
+add_library("SDGProgressIndicatorsTests"
+  "../../../Tests/SDGProgressIndicatorsTests/APITests.swift"
+  "../../../Tests/SDGProgressIndicatorsTests/PreviewTests.swift"
+)
+set_target_properties("SDGProgressIndicatorsTests" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
+target_compile_options("SDGProgressIndicatorsTests" PRIVATE -enable-testing)
+target_link_libraries("SDGProgressIndicatorsTests" PRIVATE
+  "SDGTextDisplay"
+  "SDGProgressIndicators"
+  "SDGApplication"
+  "SDGInterfaceSample"
+  "SDGViewsTestUtilities"
+  "SDGApplicationTestUtilities"
+  "SDGControlFlow"
+  "SDGXCTestUtilities"
+)
+
 add_library("SDGViewsTests"
   "../../../Tests/SDGViewsTests/APITests.swift"
   "../../../Tests/SDGViewsTests/CocoaExample.swift"
@@ -1138,11 +1145,11 @@ target_link_libraries(WindowsMain PRIVATE
   "SDGMenuBarTests"
   "SDGMenusTests"
   "SDGPopOversTests"
-  "SDGProgressIndicatorsTests"
   "SDGTablesTests"
   "SDGTextDisplayTests"
   "SDGButtonsTests"
   "SDGImageDisplayTests"
+  "SDGProgressIndicatorsTests"
   "SDGViewsTests"
   "SDGWindowsTests"
 )

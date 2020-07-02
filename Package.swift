@@ -234,6 +234,7 @@ let package = Package(
         "SDGInterfaceBasics",
         "SDGViews",
         "SDGTextDisplay",
+        .product(name: "SDGControlFlow", package: "SDGCornerstone"),
         .product(name: "SDGMathematics", package: "SDGCornerstone"),
         .product(name: "SDGText", package: "SDGCornerstone"),
         .product(name: "SDGLocalization", package: "SDGCornerstone"),
@@ -457,9 +458,11 @@ let package = Package(
     .testTarget(
       name: "SDGProgressIndicatorsTests",
       dependencies: [
+        "SDGTextDisplay",
         "SDGProgressIndicators",
         "SDGApplication",
         "SDGInterfaceSample",
+        "SDGViewsTestUtilities",
         "SDGApplicationTestUtilities",
         .product(name: "SDGControlFlow", package: "SDGCornerstone"),
         .product(name: "SDGXCTestUtilities", package: "SDGCornerstone"),
@@ -593,6 +596,7 @@ let package = Package(
         "SDGTextDisplay",
         "SDGImageDisplay",
         "SDGButtons",
+        "SDGProgressIndicators",
         "SDGWindows",
         "SDGMenus",
         "SDGErrorMessages",

@@ -13,7 +13,6 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-
   #if canImport(AppKit)
     import AppKit
   #endif
@@ -21,124 +20,37 @@
     import UIKit
   #endif
 
-  import SDGMathematics
+  import SDGControlFlow
 
   import SDGViews
 
-  /// An image view.
-  public final class ProgressBar: CocoaViewImplementation, View {
+  /// A progress bar.
+  public struct ProgressBar: CocoaViewImplementation, View {
 
     // MARK: - Initialization
 
-    /// Creates an image view displaying an image.
-    public init() {
-      #if canImport(AppKit)
-        cocoaView = NSProgressIndicator()
-      #elseif canImport(UIKit)
-        cocoaView = UIProgressView()
-      #endif
-
-      #if canImport(AppKit)
-        cocoaView.usesThreadedAnimation = true
-      #endif
-
-      progressValue = nil
+    /// Creates a progress bar.
+    ///
+    /// - Parameters:
+    ///   - range: The range of the progress bar.
+    ///   - value: The current value of the progress bar. (`nil` indicates an indeterminate value.)
+    public init(
+      range: Shared<ClosedRange<Double>>,
+      value: Shared<Double?>
+    ) {
+      self.range = range
+      self.value = value
     }
 
     // MARK: - Properties
 
-    #if canImport(AppKit)
-      private let cocoaView: NSProgressIndicator
-    #elseif canImport(UIKit)
-      private let cocoaView: UIProgressView
-    #endif
-
-    #if canImport(UIKit)
-      private var minValue: Double = 0
-      private var maxValue: Double = 1
-      private var doubleValue: Double? = 0
-      private func refreshCocoaBar() {
-        let progress: Float
-        if let value = doubleValue {
-          progress = Float((value − minValue) ÷ (maxValue − minValue))
-        } else {
-          progress = 0
-        }
-        cocoaView.setProgress(progress, animated: true)
-      }
-    #endif
-
-    /// The value indicated by the start of the progress bar.
-    public var startValue: Double {
-      get {
-        #if canImport(AppKit)
-          return cocoaView.minValue
-        #elseif canImport(UIKit)
-          return minValue
-        #endif
-      }
-      set {
-        #if canImport(AppKit)
-          cocoaView.minValue = newValue
-        #elseif canImport(UIKit)
-          minValue = newValue
-          refreshCocoaBar()
-        #endif
-      }
-    }
-
-    /// The value indicated by the start of the progress bar.
-    public var endValue: Double {
-      get {
-        #if canImport(AppKit)
-          return cocoaView.maxValue
-        #elseif canImport(UIKit)
-          return maxValue
-        #endif
-      }
-      set {
-        #if canImport(AppKit)
-          cocoaView.maxValue = newValue
-        #elseif canImport(UIKit)
-          maxValue = newValue
-          refreshCocoaBar()
-        #endif
-      }
-    }
-
-    /// The value indicated by the progress bar.
-    ///
-    /// `nil` represents an indeterminate value.
-    public var progressValue: Double? {
-      get {
-        #if canImport(AppKit)
-          return cocoaView.isIndeterminate ? nil : cocoaView.doubleValue
-        #elseif canImport(UIKit)
-          return doubleValue
-        #endif
-      }
-      set {
-        #if canImport(AppKit)
-          if let value = newValue {
-            cocoaView.isIndeterminate = false
-            cocoaView.stopAnimation(nil)
-            cocoaView.doubleValue = value
-          } else {
-            cocoaView.doubleValue = 0
-            cocoaView.isIndeterminate = true
-            cocoaView.startAnimation(nil)
-          }
-        #elseif canImport(UIKit)
-          doubleValue = newValue
-          refreshCocoaBar()
-        #endif
-      }
-    }
+    private let range: Shared<ClosedRange<Double>>
+    private let value: Shared<Double?>
 
     // MARK: - LegacyView
 
     public func cocoa() -> CocoaView {
-      return CocoaView(cocoaView)
+      return CocoaView(CocoaImplementation(range: range, value: value))
     }
   }
 #endif

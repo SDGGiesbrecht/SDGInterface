@@ -14,6 +14,7 @@
 
 import SDGControlFlow
 
+import SDGTextDisplay
 import SDGProgressIndicators
 import SDGApplication
 
@@ -29,8 +30,10 @@ final class APITests: ApplicationTestCase {
 
   func testLabelledProgressBar() {
     #if canImport(AppKit) || canImport(UIKit)
-      let bar = LabelledProgressBar<InterfaceLocalization>(labelText: .binding(Shared("")))
-      XCTAssertEqual(bar.progressBar.progressValue, nil)
+      let bar = LabelledProgressBar<InterfaceLocalization>(
+        label: Label(text: .binding(Shared(""))),
+        progressBar: ProgressBar(range: Shared(0...1), value: Shared(nil))
+      )
       XCTAssertEqual(bar.label.text.resolved(), "")
       _ = bar.cocoa()
     #endif
@@ -38,14 +41,12 @@ final class APITests: ApplicationTestCase {
 
   func testProgressBar() {
     #if canImport(AppKit) || canImport(UIKit)
-      let bar = ProgressBar()
-      XCTAssertEqual(bar.progressValue, nil)
-      bar.startValue = 0
-      XCTAssertEqual(bar.startValue, 0)
-      bar.endValue = 10
-      XCTAssertEqual(bar.endValue, 10)
-      bar.progressValue = 5
-      XCTAssertEqual(bar.progressValue, 5)
+      let range: Shared<ClosedRange<Double>> = Shared(0...1)
+      let value: Shared<Double?> = Shared(nil)
+      _ = ProgressBar(range: range, value: value)
+      range.value = 0...range.value.upperBound
+      range.value = range.value.lowerBound...10
+      value.value = 5
     #endif
   }
 }
