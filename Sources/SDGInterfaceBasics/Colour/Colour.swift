@@ -112,7 +112,7 @@ public struct Colour: Hashable {
       var convertedGreen: CGFloat = 0
       var convertedBlue: CGFloat = 0
       var convertedAlpha: CGFloat = 0
-      newValue.getRed(
+      colour.getRed(
         &convertedRed,
         green: &convertedGreen,
         blue: &convertedBlue,

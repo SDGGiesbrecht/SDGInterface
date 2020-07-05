@@ -39,7 +39,7 @@
           return CocoaView(Colour.Container(self))
         #else
           let view = UIView()
-          view.backgroundColor = self.uiColor
+          view.backgroundColor = UIColor(self)
           return CocoaView(view)
         #endif
       }
