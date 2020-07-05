@@ -468,6 +468,7 @@ target_link_libraries("SDGInterfaceBasics" PRIVATE
   "SDGInterfaceLocalizations"
   "SDGControlFlow"
   "SDGLogic"
+  "SDGMathematics"
   "SDGCollections"
   "SDGText"
   "SDGLocalization"

@@ -20,7 +20,7 @@ import Foundation
 import SDGGeometry
 
 /// A point.
-public typealias Point = TwoDimensionalPoint<CGFloat>
+public typealias Point = TwoDimensionalPoint<Double>
 
 extension Point {
 
@@ -32,7 +32,7 @@ extension Point {
     /// - Parameters:
     ///     - point: The `CGPoint`.
     public init(_ point: CGPoint) {
-      self.init(point.x, point.y)
+      self.init(Double(point.x), Double(point.y))
     }
   #endif
 }
