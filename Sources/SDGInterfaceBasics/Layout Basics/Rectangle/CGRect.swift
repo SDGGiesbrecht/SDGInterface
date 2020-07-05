@@ -1,5 +1,5 @@
 /*
- CGPoint.swift
+ CGRect.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -15,11 +15,11 @@
 #if canImport(CoreGraphics)
   import CoreGraphics
 
-  extension CGPoint {
+  extension CGRect {
 
-    /// Creates a CoreGraphics point from a point.
-    public init(_ point: SDGInterfaceBasics.Point) {
-      self.init(x: point.x, y: point.y)
+    /// Creates a CoreGraphics rectangle from a rectangle.
+    public init(_ rectangle: SDGInterfaceBasics.Rectangle) {
+      self.init(origin: CGPoint(rectangle.origin), size: rectangle.size.coreGraphics)
     }
   }
 #endif

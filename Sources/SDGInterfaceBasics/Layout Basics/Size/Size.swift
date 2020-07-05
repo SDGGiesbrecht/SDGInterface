@@ -42,8 +42,8 @@ public struct Size: Equatable, Hashable {
     ///
     /// - Parameters:
     ///     - coreGraphics: The CoreGraphics size.
-    public init(_ coreGraphics: CGSize) {
-      self.init(width: Double(coreGraphics.width), height: Double(coreGraphics.height))
+    public init(_ size: CGSize) {
+      self.init(width: Double(size.width), height: Double(size.height))
     }
   #endif
 
@@ -54,11 +54,4 @@ public struct Size: Equatable, Hashable {
 
   /// The height.
   public var height: Double
-
-  #if canImport(CoreGraphics)
-    /// The CoreGraphics size.
-    public var coreGraphics: CGSize {
-      return CGSize(width: CGFloat(width), height: CGFloat(height))
-    }
-  #endif
 }

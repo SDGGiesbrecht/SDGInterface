@@ -27,10 +27,10 @@ extension Point {
   // MARK: - Initialization
 
   #if canImport(CoreGraphics)
-    /// Creates a point from a `CGPoint`.
+    /// Creates a point from a CoreGraphics point.
     ///
     /// - Parameters:
-    ///     - point: The `CGPoint`.
+    ///     - point: The CoreGraphics point.
     public init(_ point: CGPoint) {
       self.init(Double(point.x), Double(point.y))
     }
