@@ -142,7 +142,7 @@ final class APITests: ApplicationTestCase {
   func testPoint() {
     #if canImport(CoreGraphics)
       XCTAssertEqual(Point(CGPoint(x: 0, y: 0)), Point(0, 0))
-      XCTAssertEqual(Point(0, 0).coreGraphics.x, 0)
+      XCTAssertEqual(CGPoint(Point(0, 0)).x, 0)
     #endif
   }
 

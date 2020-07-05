@@ -12,6 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import Foundation
 #if canImport(CoreGraphics)
   import CoreGraphics
 #endif
@@ -19,28 +20,19 @@
 import SDGGeometry
 
 /// A point.
-public typealias Point = TwoDimensionalPoint<Double>
+public typealias Point = TwoDimensionalPoint<CGFloat>
 
 extension Point {
 
   // MARK: - Initialization
 
   #if canImport(CoreGraphics)
-    /// Creates a size from a CoreGraphics point.
+    /// Creates a point from a `CGPoint`.
     ///
     /// - Parameters:
-    ///     - coreGraphics: The CoreGraphics point.
-    public init(_ coreGraphics: CGPoint) {
-      self.init(Double(coreGraphics.x), Double(coreGraphics.y))
-    }
-  #endif
-
-  // MARK: - Properties
-
-  #if canImport(CoreGraphics)
-    /// The CoreGraphics point.
-    public var coreGraphics: CGPoint {
-      return CGPoint(x: CGFloat(x), y: CGFloat(y))
+    ///     - point: The `CGPoint`.
+    public init(_ point: CGPoint) {
+      self.init(point.x, point.y)
     }
   #endif
 }

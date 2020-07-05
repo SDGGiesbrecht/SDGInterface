@@ -51,7 +51,7 @@ public struct Rectangle {
   #if canImport(CoreGraphics)
     /// The CoreGraphics rectangle.
     public var coreGraphics: CGRect {
-      return CGRect(origin: origin.coreGraphics, size: size.coreGraphics)
+      return CGRect(origin: CGPoint(origin), size: size.coreGraphics)
     }
   #endif
 }
