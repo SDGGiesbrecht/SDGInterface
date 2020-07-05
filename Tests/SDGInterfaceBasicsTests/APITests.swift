@@ -84,7 +84,7 @@ final class APITests: ApplicationTestCase {
     XCTAssertEqual(Colour.magenta.blue, 1)
     XCTAssertEqual(Colour.yellow.opacity, 1)
     #if canImport(AppKit)
-      XCTAssertEqual(Colour.yellow.green, Colour(Colour.yellow.nsColor).green)
+      XCTAssertEqual(Colour.yellow.green, Colour(NSColor(Colour.yellow))?.green)
     #endif
     #if canImport(UIKit)
       XCTAssertEqual(Colour.cyan.blue, Colour(Colour.cyan.uiColor).blue)

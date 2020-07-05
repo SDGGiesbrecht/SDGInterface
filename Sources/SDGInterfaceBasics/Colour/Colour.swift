@@ -91,8 +91,14 @@ public struct Colour: Hashable {
     ///
     /// - Parameters:
     ///     - colour: The colour.
-    public init(_ colour: NSColor) {
-      self.nsColor = colour
+    public init?(_ colour: NSColor) {
+      guard let converted = colour.usingColorSpace(.genericRGB) else {
+        return nil
+      }
+      red = Double(converted.redComponent)
+      green = Double(converted.greenComponent)
+      blue = Double(converted.blueComponent)
+      opacity = Double(converted.alphaComponent)
     }
   #endif
 
@@ -102,7 +108,20 @@ public struct Colour: Hashable {
     /// - Parameters:
     ///     - colour: The colour.
     public init(_ colour: UIColor) {
-      self.uiColor = colour
+      var convertedRed: CGFloat = 0
+      var convertedGreen: CGFloat = 0
+      var convertedBlue: CGFloat = 0
+      var convertedAlpha: CGFloat = 0
+      newValue.getRed(
+        &convertedRed,
+        green: &convertedGreen,
+        blue: &convertedBlue,
+        alpha: &convertedAlpha
+      )
+      red = Double(convertedRed)
+      green = Double(convertedGreen)
+      blue = Double(convertedBlue)
+      opacity = Double(convertedAlpha)
     }
   #endif
 

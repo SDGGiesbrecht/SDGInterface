@@ -45,13 +45,13 @@
     /// The colour of the text.
     public var textColour: Colour? {
       get {
-        return specificCocoaView.textColor.map { Colour($0) }
+        return specificCocoaView.textColor.flatMap { Colour($0) }
       }
       set {
         #if canImport(AppKit)
-          specificCocoaView.textColor = newValue?.nsColor
+          specificCocoaView.textColor = newValue.map({ NSColor($0) })
         #elseif canImport(UIKit)
-          specificCocoaView.textColor = newValue?.uiColor
+          specificCocoaView.textColor = newValue.map({ UIColor($0) })
         #endif
       }
     }
