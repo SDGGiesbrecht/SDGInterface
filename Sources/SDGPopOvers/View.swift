@@ -62,7 +62,7 @@
       #else
         let controller = NSViewController()
         if let specifiedSize = preferredSize {
-          popOverView.frame.size = specifiedSize.coreGraphics
+          popOverView.frame.size = CGSize(specifiedSize)
         }
         controller.view = popOverView
 
@@ -70,7 +70,7 @@
         popOver.contentViewController = controller
         popOver.behavior = .transient
         popOver.show(
-          relativeTo: sourceRectangle?.coreGraphics ?? cocoa().native.frame,
+          relativeTo: sourceRectangle.map({ CGRect($0) }) ?? cocoa().native.frame,
           of: cocoa().native,
           preferredEdge: .maxX
         )

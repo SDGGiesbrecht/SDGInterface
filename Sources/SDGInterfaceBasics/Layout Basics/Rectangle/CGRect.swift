@@ -19,7 +19,7 @@
 
     /// Creates a CoreGraphics rectangle from a rectangle.
     public init(_ rectangle: SDGInterfaceBasics.Rectangle) {
-      self.init(origin: CGPoint(rectangle.origin), size: rectangle.size.coreGraphics)
+      self.init(origin: CGPoint(rectangle.origin), size: CGSize(rectangle.size))
     }
   }
 #endif

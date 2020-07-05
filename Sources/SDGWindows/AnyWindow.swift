@@ -130,7 +130,7 @@
         return Size(frame.size)
       }
       set {
-        frame.size = newValue.coreGraphics
+        frame.size = CGSize(newValue)
       }
     }
 
