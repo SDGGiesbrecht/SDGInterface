@@ -93,7 +93,7 @@ public struct Colour: Hashable {
     ///     - colour: The colour.
     public init?(_ colour: NSColor) {
       guard let converted = colour.usingColorSpace(.genericRGB) else {
-        return nil
+        return nil  // @exempt(from: tests)
       }
       red = Double(converted.redComponent)
       green = Double(converted.greenComponent)
