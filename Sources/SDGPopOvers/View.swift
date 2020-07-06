@@ -54,8 +54,8 @@
         #endif
         popOver?.sourceView = cocoa().native
         popOver?.sourceRect =
-          sourceRectangle.map({ CGRect($0) })
-          ?? cocoa().native.frame  // @exempt(from: tests) tvOS quirk.
+          sourceRectangle.map({ CGRect($0) })  // @exempt(from: tests) tvOS quirk.
+          ?? cocoa().native.frame  // @exempt(from: tests)
         popOver?.permittedArrowDirections = .any
 
         cocoa().native.controller?.present(controller, animated: true, completion: nil)
