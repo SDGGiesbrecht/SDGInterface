@@ -41,7 +41,7 @@ public struct Size: Equatable, Hashable {
     /// Creates a size from a CoreGraphics size.
     ///
     /// - Parameters:
-    ///     - coreGraphics: The CoreGraphics size.
+    ///     - size: The CoreGraphics size.
     public init(_ size: CGSize) {
       self.init(width: Double(size.width), height: Double(size.height))
     }

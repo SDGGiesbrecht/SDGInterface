@@ -18,6 +18,9 @@
   extension CGPoint {
 
     /// Creates a CoreGraphics point from a point.
+    ///
+    /// - Parameters:
+    ///   - point: The point.
     public init(_ point: SDGInterfaceBasics.Point) {
       self.init(x: point.x, y: point.y)
     }
