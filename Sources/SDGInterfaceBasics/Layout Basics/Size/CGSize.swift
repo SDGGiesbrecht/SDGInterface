@@ -20,7 +20,7 @@
     /// Creates a CoreGraphics size from a size.
     ///
     /// - Parameters:
-    ///   - size: The size.  
+    ///   - size: The size.
     public init(_ size: SDGInterfaceBasics.Size) {
       self.init(width: CGFloat(size.width), height: CGFloat(size.height))
     }
