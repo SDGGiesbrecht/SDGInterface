@@ -130,19 +130,19 @@
         return Size(frame.size)
       }
       set {
-        frame.size = newValue.coreGraphics
+        frame.size = CGSize(newValue)
       }
     }
 
     /// The location of the window’s origin.
     ///
     /// Changing this value when the window is visible results in a smooth animation.
-    public var location: TwoDimensionalPoint<Double> {
+    public var location: Point {
       get {
-        return TwoDimensionalPoint(frame.origin)
+        return Point(frame.origin)
       }
       set {
-        frame.origin = newValue.coreGraphics
+        frame.origin = CGPoint(newValue)
       }
     }
 

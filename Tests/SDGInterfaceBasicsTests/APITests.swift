@@ -84,10 +84,10 @@ final class APITests: ApplicationTestCase {
     XCTAssertEqual(Colour.magenta.blue, 1)
     XCTAssertEqual(Colour.yellow.opacity, 1)
     #if canImport(AppKit)
-      XCTAssertEqual(Colour.yellow.green, Colour(Colour.yellow.nsColor).green)
+      XCTAssertEqual(Colour.yellow.green, Colour(NSColor(Colour.yellow))?.green)
     #endif
     #if canImport(UIKit)
-      XCTAssertEqual(Colour.cyan.blue, Colour(Colour.cyan.uiColor).blue)
+      XCTAssertEqual(Colour.cyan.blue, Colour(UIColor(Colour.cyan)).blue)
     #endif
   }
 
@@ -142,7 +142,7 @@ final class APITests: ApplicationTestCase {
   func testPoint() {
     #if canImport(CoreGraphics)
       XCTAssertEqual(Point(CGPoint(x: 0, y: 0)), Point(0, 0))
-      XCTAssertEqual(Point(0, 0).coreGraphics.x, 0)
+      XCTAssertEqual(CGPoint(Point(0, 0)).x, 0)
     #endif
   }
 
@@ -150,7 +150,7 @@ final class APITests: ApplicationTestCase {
     XCTAssertEqual(Rectangle(origin: Point(1, 2), size: Size(width: 3, height: 4)).size.height, 4)
     #if canImport(CoreGraphics)
       XCTAssertEqual(
-        Rectangle(origin: Point(1, 2), size: Size(width: 3, height: 4)).coreGraphics.width,
+        CGRect(Rectangle(origin: Point(1, 2), size: Size(width: 3, height: 4))).width,
         3
       )
     #endif

@@ -39,7 +39,7 @@
 
       internal override func draw(_ dirtyRect: CGRect) {
         // @exempt(from: tests) Crashes without actual display available.
-        colour.nsColor.setFill()
+        NSColor(colour).setFill()
         dirtyRect.fill(using: .sourceOver)
         super.draw(dirtyRect)
       }

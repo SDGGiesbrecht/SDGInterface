@@ -26,21 +26,12 @@ extension Point {
   // MARK: - Initialization
 
   #if canImport(CoreGraphics)
-    /// Creates a size from a CoreGraphics point.
+    /// Creates a point from a CoreGraphics point.
     ///
     /// - Parameters:
-    ///     - coreGraphics: The CoreGraphics point.
-    public init(_ coreGraphics: CGPoint) {
-      self.init(Double(coreGraphics.x), Double(coreGraphics.y))
-    }
-  #endif
-
-  // MARK: - Properties
-
-  #if canImport(CoreGraphics)
-    /// The CoreGraphics point.
-    public var coreGraphics: CGPoint {
-      return CGPoint(x: CGFloat(x), y: CGFloat(y))
+    ///     - point: The CoreGraphics point.
+    public init(_ point: CGPoint) {
+      self.init(Double(point.x), Double(point.y))
     }
   #endif
 }

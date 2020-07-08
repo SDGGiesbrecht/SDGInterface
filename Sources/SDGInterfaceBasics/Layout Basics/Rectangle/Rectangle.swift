@@ -33,10 +33,10 @@ public struct Rectangle {
     /// Creates a rectangle from a CoreGraphics rectangle.
     ///
     /// - Parameters:
-    ///     - coreGraphics: The CoreGraphics rectangle.
-    public init(_ coreGraphics: CGRect) {
-      origin = Point(coreGraphics.origin)
-      size = Size(coreGraphics.size)
+    ///     - rectangle: The CoreGraphics rectangle.
+    public init(_ rectangle: CGRect) {
+      origin = Point(rectangle.origin)
+      size = Size(rectangle.size)
     }
   #endif
 
@@ -47,11 +47,4 @@ public struct Rectangle {
 
   /// The size.
   public var size: Size
-
-  #if canImport(CoreGraphics)
-    /// The CoreGraphics rectangle.
-    public var coreGraphics: CGRect {
-      return CGRect(origin: origin.coreGraphics, size: size.coreGraphics)
-    }
-  #endif
 }
