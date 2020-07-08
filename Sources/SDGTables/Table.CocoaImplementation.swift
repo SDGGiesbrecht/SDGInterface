@@ -24,6 +24,7 @@
 
   import SDGViews
 
+  @available(iOS 9, *)
   extension Table {
 
     #if canImport(AppKit)
@@ -39,7 +40,11 @@
         #warning("Not implemented yet.")
         self.data = data
         self.columns = columns
+        #if canImport(AppKit)
         super.init(frame: .zero)
+        #else
+        super.init(frame: .zero, style: .plain)
+        #endif
       }
 
       internal required init?(coder decoder: NSCoder) {  // @exempt(from: tests)
