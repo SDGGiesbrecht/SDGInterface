@@ -12,6 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#warning("Continue renaming types and files.")
 #if canImport(AppKit)
   import AppKit
 
@@ -54,7 +55,7 @@
             constraint.priority = NSLayoutConstraint.Priority(rawValue: priority)
           }
 
-          let cell = NSTableCellView(view: view)
+          let cell = CellView(view: view)
           return cell
         }
       }

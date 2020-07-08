@@ -677,13 +677,13 @@ target_link_libraries("SDGPopOvers" PRIVATE
 )
 
 add_library("SDGTables"
-  "../../../Sources/SDGTables/NSTableCellView.swift"
-  "../../../Sources/SDGTables/NSTableViewDelegate.swift"
-  "../../../Sources/SDGTables/Table.CocoaImplementation.TableView.swift"
-  "../../../Sources/SDGTables/Table.CocoaImplementation.swift"
+  "../../../Sources/SDGTables/Table.CocoaImplementation/NSTableViewDelegate.swift"
+  "../../../Sources/SDGTables/Table.CocoaImplementation/Table.CocoaImplementation.CellView.swift"
+  "../../../Sources/SDGTables/Table.CocoaImplementation/Table.CocoaImplementation.TableView.swift"
+  "../../../Sources/SDGTables/Table.CocoaImplementation/Table.CocoaImplementation.swift"
+  "../../../Sources/SDGTables/Table.CocoaImplementation/UITableViewCell.swift"
+  "../../../Sources/SDGTables/Table.CocoaImplementation/UITableViewDataSource.swift"
   "../../../Sources/SDGTables/Table.swift"
-  "../../../Sources/SDGTables/UITableViewCell.swift"
-  "../../../Sources/SDGTables/UITableViewDataSource.swift"
   "../../../Sources/SDGTables/Windows.swift"
 )
 set_target_properties("SDGTables" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
