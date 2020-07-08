@@ -21,8 +21,6 @@
   #endif
 
   import SDGControlFlow
-  import SDGLogic
-  import SDGMathematics
 
   import SDGViews
 
@@ -30,9 +28,9 @@
     private var columnIdentifiers = sequence(first: 0, next: { $0 &+ 1 })
   #endif
 
-  /// Table.
+  /// A table.
   @available(iOS 9, *)  // @exempt(from: unicode)
-  public final class Table<RowData>: CocoaViewImplementation, View {
+  public struct Table<RowData>: CocoaViewImplementation, View {
 
     // MARK: - Initialization
 
@@ -42,164 +40,29 @@
     ///     - data: The data the table represents.
     ///     - columns: An array of closures—each representing a column—which produce a corresponding cell view for a particular data entry.
     ///     - row: The data element represented by the row.
-    public init(data: Shared<[RowData]>, columns: [(_ row: RowData) -> AnyView]) {
+    ///     - sort: Optional. A sort order to impose on the table data.
+    ///     - preceding: The data entry preceding the less‐than sign.
+    ///     - following: The data entry following the less‐than sign.
+    public init(
+      data: Shared<[RowData]>,
+      columns: [(_ row: RowData) -> AnyView],
+      sort: ((_ preceding: RowData, _ following: RowData) -> Bool)? = nil
+    ) {
       self.data = data
-      defer {
-        dataDidSet()
-      }
-
       self.columns = columns
-      defer {
-        columnsDidSet()
-      }
-
-      #if canImport(AppKit)
-        frameView = NSScrollView()
-        frameView.documentView = CocoaTableView()
-        defer {
-          delegate.table = self
-          cocoaTable.delegate = delegate
-          cocoaTable.dataSource = delegate
-        }
-      #elseif canImport(UIKit)
-        frameView = UITableView(frame: .zero, style: .plain)
-        defer {
-          dataSource.table = self
-          cocoaTable.dataSource = dataSource
-        }
-      #endif
-
-      defer {
-        bindingObserver.table = self
-      }
-
-      #if canImport(AppKit)
-        cocoaTable.headerView = nil
-        frameView.borderType = .bezelBorder
-      #endif
-      #if canImport(AppKit)
-        frameView.hasHorizontalScroller = true
-        frameView.hasVerticalScroller = true
-      #else
-        frameView.showsHorizontalScrollIndicator = true
-        frameView.showsVerticalScrollIndicator = true
-      #endif
-
-      #if canImport(AppKit)
-        cocoaTable.usesAlternatingRowBackgroundColors = true
-      #endif
-
-      #if canImport(AppKit)
-        cocoaTable.columnAutoresizingStyle = .sequentialColumnAutoresizingStyle
-      #endif
+      self.sort = sort
     }
 
     // MARK: - Properties
 
-    private let bindingObserver = BindingObserver<RowData>()
-
-    /// The data.
-    public var data: Shared<[RowData]> {
-      willSet {
-        data.cancel(observer: bindingObserver)
-      }
-      didSet {
-        dataDidSet()
-      }
-    }
-    private func dataDidSet() {
-      data.register(observer: bindingObserver)
-      refreshBindings()
-    }
-
-    /// An array of closures—each representing a column—which produce a corresponding cell view for a particular data entry.
-    ///
-    /// - Parameters:
-    ///     - row: The data entry represented by the row.
-    public var columns: [(_ row: RowData) -> AnyView] {
-      didSet {
-        columnsDidSet()
-      }
-    }
-    private func columnsDidSet() {
-      #if canImport(AppKit)
-        while cocoaTable.tableColumns.count > columns.count {
-          cocoaTable.removeTableColumn(cocoaTable.tableColumns.last!)
-        }
-        while cocoaTable.tableColumns.count < columns.count {
-          let index = cocoaTable.tableColumns.count
-          let newColumn = NSTableColumn(
-            identifier: NSUserInterfaceItemIdentifier("\(columnIdentifiers.next()!)")
-          )
-          newColumn.title = ""
-          newColumn.resizingMask = [.autoresizingMask, .userResizingMask]
-          cocoaTable.addTableColumn(newColumn)
-
-          let exampleIndex = 0
-          if data.value.indices.contains(exampleIndex) {
-            let exampleView = columns[index](data.value[exampleIndex])
-            cocoaTable.rowHeight.increase(to: exampleView.cocoa().native.fittingSize.height)
-          }
-        }
-      #endif
-      cocoaTable.reloadData()
-    }
-
-    /// A sort order to impose on the data.
-    ///
-    /// For example, `{ $0 < $1 }` will sort according to `Comparable`.
-    ///
-    /// - Parameters:
-    ///     - preceding: The element before the inequality sign.
-    ///     - following: The element after the inequality sign.
-    public var sort: ((_ preceding: RowData, _ following: RowData) -> Bool)? {
-      didSet {
-        refreshBindings()
-      }
-    }
-
-    #if canImport(AppKit)
-      private var frameView: NSScrollView
-      private var delegate = NSTableViewDelegate<RowData>()
-    #elseif canImport(UIKit)
-      private var frameView: UITableView
-      private var dataSource = UITableViewDataSource<RowData>()
-    #endif
-
-    #if canImport(AppKit)
-      internal var cocoaTable: NSTableView {
-        return frameView.documentView as? NSTableView
-          ?? NSTableView()  // @exempt(from: tests) Never nil.
-      }
-    #elseif canImport(UIKit)
-      internal var cocoaTable: UITableView {
-        return frameView
-      }
-    #endif
-
-    // MARK: - Refreshing
-
-    internal func refreshBindings() {
-      if let areSorted = self.sort {
-        let value = data.value
-        var alreadySorted = true
-        for (preceding, following) in zip(value.dropLast(), value.dropFirst()) {
-          if ¬areSorted(preceding, following) {
-            alreadySorted = false
-            break
-          }
-        }
-        if ¬alreadySorted {
-          data.value.sort(by: areSorted)
-        }
-      }
-      cocoaTable.reloadData()
-    }
+    private let data: Shared<[RowData]>
+    private let columns: [(_ row: RowData) -> AnyView]
+    private let sort: ((_ preceding: RowData, _ following: RowData) -> Bool)?
 
     // MARK: - LegacyView
 
     public func cocoa() -> CocoaView {
-      return CocoaView(frameView)
+      return CocoaView(CocoaImplementation(data: data, columns: columns, sort: sort))
     }
   }
 #endif
