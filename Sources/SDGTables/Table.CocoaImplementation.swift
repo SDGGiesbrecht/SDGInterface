@@ -73,7 +73,7 @@
 
         #if canImport(AppKit)
           super.init(frame: .zero)
-          documentView = CocoaTableView()
+          documentView = CocoaImplementation.TableView()
           defer {
             delegate.table = self
             cocoaTable.delegate = delegate

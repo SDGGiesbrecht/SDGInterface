@@ -677,10 +677,9 @@ target_link_libraries("SDGPopOvers" PRIVATE
 )
 
 add_library("SDGTables"
-  "../../../Sources/SDGTables/BindingObserver.swift"
-  "../../../Sources/SDGTables/CocoaTableView.swift"
   "../../../Sources/SDGTables/NSTableCellView.swift"
   "../../../Sources/SDGTables/NSTableViewDelegate.swift"
+  "../../../Sources/SDGTables/Table.CocoaImplementation.TableView.swift"
   "../../../Sources/SDGTables/Table.CocoaImplementation.swift"
   "../../../Sources/SDGTables/Table.swift"
   "../../../Sources/SDGTables/UITableViewCell.swift"
