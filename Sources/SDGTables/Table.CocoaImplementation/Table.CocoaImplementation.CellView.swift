@@ -18,6 +18,7 @@
   import SDGViews
 
   extension Table.CocoaImplementation {
+
     internal class CellView: AppKit.NSTableCellView {
 
       // MARK: - Initialization
