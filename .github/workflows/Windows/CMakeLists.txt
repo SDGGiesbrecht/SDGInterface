@@ -700,6 +700,7 @@ add_library("SDGWindows"
   "../../../Sources/SDGWindows/BindingObserver.swift"
   "../../../Sources/SDGWindows/FullscreenObserver.swift"
   "../../../Sources/SDGWindows/NSWindowDelegate.swift"
+  "../../../Sources/SDGWindows/Window.CocoaImplementation.swift"
   "../../../Sources/SDGWindows/Window.swift"
   "../../../Sources/SDGWindows/Windows.swift"
 )
