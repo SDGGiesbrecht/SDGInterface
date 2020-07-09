@@ -21,7 +21,7 @@
   #endif
 
   /// A Cocoa window.
-  public struct CocoaWindow {
+  public struct CocoaWindow: CocoaWindowImplementation {
 
     // MARK: - Types
 
@@ -49,5 +49,11 @@
 
     /// The native window.
     public let native: NativeType
+
+    // MARK: - WindowProtocol
+
+    public func cocoa() -> CocoaWindow {
+      return self
+    }
   }
 #endif
