@@ -182,9 +182,10 @@ final class APITests: ApplicationTestCase {
       #if !(os(iOS) && arch(arm))
         if #available(macOS 10.15, tvOS 13, iOS 13, *) {
           let swiftUI = newView().swiftUI()
-          let window = Window<InterfaceLocalization>.primaryWindow(
-            name: .binding(Shared("")),
-            view: SwiftUI.AnyView(swiftUI).cocoa()
+          let window = Window(
+            type: .primary(nil),
+            name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+            content: SwiftUI.AnyView(swiftUI).cocoa()
           )
           window.display()
           window.close()

@@ -32,9 +32,10 @@ final class APITests: ApplicationTestCase {
 
   func testWindow() {
     #if canImport(AppKit) || canImport(UIKit)
-      let window = Window<InterfaceLocalization>(
-        name: .binding(Shared("Title")),
-        view: EmptyView().cocoa()
+      let window = Window(
+        type: .primary(nil),
+        name: UserFacing<StrictString, AnyLocalization>({ _ in "Title" }),
+        content: EmptyView().cocoa()
       )
       #if canImport(AppKit)  // UIKit raises an exception during tests.
         window.display()

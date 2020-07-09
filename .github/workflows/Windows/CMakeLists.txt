@@ -1104,6 +1104,7 @@ target_link_libraries("SDGTablesTests" PRIVATE
   "SDGViewsTestUtilities"
   "SDGApplicationTestUtilities"
   "SDGControlFlow"
+  "SDGText"
   "SDGLocalization"
   "SDGXCTestUtilities"
 )
