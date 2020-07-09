@@ -55,7 +55,6 @@
     public let native: NativeType
 
     // MARK: - Size & Location
-    #warning("Rethink?")
 
     /// The size of the window.
     ///
