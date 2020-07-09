@@ -31,4 +31,18 @@
     #endif
   }
 
+  extension WindowProtocol {
+
+    // MARK: - Display
+
+    /// Displays the window.
+    public func display() {
+      allWindows[ObjectIdentifier(self)] = self
+      #if canImport(AppKit)
+        cocoa.makeKeyAndOrderFront(nil)
+      #elseif canImport(UIKit)
+        cocoa.makeKeyAndVisible()
+      #endif
+    }
+  }
 #endif

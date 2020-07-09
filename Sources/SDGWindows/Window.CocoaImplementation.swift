@@ -48,12 +48,17 @@
       internal typealias WindowDelegate = UIWindowDelegate
     #endif
 
-    internal class CocoaImplementation<Content>: Superclass, SharedValueObserver, WindowDelegate
+    internal class CocoaImplementation<Content>: Superclass, ManagedWindow, SharedValueObserver,
+      WindowDelegate
     where Content: LegacyView {
 
       // MARK: - Initialization
 
-      internal init(name: UserFacing<StrictString, L>, view: Content) {
+      internal init(
+        name: UserFacing<StrictString, L>,
+        view: Content,
+        onClose: () -> Void
+      ) {
         #if canImport(AppKit)
           setUpFieldEditorReset
         #endif
@@ -127,12 +132,13 @@
 
       private let name: UserFacing<StrictString, L>
       private let view: CocoaView
-      public var _fieldEditor = _getFieldEditor()
+      private let onClose: () -> Void
+      public var fieldEditor = _getFieldEditor()
 
       // MARK: - NSWindowDelegate
 
       internal func windowWillReturnFieldEditor(_ sender: NSWindow, to client: Any?) -> Any? {
-        return _fieldEditor
+        return fieldEditor
       }
 
       internal func windowWillClose(_ notification: Notification) {

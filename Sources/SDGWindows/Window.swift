@@ -29,7 +29,7 @@
   import SDGViews
 
   /// A window.
-  public final class Window<Content, L>: AnyWindow where L: Localization {
+  public final class Window<Content, L>: WindowProtocol where L: Localization {
 
     // MARK: - Generators
 
@@ -84,7 +84,12 @@
     /// - Parameters:
     ///     - name: The name of the window. (Used in places like the title bar or dock.)
     ///     - content: The content view.
-    public init(name: UserFacing<StrictString, L>, content: Content) {
+    ///     - onClose: A closure to execute when the window closes.
+    public init(
+      name: UserFacing<StrictString, L>,
+      content: Content,
+      onClose: () -> Void = {}
+    ) {
       self.name = name
       self.content = content
     }
@@ -93,10 +98,13 @@
 
     private let name: UserFacing<StrictString, L>
     private let content: Content
+    private let onClose: () -> Void
 
-    // MARK: - AnyWindow
+    // MARK: - Display
 
-    #warning("What’s this?")
-    public var closeAction: () -> Void = {}
+    /// Displays the window.
+    public func display() {
+      cocoa().display()
+    }
   }
 #endif
