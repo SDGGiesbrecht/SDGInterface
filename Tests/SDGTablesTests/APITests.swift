@@ -57,7 +57,7 @@ final class APITests: ApplicationTestCase {
         )
         window.display()
         #if canImport(UIKit)
-          table.data = Shared([2, 1])
+          data.value = [2, 1]
           let uiTableView = table.cocoa().native as! UITableView
           uiTableView.dataSource?.tableView(
             uiTableView,
