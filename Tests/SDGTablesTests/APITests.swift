@@ -33,7 +33,7 @@ final class APITests: ApplicationTestCase {
 
   func testTable() {
     #if canImport(AppKit) || canImport(UIKit)
-      if #available(iOS 9, *) {  // @exempt(from: unicode)
+      if #available(iOS 9, *) {
         let data = Shared([0])
         let table = Table<Int>(
           data: data,
