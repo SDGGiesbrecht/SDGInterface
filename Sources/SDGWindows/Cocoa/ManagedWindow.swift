@@ -24,6 +24,8 @@
     #if canImport(AppKit)
       var fieldEditor: NSTextView { get set }
     #endif
+
+    var onClose: () -> Void { get }
   }
 
   extension ManagedWindow {
@@ -32,7 +34,7 @@
       // Release
       allWindows[ObjectIdentifier(self)] = nil
 
-      closeAction()
+      onClose()
     }
   }
 #endif
