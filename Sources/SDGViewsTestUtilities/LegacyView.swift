@@ -13,6 +13,8 @@
  */
 
 import SDGControlFlow
+import SDGText
+import SDGLocalization
 
 import SDGViews
 import SDGWindows
@@ -45,9 +47,10 @@ import SDGTesting
     #endif
 
     #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
-      _ = Window<InterfaceLocalization>.primaryWindow(
-        name: .binding(Shared("")),
-        view: view.cocoa()
+      _ = Window(
+        type: .primary(nil),
+        name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+        content: view
       )
     #endif
   }

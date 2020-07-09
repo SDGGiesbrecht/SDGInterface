@@ -1027,6 +1027,8 @@ target_link_libraries("SDGViewsTestUtilities" PRIVATE
   "SDGInterfaceLocalizations"
   "SDGControlFlow"
   "SDGLogic"
+  "SDGText"
+  "SDGLocalization"
   "SDGTesting"
 )
 
