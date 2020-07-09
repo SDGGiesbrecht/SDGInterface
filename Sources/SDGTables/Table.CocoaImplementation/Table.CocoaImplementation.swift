@@ -35,8 +35,8 @@
       internal typealias TableViewDelegate = NSTableViewDelegate
     #else
       internal typealias Superclass = UITableView
-      internal protocol TableViewDataSource {}
-      internal protocol TableViewDelegate {}
+      internal typealias TableViewDataSource = UITableViewDataSource
+      internal typealias TableViewDelegate = UITableViewDelegate
     #endif
     internal final class CocoaImplementation: Superclass, SharedValueObserver, TableViewDataSource,
       TableViewDelegate
@@ -88,8 +88,7 @@
         #elseif canImport(UIKit)
           super.init(frame: .zero, style: .plain)
           defer {
-            dataSourceStorage.table = self
-            cocoaTable.dataSource = dataSourceStorage
+            cocoaTable.dataSource = self
           }
         #endif
 
@@ -211,6 +210,40 @@
         }
         cocoaTable.reloadData()
       }
+
+      #if canImport(UIKit)
+        // MARK: - UITableViewDataSource
+
+        internal func tableView(
+          _ tableView: UITableView,
+          numberOfRowsInSection section: Int
+        ) -> Int {
+          return data.value.count
+        }
+
+        internal static var reUseIdentifier: String {
+          return "row"
+        }
+
+        internal func tableView(
+          _ tableView: UITableView,
+          cellForRowAt indexPath: IndexPath
+        ) -> UIKit.UITableViewCell {
+          let cell: Cell
+          if let reUsable = cocoaTable.dequeueReusableCell(
+            withIdentifier: Self.reUseIdentifier
+          ) as? Cell {
+            cell = reUsable  // @exempt(from: tests) Hard to predicably reproduce.
+          } else {
+            cell = Cell(columns: [])
+          }
+
+          cell.row = HorizontalStack(
+            content: columns.map({ $0(data.value[indexPath.row]) })
+          ).cocoa()
+          return cell
+        }
+      #endif
     }
   }
 #endif

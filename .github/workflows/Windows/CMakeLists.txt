@@ -677,11 +677,10 @@ target_link_libraries("SDGPopOvers" PRIVATE
 )
 
 add_library("SDGTables"
+  "../../../Sources/SDGTables/Table.CocoaImplementation/Table.CocoaImplementation.Cell.swift"
   "../../../Sources/SDGTables/Table.CocoaImplementation/Table.CocoaImplementation.CellView.swift"
   "../../../Sources/SDGTables/Table.CocoaImplementation/Table.CocoaImplementation.TableView.swift"
   "../../../Sources/SDGTables/Table.CocoaImplementation/Table.CocoaImplementation.swift"
-  "../../../Sources/SDGTables/Table.CocoaImplementation/UITableViewCell.swift"
-  "../../../Sources/SDGTables/Table.CocoaImplementation/UITableViewDataSource.swift"
   "../../../Sources/SDGTables/Table.swift"
   "../../../Sources/SDGTables/Windows.swift"
 )
