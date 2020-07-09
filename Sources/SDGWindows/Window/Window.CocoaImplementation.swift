@@ -47,7 +47,7 @@
       internal typealias WindowDelegate = NSWindowDelegate
     #else
       internal typealias Superclass = UIWindow
-      internal typealias WindowDelegate = UIWindowDelegate
+      internal typealias WindowDelegate = Placeholder
     #endif
 
     internal class CocoaImplementation<Content>: Superclass, ManagedWindow, SharedValueObserver,
@@ -69,12 +69,18 @@
         defer {
           switch type {
           case .primary:
-            CocoaWindow(self).isPrimary = true
-          case .auxiliary:
-            CocoaWindow(self).isAuxiliary = true
-          case .fullscreen:
-            CocoaWindow(self).isPrimary = true
-            CocoaWindow(self).isFullscreen = true
+            #if canImport(AppKit)
+              CocoaWindow(self).isPrimary = true
+            #else
+              break
+            #endif
+          #if canImport(AppKit)
+            case .auxiliary:
+              CocoaWindow(self).isAuxiliary = true
+            case .fullscreen:
+              CocoaWindow(self).isPrimary = true
+              CocoaWindow(self).isFullscreen = true
+          #endif
           }
         }
 
@@ -107,10 +113,12 @@
         switch type {
         case .primary(let size):
           resolvedSize = size ?? Size.fillingAvailable()
-        case .auxiliary(let size):
-          resolvedSize = size ?? Size.auxiliaryWindow
-        case .fullscreen:
-          resolvedSize = Size.fillingAvailable()
+        #if canImport(AppKit)
+          case .auxiliary(let size):
+            resolvedSize = size ?? Size.auxiliaryWindow
+          case .fullscreen:
+            resolvedSize = Size.fillingAvailable()
+        #endif
         }
         let frame = CGRect(origin: .zero, size: CGSize(resolvedSize))
 
@@ -160,17 +168,21 @@
       private let name: UserFacing<StrictString, L>
       private let content: CocoaView
       internal let onClose: () -> Void
-      public var fieldEditor = _getFieldEditor()
+      #if canImport(AppKit)
+        public var fieldEditor = _getFieldEditor()
+      #endif
 
-      // MARK: - NSWindowDelegate
+      #if canImport(AppKit)
+        // MARK: - NSWindowDelegate
 
-      internal func windowWillReturnFieldEditor(_ sender: NSWindow, to client: Any?) -> Any? {
-        return fieldEditor
-      }
+        internal func windowWillReturnFieldEditor(_ sender: NSWindow, to client: Any?) -> Any? {
+          return fieldEditor
+        }
 
-      internal func windowWillClose(_ notification: Notification) {
-        finishClosing()
-      }
+        internal func windowWillClose(_ notification: Notification) {
+          finishClosing()
+        }
+      #endif
 
       // MARK: - SharedValueObserver
 

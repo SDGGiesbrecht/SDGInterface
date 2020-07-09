@@ -58,8 +58,17 @@
     // MARK: - Content
 
     /// The content view.
-    public var content: CocoaView {
-      return CocoaView(native.contentView ?? NSView())
+    public var content: CocoaView? {
+      let nativeView: CocoaView.NativeType?
+      #if canImport(AppKit)
+        nativeView = native.contentView
+      #else
+        nativeView = native.rootViewController?.view
+      #endif
+      return CocoaView(
+        nativeView
+          ?? NativeType()  // @exempt(from: tests) Never nil.
+      )
     }
 
     // MARK: - Size & Location
@@ -176,7 +185,7 @@
       #if canImport(AppKit)
         native.close()
       #else
-        finishClosing()
+        (native as? ManagedWindow)?.finishClosing()
       #endif
     }
 

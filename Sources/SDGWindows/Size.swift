@@ -15,6 +15,9 @@
 #if canImport(AppKit)
   import AppKit
 #endif
+#if canImport(UIKit)
+  import UIKit
+#endif
 
 import SDGInterfaceBasics
 

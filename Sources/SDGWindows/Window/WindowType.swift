@@ -21,11 +21,13 @@ public enum WindowType {
   /// When no size is specified, a primary window fills the available screen space (unless otherwise constrained by its content view).
   case primary(Size?)
 
-  /// An auxiliary windows appear on top of a different primary window when in fullscreen mode.
-  ///
-  /// When no size is specified, an auxiliary window takes up only a small amount of space (unless otherwise constrained by its content view).
-  case auxiliary(Size?)
+  #if canImport(AppKit)
+    /// An auxiliary windows appear on top of a different primary window when in fullscreen mode.
+    ///
+    /// When no size is specified, an auxiliary window takes up only a small amount of space (unless otherwise constrained by its content view).
+    case auxiliary(Size?)
 
-  /// A fullscreen window is a primary window that defaults to fullscreen mode.
-  case fullscreen
+    /// A fullscreen window is a primary window that defaults to fullscreen mode.
+    case fullscreen
+  #endif
 }
