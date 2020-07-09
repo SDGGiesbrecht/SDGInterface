@@ -124,16 +124,13 @@ extension Application {
   }
 
   #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-    private func demonstrate(_ window: AnyWindow) {
+    private func demonstrate<Content, L>(_ window: Window<Content, L>) {
       window.display()
     }
     private func demonstrate<V, L>(_ view: V, windowTitle: UserFacing<StrictString, L>)
     where V: LegacyView {
       #if canImport(AppKit)
-        let window = Window<L>.auxiliaryWindow(
-          name: .static(windowTitle),
-          view: view.padding().cocoa()
-        )
+        let window = Window(type: .auxiliary(nil), name: windowTitle, content: view.padding())
         demonstrate(window)
       #else
         let window = Window(name: .static(windowTitle), view: view.padding().cocoa())
@@ -278,16 +275,15 @@ extension Application {
 
     #if canImport(AppKit)
       @objc public func demonstrateFullscreenWindow() {
-        let window = Window<InterfaceLocalization>.fullscreenWindow(
-          name: .static(
-            UserFacing<StrictString, InterfaceLocalization>({ localization in
-              switch localization {
-              case .englishCanada:
-                return "Fullscreen Window"
-              }
-            })
-          ),
-          view: CocoaView()
+        let window = Window(
+          type: .fullscreen,
+          name: UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+              return "Fullscreen Window"
+            }
+          }),
+          content: CocoaView()
         )
         demonstrate(window)
       }
