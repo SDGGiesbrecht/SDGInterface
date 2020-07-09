@@ -58,7 +58,7 @@
 
       internal init(
         name: UserFacing<StrictString, L>,
-        view: Content,
+        content: Content,
         onClose: @escaping () -> Void
       ) {
         #if canImport(AppKit)
@@ -75,16 +75,16 @@
           LocalizationSetting.current.register(observer: self)
         }
 
-        self.view = view.cocoa()
+        self.content = content.cocoa()
         defer {
           #if canImport(AppKit)
-            contentView = self.view.native
+            contentView = self.content.native
           #elseif canImport(UIKit)
             if rootViewController == nil {
               rootViewController = UIViewController()
             }
             rootViewController?.view.map { rootView in
-              CocoaView(rootView).fill(with: self.view, margin: 0)
+              CocoaView(rootView).fill(with: self.content, margin: 0)
             }
           #endif
         }
@@ -135,7 +135,7 @@
       // MARK: - Properties
 
       private let name: UserFacing<StrictString, L>
-      private let view: CocoaView
+      private let content: CocoaView
       internal let onClose: () -> Void
       public var fieldEditor = _getFieldEditor()
 

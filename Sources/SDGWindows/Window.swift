@@ -29,7 +29,7 @@
   import SDGViews
 
   /// A window.
-  public final class Window<Content, L>: WindowProtocol where L: Localization {
+  public final class Window<Content, L>: WindowProtocol where Content: LegacyView, L: Localization {
 
     // MARK: - Generators
 
@@ -100,11 +100,10 @@
     private let content: Content
     private let onClose: () -> Void
 
-    // MARK: - Display
+    // MARK: - WindowProtocol
 
-    /// Displays the window.
-    public func display() {
-      cocoa().display()
+    public func cocoa() -> CocoaWindow {
+      return CocoaWindow(CocoaImplementation(name: name, content: content, onClose: onClose))
     }
   }
 #endif
