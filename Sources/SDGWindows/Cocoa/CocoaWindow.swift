@@ -50,6 +50,25 @@
     /// The native window.
     public let native: NativeType
 
+    // MARK: - Arrangement
+
+    /// Moves the window smoothly to a random location on the screen.
+    public func randomizeLocation() {
+      #warning("Not implemented yet.")
+      /* var windowFrame = frame
+      let screenFrame = nearestScreenFrame
+
+      var rangeX = screenFrame.size.width − windowFrame.size.width
+      rangeX.increase(to: 0)
+      var rangeY = screenFrame.size.height − windowFrame.size.height
+      rangeY.increase(to: 0)
+
+      windowFrame.origin.x = CGFloat.random(in: 0...rangeX)
+      windowFrame.origin.y = CGFloat.random(in: 0...rangeY)
+
+      frame = windowFrame*/
+    }
+
     // MARK: - WindowProtocol
 
     public func cocoa() -> CocoaWindow {

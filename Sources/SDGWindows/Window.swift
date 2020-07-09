@@ -27,17 +27,6 @@
   import SDGInterfaceBasics
   import SDGViews
 
-  #if canImport(AppKit)
-    private let setUpFieldEditorReset: Void = {
-      _resetFieldEditors = {
-        for (_, window) in allWindows {  // @exempt(from: tests)
-          // Only reachable with a bungled set‐up.
-          window._fieldEditor = _getFieldEditor()
-        }
-      }
-    }()
-  #endif
-
   /// A window.
   public final class Window<L>: AnyWindow where L: Localization {
 
@@ -161,36 +150,10 @@
     /// The name of the window.
     ///
     /// The name is used in places like the title bar and dock.
-    public var name: Binding<StrictString, L> {
-      willSet {
-        name.shared?.cancel(observer: bindingObserver)
-      }
-      didSet {
-        nameDidSet()
-      }
-    }
-    private func nameDidSet() {
-      name.shared?.register(observer: bindingObserver)
-    }
+    public var name: Binding<StrictString, L>
 
     /// The root view.
-    public var view: CocoaView {
-      didSet {
-        viewDidSet()
-      }
-    }
-    private func viewDidSet() {
-      #if canImport(AppKit)
-        cocoa.contentView = view.native
-      #elseif canImport(UIKit)
-        if cocoa.rootViewController == nil {
-          cocoa.rootViewController = UIViewController()
-        }
-        cocoa.rootViewController?.view.map { rootView in
-          CocoaView(rootView).fill(with: view, margin: 0)
-        }
-      #endif
-    }
+    public var view: CocoaView
 
     #if canImport(AppKit)
       /// The Cocoa window.
