@@ -25,12 +25,15 @@
       // MARK: - Initialization
 
       internal init(window: CocoaWindow) {
-        self.window = window
+        self.nativeWindow = window.native
       }
 
       // MARK: - Properties
 
-      private weak var window: CocoaWindow?
+      private weak var nativeWindow: CocoaWindow.NativeType?
+      private var window: CocoaWindow? {
+        return nativeWindow.map({ CocoaWindow($0) })
+      }
 
       // MARK: - Fullscreen
 
