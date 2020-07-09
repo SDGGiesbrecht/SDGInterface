@@ -38,7 +38,7 @@ final class APITests: ApplicationTestCase {
         name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
         content: EmptyView().cocoa()
       ).cocoa()
-      window.content.displayPopOver(EmptyView())
+      window.content?.displayPopOver(EmptyView())
       #if canImport(UIKit)
         CocoaView().displayPopOver(EmptyView())
       #endif

@@ -66,9 +66,10 @@ final class APITests: ApplicationTestCase {
       neverOnscreen.centreInScreen()
 
       #if canImport(UIKit)
-        _ = Window<InterfaceLocalization>(
-          name: .binding(Shared("Title")),
-          view: EmptyView().cocoa()
+        _ = Window(
+          type: .primary(nil),
+          name: UserFacing<StrictString, AnyLocalization>({ _ in "Title" }),
+          content: EmptyView().cocoa()
         )
       #endif
 
