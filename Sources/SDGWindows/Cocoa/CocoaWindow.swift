@@ -152,7 +152,7 @@
 
     /// Displays the window.
     public func display() {
-      allWindows[ObjectIdentifier(self)] = self
+      allWindows[ObjectIdentifier(native)] = native
       #if canImport(AppKit)
         native.makeKeyAndOrderFront(nil)
       #elseif canImport(UIKit)

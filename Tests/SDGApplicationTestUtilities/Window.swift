@@ -17,7 +17,7 @@
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
   public func forEachWindow(_ closure: (CocoaWindow) -> Void) {
     for window in Array(allWindows.values) {
-      closure(window)
+      closure(CocoaWindow(window))
     }
   }
 #endif

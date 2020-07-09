@@ -17,7 +17,7 @@
     import AppKit
   #endif
 
-  internal var allWindows = [ObjectIdentifier: CocoaWindow]()
+  internal var allWindows = [ObjectIdentifier: CocoaWindow.NativeType]()
 
   internal protocol ManagedWindow: AnyObject {
 
