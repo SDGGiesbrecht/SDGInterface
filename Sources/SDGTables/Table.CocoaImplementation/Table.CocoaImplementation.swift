@@ -22,6 +22,7 @@
 
   import SDGControlFlow
   import SDGLogic
+  import SDGMathematics
 
   import SDGViews
 
@@ -30,10 +31,16 @@
 
     #if canImport(AppKit)
       internal typealias Superclass = NSScrollView
+      internal typealias TableViewDataSource = NSTableViewDataSource
+      internal typealias TableViewDelegate = NSTableViewDelegate
     #else
       internal typealias Superclass = UITableView
+      internal protocol TableViewDataSource {}
+      internal protocol TableViewDelegate {}
     #endif
-    internal final class CocoaImplementation: Superclass, SharedValueObserver {
+    internal final class CocoaImplementation: Superclass, SharedValueObserver, TableViewDataSource,
+      TableViewDelegate
+    {
 
       // MARK: - Initialization
 
@@ -75,9 +82,8 @@
           super.init(frame: .zero)
           documentView = CocoaImplementation.TableView()
           defer {
-            delegate.table = self
-            cocoaTable.delegate = delegate
-            cocoaTable.dataSource = delegate
+            cocoaTable.delegate = self
+            cocoaTable.dataSource = self
           }
         #elseif canImport(UIKit)
           super.init(frame: .zero, style: .plain)
@@ -119,18 +125,71 @@
       private let sort: ((_ preceding: RowData, _ following: RowData) -> Bool)?
 
       #if canImport(AppKit)
-        private var delegate = NSTableViewDelegate<RowData>()
-      #else
-        private var dataSourceStorage = UITableViewDataSource<RowData>()
-      #endif
-
-      #if canImport(AppKit)
         internal var cocoaTable: NSTableView {
           return documentView as! NSTableView
         }
       #elseif canImport(UIKit)
         internal var cocoaTable: UITableView {
           return self
+        }
+      #endif
+
+      #if canImport(AppKit)
+        // MARK: - NSTableViewDataSource
+
+        internal func numberOfRows(in tableView: NSTableView) -> Int {
+          return data.value.count
+        }
+
+        // MARK: - NSTableViewDelegate
+
+        internal func tableView(
+          _ tableView: NSTableView,
+          viewFor tableColumn: NSTableColumn?,
+          row: Int
+        ) -> NSView? {
+          if let identifier = tableColumn?.identifier {
+            if let view = cocoaTable.makeView(withIdentifier: identifier, owner: self) {
+              return view  // @exempt(from: tests)
+            } else if let index = cocoaTable.tableColumns.indices.first(
+              where: { cocoaTable.tableColumns[$0].identifier == identifier })
+            {
+              let data = self.data.value[row]
+              let generator = self.columns[index]
+
+              let view = generator(data)
+
+              /// Prevent constraints from conflicting with NSTableView’s self‐imposed constraints.
+              for constraint in view.cocoa().native.constraints {
+                var priority = constraint.priority.rawValue
+                priority −= 1
+                constraint.priority = NSLayoutConstraint.Priority(rawValue: priority)
+              }
+
+              let cell = CellView(view: view)
+              return cell
+            }
+          }
+          return nil  // @exempt(from: tests) Shouldn’t happen.
+        }
+
+        internal func tableView(
+          _ tableView: NSTableView,
+          sizeToFitWidthOfColumn column: Int
+        ) -> CGFloat {
+          var width = cocoaTable.tableColumns[column].headerCell.cellSize.width
+          let numberOfRows = cocoaTable.numberOfRows
+
+          for row in 0..<numberOfRows {
+            if let view = cocoaTable.view(
+              atColumn: column,
+              row: row,
+              makeIfNecessary: true
+            ) {
+              width.increase(to: view.fittingSize.width)
+            }
+          }
+          return width
         }
       #endif
 
