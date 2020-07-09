@@ -49,6 +49,14 @@
         columns: [(_ row: RowData) -> AnyView],
         sort: ((_ preceding: RowData, _ following: RowData) -> Bool)?
       ) {
+        #if DEBUG
+          for entry in data.value {
+            for column in columns {
+              _ = column(entry)  // Eager execution to simplify testing.
+            }
+          }
+        #endif
+
         self.data = data
         defer {
           data.register(observer: self)
