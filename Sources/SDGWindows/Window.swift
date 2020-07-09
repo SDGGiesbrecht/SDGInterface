@@ -86,6 +86,7 @@
     ///     - content: The content view.
     ///     - onClose: A closure to execute when the window closes.
     public init(
+      type: WindowType,
       name: UserFacing<StrictString, L>,
       content: Content,
       onClose: () -> Void = {}

@@ -704,6 +704,7 @@ add_library("SDGWindows"
   "../../../Sources/SDGWindows/Size.swift"
   "../../../Sources/SDGWindows/Window.CocoaImplementation.swift"
   "../../../Sources/SDGWindows/Window.swift"
+  "../../../Sources/SDGWindows/WindowType.swift"
   "../../../Sources/SDGWindows/Windows.swift"
 )
 set_target_properties("SDGWindows" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
