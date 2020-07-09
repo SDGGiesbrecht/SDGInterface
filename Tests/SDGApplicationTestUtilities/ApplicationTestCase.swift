@@ -52,6 +52,9 @@
             forEachWindow { window in
               window.close()
             }
+            forEachWindow { window in
+              XCTAssert(false, "Failed to tear down window: \(window.native.title)")
+            }
           #endif
         }
       }
