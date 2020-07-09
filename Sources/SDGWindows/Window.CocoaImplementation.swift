@@ -127,11 +127,16 @@
 
       private let name: UserFacing<StrictString, L>
       private let view: CocoaView
+      public var _fieldEditor = _getFieldEditor()
 
       // MARK: - SharedValueObserver
 
       internal func valueChanged(for identifier: String) {
-        #warning("Not implemented yet.")
+        #if canImport(AppKit)
+          title = String(name.resolved())
+        #elseif DEBUG  // For test coverage.
+          _ = name.resolved()
+        #endif
       }
     }
   }

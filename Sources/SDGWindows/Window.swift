@@ -28,7 +28,7 @@
   import SDGViews
 
   /// A window.
-  public final class Window<L>: AnyWindow where L: Localization {
+  public final class Window<Content, L>: AnyWindow where L: Localization {
 
     // MARK: - Generators
 
@@ -82,101 +82,20 @@
     ///
     /// - Parameters:
     ///     - name: The name of the window. (Used in places like the title bar or dock.)
-    ///     - view: The view.
-    public init(name: Binding<StrictString, L>, view: CocoaView) {
-      #if canImport(AppKit)
-        setUpFieldEditorReset
-      #endif
-
-      defer {
-        randomizeLocation()
-      }
-
+    ///     - content: The content view.
+    public init(name: UserFacing<StrictString, L>, content: Content) {
       self.name = name
-      defer {
-        nameDidSet()
-        LocalizationSetting.current.register(observer: bindingObserver)
-      }
-
-      self.view = view
-      defer {
-        viewDidSet()
-      }
-
-      #if canImport(AppKit)
-        cocoa = NSWindow(
-          contentRect: NSRect.zero,
-          styleMask: [
-            .titled,
-            .closable,
-            .miniaturizable,
-            .resizable,
-            .texturedBackground,
-            .unifiedTitleAndToolbar,
-          ],
-          backing: .buffered,
-          defer: true
-        )
-      #elseif canImport(UIKit)
-        cocoa = UIWindow(frame: CGRect.zero)
-      #endif
-
-      defer {
-        bindingObserver.window = self
-      }
-
-      #if canImport(AppKit)
-        defer {
-          cocoa.delegate = delegate
-          delegate.window = self
-        }
-      #endif
-
-      #if canImport(AppKit)
-        cocoa.isReleasedWhenClosed = false
-      #endif
-
-      #if canImport(AppKit)
-        cocoa.titleVisibility = .hidden
-        cocoa.setAutorecalculatesContentBorderThickness(false, for: NSRectEdge.minY)
-        cocoa.setContentBorderThickness(0, for: NSRectEdge.minY)
-      #endif
+      self.content = content
     }
 
     // MARK: - Properties
 
-    private let bindingObserver = BindingObserver()
-
-    /// The name of the window.
-    ///
-    /// The name is used in places like the title bar and dock.
-    public var name: Binding<StrictString, L>
-
-    /// The root view.
-    public var view: CocoaView
-
-    #if canImport(AppKit)
-      /// The Cocoa window.
-      public let cocoa: NSWindow
-      private let delegate = NSWindowDelegate()
-      public var _fieldEditor = _getFieldEditor()
-    #elseif canImport(UIKit)
-      /// The Cocoa window.
-      public let cocoa: UIWindow
-    #endif
-
-    // MARK: - Refreshing
-
-    public func _refreshBindings() {
-      #if canImport(AppKit)
-        cocoa.title = String(name.resolved())
-      #elseif DEBUG  // For test coverage.
-        _ = name.resolved()
-      #endif
-    }
+    private let name: UserFacing<StrictString, L>
+    private let content: Content
 
     // MARK: - AnyWindow
 
+    #warning("What’s this?")
     public var closeAction: () -> Void = {}
   }
 #endif
