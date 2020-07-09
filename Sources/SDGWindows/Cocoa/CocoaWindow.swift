@@ -22,6 +22,8 @@
 
   import SDGInterfaceBasics
 
+  import SDGMathematics
+
   /// A Cocoa window.
   public struct CocoaWindow: CocoaWindowImplementation {
 
@@ -53,6 +55,7 @@
     public let native: NativeType
 
     // MARK: - Size & Location
+    #warning("Rethink?")
 
     /// The size of the window.
     ///
@@ -61,7 +64,7 @@
       get {
         return Size(frame.size)
       }
-      set {
+      nonmutating set {
         frame.size = CGSize(newValue)
       }
     }
@@ -73,24 +76,24 @@
       get {
         return Point(frame.origin)
       }
-      set {
+      nonmutating set {
         frame.origin = CGPoint(newValue)
       }
     }
 
     private var frame: CGRect {
       get {
-        return cocoa.frame
+        return native.frame
       }
-      set {
+      nonmutating set {
         #if canImport(AppKit)
-          if cocoa.isVisible {
-            cocoa.setFrame(newValue, display: true, animate: true)
+          if isVisible {
+            native.setFrame(newValue, display: true, animate: true)
           } else {
-            cocoa.setFrame(newValue, display: true, animate: false)
+            native.setFrame(newValue, display: true, animate: false)
           }
         #elseif canImport(UIKit)
-          cocoa.frame = newValue
+          native.frame = newValue
         #endif
       }
     }
@@ -98,7 +101,7 @@
     private var nearestScreenFrame: CGRect {
       #if canImport(AppKit)
         let screen: NSScreen
-        if let theScreen = cocoa.screen {  // @exempt(from: tests) Not on screen during tests.
+        if let theScreen = native.screen {  // @exempt(from: tests) Not on screen during tests.
           screen = theScreen
         } else if let theScreen = NSScreen.main {
           screen = theScreen
@@ -107,7 +110,7 @@
         }
         return screen.frame
       #elseif canImport(UIKit)
-        return cocoa.screen.bounds
+        return native.screen.bounds
       #endif
     }
 
@@ -124,23 +127,6 @@
 
     /// Moves the window smoothly to a random location on the screen.
     public func randomizeLocation() {
-      var windowFrame = frame
-      let screenFrame = nearestScreenFrame
-
-      var rangeX = screenFrame.size.width − windowFrame.size.width
-      rangeX.increase(to: 0)
-      var rangeY = screenFrame.size.height − windowFrame.size.height
-      rangeY.increase(to: 0)
-
-      windowFrame.origin.x = CGFloat.random(in: 0...rangeX)
-      windowFrame.origin.y = CGFloat.random(in: 0...rangeY)
-
-      frame = windowFrame
-    }
-
-    /// Moves the window smoothly to a random location on the screen.
-    public func randomizeLocation() {
-      #warning("Rethink?")
       var windowFrame = frame
       let screenFrame = nearestScreenFrame
 
