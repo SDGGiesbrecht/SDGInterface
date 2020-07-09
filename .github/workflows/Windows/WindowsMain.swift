@@ -22,11 +22,11 @@ import XCTest
 @testable import SDGMenuBarTests
 @testable import SDGMenusTests
 @testable import SDGPopOversTests
-@testable import SDGTablesTests
 @testable import SDGTextDisplayTests
 @testable import SDGButtonsTests
 @testable import SDGImageDisplayTests
 @testable import SDGProgressIndicatorsTests
+@testable import SDGTablesTests
 @testable import SDGViewsTests
 @testable import SDGWindowsTests
 
@@ -113,14 +113,6 @@ extension SDGPopOversTests.APITests {
   ]
 }
 
-extension SDGTablesTests.APITests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
-      ("testTable", testTable)
-    ])
-  ]
-}
-
 extension SDGTextDisplayTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
@@ -182,6 +174,14 @@ extension SDGProgressIndicatorsTests.APITests {
   ]
 }
 
+extension SDGTablesTests.APITests {
+  static let windowsTests: [XCTestCaseEntry] = [
+    testCase([
+      ("testTable", testTable)
+    ])
+  ]
+}
+
 extension SDGViewsTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
@@ -224,13 +224,13 @@ tests += SDGKeyboardTests.APITests.windowsTests
 tests += SDGMenuBarTests.APITests.windowsTests
 tests += SDGMenusTests.APITests.windowsTests
 tests += SDGPopOversTests.APITests.windowsTests
-tests += SDGTablesTests.APITests.windowsTests
 tests += SDGTextDisplayTests.APITests.windowsTests
 tests += SDGButtonsTests.APITests.windowsTests
 tests += SDGButtonsTests.InternalTests.windowsTests
 tests += SDGImageDisplayTests.APITests.windowsTests
 tests += SDGImageDisplayTests.InternalTests.windowsTests
 tests += SDGProgressIndicatorsTests.APITests.windowsTests
+tests += SDGTablesTests.APITests.windowsTests
 tests += SDGViewsTests.APITests.windowsTests
 tests += SDGViewsTests.InternalTests.windowsTests
 tests += SDGWindowsTests.APITests.windowsTests
