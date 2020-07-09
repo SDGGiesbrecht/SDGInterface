@@ -24,10 +24,6 @@
 
   import SDGViews
 
-  #if canImport(AppKit)
-    private var columnIdentifiers = sequence(first: 0, next: { $0 &+ 1 })
-  #endif
-
   /// A table.
   @available(iOS 9, *)  // @exempt(from: unicode)
   public struct Table<RowData>: CocoaViewImplementation, View {

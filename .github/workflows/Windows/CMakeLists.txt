@@ -986,24 +986,6 @@ target_link_libraries("SDGPopOversTests" PRIVATE
   "SDGXCTestUtilities"
 )
 
-add_library("SDGTablesTests"
-  "../../../Tests/SDGTablesTests/APITests.swift"
-)
-set_target_properties("SDGTablesTests" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
-target_compile_options("SDGTablesTests" PRIVATE -enable-testing)
-target_link_libraries("SDGTablesTests" PRIVATE
-  "SDGViews"
-  "SDGTextDisplay"
-  "SDGTables"
-  "SDGWindows"
-  "SDGApplication"
-  "SDGInterfaceSample"
-  "SDGApplicationTestUtilities"
-  "SDGControlFlow"
-  "SDGLocalization"
-  "SDGXCTestUtilities"
-)
-
 add_library("SDGTextDisplayTests"
   "../../../Tests/SDGTextDisplayTests/APITests.swift"
   "../../../Tests/SDGTextDisplayTests/NSAttributedString.swift"
@@ -1100,6 +1082,26 @@ target_link_libraries("SDGProgressIndicatorsTests" PRIVATE
   "SDGXCTestUtilities"
 )
 
+add_library("SDGTablesTests"
+  "../../../Tests/SDGTablesTests/APITests.swift"
+  "../../../Tests/SDGTablesTests/PreviewTests.swift"
+)
+set_target_properties("SDGTablesTests" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
+target_compile_options("SDGTablesTests" PRIVATE -enable-testing)
+target_link_libraries("SDGTablesTests" PRIVATE
+  "SDGViews"
+  "SDGTextDisplay"
+  "SDGTables"
+  "SDGWindows"
+  "SDGApplication"
+  "SDGInterfaceSample"
+  "SDGViewsTestUtilities"
+  "SDGApplicationTestUtilities"
+  "SDGControlFlow"
+  "SDGLocalization"
+  "SDGXCTestUtilities"
+)
+
 add_library("SDGViewsTests"
   "../../../Tests/SDGViewsTests/APITests.swift"
   "../../../Tests/SDGViewsTests/CocoaExample.swift"
@@ -1151,11 +1153,11 @@ target_link_libraries(WindowsMain PRIVATE
   "SDGMenuBarTests"
   "SDGMenusTests"
   "SDGPopOversTests"
-  "SDGTablesTests"
   "SDGTextDisplayTests"
   "SDGButtonsTests"
   "SDGImageDisplayTests"
   "SDGProgressIndicatorsTests"
+  "SDGTablesTests"
   "SDGViewsTests"
   "SDGWindowsTests"
 )
