@@ -34,8 +34,9 @@ final class APITests: ApplicationTestCase {
   func testTable() {
     #if canImport(AppKit) || canImport(UIKit)
       if #available(iOS 9, *) {  // @exempt(from: unicode)
+        let data = Shared([0])
         let table = Table<Int>(
-          data: Shared([0]),
+          data: data,
           columns: [
             { integer in
               let view = CocoaView()
@@ -45,17 +46,14 @@ final class APITests: ApplicationTestCase {
               )
               return AnyView(view)
             }
-          ]
+          ],
+          sort: { $0 < $1 }
         )
-        table.sort = { $0 < $1 }
-        XCTAssertNotNil(table.sort)
-        table.data = Shared([2, 1])
-        let columns = table.columns
-        table.columns = []
-        table.columns = columns
+        let cocoa = table.cocoa()
+        data.value = [2, 1]
         let window = Window<InterfaceLocalization>.primaryWindow(
           name: .binding(Shared("")),
-          view: table.cocoa()
+          view: cocoa
         )
         window.display()
         #if canImport(UIKit)
