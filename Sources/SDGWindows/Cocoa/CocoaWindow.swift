@@ -194,13 +194,13 @@
       /// Primary windows can be the main window of fullscreen mode.
       public var isPrimary: Bool {
         get {
-          return cocoa.collectionBehavior.contains(.fullScreenPrimary)
+          return native.collectionBehavior.contains(.fullScreenPrimary)
         }
         set {
           if newValue {
-            cocoa.collectionBehavior.insert(.fullScreenPrimary)
+            native.collectionBehavior.insert(.fullScreenPrimary)
           } else {
-            cocoa.collectionBehavior.remove(.fullScreenPrimary)
+            native.collectionBehavior.remove(.fullScreenPrimary)
           }
         }
       }
@@ -210,13 +210,13 @@
       /// Auxiliary windows can appear on top of another fullscreen window.
       public var isAuxiliary: Bool {
         get {
-          return cocoa.collectionBehavior.contains(.fullScreenAuxiliary)
+          return native.collectionBehavior.contains(.fullScreenAuxiliary)
         }
         set {
           if newValue {
-            cocoa.collectionBehavior.insert(.fullScreenAuxiliary)
+            native.collectionBehavior.insert(.fullScreenAuxiliary)
           } else {
-            cocoa.collectionBehavior.remove(.fullScreenAuxiliary)
+            native.collectionBehavior.remove(.fullScreenAuxiliary)
           }
         }
       }
