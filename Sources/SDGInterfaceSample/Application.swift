@@ -110,9 +110,10 @@ extension Application {
 
     #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
       let editor = TextEditor()
-      let window = Window.primaryWindow(
-        name: .static(ApplicationNameForm.localizedIsolatedForm),
-        view: editor.cocoa()
+      let window = Window(
+        type: .primary(nil),
+        name: ApplicationNameForm.localizedIsolatedForm,
+        content: editor.cocoa()
       )
       if ProcessInfo.processInfo
         .environment["XCTestConfigurationFilePath"] == nil
@@ -133,7 +134,7 @@ extension Application {
         let window = Window(type: .auxiliary(nil), name: windowTitle, content: view.padding())
         demonstrate(window)
       #else
-        let window = Window(name: .static(windowTitle), view: view.padding().cocoa())
+        let window = Window(type: .primary(nil), name: windowTitle, content: view.padding().cocoa())
         demonstrate(window)
       #endif
     }

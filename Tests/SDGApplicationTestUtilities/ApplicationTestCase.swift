@@ -53,7 +53,11 @@
               window.close()
             }
             forEachWindow { window in
-              XCTAssert(false, "Failed to tear down window: \(window.native.title)")
+              #if canImport(AppKit)
+                XCTAssert(false, "Failed to tear down window: \(window.native.title)")
+              #else
+                XCTAssert(false, "Failed to tear down window: \(window.native)")
+              #endif
             }
           #endif
         }
