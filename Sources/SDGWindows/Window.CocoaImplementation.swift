@@ -42,7 +42,7 @@
 
     #if canImport(AppKit)
       internal typealias Superclass = NSWindow
-      internal typealias WindowDelegate = AppKit.NSWindowDelegate
+      internal typealias WindowDelegate = NSWindowDelegate
     #else
       internal typealias Superclass = UIWindow
       internal typealias WindowDelegate = UIWindowDelegate
@@ -128,6 +128,17 @@
       private let name: UserFacing<StrictString, L>
       private let view: CocoaView
       public var _fieldEditor = _getFieldEditor()
+
+      // MARK: - NSWindowDelegate
+
+      internal func windowWillReturnFieldEditor(_ sender: NSWindow, to client: Any?) -> Any? {
+        return _fieldEditor
+      }
+
+      internal func windowWillClose(_ notification: Notification) {
+        #warning("What’s this?")
+        finishClosing()
+      }
 
       // MARK: - SharedValueObserver
 
