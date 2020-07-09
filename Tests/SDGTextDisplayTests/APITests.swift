@@ -548,6 +548,9 @@ final class APITests: ApplicationTestCase {
 
   func testTextField() {
     #if canImport(AppKit) || canImport(UIKit)
+      forEachWindow { window in
+        XCTAssert(false, "Leftover window: \(window.native.title)")
+      }
       Application.shared.demonstrateTextField()
       forEachWindow { window in
         #if canImport(AppKit)
