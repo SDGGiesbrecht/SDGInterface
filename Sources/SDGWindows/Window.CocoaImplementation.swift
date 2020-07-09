@@ -31,8 +31,10 @@
     private let setUpFieldEditorReset: Void = {
       _resetFieldEditors = {
         for (_, window) in allWindows {  // @exempt(from: tests)
-          // Only reachable with a bungled set‐up.
-          window._fieldEditor = _getFieldEditor()
+          if let managed = window as? ManagedWindow {
+            // Only reachable with a bungled set‐up.
+            managed.fieldEditor = _getFieldEditor()
+          }
         }
       }
     }()
@@ -57,7 +59,7 @@
       internal init(
         name: UserFacing<StrictString, L>,
         view: Content,
-        onClose: () -> Void
+        onClose: @escaping () -> Void
       ) {
         #if canImport(AppKit)
           setUpFieldEditorReset
@@ -86,6 +88,8 @@
             }
           #endif
         }
+
+        self.onClose = onClose
 
         #if canImport(AppKit)
           super.init(
@@ -132,7 +136,7 @@
 
       private let name: UserFacing<StrictString, L>
       private let view: CocoaView
-      private let onClose: () -> Void
+      internal let onClose: () -> Void
       public var fieldEditor = _getFieldEditor()
 
       // MARK: - NSWindowDelegate
@@ -142,7 +146,6 @@
       }
 
       internal func windowWillClose(_ notification: Notification) {
-        #warning("What’s this?")
         finishClosing()
       }
 
