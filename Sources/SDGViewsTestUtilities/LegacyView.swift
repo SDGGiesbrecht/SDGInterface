@@ -51,7 +51,7 @@ import SDGTesting
         type: .primary(nil),
         name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
         content: view
-      )
+      ).cocoa()
     #endif
   }
 #endif
