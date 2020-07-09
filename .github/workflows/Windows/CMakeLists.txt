@@ -696,9 +696,9 @@ target_link_libraries("SDGTables" PRIVATE
 )
 
 add_library("SDGWindows"
+  "../../../Sources/SDGWindows/Cocoa/CocoaWindow.FullscreenObserver.swift"
   "../../../Sources/SDGWindows/Cocoa/CocoaWindow.swift"
-  "../../../Sources/SDGWindows/FullscreenObserver.swift"
-  "../../../Sources/SDGWindows/ManagedWindow.swift"
+  "../../../Sources/SDGWindows/Cocoa/ManagedWindow.swift"
   "../../../Sources/SDGWindows/Protocol/CocoaWindowImplementation.swift"
   "../../../Sources/SDGWindows/Protocol/WindowProtocol.swift"
   "../../../Sources/SDGWindows/Size.swift"

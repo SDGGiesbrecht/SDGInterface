@@ -25,7 +25,7 @@
   import SDGMathematics
 
   /// A Cocoa window.
-  public struct CocoaWindow: CocoaWindowImplementation {
+  public class CocoaWindow: CocoaWindowImplementation {
 
     // MARK: - Types
 
@@ -64,7 +64,7 @@
       get {
         return Size(frame.size)
       }
-      nonmutating set {
+      set {
         frame.size = CGSize(newValue)
       }
     }
@@ -76,7 +76,7 @@
       get {
         return Point(frame.origin)
       }
-      nonmutating set {
+      set {
         frame.origin = CGPoint(newValue)
       }
     }
@@ -85,7 +85,7 @@
       get {
         return native.frame
       }
-      nonmutating set {
+      set {
         #if canImport(AppKit)
           if isVisible {
             native.setFrame(newValue, display: true, animate: true)
@@ -147,9 +147,9 @@
     public func display() {
       allWindows[ObjectIdentifier(self)] = self
       #if canImport(AppKit)
-        cocoa.makeKeyAndOrderFront(nil)
+        native.makeKeyAndOrderFront(nil)
       #elseif canImport(UIKit)
-        cocoa.makeKeyAndVisible()
+        native.makeKeyAndVisible()
       #endif
     }
 
@@ -158,16 +158,16 @@
     /// The window may still be obscured by other elements on the screen.
     public var isVisible: Bool {
       #if canImport(AppKit)
-        return cocoa.isVisible
+        return native.isVisible
       #elseif canImport(UIKit)
-        return cocoa.isHidden
+        return native.isHidden
       #endif
     }
 
     /// Closes the window.
     public func close() {
       #if canImport(AppKit)
-        cocoa.close()
+        native.close()
       #else
         finishClosing()
       #endif
@@ -181,7 +181,7 @@
       /// For a smoother transition, the effect of setting this property may be delayed until the window is ready to switch.
       public var isFullscreen: Bool {
         get {
-          return cocoa.styleMask.contains(.fullScreen)
+          return native.styleMask.contains(.fullScreen)
         }
         set {
           let observer = FullscreenObserver(window: self)
