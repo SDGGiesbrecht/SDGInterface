@@ -31,52 +31,6 @@
   /// A window.
   public final class Window<Content, L>: WindowProtocol where Content: LegacyView, L: Localization {
 
-    // MARK: - Generators
-
-    /// Creates a primary window.
-    ///
-    /// - Parameters:
-    ///     - name: The name of the window. (Used in places like the title bar or dock.)
-    ///     - view: The view.
-    public static func primaryWindow(name: Binding<StrictString, L>, view: CocoaView) -> Window {
-      let window = Window(name: name, view: view)
-      window.size = availableSize
-      #if canImport(UIKit)
-        window.cocoa.frame.origin = CGPoint(x: 0, y: 0)
-      #endif
-      #if canImport(AppKit)
-        window.isPrimary = true
-      #endif
-      return window
-    }
-
-    #if canImport(AppKit)
-      /// Creates an auxiliary window.
-      ///
-      /// - Parameters:
-      ///     - name: The name of the window. (Used in places like the title bar or dock.)
-      ///     - view: The view.
-      public static func auxiliaryWindow(name: Binding<StrictString, L>, view: CocoaView) -> Window
-      {
-        let window = Window(name: name, view: view)
-        window.size = auxiliarySize
-        window.isAuxiliary = true
-        return window
-      }
-
-      /// Creates a fullscreen window.
-      ///
-      /// - Parameters:
-      ///     - name: The name of the window. (Used in places like the title bar or dock.)
-      ///     - view: The view.
-      public static func fullscreenWindow(name: Binding<StrictString, L>, view: CocoaView) -> Window
-      {
-        let window = primaryWindow(name: name, view: view)
-        window.isFullscreen = true
-        return window
-      }
-    #endif
-
     // MARK: - Initialization
 
     /// Creates a window.
@@ -89,14 +43,17 @@
       type: WindowType,
       name: UserFacing<StrictString, L>,
       content: Content,
-      onClose: () -> Void = {}
+      onClose: @escaping () -> Void = {}
     ) {
+      self.type = type
       self.name = name
       self.content = content
+      self.onClose = onClose
     }
 
     // MARK: - Properties
 
+    private let type: WindowType
     private let name: UserFacing<StrictString, L>
     private let content: Content
     private let onClose: () -> Void
@@ -104,7 +61,9 @@
     // MARK: - WindowProtocol
 
     public func cocoa() -> CocoaWindow {
-      return CocoaWindow(CocoaImplementation(name: name, content: content, onClose: onClose))
+      return CocoaWindow(
+        CocoaImplementation(type: type, name: name, content: content, onClose: onClose)
+      )
     }
   }
 #endif

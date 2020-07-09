@@ -57,6 +57,7 @@
       // MARK: - Initialization
 
       internal init(
+        type: WindowType,
         name: UserFacing<StrictString, L>,
         content: Content,
         onClose: @escaping () -> Void
@@ -66,7 +67,18 @@
         #endif
 
         defer {
-          #warning("Rethink.")
+          switch type {
+          case .primary:
+            CocoaWindow(self).isPrimary = true
+          case .auxiliary:
+            CocoaWindow(self).isAuxiliary = true
+          case .fullscreen:
+            CocoaWindow(self).isPrimary = true
+            CocoaWindow(self).isFullscreen = true
+          }
+        }
+
+        defer {
           CocoaWindow(self).randomizeLocation()
         }
 
@@ -91,9 +103,20 @@
 
         self.onClose = onClose
 
+        let resolvedSize: Size
+        switch type {
+        case .primary(let size):
+          resolvedSize = size ?? Size.fillingAvailable()
+        case .auxiliary(let size):
+          resolvedSize = size ?? Size.auxiliaryWindow
+        case .fullscreen:
+          resolvedSize = Size.fillingAvailable()
+        }
+        let frame = CGRect(origin: .zero, size: CGSize(resolvedSize))
+
         #if canImport(AppKit)
           super.init(
-            contentRect: NSRect.zero,
+            contentRect: frame,
             styleMask: [
               .titled,
               .closable,
@@ -106,7 +129,7 @@
             defer: true
           )
         #elseif canImport(UIKit)
-          super.init(frame: CGRect.zero)
+          super.init(frame: frame)
         #endif
 
         #if canImport(AppKit)
