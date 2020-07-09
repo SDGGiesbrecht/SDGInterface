@@ -25,15 +25,6 @@
   /// A Cocoa window.
   public struct CocoaWindow: CocoaWindowImplementation {
 
-    // MARK: - Static Properties
-
-    #if canImport(AppKit)
-      /// The default size of an auxiliary window.
-      public static var auxiliarySize: Size {
-        return Size(width: 480, height: 270)
-      }
-    #endif
-
     // MARK: - Types
 
     #if canImport(AppKit)
@@ -61,26 +52,11 @@
     /// The native window.
     public let native: NativeType
 
-    // MARK: - Layout
-
-    /// A size that fills the available space on the main screen, without obscuring menu bars, docks, etc.
-    public static var availableSize: Size {
-      #if canImport(AppKit)
-        return Size(
-          (NSScreen.main
-            ?? NSScreen()  // @exempt(from: tests) Screen should not be nil.
-            ).frame.size
-        )
-      #elseif canImport(UIKit)
-        return Size(UIScreen.main.bounds.size)
-      #endif
-    }
-
     // MARK: - Size & Location
 
     /// The size of the window.
     ///
-    /// Changing this value when the window is visible results in a smooth animation.
+    /// Changing this value while the window is visible results in a smooth animation.
     public var size: Size {
       get {
         return Size(frame.size)
