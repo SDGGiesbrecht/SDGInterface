@@ -698,6 +698,7 @@ target_link_libraries("SDGTables" PRIVATE
 add_library("SDGWindows"
   "../../../Sources/SDGWindows/AnyWindow.swift"
   "../../../Sources/SDGWindows/BindingObserver.swift"
+  "../../../Sources/SDGWindows/Cocoa/CocoaWindow.swift"
   "../../../Sources/SDGWindows/FullscreenObserver.swift"
   "../../../Sources/SDGWindows/NSWindowDelegate.swift"
   "../../../Sources/SDGWindows/Window.CocoaImplementation.swift"

@@ -35,7 +35,7 @@
       public typealias NativeType = NSView
     #elseif canImport(UIKit)
       // #documentation(CocoaView.NativeType)
-      /// The native type of the Cocoa view, which is `NSView` on macOS and `UIView` on tvOS and iOS.
+      /// The native type of the Cocoa window, which is `NSWindow` on macOS and `UIWindow` on tvOS and iOS.
       public typealias NativeType = UIView
     #endif
 
