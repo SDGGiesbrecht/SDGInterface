@@ -36,7 +36,7 @@ final class APITests: ApplicationTestCase {
         type: .primary(nil),
         name: UserFacing<StrictString, AnyLocalization>({ _ in "Title" }),
         content: EmptyView().cocoa()
-      )
+      ).cocoa()
       #if canImport(AppKit)  // UIKit raises an exception during tests.
         window.display()
         window.location = Point(100, 200)
@@ -47,25 +47,22 @@ final class APITests: ApplicationTestCase {
       #if canImport(AppKit)
         window.isFullscreen = true
         _ = window.isFullscreen
-        let fullscreenWindow = Window<InterfaceLocalization>(
-          name: .binding(Shared("Fullscreen")),
-          view: EmptyView().cocoa()
-        )
+        let fullscreenWindow = Window(
+          type: .fullscreen,
+          name: UserFacing<StrictString, AnyLocalization>({ _ in "Fullscreen" }),
+          content: EmptyView().cocoa()
+        ).cocoa()
         fullscreenWindow.isFullscreen = true
         fullscreenWindow.display()
         defer { fullscreenWindow.close() }
       #endif
       RunLoop.main.run(until: Date() + 3)
 
-      #if canImport(AppKit)
-        window.cocoa.title = "Replaced Title"
-        XCTAssert(window.cocoa.title == "Replaced Title")
-      #endif
-
-      let neverOnscreen = Window<InterfaceLocalization>(
-        name: .binding(Shared("Never Onscreen")),
-        view: EmptyView().cocoa()
-      )
+      let neverOnscreen = Window(
+        type: .primary(nil),
+        name: UserFacing<StrictString, AnyLocalization>({ _ in "Fullscreen" }),
+        content: EmptyView().cocoa()
+      ).cocoa()
       neverOnscreen.centreInScreen()
 
       #if canImport(UIKit)
@@ -75,15 +72,13 @@ final class APITests: ApplicationTestCase {
         )
       #endif
 
-      window.name = .static(UserFacing({ _ in "Modified Title" }))
-
-      let primary = Window<InterfaceLocalization>.primaryWindow(
-        name: .binding(Shared("...")),
-        view: EmptyView().cocoa()
-      )
+      let primary = Window(
+        type: .primary(nil),
+        name: UserFacing<StrictString, AnyLocalization>({ _ in "..." }),
+        content: EmptyView().cocoa()
+      ).cocoa()
       _ = primary.size
       _ = primary.location
-      primary.view = EmptyView().cocoa()
       #if canImport(AppKit)
         XCTAssert(primary.isPrimary)
         primary.isPrimary = false
@@ -92,10 +87,11 @@ final class APITests: ApplicationTestCase {
       #endif
 
       #if canImport(AppKit)
-        let auxiliary = Window<InterfaceLocalization>.auxiliaryWindow(
-          name: .binding(Shared("...")),
-          view: EmptyView().cocoa()
-        )
+        let auxiliary = Window(
+          type: .auxiliary(nil),
+          name: UserFacing<StrictString, AnyLocalization>({ _ in "..." }),
+          content: EmptyView().cocoa()
+        ).cocoa()
         XCTAssert(auxiliary.isAuxiliary)
         primary.isAuxiliary = false
       #endif
