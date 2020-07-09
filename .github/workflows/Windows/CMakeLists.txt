@@ -987,6 +987,8 @@ target_link_libraries("SDGPopOversTests" PRIVATE
   "SDGInterfaceSample"
   "SDGApplicationTestUtilities"
   "SDGControlFlow"
+  "SDGText"
+  "SDGLocalization"
   "SDGXCTestUtilities"
 )
 
@@ -1128,6 +1130,8 @@ target_link_libraries("SDGViewsTests" PRIVATE
   "SDGViewsTestUtilities"
   "SDGApplicationTestUtilities"
   "SDGControlFlow"
+  "SDGText"
+  "SDGLocalization"
   "SDGXCTestUtilities"
 )
 

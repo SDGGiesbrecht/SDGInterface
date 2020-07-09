@@ -17,6 +17,8 @@
 #endif
 
 import SDGControlFlow
+import SDGText
+import SDGLocalization
 
 import SDGInterfaceBasics
 import SDGViews
@@ -186,7 +188,7 @@ final class APITests: ApplicationTestCase {
             type: .primary(nil),
             name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
             content: SwiftUI.AnyView(swiftUI).cocoa()
-          )
+          ).cocoa()
           window.display()
           window.close()
         }

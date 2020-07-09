@@ -20,9 +20,10 @@
     import UIKit
   #endif
 
-  import SDGInterfaceBasics
-
   import SDGMathematics
+
+  import SDGInterfaceBasics
+  import SDGViews
 
   /// A Cocoa window.
   public class CocoaWindow: CocoaWindowImplementation {
@@ -53,6 +54,13 @@
 
     /// The native window.
     public let native: NativeType
+
+    // MARK: - Content
+
+    /// The content view.
+    public var content: CocoaView {
+      return CocoaView(native.contentView ?? NSView())
+    }
 
     // MARK: - Size & Location
 
