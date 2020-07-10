@@ -14,6 +14,7 @@
 
 import SDGInterfaceBasics
 
+/// A type of window.
 public enum WindowType {
 
   /// A primary window has its own screen when in full screen mode, but does not enter fullscreen mode by default.

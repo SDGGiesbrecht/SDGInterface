@@ -33,9 +33,10 @@
     /// Creates a window.
     ///
     /// - Parameters:
-    ///     - name: The name of the window. (Used in places like the title bar or dock.)
-    ///     - content: The content view.
-    ///     - onClose: A closure to execute when the window closes.
+    ///   - type: The type of window.
+    ///   - name: The name of the window. (Used in places like the title bar or dock.)
+    ///   - content: The content view.
+    ///   - onClose: A closure to execute when the window closes.
     public init(
       type: WindowType,
       name: UserFacing<StrictString, L>,
