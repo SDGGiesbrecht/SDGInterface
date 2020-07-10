@@ -67,7 +67,7 @@
       #endif
       return CocoaView(
         nativeView
-          ?? NativeType()  // @exempt(from: tests) Never nil.
+          ?? CocoaView.NativeType()  // @exempt(from: tests) Never nil.
       )
     }
 

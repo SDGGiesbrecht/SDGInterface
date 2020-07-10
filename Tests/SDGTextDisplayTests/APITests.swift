@@ -554,7 +554,7 @@ final class APITests: ApplicationTestCase {
           let fieldEditor =
             window.native.fieldEditor(
               true,
-              for: window.content.native.subviews[0]
+              for: window.content!.native.subviews[0]
             )
             as! NSTextView
           fieldEditor.insertText("...", replacementRange: NSRange(0..<0))
