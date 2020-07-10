@@ -119,7 +119,7 @@
         let screen: NSScreen
         if let theScreen = native.screen {  // @exempt(from: tests) Not on screen during tests.
           screen = theScreen
-        } else if let theScreen = NSScreen.main {
+        } else if let theScreen = NSScreen.main {  // @exempt(from: tests)
           screen = theScreen
         } else {  // @exempt(from: tests)
           screen = NSScreen()

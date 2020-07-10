@@ -30,6 +30,12 @@ import SDGApplicationTestUtilities
 
 final class APITests: ApplicationTestCase {
 
+  func testCocoaWindow() {
+    #if canImport(AppKit) || canImport(UIKit)
+    _ = CocoaWindow(CocoaWindow.NativeType()).cocoa()
+    #endif
+  }
+
   func testWindow() {
     #if canImport(AppKit) || canImport(UIKit)
       let window = Window(

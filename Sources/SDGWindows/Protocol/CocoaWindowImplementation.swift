@@ -24,17 +24,9 @@
   /// If a type provides an implementation of `cocoa()`, conformance to this protocol can be declared in order to use default implementations for all the other requirements of `SDGSwift.WindowProtocol`.
   public protocol CocoaWindowImplementation: WindowProtocol {}
 
-  #if canImport(AppKit)
-    extension CocoaWindowImplementation where Self: NSWindow {
-      public func cocoa() -> CocoaWindow {
-        return CocoaWindow(self)
-      }
+  extension CocoaWindowImplementation where Self: CocoaWindow.NativeType {
+    public func cocoa() -> CocoaWindow {
+      return CocoaWindow(self)
     }
-  #else
-    extension CocoaWindowImplementation where Self: UIWindow {
-      public func cocoa() -> CocoaWindow {
-        return CocoaWindow(self)
-      }
-    }
-  #endif
+  }
 #endif
