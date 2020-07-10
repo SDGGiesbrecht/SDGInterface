@@ -1138,6 +1138,7 @@ target_link_libraries("SDGViewsTests" PRIVATE
 
 add_library("SDGWindowsTests"
   "../../../Tests/SDGWindowsTests/APITests.swift"
+  "../../../Tests/SDGWindowsTests/CocoaExample.swift"
 )
 set_target_properties("SDGWindowsTests" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
 target_compile_options("SDGWindowsTests" PRIVATE -enable-testing)

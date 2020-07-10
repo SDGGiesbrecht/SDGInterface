@@ -32,7 +32,13 @@ final class APITests: ApplicationTestCase {
 
   func testCocoaWindow() {
     #if canImport(AppKit) || canImport(UIKit)
-    _ = CocoaWindow(CocoaWindow.NativeType()).cocoa()
+      _ = CocoaWindow(CocoaWindow.NativeType()).cocoa()
+    #endif
+  }
+
+  func testCocoaWindowImplementation() {
+    #if canImport(AppKit) || canImport(UIKit)
+      _ = CocoaExample().cocoa()
     #endif
   }
 
