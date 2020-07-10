@@ -158,7 +158,7 @@
       }
 
       #if canImport(UIKit)
-        required init?(coder: NSCoder) {  // @exempt(from: tests)
+        internal required init?(coder: NSCoder) {  // @exempt(from: tests)
           return nil
         }
       #endif

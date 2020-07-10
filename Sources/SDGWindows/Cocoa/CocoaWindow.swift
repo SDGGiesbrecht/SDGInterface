@@ -26,7 +26,7 @@
   import SDGViews
 
   /// A Cocoa window.
-  public class CocoaWindow: CocoaWindowImplementation {
+  public final class CocoaWindow: CocoaWindowImplementation {
 
     // MARK: - Types
 
