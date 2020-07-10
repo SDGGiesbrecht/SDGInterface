@@ -696,11 +696,16 @@ target_link_libraries("SDGTables" PRIVATE
 )
 
 add_library("SDGWindows"
-  "../../../Sources/SDGWindows/AnyWindow.swift"
-  "../../../Sources/SDGWindows/BindingObserver.swift"
-  "../../../Sources/SDGWindows/FullscreenObserver.swift"
-  "../../../Sources/SDGWindows/NSWindowDelegate.swift"
-  "../../../Sources/SDGWindows/Window.swift"
+  "../../../Sources/SDGWindows/Cocoa/CocoaWindow.FullscreenObserver.swift"
+  "../../../Sources/SDGWindows/Cocoa/CocoaWindow.swift"
+  "../../../Sources/SDGWindows/Cocoa/ManagedWindow.swift"
+  "../../../Sources/SDGWindows/Placeholder.swift"
+  "../../../Sources/SDGWindows/Protocol/CocoaWindowImplementation.swift"
+  "../../../Sources/SDGWindows/Protocol/WindowProtocol.swift"
+  "../../../Sources/SDGWindows/Size.swift"
+  "../../../Sources/SDGWindows/Window/Window.CocoaImplementation.swift"
+  "../../../Sources/SDGWindows/Window/Window.swift"
+  "../../../Sources/SDGWindows/Window/WindowType.swift"
   "../../../Sources/SDGWindows/Windows.swift"
 )
 set_target_properties("SDGWindows" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
@@ -983,6 +988,8 @@ target_link_libraries("SDGPopOversTests" PRIVATE
   "SDGInterfaceSample"
   "SDGApplicationTestUtilities"
   "SDGControlFlow"
+  "SDGText"
+  "SDGLocalization"
   "SDGXCTestUtilities"
 )
 
@@ -1023,6 +1030,8 @@ target_link_libraries("SDGViewsTestUtilities" PRIVATE
   "SDGInterfaceLocalizations"
   "SDGControlFlow"
   "SDGLogic"
+  "SDGText"
+  "SDGLocalization"
   "SDGTesting"
 )
 
@@ -1098,6 +1107,7 @@ target_link_libraries("SDGTablesTests" PRIVATE
   "SDGViewsTestUtilities"
   "SDGApplicationTestUtilities"
   "SDGControlFlow"
+  "SDGText"
   "SDGLocalization"
   "SDGXCTestUtilities"
 )
@@ -1121,11 +1131,14 @@ target_link_libraries("SDGViewsTests" PRIVATE
   "SDGViewsTestUtilities"
   "SDGApplicationTestUtilities"
   "SDGControlFlow"
+  "SDGText"
+  "SDGLocalization"
   "SDGXCTestUtilities"
 )
 
 add_library("SDGWindowsTests"
   "../../../Tests/SDGWindowsTests/APITests.swift"
+  "../../../Tests/SDGWindowsTests/CocoaExample.swift"
 )
 set_target_properties("SDGWindowsTests" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
 target_compile_options("SDGWindowsTests" PRIVATE -enable-testing)

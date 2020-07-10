@@ -27,6 +27,7 @@
   import SDGControlFlow
   import SDGLogic
   import SDGText
+  import SDGLocalization
 
   import SDGInterfaceBasics
   import SDGViews
@@ -103,7 +104,7 @@
       if let origin = origin {
         var preferredSize: Size?
         #if canImport(AppKit)
-          preferredSize = Window<InterfaceLocalization>.auxiliarySize
+          preferredSize = Size.auxiliaryWindow
         #endif
         origin.view.displayPopOver(
           table,
@@ -112,9 +113,10 @@
         )
       } else {
         #if canImport(AppKit)
-          let window = Window<InterfaceLocalization>.auxiliaryWindow(
-            name: .binding(Shared(StrictString(characters))),
-            view: table.padding().cocoa()
+          let window = Window(
+            type: .auxiliary(nil),
+            name: UserFacing<StrictString, AnyLocalization>({ _ in StrictString(characters) }),
+            content: table.padding()
           )
           window.display()
         #endif

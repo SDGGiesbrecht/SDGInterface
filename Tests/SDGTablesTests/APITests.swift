@@ -13,6 +13,7 @@
  */
 
 import SDGControlFlow
+import SDGText
 import SDGLocalization
 
 import SDGViews
@@ -51,9 +52,10 @@ final class APITests: ApplicationTestCase {
         )
         let cocoa = table.cocoa()
         data.value = [2, 1]
-        let window = Window<InterfaceLocalization>.primaryWindow(
-          name: .binding(Shared("")),
-          view: cocoa
+        let window = Window(
+          type: .primary(nil),
+          name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+          content: cocoa
         )
         window.display()
         #if canImport(UIKit)

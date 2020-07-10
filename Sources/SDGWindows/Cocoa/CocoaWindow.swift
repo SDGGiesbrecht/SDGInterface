@@ -1,10 +1,10 @@
 /*
- AnyWindow.swift
+ CocoaWindow.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
 
- Copyright ©2019–2020 Jeremy David Giesbrecht and the SDGInterface project contributors.
+ Copyright ©2020 Jeremy David Giesbrecht and the SDGInterface project contributors.
 
  Soli Deo gloria.
 
@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
+#if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
   #if canImport(AppKit)
     import AppKit
   #endif
@@ -21,110 +21,61 @@
   #endif
 
   import SDGMathematics
-  import SDGGeometry
-
-  import SDGViews
 
   import SDGInterfaceBasics
+  import SDGViews
 
-  internal var allWindows = [ObjectIdentifier: AnyWindow]()
+  /// A Cocoa window.
+  public final class CocoaWindow: CocoaWindowImplementation {
 
-  /// A menu entry with no particular localization.
-  public protocol AnyWindow: AnyObject {
-
-    /// The root view.
-    var view: CocoaView { get set }
+    // MARK: - Types
 
     #if canImport(AppKit)
-      /// The Cocoa window.
-      var cocoa: NSWindow { get }
+      // @documentation(CocoaView.NativeType)
+      /// The native type of the Cocoa window, which is `NSWindow` on macOS and `UIWindow` on tvOS and iOS.
+      public typealias NativeType = NSWindow
     #elseif canImport(UIKit)
-      /// The Cocoa window.
-      var cocoa: UIWindow { get }
+      // #documentation(CocoaView.NativeType)
+      /// The native type of the Cocoa window, which is `NSWindow` on macOS and `UIWindow` on tvOS and iOS.
+      public typealias NativeType = UIWindow
     #endif
 
-    /// An action performed when the window closes.
-    var closeAction: () -> Void { get set }
+    // MARK: - Initialization
 
-    #if canImport(AppKit)
-      var _fieldEditor: NSTextView { get set }
-    #endif
-
-    func _refreshBindings()
-  }
-
-  extension AnyWindow {
-
-    internal func refreshBindings() {
-      _refreshBindings()
-    }
-
-    // MARK: - Static Properties
-
-    /// A size that fills the available space on the main screen, without obscuring menu bars, docks, etc.
-    public static var availableSize: Size {
-      #if canImport(AppKit)
-        return Size(
-          (NSScreen.main
-            ?? NSScreen()  // @exempt(from: tests) Screen should not be nil.
-            ).frame.size
-        )
-      #elseif canImport(UIKit)
-        return Size(UIScreen.main.bounds.size)
-      #endif
-    }
-
-    #if canImport(AppKit)
-      /// The default size of an auxiliary window.
-      public static var auxiliarySize: Size {
-        return Size(width: 480, height: 270)
-      }
-    #endif
-
-    // MARK: - Display
-
-    /// Displays the window.
-    public func display() {
-      allWindows[ObjectIdentifier(self)] = self
-      #if canImport(AppKit)
-        cocoa.makeKeyAndOrderFront(nil)
-      #elseif canImport(UIKit)
-        cocoa.makeKeyAndVisible()
-      #endif
-    }
-
-    /// Whether or not the window is visible.
+    /// Creates an instance with a native Cocoa window.
     ///
-    /// The window may still be obscured by other elements on the screen.
-    public var isVisible: Bool {
-      #if canImport(AppKit)
-        return cocoa.isVisible
-      #elseif canImport(UIKit)
-        return cocoa.isHidden
-      #endif
+    /// - Parameters:
+    ///   - native: The native window.
+    public init(_ native: NativeType) {
+      self.native = native
     }
 
-    internal func finishClosing() {
-      // Release
-      allWindows[ObjectIdentifier(self)] = nil
+    // MARK: - Properties
 
-      closeAction()
-    }
+    /// The native window.
+    public let native: NativeType
 
-    /// Closes the window.
-    public func close() {
+    // MARK: - Content
+
+    /// The content view.
+    public var content: CocoaView? {
+      let nativeView: CocoaView.NativeType?
       #if canImport(AppKit)
-        cocoa.close()
+        nativeView = native.contentView
       #else
-        finishClosing()
+        nativeView = native.rootViewController?.view
       #endif
+      return CocoaView(
+        nativeView
+          ?? CocoaView.NativeType()  // @exempt(from: tests) Never nil.
+      )
     }
 
     // MARK: - Size & Location
 
     /// The size of the window.
     ///
-    /// Changing this value when the window is visible results in a smooth animation.
+    /// Changing this value while the window is visible results in a smooth animation.
     public var size: Size {
       get {
         return Size(frame.size)
@@ -148,17 +99,17 @@
 
     private var frame: CGRect {
       get {
-        return cocoa.frame
+        return native.frame
       }
       set {
         #if canImport(AppKit)
-          if cocoa.isVisible {
-            cocoa.setFrame(newValue, display: true, animate: true)
+          if isVisible {
+            native.setFrame(newValue, display: true, animate: true)
           } else {
-            cocoa.setFrame(newValue, display: true, animate: false)
+            native.setFrame(newValue, display: true, animate: false)
           }
         #elseif canImport(UIKit)
-          cocoa.frame = newValue
+          native.frame = newValue
         #endif
       }
     }
@@ -166,16 +117,16 @@
     private var nearestScreenFrame: CGRect {
       #if canImport(AppKit)
         let screen: NSScreen
-        if let theScreen = cocoa.screen {  // @exempt(from: tests) Not on screen during tests.
+        if let theScreen = native.screen {  // @exempt(from: tests) Not on screen during tests.
           screen = theScreen
-        } else if let theScreen = NSScreen.main {
+        } else if let theScreen = NSScreen.main {  // @exempt(from: tests)
           screen = theScreen
         } else {  // @exempt(from: tests)
           screen = NSScreen()
         }
         return screen.frame
       #elseif canImport(UIKit)
-        return cocoa.screen.bounds
+        return native.screen.bounds
       #endif
     }
 
@@ -206,6 +157,38 @@
       frame = windowFrame
     }
 
+    // MARK: - Display
+
+    /// Displays the window.
+    public func display() {
+      allWindows[ObjectIdentifier(native)] = native
+      #if canImport(AppKit)
+        native.makeKeyAndOrderFront(nil)
+      #elseif canImport(UIKit)
+        native.makeKeyAndVisible()
+      #endif
+    }
+
+    /// Whether or not the window is visible.
+    ///
+    /// The window may still be obscured by other elements on the screen.
+    public var isVisible: Bool {
+      #if canImport(AppKit)
+        return native.isVisible
+      #elseif canImport(UIKit)
+        return native.isHidden
+      #endif
+    }
+
+    /// Closes the window.
+    public func close() {
+      #if canImport(AppKit)
+        native.close()
+      #else
+        (native as? ManagedWindow)?.finishClosing()
+      #endif
+    }
+
     // MARK: - Fullscreen
 
     #if canImport(AppKit)
@@ -214,7 +197,7 @@
       /// For a smoother transition, the effect of setting this property may be delayed until the window is ready to switch.
       public var isFullscreen: Bool {
         get {
-          return cocoa.styleMask.contains(.fullScreen)
+          return native.styleMask.contains(.fullScreen)
         }
         set {
           let observer = FullscreenObserver(window: self)
@@ -227,13 +210,13 @@
       /// Primary windows can be the main window of fullscreen mode.
       public var isPrimary: Bool {
         get {
-          return cocoa.collectionBehavior.contains(.fullScreenPrimary)
+          return native.collectionBehavior.contains(.fullScreenPrimary)
         }
         set {
           if newValue {
-            cocoa.collectionBehavior.insert(.fullScreenPrimary)
+            native.collectionBehavior.insert(.fullScreenPrimary)
           } else {
-            cocoa.collectionBehavior.remove(.fullScreenPrimary)
+            native.collectionBehavior.remove(.fullScreenPrimary)
           }
         }
       }
@@ -243,16 +226,22 @@
       /// Auxiliary windows can appear on top of another fullscreen window.
       public var isAuxiliary: Bool {
         get {
-          return cocoa.collectionBehavior.contains(.fullScreenAuxiliary)
+          return native.collectionBehavior.contains(.fullScreenAuxiliary)
         }
         set {
           if newValue {
-            cocoa.collectionBehavior.insert(.fullScreenAuxiliary)
+            native.collectionBehavior.insert(.fullScreenAuxiliary)
           } else {
-            cocoa.collectionBehavior.remove(.fullScreenAuxiliary)
+            native.collectionBehavior.remove(.fullScreenAuxiliary)
           }
         }
       }
     #endif
+
+    // MARK: - WindowProtocol
+
+    public func cocoa() -> CocoaWindow {
+      return self
+    }
   }
 #endif

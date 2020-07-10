@@ -13,6 +13,8 @@
  */
 
 import SDGControlFlow
+import SDGText
+import SDGLocalization
 
 import SDGViews
 import SDGWindows
@@ -31,11 +33,12 @@ final class APITests: ApplicationTestCase {
 
   func testPopOver() {
     #if canImport(AppKit) || canImport(UIKit)
-      let window = Window<InterfaceLocalization>(
-        name: .binding(Shared("")),
-        view: EmptyView().cocoa()
-      )
-      window.view.displayPopOver(EmptyView())
+      let window = Window(
+        type: .primary(nil),
+        name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+        content: EmptyView().cocoa()
+      ).cocoa()
+      window.content?.displayPopOver(EmptyView())
       #if canImport(UIKit)
         CocoaView().displayPopOver(EmptyView())
       #endif

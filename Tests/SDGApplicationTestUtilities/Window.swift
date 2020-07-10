@@ -15,9 +15,9 @@
 @testable import SDGWindows
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-  public func forEachWindow(_ closure: (AnyWindow) -> Void) {
-    for (_, window) in allWindows {
-      closure(window)
+  public func forEachWindow(_ closure: (CocoaWindow) -> Void) {
+    for window in Array(allWindows.values) {
+      closure(CocoaWindow(window))
     }
   }
 #endif

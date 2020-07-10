@@ -210,7 +210,9 @@ extension SDGViewsTests.InternalTests {
 extension SDGWindowsTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
-      ("testWindow", testWindow)
+      ("testCocoaWindow", testCocoaWindow),
+      ("testCocoaWindowImplementation", testCocoaWindowImplementation),
+      ("testWindow", testWindow),
     ])
   ]
 }

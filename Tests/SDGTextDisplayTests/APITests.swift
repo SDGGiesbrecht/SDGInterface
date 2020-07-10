@@ -98,9 +98,10 @@ final class APITests: ApplicationTestCase {
       if #available(iOS 9, *) {  // @exempt(from: unicode)
         CharacterInformation.display(for: "abc", origin: nil)
         let view = CocoaView()
-        let window = Window<SDGInterfaceLocalizations.InterfaceLocalization>.primaryWindow(
-          name: .binding(Shared("...")),
-          view: view.cocoa()
+        let window = Window(
+          type: .primary(nil),
+          name: UserFacing<StrictString, AnyLocalization>({ _ in "..." }),
+          content: view.cocoa()
         )
         window.display()
         CharacterInformation.display(for: "abc", origin: (AnyView(view), nil))
@@ -357,10 +358,11 @@ final class APITests: ApplicationTestCase {
       let characters = "\u{20}\u{21}\u{22}\u{AA}\u{C0}"
       textEditor.append(RichText(rawText: StrictString(characters)))
       textView.selectAll(nil)
-      let window = Window<SDGInterfaceLocalizations.InterfaceLocalization>(
-        name: .binding(Shared("...")),
-        view: textEditor.cocoa()
-      )
+      _ = Window(
+        type: .primary(nil),
+        name: UserFacing<StrictString, AnyLocalization>({ _ in "..." }),
+        content: textEditor.cocoa()
+      ).cocoa()
       if #available(iOS 9, *) {  // @exempt(from: unicode)
         textView.showCharacterInformation(nil)
       }
@@ -373,7 +375,11 @@ final class APITests: ApplicationTestCase {
         compatibilityTextView.text.append(characters)
       #endif
       compatibilityTextView.selectAll(nil)
-      window.view = CocoaView(compatibilityTextView)
+      _ = Window(
+        type: .primary(nil),
+        name: UserFacing<StrictString, AnyLocalization>({ _ in "..." }),
+        content: CocoaView(compatibilityTextView)
+      ).cocoa()
       if #available(iOS 9, *) {  // @exempt(from: unicode)
         compatibilityTextView.showCharacterInformation(nil)
       }
@@ -546,9 +552,9 @@ final class APITests: ApplicationTestCase {
       forEachWindow { window in
         #if canImport(AppKit)
           let fieldEditor =
-            window.cocoa.fieldEditor(
+            window.native.fieldEditor(
               true,
-              for: window.view.cocoa().native.subviews[0]
+              for: window.content!.native.subviews[0]
             )
             as! NSTextView
           fieldEditor.insertText("...", replacementRange: NSRange(0..<0))

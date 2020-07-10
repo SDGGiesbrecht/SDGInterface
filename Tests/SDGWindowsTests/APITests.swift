@@ -30,12 +30,26 @@ import SDGApplicationTestUtilities
 
 final class APITests: ApplicationTestCase {
 
+  func testCocoaWindow() {
+    #if canImport(AppKit) || canImport(UIKit)
+      let window = CocoaWindow(CocoaWindow.NativeType()).cocoa()
+      window.size = Size(width: 100, height: 100)
+    #endif
+  }
+
+  func testCocoaWindowImplementation() {
+    #if canImport(AppKit) || canImport(UIKit)
+      _ = CocoaExample().cocoa()
+    #endif
+  }
+
   func testWindow() {
     #if canImport(AppKit) || canImport(UIKit)
-      let window = Window<InterfaceLocalization>(
-        name: .binding(Shared("Title")),
-        view: EmptyView().cocoa()
-      )
+      let window = Window(
+        type: .primary(nil),
+        name: UserFacing<StrictString, AnyLocalization>({ _ in "Title" }),
+        content: EmptyView().cocoa()
+      ).cocoa()
       #if canImport(AppKit)  // UIKit raises an exception during tests.
         window.display()
         window.location = Point(100, 200)
@@ -46,43 +60,39 @@ final class APITests: ApplicationTestCase {
       #if canImport(AppKit)
         window.isFullscreen = true
         _ = window.isFullscreen
-        let fullscreenWindow = Window<InterfaceLocalization>(
-          name: .binding(Shared("Fullscreen")),
-          view: EmptyView().cocoa()
-        )
+        let fullscreenWindow = Window(
+          type: .fullscreen,
+          name: UserFacing<StrictString, AnyLocalization>({ _ in "Fullscreen" }),
+          content: EmptyView().cocoa()
+        ).cocoa()
         fullscreenWindow.isFullscreen = true
         fullscreenWindow.display()
         defer { fullscreenWindow.close() }
       #endif
       RunLoop.main.run(until: Date() + 3)
 
-      #if canImport(AppKit)
-        window.cocoa.title = "Replaced Title"
-        XCTAssert(window.cocoa.title == "Replaced Title")
-      #endif
-
-      let neverOnscreen = Window<InterfaceLocalization>(
-        name: .binding(Shared("Never Onscreen")),
-        view: EmptyView().cocoa()
-      )
+      let neverOnscreen = Window(
+        type: .primary(nil),
+        name: UserFacing<StrictString, AnyLocalization>({ _ in "Fullscreen" }),
+        content: EmptyView().cocoa()
+      ).cocoa()
       neverOnscreen.centreInScreen()
 
       #if canImport(UIKit)
-        _ = Window<InterfaceLocalization>(
-          name: .binding(Shared("Title")),
-          view: EmptyView().cocoa()
+        _ = Window(
+          type: .primary(nil),
+          name: UserFacing<StrictString, AnyLocalization>({ _ in "Title" }),
+          content: EmptyView().cocoa()
         )
       #endif
 
-      window.name = .static(UserFacing({ _ in "Modified Title" }))
-
-      let primary = Window<InterfaceLocalization>.primaryWindow(
-        name: .binding(Shared("...")),
-        view: EmptyView().cocoa()
-      )
+      let primary = Window(
+        type: .primary(nil),
+        name: UserFacing<StrictString, AnyLocalization>({ _ in "..." }),
+        content: EmptyView().cocoa()
+      ).cocoa()
       _ = primary.size
       _ = primary.location
-      primary.view = EmptyView().cocoa()
       #if canImport(AppKit)
         XCTAssert(primary.isPrimary)
         primary.isPrimary = false
@@ -91,10 +101,11 @@ final class APITests: ApplicationTestCase {
       #endif
 
       #if canImport(AppKit)
-        let auxiliary = Window<InterfaceLocalization>.auxiliaryWindow(
-          name: .binding(Shared("...")),
-          view: EmptyView().cocoa()
-        )
+        let auxiliary = Window(
+          type: .auxiliary(nil),
+          name: UserFacing<StrictString, AnyLocalization>({ _ in "..." }),
+          content: EmptyView().cocoa()
+        ).cocoa()
         XCTAssert(auxiliary.isAuxiliary)
         primary.isAuxiliary = false
       #endif
