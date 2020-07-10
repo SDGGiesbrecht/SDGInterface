@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-import SDGWindows
+#if canImport(AppKit) || canImport(UIKit)
+  import SDGWindows
 
-class CocoaExample: CocoaWindow.NativeType, CocoaWindowImplementation {}
+  class CocoaExample: CocoaWindow.NativeType, CocoaWindowImplementation {}
+#endif
