@@ -663,6 +663,7 @@ target_link_libraries("SDGImageDisplay" PRIVATE
 )
 
 add_library("SDGPopOvers"
+  "../../../Sources/SDGPopOvers/AttachmentAnchor.swift"
   "../../../Sources/SDGPopOvers/CocoaPopOverView.swift"
   "../../../Sources/SDGPopOvers/LegacyView.swift"
   "../../../Sources/SDGPopOvers/PopOverDelegate.swift"
