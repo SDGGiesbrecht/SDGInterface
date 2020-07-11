@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#warning("Audit.")
+
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
   #if canImport(AppKit)
     import AppKit

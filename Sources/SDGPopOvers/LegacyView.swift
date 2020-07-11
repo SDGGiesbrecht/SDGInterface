@@ -41,9 +41,10 @@
       isPresented: Shared<Bool>,
       attachmentAnchor: AttachmentAnchor,
       arrowEdge: SDGInterfaceBasics.Edge = .top,
-      content: Content
+      content: @escaping () -> Content
     ) -> PopOver<Self, Content> {
       return PopOver(
+        anchor: self,
         isPresented: isPresented,
         attachmentAnchor: attachmentAnchor,
         arrowEdge: arrowEdge,
