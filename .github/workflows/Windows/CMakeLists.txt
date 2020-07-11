@@ -664,6 +664,7 @@ target_link_libraries("SDGImageDisplay" PRIVATE
 )
 
 add_library("SDGPopOvers"
+  "../../../Sources/SDGPopOvers/Anchor/Anchor.Source.swift"
   "../../../Sources/SDGPopOvers/Anchor/AttachmentAnchor.swift"
   "../../../Sources/SDGPopOvers/Anchor/PopoverAttachmentAnchor.swift"
   "../../../Sources/SDGPopOvers/Anchor/RectangularAttachmentAchor.swift"

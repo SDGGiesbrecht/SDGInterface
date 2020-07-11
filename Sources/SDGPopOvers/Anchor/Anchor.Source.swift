@@ -1,5 +1,5 @@
 /*
- PopoverAttachmentAnchor.swift
+ Anchor.Source.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -16,18 +16,18 @@
   import SwiftUI
 
   @available(macOS 10.15, *)
-  extension PopoverAttachmentAnchor {
+  extension Anchor.Source where Value == CGRect {
 
-    /// Unwraps an instance of a shimmed `SDGPopOvers.AttachementAnchor`.
+    /// Unwraps an instance of a shimmed `SDGPopOvers.RectangularAttachmentAnchor`.
     ///
     /// - Parameters:
     ///   - shimmed: The shimmed instance.
-    public init(_ shimmed: AttachmentAnchor) {
+    public init(_ shimmed: RectangularAttachmentAnchor) {
       switch shimmed {
-      case .point(let point):
-        self = .point(UnitPoint(point))
+      case .bounds:
+        self = .bounds
       case .rectangle(let rectangle):
-        self = .rect(Anchor<CGRect>.Source(rectangle))
+        self = .rect(CGRect(rectangle))
       }
     }
   }
