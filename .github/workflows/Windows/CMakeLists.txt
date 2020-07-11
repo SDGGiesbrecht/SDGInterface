@@ -664,6 +664,7 @@ target_link_libraries("SDGImageDisplay" PRIVATE
 
 add_library("SDGPopOvers"
   "../../../Sources/SDGPopOvers/CocoaPopOverView.swift"
+  "../../../Sources/SDGPopOvers/LegacyView.swift"
   "../../../Sources/SDGPopOvers/PopOverDelegate.swift"
   "../../../Sources/SDGPopOvers/UIView.swift"
   "../../../Sources/SDGPopOvers/View.swift"
@@ -674,6 +675,7 @@ target_compile_options("SDGPopOvers" PRIVATE -enable-testing)
 target_link_libraries("SDGPopOvers" PRIVATE
   "SDGInterfaceBasics"
   "SDGViews"
+  "SDGControlFlow"
   "SDGLogic"
 )
 

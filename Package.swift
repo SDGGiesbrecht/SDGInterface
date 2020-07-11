@@ -194,6 +194,7 @@ let package = Package(
       dependencies: [
         "SDGInterfaceBasics",
         "SDGViews",
+        .product(name: "SDGControlFlow", package: "SDGCornerstone"),
         .product(name: "SDGLogic", package: "SDGCornerstone"),
       ]
     ),
