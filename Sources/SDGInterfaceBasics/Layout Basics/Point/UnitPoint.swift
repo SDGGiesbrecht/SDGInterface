@@ -12,10 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(SwiftUI)
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   import SwiftUI
 
-  @available(macOS 10.15, *)
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension UnitPoint {
 
     // MARK: - Initialization

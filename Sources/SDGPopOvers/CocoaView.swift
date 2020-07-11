@@ -53,7 +53,6 @@
       }
 
       #if canImport(UIKit)
-        #warning("Audit.")
         let controller = UIViewController()
         #if os(tvOS)
           controller.modalPresentationStyle = .overCurrentContext
@@ -66,13 +65,11 @@
         #if !os(tvOS)
           popOver?.delegate = UIPopoverPresentationControllerDelegate.delegate
         #endif
-        popOver?.sourceView = cocoa().native
-        popOver?.sourceRect =
-          sourceRectangle.map({ CGRect($0) })  // @exempt(from: tests) tvOS quirk.
-          ?? cocoa().native.frame  // @exempt(from: tests)
-        popOver?.permittedArrowDirections = .any
+        popOver?.sourceView = self.native
+        popOver?.sourceRect = attachmentRectangle
+        popOver?.permittedArrowDirections = UIPopoverArrowDirection(arrowEdge)
 
-        cocoa().native.controller?.present(controller, animated: true, completion: nil)
+        self.native.controller?.present(controller, animated: true, completion: nil)
       #else
         let controller = NSViewController()
         controller.view = popOverView

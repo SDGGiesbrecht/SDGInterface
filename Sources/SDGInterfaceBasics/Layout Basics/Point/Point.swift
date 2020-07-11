@@ -38,12 +38,12 @@ extension Point {
     }
   #endif
 
-  #if canImport(SwiftUI)
+  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
     /// Creates a point from a SwiftUI point.
     ///
     /// - Parameters:
     ///     - point: The SwiftUI point.
-    @available(macOS 10.15, *)
+    @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
     public init(_ point: UnitPoint) {
       self.init(Double(point.x), Double(point.y))
     }
