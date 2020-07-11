@@ -25,14 +25,19 @@
 
   extension CocoaView {
 
-    // For SDGTextDisplay.
-    public func _showPopOver<Content>(
-      attachmentAnchor: AttachmentAnchor,
-      arrowEdge: SDGInterfaceBasics.Edge,
-      content: () -> Content
+    /// Displays a pop‐over related to this view.
+    ///
+    /// - Parameters:
+    ///   - attachementAnchor: The portion of the view the pop‐over is related to.
+    ///   - arrowEdge: The edge of the anchor that the pop‐over should appear from.
+    ///   - content: The content of the pop‐over.
+    public func displayPopOver<Content>(
+      attachmentAnchor: AttachmentAnchor = .rectangle(.bounds),
+      arrowEdge: SDGInterfaceBasics.Edge = .top,
+      content: Content
     ) where Content: LegacyView {
 
-      let popOverView = CocoaPopOverView(view: content())
+      let popOverView = CocoaPopOverView(view: content)
 
       let attachmentRectangle: CGRect
       switch attachmentAnchor {

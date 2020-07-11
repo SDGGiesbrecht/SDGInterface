@@ -64,10 +64,10 @@
       // MARK: - Pop Over
 
       private func showPopOver() {
-        anchor._showPopOver(
+        anchor.displayPopOver(
           attachmentAnchor: attachmentAnchor,
           arrowEdge: arrowEdge,
-          content: content
+          content: content()
         )
       }
 
