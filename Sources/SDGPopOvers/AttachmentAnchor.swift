@@ -12,12 +12,14 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import SDGInterfaceBasics
+
 /// A shimmed version of `SwiftUI.PopoverAttachmentAnchor` with no availability constraints.
 public enum AttachmentAnchor {
 
   /// A shimmed version of `SwiftUI.PopoverAttachmentAnchor.point` with no availability constraints.
-  case point(UnitPoint)
+  case point(Point)
 
   /// A shimmed version of `SwiftUI.PopoverAttachmentAnchor.rect` with no availability constraints.
-  case rectangle(Anchor<CGRect>.Source)
+  case rectangle(Rectangle)
 }
