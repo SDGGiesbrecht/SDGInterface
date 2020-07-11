@@ -32,9 +32,9 @@
     ///   - arrowEdge: The edge of the anchor that the pop‐over should appear from.
     ///   - content: The content of the pop‐over.
     public func displayPopOver<Content>(
+      _ content: Content,
       attachmentAnchor: AttachmentAnchor = .rectangle(.bounds),
-      arrowEdge: SDGInterfaceBasics.Edge = .top,
-      content: Content
+      arrowEdge: SDGInterfaceBasics.Edge = .top
     ) where Content: LegacyView {
 
       let popOverView = CocoaPopOverView(view: content)

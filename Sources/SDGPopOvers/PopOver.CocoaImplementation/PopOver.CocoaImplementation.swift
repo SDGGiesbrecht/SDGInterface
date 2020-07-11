@@ -63,18 +63,18 @@
 
       // MARK: - Pop Over
 
-      private func showPopOver() {
+      private func displayPopOver() {
         anchor.displayPopOver(
+          content(),
           attachmentAnchor: attachmentAnchor,
-          arrowEdge: arrowEdge,
-          content: content()
+          arrowEdge: arrowEdge
         )
       }
 
       // MARK: - SharedValueObserver
 
       internal func valueChanged(for identifier: String) {
-        showPopOver()
+        displayPopOver()
       }
     }
   }

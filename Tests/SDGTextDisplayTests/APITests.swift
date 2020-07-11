@@ -104,7 +104,7 @@ final class APITests: ApplicationTestCase {
           content: view.cocoa()
         )
         window.display()
-        CharacterInformation.display(for: "abc", origin: (AnyView(view), nil))
+        CharacterInformation.display(for: "abc", origin: (view, nil))
       }
     #endif
   }

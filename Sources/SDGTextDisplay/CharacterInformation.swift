@@ -113,9 +113,9 @@
           let resolvedContent = table.cocoa()
         #endif
         origin.view.displayPopOver(
+          resolvedContent,
           attachmentAnchor: origin.selection.map({ AttachmentAnchor.rectangle(.rectangle($0)) })
-            ?? .rectangle(.bounds),
-          content: resolvedContent
+            ?? .rectangle(.bounds)
         )
       } else {
         #if canImport(AppKit)
