@@ -21,5 +21,5 @@ public enum AttachmentAnchor {
   case point(Point)
 
   /// A shimmed version of `SwiftUI.PopoverAttachmentAnchor.rect` with no availability constraints.
-  case rectangle(Rectangle)
+  case rectangle(RectangularAttachmentAnchor)
 }

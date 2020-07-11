@@ -74,6 +74,7 @@
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       public func swiftUI() -> some SwiftUI.View {
+        let content = self.content
         return SwiftUIImplementation(
           anchor: anchor.swiftUI(),
           isPresented: isPresented,
