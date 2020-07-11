@@ -52,7 +52,7 @@
     @available(iOS 9, *)  // @exempt(from: unicode)
     public static func display(
       for characters: String,
-      origin: (view: AnyView, selection: Rectangle?)?
+      origin: (view: CocoaView, selection: Rectangle?)?
     ) {
       var details: [CharacterInformation] = []
       details.reserveCapacity(characters.scalars.count)
@@ -102,14 +102,20 @@
       )
 
       if let origin = origin {
-        var preferredSize: Size?
         #if canImport(AppKit)
-          preferredSize = Size.auxiliaryWindow
+          let preferredSize = Size.auxiliaryWindow
+          let resolvedContent = table.frame(
+            minWidth: preferredSize.width,
+            minHeight: preferredSize.height,
+            alignment: .topLeading
+          )
+        #else
+          let resolvedContent = table.cocoa()
         #endif
         origin.view.displayPopOver(
-          table,
-          sourceRectangle: origin.selection,
-          preferredSize: preferredSize
+          attachmentAnchor: origin.selection.map({ AttachmentAnchor.rectangle(.rectangle($0)) })
+            ?? .rectangle(.bounds),
+          content: resolvedContent
         )
       } else {
         #if canImport(AppKit)
