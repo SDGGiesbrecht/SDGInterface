@@ -37,7 +37,7 @@
       arrowEdge: SDGInterfaceBasics.Edge = .top
     ) where Content: LegacyView {
 
-      let popOverView = CocoaPopOverView(view: content)
+      let popOverView = CocoaView.PopOverView(content)
 
       let attachmentRectangle: CGRect
       switch attachmentAnchor {
@@ -63,7 +63,7 @@
 
         let popOver = controller.popoverPresentationController
         #if !os(tvOS)
-          popOver?.delegate = UIPopoverPresentationControllerDelegate.delegate
+          popOver?.delegate = CocoaView.PopOverDelegate.delegate
         #endif
         popOver?.sourceView = self.native
         popOver?.sourceRect = attachmentRectangle

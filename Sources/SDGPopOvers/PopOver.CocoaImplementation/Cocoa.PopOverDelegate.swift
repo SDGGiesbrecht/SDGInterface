@@ -1,5 +1,5 @@
 /*
- PopOverDelegate.swift
+ Cocoa.PopOverDelegate.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,21 +12,22 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#warning("Audit.")
-
 #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
   import UIKit
 
-  internal class UIPopoverPresentationControllerDelegate: NSObject, UIKit
-      .UIPopoverPresentationControllerDelegate
-  {
+  import SDGViews
 
-    internal static let delegate = UIPopoverPresentationControllerDelegate()
+  extension CocoaView {
 
-    internal func adaptivePresentationStyle(for controller: UIPresentationController)
-      -> UIModalPresentationStyle
-    {  // @exempt(from: tests)
-      return .none
+    internal class PopOverDelegate: NSObject, UIKit.UIPopoverPresentationControllerDelegate {
+
+      internal static let delegate = PopOverDelegate()
+
+      internal func adaptivePresentationStyle(
+        for controller: UIPresentationController
+      ) -> UIModalPresentationStyle {  // @exempt(from: tests)
+        return .none
+      }
     }
   }
 #endif

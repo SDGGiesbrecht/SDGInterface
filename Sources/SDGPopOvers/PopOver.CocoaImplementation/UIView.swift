@@ -12,8 +12,6 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#warning("Audit.")
-
 #if canImport(UIKit) && !os(watchOS)
   import UIKit
 
@@ -23,8 +21,8 @@
 
     internal var controller: UIViewController? {
       var responder: UIResponder? = self
-      while responder ≠ nil {
-        responder = responder!.next
+      while let next = responder.next {
+        responder = next
         if let cast = responder as? UIViewController {
           return cast
         }
