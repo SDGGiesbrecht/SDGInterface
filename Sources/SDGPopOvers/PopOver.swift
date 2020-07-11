@@ -60,8 +60,15 @@
     #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       public func cocoa() -> CocoaView {
         return useSwiftUIOrFallback(to: {
-          #warning("Not implemented yet.")
-          fatalError()
+          return CocoaView(
+            CocoaImplementation(
+              anchor: anchor,
+              isPresented: isPresented,
+              attachmentAnchor: attachmentAnchor,
+              arrowEdge: arrowEdge,
+              content: content
+            )
+          )
         })
       }
     #endif
