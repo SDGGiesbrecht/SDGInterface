@@ -30,9 +30,9 @@
 
       internal let anchor: Anchor.SwiftUIView
       @ObservedObject internal var isPresented: Shared<Bool>
-      private let attachmentAnchor: PopoverAttachmentAnchor
-      private let arrowEdge: SwiftUI.Edge
-      private let content: () -> Content.SwiftUIView
+      internal let attachmentAnchor: PopoverAttachmentAnchor
+      internal let arrowEdge: SwiftUI.Edge
+      internal let content: () -> Content.SwiftUIView
 
       // MARK: - View
 

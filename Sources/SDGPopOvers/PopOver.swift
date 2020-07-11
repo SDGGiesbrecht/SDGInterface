@@ -74,8 +74,13 @@
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       public func swiftUI() -> some SwiftUI.View {
-        #warning("Not implemented yet.")
-        return EmptyView()
+        return SwiftUIImplementation(
+          anchor: anchor.swiftUI(),
+          isPresented: isPresented,
+          attachmentAnchor: PopoverAttachmentAnchor(attachmentAnchor),
+          arrowEdge: SwiftUI.Edge(arrowEdge),
+          content: { content().swiftUI() }
+        )
       }
     #endif
   }

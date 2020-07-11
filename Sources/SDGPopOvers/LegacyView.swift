@@ -39,7 +39,7 @@
     ///   - content: The content of the pop‐over.
     public func popOver<Content>(
       isPresented: Shared<Bool>,
-      attachmentAnchor: AttachmentAnchor,
+      attachmentAnchor: AttachmentAnchor = .rectangle(.bounds),
       arrowEdge: SDGInterfaceBasics.Edge = .top,
       content: @escaping () -> Content
     ) -> PopOver<Self, Content> {
