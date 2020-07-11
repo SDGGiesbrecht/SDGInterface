@@ -12,8 +12,6 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#warning("Audit.")
-
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
   #if canImport(AppKit)
     import AppKit
@@ -23,28 +21,17 @@
 
   import SDGViews
 
-  #if canImport(AppKit)
-    internal typealias NSUIView = NSView
-  #elseif canImport(UIKit)
-    internal typealias NSUIView = UIView
-  #endif
-
-  internal class CocoaPopOverView: NSUIView {
+  internal class CocoaPopOverView: CocoaView.NativeType {
 
     // MARK: - Initialization
 
     internal init<Content>(view: Content) where Content: LegacyView {
-      self.view = view.cocoa()
       super.init(frame: .zero)
-      CocoaView(self).fill(with: self.view, margin: nil)
+      CocoaView(self).fill(with: view.cocoa(), margin: nil)
     }
 
     internal required init?(coder decoder: NSCoder) {  // @exempt(from: tests)
       return nil
     }
-
-    // MARK: - Properties
-
-    private let view: CocoaView
   }
 #endif
