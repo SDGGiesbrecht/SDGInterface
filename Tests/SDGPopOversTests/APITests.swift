@@ -12,10 +12,15 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(SwiftUI)
+  import SwiftUI
+#endif
+
 import SDGControlFlow
 import SDGText
 import SDGLocalization
 
+import SDGInterfaceBasics
 import SDGViews
 import SDGWindows
 import SDGPopOvers
@@ -27,9 +32,44 @@ import XCTest
 
 import SDGXCTestUtilities
 
+import SDGViewsTestUtilities
 import SDGApplicationTestUtilities
 
 final class APITests: ApplicationTestCase {
+
+  func testAnchorSource() {
+    #if canImport(SwiftUI)
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        var shimmed = RectangularAttachmentAnchor.rectangle(SDGInterfaceBasics.Rectangle())
+        _ = Anchor<CGRect>.Source(shimmed)
+        shimmed = .bounds
+        _ = Anchor<CGRect>.Source(shimmed)
+      }
+    #endif
+  }
+
+  func testCocoaView() {
+    let anchor = CocoaView()
+    let window = Window(
+      type: .primary(nil),
+      name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+      content: anchor
+    )
+    let cocoaWindow = window.cocoa()
+    defer { cocoaWindow.close() }
+    let popOver = CocoaView()
+    anchor.displayPopOver(popOver, attachmentAnchor: .point(Point(0, 0)))
+  }
+
+  func testLegacyView() {
+    let combined = SDGViews.EmptyView().popOver(
+      isPresented: Shared(false),
+      content: { SDGViews.EmptyView() }
+    )
+    if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+      testViewConformance(of: combined)
+    }
+  }
 
   func testPopOver() {
     #if canImport(AppKit) || canImport(UIKit)
@@ -42,6 +82,17 @@ final class APITests: ApplicationTestCase {
       #if canImport(UIKit)
         CocoaView().displayPopOver(EmptyView())
       #endif
+    #endif
+  }
+
+  func testPopOverAttachmentAnchor() {
+    #if canImport(SwiftUI)
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        var shimmed = AttachmentAnchor.point(Point(0, 0))
+        _ = PopoverAttachmentAnchor(shimmed)
+        shimmed = AttachmentAnchor.rectangle(.rectangle(SDGInterfaceBasics.Rectangle()))
+        _ = PopoverAttachmentAnchor(shimmed)
+      }
     #endif
   }
 }

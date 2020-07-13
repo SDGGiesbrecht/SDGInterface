@@ -520,11 +520,13 @@ let package = Package(
     .testTarget(
       name: "SDGPopOversTests",
       dependencies: [
+        "SDGInterfaceBasics",
         "SDGViews",
         "SDGWindows",
         "SDGPopOvers",
         "SDGApplication",
         "SDGInterfaceSample",
+        "SDGViewsTestUtilities",
         "SDGApplicationTestUtilities",
         .product(name: "SDGControlFlow", package: "SDGCornerstone"),
         .product(name: "SDGText", package: "SDGCornerstone"),

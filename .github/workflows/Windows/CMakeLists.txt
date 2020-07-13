@@ -987,24 +987,6 @@ target_link_libraries("SDGMenusTests" PRIVATE
   "SDGXCTestUtilities"
 )
 
-add_library("SDGPopOversTests"
-  "../../../Tests/SDGPopOversTests/APITests.swift"
-)
-set_target_properties("SDGPopOversTests" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
-target_compile_options("SDGPopOversTests" PRIVATE -enable-testing)
-target_link_libraries("SDGPopOversTests" PRIVATE
-  "SDGViews"
-  "SDGWindows"
-  "SDGPopOvers"
-  "SDGApplication"
-  "SDGInterfaceSample"
-  "SDGApplicationTestUtilities"
-  "SDGControlFlow"
-  "SDGText"
-  "SDGLocalization"
-  "SDGXCTestUtilities"
-)
-
 add_library("SDGTextDisplayTests"
   "../../../Tests/SDGTextDisplayTests/APITests.swift"
   "../../../Tests/SDGTextDisplayTests/NSAttributedString.swift"
@@ -1083,6 +1065,26 @@ target_link_libraries("SDGImageDisplayTests" PRIVATE
   "SDGInterfaceSample"
   "SDGViewsTestUtilities"
   "SDGApplicationTestUtilities"
+  "SDGXCTestUtilities"
+)
+
+add_library("SDGPopOversTests"
+  "../../../Tests/SDGPopOversTests/APITests.swift"
+)
+set_target_properties("SDGPopOversTests" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
+target_compile_options("SDGPopOversTests" PRIVATE -enable-testing)
+target_link_libraries("SDGPopOversTests" PRIVATE
+  "SDGInterfaceBasics"
+  "SDGViews"
+  "SDGWindows"
+  "SDGPopOvers"
+  "SDGApplication"
+  "SDGInterfaceSample"
+  "SDGViewsTestUtilities"
+  "SDGApplicationTestUtilities"
+  "SDGControlFlow"
+  "SDGText"
+  "SDGLocalization"
   "SDGXCTestUtilities"
 )
 
@@ -1177,10 +1179,10 @@ target_link_libraries(WindowsMain PRIVATE
   "SDGKeyboardTests"
   "SDGMenuBarTests"
   "SDGMenusTests"
-  "SDGPopOversTests"
   "SDGTextDisplayTests"
   "SDGButtonsTests"
   "SDGImageDisplayTests"
+  "SDGPopOversTests"
   "SDGProgressIndicatorsTests"
   "SDGTablesTests"
   "SDGViewsTests"
