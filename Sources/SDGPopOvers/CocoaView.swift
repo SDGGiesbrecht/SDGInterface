@@ -28,9 +28,9 @@
     /// Displays a pop‐over related to this view.
     ///
     /// - Parameters:
+    ///   - content: The content of the pop‐over. 
     ///   - attachementAnchor: The portion of the view the pop‐over is related to.
     ///   - arrowEdge: The edge of the anchor that the pop‐over should appear from.
-    ///   - content: The content of the pop‐over.
     public func displayPopOver<Content>(
       _ content: Content,
       attachmentAnchor: AttachmentAnchor = .rectangle(.bounds),
