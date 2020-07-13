@@ -22,6 +22,7 @@
   import SDGViews
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  @available(watchOS, unavailable)
   extension PopOver where Anchor: SDGViews.View, Content: SDGViews.View {
 
     internal struct SwiftUIImplementation: SwiftUI.View {

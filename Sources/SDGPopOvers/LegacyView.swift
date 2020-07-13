@@ -28,6 +28,7 @@
   import SDGInterfaceBasics
   import SDGViews
 
+  @available(watchOS 6, *)
   extension LegacyView {
 
     /// A shimmed version of `SwiftUI.View.popover(isPresented:attachmentAnchor:arrowEdge:content:)` with no availability constraints.
