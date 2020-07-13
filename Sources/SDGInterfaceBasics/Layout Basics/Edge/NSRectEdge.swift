@@ -28,7 +28,7 @@
       case .leading:
         self = .minX
       case .trailing:
-        self = .minY
+        self = .maxX
       case .bottom:
         self = .minY
       }
