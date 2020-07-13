@@ -171,6 +171,14 @@ extension SDGPopOversTests.APITests {
   ]
 }
 
+extension SDGPopOversTests.InternalTests {
+  static let windowsTests: [XCTestCaseEntry] = [
+    testCase([
+      ("testLegacyView", testLegacyView)
+    ])
+  ]
+}
+
 extension SDGProgressIndicatorsTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
@@ -237,6 +245,7 @@ tests += SDGButtonsTests.InternalTests.windowsTests
 tests += SDGImageDisplayTests.APITests.windowsTests
 tests += SDGImageDisplayTests.InternalTests.windowsTests
 tests += SDGPopOversTests.APITests.windowsTests
+tests += SDGPopOversTests.InternalTests.windowsTests
 tests += SDGProgressIndicatorsTests.APITests.windowsTests
 tests += SDGTablesTests.APITests.windowsTests
 tests += SDGViewsTests.APITests.windowsTests

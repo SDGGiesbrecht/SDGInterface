@@ -670,6 +670,7 @@ add_library("SDGPopOvers"
   "../../../Sources/SDGPopOvers/Anchor/PopoverAttachmentAnchor.swift"
   "../../../Sources/SDGPopOvers/Anchor/RectangularAttachmentAchor.swift"
   "../../../Sources/SDGPopOvers/CocoaView.swift"
+  "../../../Sources/SDGPopOvers/LegacyMode.swift"
   "../../../Sources/SDGPopOvers/LegacyView.swift"
   "../../../Sources/SDGPopOvers/PopOver.CocoaImplementation/Cocoa.PopOverDelegate.swift"
   "../../../Sources/SDGPopOvers/PopOver.CocoaImplementation/CocoaView.PopOverView.swift"
@@ -1070,6 +1071,8 @@ target_link_libraries("SDGImageDisplayTests" PRIVATE
 
 add_library("SDGPopOversTests"
   "../../../Tests/SDGPopOversTests/APITests.swift"
+  "../../../Tests/SDGPopOversTests/InternalTests.swift"
+  "../../../Tests/SDGPopOversTests/LegacyMode.swift"
 )
 set_target_properties("SDGPopOversTests" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
 target_compile_options("SDGPopOversTests" PRIVATE -enable-testing)

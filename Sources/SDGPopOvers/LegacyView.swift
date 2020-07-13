@@ -51,5 +51,18 @@
         content: content
       )
     }
+
+    #if !os(watchOS)
+      internal func useSwiftUIOrFallback(to fallback: () -> CocoaView) -> CocoaView {
+        return useSwiftUIOrFallback(to: fallback, useFallbackRegardless: legacyMode)
+      }
+    #endif
+
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      @available(macOS 10.15, tvOS 13, iOS 13, *)
+      internal func adjustForLegacyMode() -> SwiftUI.AnyView {
+        return resolved(usingCocoa: legacyMode)
+      }
+    #endif
   }
 #endif
