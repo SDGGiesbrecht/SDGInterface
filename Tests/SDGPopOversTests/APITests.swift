@@ -49,26 +49,30 @@ final class APITests: ApplicationTestCase {
   }
 
   func testCocoaView() {
-    let anchor = CocoaView()
-    let window = Window(
-      type: .primary(nil),
-      name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
-      content: anchor
-    )
-    let cocoaWindow = window.cocoa()
-    defer { cocoaWindow.close() }
-    let popOver = CocoaView()
-    anchor.displayPopOver(popOver, attachmentAnchor: .point(Point(0, 0)))
+    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+      let anchor = CocoaView()
+      let window = Window(
+        type: .primary(nil),
+        name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+        content: anchor
+      )
+      let cocoaWindow = window.cocoa()
+      defer { cocoaWindow.close() }
+      let popOver = CocoaView()
+      anchor.displayPopOver(popOver, attachmentAnchor: .point(Point(0, 0)))
+    #endif
   }
 
   func testLegacyView() {
-    let combined = SDGViews.EmptyView().popOver(
-      isPresented: Shared(false),
-      content: { SDGViews.EmptyView() }
-    )
-    if #available(macOS 10.15, tvOS 13, iOS 13, *) {
-      testViewConformance(of: combined)
-    }
+    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+      let combined = SDGViews.EmptyView().popOver(
+        isPresented: Shared(false),
+        content: { SDGViews.EmptyView() }
+      )
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        testViewConformance(of: combined)
+      }
+    #endif
   }
 
   func testPopOver() {
