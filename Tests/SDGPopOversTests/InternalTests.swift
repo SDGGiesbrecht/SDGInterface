@@ -30,7 +30,7 @@ final class InternalTests: ApplicationTestCase {
         let combined = SDGViews.EmptyView().popOver(
           isPresented: Shared(false),
           content: { SDGViews.EmptyView() }
-        )
+        ).resolved(usingCocoa: legacyMode)
         if #available(macOS 10.15, tvOS 13, iOS 13, *) {
           testViewConformance(of: combined)
         }
