@@ -29,7 +29,7 @@
     ///
     /// - Parameters:
     ///   - content: The content of the pop‐over.
-    ///   - attachementAnchor: The portion of the view the pop‐over is related to.
+    ///   - attachmentAnchor: The portion of the view the pop‐over is related to.
     ///   - arrowEdge: The edge of the anchor that the pop‐over should appear from.
     public func displayPopOver<Content>(
       _ content: Content,
