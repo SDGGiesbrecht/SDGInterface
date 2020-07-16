@@ -31,7 +31,7 @@ final class InternalTests: ApplicationTestCase {
           let combined = SDGViews.EmptyView().popOver(
             isPresented: Shared(false),
             content: { SDGViews.EmptyView() }
-          ).resolved(usingCocoa: legacyMode)
+          ).adjustForLegacyMode()
           testViewConformance(of: combined, testBody: false)
         }
       }
