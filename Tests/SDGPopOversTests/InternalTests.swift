@@ -32,7 +32,7 @@ final class InternalTests: ApplicationTestCase {
             isPresented: Shared(false),
             content: { SDGViews.EmptyView() }
           ).resolved(usingCocoa: legacyMode)
-          testViewConformance(of: combined)
+          testViewConformance(of: combined, testBody: false)
         }
       }
     #endif
