@@ -177,7 +177,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testUnitPoint() {
-    #if canImport(SwiftUI)
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       let point = Point(1, 2)
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {
         let converted = UnitPoint(point)

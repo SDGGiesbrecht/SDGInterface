@@ -28,7 +28,7 @@ import SDGApplicationTestUtilities
 final class InternalTests: ApplicationTestCase {
 
   func testLegacyView() {
-    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       forAllLegacyModes {
         if #available(macOS 10.15, tvOS 13, iOS 13, *) {
           let combined = SDGViews.EmptyView().popOver(
@@ -43,7 +43,7 @@ final class InternalTests: ApplicationTestCase {
 
   func testPopOverCocoaImplementation() {
     withLegacyMode {
-      #if canImport(AppKit) || canImport(UIKit)
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
         let isPresented = Shared(false)
         if #available(macOS 10.15, tvOS 13, iOS 13, *) {
           let combined = SDGViews.EmptyView().popOver(

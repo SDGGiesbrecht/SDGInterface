@@ -38,7 +38,7 @@ import SDGApplicationTestUtilities
 final class APITests: ApplicationTestCase {
 
   func testAnchorSource() {
-    #if canImport(SwiftUI)
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {
         var shimmed = RectangularAttachmentAnchor.rectangle(SDGInterfaceBasics.Rectangle())
         _ = Anchor<CGRect>.Source(shimmed)
@@ -90,7 +90,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testPopOverAttachmentAnchor() {
-    #if canImport(SwiftUI)
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {
         var shimmed = AttachmentAnchor.point(Point(0, 0))
         _ = PopoverAttachmentAnchor(shimmed)
