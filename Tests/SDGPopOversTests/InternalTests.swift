@@ -27,11 +27,11 @@ final class InternalTests: ApplicationTestCase {
   func testLegacyView() {
     #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
       forAllLegacyModes {
-        let combined = SDGViews.EmptyView().popOver(
-          isPresented: Shared(false),
-          content: { SDGViews.EmptyView() }
-        ).resolved(usingCocoa: legacyMode)
         if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+          let combined = SDGViews.EmptyView().popOver(
+            isPresented: Shared(false),
+            content: { SDGViews.EmptyView() }
+          ).resolved(usingCocoa: legacyMode)
           testViewConformance(of: combined)
         }
       }
