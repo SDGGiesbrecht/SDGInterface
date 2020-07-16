@@ -38,6 +38,9 @@
       // MARK: - View
 
       internal var body: some SwiftUI.View {
+        #if DEBUG
+          _ = content()  // Eager execution to simplify testing.
+        #endif
         return anchor.popover(
           isPresented: $isPresented.value,
           attachmentAnchor: attachmentAnchor,
