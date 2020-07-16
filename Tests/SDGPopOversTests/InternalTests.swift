@@ -13,8 +13,11 @@
  */
 
 import SDGControlFlow
+import SDGText
+import SDGLocalization
 
 import SDGViews
+import SDGWindows
 @testable import SDGPopOvers
 
 import XCTest
@@ -36,5 +39,26 @@ final class InternalTests: ApplicationTestCase {
         }
       }
     #endif
+  }
+
+  func testPopOverCocoaImplementation() {
+    withLegacyMode {
+      #if canImport(AppKit) || canImport(UIKit)
+        let isPresented = Shared(false)
+        if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+          let combined = SDGViews.EmptyView().popOver(
+            isPresented: isPresented,
+            content: { SDGViews.EmptyView() }
+          ).adjustForLegacyMode()
+          let window = Window(
+            type: .primary(nil),
+            name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+            content: combined
+          )
+          window.display()
+          isPresented.value = true
+        }
+      #endif
+    }
   }
 }

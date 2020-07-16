@@ -174,7 +174,8 @@ extension SDGPopOversTests.APITests {
 extension SDGPopOversTests.InternalTests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
-      ("testLegacyView", testLegacyView)
+      ("testLegacyView", testLegacyView),
+      ("testPopOverCocoaImplementation", testPopOverCocoaImplementation),
     ])
   ]
 }

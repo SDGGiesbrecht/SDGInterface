@@ -42,6 +42,7 @@
         defer { CocoaView(self).fill(with: self.anchor, margin: 0) }
 
         self.isPresented = isPresented
+        defer { isPresented.register(observer: self) }
         self.attachmentAnchor = attachmentAnchor
         self.arrowEdge = arrowEdge
         self.content = content
@@ -74,7 +75,9 @@
       // MARK: - SharedValueObserver
 
       internal func valueChanged(for identifier: String) {
-        displayPopOver()
+        if isPresented.value {
+          displayPopOver()
+        }
       }
     }
   }
