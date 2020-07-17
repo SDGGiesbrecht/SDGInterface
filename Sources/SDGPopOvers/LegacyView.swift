@@ -38,6 +38,7 @@
     ///   - attachmentAnchor: The anchor where the pop‐over is attached.
     ///   - arrowEdge: The edge where the pop‐over’s arrow is located.
     ///   - content: The content of the pop‐over.
+    @available(watchOS, unavailable)
     public func popOver<Content>(
       isPresented: Shared<Bool>,
       attachmentAnchor: AttachmentAnchor = .rectangle(.bounds),

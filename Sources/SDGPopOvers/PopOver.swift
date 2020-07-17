@@ -29,6 +29,7 @@
   import SDGViews
 
   /// The result of `popOver(isPresented:attachmentAnchor:arrowEdge:content:)`.
+  @available(watchOS 6, *)
   @available(watchOS, unavailable)
   public struct PopOver<Anchor, Content>: LegacyView where Anchor: LegacyView, Content: LegacyView {
 
@@ -79,7 +80,7 @@
     @available(tvOS 13, *)
     extension PopOver: CocoaViewImplementation {}
   #else
-    @available(macOS 10.15, iOS 13, *)
+    @available(macOS 10.15, iOS 13, watchOS 6, *)
     @available(watchOS, unavailable)
     extension PopOver: SDGViews.View, ViewShims
     where Anchor: SDGViews.View, Content: SDGViews.View {
