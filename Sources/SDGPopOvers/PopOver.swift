@@ -29,7 +29,7 @@
   import SDGViews
 
   /// The result of `popOver(isPresented:attachmentAnchor:arrowEdge:content:)`.
-  @available(watchOS 6, *)
+  @available(watchOS, unavailable)
   public struct PopOver<Anchor, Content>: LegacyView where Anchor: LegacyView, Content: LegacyView {
 
     // MARK: - Initialization
@@ -75,29 +75,29 @@
     #endif
   }
 
-  @available(macOS 10.15, tvOS 13, iOS 13, *)
-  @available(watchOS, unavailable)
-  extension PopOver: SDGViews.View, ViewShims where Anchor: SDGViews.View, Content: SDGViews.View {
-
-    // MARK: - View
-
-    #if canImport(SwiftUI) && !os(tvOS) && !(os(iOS) && arch(arm))
-      public func swiftUI() -> some SwiftUI.View {
-        let content = self.content
-        return SwiftUIImplementation(
-          anchor: anchor.swiftUI(),
-          isPresented: isPresented,
-          attachmentAnchor: PopoverAttachmentAnchor(attachmentAnchor),
-          arrowEdge: SwiftUI.Edge(arrowEdge),
-          content: { content().swiftUI() }
-        )
-      }
-    #endif
-  }
-
   #if os(tvOS)
     @available(tvOS 13, *)
-    extension PopOver: CocoaViewImplementation where Anchor: SDGViews.View, Content: SDGViews.View {
+    extension PopOver: CocoaViewImplementation {}
+  #else
+    @available(macOS 10.15, iOS 13, *)
+    @available(watchOS, unavailable)
+    extension PopOver: SDGViews.View, ViewShims
+    where Anchor: SDGViews.View, Content: SDGViews.View {
+
+      // MARK: - View
+
+      #if canImport(SwiftUI) && !os(tvOS) && !(os(iOS) && arch(arm))
+        public func swiftUI() -> some SwiftUI.View {
+          let content = self.content
+          return SwiftUIImplementation(
+            anchor: anchor.swiftUI(),
+            isPresented: isPresented,
+            attachmentAnchor: PopoverAttachmentAnchor(attachmentAnchor),
+            arrowEdge: SwiftUI.Edge(arrowEdge),
+            content: { content().swiftUI() }
+          )
+        }
+      #endif
     }
   #endif
 #endif
