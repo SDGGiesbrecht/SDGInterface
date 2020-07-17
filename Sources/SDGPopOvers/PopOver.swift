@@ -97,6 +97,7 @@
 
   #if os(tvOS)
     @available(tvOS 13, *)
-    extension PopOver: CocoaViewImplementation where Anchor: SDGViews.View, Content: SDGViews.View {}
+    extension PopOver: CocoaViewImplementation where Anchor: SDGViews.View, Content: SDGViews.View {
+    }
   #endif
 #endif

@@ -1132,6 +1132,7 @@ target_link_libraries("SDGTablesTests" PRIVATE
 add_library("SDGViewsTests"
   "../../../Tests/SDGViewsTests/APITests.swift"
   "../../../Tests/SDGViewsTests/CocoaExample.swift"
+  "../../../Tests/SDGViewsTests/CocoaExample2.swift"
   "../../../Tests/SDGViewsTests/InternalTests.swift"
   "../../../Tests/SDGViewsTests/LegacyMode.swift"
   "../../../Tests/SDGViewsTests/PreviewTests.swift"
