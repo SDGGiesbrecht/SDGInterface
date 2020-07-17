@@ -68,7 +68,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testQuickActionDetails() {
-    #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
+    #if canImport(UIKit) && !os(tvOS) && !os(watchOS)
       if #available(iOS 9, *) {  // @exempt(from: unicode)
         var details = QuickActionDetails()
         let shortcutItem = UIApplicationShortcutItem(type: "", localizedTitle: "")

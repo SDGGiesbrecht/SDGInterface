@@ -75,13 +75,13 @@
     #endif
   }
 
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  @available(macOS 10.15, tvOS 13, iOS 13, *)
   @available(watchOS, unavailable)
   extension PopOver: SDGViews.View, ViewShims where Anchor: SDGViews.View, Content: SDGViews.View {
 
     // MARK: - View
 
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI) && !os(tvOS) && !(os(iOS) && arch(arm))
       public func swiftUI() -> some SwiftUI.View {
         let content = self.content
         return SwiftUIImplementation(
@@ -94,4 +94,9 @@
       }
     #endif
   }
+
+  #if os(tvOS)
+    @available(tvOS 13, *)
+    extension PopOver: CocoaViewImplementation where Anchor: SDGViews.View, Content: SDGViews.View {}
+  #endif
 #endif

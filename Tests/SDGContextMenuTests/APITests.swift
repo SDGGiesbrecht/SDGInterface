@@ -29,7 +29,7 @@ import SDGApplicationTestUtilities
 final class APITests: ApplicationTestCase {
 
   func testContextMenu() {
-    #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
+    #if canImport(UIKit) && !os(tvOS) && !os(watchOS)
       let contextMenu = ContextMenu.contextMenu
       let modified = contextMenu.menu
       let newEntry = MenuEntry<InterfaceLocalization>(label: .binding(Shared("")))

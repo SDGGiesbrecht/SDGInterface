@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+#if canImport(SwiftUI) && !os(tvOS) && !(os(iOS) && arch(arm))
   import SwiftUI
 
   import SDGControlFlow
@@ -21,7 +21,7 @@
 
   import SDGViews
 
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  @available(macOS 10.15, iOS 13, watchOS 6, *)
   @available(watchOS, unavailable)
   extension PopOver where Anchor: SDGViews.View, Content: SDGViews.View {
 
