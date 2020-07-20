@@ -70,7 +70,13 @@ final class APITests: ApplicationTestCase {
         content: { SDGViews.EmptyView() }
       )
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {
-        testViewConformance(of: combined)
+        let testBody: Bool
+        #if os(tvOS)
+          testBody = false
+        #else
+          testBody = true
+        #endif
+        testViewConformance(of: combined, testBody: testBody)
       }
     #endif
   }

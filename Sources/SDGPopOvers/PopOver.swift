@@ -61,17 +61,24 @@
 
     #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       public func cocoa() -> CocoaView {
-        return useSwiftUIOrFallback(to: {
+        let generator: () -> CocoaView = {
           return CocoaView(
             CocoaImplementation(
-              anchor: anchor,
-              isPresented: isPresented,
-              attachmentAnchor: attachmentAnchor,
-              arrowEdge: arrowEdge,
-              content: content
+              anchor: self.anchor,
+              isPresented: self.isPresented,
+              attachmentAnchor: self.attachmentAnchor,
+              arrowEdge: self.arrowEdge,
+              content: self.content
             )
           )
-        })
+        }
+        #if os(tvOS)
+          return generator()
+        #else
+          return useSwiftUIOrFallback(to: {
+            return generator()
+          })
+        #endif
       }
     #endif
   }
