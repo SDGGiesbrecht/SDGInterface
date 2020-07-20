@@ -105,4 +105,14 @@ final class APITests: ApplicationTestCase {
       }
     #endif
   }
+
+  func testUIPopOverArrowDirection() {
+    #if canImport(UIKit) && !(os(iOS) && arch(arm)) && !os(watchOS)
+      var set: Set<UIPopoverArrowDirection.RawValue> = []
+      for edge in SDGInterfaceBasics.Edge.allCases {
+        set.insert(UIPopoverArrowDirection(edge).rawValue)
+      }
+      XCTAssertEqual(set.count, SDGInterfaceBasics.Edge.allCases.count)
+    #endif
+  }
 }

@@ -167,6 +167,7 @@ extension SDGPopOversTests.APITests {
       ("testLegacyView", testLegacyView),
       ("testPopOver", testPopOver),
       ("testPopOverAttachmentAnchor", testPopOverAttachmentAnchor),
+      ("testUIPopOverArrowDirection", testUIPopOverArrowDirection),
     ])
   ]
 }
