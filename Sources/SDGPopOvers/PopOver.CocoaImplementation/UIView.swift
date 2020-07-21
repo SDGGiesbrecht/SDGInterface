@@ -21,8 +21,8 @@
 
     internal var controller: UIViewController? {
       var responder: UIResponder? = self
-      while responder ≠ nil {
-        responder = responder!.next
+      while let next = responder?.next {
+        responder = next
         if let cast = responder as? UIViewController {
           return cast
         }

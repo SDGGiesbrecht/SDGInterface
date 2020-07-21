@@ -304,7 +304,7 @@
       if let string = possibleString {
         CharacterInformation.display(
           for: string.string,
-          origin: (view: AnyView(CocoaView(self)), selection: selectionRectangle())
+          origin: (view: CocoaView(self), selection: selectionRectangle())
         )
       }
     }

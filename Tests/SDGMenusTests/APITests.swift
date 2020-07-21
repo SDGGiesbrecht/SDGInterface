@@ -36,7 +36,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testMenu() {
-    #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS) && !os(tvOS)
+    #if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
       _ = MenuEntry(label: .static(UserFacing<StrictString, APILocalization>({ _ in "..." })))
       let menuLabel = Shared<StrictString>("initial")
       let menu = Menu<APILocalization>(label: .binding(menuLabel))
@@ -54,7 +54,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testMenuComponent() {
-    #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS) && !os(tvOS)
+    #if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
       XCTAssertNotNil(
         MenuComponent.entry(MenuEntry<InterfaceLocalization>(label: .binding(Shared("")))).asEntry
       )
@@ -74,7 +74,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testMenuEntry() {
-    #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS) && !os(tvOS)
+    #if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
       let menuLabel = Shared<StrictString>("initial")
       let menu = MenuEntry<APILocalization>(label: .binding(menuLabel))
       menuLabel.value = "changed"
@@ -87,7 +87,7 @@ final class APITests: ApplicationTestCase {
       let action = #selector(NSObject.isEqual(_:))
       menu.action = action
       _ = menu.action
-      #if !os(watchOS) && !os(tvOS)
+      #if !os(tvOS) && !os(watchOS)
         XCTAssertEqual(menu.action, action)
       #endif
       menu.action = nil
@@ -115,7 +115,7 @@ final class APITests: ApplicationTestCase {
       #endif
       menu.tag = 1
       XCTAssertEqual(menu.tag, 1)
-      #if !os(watchOS) && !os(tvOS)
+      #if !os(tvOS) && !os(watchOS)
         _ = menu.cocoa.title
       #endif
     #endif

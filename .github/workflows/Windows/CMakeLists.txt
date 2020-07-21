@@ -454,8 +454,10 @@ add_library("SDGInterfaceBasics"
   "../../../Sources/SDGInterfaceBasics/Layout Basics/ContentMode.swift"
   "../../../Sources/SDGInterfaceBasics/Layout Basics/Edge/Edge.swift"
   "../../../Sources/SDGInterfaceBasics/Layout Basics/Edge/EdgeSet.swift"
+  "../../../Sources/SDGInterfaceBasics/Layout Basics/Edge/NSRectEdge.swift"
   "../../../Sources/SDGInterfaceBasics/Layout Basics/Point/CGPoint.swift"
   "../../../Sources/SDGInterfaceBasics/Layout Basics/Point/Point.swift"
+  "../../../Sources/SDGInterfaceBasics/Layout Basics/Point/UnitPoint.swift"
   "../../../Sources/SDGInterfaceBasics/Layout Basics/Rectangle/CGRect.swift"
   "../../../Sources/SDGInterfaceBasics/Layout Basics/Rectangle/Rectangle.swift"
   "../../../Sources/SDGInterfaceBasics/Layout Basics/Size/CGSize.swift"
@@ -663,10 +665,20 @@ target_link_libraries("SDGImageDisplay" PRIVATE
 )
 
 add_library("SDGPopOvers"
-  "../../../Sources/SDGPopOvers/CocoaPopOverView.swift"
-  "../../../Sources/SDGPopOvers/PopOverDelegate.swift"
-  "../../../Sources/SDGPopOvers/UIView.swift"
-  "../../../Sources/SDGPopOvers/View.swift"
+  "../../../Sources/SDGPopOvers/Anchor/Anchor.Source.swift"
+  "../../../Sources/SDGPopOvers/Anchor/AttachmentAnchor.swift"
+  "../../../Sources/SDGPopOvers/Anchor/PopoverAttachmentAnchor.swift"
+  "../../../Sources/SDGPopOvers/Anchor/RectangularAttachmentAchor.swift"
+  "../../../Sources/SDGPopOvers/CocoaView.swift"
+  "../../../Sources/SDGPopOvers/LegacyMode.swift"
+  "../../../Sources/SDGPopOvers/LegacyView.swift"
+  "../../../Sources/SDGPopOvers/PopOver.CocoaImplementation/Cocoa.PopOverDelegate.swift"
+  "../../../Sources/SDGPopOvers/PopOver.CocoaImplementation/CocoaView.PopOverView.swift"
+  "../../../Sources/SDGPopOvers/PopOver.CocoaImplementation/PopOver.CocoaImplementation.swift"
+  "../../../Sources/SDGPopOvers/PopOver.CocoaImplementation/UIPopoverArrowDirection.swift"
+  "../../../Sources/SDGPopOvers/PopOver.CocoaImplementation/UIView.swift"
+  "../../../Sources/SDGPopOvers/PopOver.SwiftUIImplementation.swift"
+  "../../../Sources/SDGPopOvers/PopOver.swift"
   "../../../Sources/SDGPopOvers/Windows.swift"
 )
 set_target_properties("SDGPopOvers" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
@@ -674,6 +686,7 @@ target_compile_options("SDGPopOvers" PRIVATE -enable-testing)
 target_link_libraries("SDGPopOvers" PRIVATE
   "SDGInterfaceBasics"
   "SDGViews"
+  "SDGControlFlow"
   "SDGLogic"
 )
 
@@ -975,24 +988,6 @@ target_link_libraries("SDGMenusTests" PRIVATE
   "SDGXCTestUtilities"
 )
 
-add_library("SDGPopOversTests"
-  "../../../Tests/SDGPopOversTests/APITests.swift"
-)
-set_target_properties("SDGPopOversTests" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
-target_compile_options("SDGPopOversTests" PRIVATE -enable-testing)
-target_link_libraries("SDGPopOversTests" PRIVATE
-  "SDGViews"
-  "SDGWindows"
-  "SDGPopOvers"
-  "SDGApplication"
-  "SDGInterfaceSample"
-  "SDGApplicationTestUtilities"
-  "SDGControlFlow"
-  "SDGText"
-  "SDGLocalization"
-  "SDGXCTestUtilities"
-)
-
 add_library("SDGTextDisplayTests"
   "../../../Tests/SDGTextDisplayTests/APITests.swift"
   "../../../Tests/SDGTextDisplayTests/NSAttributedString.swift"
@@ -1074,6 +1069,28 @@ target_link_libraries("SDGImageDisplayTests" PRIVATE
   "SDGXCTestUtilities"
 )
 
+add_library("SDGPopOversTests"
+  "../../../Tests/SDGPopOversTests/APITests.swift"
+  "../../../Tests/SDGPopOversTests/InternalTests.swift"
+  "../../../Tests/SDGPopOversTests/LegacyMode.swift"
+)
+set_target_properties("SDGPopOversTests" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})
+target_compile_options("SDGPopOversTests" PRIVATE -enable-testing)
+target_link_libraries("SDGPopOversTests" PRIVATE
+  "SDGInterfaceBasics"
+  "SDGViews"
+  "SDGWindows"
+  "SDGPopOvers"
+  "SDGApplication"
+  "SDGInterfaceSample"
+  "SDGViewsTestUtilities"
+  "SDGApplicationTestUtilities"
+  "SDGControlFlow"
+  "SDGText"
+  "SDGLocalization"
+  "SDGXCTestUtilities"
+)
+
 add_library("SDGProgressIndicatorsTests"
   "../../../Tests/SDGProgressIndicatorsTests/APITests.swift"
   "../../../Tests/SDGProgressIndicatorsTests/PreviewTests.swift"
@@ -1115,6 +1132,7 @@ target_link_libraries("SDGTablesTests" PRIVATE
 add_library("SDGViewsTests"
   "../../../Tests/SDGViewsTests/APITests.swift"
   "../../../Tests/SDGViewsTests/CocoaExample.swift"
+  "../../../Tests/SDGViewsTests/CocoaExample2.swift"
   "../../../Tests/SDGViewsTests/InternalTests.swift"
   "../../../Tests/SDGViewsTests/LegacyMode.swift"
   "../../../Tests/SDGViewsTests/PreviewTests.swift"
@@ -1165,10 +1183,10 @@ target_link_libraries(WindowsMain PRIVATE
   "SDGKeyboardTests"
   "SDGMenuBarTests"
   "SDGMenusTests"
-  "SDGPopOversTests"
   "SDGTextDisplayTests"
   "SDGButtonsTests"
   "SDGImageDisplayTests"
+  "SDGPopOversTests"
   "SDGProgressIndicatorsTests"
   "SDGTablesTests"
   "SDGViewsTests"

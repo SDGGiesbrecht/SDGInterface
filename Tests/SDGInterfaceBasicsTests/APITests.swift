@@ -15,6 +15,9 @@
 #if canImport(SwiftUI)
   import SwiftUI
 #endif
+#if canImport(AppKit)
+  import AppKit
+#endif
 
 import SDGControlFlow
 import SDGLogic
@@ -139,6 +142,16 @@ final class APITests: ApplicationTestCase {
     }
   }
 
+  func testNSRectEdge() {
+    #if canImport(AppKit)
+      var converted: Set<NSRectEdge> = []
+      for edge in SDGInterfaceBasics.Edge.allCases {
+        converted.insert(NSRectEdge(edge))
+      }
+      XCTAssertEqual(converted.count, 4)
+    #endif
+  }
+
   func testPoint() {
     #if canImport(CoreGraphics)
       XCTAssertEqual(Point(CGPoint(x: 0, y: 0)), Point(0, 0))
@@ -160,6 +173,18 @@ final class APITests: ApplicationTestCase {
     XCTAssertEqual(Size(), Size(width: 0, height: 0))
     #if canImport(CoreGraphics)
       XCTAssertEqual(Size(CGSize(width: 0, height: 0)), Size(width: 0, height: 0))
+    #endif
+  }
+
+  func testUnitPoint() {
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      let point = Point(1, 2)
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        let converted = UnitPoint(point)
+        XCTAssertEqual(converted.x, 1)
+        XCTAssertEqual(converted.y, 2)
+        XCTAssertEqual(Point(converted), point)
+      }
     #endif
   }
 }

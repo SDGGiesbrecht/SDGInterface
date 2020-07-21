@@ -21,10 +21,10 @@ import XCTest
 @testable import SDGKeyboardTests
 @testable import SDGMenuBarTests
 @testable import SDGMenusTests
-@testable import SDGPopOversTests
 @testable import SDGTextDisplayTests
 @testable import SDGButtonsTests
 @testable import SDGImageDisplayTests
+@testable import SDGPopOversTests
 @testable import SDGProgressIndicatorsTests
 @testable import SDGTablesTests
 @testable import SDGViewsTests
@@ -71,9 +71,11 @@ extension SDGInterfaceBasicsTests.APITests {
       ("testContentMode", testContentMode),
       ("testEdge", testEdge),
       ("testEdgeSet", testEdgeSet),
+      ("testNSRectEdge", testNSRectEdge),
       ("testPoint", testPoint),
       ("testRectangle", testRectangle),
       ("testSize", testSize),
+      ("testUnitPoint", testUnitPoint),
     ])
   ]
 }
@@ -101,14 +103,6 @@ extension SDGMenusTests.APITests {
       ("testMenu", testMenu),
       ("testMenuComponent", testMenuComponent),
       ("testMenuEntry", testMenuEntry),
-    ])
-  ]
-}
-
-extension SDGPopOversTests.APITests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
-      ("testPopOver", testPopOver)
     ])
   ]
 }
@@ -161,6 +155,28 @@ extension SDGImageDisplayTests.InternalTests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
       ("testImage", testImage)
+    ])
+  ]
+}
+
+extension SDGPopOversTests.APITests {
+  static let windowsTests: [XCTestCaseEntry] = [
+    testCase([
+      ("testAnchorSource", testAnchorSource),
+      ("testCocoaView", testCocoaView),
+      ("testLegacyView", testLegacyView),
+      ("testPopOver", testPopOver),
+      ("testPopOverAttachmentAnchor", testPopOverAttachmentAnchor),
+      ("testUIPopOverArrowDirection", testUIPopOverArrowDirection),
+    ])
+  ]
+}
+
+extension SDGPopOversTests.InternalTests {
+  static let windowsTests: [XCTestCaseEntry] = [
+    testCase([
+      ("testLegacyView", testLegacyView),
+      ("testPopOverCocoaImplementation", testPopOverCocoaImplementation),
     ])
   ]
 }
@@ -225,12 +241,13 @@ tests += SDGInterfaceBasicsTests.APITests.windowsTests
 tests += SDGKeyboardTests.APITests.windowsTests
 tests += SDGMenuBarTests.APITests.windowsTests
 tests += SDGMenusTests.APITests.windowsTests
-tests += SDGPopOversTests.APITests.windowsTests
 tests += SDGTextDisplayTests.APITests.windowsTests
 tests += SDGButtonsTests.APITests.windowsTests
 tests += SDGButtonsTests.InternalTests.windowsTests
 tests += SDGImageDisplayTests.APITests.windowsTests
 tests += SDGImageDisplayTests.InternalTests.windowsTests
+tests += SDGPopOversTests.APITests.windowsTests
+tests += SDGPopOversTests.InternalTests.windowsTests
 tests += SDGProgressIndicatorsTests.APITests.windowsTests
 tests += SDGTablesTests.APITests.windowsTests
 tests += SDGViewsTests.APITests.windowsTests

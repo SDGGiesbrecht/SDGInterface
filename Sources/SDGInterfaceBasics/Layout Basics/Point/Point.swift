@@ -15,6 +15,9 @@
 #if canImport(CoreGraphics)
   import CoreGraphics
 #endif
+#if canImport(SwiftUI)
+  import SwiftUI
+#endif
 
 import SDGGeometry
 
@@ -31,6 +34,17 @@ extension Point {
     /// - Parameters:
     ///     - point: The CoreGraphics point.
     public init(_ point: CGPoint) {
+      self.init(Double(point.x), Double(point.y))
+    }
+  #endif
+
+  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    /// Creates a point from a SwiftUI point.
+    ///
+    /// - Parameters:
+    ///     - point: The SwiftUI point.
+    @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+    public init(_ point: UnitPoint) {
       self.init(Double(point.x), Double(point.y))
     }
   #endif

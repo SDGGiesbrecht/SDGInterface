@@ -102,7 +102,7 @@ public final class Application {
   #endif
 
   internal class func postLaunchSetUp() {
-    #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
+    #if canImport(UIKit) && !os(tvOS) && !os(watchOS)
       _ = ContextMenu.contextMenu
     #endif
 

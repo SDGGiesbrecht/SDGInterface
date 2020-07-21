@@ -26,7 +26,7 @@ import SDGInterfaceLocalizations
 
 /// The global context menu.
 public final class ContextMenu {
-  #if canImport(UIKit) && !os(watchOS) && !os(tvOS)
+  #if canImport(UIKit) && !os(tvOS) && !os(watchOS)
 
     // MARK: - Class Properties
 
