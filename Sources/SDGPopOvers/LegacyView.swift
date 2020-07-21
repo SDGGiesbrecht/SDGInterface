@@ -54,7 +54,7 @@
       )
     }
 
-    #if !os(watchOS)
+    #if !os(tvOS) && !os(watchOS)
       internal func useSwiftUIOrFallback(to fallback: () -> CocoaView) -> CocoaView {
         return useSwiftUIOrFallback(to: fallback, useFallbackRegardless: legacyMode)
       }
