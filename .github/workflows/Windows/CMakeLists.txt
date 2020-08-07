@@ -493,14 +493,14 @@ target_link_libraries("SDGKeyboard" PRIVATE
 )
 
 add_library("SDGMenus"
-  "../../../Sources/SDGMenus/AnyMenu.swift"
-  "../../../Sources/SDGMenus/AnyMenuEntry.swift"
   "../../../Sources/SDGMenus/KeyModifiers.swift"
-  "../../../Sources/SDGMenus/Menu.swift"
-  "../../../Sources/SDGMenus/MenuBindingObserver.swift"
+  "../../../Sources/SDGMenus/Menu/AnyMenu.swift"
+  "../../../Sources/SDGMenus/Menu/Menu.CocoaImplementation.swift"
+  "../../../Sources/SDGMenus/Menu/Menu.swift"
   "../../../Sources/SDGMenus/MenuComponent.swift"
-  "../../../Sources/SDGMenus/MenuEntry.swift"
-  "../../../Sources/SDGMenus/MenuEntryBindingObserver.swift"
+  "../../../Sources/SDGMenus/MenuEntry/AnyMenuEntry.swift"
+  "../../../Sources/SDGMenus/MenuEntry/MenuEntry.swift"
+  "../../../Sources/SDGMenus/MenuEntry/MenuEntryBindingObserver.swift"
   "../../../Sources/SDGMenus/Selector.swift"
 )
 set_target_properties("SDGMenus" PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_Swift_MODULE_DIRECTORY})

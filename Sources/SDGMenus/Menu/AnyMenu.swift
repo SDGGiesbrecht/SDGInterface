@@ -12,35 +12,15 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
-  #if canImport(AppKit)
-    import AppKit
-  #endif
+#if canImport(AppKit)
+  import AppKit
 
   import SDGControlFlow
 
   /// A menu with no particular localization.
-  public protocol AnyMenu: AnyObject {
+  public protocol AnyMenu {
 
-    #if canImport(AppKit)
-      /// The Cocoa menu.
-      var cocoa: NSMenu { get }
-    #endif
-
-    /// The entries.
-    var entries: [MenuComponent] { get set }
-
-    func _refreshBindings()
-    func _refreshLabel()
-  }
-
-  extension AnyMenu {
-
-    internal func refreshBindings() {
-      _refreshBindings()
-    }
-    internal func refreshLabel() {
-      _refreshLabel()
-    }
+    /// The Cocoa menu.
+    func cocoa() -> NSMenu
   }
 #endif
