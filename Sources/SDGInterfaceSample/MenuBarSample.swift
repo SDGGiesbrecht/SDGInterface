@@ -42,7 +42,7 @@
       return error
     }
 
-    private static func sample() -> Menu<InterfaceLocalization> {
+    internal static func sample() -> Menu<InterfaceLocalization> {
       return Menu(
         label: UserFacing<StrictString, InterfaceLocalization>({ localization in
           switch localization {
@@ -59,7 +59,6 @@
       )
     }
     internal func setSamplesUp() {
-      addApplicationSpecificSubmenu(MenuBar.sample())
     }
   }
 #endif

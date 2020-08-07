@@ -104,10 +104,6 @@ extension Application {
   }
 
   private static func setMenuUp() {
-    #if canImport(AppKit)
-      MenuBar.menuBar.setSamplesUp()
-    #endif
-
     #if canImport(UIKit) && !os(tvOS) && !os(watchOS)
       let editor = TextEditor()
       let window = Window(

@@ -61,13 +61,16 @@
           .submenu(MenuBar.help()),
         ]
       )
-      menuDidSet()
     }
 
     // MARK: - Properties
 
-    /// The root menu.
-    public let menu: AnyMenu
+    private let menu: AnyMenu
+
+    /// The menu bar as an `NSMenu`.
+    public func cocoa() -> NSMenu {
+      return menu.cocoa()
+    }
 
     // MARK: - Items
 
