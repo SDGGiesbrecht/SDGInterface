@@ -35,7 +35,7 @@ final class APITests: ApplicationTestCase {
     #if canImport(AppKit)
       let menuBar = MenuBar.menuBar
       XCTAssertNotNil(menuBar)
-      var submenu = menuBar.menu.cocoa().items.first(where: { $0.submenu ≠ nil })
+      let submenu = menuBar.menu.cocoa().items.first(where: { $0.submenu ≠ nil })
       XCTAssertNotNil(submenu)
 
       let previous = ProcessInfo.applicationName
