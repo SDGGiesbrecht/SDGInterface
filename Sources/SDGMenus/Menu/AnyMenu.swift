@@ -12,15 +12,27 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit)
-  import AppKit
+#if canImport(AppKit) || (canImport(UIKit) && !os(tvOS) && !os(watchOS))
+  #if canImport(AppKit)
+    import AppKit
+  #endif
+  #if canImport(UIKit)
+    import UIKit
+  #endif
 
   import SDGControlFlow
 
   /// A menu with no particular localization.
   public protocol AnyMenu {
 
-    /// The Cocoa menu.
-    func cocoa() -> NSMenu
+    #if canImport(AppKit)
+      /// Generates an `NSMenu` instance representing the menu.
+      func cocoa() -> NSMenu
+    #endif
+
+    #if canImport(UIKit)
+      /// Generates a list of `UIMenuItem` instances representing the menu.
+      func cocoa() -> [UIMenuItem]
+    #endif
   }
 #endif

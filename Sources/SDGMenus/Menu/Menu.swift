@@ -12,8 +12,13 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit)
-  import AppKit
+#if canImport(AppKit) || (canImport(UIKit) && !os(tvOS) && !os(watchOS))
+  #if canImport(AppKit)
+    import AppKit
+  #endif
+  #if canImport(UIKit)
+    import UIKit
+  #endif
 
   import SDGText
   import SDGLocalization
@@ -42,8 +47,21 @@
 
     // MARK: - AnyMenu
 
-    public func cocoa() -> NSMenu {
-      return CocoaImplementation(label: label, entries: entries)
-    }
+    #if canImport(AppKit)
+      public func cocoa() -> NSMenu {
+        return CocoaImplementation(label: label, entries: entries)
+      }
+    #endif
+
+    #if canImport(UIKit)
+      public func cocoa() -> [UIMenuItem] {
+        return entries.flatMap { (entry) -> [UIMenuItem] in
+          switch entry {
+          case .entry(let entry):
+            return entry.isHidden ? [] : [entry.cocoa]
+          }
+        }
+      }
+    #endif
   }
 #endif

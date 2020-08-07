@@ -32,11 +32,13 @@ internal class SystemMediator: SDGApplication.SystemMediator {
 
 extension SystemMediator {
 
-  internal var menuBar: MenuBar {
-    return MenuBar(applicationSpecificSubmenus: [
-      MenuBar.sample()
-    ])
-  }
+  #if canImport(macOS)
+    internal var menuBar: MenuBar {
+      return MenuBar(applicationSpecificSubmenus: [
+        MenuBar.sample()
+      ])
+    }
+  #endif
 
   internal var remainsRunningWithNoWindows: Bool {  // @exempt(from: tests)
     return true
