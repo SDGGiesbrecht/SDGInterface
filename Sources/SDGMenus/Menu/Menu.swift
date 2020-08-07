@@ -32,6 +32,7 @@
     ///
     /// - Parameters:
     ///     - label: The label.
+    ///     - entries: The menu entries.
     public init(
       label: UserFacing<StrictString, L>,
       entries: [MenuComponent]

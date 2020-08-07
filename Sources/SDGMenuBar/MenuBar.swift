@@ -37,7 +37,8 @@
 
     /// Creates a menu bar.
     ///
-    /// - applicationSpecificSubmenus: Application‐specific submenus to place before the “Window” menu.
+    /// - Parameters:
+    ///   - applicationSpecificSubmenus: Application‐specific submenus to place before the “Window” menu.
     public init(
       applicationSpecificSubmenus: [AnyMenu]
     ) {

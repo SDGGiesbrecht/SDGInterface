@@ -58,6 +58,7 @@
     #endif
 
     #if canImport(AppKit)
+      /// Generates an `NSMenuItem` instance representing the menu component.
       public func cocoa() -> NSMenuItem {
         switch self {
         case .entry(let entry):

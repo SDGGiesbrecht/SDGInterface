@@ -27,7 +27,7 @@
 
       // MARK: - Initialization
 
-      init(
+      internal init(
         label: UserFacing<StrictString, L>,
         entries: [MenuComponent]
       ) {
