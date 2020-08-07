@@ -27,18 +27,23 @@
     ///
     /// - Parameters:
     ///     - label: The label.
-    public init(label: UserFacing<StrictString, L>) {
+    public init(
+      label: UserFacing<StrictString, L>,
+      entries: [MenuComponent]
+    ) {
       self.label = label
+      self.entries = entries
     }
 
     // MARK: - Properties
 
-    private var label: UserFacing<StrictString, L>
+    private let label: UserFacing<StrictString, L>
+    private let entries: [MenuComponent]
 
     // MARK: - AnyMenu
 
     public func cocoa() -> NSMenu {
-      return CocoaImplementation(label: label)
+      return CocoaImplementation(label: label, entries: entries)
     }
   }
 #endif

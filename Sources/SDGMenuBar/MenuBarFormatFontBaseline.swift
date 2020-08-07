@@ -153,25 +153,23 @@
 
     internal static func baseline() -> Menu<MenuBarLocalization> {
       let baseline = Menu(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Línea base"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Baseline"
-            case .françaisFrance:
-              return "Ligne de base"
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Línea base"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Baseline"
+          case .françaisFrance:
+            return "Ligne de base"
 
-            case .deutschDeutschland:
-              return "Schriftlinie"
-            case .ελληνικάΕλλάδα:
-              return "Γραμμή βάσης"
-            case .עברית־ישראל:
-              return "קו בסיס"
-            }
-          })
-        )
+          case .deutschDeutschland:
+            return "Schriftlinie"
+          case .ελληνικάΕλλάδα:
+            return "Γραμμή βάσης"
+          case .עברית־ישראל:
+            return "קו בסיס"
+          }
+        })
       )
       baseline.entries = [
         .entry(normal()),
