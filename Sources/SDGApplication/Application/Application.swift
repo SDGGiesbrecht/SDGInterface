@@ -101,13 +101,13 @@ public final class Application {
     #endif
   #endif
 
-  internal class func postLaunchSetUp() {
+  internal class func postLaunchSetUp(mediator: SystemMediator) {
     #if canImport(UIKit) && !os(tvOS) && !os(watchOS)
       _ = ContextMenu.contextMenu
     #endif
 
     #if canImport(AppKit)
-      _ = MenuBar.menuBar
+      NSApplication.shared.mainMenu = mediator.menuBar.menu.cocoa()
     #endif
 
     #if canImport(AppKit)

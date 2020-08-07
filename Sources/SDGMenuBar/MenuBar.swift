@@ -31,16 +31,16 @@
   /// Some menu items only appear if the application provides details they need to operate:
   /// - “Preferences...” appears if the application has a preference manager.
   /// - “Help” appears if a help book is specified in the `Info.plist` file.
-  public final class MenuBar {
-
-    // MARK: - Class Properties
-
-    /// The menu bar.
-    public static let menuBar: MenuBar = MenuBar()
+  public struct MenuBar {
 
     // MARK: - Initialization
 
-    private init() {
+    /// Creates a menu bar.
+    ///
+    /// - applicationSpecificSubmenus: Application‐specific submenus to place before the “Window” menu.
+    public init(
+      applicationSpecificSubmenus: [AnyMenu]
+    ) {
       menu = Menu(
         label: UserFacing<StrictString, InterfaceLocalization>({ localization in
           switch localization {
@@ -56,6 +56,7 @@
           .submenu(MenuBar.edit()),
           .submenu(MenuBar.format()),
           .submenu(MenuBar.view()),
+        ] + applicationSpecificSubmenus.lazy.map({ .submenu($0) }) + [
           .submenu(MenuBar.window()),
           .submenu(MenuBar.help()),
         ]
@@ -66,35 +67,7 @@
     // MARK: - Properties
 
     /// The root menu.
-    public var menu: AnyMenu {
-      didSet {
-        menuDidSet()
-      }
-    }
-    private func menuDidSet() {
-      NSApplication.shared.mainMenu = menu.cocoa()
-    }
-
-    // MARK: - Modification
-
-    /// Inserts a new submenu in the application‐specific section.
-    ///
-    /// The application specific section is before the “Window” menu.
-    ///
-    /// - Parameters:
-    ///     - submenu: The submenu.
-    public func addApplicationSpecificSubmenu(_ submenu: AnyMenu) {
-      #warning("Not implemented yet.")
-      /*
-      let index: Int
-      if menu.entries.count ≥ 2 {
-        index = menu.entries.index(menu.entries.endIndex, offsetBy: −2)
-      } else {
-        index = 0
-      }
-      menu.entries.insert(.submenu(submenu), at: index)
-      */
-    }
+    public let menu: AnyMenu
 
     // MARK: - Items
 
