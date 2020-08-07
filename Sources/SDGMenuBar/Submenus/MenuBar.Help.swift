@@ -85,7 +85,7 @@
     }
 
     internal static func help() -> Menu<MenuBarLocalization> {
-      let help = Menu(
+      return Menu(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
           case .españolEspaña:
@@ -108,9 +108,6 @@
           .entry(helpEntry())
         ]
       )
-      #warning("Identity lost.")
-      NSApplication.shared.helpMenu = help.cocoa()
-      return help
     }
   }
 #endif

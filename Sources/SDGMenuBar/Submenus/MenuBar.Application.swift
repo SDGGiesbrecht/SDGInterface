@@ -106,7 +106,7 @@
     }
 
     private static func services() -> Menu<MenuBarLocalization> {
-      let services = Menu(
+      return Menu(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
           case .españolEspaña:
@@ -124,9 +124,6 @@
         }),
         entries: []
       )
-      #warning("Probably lost identity.")
-      NSApplication.shared.servicesMenu = services.cocoa()
-      return services
     }
 
     private static func hide() -> MenuEntry<MenuBarLocalization> {

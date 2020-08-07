@@ -104,7 +104,7 @@
     }
 
     internal static func window() -> Menu<MenuBarLocalization> {
-      let window = Menu(
+      return Menu(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
           case .españolEspaña:
@@ -130,9 +130,6 @@
           .entry(bringAllToFront()),
         ]
       )
-      #warning("Identity lost.")
-      NSApplication.shared.windowsMenu = window.cocoa()
-      return window
     }
   }
 #endif
