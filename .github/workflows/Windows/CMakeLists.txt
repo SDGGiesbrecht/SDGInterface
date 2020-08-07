@@ -969,6 +969,8 @@ target_link_libraries("SDGMenuBarTests" PRIVATE
   "SDGInterfaceLocalizations"
   "SDGApplicationTestUtilities"
   "SDGControlFlow"
+  "SDGLogic"
+  "SDGText"
   "SDGLocalization"
   "SDGXCTestUtilities"
 )

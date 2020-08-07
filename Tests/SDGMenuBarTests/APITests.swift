@@ -13,6 +13,8 @@
  */
 
 import SDGControlFlow
+import SDGLogic
+import SDGText
 import SDGLocalization
 
 import SDGMenus
@@ -33,16 +35,7 @@ final class APITests: ApplicationTestCase {
     #if canImport(AppKit)
       let menuBar = MenuBar.menuBar
       XCTAssertNotNil(menuBar)
-      var submenu: AnyMenu?
-      _ = menuBar.menu.entries.first(where: { entry in
-        switch entry {
-        case .submenu(let menu):
-          submenu = menu
-          return true
-        default:
-          return false
-        }
-      })
+      var submenu = menuBar.menu.cocoa().items.first(where: { $0.submenu ≠ nil })
       XCTAssertNotNil(submenu)
 
       let previous = ProcessInfo.applicationName
@@ -54,7 +47,7 @@ final class APITests: ApplicationTestCase {
           LocalizationSetting(orderOfPrecedence: [localization.code]).do {
             _ = ContextMenu._normalizeText().label.resolved()
             _ = ContextMenu._showCharacterInformation().label.resolved()
-            _ = (MenuBar.menuBar.menu as? Menu<InterfaceLocalization>)?.label.resolved()
+            _ = (MenuBar.menuBar.menu as? Menu<InterfaceLocalization>)?.cocoa()
           }
         }
       }
@@ -83,15 +76,27 @@ final class APITests: ApplicationTestCase {
       XCTAssertNotNil(preferencesMenuItem)
 
       let menu = MenuBar.menuBar.menu
-      MenuBar.menuBar.menu = Menu<APILocalization>(label: .binding(Shared("")))
-      MenuBar.menuBar.addApplicationSpecificSubmenu(
-        Menu<APILocalization>(label: .binding(Shared("")))
+      MenuBar.menuBar.menu = Menu<APILocalization>(
+        label: UserFacing<StrictString, APILocalization>({ _ in "" }),
+        entries: []
       )
       MenuBar.menuBar.addApplicationSpecificSubmenu(
-        Menu<APILocalization>(label: .binding(Shared("")))
+        Menu<APILocalization>(
+          label: UserFacing<StrictString, APILocalization>({ _ in "" }),
+          entries: []
+        )
       )
       MenuBar.menuBar.addApplicationSpecificSubmenu(
-        Menu<APILocalization>(label: .binding(Shared("")))
+        Menu<APILocalization>(
+          label: UserFacing<StrictString, APILocalization>({ _ in "" }),
+          entries: []
+        )
+      )
+      MenuBar.menuBar.addApplicationSpecificSubmenu(
+        Menu<APILocalization>(
+          label: UserFacing<StrictString, APILocalization>({ _ in "" }),
+          entries: []
+        )
       )
       MenuBar.menuBar.menu = menu
     #endif
