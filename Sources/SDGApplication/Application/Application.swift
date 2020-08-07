@@ -108,6 +108,9 @@ public final class Application {
 
     #if canImport(AppKit)
       NSApplication.shared.mainMenu = Application.shared.systemMediator?.menuBar.cocoa()
+      NSApplication.shared.servicesMenu =
+      NSApplication.shared.windowsMenu =
+      NSApplication.shared.helpMenu =
     #endif
 
     #if canImport(AppKit)
