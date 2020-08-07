@@ -102,8 +102,14 @@
           }),
         entries: []
       )
+      let items = systemMenu.items + appendix.map({ $0.cocoa() })
+      for item in items {
+        if let index = item.menu?.index(of: item) {
+          item.menu?.removeItem(at: index)
+        }
+      }
       let cocoa = menu.cocoa()
-      cocoa.items = systemMenu.items + appendix.map({ $0.cocoa() })
+      cocoa.items = items
       self.menu = cocoa
     }
 
