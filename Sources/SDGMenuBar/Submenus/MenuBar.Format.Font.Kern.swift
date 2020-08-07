@@ -1,5 +1,5 @@
 /*
- MenuBarFormatFontBaseline.swift
+ MenuBar.Format.Font.Kern.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -18,15 +18,14 @@
   import SDGText
   import SDGLocalization
 
-  import SDGInterfaceBasics
   import SDGMenus
 
   import SDGInterfaceLocalizations
 
   extension MenuBar {
 
-    private static func normal() -> MenuEntry<MenuBarLocalization> {
-      let normal = MenuEntry(
+    private static func useDefault() -> MenuEntry<MenuBarLocalization> {
+      let useDefault = MenuEntry(
         label: .static(
           UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
@@ -46,136 +45,110 @@
           })
         )
       )
-      normal.action = #selector(RichTextEditingResponder.resetBaseline(_:))
-      return normal
+      useDefault.action = #selector(NSTextView.useStandardKerning(_:))
+      return useDefault
     }
 
-    private static func superscript() -> MenuEntry<MenuBarLocalization> {
-      let superscript = MenuEntry(
+    private static func useNone() -> MenuEntry<MenuBarLocalization> {
+      let useNone = MenuEntry(
         label: .static(
           UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-              return "Superíndice"
+              return "Ninguno"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Superscript"
+              return "Use None"
             case .deutschDeutschland:
-              return "Hochgestellt"
+              return "Nicht verwenden"
             case .françaisFrance:
-              return "Exposant"
+              return "Aucun"
             case .ελληνικάΕλλάδα:
-              return "Εκθέτης"
+              return "Καμία"
             case .עברית־ישראל:
-              return "כתב עילי"
+              return "אל תשתמש בשום אפשרות"
             }
           })
         )
       )
-      superscript.action = #selector(RichTextEditingResponder.makeSuperscript(_:))
-      return superscript
+      useNone.action = #selector(NSTextView.turnOffKerning(_:))
+      return useNone
     }
 
-    private static func `subscript`() -> MenuEntry<MenuBarLocalization> {
-      let `subscript` = MenuEntry(
+    private static func tighten() -> MenuEntry<MenuBarLocalization> {
+      let tighten = MenuEntry(
         label: .static(
           UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-              return "Subíndice"
-            case .françaisFrance:
-              return "Indice"
-
+              return "Reducir"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Subscript"
+              return "Tighten"
             case .deutschDeutschland:
-              return "Tiefgestellt"
+              return "Enger"
+            case .françaisFrance:
+              return "Resserrer"
             case .ελληνικάΕλλάδα:
-              return "Δεικτής"
+              return "Πιο κοντά"
             case .עברית־ישראל:
-              return "כתב תחתי"
+              return "הדוק יותר"
             }
           })
         )
       )
-      `subscript`.action = #selector(RichTextEditingResponder.makeSubscript(_:))
-      return `subscript`
+      tighten.action = #selector(NSTextView.tightenKerning(_:))
+      return tighten
     }
 
-    private static func raise() -> MenuEntry<MenuBarLocalization> {
-      let raise = MenuEntry(
+    private static func loosen() -> MenuEntry<MenuBarLocalization> {
+      let loosen = MenuEntry(
         label: .static(
           UserFacing<StrictString, MenuBarLocalization>({ localization in
             switch localization {
             case .españolEspaña:
-              return "Subir"
+              return "Aumentar"
             case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Raise"
+              return "Loosen"
             case .deutschDeutschland:
-              return "Höher"
+              return "Weiter"
             case .françaisFrance:
-              return "Élever"
+              return "Desserrer"
             case .ελληνικάΕλλάδα:
-              return "Ανύψωση"
+              return "Πιο αραιά"
             case .עברית־ישראל:
-              return "הגבה"
+              return "מרווח יותר"
             }
           })
         )
       )
-      raise.action = #selector(NSTextView.raiseBaseline(_:))
-      return raise
+      loosen.action = #selector(NSTextView.loosenKerning(_:))
+      return loosen
     }
 
-    private static func lower() -> MenuEntry<MenuBarLocalization> {
-      let lower = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Bajar"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Lower"
-            case .deutschDeutschland:
-              return "Niedriger"
-            case .françaisFrance:
-              return "Abaisser"
-            case .ελληνικάΕλλάδα:
-              return "Χαμήλωμα"
-            case .עברית־ישראל:
-              return "נמוך יותר"
-            }
-          })
-        )
-      )
-      lower.action = #selector(NSTextView.lowerBaseline(_:))
-      return lower
-    }
-
-    internal static func baseline() -> Menu<MenuBarLocalization> {
+    internal static func kern() -> Menu<MenuBarLocalization> {
       return Menu(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
           case .españolEspaña:
-            return "Línea base"
+            return "Interletraje"
+
           case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-            return "Baseline"
+            return "Kern"
           case .françaisFrance:
-            return "Ligne de base"
+            return "Crénage"
 
           case .deutschDeutschland:
-            return "Schriftlinie"
+            return "Zeichenabstand"
           case .ελληνικάΕλλάδα:
-            return "Γραμμή βάσης"
+            return "Διαγραμμάτωση"
           case .עברית־ישראל:
-            return "קו בסיס"
+            return "מרווח בין אותיות"
           }
         }),
         entries: [
-          .entry(normal()),
-          .entry(superscript()),
-          .entry(`subscript`()),
-          .entry(raise()),
-          .entry(lower()),
+          .entry(useDefault()),
+          .entry(useNone()),
+          .entry(tighten()),
+          .entry(loosen()),
         ]
       )
     }

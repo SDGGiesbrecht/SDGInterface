@@ -1,5 +1,5 @@
 /*
- MenuBarFormatTextWritingDirection.swift
+ MenuBar.Format.Text.WritingDirection.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
