@@ -134,7 +134,6 @@
     }
 
     internal func applicationDockMenu(_ sender: NSApplication) -> NSMenu? {
-      #warning("Identity lost?")
       return Application.shared.systemMediator?.dockMenu?.cocoa()
     }
 
