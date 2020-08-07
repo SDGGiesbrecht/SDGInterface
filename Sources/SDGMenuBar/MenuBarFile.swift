@@ -287,43 +287,40 @@
     }
 
     internal static func file() -> Menu<MenuBarLocalization> {
-      let file = Menu(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Archivo"
-            case .ελληνικάΕλλάδα:
-              return "Αρχείο"
+      return Menu(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Archivo"
+          case .ελληνικάΕλλάδα:
+            return "Αρχείο"
 
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "File"
-            case .deutschDeutschland:
-              return "Ablage"
-            case .françaisFrance:
-              return "Fichier"
-            case .עברית־ישראל:
-              return "קובץ"
-            }
-          })
-        )
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "File"
+          case .deutschDeutschland:
+            return "Ablage"
+          case .françaisFrance:
+            return "Fichier"
+          case .עברית־ישראל:
+            return "קובץ"
+          }
+        }),
+        entries: [
+          .entry(new()),
+          .entry(open()),
+          .submenu(openRecent()),
+          .separator,
+          .entry(close()),
+          .entry(save()),
+          .entry(duplicate()),
+          .entry(rename()),
+          .entry(moveTo()),
+          .entry(revertToSaved()),
+          .separator,
+          .entry(pageSetUp()),
+          .entry(print()),
+        ]
       )
-      file.entries = [
-        .entry(new()),
-        .entry(open()),
-        .submenu(openRecent()),
-        .separator,
-        .entry(close()),
-        .entry(save()),
-        .entry(duplicate()),
-        .entry(rename()),
-        .entry(moveTo()),
-        .entry(revertToSaved()),
-        .separator,
-        .entry(pageSetUp()),
-        .entry(print()),
-      ]
-      return file
     }
   }
 #endif

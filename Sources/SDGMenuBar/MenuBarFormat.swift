@@ -25,30 +25,27 @@
   extension MenuBar {
 
     internal static func format() -> Menu<MenuBarLocalization> {
-      let format = Menu(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Formato"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada,
-              .deutschDeutschland,
-              .françaisFrance:
-              return "Format"
+      return Menu(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Formato"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada,
+            .deutschDeutschland,
+            .françaisFrance:
+            return "Format"
 
-            case .עברית־ישראל:
-              return "עיצוב"
-            case .ελληνικάΕλλάδα:
-              return "Μορφή"
-            }
-          })
-        )
+          case .עברית־ישראל:
+            return "עיצוב"
+          case .ελληνικάΕλλάδα:
+            return "Μορφή"
+          }
+        }),
+        entries: [
+          .submenu(font()),
+          .submenu(text()),
+        ]
       )
-      format.entries = [
-        .submenu(font()),
-        .submenu(text()),
-      ]
-      return format
     }
   }
 #endif

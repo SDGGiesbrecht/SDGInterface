@@ -37,22 +37,7 @@
         }
         super.init(title: String(label.resolved()))
 
-        items = entries.map { component in
-          switch component {
-          case .entry(let entry):
-            if let index = entry.cocoa.menu?.index(of: entry.cocoa) {
-              entry.cocoa.menu?.removeItem(at: index)
-            }
-            return entry.cocoa
-          case .submenu(let menu):
-            let entry = NSMenuItem()
-            entry.submenu = menu.cocoa()
-            entry.title = entry.submenu!.title
-            return entry
-          case .separator:
-            return NSMenuItem.separator()
-          }
-        }
+        items = entries.map { $0.cocoa() }
       }
 
       // MARK: - Properties

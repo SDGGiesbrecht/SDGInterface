@@ -42,26 +42,24 @@
 
     private init() {
       menu = Menu(
-        label: .static(
-          UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Menu Bar"
-            case .deutschDeutschland:
-              return "Menüleiste"
-            }
-          })
-        )
+        label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Menu Bar"
+          case .deutschDeutschland:
+            return "Menüleiste"
+          }
+        }),
+        entries: [
+          .submenu(MenuBar.application()),
+          .submenu(MenuBar.file()),
+          .submenu(MenuBar.edit()),
+          .submenu(MenuBar.format()),
+          .submenu(MenuBar.view()),
+          .submenu(MenuBar.window()),
+          .submenu(MenuBar.help()),
+        ]
       )
-      menu.entries = [
-        .submenu(MenuBar.application()),
-        .submenu(MenuBar.file()),
-        .submenu(MenuBar.edit()),
-        .submenu(MenuBar.format()),
-        .submenu(MenuBar.view()),
-        .submenu(MenuBar.window()),
-        .submenu(MenuBar.help()),
-      ]
       menuDidSet()
     }
 
@@ -74,7 +72,7 @@
       }
     }
     private func menuDidSet() {
-      NSApplication.shared.mainMenu = menu.cocoa
+      NSApplication.shared.mainMenu = menu.cocoa()
     }
 
     // MARK: - Modification
@@ -86,6 +84,8 @@
     /// - Parameters:
     ///     - submenu: The submenu.
     public func addApplicationSpecificSubmenu(_ submenu: AnyMenu) {
+      #warning("Not implemented yet.")
+      /*
       let index: Int
       if menu.entries.count ≥ 2 {
         index = menu.entries.index(menu.entries.endIndex, offsetBy: −2)
@@ -93,6 +93,7 @@
         index = 0
       }
       menu.entries.insert(.submenu(submenu), at: index)
+      */
     }
 
     // MARK: - Items

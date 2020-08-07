@@ -201,38 +201,35 @@
     }
 
     internal static func substitutions() -> Menu<MenuBarLocalization> {
-      let substitutions = Menu(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Sustituciones"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Substitutions"
-            case .françaisFrance:
-              return "Substitutions"
+      return Menu(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Sustituciones"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Substitutions"
+          case .françaisFrance:
+            return "Substitutions"
 
-            case .deutschDeutschland:
-              return "Ersetzungen"
-            case .ελληνικάΕλλάδα:
-              return "Υποκαταστάσεις"
-            case .עברית־ישראל:
-              return "החלפות"
-            }
-          })
-        )
+          case .deutschDeutschland:
+            return "Ersetzungen"
+          case .ελληνικάΕλλάδα:
+            return "Υποκαταστάσεις"
+          case .עברית־ישראל:
+            return "החלפות"
+          }
+        }),
+        entries: [
+          .entry(showSubstitutions()),
+          .separator,
+          .entry(smartCopyPaste()),
+          .entry(smartQuotes()),
+          .entry(smartDashes()),
+          .entry(smartLinks()),
+          .entry(dataDetectors()),
+          .entry(textReplacement()),
+        ]
       )
-      substitutions.entries = [
-        .entry(showSubstitutions()),
-        .separator,
-        .entry(smartCopyPaste()),
-        .entry(smartQuotes()),
-        .entry(smartDashes()),
-        .entry(smartLinks()),
-        .entry(dataDetectors()),
-        .entry(textReplacement()),
-      ]
-      return substitutions
     }
   }
 #endif

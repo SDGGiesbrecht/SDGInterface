@@ -215,38 +215,35 @@
     }
 
     internal static func text() -> Menu<MenuBarLocalization> {
-      let text = Menu(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Texto"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada,
-              .deutschDeutschland:
-              return "Text"
-            case .françaisFrance:
-              return "Texte"
-            case .ελληνικάΕλλάδα:
-              return "Κείμενο"
-            case .עברית־ישראל:
-              return "מלל"
-            }
-          })
-        )
+      return Menu(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Texto"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada,
+            .deutschDeutschland:
+            return "Text"
+          case .françaisFrance:
+            return "Texte"
+          case .ελληνικάΕλλάδα:
+            return "Κείμενο"
+          case .עברית־ישראל:
+            return "מלל"
+          }
+        }),
+        entries: [
+          .entry(alignRight()),
+          .entry(centre()),
+          .entry(justify()),
+          .entry(alignLeft()),
+          .separator,
+          .submenu(writingDirection()),
+          .separator,
+          .entry(showRuler()),
+          .entry(copyRuler()),
+          .entry(pasteRuler()),
+        ]
       )
-      text.entries = [
-        .entry(alignRight()),
-        .entry(centre()),
-        .entry(justify()),
-        .entry(alignLeft()),
-        .separator,
-        .submenu(writingDirection()),
-        .separator,
-        .entry(showRuler()),
-        .entry(copyRuler()),
-        .entry(pasteRuler()),
-      ]
-      return text
     }
   }
 #endif

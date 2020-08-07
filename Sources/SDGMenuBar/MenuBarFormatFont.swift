@@ -285,46 +285,43 @@
     }
 
     internal static func font() -> Menu<MenuBarLocalization> {
-      let font = Menu(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Tipe de letra"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Font"
-            case .deutschDeutschland:
-              return "Schrift"
-            case .françaisFrance:
-              return "Police"
-            case .ελληνικάΕλλάδα:
-              return "Γραμματοσειρά"
-            case .עברית־ישראל:
-              return "גופן"
-            }
-          })
-        )
+      return Menu(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Tipe de letra"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Font"
+          case .deutschDeutschland:
+            return "Schrift"
+          case .françaisFrance:
+            return "Police"
+          case .ελληνικάΕλλάδα:
+            return "Γραμματοσειρά"
+          case .עברית־ישראל:
+            return "גופן"
+          }
+        }),
+        entries: [
+          .entry(showFonts()),
+          .entry(bold()),
+          .entry(italic()),
+          .entry(underline()),
+          .separator,
+          .entry(bigger()),
+          .entry(smaller()),
+          .separator,
+          .submenu(kern()),
+          .submenu(ligatures()),
+          .submenu(baseline()),
+          .submenu(casing()),
+          .separator,
+          .entry(showColours()),
+          .separator,
+          .entry(copyStyle()),
+          .entry(pasteStyle()),
+        ]
       )
-      font.entries = [
-        .entry(showFonts()),
-        .entry(bold()),
-        .entry(italic()),
-        .entry(underline()),
-        .separator,
-        .entry(bigger()),
-        .entry(smaller()),
-        .separator,
-        .submenu(kern()),
-        .submenu(ligatures()),
-        .submenu(baseline()),
-        .submenu(casing()),
-        .separator,
-        .entry(showColours()),
-        .separator,
-        .entry(copyStyle()),
-        .entry(pasteStyle()),
-      ]
-      return font
     }
   }
 #endif

@@ -123,26 +123,23 @@
     }
 
     internal static func view() -> Menu<InterfaceLocalization> {
-      let view = Menu(
-        label: .static(
-          UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-              return "View"
-            }
-          })
-        )
+      return Menu(
+        label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishCanada:
+            return "View"
+          }
+        }),
+        entries: [
+          .entry(button()),
+          .entry(buttonSet()),
+          .entry(checkBox()),
+          .entry(image()),
+          .entry(label()),
+          .entry(textEditor()),
+          .submenu(textField()),
+        ]
       )
-      view.entries = [
-        .entry(button()),
-        .entry(buttonSet()),
-        .entry(checkBox()),
-        .entry(image()),
-        .entry(label()),
-        .entry(textEditor()),
-        .submenu(textField()),
-      ]
-      return view
     }
   }
 #endif

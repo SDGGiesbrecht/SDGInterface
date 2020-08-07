@@ -245,45 +245,42 @@
     // Show Character Information (See context menu.)
 
     internal static func edit() -> Menu<MenuBarLocalization> {
-      let edit = Menu(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Edición"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Edit"
-            case .françaisFrance:
-              return "Édition"
-            case .deutschDeutschland:
-              return "Bearbeiten"
-            case .ελληνικάΕλλάδα:
-              return "Επεξεργασία"
-            case .עברית־ישראל:
-              return "עריכה"
-            }
-          })
-        )
+      return Menu(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Edición"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Edit"
+          case .françaisFrance:
+            return "Édition"
+          case .deutschDeutschland:
+            return "Bearbeiten"
+          case .ελληνικάΕλλάδα:
+            return "Επεξεργασία"
+          case .עברית־ישראל:
+            return "עריכה"
+          }
+        }),
+        entries: [
+          .entry(undo()),
+          .entry(redo()),
+          .separator,
+          .entry(cut()),
+          .entry(copy()),
+          .entry(paste()),
+          .entry(pasteAndMatchStyle()),
+          .entry(delete()),
+          .entry(selectAll()),
+          .separator,
+          .submenu(find()),
+          .submenu(spellingAndGrammar()),
+          .submenu(substitutions()),
+          .submenu(transformations()),
+          .entry(ContextMenu._showCharacterInformation()),
+          .submenu(speech()),
+        ]
       )
-      edit.entries = [
-        .entry(undo()),
-        .entry(redo()),
-        .separator,
-        .entry(cut()),
-        .entry(copy()),
-        .entry(paste()),
-        .entry(pasteAndMatchStyle()),
-        .entry(delete()),
-        .entry(selectAll()),
-        .separator,
-        .submenu(find()),
-        .submenu(spellingAndGrammar()),
-        .submenu(substitutions()),
-        .submenu(transformations()),
-        .entry(ContextMenu._showCharacterInformation()),
-        .submenu(speech()),
-      ]
-      return edit
     }
   }
 #endif

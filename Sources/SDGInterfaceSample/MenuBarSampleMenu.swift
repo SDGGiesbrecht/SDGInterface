@@ -52,40 +52,34 @@
     }
 
     private static func submenu() -> Menu<InterfaceLocalization> {
-      let submenu = Menu(
-        label: .static(
-          UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-              return "Submenu"
-            }
-          })
-        )
+      return Menu(
+        label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishCanada:
+            return "Submenu"
+          }
+        }),
+        entries: [
+          .entry(menuEntry())
+        ]
       )
-      submenu.entries = [
-        .entry(menuEntry())
-      ]
-      return submenu
     }
 
     internal static func menu() -> Menu<InterfaceLocalization> {
-      let menu = Menu(
-        label: .static(
-          UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-              return "Menu"
-            }
-          })
-        )
+      return Menu(
+        label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishCanada:
+            return "Menu"
+          }
+        }),
+        entries: [
+          .entry(menuEntry()),
+          .entry(indented()),
+          .separator,
+          .submenu(submenu()),
+        ]
       )
-      menu.entries = [
-        .entry(menuEntry()),
-        .entry(indented()),
-        .separator,
-        .submenu(submenu()),
-      ]
-      return menu
     }
   }
 #endif

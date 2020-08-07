@@ -107,25 +107,25 @@
 
     private static func services() -> Menu<MenuBarLocalization> {
       let services = Menu(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Servicios"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada,
-              .françaisFrance:
-              return "Services"
-            case .deutschDeutschland:
-              return "Dienste"
-            case .ελληνικάΕλλάδα:
-              return "Υπηρεσίες"
-            case .עברית־ישראל:
-              return "שירותים"
-            }
-          })
-        )
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Servicios"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada,
+            .françaisFrance:
+            return "Services"
+          case .deutschDeutschland:
+            return "Dienste"
+          case .ελληνικάΕλλάδα:
+            return "Υπηρεσίες"
+          case .עברית־ישראל:
+            return "שירותים"
+          }
+        }),
+        entries: []
       )
-      NSApplication.shared.servicesMenu = services.cocoa
+      #warning("Probably lost identity.")
+      NSApplication.shared.servicesMenu = services.cocoa()
       return services
     }
 
@@ -294,21 +294,22 @@
     }
 
     internal static func application() -> Menu<ApplicationNameLocalization> {
-      let application = Menu(label: .static(ApplicationNameForm.localizedIsolatedForm))
-      application.entries = [
-        .entry(about()),
-        .separator,
-        .entry(preferences()),
-        .separator,
-        .submenu(services()),
-        .separator,
-        .entry(hide()),
-        .entry(hideOthers()),
-        .entry(showAll()),
-        .separator,
-        .entry(quit()),
-      ]
-      return application
+      return Menu(
+        label: ApplicationNameForm.localizedIsolatedForm,
+        entries: [
+          .entry(about()),
+          .separator,
+          .entry(preferences()),
+          .separator,
+          .submenu(services()),
+          .separator,
+          .entry(hide()),
+          .entry(hideOthers()),
+          .entry(showAll()),
+          .separator,
+          .entry(quit()),
+        ]
+      )
     }
   }
 #endif

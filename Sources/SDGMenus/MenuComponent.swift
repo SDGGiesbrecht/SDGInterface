@@ -13,6 +13,10 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
+  #if canImport(AppKit)
+    import AppKit
+  #endif
+
   /// A menu component.
   public enum MenuComponent {
 
@@ -49,6 +53,25 @@
           return submenu
         case .entry, .separator:
           return nil
+        }
+      }
+    #endif
+
+    #if canImport(AppKit)
+      public func cocoa() -> NSMenuItem {
+        switch self {
+        case .entry(let entry):
+          if let index = entry.cocoa.menu?.index(of: entry.cocoa) {
+            entry.cocoa.menu?.removeItem(at: index)
+          }
+          return entry.cocoa
+        case .submenu(let menu):
+          let entry = NSMenuItem()
+          entry.submenu = menu.cocoa()
+          entry.title = entry.submenu!.title
+          return entry
+        case .separator:
+          return NSMenuItem.separator()
         }
       }
     #endif

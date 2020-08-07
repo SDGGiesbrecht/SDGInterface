@@ -59,21 +59,18 @@
     }
 
     internal static func textField() -> Menu<InterfaceLocalization> {
-      let textField = Menu(
-        label: .static(
-          UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-              return "Text Field"
-            }
-          })
-        )
+      return Menu(
+        label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishCanada:
+            return "Text Field"
+          }
+        }),
+        entries: [
+          .entry(textFieldEntry()),
+          .entry(labelledTextField()),
+        ]
       )
-      textField.entries = [
-        .entry(textFieldEntry()),
-        .entry(labelledTextField()),
-      ]
-      return textField
     }
   }
 #endif

@@ -43,23 +43,20 @@
     }
 
     private static func sample() -> Menu<InterfaceLocalization> {
-      let sample = Menu(
-        label: .static(
-          UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-              return "Sample"
-            }
-          })
-        )
+      return Menu(
+        label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishCanada:
+            return "Sample"
+          }
+        }),
+        entries: [
+          .entry(error()),
+          .submenu(menu()),
+          .submenu(view()),
+          .submenu(window()),
+        ]
       )
-      sample.entries = [
-        .entry(error()),
-        .submenu(menu()),
-        .submenu(view()),
-        .submenu(window()),
-      ]
-      return sample
     }
     internal func setSamplesUp() {
       addApplicationSpecificSubmenu(MenuBar.sample())

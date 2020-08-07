@@ -75,33 +75,30 @@
     }
 
     internal static func speech() -> Menu<MenuBarLocalization> {
-      let speech = Menu(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Habla"
+      return Menu(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Habla"
 
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Speech"
-            case .deutschDeutschland:
-              return "Sprachausgabe"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Speech"
+          case .deutschDeutschland:
+            return "Sprachausgabe"
 
-            case .françaisFrance:
-              return "Parole"
-            case .ελληνικάΕλλάδα:
-              return "Εκφώνηση"
-            case .עברית־ישראל:
-              return "דיבור"
-            }
-          })
-        )
+          case .françaisFrance:
+            return "Parole"
+          case .ελληνικάΕλλάδα:
+            return "Εκφώνηση"
+          case .עברית־ישראל:
+            return "דיבור"
+          }
+        }),
+        entries: [
+          .entry(startSpeaking()),
+          .entry(stopSpeaking()),
+        ]
       )
-      speech.entries = [
-        .entry(startSpeaking()),
-        .entry(stopSpeaking()),
-      ]
-      return speech
     }
   }
 #endif

@@ -125,35 +125,32 @@
     }
 
     internal static func kern() -> Menu<MenuBarLocalization> {
-      let kern = Menu(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Interletraje"
+      return Menu(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Interletraje"
 
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Kern"
-            case .françaisFrance:
-              return "Crénage"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Kern"
+          case .françaisFrance:
+            return "Crénage"
 
-            case .deutschDeutschland:
-              return "Zeichenabstand"
-            case .ελληνικάΕλλάδα:
-              return "Διαγραμμάτωση"
-            case .עברית־ישראל:
-              return "מרווח בין אותיות"
-            }
-          })
-        )
+          case .deutschDeutschland:
+            return "Zeichenabstand"
+          case .ελληνικάΕλλάδα:
+            return "Διαγραμμάτωση"
+          case .עברית־ישראל:
+            return "מרווח בין אותיות"
+          }
+        }),
+        entries: [
+          .entry(useDefault()),
+          .entry(useNone()),
+          .entry(tighten()),
+          .entry(loosen()),
+        ]
       )
-      kern.entries = [
-        .entry(useDefault()),
-        .entry(useNone()),
-        .entry(tighten()),
-        .entry(loosen()),
-      ]
-      return kern
     }
   }
 #endif

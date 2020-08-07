@@ -152,7 +152,7 @@
     }
 
     internal static func baseline() -> Menu<MenuBarLocalization> {
-      let baseline = Menu(
+      return Menu(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
           case .españolEspaña:
@@ -169,16 +169,15 @@
           case .עברית־ישראל:
             return "קו בסיס"
           }
-        })
+        }),
+        entries: [
+          .entry(normal()),
+          .entry(superscript()),
+          .entry(`subscript`()),
+          .entry(raise()),
+          .entry(lower()),
+        ]
       )
-      baseline.entries = [
-        .entry(normal()),
-        .entry(superscript()),
-        .entry(`subscript`()),
-        .entry(raise()),
-        .entry(lower()),
-      ]
-      return baseline
     }
   }
 #endif

@@ -157,36 +157,33 @@
     }
 
     internal static func spellingAndGrammar() -> Menu<MenuBarLocalization> {
-      let spellingAndGrammar = Menu(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Ortografía y gramática"
-            case .françaisFrance:
-              return "Orthographe et grammaire"
-            case .ελληνικάΕλλάδα:
-              return "Ορθογραφία και γραμματική"
+      return Menu(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Ortografía y gramática"
+          case .françaisFrance:
+            return "Orthographe et grammaire"
+          case .ελληνικάΕλλάδα:
+            return "Ορθογραφία και γραμματική"
 
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Spelling & Grammar"
-            case .deutschDeutschland:
-              return "Rechtschreibung und Grammatik"
-            case .עברית־ישראל:
-              return "איות ודקדוק"
-            }
-          })
-        )
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Spelling & Grammar"
+          case .deutschDeutschland:
+            return "Rechtschreibung und Grammatik"
+          case .עברית־ישראל:
+            return "איות ודקדוק"
+          }
+        }),
+        entries: [
+          .entry(showSpellingAndGrammar()),
+          .entry(checkDocumentNow()),
+          .separator,
+          .entry(checkSpellingWhileTyping()),
+          .entry(checkGrammarWithSpelling()),
+          .entry(correctSpellingAutomatically()),
+        ]
       )
-      spellingAndGrammar.entries = [
-        .entry(showSpellingAndGrammar()),
-        .entry(checkDocumentNow()),
-        .separator,
-        .entry(checkSpellingWhileTyping()),
-        .entry(checkGrammarWithSpelling()),
-        .entry(correctSpellingAutomatically()),
-      ]
-      return spellingAndGrammar
     }
   }
 #endif

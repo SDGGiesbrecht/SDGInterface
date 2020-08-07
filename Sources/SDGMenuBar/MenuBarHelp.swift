@@ -86,31 +86,30 @@
 
     internal static func help() -> Menu<MenuBarLocalization> {
       let help = Menu(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Ayuda"
-            case .françaisFrance:
-              return "Aide"
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Ayuda"
+          case .françaisFrance:
+            return "Aide"
 
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Help"
-            case .deutschDeutschland:
-              return "Hilfe"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Help"
+          case .deutschDeutschland:
+            return "Hilfe"
 
-            case .ελληνικάΕλλάδα:
-              return "Βοήθεια"
-            case .עברית־ישראל:
-              return "עזרה"
-            }
-          })
-        )
+          case .ελληνικάΕλλάδα:
+            return "Βοήθεια"
+          case .עברית־ישראל:
+            return "עזרה"
+          }
+        }),
+        entries: [
+          .entry(helpEntry())
+        ]
       )
-      help.entries = [
-        .entry(helpEntry())
-      ]
-      NSApplication.shared.helpMenu = help.cocoa
+      #warning("Identity lost.")
+      NSApplication.shared.helpMenu = help.cocoa()
       return help
     }
   }

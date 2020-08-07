@@ -169,39 +169,36 @@
     }
 
     internal static func writingDirection() -> Menu<MenuBarLocalization> {
-      let writingDirection = Menu(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Sentido de la escritura"
-            case .françaisFrance:
-              return "Sens de l’écriture"
+      return Menu(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Sentido de la escritura"
+          case .françaisFrance:
+            return "Sens de l’écriture"
 
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Writing Direction"
-            case .deutschDeutschland:
-              return "Richtung beim Schreiben"
-            case .ελληνικάΕλλάδα:
-              return "Κατεύθυνση γραφής"
-            case .עברית־ישראל:
-              return "כיווניות הכתיבה"
-            }
-          })
-        )
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Writing Direction"
+          case .deutschDeutschland:
+            return "Richtung beim Schreiben"
+          case .ελληνικάΕλλάδα:
+            return "Κατεύθυνση γραφής"
+          case .עברית־ישראל:
+            return "כיווניות הכתיבה"
+          }
+        }),
+        entries: [
+          .entry(paragraph()),
+          .entry(paragraphDefault()),
+          .entry(paragraphRightToLeft()),
+          .entry(paragraphLeftToRight()),
+          .separator,
+          .entry(selection()),
+          .entry(selectionDefault()),
+          .entry(selectionRightToLeft()),
+          .entry(selectionLeftToRight()),
+        ]
       )
-      writingDirection.entries = [
-        .entry(paragraph()),
-        .entry(paragraphDefault()),
-        .entry(paragraphRightToLeft()),
-        .entry(paragraphLeftToRight()),
-        .separator,
-        .entry(selection()),
-        .entry(selectionDefault()),
-        .entry(selectionRightToLeft()),
-        .entry(selectionLeftToRight()),
-      ]
-      return writingDirection
     }
   }
 #endif
