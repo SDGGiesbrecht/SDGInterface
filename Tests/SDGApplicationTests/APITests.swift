@@ -145,5 +145,8 @@ final class APITests: ApplicationTestCase {
         XCTAssertEqual(TerminationResponse(cocoa), response)
       #endif
     }
+    #if canImport(AppKit)
+      _ = mediator.menuBar
+    #endif
   }
 }

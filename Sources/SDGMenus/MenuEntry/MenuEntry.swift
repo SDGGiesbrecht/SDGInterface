@@ -51,21 +51,6 @@
       #endif
     }
 
-    #if canImport(AppKit)
-      /// Creates an unlocalized menu entry with a Cocoa menu item.
-      ///
-      /// - Parameters:
-      ///     - cocoa: The Cocoa menu item.
-      public init(_ cocoa: NSMenuItem) {
-        let title = cocoa.title
-
-        self.cocoa = cocoa
-        defer { refreshCocoa() }
-        self.label = .binding(Shared(StrictString(title)))
-        labelDidSet()
-      }
-    #endif
-
     // MARK: - Properties
 
     /// The label.

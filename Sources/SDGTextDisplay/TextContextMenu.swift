@@ -72,9 +72,8 @@
             })
             transformations.items.append(adjustment.cocoa())
             handled = true
-          } else if entry.cocoa.action == #selector(
-            TextDisplayResponder
-              .showCharacterInformation(_:)),
+          } else if entry.cocoa.action
+            == #selector(TextDisplayResponder.showCharacterInformation(_:)),
             let transformations = systemMenu.items.indices.lazy
               .first(where: { index in
                 let submenu = systemMenu.items[index].submenu
@@ -102,7 +101,8 @@
           }),
         entries: []
       )
-      let items = systemMenu.items + appendix.map({ $0.cocoa() })
+      let items = systemMenu.items
+        + appendix.map({ $0.cocoa() })  // @exempt(from: tests) No appendix yet.
       for item in items {
         if let index = item.menu?.index(of: item) {
           item.menu?.removeItem(at: index)

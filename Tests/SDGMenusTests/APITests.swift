@@ -121,6 +121,7 @@ final class APITests: ApplicationTestCase {
       #if !os(tvOS) && !os(watchOS)
         _ = menu.cocoa.title
       #endif
+      menu._refreshBindings()
     #endif
   }
 }
