@@ -32,7 +32,7 @@ internal class SystemMediator: SDGApplication.SystemMediator {
 
 extension SystemMediator {
 
-  #if canImport(macOS)
+  #if canImport(AppKit)
     internal var menuBar: MenuBar {
       return MenuBar(applicationSpecificSubmenus: [
         MenuBar.sample()

@@ -58,7 +58,5 @@
         ]
       )
     }
-    internal func setSamplesUp() {
-    }
   }
 #endif
