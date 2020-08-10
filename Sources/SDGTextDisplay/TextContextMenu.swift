@@ -101,7 +101,8 @@
           }),
         entries: []
       )
-      let items = systemMenu.items
+      let items =
+        systemMenu.items
         + appendix.map({ $0.cocoa() })  // @exempt(from: tests) No appendix yet.
       for item in items {
         if let index = item.menu?.index(of: item) {
