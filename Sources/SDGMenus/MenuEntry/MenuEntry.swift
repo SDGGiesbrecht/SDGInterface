@@ -70,11 +70,6 @@
 
     // MARK: - Refreshing
 
-    #if canImport(AppKit)
-      private func refreshCocoa() {
-        refreshLabel()
-      }
-    #endif
     private func refreshLabel() {
       cocoa.title = String(label.resolved())
     }
