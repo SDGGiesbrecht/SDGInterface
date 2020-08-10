@@ -27,64 +27,71 @@
   import SDGInterfaceBasics
 
   /// A menu entry.
-  public final class MenuEntry<L>: AnyMenuEntry where L: Localization {
+  public struct MenuEntry<L>: AnyMenuEntry where L: Localization {
 
     // MARK: - Initialization
 
     /// Creates a menu entry.
     ///
     /// - Parameters:
-    ///     - label: The label.
-    public init(label: Binding<StrictString, L>) {
+    ///   - label: The label.
+    ///   - hotKeyModifiers: The hot key modifiers.
+    ///   - hotKey: The hot key.
+    ///   - action: The action.
+    ///   - isHidden: A binding indicating whether the menu item should be hidden.
+    ///   - tag: A platform tag. System actions on some platforms need numeric tag identifiers to provide additional information when the action is triggered. Use of this parameter is discouraged except when necessary to interact with such system actions.
+    public init(
+      label: UserFacing<StrictString, L>,
+      hotKeyModifiers: KeyModifiers,
+      hotKey: String? = nil,
+      action: @escaping () -> Void,
+      isHidden: Shared<Bool> = Shared(false),
+      indentationLevel: Int = 0,
+      tag: Int? = nil
+    ) {
       self.label = label
-      defer {
-        labelDidSet()
-        LocalizationSetting.current.register(observer: bindingObserver)
-      }
-      defer {
-        bindingObserver.entry = self
-      }
-      #if canImport(AppKit)
-        cocoa = NSMenuItem()
-      #elseif canImport(UIKit)
-        cocoa = UIMenuItem()
-      #endif
+      self.hotKeyModifiers = hotKeyModifiers
+      self.hotKey = hotKey
+      self.action = action
+      self.isHidden = isHidden
+      self.tag = tag
     }
 
     // MARK: - Properties
 
-    /// The label.
-    public var label: Binding<StrictString, L> {
-      willSet {
-        label.shared?.cancel(observer: bindingObserver)
-      }
-      didSet {
-        labelDidSet()
-      }
-    }
-    private func labelDidSet() {
-      label.shared?.register(observer: bindingObserver)
-    }
-
-    private var bindingObserver = MenuEntryBindingObserver()
-
-    // MARK: - Refreshing
-
-    private func refreshLabel() {
-      cocoa.title = String(label.resolved())
-    }
-    public func _refreshBindings() {
-      refreshLabel()
-    }
+    private let label: UserFacing<StrictString, L>
+    private let hotKeyModifiers: KeyModifiers
+    private let hotKey: String?
+    private let action: () -> Void
+    private let isHidden: Shared<Bool>
+    private let tag: Int?
 
     // MARK: - AnyMenuEntry
 
     #if canImport(AppKit)
-      public let cocoa: NSMenuItem
+      public func cocoa() -> NSMenuItem {
+        return CocoaImplementation(
+          label: label,
+          hotKeyModifiers:
+            hotKeyModifiers,
+          hotKey: hotKey,
+          action: action,
+          isHidden: isHidden,
+          tag: tag
+        )
+      }
     #elseif canImport(UIKit)
-      public let cocoa: UIMenuItem
-      public var _isHidden: Bool = false
-      public var _tag: Int = 0
+      public func cocoa() -> UIMenuItem {
+        return CocoaImplementation(
+          label: label,
+          hotKeyModifiers:
+            hotKeyModifiers,
+          hotKey: hotKey,
+          action: action,
+          isHidden: isHidden,
+          tag: tag
+        )
+      }
     #endif
   }
 #endif
