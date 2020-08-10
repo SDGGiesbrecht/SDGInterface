@@ -36,26 +36,24 @@ public final class ContextMenu {
     // MARK: - Initialization
 
     private init() {
-      menu = Menu(
-        label: .static(
-          UserFacing<StrictString, InterfaceLocalization>(
-            { localization in  // @exempt(from: tests) Unreachable on iOS.
-              switch localization {  // @exempt(from: tests)
-              case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Context Menu"
-              case .deutschDeutschland:
-                return "Kontextmenü"
-              }
-            })
-        )
-      )
       var entries: [MenuComponent] = [
         .entry(ContextMenu._normalizeText())
       ]
       if #available(iOS 9, *) {  // @exempt(from: unicode)
         entries.append(.entry(ContextMenu._showCharacterInformation()))
       }
-      menu.entries = entries
+      menu = Menu(
+        label: UserFacing<StrictString, InterfaceLocalization>(
+          { localization in  // @exempt(from: tests) Unreachable on iOS.
+            switch localization {  // @exempt(from: tests)
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+              return "Context Menu"
+            case .deutschDeutschland:
+              return "Kontextmenü"
+            }
+          }),
+        entries: entries
+      )
       menuDidSet()
     }
 
@@ -68,15 +66,7 @@ public final class ContextMenu {
       }
     }
     private func menuDidSet() {
-      func flatten(_ menu: AnyMenu) -> [UIMenuItem] {
-        return menu.entries.flatMap { (entry) -> [UIMenuItem] in
-          switch entry {
-          case .entry(let entry):
-            return entry.isHidden ? [] : [entry.cocoa]
-          }
-        }
-      }
-      UIMenuController.shared.menuItems = flatten(menu)
+      UIMenuController.shared.menuItems = menu.cocoa()
       UIMenuController.shared.update()
     }
   #endif

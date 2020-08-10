@@ -43,20 +43,17 @@
     }
 
     internal static func window() -> Menu<InterfaceLocalization> {
-      let window = Menu(
-        label: .static(
-          UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-              return "Window"
-            }
-          })
-        )
+      return Menu(
+        label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishCanada:
+            return "Window"
+          }
+        }),
+        entries: [
+          .entry(fullscreen())
+        ]
       )
-      window.entries = [
-        .entry(fullscreen())
-      ]
-      return window
     }
   }
 #endif

@@ -228,7 +228,7 @@
 
     #if canImport(AppKit)
       public override class var defaultMenu: NSMenu? {
-        return TextContextMenu.contextMenu.menu.cocoa
+        return TextContextMenu.contextMenu.menu
       }
     #endif
   }

@@ -1,5 +1,5 @@
 /*
- MenuBarEditFind.swift
+ MenuBar.Edit.Find.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -193,35 +193,32 @@
     }
 
     internal static func find() -> Menu<MenuBarLocalization> {
-      let find = Menu(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Buscar"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Find"
-            case .deutschDeutschland:
-              return "Suchen"
-            case .françaisFrance:
-              return "Rechercher"
-            case .ελληνικάΕλλάδα:
-              return "Εύρεση"
-            case .עברית־ישראל:
-              return "חיפוש"
-            }
-          })
-        )
+      return Menu(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Buscar"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Find"
+          case .deutschDeutschland:
+            return "Suchen"
+          case .françaisFrance:
+            return "Rechercher"
+          case .ελληνικάΕλλάδα:
+            return "Εύρεση"
+          case .עברית־ישראל:
+            return "חיפוש"
+          }
+        }),
+        entries: [
+          .entry(findEntry()),
+          .entry(findAndReplace()),
+          .entry(findNext()),
+          .entry(findPrevious()),
+          .entry(jumpToSelection()),
+          .entry(useSelectionForFind()),
+        ]
       )
-      find.entries = [
-        .entry(findEntry()),
-        .entry(findAndReplace()),
-        .entry(findNext()),
-        .entry(findPrevious()),
-        .entry(jumpToSelection()),
-        .entry(useSelectionForFind()),
-      ]
-      return find
     }
   }
 #endif

@@ -134,7 +134,7 @@
     }
 
     internal func applicationDockMenu(_ sender: NSApplication) -> NSMenu? {
-      return Application.shared.systemMediator?.dockMenu?.cocoa
+      return Application.shared.systemMediator?.dockMenu?.cocoa()
     }
 
     internal func application(_ application: NSApplication, willPresentError error: Error) -> Error

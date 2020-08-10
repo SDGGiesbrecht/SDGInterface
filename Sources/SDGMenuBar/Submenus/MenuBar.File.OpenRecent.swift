@@ -1,5 +1,5 @@
 /*
- MenuBarFileOpenRecent.swift
+ MenuBar.File.OpenRecent.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -50,30 +50,27 @@
     }
 
     internal static func openRecent() -> Menu<MenuBarLocalization> {
-      let openRecent = Menu(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Abrir recientes"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Open Recent"
-            case .deutschDeutschland:
-              return "Benutzte Dokumente"
-            case .françaisFrance:
-              return "Ouvrir l’élément récent"
-            case .ελληνικάΕλλάδα:
-              return "Άνοιγμα προσφάτου"
-            case .עברית־ישראל:
-              return "פתח אחרונים"
-            }
-          })
-        )
+      return Menu(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Abrir recientes"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Open Recent"
+          case .deutschDeutschland:
+            return "Benutzte Dokumente"
+          case .françaisFrance:
+            return "Ouvrir l’élément récent"
+          case .ελληνικάΕλλάδα:
+            return "Άνοιγμα προσφάτου"
+          case .עברית־ישראל:
+            return "פתח אחרונים"
+          }
+        }),
+        entries: [
+          .entry(clearMenu())
+        ]
       )
-      openRecent.entries = [
-        .entry(clearMenu())
-      ]
-      return openRecent
     }
   }
 #endif

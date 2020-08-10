@@ -1,5 +1,5 @@
 /*
- MenuBarFormatFontLigatures.swift
+ MenuBar.Format.Font.Ligatures.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -100,32 +100,29 @@
     }
 
     internal static func ligatures() -> Menu<MenuBarLocalization> {
-      let ligatures = Menu(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Ligaduras"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada,
-              .françaisFrance:
-              return "Ligatures"
-            case .deutschDeutschland:
-              return "Ligaturen"
+      return Menu(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Ligaduras"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada,
+            .françaisFrance:
+            return "Ligatures"
+          case .deutschDeutschland:
+            return "Ligaturen"
 
-            case .ελληνικάΕλλάδα:
-              return "Συμπλέγματα"
-            case .עברית־ישראל:
-              return "משלבי אותיות"
-            }
-          })
-        )
+          case .ελληνικάΕλλάδα:
+            return "Συμπλέγματα"
+          case .עברית־ישראל:
+            return "משלבי אותיות"
+          }
+        }),
+        entries: [
+          .entry(useDefault()),
+          .entry(useNone()),
+          .entry(useAll()),
+        ]
       )
-      ligatures.entries = [
-        .entry(useDefault()),
-        .entry(useNone()),
-        .entry(useAll()),
-      ]
-      return ligatures
     }
   }
 #endif

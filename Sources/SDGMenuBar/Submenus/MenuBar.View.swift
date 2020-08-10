@@ -1,5 +1,5 @@
 /*
- MenuBarView.swift
+ MenuBar.View.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -133,34 +133,31 @@
     }
 
     internal static func view() -> Menu<MenuBarLocalization> {
-      let view = Menu(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Visualización"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "View"
-            case .deutschDeutschland:
-              return "Darstellung"
-            case .françaisFrance:
-              return "Présentation"
-            case .ελληνικάΕλλάδα:
-              return "Προβολή"
-            case .עברית־ישראל:
-              return "תצוגה"
-            }
-          })
-        )
+      return Menu(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Visualización"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "View"
+          case .deutschDeutschland:
+            return "Darstellung"
+          case .françaisFrance:
+            return "Présentation"
+          case .ελληνικάΕλλάδα:
+            return "Προβολή"
+          case .עברית־ישראל:
+            return "תצוגה"
+          }
+        }),
+        entries: [
+          .entry(showToolbar()),
+          .entry(customizeToolbar()),
+          .separator,
+          .entry(showSideBar()),
+          .entry(enterFullScreen()),
+        ]
       )
-      view.entries = [
-        .entry(showToolbar()),
-        .entry(customizeToolbar()),
-        .separator,
-        .entry(showSideBar()),
-        .entry(enterFullScreen()),
-      ]
-      return view
     }
   }
 #endif

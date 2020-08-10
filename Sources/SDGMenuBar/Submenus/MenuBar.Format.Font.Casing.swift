@@ -1,5 +1,5 @@
 /*
- MenuBarFormatFontCasing.swift
+ MenuBar.Format.Font.Casing.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -150,32 +150,29 @@
     }
 
     internal static func casing() -> Menu<InterfaceLocalization> {
-      let casing = Menu(
-        label: .static(
-          UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Casing"
-            case .deutschDeutschland:
-              return "Buchstabengröße"
-            }
-          })
-        )
+      return Menu(
+        label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Casing"
+          case .deutschDeutschland:
+            return "Buchstabengröße"
+          }
+        }),
+        entries: [
+          .entry(useDefault()),
+          .separator,
+          .entry(latinate()),
+          .entry(latinateUpperCase()),
+          .entry(latinateSmallUpperCase()),
+          .entry(latinateLowerCase()),
+          .separator,
+          .entry(turkic()),
+          .entry(turkicUpperCase()),
+          .entry(turkicSmallUpperCase()),
+          .entry(turkicLowerCase()),
+        ]
       )
-      casing.entries = [
-        .entry(useDefault()),
-        .separator,
-        .entry(latinate()),
-        .entry(latinateUpperCase()),
-        .entry(latinateSmallUpperCase()),
-        .entry(latinateLowerCase()),
-        .separator,
-        .entry(turkic()),
-        .entry(turkicUpperCase()),
-        .entry(turkicSmallUpperCase()),
-        .entry(turkicLowerCase()),
-      ]
-      return casing
     }
   }
 #endif

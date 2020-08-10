@@ -18,6 +18,7 @@
 #endif
 
 import SDGMenus
+import SDGMenuBar
 
 /// An object which mediates between the application and system events.
 public protocol SystemMediator {
@@ -117,6 +118,11 @@ public protocol SystemMediator {
   ///
   /// - Returns: `true` if the reopen operation has been handled, `false` to request that the operating system handle it.
   func reopen(hasVisibleWindows: Bool?) -> Bool
+
+  #if canImport(AppKit)
+    /// Used by some systems as the menu bar.
+    var menuBar: MenuBar { get }
+  #endif
 
   #if canImport(AppKit)
     /// Used by some systems as the dock menu.
@@ -339,6 +345,12 @@ extension SystemMediator {
   public func reopen(hasVisibleWindows: Bool?) -> Bool {
     return false
   }
+
+  #if canImport(AppKit)
+    public var menuBar: MenuBar {
+      return MenuBar(applicationSpecificSubmenus: [])
+    }
+  #endif
 
   #if canImport(AppKit)
     public var dockMenu: AnyMenu? {

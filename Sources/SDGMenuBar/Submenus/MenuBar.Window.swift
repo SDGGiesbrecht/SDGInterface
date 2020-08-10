@@ -1,5 +1,5 @@
 /*
- MenuBarWindow.swift
+ MenuBar.Window.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -104,36 +104,32 @@
     }
 
     internal static func window() -> Menu<MenuBarLocalization> {
-      let window = Menu(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Ventana"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Window"
+      return Menu(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Ventana"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Window"
 
-            case .deutschDeutschland:
-              return "Fenster"
-            case .françaisFrance:
-              return "Fenêtre"
+          case .deutschDeutschland:
+            return "Fenster"
+          case .françaisFrance:
+            return "Fenêtre"
 
-            case .ελληνικάΕλλάδα:
-              return "Παράθυρο"
-            case .עברית־ישראל:
-              return "חלון"
-            }
-          })
-        )
+          case .ελληνικάΕλλάδα:
+            return "Παράθυρο"
+          case .עברית־ישראל:
+            return "חלון"
+          }
+        }),
+        entries: [
+          .entry(minimize()),
+          .entry(zoom()),
+          .separator,
+          .entry(bringAllToFront()),
+        ]
       )
-      window.entries = [
-        .entry(minimize()),
-        .entry(zoom()),
-        .separator,
-        .entry(bringAllToFront()),
-      ]
-      NSApplication.shared.windowsMenu = window.cocoa
-      return window
     }
   }
 #endif

@@ -13,6 +13,8 @@
  */
 
 import SDGControlFlow
+import SDGLogic
+import SDGText
 import SDGLocalization
 
 import SDGMenus
@@ -31,18 +33,9 @@ final class APITests: ApplicationTestCase {
 
   func testMenuBar() {
     #if canImport(AppKit)
-      let menuBar = MenuBar.menuBar
+      let menuBar = MenuBar(applicationSpecificSubmenus: [])
       XCTAssertNotNil(menuBar)
-      var submenu: AnyMenu?
-      _ = menuBar.menu.entries.first(where: { entry in
-        switch entry {
-        case .submenu(let menu):
-          submenu = menu
-          return true
-        default:
-          return false
-        }
-      })
+      let submenu = menuBar.cocoa().items.first(where: { $0.submenu ≠ nil })
       XCTAssertNotNil(submenu)
 
       let previous = ProcessInfo.applicationName
@@ -54,7 +47,7 @@ final class APITests: ApplicationTestCase {
           LocalizationSetting(orderOfPrecedence: [localization.code]).do {
             _ = ContextMenu._normalizeText().label.resolved()
             _ = ContextMenu._showCharacterInformation().label.resolved()
-            _ = (MenuBar.menuBar.menu as? Menu<InterfaceLocalization>)?.label.resolved()
+            _ = menuBar.cocoa()
           }
         }
       }
@@ -82,18 +75,7 @@ final class APITests: ApplicationTestCase {
         where: { $0.action == #selector(_NSApplicationDelegateProtocol.openPreferences(_:)) })
       XCTAssertNotNil(preferencesMenuItem)
 
-      let menu = MenuBar.menuBar.menu
-      MenuBar.menuBar.menu = Menu<APILocalization>(label: .binding(Shared("")))
-      MenuBar.menuBar.addApplicationSpecificSubmenu(
-        Menu<APILocalization>(label: .binding(Shared("")))
-      )
-      MenuBar.menuBar.addApplicationSpecificSubmenu(
-        Menu<APILocalization>(label: .binding(Shared("")))
-      )
-      MenuBar.menuBar.addApplicationSpecificSubmenu(
-        Menu<APILocalization>(label: .binding(Shared("")))
-      )
-      MenuBar.menuBar.menu = menu
+      _ = MenuBar(applicationSpecificSubmenus: []).cocoa()
     #endif
   }
 }

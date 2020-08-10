@@ -36,22 +36,9 @@
     // MARK: - Initialization
 
     private init() {
-      menu = Menu(
-        label: .static(
-          UserFacing<StrictString, InterfaceLocalization>(
-            { localization in  // @exempt(from: tests) Unreachable on iOS.
-              switch localization {  // @exempt(from: tests)
-              case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Context Menu"
-              case .deutschDeutschland:  // @exempt(from: tests)
-                return "Kontextmenü"
-              }
-            })
-        )
-      )
-      let systemMenu = Menu<InterfaceLocalization>(
-        NSTextView.defaultMenu ?? NSMenu()  // @exempt(from: tests) Never nil.
-      )
+      let systemMenu =
+        NSTextView.defaultMenu
+        ?? NSMenu()  // @exempt(from: tests) Never nil.
       let adjustments: [MenuComponent] = [
         .entry(SDGContextMenu.ContextMenu._normalizeText()),
         .entry(SDGContextMenu.ContextMenu._showCharacterInformation()),
@@ -67,14 +54,14 @@
         switch adjustment {
         case .entry(let entry):
           if entry.cocoa.action == #selector(TextEditingResponder.normalizeText(_:)),
-            let transformations = systemMenu.entries.lazy.compactMap({ $0.asSubmenu })
+            let transformations = systemMenu.items.lazy.compactMap({ $0.submenu })
               .first(where: {
-                $0.entries.contains(
-                  where: { $0.asEntry?.action == #selector(NSText.uppercaseWord(_:)) })
+                $0.items.contains(
+                  where: { $0.action == #selector(NSText.uppercaseWord(_:)) })
               })
           {
-            transformations.entries = transformations.entries.filter({ entry in
-              let action = entry.asEntry?.action
+            transformations.items = transformations.items.filter({ entry in
+              let action = entry.action
               if action == #selector(NSText.uppercaseWord(_:))
                 ∨ action == #selector(NSText.lowercaseWord(_:))
                 ∨ action == #selector(NSText.capitalizeWord(_:))
@@ -83,32 +70,53 @@
               }
               return true
             })
-            transformations.entries.append(adjustment)
+            transformations.items.append(adjustment.cocoa())
             handled = true
-          } else if entry.cocoa.action == #selector(
-            TextDisplayResponder
-              .showCharacterInformation(_:)),
-            let transformations = systemMenu.entries.indices.lazy
+          } else if entry.cocoa.action
+            == #selector(TextDisplayResponder.showCharacterInformation(_:)),
+            let transformations = systemMenu.items.indices.lazy
               .first(where: { index in
-                let submenu = systemMenu.entries[index].asSubmenu
-                return submenu?.entries.contains(
-                  where: { $0.asEntry?.action == #selector(TextEditingResponder.normalizeText(_:)) }
+                let submenu = systemMenu.items[index].submenu
+                return submenu?.items.contains(
+                  where: { $0.action == #selector(TextEditingResponder.normalizeText(_:)) }
                 ) ?? false
               })
           {
-            systemMenu.entries.insert(adjustment, at: transformations + 1)
+            systemMenu.items.insert(adjustment.cocoa(), at: transformations + 1)
             handled = true
           }
         default:
           unreachable()
         }
       }
-      menu.entries = systemMenu.entries + appendix
+      let menu = Menu(
+        label: UserFacing<StrictString, InterfaceLocalization>(
+          { localization in  // @exempt(from: tests) Unreachable on iOS.
+            switch localization {  // @exempt(from: tests)
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+              return "Context Menu"
+            case .deutschDeutschland:  // @exempt(from: tests)
+              return "Kontextmenü"
+            }
+          }),
+        entries: []
+      )
+      let items =
+        systemMenu.items
+        + appendix.map({ $0.cocoa() })  // @exempt(from: tests) No appendix yet.
+      for item in items {
+        if let index = item.menu?.index(of: item) {
+          item.menu?.removeItem(at: index)
+        }
+      }
+      let cocoa = menu.cocoa()
+      cocoa.items = items
+      self.menu = cocoa
     }
 
     // MARK: - Properties
 
     /// The menu.
-    public var menu: AnyMenu
+    public var menu: NSMenu
   }
 #endif

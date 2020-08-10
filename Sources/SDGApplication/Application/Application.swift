@@ -23,6 +23,8 @@
   import UIKit
 #endif
 
+import SDGLogic
+
 import SDGContextMenu
 import SDGMenuBar
 
@@ -107,7 +109,12 @@ public final class Application {
     #endif
 
     #if canImport(AppKit)
-      _ = MenuBar.menuBar
+      let menuBar = Application.shared.systemMediator?.menuBar.cocoa()
+      NSApplication.shared.mainMenu = menuBar
+      NSApplication.shared.servicesMenu =
+        menuBar?.items.first?.submenu?.items.first(where: { $0.submenu ≠ nil })?.submenu
+      NSApplication.shared.windowsMenu = menuBar?.items.dropLast().last?.submenu
+      NSApplication.shared.helpMenu = menuBar?.items.last?.submenu
     #endif
 
     #if canImport(AppKit)

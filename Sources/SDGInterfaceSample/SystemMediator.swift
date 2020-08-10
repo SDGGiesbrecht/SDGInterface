@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import SDGMenuBar
+
 public func getSystemMediator() -> SDGApplication.SystemMediator {
   return SystemMediator()
 }
@@ -29,6 +31,14 @@ internal class SystemMediator: SDGApplication.SystemMediator {
 // @endExample
 
 extension SystemMediator {
+
+  #if canImport(AppKit)
+    internal var menuBar: MenuBar {
+      return MenuBar(applicationSpecificSubmenus: [
+        MenuBar.sample()
+      ])
+    }
+  #endif
 
   internal var remainsRunningWithNoWindows: Bool {  // @exempt(from: tests)
     return true

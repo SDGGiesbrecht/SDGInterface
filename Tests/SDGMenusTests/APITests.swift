@@ -38,17 +38,10 @@ final class APITests: ApplicationTestCase {
   func testMenu() {
     #if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
       _ = MenuEntry(label: .static(UserFacing<StrictString, APILocalization>({ _ in "..." })))
-      let menuLabel = Shared<StrictString>("initial")
-      let menu = Menu<APILocalization>(label: .binding(menuLabel))
-      menuLabel.value = "changed"
-      XCTAssertEqual(menu.label.resolved(), menuLabel.value)
-      let separateMenuLabel = Shared<StrictString>("separate")
-      menu.label = .binding(separateMenuLabel)
-      XCTAssertEqual(menu.label.resolved(), separateMenuLabel.value)
-      menuLabel.value = "unrelated"
-      XCTAssertEqual(menu.label.resolved(), separateMenuLabel.value)
+      let menuLabel = UserFacing<StrictString, APILocalization>({ _ in "initial" })
+      let menu = Menu<APILocalization>(label: menuLabel, entries: [])
       #if canImport(AppKit)
-        _ = menu.cocoa.title
+        _ = menu.cocoa()
       #endif
     #endif
   }
@@ -60,10 +53,20 @@ final class APITests: ApplicationTestCase {
       )
       #if canImport(AppKit)
         XCTAssertNotNil(
-          MenuComponent.submenu(Menu<InterfaceLocalization>(label: .binding(Shared("")))).asSubmenu
+          MenuComponent.submenu(
+            Menu<InterfaceLocalization>(
+              label: UserFacing<StrictString, InterfaceLocalization>({ _ in "" }),
+              entries: []
+            )
+          ).asSubmenu
         )
         XCTAssertNil(
-          MenuComponent.submenu(Menu<InterfaceLocalization>(label: .binding(Shared("")))).asEntry
+          MenuComponent.submenu(
+            Menu<InterfaceLocalization>(
+              label: UserFacing<StrictString, InterfaceLocalization>({ _ in "initial" }),
+              entries: []
+            )
+          ).asEntry
         )
         XCTAssertNil(
           MenuComponent.entry(MenuEntry<InterfaceLocalization>(label: .binding(Shared(""))))
@@ -118,6 +121,7 @@ final class APITests: ApplicationTestCase {
       #if !os(tvOS) && !os(watchOS)
         _ = menu.cocoa.title
       #endif
+      menu._refreshBindings()
     #endif
   }
 }
