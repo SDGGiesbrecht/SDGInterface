@@ -25,30 +25,13 @@
 
     private static func menuEntry() -> MenuEntry<InterfaceLocalization> {
       return MenuEntry(
-        label: .static(
-          UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-              return "Menu Entry"
-            }
-          })
-        )
+        label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishCanada:
+            return "Menu Entry"
+          }
+        })
       )
-    }
-
-    private static func indented() -> MenuEntry<InterfaceLocalization> {
-      let indented = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-              return "Indented"
-            }
-          })
-        )
-      )
-      indented.indentationLevel = 1
-      return indented
     }
 
     private static func submenu() -> Menu<InterfaceLocalization> {
@@ -75,7 +58,6 @@
         }),
         entries: [
           .entry(menuEntry()),
-          .entry(indented()),
           .separator,
           .submenu(submenu()),
         ]

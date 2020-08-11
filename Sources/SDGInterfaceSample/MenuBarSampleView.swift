@@ -27,99 +27,81 @@
   extension MenuBar {
 
     private static func button() -> MenuEntry<InterfaceLocalization> {
-      let button = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-              return "Button"
-            }
-          })
-        )
+      return MenuEntry(
+        label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishCanada:
+            return "Button"
+          }
+        }),
+        action: #selector(Application.demonstrateButton),
+        target: Application.shared
       )
-      button.action = #selector(Application.demonstrateButton)
-      button.target = Application.shared
-      return button
     }
 
     private static func buttonSet() -> MenuEntry<InterfaceLocalization> {
-      let buttonSet = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-              return "Radio Buttons"
-            }
-          })
-        )
+      return MenuEntry(
+        label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishCanada:
+            return "Radio Buttons"
+          }
+        }),
+        action: #selector(Application.demonstrateSegmentedControl),
+        target: Application.shared
       )
-      buttonSet.action = #selector(Application.demonstrateSegmentedControl)
-      buttonSet.target = Application.shared
-      return buttonSet
     }
 
     private static func checkBox() -> MenuEntry<InterfaceLocalization> {
-      let checkBox = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-              return "Check Box"
-            }
-          })
-        )
+      return MenuEntry(
+        label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishCanada:
+            return "Check Box"
+          }
+        }),
+        action: #selector(Application.demonstrateCheckBox),
+        target: Application.shared
       )
-      checkBox.action = #selector(Application.demonstrateCheckBox)
-      checkBox.target = Application.shared
-      return checkBox
     }
 
     private static func image() -> MenuEntry<InterfaceLocalization> {
-      let image = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-              return "Image"
-            }
-          })
-        )
+      return MenuEntry(
+        label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishCanada:
+            return "Image"
+          }
+        }),
+        action: #selector(Application.demonstrateImage),
+        target: Application.shared
       )
-      image.action = #selector(Application.demonstrateImage)
-      image.target = Application.shared
-      return image
     }
 
     private static func label() -> MenuEntry<InterfaceLocalization> {
-      let label = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-              return "Label"
-            }
-          })
-        )
+      return MenuEntry(
+        label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishCanada:
+            return "Label"
+          }
+        }),
+        action: #selector(Application.demonstrateLabel),
+        target: Application.shared
       )
-      label.action = #selector(Application.demonstrateLabel)
-      label.target = Application.shared
-      return label
     }
 
     private static func textEditor() -> MenuEntry<InterfaceLocalization> {
-      let textEditor = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-              return "Text Editor"
-            }
-          })
-        )
+      return MenuEntry(
+        label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishCanada:
+            return "Text Editor"
+          }
+        }),
+        action: #selector(Application.demonstrateTextEditor),
+        target: Application.shared
       )
-      textEditor.action = #selector(Application.demonstrateTextEditor)
-      textEditor.target = Application.shared
-      return textEditor
     }
 
     internal static func view() -> Menu<InterfaceLocalization> {

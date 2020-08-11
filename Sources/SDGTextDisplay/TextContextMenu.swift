@@ -39,26 +39,31 @@
       let systemMenu =
         NSTextView.defaultMenu
         ?? NSMenu()  // @exempt(from: tests) Never nil.
-      let adjustments: [MenuComponent] = [
-        .entry(SDGContextMenu.ContextMenu._normalizeText()),
-        .entry(SDGContextMenu.ContextMenu._showCharacterInformation()),
+      let adjustments: [(menu: MenuComponent, selector: Selector?)] = [
+        (
+          .entry(SDGContextMenu.ContextMenu._normalizeText()),
+          #selector(TextEditingResponder.normalizeText(_:))
+        ),
+        (
+          .entry(SDGContextMenu.ContextMenu._showCharacterInformation()),
+          #selector(TextDisplayResponder.showCharacterInformation(_:))
+        ),
       ]
       var appendix: [MenuComponent] = []
       for adjustment in adjustments {
         var handled = false
         defer {
           if ¬handled {
-            appendix.append(adjustment)
+            appendix.append(adjustment.menu)
           }
         }
-        switch adjustment {
-        case .entry(let entry):
-          if entry.cocoa.action == #selector(TextEditingResponder.normalizeText(_:)),
-            let transformations = systemMenu.items.lazy.compactMap({ $0.submenu })
-              .first(where: {
-                $0.items.contains(
-                  where: { $0.action == #selector(NSText.uppercaseWord(_:)) })
-              })
+        switch adjustment.selector {
+        case #selector(TextEditingResponder.normalizeText(_:)):
+          if let transformations = systemMenu.items.lazy.compactMap({ $0.submenu })
+            .first(where: {
+              $0.items.contains(
+                where: { $0.action == #selector(NSText.uppercaseWord(_:)) })
+            })
           {
             transformations.items = transformations.items.filter({ entry in
               let action = entry.action
@@ -70,19 +75,19 @@
               }
               return true
             })
-            transformations.items.append(adjustment.cocoa())
+            transformations.items.append(adjustment.menu.cocoa())
             handled = true
-          } else if entry.cocoa.action
-            == #selector(TextDisplayResponder.showCharacterInformation(_:)),
-            let transformations = systemMenu.items.indices.lazy
-              .first(where: { index in
-                let submenu = systemMenu.items[index].submenu
-                return submenu?.items.contains(
-                  where: { $0.action == #selector(TextEditingResponder.normalizeText(_:)) }
-                ) ?? false
-              })
+          }
+        case #selector(TextDisplayResponder.showCharacterInformation(_:)):
+          if let transformations = systemMenu.items.indices.lazy
+            .first(where: { index in
+              let submenu = systemMenu.items[index].submenu
+              return submenu?.items.contains(
+                where: { $0.action == #selector(TextEditingResponder.normalizeText(_:)) }
+              ) ?? false
+            })
           {
-            systemMenu.items.insert(adjustment.cocoa(), at: transformations + 1)
+            systemMenu.items.insert(adjustment.menu.cocoa(), at: transformations + 1)
             handled = true
           }
         default:

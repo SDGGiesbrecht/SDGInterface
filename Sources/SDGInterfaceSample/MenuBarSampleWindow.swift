@@ -27,19 +27,16 @@
   extension MenuBar {
 
     private static func fullscreen() -> MenuEntry<InterfaceLocalization> {
-      let fullscreen = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-              return "Fullscreen"
-            }
-          })
-        )
+      return MenuEntry(
+        label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishCanada:
+            return "Fullscreen"
+          }
+        }),
+        action: #selector(Application.demonstrateFullscreenWindow),
+        target: Application.shared
       )
-      fullscreen.action = #selector(Application.demonstrateFullscreenWindow)
-      fullscreen.target = Application.shared
-      return fullscreen
     }
 
     internal static func window() -> Menu<InterfaceLocalization> {

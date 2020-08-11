@@ -45,8 +45,8 @@ final class APITests: ApplicationTestCase {
         }
         for localization in MenuBarLocalization.allCases {
           LocalizationSetting(orderOfPrecedence: [localization.code]).do {
-            _ = ContextMenu._normalizeText().label.resolved()
-            _ = ContextMenu._showCharacterInformation().label.resolved()
+            _ = ContextMenu._normalizeText().cocoa()
+            _ = ContextMenu._showCharacterInformation().cocoa()
             _ = menuBar.cocoa()
           }
         }
