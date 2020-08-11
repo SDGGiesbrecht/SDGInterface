@@ -40,9 +40,7 @@ final class APITests: ApplicationTestCase {
       _ = MenuEntry(label: UserFacing<StrictString, APILocalization>({ _ in "..." }))
       let menuLabel = UserFacing<StrictString, APILocalization>({ _ in "initial" })
       let menu = Menu<APILocalization>(label: menuLabel, entries: [])
-      #if canImport(AppKit)
-        _ = menu.cocoa()
-      #endif
+      _ = menu.cocoa()
     #endif
   }
 

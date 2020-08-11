@@ -32,8 +32,9 @@ final class APITests: ApplicationTestCase {
   func testContextMenu() {
     #if canImport(UIKit) && !os(tvOS) && !os(watchOS)
       let contextMenu = ContextMenu.contextMenu
-      let newEntry = MenuEntry<InterfaceLocalization>(label: .binding(Shared("")))
-      newEntry.isHidden = true
+      let newEntry = MenuEntry<InterfaceLocalization>(
+        label: UserFacing<StrictString, InterfaceLocalization>({ _ in "" })
+      )
       contextMenu.menu = Menu(
         label: UserFacing<StrictString, APILocalization>({ _ in "" }),
         entries: [.entry(newEntry)]

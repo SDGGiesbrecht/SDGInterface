@@ -49,24 +49,32 @@
           LocalizationSetting.current.register(observer: self, identifier: localizationIdentifier)
         }
 
-        self.isHiddenBinding = isHidden
-        defer {
-          isHiddenBinding.register(observer: self, identifier: isHiddenIdentifier)
-        }
+        #if canImport(AppKit)
+          self.isHiddenBinding = isHidden
+          defer {
+            isHiddenBinding.register(observer: self, identifier: isHiddenIdentifier)
+          }
+        #endif
 
-        super.init(
-          title: "" /* temporary placeholder */,
-          action: action,
-          keyEquivalent: hotKey ?? ""
-        )
-        self.keyEquivalentModifierMask = hotKeyModifiers.cocoa
-        if let target = target {
-          self.target = target
-        }
+        #if canImport(AppKit)
+          super.init(
+            title: "" /* temporary placeholder */,
+            action: action,
+            keyEquivalent: hotKey ?? ""
+          )
+          self.keyEquivalentModifierMask = hotKeyModifiers.cocoa
+          if let target = target {
+            self.target = target
+          }
+        #else
+          super.init(title: "" /* temporary placeholder */, action: action ?? .none)
+        #endif
 
-        if let tag = tag {
-          self.tag = tag
-        }
+        #if canImport(AppKit)
+          if let tag = tag {
+            self.tag = tag
+          }
+        #endif
       }
 
       required init(coder: NSCoder) {
@@ -76,18 +84,24 @@
       // MARK: - Properties
 
       private let label: UserFacing<StrictString, L>
-      private let isHiddenBinding: Shared<Bool>
+      #if canImport(AppKit)
+        private let isHiddenBinding: Shared<Bool>
+      #endif
 
       // MARK: - SharedValueObserver
 
       private var localizationIdentifier: String { "localization" }
-      private var isHiddenIdentifier: String { "is hidden" }
+      #if canImport(AppKit)
+        private var isHiddenIdentifier: String { "is hidden" }
+      #endif
       internal func valueChanged(for identifier: String) {
         switch identifier {
         case localizationIdentifier:
           self.title = String(label.resolved())
-        case isHiddenIdentifier:
-          self.isHidden = isHiddenBinding.value
+        #if canImport(AppKit)
+          case isHiddenIdentifier:
+            self.isHidden = isHiddenBinding.value
+        #endif
         default:  // @exempt(from: tests)
           break
         }

@@ -16,6 +16,9 @@
   #if canImport(AppKit)
     import AppKit
   #endif
+  #if canImport(UIKit)
+    import UIKit
+  #endif
 
   /// A menu component.
   public enum MenuComponent {
@@ -70,6 +73,16 @@
           return entry
         case .separator:
           return NSMenuItem.separator()
+        }
+      }
+    #endif
+
+    #if canImport(UIKit)
+      /// Generates an `UIMenuItem` instance representing the menu component.
+      public func cocoa() -> UIMenuItem {
+        switch self {
+        case .entry(let entry):
+          return entry.cocoa()
         }
       }
     #endif

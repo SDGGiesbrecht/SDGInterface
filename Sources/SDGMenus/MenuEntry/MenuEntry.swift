@@ -31,6 +31,7 @@
 
     // MARK: - Initialization
 
+    // #workaround(Rethink; target, isHidden and tag are ignored on iOS.)
     /// Creates a menu entry.
     ///
     /// - Parameters:
@@ -48,7 +49,6 @@
       action: Selector? = nil,
       target: AnyObject? = nil,
       isHidden: Shared<Bool> = Shared(false),
-      indentationLevel: Int = 0,
       tag: Int? = nil
     ) {
       self.label = label
