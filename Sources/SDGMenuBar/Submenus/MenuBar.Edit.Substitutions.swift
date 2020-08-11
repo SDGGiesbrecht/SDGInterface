@@ -25,179 +25,158 @@
   extension MenuBar {
 
     private static func showSubstitutions() -> MenuEntry<MenuBarLocalization> {
-      let showSubstitutions = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Mostrar sustituciones"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Show Substitutions"
-            case .deutschDeutschland:
-              return "Ersetzungen einblenden"
-            case .françaisFrance:
-              return "Afficher les substitutions"
-            case .ελληνικάΕλλάδα:
-              return "Εμφάνιση υποκαταστάσεων"
-            case .עברית־ישראל:
-              return "הצג החלפות"
-            }
-          })
-        )
+      return MenuEntry(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Mostrar sustituciones"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Show Substitutions"
+          case .deutschDeutschland:
+            return "Ersetzungen einblenden"
+          case .françaisFrance:
+            return "Afficher les substitutions"
+          case .ελληνικάΕλλάδα:
+            return "Εμφάνιση υποκαταστάσεων"
+          case .עברית־ישראל:
+            return "הצג החלפות"
+          }
+        }),
+        action: #selector(NSTextView.orderFrontSubstitutionsPanel(_:))
       )
-      showSubstitutions.action = #selector(NSTextView.orderFrontSubstitutionsPanel(_:))
-      return showSubstitutions
     }
 
     private static func smartCopyPaste() -> MenuEntry<MenuBarLocalization> {
-      let smartCopyPaste = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Copiado/pegado inteligente"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Smart Copy/Paste"
-            case .deutschDeutschland:
-              return "Intelligentes Kopieren/Einsetzen"
-            case .françaisFrance:
-              return "Copier–coller intelligent"
-            case .ελληνικάΕλλάδα:
-              return "Έξυπνη αντιγραφή/επικόλληση"
-            case .עברית־ישראל:
-              return "העתקה והדבקה חכמות"
-            }
-          })
-        )
+      return MenuEntry(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Copiado/pegado inteligente"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Smart Copy/Paste"
+          case .deutschDeutschland:
+            return "Intelligentes Kopieren/Einsetzen"
+          case .françaisFrance:
+            return "Copier–coller intelligent"
+          case .ελληνικάΕλλάδα:
+            return "Έξυπνη αντιγραφή/επικόλληση"
+          case .עברית־ישראל:
+            return "העתקה והדבקה חכמות"
+          }
+        }),
+        action: #selector(NSTextView.toggleSmartInsertDelete(_:))
       )
-      smartCopyPaste.action = #selector(NSTextView.toggleSmartInsertDelete(_:))
-      return smartCopyPaste
     }
 
     private static func smartQuotes() -> MenuEntry<MenuBarLocalization> {
-      let smartQuotes = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Comillas tipográficas"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Smart Quotes"
-            case .deutschDeutschland:
-              return "Intelligente Anführungszeichen"
-            case .françaisFrance:
-              return "Guillemets courbes"
-            case .ελληνικάΕλλάδα:
-              return "Έξυπνα εισαγωγικά"
-            case .עברית־ישראל:
-              return "מרכאות חכמות"
-            }
-          })
-        )
+      return MenuEntry(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Comillas tipográficas"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Smart Quotes"
+          case .deutschDeutschland:
+            return "Intelligente Anführungszeichen"
+          case .françaisFrance:
+            return "Guillemets courbes"
+          case .ελληνικάΕλλάδα:
+            return "Έξυπνα εισαγωγικά"
+          case .עברית־ישראל:
+            return "מרכאות חכמות"
+          }
+        }),
+        action: #selector(NSTextView.toggleAutomaticQuoteSubstitution(_:))
       )
-      smartQuotes.action = #selector(NSTextView.toggleAutomaticQuoteSubstitution(_:))
-      return smartQuotes
     }
 
     private static func smartDashes() -> MenuEntry<MenuBarLocalization> {
-      let smartDashes = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Guiones inteligentes"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Smart Dashes"
-            case .deutschDeutschland:
-              return "Intelligente Bindestriche"
-            case .françaisFrance:
-              return "Tirets intelligents"
-            case .ελληνικάΕλλάδα:
-              return "Έξυπνες παύλες"
-            case .עברית־ישראל:
-              return "מיקוף חכם"
-            }
-          })
-        )
+      return MenuEntry(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Guiones inteligentes"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Smart Dashes"
+          case .deutschDeutschland:
+            return "Intelligente Bindestriche"
+          case .françaisFrance:
+            return "Tirets intelligents"
+          case .ελληνικάΕλλάδα:
+            return "Έξυπνες παύλες"
+          case .עברית־ישראל:
+            return "מיקוף חכם"
+          }
+        }),
+        action: #selector(NSTextView.toggleAutomaticDashSubstitution(_:))
       )
-      smartDashes.action = #selector(NSTextView.toggleAutomaticDashSubstitution(_:))
-      return smartDashes
     }
 
     private static func smartLinks() -> MenuEntry<MenuBarLocalization> {
-      let smartLinks = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Enlaces inteligentes"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Smart Links"
-            case .deutschDeutschland:
-              return "Intellingente Links"
-            case .françaisFrance:
-              return "Liens intelligents"
-            case .ελληνικάΕλλάδα:
-              return "Έξυπνοι σύνδεσμοι"
-            case .עברית־ישראל:
-              return "קישורים חכמים"
-            }
-          })
-        )
+      return MenuEntry(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Enlaces inteligentes"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Smart Links"
+          case .deutschDeutschland:
+            return "Intellingente Links"
+          case .françaisFrance:
+            return "Liens intelligents"
+          case .ελληνικάΕλλάδα:
+            return "Έξυπνοι σύνδεσμοι"
+          case .עברית־ישראל:
+            return "קישורים חכמים"
+          }
+        }),
+        action: #selector(NSTextView.toggleAutomaticLinkDetection(_:))
       )
-      smartLinks.action = #selector(NSTextView.toggleAutomaticLinkDetection(_:))
-      return smartLinks
     }
 
     private static func dataDetectors() -> MenuEntry<MenuBarLocalization> {
-      let dataDetectors = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Detectores de datos"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Data Detectors"
+      return MenuEntry(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Detectores de datos"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Data Detectors"
 
-            case .deutschDeutschland:
-              return "Datenerkennung"
-            case .françaisFrance:
-              return "Détection de données"
-            case .ελληνικάΕλλάδα:
-              return "Ανίχνευση δεδομένων"
-            case .עברית־ישראל:
-              return "גלאי נתונים"
-            }
-          })
-        )
+          case .deutschDeutschland:
+            return "Datenerkennung"
+          case .françaisFrance:
+            return "Détection de données"
+          case .ελληνικάΕλλάδα:
+            return "Ανίχνευση δεδομένων"
+          case .עברית־ישראל:
+            return "גלאי נתונים"
+          }
+        }),
+        action: #selector(NSTextView.toggleAutomaticDataDetection(_:))
       )
-      dataDetectors.action = #selector(NSTextView.toggleAutomaticDataDetection(_:))
-      return dataDetectors
     }
 
     private static func textReplacement() -> MenuEntry<MenuBarLocalization> {
-      let textReplacement = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Reemplazar texto"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Text Replacement"
-            case .françaisFrance:
-              return "Remplacement de texte"
-            case .deutschDeutschland:
-              return "Text ersetzen"
-            case .ελληνικάΕλλάδα:
-              return "Αντικατάσταση κειμένου"
-            case .עברית־ישראל:
-              return "החלפת מלל"
-            }
-          })
-        )
+      return MenuEntry(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Reemplazar texto"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Text Replacement"
+          case .françaisFrance:
+            return "Remplacement de texte"
+          case .deutschDeutschland:
+            return "Text ersetzen"
+          case .ελληνικάΕλλάδα:
+            return "Αντικατάσταση κειμένου"
+          case .עברית־ישראל:
+            return "החלפת מלל"
+          }
+        }),
+        action: #selector(NSTextView.toggleAutomaticTextReplacement(_:))
       )
-      textReplacement.action = #selector(NSTextView.toggleAutomaticTextReplacement(_:))
-      return textReplacement
     }
 
     internal static func substitutions() -> Menu<MenuBarLocalization> {

@@ -38,13 +38,15 @@
     ///   - hotKeyModifiers: The hot key modifiers.
     ///   - hotKey: The hot key.
     ///   - action: The action.
+    ///   - target: The target of the action.
     ///   - isHidden: A binding indicating whether the menu item should be hidden.
     ///   - tag: A platform tag. System actions on some platforms need numeric tag identifiers to provide additional information when the action is triggered. Use of this parameter is discouraged except when necessary to interact with such system actions.
     public init(
       label: UserFacing<StrictString, L>,
-      hotKeyModifiers: KeyModifiers,
+      hotKeyModifiers: KeyModifiers = [],
       hotKey: String? = nil,
-      action: @escaping () -> Void,
+      action: Selector? = nil,
+      target: AnyObject? = nil,
       isHidden: Shared<Bool> = Shared(false),
       indentationLevel: Int = 0,
       tag: Int? = nil
@@ -62,7 +64,8 @@
     private let label: UserFacing<StrictString, L>
     private let hotKeyModifiers: KeyModifiers
     private let hotKey: String?
-    private let action: () -> Void
+    private let action: Selector?
+    private weak var target: AnyObject?
     private let isHidden: Shared<Bool>
     private let tag: Int?
 
@@ -76,6 +79,7 @@
             hotKeyModifiers,
           hotKey: hotKey,
           action: action,
+          target: target,
           isHidden: isHidden,
           tag: tag
         )
@@ -88,6 +92,7 @@
             hotKeyModifiers,
           hotKey: hotKey,
           action: action,
+          target: target,
           isHidden: isHidden,
           tag: tag
         )

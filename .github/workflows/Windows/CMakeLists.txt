@@ -561,6 +561,7 @@ target_link_libraries("SDGMenuBar" PRIVATE
   "SDGMenus"
   "SDGContextMenu"
   "SDGInterfaceLocalizations"
+  "SDGControlFlow"
   "SDGMathematics"
   "SDGText"
   "SDGLocalization"

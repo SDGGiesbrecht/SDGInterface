@@ -25,53 +25,47 @@
   extension MenuBar {
 
     private static func startSpeaking() -> MenuEntry<MenuBarLocalization> {
-      let startSpeaking = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Iniciar locución"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Start Speaking"
-            case .deutschDeutschland:
-              return "Sprachausgabe starten"
-            case .françaisFrance:
-              return "Commencer la lecture"
-            case .ελληνικάΕλλάδα:
-              return "Έναρξη εκφώνησης"
-            case .עברית־ישראל:
-              return "התחל לדבר"
-            }
-          })
-        )
+      return MenuEntry(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Iniciar locución"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Start Speaking"
+          case .deutschDeutschland:
+            return "Sprachausgabe starten"
+          case .françaisFrance:
+            return "Commencer la lecture"
+          case .ελληνικάΕλλάδα:
+            return "Έναρξη εκφώνησης"
+          case .עברית־ישראל:
+            return "התחל לדבר"
+          }
+        }),
+        action: #selector(NSTextView.startSpeaking(_:))
       )
-      startSpeaking.action = #selector(NSTextView.startSpeaking(_:))
-      return startSpeaking
     }
 
     private static func stopSpeaking() -> MenuEntry<MenuBarLocalization> {
-      let stopSpeaking = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Detener locución"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Stop Speaking"
-            case .deutschDeutschland:
-              return "Sprachausgabe stoppen"
-            case .françaisFrance:
-              return "Arrêter la lecture"
-            case .ελληνικάΕλλάδα:
-              return "Διακοπή εκφώνησης"
-            case .עברית־ישראל:
-              return "הפסק לדבר"
-            }
-          })
-        )
+      return MenuEntry(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Detener locución"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Stop Speaking"
+          case .deutschDeutschland:
+            return "Sprachausgabe stoppen"
+          case .françaisFrance:
+            return "Arrêter la lecture"
+          case .ελληνικάΕλλάδα:
+            return "Διακοπή εκφώνησης"
+          case .עברית־ישראל:
+            return "הפסק לדבר"
+          }
+        }),
+        action: #selector(NSTextView.stopSpeaking(_:))
       )
-      stopSpeaking.action = #selector(NSTextView.stopSpeaking(_:))
-      return stopSpeaking
     }
 
     internal static func speech() -> Menu<MenuBarLocalization> {

@@ -39,7 +39,8 @@
         label: UserFacing<StrictString, L>,
         hotKeyModifiers: KeyModifiers,
         hotKey: String?,
-        action: @escaping () -> Void,
+        action: Selector?,
+        target: AnyObject?,
         isHidden: Shared<Bool>,
         tag: Int?
       ) {
@@ -48,17 +49,17 @@
           LocalizationSetting.current.register(observer: self)
         }
 
-        self.actionClosure = action
-
         self.isHiddenBinding = isHidden
 
         super.init(
           title: "" /* temporary placeholder */,
-          action: #selector(CocoaImplementation.triggerAction),
+          action: action,
           keyEquivalent: hotKey ?? ""
         )
         self.keyEquivalentModifierMask = hotKeyModifiers.cocoa
-        self.target = self
+        if let target = target {
+          self.target = target
+        }
 
         if let tag = tag {
           self.tag = tag
@@ -72,15 +73,7 @@
       // MARK: - Properties
 
       private let label: UserFacing<StrictString, L>
-      private let actionClosure: () -> Void
       private let isHiddenBinding: Shared<Bool>
-
-      // MARK: - NSMenuItem
-
-      @objc private func triggerAction() {  // @exempt(from: tests)
-        // Exempt from tests because tvOS cannot dispatch actions during tests.
-        actionClosure()
-      }
 
       // MARK: - SharedValueObserver
 

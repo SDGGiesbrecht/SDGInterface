@@ -62,10 +62,7 @@
       public func cocoa() -> NSMenuItem {
         switch self {
         case .entry(let entry):
-          if let index = entry.cocoa.menu?.index(of: entry.cocoa) {
-            entry.cocoa.menu?.removeItem(at: index)
-          }
-          return entry.cocoa
+          return entry.cocoa()
         case .submenu(let menu):
           let entry = NSMenuItem()
           entry.submenu = menu.cocoa()
