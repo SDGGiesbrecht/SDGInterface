@@ -77,7 +77,7 @@
         #endif
       }
 
-      required init(coder: NSCoder) {
+      internal required init(coder: NSCoder) {
         codingNotSupported()
       }
 

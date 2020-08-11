@@ -41,7 +41,7 @@
     ///   - action: The action.
     ///   - target: The target of the action.
     ///   - isHidden: A binding indicating whether the menu item should be hidden.
-    ///   - tag: A platform tag. System actions on some platforms need numeric tag identifiers to provide additional information when the action is triggered. Use of this parameter is discouraged except when necessary to interact with such system actions.
+    ///   - platformTag: A platform tag. System actions on some platforms need numeric tag identifiers to provide additional information when the action is triggered. Use of this parameter is discouraged except when necessary to interact with such system actions.
     public init(
       label: UserFacing<StrictString, L>,
       hotKeyModifiers: KeyModifiers = [],
@@ -49,7 +49,7 @@
       action: Selector? = nil,
       target: AnyObject? = nil,
       isHidden: Shared<Bool> = Shared(false),
-      tag: Int? = nil
+      platformTag: Int? = nil
     ) {
       self.label = label
       self.hotKeyModifiers = hotKeyModifiers
