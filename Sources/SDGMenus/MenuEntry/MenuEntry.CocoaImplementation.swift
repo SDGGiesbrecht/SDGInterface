@@ -46,10 +46,13 @@
       ) {
         self.label = label
         defer {
-          LocalizationSetting.current.register(observer: self)
+          LocalizationSetting.current.register(observer: self, identifier: localizationIdentifier)
         }
 
         self.isHiddenBinding = isHidden
+        defer {
+          isHiddenBinding.register(observer: self, identifier: isHiddenIdentifier)
+        }
 
         super.init(
           title: "" /* temporary placeholder */,
