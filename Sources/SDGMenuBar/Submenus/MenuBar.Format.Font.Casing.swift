@@ -39,8 +39,8 @@
       )
     }
 
-    private static func latinate() -> MenuEntry<InterfaceLocalization> {
-      return MenuEntry(
+    private static func latinate() -> Menu<InterfaceLocalization> {
+      return Menu(
         label: UserFacing<StrictString, InterfaceLocalization>({ localization in
           var latinate: StrictString
           switch localization {
@@ -50,7 +50,12 @@
             return "Lateinische"
           }
           return latinate + " (I ↔ i)"
-        })
+        }),
+        entries: [
+          .entry(latinateUpperCase()),
+          .entry(latinateSmallUpperCase()),
+          .entry(latinateLowerCase()),
+        ]
       )
     }
 
@@ -69,7 +74,6 @@
         label: upperCaseLabel(),
         action: #selector(RichTextEditingResponder.makeLatinateUpperCase(_:))
       )
-      #warning("Indent: 1")
     }
 
     private static func smallUpperCaseLabel() -> UserFacing<StrictString, InterfaceLocalization> {
@@ -88,7 +92,6 @@
         label: smallUpperCaseLabel(),
         action: #selector(RichTextEditingResponder.makeLatinateSmallCaps(_:))
       )
-      #warning("Indent: 1")
     }
 
     private static func lowerCaseLabel() -> UserFacing<StrictString, InterfaceLocalization> {
@@ -106,11 +109,10 @@
         label: lowerCaseLabel(),
         action: #selector(RichTextEditingResponder.makeLatinateLowerCase(_:))
       )
-      #warning("Indent: 1")
     }
 
-    private static func turkic() -> MenuEntry<InterfaceLocalization> {
-      return MenuEntry(
+    private static func turkic() -> Menu<InterfaceLocalization> {
+      return Menu(
         label: UserFacing<StrictString, InterfaceLocalization>({ localization in
           var turkic: StrictString
           switch localization {
@@ -120,7 +122,12 @@
             return "Türkische"
           }
           return turkic + " (I ↔ ı, İ ↔ i)"
-        })
+        }),
+        entries: [
+          .entry(turkicUpperCase()),
+          .entry(turkicSmallUpperCase()),
+          .entry(turkicLowerCase()),
+        ]
       )
     }
 
@@ -129,7 +136,6 @@
         label: upperCaseLabel(),
         action: #selector(RichTextEditingResponder.makeTurkicUpperCase(_:))
       )
-      #warning("Indent: 1")
     }
 
     private static func turkicSmallUpperCase() -> MenuEntry<InterfaceLocalization> {
@@ -137,7 +143,6 @@
         label: smallUpperCaseLabel(),
         action: #selector(RichTextEditingResponder.makeTurkicSmallCaps(_:))
       )
-      #warning("Indent: 1")
     }
 
     private static func turkicLowerCase() -> MenuEntry<InterfaceLocalization> {
@@ -145,7 +150,6 @@
         label: lowerCaseLabel(),
         action: #selector(RichTextEditingResponder.makeTurkicLowerCase(_:))
       )
-      #warning("Indent: 1")
     }
 
     internal static func casing() -> Menu<InterfaceLocalization> {
@@ -160,16 +164,8 @@
         }),
         entries: [
           .entry(useDefault()),
-          .separator,
-          .entry(latinate()),
-          .entry(latinateUpperCase()),
-          .entry(latinateSmallUpperCase()),
-          .entry(latinateLowerCase()),
-          .separator,
-          .entry(turkic()),
-          .entry(turkicUpperCase()),
-          .entry(turkicSmallUpperCase()),
-          .entry(turkicLowerCase()),
+          .submenu(latinate()),
+          .submenu(turkic()),
         ]
       )
     }
