@@ -55,6 +55,7 @@
       self.hotKeyModifiers = hotKeyModifiers
       self.hotKey = hotKey
       self.action = action
+      self.target = target
       self.isHidden = isHidden
       self.tag = tag
     }
