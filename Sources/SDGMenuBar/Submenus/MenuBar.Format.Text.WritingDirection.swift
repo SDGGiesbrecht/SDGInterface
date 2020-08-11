@@ -24,8 +24,8 @@
 
   extension MenuBar {
 
-    private static func paragraph() -> MenuEntry<MenuBarLocalization> {
-      return MenuEntry(
+    private static func paragraph() -> Menu<MenuBarLocalization> {
+      return Menu(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
           case .españolEspaña:
@@ -42,7 +42,12 @@
           case .עברית־ישראל:
             return "פיסקה"
           }
-        })
+        }),
+        entries: [
+          .entry(paragraphDefault()),
+          .entry(paragraphRightToLeft()),
+          .entry(paragraphLeftToRight()),
+        ]
       )
     }
 
@@ -69,7 +74,6 @@
         label: defaultLabel(),
         action: #selector(NSResponder.makeBaseWritingDirectionNatural(_:))
       )
-      #warning("Indent: 1")
     }
 
     private static func rightToLeftLabel() -> UserFacing<StrictString, MenuBarLocalization> {
@@ -95,7 +99,6 @@
         label: rightToLeftLabel(),
         action: #selector(NSResponder.makeBaseWritingDirectionRightToLeft(_:))
       )
-      #warning("Intent: 1")
     }
 
     private static func leftToRightLabel() -> UserFacing<StrictString, MenuBarLocalization> {
@@ -121,11 +124,10 @@
         label: leftToRightLabel(),
         action: #selector(NSResponder.makeBaseWritingDirectionLeftToRight(_:))
       )
-      #warning("Indent: 1")
     }
 
-    private static func selection() -> MenuEntry<MenuBarLocalization> {
-      return MenuEntry(
+    private static func selection() -> Menu<MenuBarLocalization> {
+      return Menu(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
           case .españolEspaña:
@@ -142,7 +144,12 @@
           case .עברית־ישראל:
             return "בחירה"
           }
-        })
+        }),
+        entries: [
+          .entry(selectionDefault()),
+          .entry(selectionRightToLeft()),
+          .entry(selectionLeftToRight()),
+        ]
       )
     }
 
@@ -151,7 +158,6 @@
         label: defaultLabel(),
         action: #selector(NSResponder.makeTextWritingDirectionNatural(_:))
       )
-      #warning("Indent: 1")
     }
 
     private static func selectionRightToLeft() -> MenuEntry<MenuBarLocalization> {
@@ -159,7 +165,6 @@
         label: rightToLeftLabel(),
         action: #selector(NSResponder.makeTextWritingDirectionRightToLeft(_:))
       )
-      #warning("Indent: 1")
     }
 
     private static func selectionLeftToRight() -> MenuEntry<MenuBarLocalization> {
@@ -167,7 +172,6 @@
         label: leftToRightLabel(),
         action: #selector(NSResponder.makeTextWritingDirectionLeftToRight(_:))
       )
-      #warning("Indent: 1")
     }
 
     internal static func writingDirection() -> Menu<MenuBarLocalization> {
@@ -190,15 +194,8 @@
           }
         }),
         entries: [
-          .entry(paragraph()),
-          .entry(paragraphDefault()),
-          .entry(paragraphRightToLeft()),
-          .entry(paragraphLeftToRight()),
-          .separator,
-          .entry(selection()),
-          .entry(selectionDefault()),
-          .entry(selectionRightToLeft()),
-          .entry(selectionLeftToRight()),
+          .submenu(paragraph()),
+          .submenu(selection()),
         ]
       )
     }
