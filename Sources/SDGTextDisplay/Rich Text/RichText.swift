@@ -127,7 +127,10 @@
         return _segments
       }
       set {
-        cache = Cache()
+        // #workaround(Swift 5.2.4, Declaration may not be in a Comdat!)
+        #if !os(Windows)
+          cache = Cache()
+        #endif
         var new: [Segment] = []
         for segment in newValue where ¬segment.rawText.isEmpty {  // Ignore empty segments.
           if let previous = new.last {
@@ -156,13 +159,16 @@
       }
     }
 
-    private class Cache {
-      fileprivate init() {}
-      fileprivate var rawText: StrictString?
-      fileprivate var scalars: String.UnicodeScalarView?
-      fileprivate var attributedString: NSAttributedString?
-    }
-    private var cache = Cache()
+    // #workaround(Swift 5.2.4, Declaration may not be in a Comdat!)
+    #if !os(Windows)
+      private class Cache {
+        fileprivate init() {}
+        fileprivate var rawText: StrictString?
+        fileprivate var scalars: String.UnicodeScalarView?
+        fileprivate var attributedString: NSAttributedString?
+      }
+      private var cache = Cache()
+    #endif
 
     // Computed
 
@@ -170,38 +176,56 @@
     ///
     /// Raw text offsets may not match rich text offsets because normalization can cause scalars to cross over where attribute boundaries had been. The `scalars` property is provided for when matching offsets are necessary.
     public func rawText() -> StrictString {
-      return cached(in: &cache.rawText) {
+      let closure: () -> StrictString = {
         var string: StrictString = ""
-        for segment in segments {
+        for segment in self.segments {
           string.append(contentsOf: segment.rawText)
         }
         return string
       }
+      // #workaround(Swift 5.2.4, Declaration may not be in a Comdat!)
+      #if os(Windows)
+        return closure()
+      #else
+        return cached(in: &cache.rawText, closure)
+      #endif
     }
 
     /// Returns the text as a sequence of raw text Unicode scalars.
     ///
     /// Offsets are guaranteed to match those of the rich string because no normalization is performed that would cause scalars to cross attribute boundaries.
     public func scalars() -> String.UnicodeScalarView {
-      return cached(in: &cache.scalars) {
+      let closure: () -> String.UnicodeScalarView = {
         var string = String.UnicodeScalarView()
-        for segment in segments {
+        for segment in self.segments {
           string.append(contentsOf: segment.rawText.scalars)
         }
         return string
       }
+      // #workaround(Swift 5.2.4, Declaration may not be in a Comdat!)
+      #if os(Windows)
+        return closure()
+      #else
+        return cached(in: &cache.scalars, closure)
+      #endif
     }
 
     internal func attributedString() -> NSAttributedString {
-      return cached(in: &cache.attributedString) {
+      let closure: () -> NSAttributedString = {
         let mutable = NSMutableAttributedString(string: "")
-        for segment in segments {
+        for segment in self.segments {
           mutable.append(
             NSAttributedString(string: String(segment.rawText), attributes: segment.attributes)
           )
         }
         return mutable.copy() as! NSAttributedString
       }
+      // #workaround(Swift 5.2.4, Declaration may not be in a Comdat!)
+      #if os(Windows)
+        return closure()
+      #else
+        return cached(in: &cache.attributedString, closure)
+      #endif
     }
 
     // MARK: - Attributes
