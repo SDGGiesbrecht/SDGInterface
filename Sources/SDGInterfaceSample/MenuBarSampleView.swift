@@ -34,9 +34,9 @@
             return "Button"
           }
         }),
-        action: #selector(Application.demonstrateButton),
-        target: Application.shared
+        action: #selector(Application.demonstrateButton)
       )
+      .target(Application.shared)
     }
 
     private static func buttonSet() -> MenuEntry<InterfaceLocalization> {
@@ -47,9 +47,9 @@
             return "Radio Buttons"
           }
         }),
-        action: #selector(Application.demonstrateSegmentedControl),
-        target: Application.shared
+        action: #selector(Application.demonstrateSegmentedControl)
       )
+      .target(Application.shared)
     }
 
     private static func checkBox() -> MenuEntry<InterfaceLocalization> {
@@ -60,9 +60,9 @@
             return "Check Box"
           }
         }),
-        action: #selector(Application.demonstrateCheckBox),
-        target: Application.shared
+        action: #selector(Application.demonstrateCheckBox)
       )
+      .target(Application.shared)
     }
 
     private static func image() -> MenuEntry<InterfaceLocalization> {
@@ -73,9 +73,9 @@
             return "Image"
           }
         }),
-        action: #selector(Application.demonstrateImage),
-        target: Application.shared
+        action: #selector(Application.demonstrateImage)
       )
+      .target(Application.shared)
     }
 
     private static func label() -> MenuEntry<InterfaceLocalization> {
@@ -86,9 +86,9 @@
             return "Label"
           }
         }),
-        action: #selector(Application.demonstrateLabel),
-        target: Application.shared
+        action: #selector(Application.demonstrateLabel)
       )
+      .target(Application.shared)
     }
 
     private static func textEditor() -> MenuEntry<InterfaceLocalization> {
@@ -99,9 +99,9 @@
             return "Text Editor"
           }
         }),
-        action: #selector(Application.demonstrateTextEditor),
-        target: Application.shared
+        action: #selector(Application.demonstrateTextEditor)
       )
+      .target(Application.shared)
     }
 
     internal static func view() -> Menu<InterfaceLocalization> {
