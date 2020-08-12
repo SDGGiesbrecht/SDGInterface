@@ -34,9 +34,9 @@
             return "Error"
           }
         }),
-        action: #selector(Application.demonstrateError),
-        target: Application.shared
+        action: #selector(Application.demonstrateError)
       )
+      .target(Application.shared)
     }
 
     internal static func sample() -> Menu<InterfaceLocalization> {

@@ -34,9 +34,9 @@
             return "Fullscreen"
           }
         }),
-        action: #selector(Application.demonstrateFullscreenWindow),
-        target: Application.shared
+        action: #selector(Application.demonstrateFullscreenWindow)
       )
+      .target(Application.shared)
     }
 
     internal static func window() -> Menu<InterfaceLocalization> {
