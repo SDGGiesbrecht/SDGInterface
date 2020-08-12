@@ -164,9 +164,9 @@
             hotKeyModifiers,
           hotKey: hotKey,
           action: action,
-          target: target,
-          isHidden: isHidden,
-          tag: tag
+          target: nil,
+          isHidden: Shared(false),
+          tag: nil
         )
       }
     #endif
