@@ -1,5 +1,5 @@
 /*
- WindowsMain.swift
+ main.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -14,19 +14,19 @@
 
 import XCTest
 
-@testable import SDGInterfaceResourceGeneration
 @testable import SDGApplicationTests
+@testable import SDGButtonsTests
 @testable import SDGContextMenuTests
+@testable import SDGImageDisplayTests
 @testable import SDGInterfaceBasicsTests
+@testable import SDGInterfaceResourceGeneration
 @testable import SDGKeyboardTests
 @testable import SDGMenuBarTests
 @testable import SDGMenusTests
-@testable import SDGTextDisplayTests
-@testable import SDGButtonsTests
-@testable import SDGImageDisplayTests
 @testable import SDGPopOversTests
 @testable import SDGProgressIndicatorsTests
 @testable import SDGTablesTests
+@testable import SDGTextDisplayTests
 @testable import SDGViewsTests
 @testable import SDGWindowsTests
 
@@ -53,10 +53,48 @@ extension SDGApplicationTests.InternalTests {
   ]
 }
 
+extension SDGButtonsTests.APITests {
+  static let windowsTests: [XCTestCaseEntry] = [
+    testCase([
+      ("testButton", testButton),
+      ("testCheckBox", testCheckBox),
+      ("testSegmentedControl", testSegmentedControl),
+    ])
+  ]
+}
+
+extension SDGButtonsTests.InternalTests {
+  static let windowsTests: [XCTestCaseEntry] = [
+    testCase([
+      ("testButtonCocoaImplementation", testButtonCocoaImplementation),
+      ("testButtonLabel", testButtonLabel),
+      ("testCheckBoxCocoaImplementation", testCheckBoxCocoaImplementation),
+      ("testSegmentedControlCocoaImplementation", testSegmentedControlCocoaImplementation),
+    ])
+  ]
+}
+
 extension SDGContextMenuTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
       ("testContextMenu", testContextMenu)
+    ])
+  ]
+}
+
+extension SDGImageDisplayTests.APITests {
+  static let windowsTests: [XCTestCaseEntry] = [
+    testCase([
+      ("testCocoaImage", testCocoaImage),
+      ("testImage", testImage),
+    ])
+  ]
+}
+
+extension SDGImageDisplayTests.InternalTests {
+  static let windowsTests: [XCTestCaseEntry] = [
+    testCase([
+      ("testImage", testImage)
     ])
   ]
 }
@@ -107,58 +145,6 @@ extension SDGMenusTests.APITests {
   ]
 }
 
-extension SDGTextDisplayTests.APITests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
-      ("testAttributedString", testAttributedString),
-      ("testCharacterInformation", testCharacterInformation),
-      ("testFont", testFont),
-      ("testLabel", testLabel),
-      ("testRichText", testRichText),
-      ("testTextEditor", testTextEditor),
-      ("testTextField", testTextField),
-    ])
-  ]
-}
-
-extension SDGButtonsTests.APITests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
-      ("testButton", testButton),
-      ("testCheckBox", testCheckBox),
-      ("testSegmentedControl", testSegmentedControl),
-    ])
-  ]
-}
-
-extension SDGButtonsTests.InternalTests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
-      ("testButtonCocoaImplementation", testButtonCocoaImplementation),
-      ("testButtonLabel", testButtonLabel),
-      ("testCheckBoxCocoaImplementation", testCheckBoxCocoaImplementation),
-      ("testSegmentedControlCocoaImplementation", testSegmentedControlCocoaImplementation),
-    ])
-  ]
-}
-
-extension SDGImageDisplayTests.APITests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
-      ("testCocoaImage", testCocoaImage),
-      ("testImage", testImage),
-    ])
-  ]
-}
-
-extension SDGImageDisplayTests.InternalTests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
-      ("testImage", testImage)
-    ])
-  ]
-}
-
 extension SDGPopOversTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
@@ -194,6 +180,20 @@ extension SDGTablesTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
       ("testTable", testTable)
+    ])
+  ]
+}
+
+extension SDGTextDisplayTests.APITests {
+  static let windowsTests: [XCTestCaseEntry] = [
+    testCase([
+      ("testAttributedString", testAttributedString),
+      ("testCharacterInformation", testCharacterInformation),
+      ("testFont", testFont),
+      ("testLabel", testLabel),
+      ("testRichText", testRichText),
+      ("testTextEditor", testTextEditor),
+      ("testTextField", testTextField),
     ])
   ]
 }
@@ -236,20 +236,20 @@ extension SDGWindowsTests.APITests {
 var tests = [XCTestCaseEntry]()
 tests += SDGApplicationTests.APITests.windowsTests
 tests += SDGApplicationTests.InternalTests.windowsTests
+tests += SDGButtonsTests.APITests.windowsTests
+tests += SDGButtonsTests.InternalTests.windowsTests
 tests += SDGContextMenuTests.APITests.windowsTests
+tests += SDGImageDisplayTests.APITests.windowsTests
+tests += SDGImageDisplayTests.InternalTests.windowsTests
 tests += SDGInterfaceBasicsTests.APITests.windowsTests
 tests += SDGKeyboardTests.APITests.windowsTests
 tests += SDGMenuBarTests.APITests.windowsTests
 tests += SDGMenusTests.APITests.windowsTests
-tests += SDGTextDisplayTests.APITests.windowsTests
-tests += SDGButtonsTests.APITests.windowsTests
-tests += SDGButtonsTests.InternalTests.windowsTests
-tests += SDGImageDisplayTests.APITests.windowsTests
-tests += SDGImageDisplayTests.InternalTests.windowsTests
 tests += SDGPopOversTests.APITests.windowsTests
 tests += SDGPopOversTests.InternalTests.windowsTests
 tests += SDGProgressIndicatorsTests.APITests.windowsTests
 tests += SDGTablesTests.APITests.windowsTests
+tests += SDGTextDisplayTests.APITests.windowsTests
 tests += SDGViewsTests.APITests.windowsTests
 tests += SDGViewsTests.InternalTests.windowsTests
 tests += SDGWindowsTests.APITests.windowsTests
