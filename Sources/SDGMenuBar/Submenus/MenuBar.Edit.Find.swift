@@ -46,7 +46,7 @@
         hotKeyModifiers: .command,
         hotKey: "f",
         action: #selector(NSTextView.performFindPanelAction(_:)),
-        tag: 1
+        platformTag: 1
       )
     }
 
@@ -71,7 +71,7 @@
         hotKeyModifiers: [.command, .option],
         hotKey: "f",
         action: #selector(NSTextView.performFindPanelAction(_:)),
-        tag: 12
+        platformTag: 12
       )
     }
 
@@ -96,7 +96,7 @@
         hotKeyModifiers: .command,
         hotKey: "g",
         action: #selector(NSTextView.performFindPanelAction(_:)),
-        tag: 2
+        platformTag: 2
       )
     }
 
@@ -121,7 +121,7 @@
         hotKeyModifiers: .command,
         hotKey: "G",
         action: #selector(NSTextView.performFindPanelAction(_:)),
-        tag: 3
+        platformTag: 3
       )
     }
 
@@ -146,7 +146,7 @@
         hotKeyModifiers: .command,
         hotKey: "e",
         action: #selector(NSTextView.performFindPanelAction(_:)),
-        tag: 7
+        platformTag: 7
       )
     }
 

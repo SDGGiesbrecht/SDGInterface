@@ -71,7 +71,7 @@
         hotKey: "b",
         action: #selector(NSFontManager.addFontTrait(_:)),
         target: NSFontManager.shared,
-        tag: 2
+        platformTag: 2
       )
     }
 
@@ -99,7 +99,7 @@
         hotKey: "i",
         action: #selector(NSFontManager.addFontTrait(_:)),
         target: NSFontManager.shared,
-        tag: 1
+        platformTag: 1
       )
     }
 
@@ -151,7 +151,7 @@
         hotKey: "+",
         action: #selector(NSFontManager.modifyFont(_:)),
         target: NSFontManager.shared,
-        tag: 3
+        platformTag: 3
       )
     }
 
@@ -178,7 +178,7 @@
         hotKey: "\u{2D}",
         action: #selector(NSFontManager.modifyFont(_:)),
         target: NSFontManager.shared,
-        tag: 4
+        platformTag: 4
       )
     }
 

@@ -57,7 +57,7 @@
       self.action = action
       self.target = target
       self.isHidden = isHidden
-      self.tag = tag
+      self.tag = platformTag
     }
 
     // MARK: - Properties
