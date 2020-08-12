@@ -31,7 +31,6 @@
 
     // MARK: - Initialization
 
-    // #workaround(Rethink; target, isHidden and tag are ignored on iOS.)
     /// Creates a menu entry.
     ///
     /// - Parameters:
@@ -39,10 +38,24 @@
     ///   - hotKeyModifiers: The hot key modifiers.
     ///   - hotKey: The hot key.
     ///   - action: The action.
-    ///   - target: The target of the action.
-    ///   - isHidden: A binding indicating whether the menu item should be hidden.
-    ///   - platformTag: A platform tag. System actions on some platforms need numeric tag identifiers to provide additional information when the action is triggered. Use of this parameter is discouraged except when necessary to interact with such system actions.
-    public init(
+    private init(
+      label: UserFacing<StrictString, L>,
+      hotKeyModifiers: KeyModifiers = [],
+      hotKey: String? = nil,
+      action: Selector? = nil
+    ) {
+      self.label = label
+      self.hotKeyModifiers = hotKeyModifiers
+      self.hotKey = hotKey
+      self.action = action
+      #if canImport(AppKit)
+        target = nil
+        isHidden = Shared(false)
+        tag = nil
+      #endif
+    }
+
+    private init(
       label: UserFacing<StrictString, L>,
       hotKeyModifiers: KeyModifiers = [],
       hotKey: String? = nil,
@@ -66,9 +79,65 @@
     private let hotKeyModifiers: KeyModifiers
     private let hotKey: String?
     private let action: Selector?
-    private weak var target: AnyObject?
-    private let isHidden: Shared<Bool>
-    private let tag: Int?
+    #if canImport(AppKit)
+      private weak var target: AnyObject?
+      private let isHidden: Shared<Bool>
+      private let tag: Int?
+    #endif
+
+    // MARK: - Platform‐Specific Adjustements
+
+    #if canImport(AppKit)
+      /// Returns a menu entry reconfigured to send its action to a specific target.
+      ///
+      /// - Parameters:
+      ///   - target: The target of the action.
+      public func target(_ target: AnyObject) -> MenuEntry {
+        return MenuEntry(
+          label: label,
+          hotKeyModifiers: hotKeyModifiers,
+          hotKey: hotKey,
+          action: action,
+          target: target,
+          isHidden: isHidden,
+          platformTag: tag
+        )
+      }
+
+      /// Returns a menu entry reconfigured to hide itself according to the state of a binding.
+      ///
+      /// - Parameters:
+      ///   - isHidden: A binding indicating whether the menu item should be hidden.
+      public func hidden(when isHidden: Shared<Bool>) -> MenuEntry {
+        return MenuEntry(
+          label: label,
+          hotKeyModifiers: hotKeyModifiers,
+          hotKey: hotKey,
+          action: action,
+          target: target,
+          isHidden: isHidden,
+          platformTag: tag
+        )
+      }
+
+      /// Returns a menu entry reconfigured with a particular platform tag.
+      ///
+      /// System actions on some platforms need numeric tag identifiers to provide additional information when the action is triggered. Use of this method is discouraged except when necessary to interact with such system actions.
+      ///
+      /// - Parameters:
+      ///   - platformTag: The platform tag.
+      public func tag(_ platformTag: Int) -> MenuEntry {
+        return MenuEntry(
+          label: label,
+          hotKeyModifiers: hotKeyModifiers,
+          hotKey: hotKey,
+          action: action,
+          target: target,
+          isHidden: isHidden,
+          platformTag: platformTag
+        )
+      }
+    #endif
 
     // MARK: - AnyMenuEntry
 
