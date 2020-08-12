@@ -75,9 +75,9 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "?",
-        action: #selector(NSApplication.showHelp(_:)),
-        isHidden: Shared(Bundle.main.infoDictionary?["CFBundleHelpBookName"] == nil)
+        action: #selector(NSApplication.showHelp(_:))
       )
+      .hidden(when: Shared(Bundle.main.infoDictionary?["CFBundleHelpBookName"] == nil))
     }
 
     internal static func help() -> Menu<MenuBarLocalization> {

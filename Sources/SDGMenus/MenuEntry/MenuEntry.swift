@@ -38,7 +38,7 @@
     ///   - hotKeyModifiers: The hot key modifiers.
     ///   - hotKey: The hot key.
     ///   - action: The action.
-    private init(
+    public init(
       label: UserFacing<StrictString, L>,
       hotKeyModifiers: KeyModifiers = [],
       hotKey: String? = nil,
@@ -55,23 +55,25 @@
       #endif
     }
 
-    private init(
-      label: UserFacing<StrictString, L>,
-      hotKeyModifiers: KeyModifiers = [],
-      hotKey: String? = nil,
-      action: Selector? = nil,
-      target: AnyObject? = nil,
-      isHidden: Shared<Bool> = Shared(false),
-      platformTag: Int? = nil
-    ) {
-      self.label = label
-      self.hotKeyModifiers = hotKeyModifiers
-      self.hotKey = hotKey
-      self.action = action
-      self.target = target
-      self.isHidden = isHidden
-      self.tag = platformTag
-    }
+    #if canImport(AppKit)
+      private init(
+        label: UserFacing<StrictString, L>,
+        hotKeyModifiers: KeyModifiers = [],
+        hotKey: String? = nil,
+        action: Selector? = nil,
+        target: AnyObject? = nil,
+        isHidden: Shared<Bool> = Shared(false),
+        platformTag: Int? = nil
+      ) {
+        self.label = label
+        self.hotKeyModifiers = hotKeyModifiers
+        self.hotKey = hotKey
+        self.action = action
+        self.target = target
+        self.isHidden = isHidden
+        self.tag = platformTag
+      }
+    #endif
 
     // MARK: - Properties
 
