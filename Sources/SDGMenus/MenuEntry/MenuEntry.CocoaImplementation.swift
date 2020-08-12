@@ -103,7 +103,7 @@
             self.isHidden = isHiddenBinding.value
         #endif
         default:  // @exempt(from: tests)
-          break
+          break  // @exempt(from: tests)
         }
       }
     }
