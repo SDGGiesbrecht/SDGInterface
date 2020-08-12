@@ -15,6 +15,7 @@
 #if canImport(AppKit)
   import AppKit
 
+  import SDGControlFlow
   import SDGText
   import SDGLocalization
 
@@ -25,63 +26,58 @@
   extension MenuBar {
 
     private static func helpEntry() -> MenuEntry<MenuBarLocalization> {
-      let help = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              let deLaAplicación =
-                ProcessInfo.applicationName(.español(.de))
-                ?? "de \(MenuBar.fallbackApplicationName(quotationMarks: ("«", "»")))"
-              return "Ayuda \(deLaAplicación)"
-            case .françaisFrance:
-              let deLApplication =
-                ProcessInfo.applicationName(.français(.de))
-                ?? "de \(MenuBar.fallbackApplicationName(quotationMarks: ("« ", " »")))"
-              return "Aide \(deLApplication)"
+      return MenuEntry(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            let deLaAplicación =
+              ProcessInfo.applicationName(.español(.de))
+              ?? "de \(MenuBar.fallbackApplicationName(quotationMarks: ("«", "»")))"
+            return "Ayuda \(deLaAplicación)"
+          case .françaisFrance:
+            let deLApplication =
+              ProcessInfo.applicationName(.français(.de))
+              ?? "de \(MenuBar.fallbackApplicationName(quotationMarks: ("« ", " »")))"
+            return "Aide \(deLApplication)"
 
-            case .englishUnitedKingdom:
-              let theApplication =
-                ProcessInfo.applicationName(.english(.unitedKingdom))
-                ?? MenuBar.fallbackApplicationName(quotationMarks: ("‘", "’"))
-              return "\(theApplication) Help"
-            case .englishUnitedStates:
-              let theApplication =
-                ProcessInfo.applicationName(.english(.unitedStates))
-                ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”"))
-              return "\(theApplication) Help"
-            case .englishCanada:
-              let theApplication =
-                ProcessInfo.applicationName(.english(.canada))
-                ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”"))
-              return "\(theApplication) Help"
-            case .deutschDeutschland:
-              let derAnwendung =
-                ProcessInfo.applicationName(.deutsch(.dativ))
-                ?? MenuBar.fallbackApplicationName(quotationMarks: ("„", "“"))
-              return "Hilfe zu \(derAnwendung)"
+          case .englishUnitedKingdom:
+            let theApplication =
+              ProcessInfo.applicationName(.english(.unitedKingdom))
+              ?? MenuBar.fallbackApplicationName(quotationMarks: ("‘", "’"))
+            return "\(theApplication) Help"
+          case .englishUnitedStates:
+            let theApplication =
+              ProcessInfo.applicationName(.english(.unitedStates))
+              ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”"))
+            return "\(theApplication) Help"
+          case .englishCanada:
+            let theApplication =
+              ProcessInfo.applicationName(.english(.canada))
+              ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”"))
+            return "\(theApplication) Help"
+          case .deutschDeutschland:
+            let derAnwendung =
+              ProcessInfo.applicationName(.deutsch(.dativ))
+              ?? MenuBar.fallbackApplicationName(quotationMarks: ("„", "“"))
+            return "Hilfe zu \(derAnwendung)"
 
-            case .ελληνικάΕλλάδα:
-              let τηνΕφαρμογή =
-                ProcessInfo.applicationName(.ελληνικά(.αιτιατική))
-                ?? MenuBar.fallbackApplicationName(quotationMarks: ("«", "»"))
-              return "Βοήθεια για \(τηνΕφαρμογή)"
-            case .עברית־ישראל:
-              let היישום =
-                ProcessInfo.applicationName(.עברית)
-                ?? MenuBar.fallbackApplicationName(quotationMarks: ("”", "“"))
-              return "עזרה עבור \(היישום)"
-            }
-          })
-        )
+          case .ελληνικάΕλλάδα:
+            let τηνΕφαρμογή =
+              ProcessInfo.applicationName(.ελληνικά(.αιτιατική))
+              ?? MenuBar.fallbackApplicationName(quotationMarks: ("«", "»"))
+            return "Βοήθεια για \(τηνΕφαρμογή)"
+          case .עברית־ישראל:
+            let היישום =
+              ProcessInfo.applicationName(.עברית)
+              ?? MenuBar.fallbackApplicationName(quotationMarks: ("”", "“"))
+            return "עזרה עבור \(היישום)"
+          }
+        }),
+        hotKeyModifiers: .command,
+        hotKey: "?",
+        action: #selector(NSApplication.showHelp(_:)),
+        isHidden: Shared(Bundle.main.infoDictionary?["CFBundleHelpBookName"] == nil)
       )
-      help.action = #selector(NSApplication.showHelp(_:))
-      help.hotKey = "?"
-      help.hotKeyModifiers = .command
-      if Bundle.main.infoDictionary?["CFBundleHelpBookName"] == nil {
-        help.isHidden = true
-      }
-      return help
     }
 
     internal static func help() -> Menu<MenuBarLocalization> {

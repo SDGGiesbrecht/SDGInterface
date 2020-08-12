@@ -37,19 +37,21 @@ final class APITests: ApplicationTestCase {
 
   func testMenu() {
     #if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
-      _ = MenuEntry(label: .static(UserFacing<StrictString, APILocalization>({ _ in "..." })))
+      _ = MenuEntry(label: UserFacing<StrictString, APILocalization>({ _ in "..." }))
       let menuLabel = UserFacing<StrictString, APILocalization>({ _ in "initial" })
       let menu = Menu<APILocalization>(label: menuLabel, entries: [])
-      #if canImport(AppKit)
-        _ = menu.cocoa()
-      #endif
+      _ = menu.cocoa()
     #endif
   }
 
   func testMenuComponent() {
     #if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
       XCTAssertNotNil(
-        MenuComponent.entry(MenuEntry<InterfaceLocalization>(label: .binding(Shared("")))).asEntry
+        MenuComponent.entry(
+          MenuEntry<InterfaceLocalization>(
+            label: UserFacing<StrictString, InterfaceLocalization>({ _ in "" })
+          )
+        ).asEntry
       )
       #if canImport(AppKit)
         XCTAssertNotNil(
@@ -69,8 +71,12 @@ final class APITests: ApplicationTestCase {
           ).asEntry
         )
         XCTAssertNil(
-          MenuComponent.entry(MenuEntry<InterfaceLocalization>(label: .binding(Shared(""))))
-            .asSubmenu
+          MenuComponent.entry(
+            MenuEntry<InterfaceLocalization>(
+              label: UserFacing<StrictString, InterfaceLocalization>({ _ in "" })
+            )
+          )
+          .asSubmenu
         )
       #endif
     #endif
@@ -79,49 +85,11 @@ final class APITests: ApplicationTestCase {
   func testMenuEntry() {
     #if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
       let menuLabel = Shared<StrictString>("initial")
-      let menu = MenuEntry<APILocalization>(label: .binding(menuLabel))
+      let _ = MenuEntry<APILocalization>(
+        label: UserFacing<StrictString, APILocalization>({ _ in "" })
+      )
       menuLabel.value = "changed"
-      XCTAssertEqual(menu.label.resolved(), menuLabel.value)
-      let separateMenuLabel = Shared<StrictString>("separate")
-      menu.label = .binding(separateMenuLabel)
-      XCTAssertEqual(menu.label.resolved(), separateMenuLabel.value)
       menuLabel.value = "unrelated"
-      XCTAssertEqual(menu.label.resolved(), separateMenuLabel.value)
-      let action = #selector(NSObject.isEqual(_:))
-      menu.action = action
-      _ = menu.action
-      #if !os(tvOS) && !os(watchOS)
-        XCTAssertEqual(menu.action, action)
-      #endif
-      menu.action = nil
-      #if canImport(AppKit)
-        let target = NSObject()
-        menu.target = target
-        XCTAssertEqual(menu.target as? NSObject, target)
-      #endif
-      #if canImport(AppKit)
-        let hotKey = "A"
-        menu.hotKey = hotKey
-        XCTAssertEqual(menu.hotKey, hotKey)
-      #endif
-      #if canImport(AppKit)
-        let modifiers: KeyModifiers = .command
-        menu.hotKeyModifiers = modifiers
-        XCTAssertEqual(menu.hotKeyModifiers, modifiers)
-      #endif
-      menu.isHidden = true
-      _ = menu.isHidden
-      XCTAssert(menu.isHidden)
-      #if canImport(AppKit)
-        menu.indentationLevel = 1
-        XCTAssertEqual(menu.indentationLevel, 1)
-      #endif
-      menu.tag = 1
-      XCTAssertEqual(menu.tag, 1)
-      #if !os(tvOS) && !os(watchOS)
-        _ = menu.cocoa.title
-      #endif
-      menu._refreshBindings()
     #endif
   }
 }

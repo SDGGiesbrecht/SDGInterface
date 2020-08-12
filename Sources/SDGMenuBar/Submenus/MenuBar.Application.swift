@@ -25,84 +25,78 @@
 
   extension MenuBar {
     private static func about() -> MenuEntry<MenuBarLocalization> {
-      let about = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              let deLaAplicación =
-                ProcessInfo.applicationName(.español(.de))
-                ?? "de \(MenuBar.fallbackApplicationName(quotationMarks: ("«", "»")))"
-              return "Acerca \(deLaAplicación)"
-            case .englishUnitedKingdom:
-              let theApplication =
-                ProcessInfo.applicationName(.english(.unitedKingdom))
-                ?? MenuBar.fallbackApplicationName(quotationMarks: ("‘", "’"))
-              return "About \(theApplication)"
-            case .englishUnitedStates:
-              let theApplication =
-                ProcessInfo.applicationName(.english(.unitedStates))
-                ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”"))
-              return "About \(theApplication)"
-            case .englishCanada:
-              let theApplication =
-                ProcessInfo.applicationName(.english(.canada))
-                ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”"))
-              return "About \(theApplication)"
-            case .deutschDeutschland:
-              let dieAnwendung =
-                ProcessInfo.applicationName(.deutsch(.akkusativ))
-                ?? MenuBar.fallbackApplicationName(quotationMarks: ("„", "“"))
-              return "Über \(dieAnwendung)"
-            case .françaisFrance:
-              let deLApplication =
-                ProcessInfo.applicationName(.français(.de))
-                ?? "de \(MenuBar.fallbackApplicationName(quotationMarks: ("« ", " »")))"
-              return "À propos \(deLApplication)"
-            case .ελληνικάΕλλάδα:
-              let τηνΕφαρμογή =
-                ProcessInfo.applicationName(.ελληνικά(.αιτιατική))
-                ?? MenuBar.fallbackApplicationName(quotationMarks: ("«", "»"))
-              return "Πληροφορίες για \(τηνΕφαρμογή)"
-            case .עברית־ישראל:
-              let היישום =
-                (ProcessInfo.applicationName(.עברית)
-                  ?? MenuBar.fallbackApplicationName(quotationMarks: ("”", "“")))
-              return "אותות \(היישום)"
-            }
-          })
-        )
+      return MenuEntry(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            let deLaAplicación =
+              ProcessInfo.applicationName(.español(.de))
+              ?? "de \(MenuBar.fallbackApplicationName(quotationMarks: ("«", "»")))"
+            return "Acerca \(deLaAplicación)"
+          case .englishUnitedKingdom:
+            let theApplication =
+              ProcessInfo.applicationName(.english(.unitedKingdom))
+              ?? MenuBar.fallbackApplicationName(quotationMarks: ("‘", "’"))
+            return "About \(theApplication)"
+          case .englishUnitedStates:
+            let theApplication =
+              ProcessInfo.applicationName(.english(.unitedStates))
+              ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”"))
+            return "About \(theApplication)"
+          case .englishCanada:
+            let theApplication =
+              ProcessInfo.applicationName(.english(.canada))
+              ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”"))
+            return "About \(theApplication)"
+          case .deutschDeutschland:
+            let dieAnwendung =
+              ProcessInfo.applicationName(.deutsch(.akkusativ))
+              ?? MenuBar.fallbackApplicationName(quotationMarks: ("„", "“"))
+            return "Über \(dieAnwendung)"
+          case .françaisFrance:
+            let deLApplication =
+              ProcessInfo.applicationName(.français(.de))
+              ?? "de \(MenuBar.fallbackApplicationName(quotationMarks: ("« ", " »")))"
+            return "À propos \(deLApplication)"
+          case .ελληνικάΕλλάδα:
+            let τηνΕφαρμογή =
+              ProcessInfo.applicationName(.ελληνικά(.αιτιατική))
+              ?? MenuBar.fallbackApplicationName(quotationMarks: ("«", "»"))
+            return "Πληροφορίες για \(τηνΕφαρμογή)"
+          case .עברית־ישראל:
+            let היישום =
+              (ProcessInfo.applicationName(.עברית)
+                ?? MenuBar.fallbackApplicationName(quotationMarks: ("”", "“")))
+            return "אותות \(היישום)"
+          }
+        }),
+        action: #selector(NSApplication.orderFrontStandardAboutPanel(_:))
       )
-      about.action = #selector(NSApplication.orderFrontStandardAboutPanel(_:))
-      return about
     }
 
     private static func preferences() -> MenuEntry<MenuBarLocalization> {
-      let preferences = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Preferencias..."
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Preferences..."
-            case .françaisFrance:
-              return "Préférences..."
+      return MenuEntry(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Preferencias..."
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Preferences..."
+          case .françaisFrance:
+            return "Préférences..."
 
-            case .deutschDeutschland:
-              return "Einstellungen ..."
-            case .ελληνικάΕλλάδα:
-              return "Προτιμήσεις..."
-            case .עברית־ישראל:
-              return "העדפות..."
-            }
-          })
-        )
+          case .deutschDeutschland:
+            return "Einstellungen ..."
+          case .ελληνικάΕλλάδα:
+            return "Προτιμήσεις..."
+          case .עברית־ישראל:
+            return "העדפות..."
+          }
+        }),
+        hotKeyModifiers: .command,
+        hotKey: ",",
+        action: #selector(_NSApplicationDelegateProtocol.openPreferences(_:))
       )
-      preferences.action = #selector(_NSApplicationDelegateProtocol.openPreferences(_:))
-      preferences.hotKey = ","
-      preferences.hotKeyModifiers = .command
-      return preferences
     }
 
     private static func services() -> Menu<MenuBarLocalization> {
@@ -127,167 +121,155 @@
     }
 
     private static func hide() -> MenuEntry<MenuBarLocalization> {
-      let hide = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              let laAplicación =
-                ProcessInfo.applicationName(.español(.ninguna))
-                ?? MenuBar.fallbackApplicationName(quotationMarks: ("«", "»"))
-              return "Ocultar \(laAplicación)"
-            case .englishUnitedKingdom:
-              let theApplication =
-                ProcessInfo.applicationName(.english(.unitedKingdom))
-                ?? MenuBar.fallbackApplicationName(quotationMarks: ("‘", "’"))
-              return "Hide \(theApplication)"
-            case .englishUnitedStates:
-              let theApplication =
-                ProcessInfo.applicationName(.english(.unitedStates))
-                ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”"))
-              return "Hide \(theApplication)"
-            case .englishCanada:
-              let theApplication =
-                ProcessInfo.applicationName(.english(.canada))
-                ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”"))
-              return "Hide \(theApplication)"
-            case .deutschDeutschland:
-              let dieAnwendung =
-                ProcessInfo.applicationName(.deutsch(.akkusativ))
-                ?? MenuBar.fallbackApplicationName(quotationMarks: ("„", "“"))
-              return "\(dieAnwendung) ausblenden"
-            case .françaisFrance:
-              let lApplication =
-                ProcessInfo.applicationName(.français(.aucune))
-                ?? MenuBar.fallbackApplicationName(quotationMarks: ("« ", " »"))
-              return "Masquer \(lApplication)"
-            case .ελληνικάΕλλάδα:
-              let τηςΕφαρμογής =
-                ProcessInfo.applicationName(.ελληνικά(.γενική))
-                ?? MenuBar.fallbackApplicationName(quotationMarks: ("«", "»"))
-              return "Απόκρυψη \(τηςΕφαρμογής)"
-            case .עברית־ישראל:
-              let היישום =
-                ProcessInfo.applicationName(.עברית)
-                ?? MenuBar.fallbackApplicationName(quotationMarks: ("”", "“"))
-              return "הסתר את \(היישום)"
-            }
-          })
-        )
+      return MenuEntry(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            let laAplicación =
+              ProcessInfo.applicationName(.español(.ninguna))
+              ?? MenuBar.fallbackApplicationName(quotationMarks: ("«", "»"))
+            return "Ocultar \(laAplicación)"
+          case .englishUnitedKingdom:
+            let theApplication =
+              ProcessInfo.applicationName(.english(.unitedKingdom))
+              ?? MenuBar.fallbackApplicationName(quotationMarks: ("‘", "’"))
+            return "Hide \(theApplication)"
+          case .englishUnitedStates:
+            let theApplication =
+              ProcessInfo.applicationName(.english(.unitedStates))
+              ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”"))
+            return "Hide \(theApplication)"
+          case .englishCanada:
+            let theApplication =
+              ProcessInfo.applicationName(.english(.canada))
+              ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”"))
+            return "Hide \(theApplication)"
+          case .deutschDeutschland:
+            let dieAnwendung =
+              ProcessInfo.applicationName(.deutsch(.akkusativ))
+              ?? MenuBar.fallbackApplicationName(quotationMarks: ("„", "“"))
+            return "\(dieAnwendung) ausblenden"
+          case .françaisFrance:
+            let lApplication =
+              ProcessInfo.applicationName(.français(.aucune))
+              ?? MenuBar.fallbackApplicationName(quotationMarks: ("« ", " »"))
+            return "Masquer \(lApplication)"
+          case .ελληνικάΕλλάδα:
+            let τηςΕφαρμογής =
+              ProcessInfo.applicationName(.ελληνικά(.γενική))
+              ?? MenuBar.fallbackApplicationName(quotationMarks: ("«", "»"))
+            return "Απόκρυψη \(τηςΕφαρμογής)"
+          case .עברית־ישראל:
+            let היישום =
+              ProcessInfo.applicationName(.עברית)
+              ?? MenuBar.fallbackApplicationName(quotationMarks: ("”", "“"))
+            return "הסתר את \(היישום)"
+          }
+        }),
+        hotKeyModifiers: .command,
+        hotKey: "h",
+        action: #selector(NSApplication.hide(_:))
       )
-      hide.action = #selector(NSApplication.hide(_:))
-      hide.hotKey = "h"
-      hide.hotKeyModifiers = .command
-      return hide
     }
 
     private static func hideOthers() -> MenuEntry<MenuBarLocalization> {
-      let hideOthers = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Ocultar otros"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Hide Others"
-            case .deutschDeutschland:
-              return "Andere ausblenden"
-            case .françaisFrance:
-              return "Masquer les autres"
-            case .ελληνικάΕλλάδα:
-              return "Απόκρυψη άλλων"
-            case .עברית־ישראל:
-              return "הסתר אחרים"
-            }
-          })
-        )
+      return MenuEntry(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Ocultar otros"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Hide Others"
+          case .deutschDeutschland:
+            return "Andere ausblenden"
+          case .françaisFrance:
+            return "Masquer les autres"
+          case .ελληνικάΕλλάδα:
+            return "Απόκρυψη άλλων"
+          case .עברית־ישראל:
+            return "הסתר אחרים"
+          }
+        }),
+        hotKeyModifiers: [.option, .command],
+        hotKey: "h",
+        action: #selector(NSApplication.hideOtherApplications(_:))
       )
-      hideOthers.action = #selector(NSApplication.hideOtherApplications(_:))
-      hideOthers.hotKey = "h"
-      hideOthers.hotKeyModifiers = [.option, .command]
-      return hideOthers
     }
 
     private static func showAll() -> MenuEntry<MenuBarLocalization> {
-      let showAll = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Mostrar todo"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Show All"
-            case .deutschDeutschland:
-              return "Alle einblenden"
-            case .françaisFrance:
-              return "Tout afficher"
-            case .ελληνικάΕλλάδα:
-              return "Εμφάνιση όλων"
-            case .עברית־ישראל:
-              return "הצג הכול"
-            }
-          })
-        )
+      return MenuEntry(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Mostrar todo"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Show All"
+          case .deutschDeutschland:
+            return "Alle einblenden"
+          case .françaisFrance:
+            return "Tout afficher"
+          case .ελληνικάΕλλάδα:
+            return "Εμφάνιση όλων"
+          case .עברית־ישראל:
+            return "הצג הכול"
+          }
+        }),
+        action: #selector(NSApplication.unhideAllApplications(_:))
       )
-      showAll.action = #selector(NSApplication.unhideAllApplications(_:))
-      return showAll
     }
 
     private static func quit() -> MenuEntry<MenuBarLocalization> {
-      let quit = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              let deLaAplicación =
-                ProcessInfo.applicationName(.español(.de))
-                ?? "de \(MenuBar.fallbackApplicationName(quotationMarks: ("«", "»")))"
-              return "Salir \(deLaAplicación)"
+      return MenuEntry(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            let deLaAplicación =
+              ProcessInfo.applicationName(.español(.de))
+              ?? "de \(MenuBar.fallbackApplicationName(quotationMarks: ("«", "»")))"
+            return "Salir \(deLaAplicación)"
 
-            case .englishUnitedKingdom:
-              let theApplication =
-                ProcessInfo.applicationName(.english(.unitedKingdom))
-                ?? MenuBar.fallbackApplicationName(quotationMarks: ("‘", "’"))
-              return "Quit \(theApplication)"
-            case .englishUnitedStates:
-              let theApplication =
-                ProcessInfo.applicationName(.english(.unitedStates))
-                ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”"))
-              return "Quit \(theApplication)"
-            case .englishCanada:
-              let theApplication =
-                ProcessInfo.applicationName(.english(.canada))
-                ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”"))
-              return "Quit \(theApplication)"
-            case .françaisFrance:
-              let lApplication =
-                ProcessInfo.applicationName(.français(.aucune))
-                ?? MenuBar.fallbackApplicationName(quotationMarks: ("« ", " »"))
-              return "Quitter \(lApplication)"
+          case .englishUnitedKingdom:
+            let theApplication =
+              ProcessInfo.applicationName(.english(.unitedKingdom))
+              ?? MenuBar.fallbackApplicationName(quotationMarks: ("‘", "’"))
+            return "Quit \(theApplication)"
+          case .englishUnitedStates:
+            let theApplication =
+              ProcessInfo.applicationName(.english(.unitedStates))
+              ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”"))
+            return "Quit \(theApplication)"
+          case .englishCanada:
+            let theApplication =
+              ProcessInfo.applicationName(.english(.canada))
+              ?? MenuBar.fallbackApplicationName(quotationMarks: ("“", "”"))
+            return "Quit \(theApplication)"
+          case .françaisFrance:
+            let lApplication =
+              ProcessInfo.applicationName(.français(.aucune))
+              ?? MenuBar.fallbackApplicationName(quotationMarks: ("« ", " »"))
+            return "Quitter \(lApplication)"
 
-            case .deutschDeutschland:
-              let dieAnwendung =
-                ProcessInfo.applicationName(.deutsch(.akkusativ))
-                ?? MenuBar.fallbackApplicationName(quotationMarks: ("„", "“"))
-              return "\(dieAnwendung) beenden"
-            case .ελληνικάΕλλάδα:
-              let τηςΕφαρμογής =
-                ProcessInfo.applicationName(.ελληνικά(.γενική))
-                ?? MenuBar.fallbackApplicationName(quotationMarks: ("«", "»"))
-              return "Τερματισμός \(τηςΕφαρμογής)"
-            case .עברית־ישראל:
-              let היישום =
-                ProcessInfo.applicationName(.עברית)
-                ?? MenuBar.fallbackApplicationName(quotationMarks: ("”", "“"))
-              return "סיים את \(היישום)"
-            }
-          })
-        )
+          case .deutschDeutschland:
+            let dieAnwendung =
+              ProcessInfo.applicationName(.deutsch(.akkusativ))
+              ?? MenuBar.fallbackApplicationName(quotationMarks: ("„", "“"))
+            return "\(dieAnwendung) beenden"
+          case .ελληνικάΕλλάδα:
+            let τηςΕφαρμογής =
+              ProcessInfo.applicationName(.ελληνικά(.γενική))
+              ?? MenuBar.fallbackApplicationName(quotationMarks: ("«", "»"))
+            return "Τερματισμός \(τηςΕφαρμογής)"
+          case .עברית־ישראל:
+            let היישום =
+              ProcessInfo.applicationName(.עברית)
+              ?? MenuBar.fallbackApplicationName(quotationMarks: ("”", "“"))
+            return "סיים את \(היישום)"
+          }
+        }),
+        hotKeyModifiers: .command,
+        hotKey: "q",
+        action: #selector(NSApplication.terminate(_:))
       )
-      quit.action = #selector(NSApplication.terminate(_:))
-      quit.hotKey = "q"
-      quit.hotKeyModifiers = .command
-      return quit
     }
 
     internal static func application() -> Menu<ApplicationNameLocalization> {

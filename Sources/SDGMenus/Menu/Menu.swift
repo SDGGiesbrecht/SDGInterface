@@ -56,12 +56,7 @@
 
     #if canImport(UIKit)
       public func cocoa() -> [UIMenuItem] {
-        return entries.flatMap { (entry) -> [UIMenuItem] in
-          switch entry {
-          case .entry(let entry):
-            return entry.isHidden ? [] : [entry.cocoa]
-          }
-        }
+        return entries.map { $0.cocoa() }
       }
     #endif
   }

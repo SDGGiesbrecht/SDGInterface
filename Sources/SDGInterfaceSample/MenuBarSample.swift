@@ -27,19 +27,16 @@
   extension MenuBar {
 
     private static func error() -> MenuEntry<InterfaceLocalization> {
-      let error = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-              return "Error"
-            }
-          })
-        )
+      return MenuEntry(
+        label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishCanada:
+            return "Error"
+          }
+        }),
+        action: #selector(Application.demonstrateError),
+        target: Application.shared
       )
-      error.action = #selector(Application.demonstrateError)
-      error.target = Application.shared
-      return error
     }
 
     internal static func sample() -> Menu<InterfaceLocalization> {

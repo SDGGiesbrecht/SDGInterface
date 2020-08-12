@@ -24,27 +24,30 @@
 
   extension MenuBar {
 
-    private static func paragraph() -> MenuEntry<MenuBarLocalization> {
-      return MenuEntry(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Párrafo"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Paragraph"
-            case .françaisFrance:
-              return "Paragraphe"
-            case .ελληνικάΕλλάδα:
-              return "Παράγραφος"
+    private static func paragraph() -> Menu<MenuBarLocalization> {
+      return Menu(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Párrafo"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Paragraph"
+          case .françaisFrance:
+            return "Paragraphe"
+          case .ελληνικάΕλλάδα:
+            return "Παράγραφος"
 
-            case .deutschDeutschland:
-              return "Absatz"
-            case .עברית־ישראל:
-              return "פיסקה"
-            }
-          })
-        )
+          case .deutschDeutschland:
+            return "Absatz"
+          case .עברית־ישראל:
+            return "פיסקה"
+          }
+        }),
+        entries: [
+          .entry(paragraphDefault()),
+          .entry(paragraphRightToLeft()),
+          .entry(paragraphLeftToRight()),
+        ]
       )
     }
 
@@ -67,10 +70,10 @@
       })
     }
     private static func paragraphDefault() -> MenuEntry<MenuBarLocalization> {
-      let paragraphDefault = MenuEntry(label: .static(defaultLabel()))
-      paragraphDefault.action = #selector(NSResponder.makeBaseWritingDirectionNatural(_:))
-      paragraphDefault.indentationLevel = 1
-      return paragraphDefault
+      return MenuEntry(
+        label: defaultLabel(),
+        action: #selector(NSResponder.makeBaseWritingDirectionNatural(_:))
+      )
     }
 
     private static func rightToLeftLabel() -> UserFacing<StrictString, MenuBarLocalization> {
@@ -92,10 +95,10 @@
       })
     }
     private static func paragraphRightToLeft() -> MenuEntry<MenuBarLocalization> {
-      let paragraphRightToLeft = MenuEntry(label: .static(rightToLeftLabel()))
-      paragraphRightToLeft.action = #selector(NSResponder.makeBaseWritingDirectionRightToLeft(_:))
-      paragraphRightToLeft.indentationLevel = 1
-      return paragraphRightToLeft
+      return MenuEntry(
+        label: rightToLeftLabel(),
+        action: #selector(NSResponder.makeBaseWritingDirectionRightToLeft(_:))
+      )
     }
 
     private static func leftToRightLabel() -> UserFacing<StrictString, MenuBarLocalization> {
@@ -117,55 +120,58 @@
       })
     }
     private static func paragraphLeftToRight() -> MenuEntry<MenuBarLocalization> {
-      let paragraphLeftToRight = MenuEntry(label: .static(leftToRightLabel()))
-      paragraphLeftToRight.action = #selector(NSResponder.makeBaseWritingDirectionLeftToRight(_:))
-      paragraphLeftToRight.indentationLevel = 1
-      return paragraphLeftToRight
+      return MenuEntry(
+        label: leftToRightLabel(),
+        action: #selector(NSResponder.makeBaseWritingDirectionLeftToRight(_:))
+      )
     }
 
-    private static func selection() -> MenuEntry<MenuBarLocalization> {
-      return MenuEntry(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Selección"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Selection"
-            case .françaisFrance:
-              return "Sélection"
+    private static func selection() -> Menu<MenuBarLocalization> {
+      return Menu(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Selección"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Selection"
+          case .françaisFrance:
+            return "Sélection"
 
-            case .deutschDeutschland:
-              return "Auswahl"
-            case .ελληνικάΕλλάδα:
-              return "Επιλογή"
-            case .עברית־ישראל:
-              return "בחירה"
-            }
-          })
-        )
+          case .deutschDeutschland:
+            return "Auswahl"
+          case .ελληνικάΕλλάδα:
+            return "Επιλογή"
+          case .עברית־ישראל:
+            return "בחירה"
+          }
+        }),
+        entries: [
+          .entry(selectionDefault()),
+          .entry(selectionRightToLeft()),
+          .entry(selectionLeftToRight()),
+        ]
       )
     }
 
     private static func selectionDefault() -> MenuEntry<MenuBarLocalization> {
-      let selectionDefault = MenuEntry(label: .static(defaultLabel()))
-      selectionDefault.action = #selector(NSResponder.makeTextWritingDirectionNatural(_:))
-      selectionDefault.indentationLevel = 1
-      return selectionDefault
+      return MenuEntry(
+        label: defaultLabel(),
+        action: #selector(NSResponder.makeTextWritingDirectionNatural(_:))
+      )
     }
 
     private static func selectionRightToLeft() -> MenuEntry<MenuBarLocalization> {
-      let selectionRightToLeft = MenuEntry(label: .static(rightToLeftLabel()))
-      selectionRightToLeft.action = #selector(NSResponder.makeTextWritingDirectionRightToLeft(_:))
-      selectionRightToLeft.indentationLevel = 1
-      return selectionRightToLeft
+      return MenuEntry(
+        label: rightToLeftLabel(),
+        action: #selector(NSResponder.makeTextWritingDirectionRightToLeft(_:))
+      )
     }
 
     private static func selectionLeftToRight() -> MenuEntry<MenuBarLocalization> {
-      let selectionLeftToRight = MenuEntry(label: .static(leftToRightLabel()))
-      selectionLeftToRight.action = #selector(NSResponder.makeTextWritingDirectionLeftToRight(_:))
-      selectionLeftToRight.indentationLevel = 1
-      return selectionLeftToRight
+      return MenuEntry(
+        label: leftToRightLabel(),
+        action: #selector(NSResponder.makeTextWritingDirectionLeftToRight(_:))
+      )
     }
 
     internal static func writingDirection() -> Menu<MenuBarLocalization> {
@@ -188,15 +194,8 @@
           }
         }),
         entries: [
-          .entry(paragraph()),
-          .entry(paragraphDefault()),
-          .entry(paragraphRightToLeft()),
-          .entry(paragraphLeftToRight()),
-          .separator,
-          .entry(selection()),
-          .entry(selectionDefault()),
-          .entry(selectionRightToLeft()),
-          .entry(selectionLeftToRight()),
+          .submenu(paragraph()),
+          .submenu(selection()),
         ]
       )
     }

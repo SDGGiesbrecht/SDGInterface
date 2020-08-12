@@ -16,6 +16,9 @@
   #if canImport(AppKit)
     import AppKit
   #endif
+  #if canImport(UIKit)
+    import UIKit
+  #endif
 
   /// A menu component.
   public enum MenuComponent {
@@ -62,10 +65,7 @@
       public func cocoa() -> NSMenuItem {
         switch self {
         case .entry(let entry):
-          if let index = entry.cocoa.menu?.index(of: entry.cocoa) {
-            entry.cocoa.menu?.removeItem(at: index)
-          }
-          return entry.cocoa
+          return entry.cocoa()
         case .submenu(let menu):
           let entry = NSMenuItem()
           entry.submenu = menu.cocoa()
@@ -73,6 +73,16 @@
           return entry
         case .separator:
           return NSMenuItem.separator()
+        }
+      }
+    #endif
+
+    #if canImport(UIKit)
+      /// Generates an `UIMenuItem` instance representing the menu component.
+      public func cocoa() -> UIMenuItem {
+        switch self {
+        case .entry(let entry):
+          return entry.cocoa()
         }
       }
     #endif

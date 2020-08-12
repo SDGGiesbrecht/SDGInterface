@@ -35,7 +35,7 @@
         defer {
           LocalizationSetting.current.register(observer: self)
         }
-        super.init(title: String(label.resolved()))
+        super.init(title: "" /* temporary placeholder */)
 
         items = entries.map { $0.cocoa() }
       }
@@ -47,14 +47,7 @@
       // MARK: - NSMenu
 
       internal required init(coder: NSCoder) {  // @exempt(from: tests)
-        fatalError(
-          UserFacing<StrictString, APILocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-              return "Coding is not supported."
-            }
-          })
-        )
+        codingNotSupported()
       }
 
       // MARK: - SharedValueObserver

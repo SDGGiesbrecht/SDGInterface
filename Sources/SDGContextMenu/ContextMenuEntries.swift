@@ -27,40 +27,34 @@
   extension ContextMenu {
 
     public static func _normalizeText() -> MenuEntry<InterfaceLocalization> {
-      let normalizeText = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishUnitedKingdom:
-              return "Normalise Text"
-            case .englishUnitedStates, .englishCanada:
-              return "Normalize Text"
-            case .deutschDeutschland:
-              return "Text normalisieren"
-            }
-          })
-        )
+      return MenuEntry(
+        label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishUnitedKingdom:
+            return "Normalise Text"
+          case .englishUnitedStates, .englishCanada:
+            return "Normalize Text"
+          case .deutschDeutschland:
+            return "Text normalisieren"
+          }
+        }),
+        action: #selector(TextEditingResponder.normalizeText(_:))
       )
-      normalizeText.action = #selector(TextEditingResponder.normalizeText(_:))
-      return normalizeText
     }
 
     @available(iOS 9, *)  // @exempt(from: unicode)
     public static func _showCharacterInformation() -> MenuEntry<InterfaceLocalization> {
-      let showCharacterInformation = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Show Character Information"
-            case .deutschDeutschland:
-              return "Schriftzeicheninformationen einblenden"
-            }
-          })
-        )
+      return MenuEntry(
+        label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Show Character Information"
+          case .deutschDeutschland:
+            return "Schriftzeicheninformationen einblenden"
+          }
+        }),
+        action: #selector(TextDisplayResponder.showCharacterInformation(_:))
       )
-      showCharacterInformation.action = #selector(TextDisplayResponder.showCharacterInformation(_:))
-      return showCharacterInformation
     }
   }
 #endif

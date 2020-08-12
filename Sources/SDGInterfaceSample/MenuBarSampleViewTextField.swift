@@ -27,35 +27,29 @@
   extension MenuBar {
 
     private static func textFieldEntry() -> MenuEntry<InterfaceLocalization> {
-      let textField = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-              return "Text Field"
-            }
-          })
-        )
+      return MenuEntry(
+        label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishCanada:
+            return "Text Field"
+          }
+        }),
+        action: #selector(Application.demonstrateTextField),
+        target: Application.shared
       )
-      textField.action = #selector(Application.demonstrateTextField)
-      textField.target = Application.shared
-      return textField
     }
 
     private static func labelledTextField() -> MenuEntry<InterfaceLocalization> {
-      let labelledTextField = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishCanada:
-              return "Labelled Text Field"
-            }
-          })
-        )
+      return MenuEntry(
+        label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishCanada:
+            return "Labelled Text Field"
+          }
+        }),
+        action: #selector(Application.demonstrateLabelledTextField),
+        target: Application.shared
       )
-      labelledTextField.action = #selector(Application.demonstrateLabelledTextField)
-      labelledTextField.target = Application.shared
-      return labelledTextField
     }
 
     internal static func textField() -> Menu<InterfaceLocalization> {

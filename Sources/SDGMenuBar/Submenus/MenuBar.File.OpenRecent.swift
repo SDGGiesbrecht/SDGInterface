@@ -25,28 +25,25 @@
   extension MenuBar {
 
     private static func clearMenu() -> MenuEntry<MenuBarLocalization> {
-      let clearMenu = MenuEntry(
-        label: .static(
-          UserFacing<StrictString, MenuBarLocalization>({ localization in
-            switch localization {
-            case .españolEspaña:
-              return "Vaciar menú"
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Clear Menu"
-            case .deutschDeutschland:
-              return "Einträge löschen"
-            case .françaisFrance:
-              return "Effacer le menu"
-            case .ελληνικάΕλλάδα:
-              return "Εκκαθάριση μενού"
-            case .עברית־ישראל:
-              return "נקה תפריט"
-            }
-          })
-        )
+      return MenuEntry(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Vaciar menú"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Clear Menu"
+          case .deutschDeutschland:
+            return "Einträge löschen"
+          case .françaisFrance:
+            return "Effacer le menu"
+          case .ελληνικάΕλλάδα:
+            return "Εκκαθάριση μενού"
+          case .עברית־ישראל:
+            return "נקה תפריט"
+          }
+        }),
+        action: #selector(NSDocumentController.clearRecentDocuments(_:))
       )
-      clearMenu.action = #selector(NSDocumentController.clearRecentDocuments(_:))
-      return clearMenu
     }
 
     internal static func openRecent() -> Menu<MenuBarLocalization> {
