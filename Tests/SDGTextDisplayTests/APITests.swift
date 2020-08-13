@@ -258,7 +258,10 @@ final class APITests: ApplicationTestCase {
       overwriteSpecificationInsteadOfFailing: false
     )
     testEquatableConformance(differingInstances: (RichText(rawText: "1"), RichText(rawText: "2")))
-    XCTAssertEqual([richText: true][richText], true)
+    #warning("Is this it?")
+    #if !os(Windows)
+      XCTAssertEqual([richText: true][richText], true)
+    #endif
 
     richText = RichText(rawText: "......")
     #if canImport(AppKit) || canImport(UIKit)
