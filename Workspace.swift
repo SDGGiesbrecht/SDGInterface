@@ -60,3 +60,6 @@ configuration.documentation.api.ignoredDependencies = [
   "Foundation",
   "XCTest",
 ]
+
+// #workaround(workspace version 0.34.1, Not default yet.)
+configuration.xcode.manage = false
