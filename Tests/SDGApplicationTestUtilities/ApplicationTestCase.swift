@@ -17,53 +17,48 @@
   // #workaround(Swift 5.2.4, Web doesn’t have Foundation yet.)
   #if !os(WASI)
 
-    // #workaround(Swift 5.2.4, The generated Xcode project cannot import XCTest on iOS devices.)
-    #if !Xcode || MANIFEST_LOADED_BY_XCODE || !(os(iOS) || os(tvOS)) || targetEnvironment(simulator)
+    import Foundation
 
-      import Foundation
+    import SDGApplication
 
-      import SDGApplication
+    import SDGInterfaceSample
 
-      import SDGInterfaceSample
+    import XCTest
 
-      import XCTest
+    import SDGXCTestUtilities
 
-      import SDGXCTestUtilities
+    open class ApplicationTestCase: TestCase {
 
-      open class ApplicationTestCase: TestCase {
-
-        open override func setUp() {
-          super.setUp()
-          ApplicationTestCase.launch
-        }
-        private static let launch: Void = {
-          Application.setUp()
-          let mediator = getSystemMediator()
-          Application.setUpWithoutMain(mediator: mediator)
-          #if canImport(AppKit)
-            _ = mediator.finishLaunching(LaunchDetails())
-          #elseif canImport(UIKit)
-            _ = mediator.finishLaunching(LaunchDetails())
-          #endif
-        }()
-
-        open override func tearDown() {
-          #if canImport(AppKit) || canImport(UIKit)
-            forEachWindow { window in
-              window.close()
-            }
-            forEachWindow { window in  // @exempt(from: tests)
-              #if canImport(AppKit)  // @exempt(from: tests)
-                XCTAssert(false, "Failed to tear down window: \(window.native.title)")
-              #else
-                XCTAssert(false, "Failed to tear down window: \(window.native)")
-              #endif
-            }
-          #endif
-        }
+      open override func setUp() {
+        super.setUp()
+        ApplicationTestCase.launch
       }
+      private static let launch: Void = {
+        Application.setUp()
+        let mediator = getSystemMediator()
+        Application.setUpWithoutMain(mediator: mediator)
+        #if canImport(AppKit)
+          _ = mediator.finishLaunching(LaunchDetails())
+        #elseif canImport(UIKit)
+          _ = mediator.finishLaunching(LaunchDetails())
+        #endif
+      }()
 
-    #endif
+      open override func tearDown() {
+        #if canImport(AppKit) || canImport(UIKit)
+          forEachWindow { window in
+            window.close()
+          }
+          forEachWindow { window in  // @exempt(from: tests)
+            #if canImport(AppKit)  // @exempt(from: tests)
+              XCTAssert(false, "Failed to tear down window: \(window.native.title)")
+            #else
+              XCTAssert(false, "Failed to tear down window: \(window.native)")
+            #endif
+          }
+        #endif
+      }
+    }
 
   #endif
 
