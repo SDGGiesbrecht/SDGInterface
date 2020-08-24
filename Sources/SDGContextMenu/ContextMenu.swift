@@ -57,7 +57,7 @@ public struct ContextMenu {
     private let menu: AnyMenu
 
     #if canImport(UIKit)
-      // Generates a Cocoa representation of the context menu.
+      /// Generates a Cocoa representation of the context menu.
       public func cocoa() -> [UIMenuItem] {
         return menu.cocoa()
       }
