@@ -13,6 +13,7 @@
  */
 
 import SDGControlFlow
+import SDGLocalization
 
 import SDGTextDisplay
 import SDGProgressIndicators
@@ -31,10 +32,9 @@ final class APITests: ApplicationTestCase {
   func testLabelledProgressBar() {
     #if canImport(AppKit) || canImport(UIKit)
       let bar = LabelledProgressBar<InterfaceLocalization>(
-        label: Label(text: .binding(Shared(""))),
+        label: Label<InterfaceLocalization>(UserFacing({ _ in "" })),
         progressBar: ProgressBar(range: Shared(0...1), value: Shared(nil))
       )
-      XCTAssertEqual(bar.label.text.resolved(), "")
       _ = bar.cocoa()
     #endif
   }

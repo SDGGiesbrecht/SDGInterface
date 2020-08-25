@@ -123,19 +123,10 @@ final class APITests: ApplicationTestCase {
   func testLabel() {
     #if canImport(AppKit) || canImport(UIKit)
       Application.shared.demonstrateLabel()
-      let label: Label<SDGInterfaceSample.InterfaceLocalization> = Label(
-        text: .binding(Shared("..."))
+      _ = Label<SDGInterfaceSample.InterfaceLocalization>(
+        UserFacing({ _ in "..." }),
+        colour: .black
       )
-      label.text = .static(
-        UserFacing<StrictString, SDGInterfaceSample.InterfaceLocalization>({ localization in
-          switch localization {
-          case .englishCanada:
-            return "Modified"
-          }
-        })
-      )
-      label.textColour = .black
-      XCTAssertEqual(label.textColour, .black)
     #endif
   }
 
@@ -583,9 +574,7 @@ final class APITests: ApplicationTestCase {
       Application.shared.demonstrateLabelledTextField()
       let labelled = LabelledTextField(
         label: Label(
-          text: .static(
-            UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in "" })
-          )
+          UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in "" })
         )
       )
       _ = labelled.cocoa()

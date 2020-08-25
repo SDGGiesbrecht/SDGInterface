@@ -42,7 +42,7 @@ final class APITests: ApplicationTestCase {
             { integer in
               let view = CocoaView()
               view.fill(
-                with: Label<InterfaceLocalization>(text: .binding(Shared("\(integer.inDigits())")))
+                with: Label<InterfaceLocalization>(UserFacing({ _ in "\(integer.inDigits())" }))
                   .cocoa()
               )
               return AnyView(view)
