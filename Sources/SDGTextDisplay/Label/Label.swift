@@ -65,6 +65,8 @@
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  internal typealias View = SDGViews.View
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension Label: View {
 
     // MARK: - View
@@ -73,7 +75,7 @@
       public func swiftUI() -> some SwiftUI.View {
         return SwiftUIImplementation(
           text: text,
-          colour: colour,
+          colour: SwiftUI.Color(colour),
           localization: LocalizationSetting.current
         )
       }
