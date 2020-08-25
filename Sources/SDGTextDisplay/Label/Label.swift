@@ -57,6 +57,9 @@
       compatibilityText: UserFacing<String, L>,
       colour: Colour = .black
     ) {
+      #if DEBUG
+        _ = compatibilityText.resolved()  // Eager execution to simplify testing.
+      #endif
       self.compatibilityText = compatibilityText
       self.colour = colour
     }
