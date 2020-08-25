@@ -48,7 +48,7 @@
       self.colour = colour
     }
 
-    /// Creates a label which preserves noncanonical characters.
+    /// Creates a label which preserves legacy characters in their noncanonical forms.
     ///
     /// - Parameters:
     ///   - compatibilityText: The text of the label.
@@ -71,7 +71,9 @@
     #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       public func cocoa() -> CocoaView {
         return useSwiftUIOrFallback(to: {
-          return CocoaView(CocoaImplementation(compatibilityText: compatibilityText, colour: colour))
+          return CocoaView(
+            CocoaImplementation(compatibilityText: compatibilityText, colour: colour)
+          )
         })
       }
     #endif

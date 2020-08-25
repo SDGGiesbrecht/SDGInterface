@@ -74,14 +74,9 @@
           { details in
             // @exempt(from: tests) iOS does not call this unless it displays.
             let codePoint = Label<InterfaceLocalization>(
-              UserFacing({ _ in StrictString(details.character)) })
+              compatibilityText: UserFacing({ _ in details.character }),
+              colour: details.warningColour
             )
-            #if canImport(AppKit)
-              codePoint.specificCocoaView.stringValue = details.character
-            #elseif canImport(UIKit)
-              codePoint.specificCocoaView.text = details.character
-            #endif
-            codePoint.textColour = details.warningColour
             return AnyView(codePoint)
           },
           { details in
