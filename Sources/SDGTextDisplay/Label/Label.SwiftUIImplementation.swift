@@ -36,7 +36,6 @@ import SDGLocalization
       // MARK: - View
 
       internal var body: some SwiftUI.View {
-        #warning("Verify appearance.")
         return Text(verbatim: compatibilityText.resolved(for: localization.value.resolved()))
           .foregroundColor(colour)
       }
