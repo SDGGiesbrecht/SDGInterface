@@ -12,8 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-
+#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+  #if canImport(SwiftUI)
+    import SwiftUI
+  #endif
   #if canImport(AppKit)
     import AppKit
   #endif
@@ -28,95 +30,53 @@
   import SDGViews
 
   /// A text label.
-  public final class Label<L>: AnyLabel, CocoaViewImplementation, View
-  where L: Localization {
+  @available(watchOS 6, *)
+  public struct Label<L>: LegacyView where L: Localization {
 
     // MARK: - Initialization
 
-    /// Creates a text label.
+    /// Creates a label.
     ///
     /// - Parameters:
-    ///     - text: The text of the label.
-    public init(text: Binding<StrictString, L>) {
+    ///   - text: The text of the label.
+    ///   - colour: Optional. The colour of the text.
+    public init(
+      _ text: UserFacing<StrictString, L>,
+      colour: Colour = .black
+    ) {
       self.text = text
-      defer {
-        textDidSet()
-        LocalizationSetting.current.register(observer: bindingObserver)
-      }
-
-      #if canImport(AppKit)
-        specificCocoaView = NSTextField()
-      #elseif canImport(UIKit)
-        specificCocoaView = UILabel(frame: .zero)
-      #endif
-      defer {
-        bindingObserver.label = self
-      }
-
-      #if canImport(AppKit)
-        specificCocoaView.isBordered = false
-        specificCocoaView.isBezeled = false
-        specificCocoaView.drawsBackground = false
-      #endif
-      specificCocoaView.lineBreakMode = .byTruncatingTail
-
-      #if canImport(AppKit)
-        if let cell = specificCocoaView.cell as? NSTextFieldCell {
-          cell.isScrollable = false
-          cell.usesSingleLineMode = true
-        }
-
-        specificCocoaView.isSelectable = true
-        specificCocoaView.isEditable = false
-      #endif
-
-      #if canImport(AppKit)
-        specificCocoaView.font = NSFont.from(Font.forLabels)
-      #elseif canImport(UIKit)
-        specificCocoaView.font = UIFont.from(Font.forLabels)
-      #endif
+      self.colour = colour
     }
 
     // MARK: - Properties
 
-    private let bindingObserver = LabelBindingObserver()
-
-    /// The text.
-    public var text: Binding<StrictString, L> {
-      willSet {
-        text.shared?.cancel(observer: bindingObserver)
-      }
-      didSet {
-        textDidSet()
-      }
-    }
-    private func textDidSet() {
-      text.shared?.register(observer: bindingObserver)
-    }
-
-    // MARK: - Refreshing
-
-    public func _refreshBindings() {
-      let resolved = String(text.resolved())
-      #if canImport(AppKit)
-        specificCocoaView.stringValue = resolved
-      #elseif canImport(UIKit)
-        specificCocoaView.text = resolved
-      #endif
-    }
+    private let text: UserFacing<StrictString, L>
+    private let colour: Colour
 
     // MARK: - LegacyView
 
-    public func cocoa() -> CocoaView {
-      return CocoaView(specificCocoaView)
-    }
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+      public func cocoa() -> CocoaView {
+        return useSwiftUIOrFallback(to: {
+          return CocoaView(CocoaImplementation(text: text, colour: colour))
+        })
+      }
+    #endif
+  }
 
-    // MARK: - SpecificView
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  extension Label: View {
 
-    #if canImport(AppKit)
-      public let specificCocoaView: NSTextField
-    #elseif canImport(UIKit)
-      public let specificCocoaView: UILabel
+    // MARK: - View
+
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      public func swiftUI() -> some SwiftUI.View {
+        return SwiftUIImplementation(
+          text: text,
+          colour: colour,
+          localization: LocalizationSetting.current
+        )
+      }
     #endif
   }
 #endif
