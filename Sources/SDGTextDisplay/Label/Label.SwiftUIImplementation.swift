@@ -29,7 +29,7 @@ import SDGLocalization
 
       // MARK: - Properties
 
-      internal let text: UserFacing<StrictString, L>
+      internal let compatibilityText: UserFacing<String, L>
       internal let colour: SwiftUI.Color
       @ObservedObject internal var localization: Shared<LocalizationSetting>
 
@@ -37,7 +37,7 @@ import SDGLocalization
 
       internal var body: some SwiftUI.View {
         #warning("Verify appearance.")
-        return Text(verbatim: String(text.resolved(for: localization.value.resolved())))
+        return Text(verbatim: compatibilityText.resolved(for: localization.value.resolved()))
           .foregroundColor(colour)
       }
     }

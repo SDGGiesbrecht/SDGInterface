@@ -44,13 +44,26 @@
       _ text: UserFacing<StrictString, L>,
       colour: Colour = .black
     ) {
-      self.text = text
+      self.compatibilityText = UserFacing<String, L>({ String(text.resolved(for: $0)) })
+      self.colour = colour
+    }
+
+    /// Creates a label which preserves noncanonical characters.
+    ///
+    /// - Parameters:
+    ///   - compatibilityText: The text of the label.
+    ///   - colour: Optional. The colour of the text.
+    public init(
+      compatibilityText: UserFacing<String, L>,
+      colour: Colour = .black
+    ) {
+      self.compatibilityText = compatibilityText
       self.colour = colour
     }
 
     // MARK: - Properties
 
-    private let text: UserFacing<StrictString, L>
+    private let compatibilityText: UserFacing<String, L>
     private let colour: Colour
 
     // MARK: - LegacyView
@@ -58,7 +71,7 @@
     #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       public func cocoa() -> CocoaView {
         return useSwiftUIOrFallback(to: {
-          return CocoaView(CocoaImplementation(text: text, colour: colour))
+          return CocoaView(CocoaImplementation(compatibilityText: compatibilityText, colour: colour))
         })
       }
     #endif
@@ -74,7 +87,7 @@
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       public func swiftUI() -> some SwiftUI.View {
         return SwiftUIImplementation(
-          text: text,
+          compatibilityText: compatibilityText,
           colour: SwiftUI.Color(colour),
           localization: LocalizationSetting.current
         )
