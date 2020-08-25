@@ -24,18 +24,14 @@ import SDGMenus
 
 import SDGInterfaceLocalizations
 
-/// The global context menu.
-public final class ContextMenu {
+/// A context menu.
+public struct ContextMenu {
   #if canImport(UIKit) && !os(tvOS) && !os(watchOS)
-
-    // MARK: - Class Properties
-
-    /// The context menu.
-    public static let contextMenu: ContextMenu = ContextMenu()
 
     // MARK: - Initialization
 
-    private init() {
+    /// Creates a context menu.
+    public init() {
       var entries: [MenuComponent] = [
         .entry(ContextMenu._normalizeText())
       ]
@@ -54,20 +50,15 @@ public final class ContextMenu {
           }),
         entries: entries
       )
-      menuDidSet()
     }
 
     // MARK: - Properties
 
-    /// The root menu.
-    public var menu: AnyMenu {
-      didSet {
-        menuDidSet()
-      }
-    }
-    private func menuDidSet() {
-      UIMenuController.shared.menuItems = menu.cocoa()
-      UIMenuController.shared.update()
+    private let menu: AnyMenu
+
+    /// Generates a Cocoa representation of the context menu.
+    public func cocoa() -> [UIMenuItem] {
+      return menu.cocoa()
     }
   #endif
 }

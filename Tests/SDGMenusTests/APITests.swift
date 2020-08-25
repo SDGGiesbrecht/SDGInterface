@@ -85,11 +85,12 @@ final class APITests: ApplicationTestCase {
   func testMenuEntry() {
     #if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
       let menuLabel = Shared<StrictString>("initial")
-      let _ = MenuEntry<APILocalization>(
+      let entry = MenuEntry<APILocalization>(
         label: UserFacing<StrictString, APILocalization>({ _ in "" })
       )
       menuLabel.value = "changed"
       menuLabel.value = "unrelated"
+      _ = entry.cocoa()
     #endif
   }
 }

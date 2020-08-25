@@ -105,7 +105,8 @@ public final class Application {
 
   internal class func postLaunchSetUp() {
     #if canImport(UIKit) && !os(tvOS) && !os(watchOS)
-      _ = ContextMenu.contextMenu
+      UIMenuController.shared.menuItems = ContextMenu().cocoa()
+      UIMenuController.shared.update()
     #endif
 
     #if canImport(AppKit)
