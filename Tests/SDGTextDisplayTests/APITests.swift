@@ -35,6 +35,7 @@ import SDGLogicTestUtilities
 import SDGLocalizationTestUtilities
 
 import SDGApplicationTestUtilities
+import SDGViewsTestUtilities
 
 final class APITests: ApplicationTestCase {
 
@@ -121,12 +122,15 @@ final class APITests: ApplicationTestCase {
   }
 
   func testLabel() {
-    #if canImport(AppKit) || canImport(UIKit)
+    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
       Application.shared.demonstrateLabel()
-      _ = Label<SDGInterfaceSample.InterfaceLocalization>(
+      let label = Label<SDGInterfaceSample.InterfaceLocalization>(
         UserFacing({ _ in "..." }),
         colour: .black
       )
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        testViewConformance(of: label)
+      }
     #endif
   }
 
