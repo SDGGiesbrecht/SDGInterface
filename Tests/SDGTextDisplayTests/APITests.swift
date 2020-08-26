@@ -35,6 +35,7 @@ import SDGLogicTestUtilities
 import SDGLocalizationTestUtilities
 
 import SDGApplicationTestUtilities
+import SDGViewsTestUtilities
 
 final class APITests: ApplicationTestCase {
 
@@ -121,21 +122,15 @@ final class APITests: ApplicationTestCase {
   }
 
   func testLabel() {
-    #if canImport(AppKit) || canImport(UIKit)
+    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
       Application.shared.demonstrateLabel()
-      let label: Label<SDGInterfaceSample.InterfaceLocalization> = Label(
-        text: .binding(Shared("..."))
+      let label = Label<SDGInterfaceSample.InterfaceLocalization>(
+        UserFacing({ _ in "..." }),
+        colour: .black
       )
-      label.text = .static(
-        UserFacing<StrictString, SDGInterfaceSample.InterfaceLocalization>({ localization in
-          switch localization {
-          case .englishCanada:
-            return "Modified"
-          }
-        })
-      )
-      label.textColour = .black
-      XCTAssertEqual(label.textColour, .black)
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        testViewConformance(of: label)
+      }
     #endif
   }
 
@@ -583,9 +578,7 @@ final class APITests: ApplicationTestCase {
       Application.shared.demonstrateLabelledTextField()
       let labelled = LabelledTextField(
         label: Label(
-          text: .static(
-            UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in "" })
-          )
+          UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in "" })
         )
       )
       _ = labelled.cocoa()

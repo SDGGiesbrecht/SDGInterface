@@ -195,7 +195,7 @@ extension Application {
           return "Label"
         }
       })
-      demonstrate(Label(text: .static(label)), windowTitle: label)
+      demonstrate(Label(label), windowTitle: label)
     }
 
     @objc public func demonstrateLabelledTextField() {
@@ -205,7 +205,7 @@ extension Application {
           return "Labelled Text Field"
         }
       })
-      demonstrate(LabelledTextField(labelText: .static(label)), windowTitle: label)
+      demonstrate(LabelledTextField(labelText: label), windowTitle: label)
     }
 
     @objc public func demonstrateSegmentedControl() {

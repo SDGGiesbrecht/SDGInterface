@@ -65,28 +65,25 @@
         columns: [
           { details in
             // @exempt(from: tests) iOS does not call this unless it displays.
-            let codePoint = Label<InterfaceLocalization>(text: .binding(Shared(details.codePoint)))
-            codePoint.textColour = details.warningColour
+            let codePoint = Label<InterfaceLocalization>(
+              UserFacing({ _ in details.codePoint }),
+              colour: details.warningColour
+            )
             return AnyView(codePoint)
           },
           { details in
             // @exempt(from: tests) iOS does not call this unless it displays.
             let codePoint = Label<InterfaceLocalization>(
-              text: .binding(Shared(StrictString(details.character)))
+              compatibilityText: UserFacing({ _ in details.character }),
+              colour: details.warningColour
             )
-            #if canImport(AppKit)
-              codePoint.specificCocoaView.stringValue = details.character
-            #elseif canImport(UIKit)
-              codePoint.specificCocoaView.text = details.character
-            #endif
-            codePoint.textColour = details.warningColour
             return AnyView(codePoint)
           },
           { details in
             // @exempt(from: tests) iOS does not call this unless it displays.
             return AnyView(
               Label<InterfaceLocalization>(
-                text: .binding(Shared(StrictString(details.normalizedCodePoints)))
+                UserFacing({ _ in StrictString(details.normalizedCodePoints) })
               )
             )
           },
@@ -94,7 +91,7 @@
             // @exempt(from: tests) iOS does not call this unless it displays.
             return AnyView(
               Label<InterfaceLocalization>(
-                text: .binding(Shared(StrictString(details.normalizedCharacters)))
+                UserFacing({ _ in StrictString(details.normalizedCharacters) })
               )
             )
           },

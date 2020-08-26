@@ -27,7 +27,7 @@
   import SDGViews
 
   /// A text field with a label.
-  public final class LabelledTextField<L>: CocoaViewImplementation, View where L: Localization {
+  public final class LabelledTextField<L>: CocoaViewImplementation where L: Localization {
 
     // MARK: - Initialization
 
@@ -35,8 +35,8 @@
     ///
     /// - Parameters:
     /// 	- labelText: The text for the label.
-    public convenience init(labelText: Binding<StrictString, L>) {
-      let label = Label(text: labelText)
+    public convenience init(labelText: UserFacing<StrictString, L>) {
+      let label = Label(labelText)
       self.init(label: label)
     }
 
