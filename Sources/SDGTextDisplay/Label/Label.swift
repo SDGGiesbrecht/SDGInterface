@@ -44,8 +44,10 @@
       _ text: UserFacing<StrictString, L>,
       colour: Colour = .black
     ) {
-      self.compatibilityText = UserFacing<String, L>({ String(text.resolved(for: $0)) })
-      self.colour = colour
+      self.init(
+        compatibilityText: UserFacing<String, L>({ String(text.resolved(for: $0)) }),
+        colour: colour
+      )
     }
 
     /// Creates a label which preserves legacy characters in their noncanonical forms.
