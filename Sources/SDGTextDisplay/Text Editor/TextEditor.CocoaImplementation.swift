@@ -69,6 +69,8 @@
           super.init()
         #endif
 
+        textView.delegate = self
+
         #if canImport(AppKit)
           borderType = .bezelBorder
 
@@ -100,19 +102,34 @@
       // MARK: - SharedValueObserver
 
       internal func valueChanged(for identifier: String) {
-        textView.textStorage?.setAttributedString(contents.value.attributedString())
-
-        if logMode {
-          let content: String
-          #if canImport(AppKit)
+        let newValue = contents.value.attributedString()
+        if textView.attributedString() ≠ newValue {
+          textView.textStorage?.setAttributedString(contents.value.attributedString())
+          
+          if logMode {
+            let content: String
+            #if canImport(AppKit)
             content = textView.string
-          #else
+            #else
             content = textView.text
-          #endif
-          let range = NSRange(content.endIndex..., in: content)
-          textView.scrollRangeToVisible(range)
+            #endif
+            let range = NSRange(content.endIndex..., in: content)
+            textView.scrollRangeToVisible(range)
+          }
         }
       }
     }
   }
+
+  #if canImport(AppKit)
+  extension TextEditor.CocoaImplementation: NSTextViewDelegate {
+
+    func textDidChange(_ notification: Notification) {
+      let newValue = textView.attributedString()
+      if newValue ≠ contents.value.attributedString() {
+        contents.value = newValue
+      }
+    }
+  }
+  #endif
 #endif
