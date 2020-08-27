@@ -88,6 +88,23 @@
         private let isHiddenBinding: Shared<Bool>
       #endif
 
+      #if canImport(AppKit)
+        // MARK: - NSCopying
+
+        internal override func copy(with zone: NSZone?) -> Any {
+          // Prevents the superclass from attempting to call an unavailable initializer.
+          return CocoaImplementation(
+            label: label,
+            hotKeyModifiers: KeyModifiers(keyEquivalentModifierMask),
+            hotKey: keyEquivalent,
+            action: action,
+            target: target,
+            isHidden: isHiddenBinding,
+            tag: tag
+          )
+        }
+      #endif
+
       // MARK: - SharedValueObserver
 
       private var localizationIdentifier: String { "localization" }
