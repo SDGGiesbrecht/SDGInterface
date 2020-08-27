@@ -105,7 +105,7 @@ extension Application {
 
   private static func setMenuUp() {
     #if canImport(UIKit) && !os(tvOS) && !os(watchOS)
-      let editor = TextEditor()
+      let editor = TextEditor(contents: Shared(RichText()))
       let window = Window(
         type: .primary(nil),
         name: ApplicationNameForm.localizedIsolatedForm,

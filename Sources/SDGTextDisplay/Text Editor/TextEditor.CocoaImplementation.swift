@@ -100,12 +100,37 @@
         #endif
       }
 
+      // MARK: - Changes
+
+      internal func contentsChanged() {
+        #if canImport(AppKit)
+          let newValue = textView.attributedString()
+        #else
+          let newValue = textView.attributedText ?? NSAttributedString()
+        #endif
+        if newValue ≠ contents.value.attributedString() {
+          contents.value = RichText(newValue)
+        }
+      }
+
       // MARK: - SharedValueObserver
 
       internal func valueChanged(for identifier: String) {
         let newValue = contents.value.attributedString()
-        if textView.attributedString() ≠ newValue {
-          textView.textStorage?.setAttributedString(contents.value.attributedString())
+        let existingValue: NSAttributedString
+        #if canImport(AppKit)
+          existingValue = textView.attributedString()
+        #else
+          existingValue = textView.attributedText ?? NSAttributedString()
+        #endif
+        let textStorage: NSTextStorage?
+        #if canImport(AppKit)
+          textStorage = textView.textStorage
+        #else
+          textStorage = textView.textStorage
+        #endif
+        if existingValue ≠ newValue {
+          textStorage?.setAttributedString(contents.value.attributedString())
 
           if logMode {
             let content: String
@@ -124,12 +149,14 @@
 
   #if canImport(AppKit)
     extension TextEditor.CocoaImplementation: NSTextViewDelegate {
-
       func textDidChange(_ notification: Notification) {
-        let newValue = textView.attributedString()
-        if newValue ≠ contents.value.attributedString() {
-          contents.value = RichText(newValue)
-        }
+        contentsChanged()
+      }
+    }
+  #else
+    extension TextEditor.CocoaImplementation: UITextViewDelegate {
+      func textViewDidChange(_ textView: UITextView) {
+        contentsChanged()
       }
     }
   #endif
