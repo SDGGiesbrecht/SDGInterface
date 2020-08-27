@@ -23,12 +23,12 @@
 
   extension TextEditor {
 
-    internal class CocoaDocumentView: NSUITextView {
+    internal class CocoaDocumentView: CocoaTextView {
 
       // MARK: - Initialization
 
       internal init() {
-        let prototype = NSUITextView()
+        let prototype = CocoaTextView()
         super.init(frame: CGRect.zero, textContainer: prototype.textContainer)
 
         #if canImport(AppKit)
