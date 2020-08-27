@@ -29,7 +29,7 @@
     #if canImport(AppKit)
       internal typealias Superclass = NSScrollView
     #else
-      internal typealias Superclass = TextView
+      internal typealias Superclass = CocoaDocumentView
     #endif
     #if canImport(AppKit)
       internal typealias ContentView = NSTextView
@@ -65,7 +65,7 @@
 
         #if canImport(AppKit)
           super.init(frame: .zero)
-          documentView = TextView()
+          documentView = CocoaDocumentView()
         #else
           super.init()
         #endif

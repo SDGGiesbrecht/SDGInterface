@@ -17,7 +17,7 @@
 
   import SDGInterfaceLocalizations
 
-  internal class FieldEditor: TextView {
+  internal class FieldEditor: TextEditor.CocoaDocumentView {
     internal override init() {
       super.init()
       self.isFieldEditor = true

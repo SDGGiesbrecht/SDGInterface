@@ -92,7 +92,7 @@
         #if canImport(AppKit)
           shouldChange = shouldChangeText(in: adjustedRange, replacementString: rawResult)
         #else
-          if ¬responds(to: #selector(TextView.shouldChangeText)) {
+          if ¬responds(to: #selector(TextEditor.CocoaDocumentView.shouldChangeText)) {
             shouldChange = true
           } else {
             guard let textRange = selectedTextRange else {  // @exempt(from: tests)
