@@ -248,7 +248,7 @@ extension Application {
 
     @objc public func demonstrateTextEditor() {
       demonstrate(
-        TextEditor(),
+        TextEditor(contents: Shared(RichText())),
         windowTitle: UserFacing<StrictString, InterfaceLocalization>({ localization in
           switch localization {
           case .englishCanada:

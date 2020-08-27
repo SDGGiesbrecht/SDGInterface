@@ -347,11 +347,17 @@ final class APITests: ApplicationTestCase {
   func testTextEditor() {
     #if canImport(AppKit) || canImport(UIKit)
       Application.shared.demonstrateTextEditor()
-      let textEditor = TextEditor()
-      let textView = textEditor.cocoaTextView
+      let text = Shared(RichText())
+      let textEditor = TextEditor(contents: text)
+      let cocoaTextEditor = textEditor.cocoa()
+      #if canImport(AppKit)
+        let textView = (cocoaTextEditor.native as! NSScrollView).documentView as! NSTextView
+      #else
+        let textView = cocoaTextEditor.native as! UITextView
+      #endif
 
       let characters = "\u{20}\u{21}\u{22}\u{AA}\u{C0}"
-      textEditor.append(RichText(rawText: StrictString(characters)))
+      text.value.append(contentsOf: RichText(rawText: StrictString(characters)))
       textView.selectAll(nil)
       _ = Window(
         type: .primary(nil),
@@ -404,11 +410,6 @@ final class APITests: ApplicationTestCase {
         textView.makeTurkicLowerCase(nil)
       #endif
 
-      #if !os(tvOS)
-        textEditor.isEditable = true
-        XCTAssertTrue(textEditor.isEditable)
-      #endif
-
       #if canImport(AppKit)
         textView.insertText("...", replacementRange: NSRange(0..<0))
         textView.insertText(NSAttributedString(string: "..."), replacementRange: NSRange(0..<0))
@@ -459,8 +460,8 @@ final class APITests: ApplicationTestCase {
         textView.setSelectedRange(NSRange(location: NSNotFound, length: 0))
         XCTAssertFalse(validate(#selector(NSTextView.normalizeText(_:))))
         textView.selectAll(nil)
-        textEditor.isEditable = false
-        XCTAssertFalse(textEditor.cocoaTextView.isEditable)
+        textView.isEditable = false
+        XCTAssertFalse(textView.isEditable)
         XCTAssertFalse(validate(#selector(NSTextView.normalizeText(_:))))
       #endif
 
@@ -531,13 +532,6 @@ final class APITests: ApplicationTestCase {
       #if canImport(AppKit)
         _ = TextContextMenu.contextMenu
       #endif
-
-      textEditor.drawsBackground = true
-      XCTAssert(textEditor.drawsBackground)
-      textEditor.drawsBackground = false
-      XCTAssertFalse(textEditor.drawsBackground)
-      textEditor.drawsBackground = true
-      XCTAssert(textEditor.drawsBackground)
     #endif
   }
 

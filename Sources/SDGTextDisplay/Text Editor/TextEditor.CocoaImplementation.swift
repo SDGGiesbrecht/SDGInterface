@@ -25,6 +25,7 @@
 
   extension TextEditor {
 
+    // #warning(No access to editing disabled or log mode yet.)
     #if canImport(AppKit)
       internal typealias Superclass = NSScrollView
     #else
@@ -105,13 +106,13 @@
         let newValue = contents.value.attributedString()
         if textView.attributedString() ≠ newValue {
           textView.textStorage?.setAttributedString(contents.value.attributedString())
-          
+
           if logMode {
             let content: String
             #if canImport(AppKit)
-            content = textView.string
+              content = textView.string
             #else
-            content = textView.text
+              content = textView.text
             #endif
             let range = NSRange(content.endIndex..., in: content)
             textView.scrollRangeToVisible(range)
@@ -122,14 +123,14 @@
   }
 
   #if canImport(AppKit)
-  extension TextEditor.CocoaImplementation: NSTextViewDelegate {
+    extension TextEditor.CocoaImplementation: NSTextViewDelegate {
 
-    func textDidChange(_ notification: Notification) {
-      let newValue = textView.attributedString()
-      if newValue ≠ contents.value.attributedString() {
-        contents.value = newValue
+      func textDidChange(_ notification: Notification) {
+        let newValue = textView.attributedString()
+        if newValue ≠ contents.value.attributedString() {
+          contents.value = RichText(newValue)
+        }
       }
     }
-  }
   #endif
 #endif

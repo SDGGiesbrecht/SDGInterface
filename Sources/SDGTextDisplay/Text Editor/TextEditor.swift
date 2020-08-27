@@ -31,20 +31,30 @@
 
     /// Creates a multiline text editor.
     public init(
-      contents: Shared<RichText>
+      contents: Shared<RichText>,
+      transparentBackground: Bool = false
     ) {
       self.contents = contents
+      self.transparentBackground = transparentBackground
     }
 
     // MARK: - Properties
 
     private let contents: Shared<RichText>
+    private let transparentBackground: Bool
 
     // MARK: - LegacyView
 
     #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       public func cocoa() -> CocoaView {
-        return CocoaView(CocoaImplementation(contents: contents))
+        return CocoaView(
+          CocoaImplementation(
+            contents: contents,
+            isEditable: true,
+            transparentBackground: transparentBackground,
+            logMode: false
+          )
+        )
       }
     #endif
   }
