@@ -91,14 +91,14 @@
       private var textView: ContentView {
         #if canImport(AppKit)
           return documentView as? ContentView
-              ?? ContentView()  // @exempt(from: tests) Never nil.
+            ?? ContentView()  // @exempt(from: tests) Never nil.
         #elseif canImport(UIKit)
           return self
         #endif
       }
 
       // MARK: - SharedValueObserver
-      
+
       internal func valueChanged(for identifier: String) {
         textView.textStorage?.setAttributedString(contents.value.attributedString())
 
