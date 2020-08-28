@@ -25,7 +25,6 @@
 
   extension TextEditor {
 
-    // #warning(No access to editing disabled or log mode yet.)
     internal class CocoaImplementation: CocoaFrameView, SharedValueObserver {
 
       // MARK: - Initialization
