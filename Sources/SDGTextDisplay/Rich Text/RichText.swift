@@ -300,6 +300,44 @@
         set(attribute: NSAttributedString.Key.font, to: font, forRange: range)
       }
 
+      /// Italicizes the entire string.
+      public mutating func italicize() {
+        segments = segments.map { segment in
+          var mutable = segment
+          mutable.attributes.font = mutable.attributes.font?.italic
+          return mutable
+        }
+      }
+      /// Italicizes a particular range.
+      ///
+      /// - Parameters:
+      ///     - range: The range.
+      public mutating func italicize<R>(range: R)
+      where R: RangeExpression, R.Bound == Index {
+        var change = RichText(self[range])
+        change.italicize()
+        replaceSubrange(range, with: change)
+      }
+
+      /// Emboldens the entire string.
+      public mutating func embolden() {
+        segments = segments.map { segment in
+          var mutable = segment
+          mutable.attributes.font = mutable.attributes.font?.bold
+          return mutable
+        }
+      }
+      /// Emboldens a particular range.
+      ///
+      /// - Parameters:
+      ///     - range: The range.
+      public mutating func embolden<R>(range: R)
+      where R: RangeExpression, R.Bound == Index {
+        var change = RichText(self[range])
+        change.embolden()
+        replaceSubrange(range, with: change)
+      }
+
       /// Sets the font colour for the entire string.
       ///
       /// - Parameters:
