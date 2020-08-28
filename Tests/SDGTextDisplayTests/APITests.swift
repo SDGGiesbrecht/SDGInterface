@@ -348,6 +348,10 @@ final class APITests: ApplicationTestCase {
         attributes: [NSAttributedString.Key(rawValue: "Key"): NSNumber(value: 0)]
       )
     )
+
+    richText = RichText()
+    richText.italicize(range: richText.bounds)
+    richText.embolden(range: richText.bounds)
   }
 
   func testTextEditor() {
