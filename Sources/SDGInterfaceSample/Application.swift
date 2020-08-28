@@ -208,6 +208,27 @@ extension Application {
       demonstrate(LabelledTextField(labelText: label), windowTitle: label)
     }
 
+    @objc public func demonstrateLog() {
+      let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
+        switch localization {
+        case .englishCanada:
+          return "Log"
+        }
+      })
+      let content = Shared(RichText())
+      demonstrate(Log(contents: content), windowTitle: label)
+      var entry = 0
+      if #available(macOS 10.12, *) {
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+          entry += 1
+          content.value.append(contentsOf: "\n\(entry.inDigits())")
+          if entry == 100 {
+            timer.invalidate()
+          }
+        }
+      }
+    }
+
     @objc public func demonstrateSegmentedControl() {
       enum Value: CaseIterable {
         case text
