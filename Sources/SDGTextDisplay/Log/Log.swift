@@ -1,5 +1,5 @@
 /*
- TextView.swift
+ Log.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -20,22 +20,24 @@
     import UIKit
   #endif
 
-  import SDGLocalization
+  import SDGControlFlow
 
   import SDGViews
 
-  /// A view for displaying text that cannot be edited.
-  public struct TextView<L>: CocoaViewImplementation where L: Localization {
+  /// A textual log.
+  ///
+  /// A log is a text view that displays a progress log or similar text content that will be repeatedly appended to over time. Whenever the content is modified, the log scrolls to the bottom on the assumption that that is where the latest entry has been appended.
+  public struct Log: CocoaViewImplementation {
 
     // MARK: - Initialization
 
-    /// Creates a multiline text view.
+    /// Creates a log.
     ///
     /// - Parameters:
-    ///   - contents: The contents of the text view.
+    ///   - contents: The contents of the log.
     ///   - transparentBackground: Optional. Pass `true` to make the background transparent.
     public init(
-      contents: UserFacing<RichText, L>,
+      contents: Shared<RichText>,
       transparentBackground: Bool = false
     ) {
       self.contents = contents
@@ -44,7 +46,7 @@
 
     // MARK: - Properties
 
-    private let contents: UserFacing<RichText, L>
+    private let contents: Shared<RichText>
     private let transparentBackground: Bool
 
     // MARK: - LegacyView
@@ -52,9 +54,11 @@
     #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       public func cocoa() -> CocoaView {
         return CocoaView(
-          CocoaImplementation(
+          TextEditor.CocoaImplementation(
             contents: contents,
-            transparentBackground: transparentBackground
+            isEditable: false,
+            transparentBackground: transparentBackground,
+            logMode: true
           )
         )
       }
