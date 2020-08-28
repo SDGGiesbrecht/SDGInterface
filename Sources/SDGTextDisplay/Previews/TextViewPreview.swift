@@ -40,7 +40,7 @@
                   SemanticMarkup("e")
                   + SemanticMarkup("πi").superscripted()
                   + SemanticMarkup(" − 1 = 0")
-                var text = RichText(markup.richText(font: Font.forLabels.resized(to: 64)))
+                var text = RichText(markup.richText(font: Font.forLabels.resized(to: 32)))
                 text.italicize(range: ..<text.index(text.startIndex, offsetBy: 3))
                 return text
               }
