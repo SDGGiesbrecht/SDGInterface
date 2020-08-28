@@ -131,6 +131,7 @@
           .entry(checkBox()),
           .entry(image()),
           .entry(label()),
+          .entry(log()),
           .entry(textEditor()),
           .submenu(textField()),
         ]
