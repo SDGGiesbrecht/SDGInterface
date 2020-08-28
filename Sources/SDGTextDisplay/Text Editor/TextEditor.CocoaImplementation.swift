@@ -26,17 +26,7 @@
   extension TextEditor {
 
     // #warning(No access to editing disabled or log mode yet.)
-    #if canImport(AppKit)
-      internal typealias Superclass = NSScrollView
-    #else
-      internal typealias Superclass = CocoaDocumentView
-    #endif
-    #if canImport(AppKit)
-      internal typealias ContentView = NSTextView
-    #else
-      internal typealias ContentView = UITextView
-    #endif
-    internal class CocoaImplementation: Superclass, SharedValueObserver {
+    internal class CocoaImplementation: CocoaFrameView, SharedValueObserver {
 
       // MARK: - Initialization
 
@@ -48,38 +38,13 @@
       ) {
         self.contents = contents
         defer { contents.register(observer: self) }
+        defer { textView.delegate = self }
 
-        defer {
-          textView.isEditable = isEditable
-        }
-
-        defer {
-          #if canImport(AppKit)
-            textView.drawsBackground = ¬transparentBackground
-          #else
-            textView.backgroundColor = transparentBackground ? nil : .white
-          #endif
-        }
-
-        self.logMode = logMode
-
-        #if canImport(AppKit)
-          super.init(frame: .zero)
-          documentView = CocoaDocumentView()
-        #else
-          super.init()
-        #endif
-
-        textView.delegate = self
-
-        #if canImport(AppKit)
-          borderType = .bezelBorder
-
-          horizontalScrollElasticity = .automatic
-          verticalScrollElasticity = .automatic
-
-          hasVerticalScroller = true
-        #endif
+        super.init(
+          isEditable: isEditable,
+          transparentBackground: transparentBackground,
+          logMode: logMode
+        )
       }
 
       internal required init?(coder: NSCoder) {  // @exempt(from: tests)
@@ -89,16 +54,6 @@
       // MARK: - Properties
 
       private let contents: Shared<RichText>
-      private let logMode: Bool
-
-      private var textView: ContentView {
-        #if canImport(AppKit)
-          return documentView as? ContentView
-            ?? ContentView()  // @exempt(from: tests) Never nil.
-        #elseif canImport(UIKit)
-          return self
-        #endif
-      }
 
       // MARK: - Changes
 
@@ -123,25 +78,8 @@
         #else
           existingValue = textView.attributedText ?? NSAttributedString()
         #endif
-        let textStorage: NSTextStorage?
-        #if canImport(AppKit)
-          textStorage = textView.textStorage
-        #else
-          textStorage = textView.textStorage
-        #endif
         if existingValue ≠ newValue {
-          textStorage?.setAttributedString(contents.value.attributedString())
-
-          if logMode {
-            let content: String
-            #if canImport(AppKit)
-              content = textView.string
-            #else
-              content = textView.text
-            #endif
-            let range = NSRange(content.endIndex..., in: content)
-            textView.scrollRangeToVisible(range)
-          }
+          updateContents(to: contents.value)
         }
       }
     }
