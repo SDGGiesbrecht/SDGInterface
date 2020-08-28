@@ -149,13 +149,13 @@
 
   #if canImport(AppKit)
     extension TextEditor.CocoaImplementation: NSTextViewDelegate {
-      func textDidChange(_ notification: Notification) {
+      internal func textDidChange(_ notification: Notification) {
         contentsChanged()
       }
     }
   #else
     extension TextEditor.CocoaImplementation: UITextViewDelegate {
-      func textViewDidChange(_ textView: UITextView) {
+      internal func textViewDidChange(_ textView: UITextView) {
         contentsChanged()
       }
     }

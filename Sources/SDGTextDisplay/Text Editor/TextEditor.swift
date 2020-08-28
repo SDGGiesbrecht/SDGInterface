@@ -30,6 +30,10 @@
     // MARK: - Initialization
 
     /// Creates a multiline text editor.
+    ///
+    /// - Parameters:
+    ///   - contents: The contents of the text editor.
+    ///   - transparentBackground: Optional. Pass `true` to make the background transparent.
     public init(
       contents: Shared<RichText>,
       transparentBackground: Bool = false
