@@ -90,8 +90,7 @@ final class APITests: ApplicationTestCase {
       )
       menuLabel.value = "changed"
       menuLabel.value = "unrelated"
-      let cocoa = entry.cocoa()
-      _ = cocoa.copy()
+      _ = entry.cocoa()
     #endif
   }
 }
