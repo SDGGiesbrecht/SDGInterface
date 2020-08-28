@@ -24,6 +24,7 @@
 #endif
 
 import SDGControlFlow
+import SDGLogic
 import SDGMathematics
 import SDGText
 import SDGLocalization
@@ -221,7 +222,11 @@ extension Application {
       if #available(macOS 10.12, *) {
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
           entry += 1
-          content.value.append(contentsOf: "\n\(entry.inDigits())")
+          var entryText = entry.inDigits()
+          if entry ≠ 1 {
+            entryText.prepend("\n")
+          }
+          content.value.append(contentsOf: RichText(rawText: entryText))
           if entry == 100 {
             timer.invalidate()
           }
