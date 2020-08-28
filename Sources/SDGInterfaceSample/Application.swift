@@ -228,7 +228,7 @@ extension Application {
           }
           content.value.append(contentsOf: RichText(rawText: entryText))
           if entry == 100 {
-            timer.invalidate()
+            timer.invalidate()  // @exempt(from: tests)
           }
         }
       }
