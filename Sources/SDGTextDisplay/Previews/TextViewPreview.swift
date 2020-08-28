@@ -37,18 +37,11 @@
               case .englishUnitedKingdom, .englishUnitedStates, .englishCanada,
                 .deutschDeutschland:
                 let markup =
-                  SemanticMarkup("e") + SemanticMarkup("πi").superscripted()
+                  SemanticMarkup("e")
+                  + SemanticMarkup("πi").superscripted()
                   + SemanticMarkup(" − 1 = 0")
-                let sized = RichText(markup.richText(font: Font.forLabels.resized(to: 64)))
-                var text = RichText()
-                for letter in sized.prefix(3) {
-                  var adjusted = letter
-                  var font = adjusted.attributes[.font] as! NSFont
-                  let italicized = SDGText.Font(font).italic
-                  adjusted.attributes[.font] = NSFont.from(italicized)
-                  text.append(adjusted)
-                }
-                text[...index(text.startIndex, offsetBy: 3)]
+                var text = RichText(markup.richText(font: Font.forLabels.resized(to: 64)))
+                text.italicize(range: ..<text.index(text.startIndex, offsetBy: 3))
                 return text
               }
             })
