@@ -134,6 +134,12 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
+  func testLog() {
+    #if canImport(AppKit) || canImport(UIKit)
+      Application.shared.demonstrateLog()
+    #endif
+  }
+
   func testRichText() throws {
     let fontNameKey = NSAttributedString.Key(rawValue: "SDGTestFontName")
     func prepareForEqualityCheck(
