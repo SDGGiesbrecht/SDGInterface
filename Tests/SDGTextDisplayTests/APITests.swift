@@ -362,7 +362,7 @@ final class APITests: ApplicationTestCase {
       _ = Window(
         type: .primary(nil),
         name: UserFacing<StrictString, AnyLocalization>({ _ in "..." }),
-        content: textEditor.cocoa()
+        content: CocoaView(textView)
       ).cocoa()
       if #available(iOS 9, *) {  // @exempt(from: unicode)
         textView.showCharacterInformation(nil)
