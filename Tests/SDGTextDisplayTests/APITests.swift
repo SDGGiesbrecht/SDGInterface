@@ -354,7 +354,7 @@ final class APITests: ApplicationTestCase {
       )
     )
 
-    richText = RichText()
+    richText = RichText("...")
     richText.italicize(range: richText.bounds)
     richText.embolden(range: richText.bounds)
   }
