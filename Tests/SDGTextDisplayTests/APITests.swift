@@ -577,6 +577,17 @@ final class APITests: ApplicationTestCase {
               )
             )
           )
+
+          fieldEditor.paste(nil)
+            NSPasteboard.general.clearContents()
+          fieldEditor.paste(nil)
+          fieldEditor.selectAll(nil)
+          fieldEditor.copy(nil)
+          fieldEditor.paste(nil)
+          fieldEditor.selectedRange = NSRange(
+            fieldEditor.textStorage!.length..<fieldEditor.textStorage!.length
+          )
+          fieldEditor.paste(nil)
         #endif
 
         let textField = TextField()
