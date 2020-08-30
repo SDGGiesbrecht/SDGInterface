@@ -137,7 +137,7 @@ final class APITests: ApplicationTestCase {
   func testLog() {
     #if canImport(AppKit) || canImport(UIKit)
       Application.shared.demonstrateLog()
-      if #available(macOS 10.12, tvOS 10, *) {
+      if #available(macOS 10.12, tvOS 10, iOS 10, *) {
         let waited = expectation(description: "Waited for log to scroll.")
         Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in waited.fulfill() }
         waitForExpectations(timeout: 5, handler: nil)

@@ -219,7 +219,7 @@ extension Application {
       let content = Shared(RichText())
       demonstrate(Log(contents: content), windowTitle: label)
       var entry = 0
-      if #available(macOS 10.12, tvOS 10, *) {
+      if #available(macOS 10.12, tvOS 10, iOS 10, *) {
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
           entry += 1
           var entryText = entry.inDigits()
