@@ -111,10 +111,10 @@ final class APITests: ApplicationTestCase {
   }
 
   func testFont() {
+    let font = Font.default
+    _ = Font.forLabels
+    _ = Font.forTextEditing
     #if canImport(AppKit) || canImport(UIKit)
-      let font = Font.default
-      _ = Font.forLabels
-      _ = Font.forTextEditing
       _ = font.bold
       _ = font.italic
       XCTAssertEqual(font.resized(to: 12).size, 12)
