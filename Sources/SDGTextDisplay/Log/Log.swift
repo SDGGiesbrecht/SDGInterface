@@ -53,14 +53,15 @@
 
     #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       public func cocoa() -> CocoaView {
-        return CocoaView(
-          TextEditor.CocoaImplementation(
-            contents: contents,
-            isEditable: false,
-            transparentBackground: transparentBackground,
-            logMode: true
-          )
+        let cocoa = TextEditor.CocoaImplementation(
+          contents: contents,
+          transparentBackground: transparentBackground,
+          logMode: true
         )
+        #if !os(tvOS)
+          cocoa.setEditability(false)
+        #endif
+        return CocoaView(cocoa)
       }
     #endif
   }

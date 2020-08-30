@@ -36,7 +36,10 @@
         self.contents = contents
         defer { LocalizationSetting.current.register(observer: self) }
 
-        super.init(isEditable: false, transparentBackground: transparentBackground, logMode: false)
+        super.init(transparentBackground: transparentBackground, logMode: false)
+        #if !os(tvOS)
+          setEditability(false)
+        #endif
       }
 
       internal required init?(coder: NSCoder) {  // @exempt(from: tests)

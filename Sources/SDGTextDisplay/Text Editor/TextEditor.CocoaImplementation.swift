@@ -31,7 +31,6 @@
 
       internal init(
         contents: Shared<RichText>,
-        isEditable: Bool,
         transparentBackground: Bool,
         logMode: Bool
       ) {
@@ -40,7 +39,6 @@
         defer { textView.delegate = self }
 
         super.init(
-          isEditable: isEditable,
           transparentBackground: transparentBackground,
           logMode: logMode
         )

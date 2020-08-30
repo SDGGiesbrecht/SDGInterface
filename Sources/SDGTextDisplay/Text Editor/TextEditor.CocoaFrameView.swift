@@ -39,14 +39,9 @@
       // MARK: - Initialization
 
       internal init(
-        isEditable: Bool,
         transparentBackground: Bool,
         logMode: Bool
       ) {
-
-        defer {
-          textView.isEditable = isEditable
-        }
 
         defer {
           #if canImport(AppKit)
@@ -78,6 +73,12 @@
       internal required init?(coder: NSCoder) {  // @exempt(from: tests)
         return nil
       }
+
+      #if !os(tvOS)
+        func setEditability(_ isEditable: Bool) {
+          textView.isEditable = isEditable
+        }
+      #endif
 
       // MARK: - Properties
 

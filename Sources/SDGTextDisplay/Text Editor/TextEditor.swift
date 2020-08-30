@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
+#if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
   #if canImport(AppKit)
     import AppKit
   #endif
@@ -51,15 +51,17 @@
 
     #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       public func cocoa() -> CocoaView {
-        return CocoaView(
-          CocoaImplementation(
-            contents: contents,
-            isEditable: true,
-            transparentBackground: transparentBackground,
-            logMode: false
-          )
+        let cocoa = CocoaImplementation(
+          contents: contents,
+          isEditable: true,
+          transparentBackground: transparentBackground,
+          logMode: false
         )
+        return CocoaView()
       }
     #endif
   }
+#elseif os(tvOS)
+  // Still used internally for namespacing.
+  internal enum TextEditor {}
 #endif

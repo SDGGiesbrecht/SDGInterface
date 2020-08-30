@@ -219,7 +219,7 @@ extension Application {
       let content = Shared(RichText())
       demonstrate(Log(contents: content), windowTitle: label)
       var entry = 0
-      if #available(macOS 10.12, *) {
+      if #available(macOS 10.12, tvOS 10, *) {
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
           entry += 1
           var entryText = entry.inDigits()
@@ -272,17 +272,19 @@ extension Application {
       )
     }
 
-    @objc public func demonstrateTextEditor() {
-      demonstrate(
-        TextEditor(contents: Shared(RichText())),
-        windowTitle: UserFacing<StrictString, InterfaceLocalization>({ localization in
-          switch localization {
-          case .englishCanada:
-            return "Text Editor"
-          }
-        })
-      )
-    }
+    #if !os(tvOS)
+      @objc public func demonstrateTextEditor() {
+        demonstrate(
+          TextEditor(contents: Shared(RichText())),
+          windowTitle: UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+              return "Text Editor"
+            }
+          })
+        )
+      }
+    #endif
 
     @objc public func demonstrateTextField() {
       demonstrate(
