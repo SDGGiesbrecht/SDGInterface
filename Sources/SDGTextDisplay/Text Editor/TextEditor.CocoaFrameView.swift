@@ -75,7 +75,7 @@
       }
 
       #if !os(tvOS)
-        func setEditability(_ isEditable: Bool) {
+        internal func setEditability(_ isEditable: Bool) {
           textView.isEditable = isEditable
         }
       #endif
