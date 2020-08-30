@@ -53,11 +53,11 @@
       public func cocoa() -> CocoaView {
         let cocoa = CocoaImplementation(
           contents: contents,
-          isEditable: true,
           transparentBackground: transparentBackground,
           logMode: false
         )
-        return CocoaView()
+        cocoa.setEditability(true)
+        return CocoaView(cocoa)
       }
     #endif
   }
