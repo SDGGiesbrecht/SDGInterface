@@ -579,7 +579,7 @@ final class APITests: ApplicationTestCase {
           )
 
           fieldEditor.paste(nil)
-            NSPasteboard.general.clearContents()
+          NSPasteboard.general.clearContents()
           fieldEditor.paste(nil)
           fieldEditor.selectAll(nil)
           fieldEditor.copy(nil)
