@@ -355,8 +355,10 @@ final class APITests: ApplicationTestCase {
     )
 
     richText = RichText("...")
-    richText.italicize(range: richText.bounds)
-    richText.embolden(range: richText.bounds)
+    #if canImport(AppKit) || canImport(UIkit)
+      richText.italicize(range: richText.bounds)
+      richText.embolden(range: richText.bounds)
+    #endif
   }
 
   func testTextEditor() {
