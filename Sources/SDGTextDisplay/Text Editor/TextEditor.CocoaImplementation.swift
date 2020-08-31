@@ -58,8 +58,9 @@
         #if canImport(AppKit)
           let newValue = textView.attributedString()
         #else
-          let newValue = textView.attributedText
-            ?? NSAttributedString() // @exempt(from: tests) Never nil.
+          let newValue =
+            textView.attributedText
+            ?? NSAttributedString()  // @exempt(from: tests) Never nil.
         #endif
         if newValue ≠ contents.value.attributedString() {
           contents.value = RichText(newValue)
@@ -74,8 +75,9 @@
         #if canImport(AppKit)
           existingValue = textView.attributedString()
         #else
-          existingValue = textView.attributedText
-            ?? NSAttributedString() // @exempt(from: tests) Never nil.
+          existingValue =
+            textView.attributedText
+            ?? NSAttributedString()  // @exempt(from: tests) Never nil.
         #endif
         if existingValue ≠ newValue {
           updateContents(to: contents.value)
