@@ -637,7 +637,7 @@ final class APITests: ApplicationTestCase {
     #if canImport(AppKit) || canImport(UIKit)
       let textView = TextView(
         contents: UserFacing<RichText, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in "abc"
-          }
+        }
         )
       )
       let cocoa = textView.cocoa()
