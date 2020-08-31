@@ -165,6 +165,7 @@
     }()
 
     private static let actionsRequiringRichEditability: Set<Selector> = {
+      // @exempt(from: tests) Unreachable on tvOS.
       var result: Set<Selector> = [
         #selector(RichTextEditingResponder.makeSuperscript(_:)),
         #selector(RichTextEditingResponder.makeSubscript(_:)),

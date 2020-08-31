@@ -649,5 +649,27 @@ final class APITests: ApplicationTestCase {
     if #available(iOS 9, *) {  // @exempt(from: unicode)
       cocoaTextView.showCharacterInformation(nil)
     }
+    cocoaTextView.makeSuperscript(nil)
+    cocoaTextView.makeSubscript(nil)
+    cocoaTextView.resetBaseline(nil)
+    cocoaTextView.normalizeText(nil)
+    #if canImport(UIKit)
+      XCTAssertFalse(
+        cocoaTextView.canPerformAction(
+          #selector(RichTextEditingResponder.makeSubscript),
+          withSender: nil
+        )
+      )
+      cocoaTextView.selectedRange = NSRange(location: NSNotFound, length: NSNotFound)
+      XCTAssertFalse(
+        cocoaTextView.canPerformAction(
+          #selector(TextDisplayResponder.showCharacterInformation),
+          withSender: nil
+        )
+      )
+      XCTAssertTrue(
+        cocoaTextView.canPerformAction(#selector(UITextView.insertText), withSender: nil)
+      )
+    #endif
   }
 }
