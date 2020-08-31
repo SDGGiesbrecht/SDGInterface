@@ -669,12 +669,14 @@ final class APITests: ApplicationTestCase {
           )
         )
         cocoaTextView.selectedRange = NSRange(location: NSNotFound, length: NSNotFound)
-        XCTAssertFalse(
-          cocoaTextView.canPerformAction(
-            #selector(TextDisplayResponder.showCharacterInformation),
-            withSender: nil
+        if #available(iOS 9, *) {
+          XCTAssertFalse(
+            cocoaTextView.canPerformAction(
+              #selector(TextDisplayResponder.showCharacterInformation),
+              withSender: nil
+            )
           )
-        )
+        }
         XCTAssertTrue(
           cocoaTextView.canPerformAction(#selector(UITextView.selectAll(_:)), withSender: nil)
         )
