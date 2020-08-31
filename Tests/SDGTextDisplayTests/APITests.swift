@@ -554,6 +554,10 @@ final class APITests: ApplicationTestCase {
         _ = TextContextMenu.contextMenu
       #endif
     #endif
+    #if canImport(UIKit)
+      let log = Log(contents: Shared("")).cocoa().native
+      (log as! UITextViewDelegate).textViewDidChange!(log as! UITextView)
+    #endif
   }
 
   func testTextField() {
