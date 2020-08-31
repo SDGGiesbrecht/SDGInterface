@@ -17,7 +17,7 @@
 #endif
 
 /// A rectangle.
-public struct Rectangle {
+public struct Rectangle: Equatable {
 
   /// Creates a rectangle.
   ///
