@@ -106,6 +106,7 @@ final class APITests: ApplicationTestCase {
         )
         window.display()
         CharacterInformation.display(for: "abc", origin: (view, nil))
+        CharacterInformation.display(for: "\u{22}\u{AA}b\u{E7}\u{22}", origin: (view, Rectangle(origin: Point(0, 0), size: Size(width: 0, height: 0))))
       }
     #endif
   }

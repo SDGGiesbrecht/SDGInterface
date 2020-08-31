@@ -60,6 +60,12 @@ final class APITests: ApplicationTestCase {
       defer { cocoaWindow.close() }
       let popOver = CocoaView()
       anchor.displayPopOver(popOver, attachmentAnchor: .point(Point(0, 0)))
+      anchor.displayPopOver(
+        popOver,
+        attachmentAnchor: .rectangle(
+          .rectangle(Rectangle(origin: Point(10, 20), size: Size(width: 30, height: 40)))
+        )
+      )
     #endif
   }
 
