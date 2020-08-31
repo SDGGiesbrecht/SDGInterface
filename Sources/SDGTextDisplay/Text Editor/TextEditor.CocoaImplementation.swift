@@ -74,7 +74,8 @@
         #if canImport(AppKit)
           existingValue = textView.attributedString()
         #else
-          existingValue = textView.attributedText ?? NSAttributedString()
+          existingValue = textView.attributedText
+            ?? NSAttributedString() // @exempt(from: tests) Never nil.
         #endif
         if existingValue ≠ newValue {
           updateContents(to: contents.value)

@@ -557,6 +557,8 @@ final class APITests: ApplicationTestCase {
     #if canImport(UIKit)
       let log = Log(contents: Shared("")).cocoa().native
       (log as! UITextViewDelegate).textViewDidChange!(log as! UITextView)
+      (log as! UITextView).attributedText = NSAttributedString(string: "x, y, z")
+      (log as! UITextViewDelegate).textViewDidChange!(log as! UITextView)
     #endif
   }
 
