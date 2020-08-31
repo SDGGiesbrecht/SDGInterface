@@ -106,7 +106,10 @@ final class APITests: ApplicationTestCase {
         )
         window.display()
         CharacterInformation.display(for: "abc", origin: (view, nil))
-        CharacterInformation.display(for: "\u{22}\u{AA}b\u{E7}\u{22}", origin: (view, Rectangle(origin: Point(0, 0), size: Size(width: 0, height: 0))))
+        CharacterInformation.display(
+          for: "\u{22}\u{AA}b\u{E7}\u{22}",
+          origin: (view, Rectangle(origin: Point(0, 0), size: Size(width: 0, height: 0)))
+        )
       }
     #endif
   }
@@ -624,5 +627,27 @@ final class APITests: ApplicationTestCase {
         XCTAssertEqual(shared.value, "Modifed again.")
       #endif
     #endif
+  }
+
+  func testTextView() {
+    let textView = TextView(
+      contents: UserFacing<RichText, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in "abc" }
+      )
+    )
+    let cocoa = textView.cocoa()
+    #if canImport(AppKit)
+      let cocoaTextView = (cocoa.native as! NSScrollView).documentView as! NSTextView
+    #else
+      let cocoaTextView = cocoa.native as! UITextView
+    #endif
+    cocoaTextView.selectAll(nil)
+    _ = Window(
+      type: .primary(nil),
+      name: UserFacing<StrictString, AnyLocalization>({ _ in "..." }),
+      content: CocoaView(cocoaTextView)
+    ).cocoa()
+    if #available(iOS 9, *) {  // @exempt(from: unicode)
+      cocoaTextView.showCharacterInformation(nil)
+    }
   }
 }
