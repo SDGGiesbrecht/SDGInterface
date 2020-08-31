@@ -24,6 +24,7 @@
 #endif
 
 import SDGControlFlow
+import SDGLogic
 import SDGMathematics
 import SDGText
 import SDGLocalization
@@ -105,7 +106,7 @@ extension Application {
 
   private static func setMenuUp() {
     #if canImport(UIKit) && !os(tvOS) && !os(watchOS)
-      let editor = TextEditor()
+      let editor = TextEditor(contents: Shared(RichText()))
       let window = Window(
         type: .primary(nil),
         name: ApplicationNameForm.localizedIsolatedForm,
@@ -208,6 +209,31 @@ extension Application {
       demonstrate(LabelledTextField(labelText: label), windowTitle: label)
     }
 
+    @objc public func demonstrateLog() {
+      let label = UserFacing<StrictString, InterfaceLocalization>({ localization in
+        switch localization {
+        case .englishCanada:
+          return "Log"
+        }
+      })
+      let content = Shared(RichText())
+      demonstrate(Log(contents: content), windowTitle: label)
+      var entry = 0
+      if #available(macOS 10.12, tvOS 10, iOS 10, *) {
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+          entry += 1
+          var entryText = entry.inDigits()
+          if entry ≠ 1 {
+            entryText.prepend("\n")
+          }
+          content.value.append(contentsOf: RichText(rawText: entryText))
+          if entry == 100 {
+            timer.invalidate()  // @exempt(from: tests)
+          }
+        }
+      }
+    }
+
     @objc public func demonstrateSegmentedControl() {
       enum Value: CaseIterable {
         case text
@@ -246,17 +272,19 @@ extension Application {
       )
     }
 
-    @objc public func demonstrateTextEditor() {
-      demonstrate(
-        TextEditor(),
-        windowTitle: UserFacing<StrictString, InterfaceLocalization>({ localization in
-          switch localization {
-          case .englishCanada:
-            return "Text Editor"
-          }
-        })
-      )
-    }
+    #if !os(tvOS)
+      @objc public func demonstrateTextEditor() {
+        demonstrate(
+          TextEditor(contents: Shared(RichText())),
+          windowTitle: UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+              return "Text Editor"
+            }
+          })
+        )
+      }
+    #endif
 
     @objc public func demonstrateTextField() {
       demonstrate(

@@ -12,45 +12,47 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit) || canImport(UIKit)
-  #if canImport(AppKit)
-    import AppKit
-  #endif
-  #if canImport(UIKit)
-    import UIKit
-  #endif
+#if canImport(AppKit)
+  import AppKit
+#endif
+#if canImport(UIKit)
+  import UIKit
+#endif
 
-  import SDGText
+import SDGText
 
-  extension Font {
+extension Font {
 
-    // MARK: - System Fonts
+  // MARK: - System Fonts
 
-    /// The default font.
-    public static var `default`: Font {
-      return forTextEditing
-    }
+  /// The default font.
+  public static var `default`: Font {
+    return forTextEditing
+  }
 
-    /// The label font.
-    public static var forLabels: Font {
-      #if canImport(AppKit)
-        return Font(NSFont.systemFont(ofSize: NSFont.systemFontSize(for: .regular)))
-      #else
-        return Font(UIFont.preferredFont(forTextStyle: .headline))
-      #endif
-    }
+  /// The label font.
+  public static var forLabels: Font {
+    #if canImport(AppKit)
+      return Font(NSFont.systemFont(ofSize: NSFont.systemFontSize(for: .regular)))
+    #elseif canImport(UIKit)
+      return Font(UIFont.preferredFont(forTextStyle: .headline))
+    #else
+      return system
+    #endif
+  }
 
-    /// The default font for text editing.
-    public static var forTextEditing: Font {
-      var user: Font?
-      #if canImport(AppKit)
-        user = NSFont.userFont(ofSize: NSFont.systemFontSize).map { Font($0) }
-      #endif
-      return user ?? system  // @exempt(from: tests) Unknown why it would ever be nil on macOS.
-    }
+  /// The default font for text editing.
+  public static var forTextEditing: Font {
+    var user: Font?
+    #if canImport(AppKit)
+      user = NSFont.userFont(ofSize: NSFont.systemFontSize).map { Font($0) }
+    #endif
+    return user ?? system  // @exempt(from: tests) Unknown why it would ever be nil on macOS.
+  }
 
-    // MARK: - Modified Versions
+  // MARK: - Modified Versions
 
+  #if canImport(AppKit) || canImport(UIKit)
     /// The bold version of `self`.
     public var bold: Font {
       #if canImport(AppKit)
@@ -69,7 +71,9 @@
         return Font(UIFont(descriptor: descriptor, size: 0))
       #endif
     }
+  #endif
 
+  #if canImport(AppKit) || canImport(UIKit)
     /// The italic version of `self`.
     public var italic: Font {
       #if canImport(AppKit)
@@ -88,5 +92,5 @@
         return Font(UIFont(descriptor: descriptor, size: 0))
       #endif
     }
-  }
-#endif
+  #endif
+}

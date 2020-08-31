@@ -166,6 +166,10 @@ final class APITests: ApplicationTestCase {
         CGRect(Rectangle(origin: Point(1, 2), size: Size(width: 3, height: 4))).width,
         3
       )
+      XCTAssertEqual(
+        Rectangle(CGRect(x: 1, y: 2, width: 3, height: 4)),
+        Rectangle(origin: Point(1, 2), size: Size(width: 3, height: 4))
+      )
     #endif
   }
 

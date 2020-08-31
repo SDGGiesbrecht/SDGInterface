@@ -59,6 +59,7 @@
 		3FA770CE24B6A29700E9E0D0 /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA770CD24B6A29700E9E0D0 /* Table.swift */; };
 		3FA770CF24B6A2C000E9E0D0 /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA770CD24B6A29700E9E0D0 /* Table.swift */; };
 		3FA770D024B6A2C100E9E0D0 /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA770CD24B6A29700E9E0D0 /* Table.swift */; };
+		3FAA78E324F8B6D000DADC96 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAA78E224F8B6D000DADC96 /* TextView.swift */; };
 		3FBF288424998A3D00901925 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBF288324998A3D00901925 /* Image.swift */; };
 		3FBF288524998A3D00901925 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBF288324998A3D00901925 /* Image.swift */; };
 		3FBF288624998A3D00901925 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBF288324998A3D00901925 /* Image.swift */; };
@@ -135,6 +136,7 @@
 		3F9B50DF239F5B500027E8A6 /* Letterbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Letterbox.swift; sourceTree = "<group>"; };
 		3F9F184D2491C6DA00C64CD0 /* SegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 		3FA770CD24B6A29700E9E0D0 /* Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
+		3FAA78E224F8B6D000DADC96 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		3FBF288324998A3D00901925 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		3FCC6A6224F5908E0047EE31 /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		3FCD51DD24A6BA6D00301FC5 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				3FCD51DD24A6BA6D00301FC5 /* ProgressBar.swift */,
 				3F9F184D2491C6DA00C64CD0 /* SegmentedControl.swift */,
 				3FA770CD24B6A29700E9E0D0 /* Table.swift */,
+				3FAA78E224F8B6D000DADC96 /* TextView.swift */,
 			);
 			path = "SwiftUI Previews";
 			sourceTree = "<group>";
@@ -541,6 +544,7 @@
 				3F8BD33623C57B0F000931BB /* Frame.swift in Sources */,
 				3F73232523C82AA200B16D40 /* Background.swift in Sources */,
 				3F8565AA23E8D3CA00228097 /* HorizontalStack.swift in Sources */,
+				3FAA78E324F8B6D000DADC96 /* TextView.swift in Sources */,
 				3FA770CE24B6A29700E9E0D0 /* Table.swift in Sources */,
 				3FBF288424998A3D00901925 /* Image.swift in Sources */,
 				3FCD51DE24A6BA6D00301FC5 /* ProgressBar.swift in Sources */,

@@ -91,6 +91,19 @@
       .target(Application.shared)
     }
 
+    private static func log() -> MenuEntry<InterfaceLocalization> {
+      return MenuEntry(
+        label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishCanada:
+            return "Log"
+          }
+        }),
+        action: #selector(Application.demonstrateLog)
+      )
+      .target(Application.shared)
+    }
+
     private static func textEditor() -> MenuEntry<InterfaceLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, InterfaceLocalization>({ localization in
@@ -118,6 +131,7 @@
           .entry(checkBox()),
           .entry(image()),
           .entry(label()),
+          .entry(log()),
           .entry(textEditor()),
           .submenu(textField()),
         ]

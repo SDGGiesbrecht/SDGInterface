@@ -1,10 +1,10 @@
 /*
- TextEditor.swift
+ TextView.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
 
- Copyright ©2019–2020 Jeremy David Giesbrecht and the SDGInterface project contributors.
+ Copyright ©2020 Jeremy David Giesbrecht and the SDGInterface project contributors.
 
  Soli Deo gloria.
 
@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
+#if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
   #if canImport(AppKit)
     import AppKit
   #endif
@@ -20,22 +20,22 @@
     import UIKit
   #endif
 
-  import SDGControlFlow
+  import SDGLocalization
 
   import SDGViews
 
-  /// An editor for multiline text.
-  public struct TextEditor: CocoaViewImplementation {
+  /// A view for displaying text that cannot be edited.
+  public struct TextView<L>: CocoaViewImplementation where L: Localization {
 
     // MARK: - Initialization
 
-    /// Creates a multiline text editor.
+    /// Creates a multiline text view.
     ///
     /// - Parameters:
-    ///   - contents: The contents of the text editor.
+    ///   - contents: The contents of the text view.
     ///   - transparentBackground: Optional. Pass `true` to make the background transparent.
     public init(
-      contents: Shared<RichText>,
+      contents: UserFacing<RichText, L>,
       transparentBackground: Bool = false
     ) {
       self.contents = contents
@@ -44,24 +44,20 @@
 
     // MARK: - Properties
 
-    private let contents: Shared<RichText>
+    private let contents: UserFacing<RichText, L>
     private let transparentBackground: Bool
 
     // MARK: - LegacyView
 
     #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       public func cocoa() -> CocoaView {
-        let cocoa = CocoaImplementation(
-          contents: contents,
-          transparentBackground: transparentBackground,
-          logMode: false
+        return CocoaView(
+          CocoaImplementation(
+            contents: contents,
+            transparentBackground: transparentBackground
+          )
         )
-        cocoa.setEditability(true)
-        return CocoaView(cocoa)
       }
     #endif
   }
-#elseif os(tvOS)
-  // Still used internally for namespacing.
-  internal enum TextEditor {}
 #endif

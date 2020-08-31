@@ -1,5 +1,5 @@
 /*
- NSUITextView.swift
+ CocoaTextView.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -27,12 +27,12 @@
   import SDGInterfaceBasics
 
   #if canImport(AppKit)
-    internal typealias NSUITextView = NSTextView
+    internal typealias CocoaTextView = NSTextView
   #elseif canImport(UIKit)
-    internal typealias NSUITextView = UITextView
+    internal typealias CocoaTextView = UITextView
   #endif
 
-  extension NSUITextView: RichTextEditingResponder {
+  extension CocoaTextView: RichTextEditingResponder {
 
     // MARK: - Selection
 
@@ -92,7 +92,7 @@
         #if canImport(AppKit)
           shouldChange = shouldChangeText(in: adjustedRange, replacementString: rawResult)
         #else
-          if ¬responds(to: #selector(TextView.shouldChangeText)) {
+          if ¬responds(to: #selector(TextEditor.CocoaDocumentView.shouldChangeText)) {
             shouldChange = true
           } else {
             guard let textRange = selectedTextRange else {  // @exempt(from: tests)
@@ -165,6 +165,7 @@
     }()
 
     private static let actionsRequiringRichEditability: Set<Selector> = {
+      // @exempt(from: tests) Unreachable on tvOS.
       var result: Set<Selector> = [
         #selector(RichTextEditingResponder.makeSuperscript(_:)),
         #selector(RichTextEditingResponder.makeSubscript(_:)),
@@ -186,7 +187,7 @@
 
     /// Returns `nil` if the action is not recognized and should be delegated to the operating system.
     internal func canPerform(action: Selector) -> Bool? {
-      if action ∈ NSUITextView.actionsRequiringSelection {
+      if action ∈ CocoaTextView.actionsRequiringSelection {
         #if canImport(AppKit)
           let selectionRange = Range<Int>(selectedRange())
         #else
@@ -202,7 +203,7 @@
           return false  // No selection available. // @exempt(from: tests) Always empty instead.
         }
       }
-      if action ∈ NSUITextView.actionsRequiringEditability {
+      if action ∈ CocoaTextView.actionsRequiringEditability {
         let isEditable: Bool
         #if os(tvOS)
           isEditable = false
@@ -213,7 +214,7 @@
           return false  // Not editable
         }
       }
-      if action ∈ NSUITextView.actionsRequiringRichEditability {
+      if action ∈ CocoaTextView.actionsRequiringRichEditability {
         // @exempt(from: tests) Unreachable on tvOS.
         #if canImport(AppKit)
           if isFieldEditor {

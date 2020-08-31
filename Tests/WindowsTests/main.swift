@@ -145,6 +145,14 @@ extension SDGMenusTests.APITests {
   ]
 }
 
+extension SDGMenusTests.RegressionTests {
+  static let windowsTests: [XCTestCaseEntry] = [
+    testCase([
+      ("testMenuEntryCocoaImplementationCanBeCopied", testMenuEntryCocoaImplementationCanBeCopied)
+    ])
+  ]
+}
+
 extension SDGPopOversTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
@@ -191,9 +199,11 @@ extension SDGTextDisplayTests.APITests {
       ("testCharacterInformation", testCharacterInformation),
       ("testFont", testFont),
       ("testLabel", testLabel),
+      ("testLog", testLog),
       ("testRichText", testRichText),
       ("testTextEditor", testTextEditor),
       ("testTextField", testTextField),
+      ("testTextView", testTextView),
     ])
   ]
 }
@@ -245,6 +255,7 @@ tests += SDGInterfaceBasicsTests.APITests.windowsTests
 tests += SDGKeyboardTests.APITests.windowsTests
 tests += SDGMenuBarTests.APITests.windowsTests
 tests += SDGMenusTests.APITests.windowsTests
+tests += SDGMenusTests.RegressionTests.windowsTests
 tests += SDGPopOversTests.APITests.windowsTests
 tests += SDGPopOversTests.InternalTests.windowsTests
 tests += SDGProgressIndicatorsTests.APITests.windowsTests

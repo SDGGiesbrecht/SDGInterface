@@ -106,15 +106,19 @@ final class APITests: ApplicationTestCase {
         )
         window.display()
         CharacterInformation.display(for: "abc", origin: (view, nil))
+        CharacterInformation.display(
+          for: "\u{22}\u{AA}b\u{E7}\u{22}",
+          origin: (view, Rectangle(origin: Point(0, 0), size: Size(width: 0, height: 0)))
+        )
       }
     #endif
   }
 
   func testFont() {
+    let font = Font.default
+    _ = Font.forLabels
+    _ = Font.forTextEditing
     #if canImport(AppKit) || canImport(UIKit)
-      let font = Font.default
-      _ = Font.forLabels
-      _ = Font.forTextEditing
       _ = font.bold
       _ = font.italic
       XCTAssertEqual(font.resized(to: 12).size, 12)
@@ -130,6 +134,17 @@ final class APITests: ApplicationTestCase {
       )
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {
         testViewConformance(of: label)
+      }
+    #endif
+  }
+
+  func testLog() {
+    #if canImport(AppKit) || canImport(UIKit)
+      Application.shared.demonstrateLog()
+      if #available(macOS 10.12, tvOS 10, iOS 10, *) {
+        let waited = expectation(description: "Waited for log to scroll.")
+        Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in waited.fulfill() }
+        waitForExpectations(timeout: 5, handler: nil)
       }
     #endif
   }
@@ -342,21 +357,33 @@ final class APITests: ApplicationTestCase {
         attributes: [NSAttributedString.Key(rawValue: "Key"): NSNumber(value: 0)]
       )
     )
+
+    richText = RichText("...")
+    #if canImport(AppKit) || canImport(UIkit)
+      richText.italicize(range: richText.bounds)
+      richText.embolden(range: richText.bounds)
+    #endif
   }
 
   func testTextEditor() {
-    #if canImport(AppKit) || canImport(UIKit)
+    #if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS)
       Application.shared.demonstrateTextEditor()
-      let textEditor = TextEditor()
-      let textView = textEditor.cocoaTextView
+      let text = Shared(RichText())
+      let textEditor = TextEditor(contents: text)
+      let cocoaTextEditor = textEditor.cocoa()
+      #if canImport(AppKit)
+        let textView = (cocoaTextEditor.native as! NSScrollView).documentView as! NSTextView
+      #else
+        let textView = cocoaTextEditor.native as! UITextView
+      #endif
 
       let characters = "\u{20}\u{21}\u{22}\u{AA}\u{C0}"
-      textEditor.append(RichText(rawText: StrictString(characters)))
+      text.value.append(contentsOf: RichText(rawText: StrictString(characters)))
       textView.selectAll(nil)
       _ = Window(
         type: .primary(nil),
         name: UserFacing<StrictString, AnyLocalization>({ _ in "..." }),
-        content: textEditor.cocoa()
+        content: CocoaView(textView)
       ).cocoa()
       if #available(iOS 9, *) {  // @exempt(from: unicode)
         textView.showCharacterInformation(nil)
@@ -402,11 +429,6 @@ final class APITests: ApplicationTestCase {
         textView.makeLatinateLowerCase(nil)
         textView.selectAll(nil)
         textView.makeTurkicLowerCase(nil)
-      #endif
-
-      #if !os(tvOS)
-        textEditor.isEditable = true
-        XCTAssertTrue(textEditor.isEditable)
       #endif
 
       #if canImport(AppKit)
@@ -459,8 +481,8 @@ final class APITests: ApplicationTestCase {
         textView.setSelectedRange(NSRange(location: NSNotFound, length: 0))
         XCTAssertFalse(validate(#selector(NSTextView.normalizeText(_:))))
         textView.selectAll(nil)
-        textEditor.isEditable = false
-        XCTAssertFalse(textEditor.cocoaTextView.isEditable)
+        textView.isEditable = false
+        XCTAssertFalse(textView.isEditable)
         XCTAssertFalse(validate(#selector(NSTextView.normalizeText(_:))))
       #endif
 
@@ -531,13 +553,12 @@ final class APITests: ApplicationTestCase {
       #if canImport(AppKit)
         _ = TextContextMenu.contextMenu
       #endif
-
-      textEditor.drawsBackground = true
-      XCTAssert(textEditor.drawsBackground)
-      textEditor.drawsBackground = false
-      XCTAssertFalse(textEditor.drawsBackground)
-      textEditor.drawsBackground = true
-      XCTAssert(textEditor.drawsBackground)
+    #endif
+    #if canImport(UIKit)
+      let log = Log(contents: Shared("")).cocoa().native
+      (log as! UITextViewDelegate).textViewDidChange!(log as! UITextView)
+      (log as! UITextView).attributedText = NSAttributedString(string: "x, y, z")
+      (log as! UITextViewDelegate).textViewDidChange!(log as! UITextView)
     #endif
   }
 
@@ -568,6 +589,17 @@ final class APITests: ApplicationTestCase {
               )
             )
           )
+
+          fieldEditor.paste(nil)
+          NSPasteboard.general.clearContents()
+          fieldEditor.paste(nil)
+          fieldEditor.selectAll(nil)
+          fieldEditor.copy(nil)
+          fieldEditor.paste(nil)
+          fieldEditor.selectedRange = NSRange(
+            fieldEditor.textStorage!.length..<fieldEditor.textStorage!.length
+          )
+          fieldEditor.paste(nil)
         #endif
 
         let textField = TextField()
@@ -599,6 +631,55 @@ final class APITests: ApplicationTestCase {
           from: nsTextField
         )
         XCTAssertEqual(shared.value, "Modifed again.")
+      #endif
+    #endif
+  }
+
+  func testTextView() {
+    #if canImport(AppKit) || canImport(UIKit)
+      let textView = TextView(
+        contents: UserFacing<RichText, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in "abc"
+        }
+        )
+      )
+      let cocoa = textView.cocoa()
+      #if canImport(AppKit)
+        let cocoaTextView = (cocoa.native as! NSScrollView).documentView as! NSTextView
+      #else
+        let cocoaTextView = cocoa.native as! UITextView
+      #endif
+      cocoaTextView.selectAll(nil)
+      _ = Window(
+        type: .primary(nil),
+        name: UserFacing<StrictString, AnyLocalization>({ _ in "..." }),
+        content: CocoaView(cocoaTextView)
+      ).cocoa()
+      if #available(iOS 9, *) {  // @exempt(from: unicode)
+        cocoaTextView.showCharacterInformation(nil)
+      }
+      cocoaTextView.makeSuperscript(nil)
+      cocoaTextView.makeSubscript(nil)
+      cocoaTextView.resetBaseline(nil)
+      cocoaTextView.normalizeText(nil)
+      #if canImport(UIKit)
+        XCTAssertFalse(
+          cocoaTextView.canPerformAction(
+            #selector(RichTextEditingResponder.makeSubscript),
+            withSender: nil
+          )
+        )
+        cocoaTextView.selectedRange = NSRange(location: NSNotFound, length: NSNotFound)
+        if #available(iOS 9, *) {
+          XCTAssertFalse(
+            cocoaTextView.canPerformAction(
+              #selector(TextDisplayResponder.showCharacterInformation),
+              withSender: nil
+            )
+          )
+        }
+        XCTAssertTrue(
+          cocoaTextView.canPerformAction(#selector(UITextView.selectAll(_:)), withSender: nil)
+        )
       #endif
     #endif
   }
