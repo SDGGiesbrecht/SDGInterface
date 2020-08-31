@@ -668,7 +668,7 @@ final class APITests: ApplicationTestCase {
         )
       )
       XCTAssertTrue(
-        cocoaTextView.canPerformAction(#selector(UITextView.insertText), withSender: nil)
+        cocoaTextView.canPerformAction(#selector(UITextView.selectAll(_:)), withSender: nil)
       )
     #endif
   }
