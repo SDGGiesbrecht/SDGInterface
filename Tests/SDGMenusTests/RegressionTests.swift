@@ -28,13 +28,11 @@ final class RegressionTests: ApplicationTestCase {
   func testMenuEntryCocoaImplementationCanBeCopied() {
     // Untracked.
 
-    #if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
+    #if canImport(AppKit)
       let cocoa = MenuEntry<APILocalization>(
         label: UserFacing<StrictString, APILocalization>({ _ in "Menu Entry" })
       ).cocoa()
-      if let copyable = cocoa as? NSCopying {
-        _ = copyable.copy()
-      }
+      _ = cocoa.copy()
     #endif
   }
 }
