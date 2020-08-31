@@ -203,6 +203,7 @@ extension SDGTextDisplayTests.APITests {
       ("testRichText", testRichText),
       ("testTextEditor", testTextEditor),
       ("testTextField", testTextField),
+      ("testTextView", testTextView),
     ])
   ]
 }
