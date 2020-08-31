@@ -12,6 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import Foundation
+
 import SDGText
 import SDGLocalization
 
@@ -30,7 +32,9 @@ final class RegressionTests: ApplicationTestCase {
       let cocoa = MenuEntry<APILocalization>(
         label: UserFacing<StrictString, APILocalization>({ _ in "Menu Entry" })
       ).cocoa()
-      _ = cocoa.copy()
+      if let copyable = cocoa as? NSCopying {
+        _ = copyable.copy()
+      }
     #endif
   }
 }
