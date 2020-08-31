@@ -634,46 +634,49 @@ final class APITests: ApplicationTestCase {
   }
 
   func testTextView() {
-    let textView = TextView(
-      contents: UserFacing<RichText, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in "abc" }
-      )
-    )
-    let cocoa = textView.cocoa()
-    #if canImport(AppKit)
-      let cocoaTextView = (cocoa.native as! NSScrollView).documentView as! NSTextView
-    #else
-      let cocoaTextView = cocoa.native as! UITextView
-    #endif
-    cocoaTextView.selectAll(nil)
-    _ = Window(
-      type: .primary(nil),
-      name: UserFacing<StrictString, AnyLocalization>({ _ in "..." }),
-      content: CocoaView(cocoaTextView)
-    ).cocoa()
-    if #available(iOS 9, *) {  // @exempt(from: unicode)
-      cocoaTextView.showCharacterInformation(nil)
-    }
-    cocoaTextView.makeSuperscript(nil)
-    cocoaTextView.makeSubscript(nil)
-    cocoaTextView.resetBaseline(nil)
-    cocoaTextView.normalizeText(nil)
-    #if canImport(UIKit)
-      XCTAssertFalse(
-        cocoaTextView.canPerformAction(
-          #selector(RichTextEditingResponder.makeSubscript),
-          withSender: nil
+    #if canImport(AppKit) || canImport(UIKit)
+      let textView = TextView(
+        contents: UserFacing<RichText, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in "abc"
+          }
         )
       )
-      cocoaTextView.selectedRange = NSRange(location: NSNotFound, length: NSNotFound)
-      XCTAssertFalse(
-        cocoaTextView.canPerformAction(
-          #selector(TextDisplayResponder.showCharacterInformation),
-          withSender: nil
+      let cocoa = textView.cocoa()
+      #if canImport(AppKit)
+        let cocoaTextView = (cocoa.native as! NSScrollView).documentView as! NSTextView
+      #else
+        let cocoaTextView = cocoa.native as! UITextView
+      #endif
+      cocoaTextView.selectAll(nil)
+      _ = Window(
+        type: .primary(nil),
+        name: UserFacing<StrictString, AnyLocalization>({ _ in "..." }),
+        content: CocoaView(cocoaTextView)
+      ).cocoa()
+      if #available(iOS 9, *) {  // @exempt(from: unicode)
+        cocoaTextView.showCharacterInformation(nil)
+      }
+      cocoaTextView.makeSuperscript(nil)
+      cocoaTextView.makeSubscript(nil)
+      cocoaTextView.resetBaseline(nil)
+      cocoaTextView.normalizeText(nil)
+      #if canImport(UIKit)
+        XCTAssertFalse(
+          cocoaTextView.canPerformAction(
+            #selector(RichTextEditingResponder.makeSubscript),
+            withSender: nil
+          )
         )
-      )
-      XCTAssertTrue(
-        cocoaTextView.canPerformAction(#selector(UITextView.selectAll(_:)), withSender: nil)
-      )
+        cocoaTextView.selectedRange = NSRange(location: NSNotFound, length: NSNotFound)
+        XCTAssertFalse(
+          cocoaTextView.canPerformAction(
+            #selector(TextDisplayResponder.showCharacterInformation),
+            withSender: nil
+          )
+        )
+        XCTAssertTrue(
+          cocoaTextView.canPerformAction(#selector(UITextView.selectAll(_:)), withSender: nil)
+        )
+      #endif
     #endif
   }
 }
