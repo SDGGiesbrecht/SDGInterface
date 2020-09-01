@@ -38,6 +38,12 @@
       internal init(contents: Shared<StrictString>) {
         self.contents = contents
         defer { contents.register(observer: self) }
+        #if canImport(UIKit)
+          #warning("Can AppKit be done the same?")
+          defer {
+            addTarget(self, action: #selector(contentsChanged), for: .editingChanged)
+          }
+        #endif
 
         super.init(frame: .zero)
 
@@ -70,11 +76,28 @@
 
       private let contents: Shared<StrictString>
 
+      private var cocoaContents: String {
+        get {
+          #if canImport(AppKit)
+            return stringValue
+          #else
+            return text ?? ""
+          #endif
+        }
+        set {
+          #if canImport(AppKit)
+            stringValue = newValue
+          #else
+            text = newValue
+          #endif
+        }
+      }
+
       // MARK: - Changes
 
-      private func contentsChanged() {
-        if ¬contents.value.scalars.elementsEqual(stringValue.scalars) {
-          contents.value = StrictString(stringValue)
+      @objc private func contentsChanged() {
+        if ¬contents.value.scalars.elementsEqual(cocoaContents.scalars) {
+          contents.value = StrictString(cocoaContents)
         }
       }
 
@@ -90,8 +113,8 @@
       // MARK: - SharedValueObserver
 
       internal func valueChanged(for identifier: String) {
-        if ¬stringValue.scalars.elementsEqual(contents.value) {
-          stringValue = String(contents.value)
+        if ¬cocoaContents.scalars.elementsEqual(contents.value) {
+          cocoaContents = String(contents.value)
         }
       }
     }
