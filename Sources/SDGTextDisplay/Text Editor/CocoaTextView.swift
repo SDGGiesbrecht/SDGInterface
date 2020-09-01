@@ -214,6 +214,14 @@
           return false  // Not editable
         }
       }
+      if action ∈ CocoaTextView.actionsRequiringRichEditability {
+        // @exempt(from: tests) Unreachable on tvOS.
+        #if canImport(AppKit)
+          if isFieldEditor {
+            return false  // Attributes locked.
+          }
+        #endif
+      }
       return nil
     }
 

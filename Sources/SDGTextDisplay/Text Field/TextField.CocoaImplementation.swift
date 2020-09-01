@@ -48,6 +48,9 @@
         #endif
 
         super.init(frame: .zero)
+        #if canImport(AppKit)
+          cell = Cell()
+        #endif
 
         #if canImport(AppKit)
           isBordered = true
