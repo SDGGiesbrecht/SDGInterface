@@ -169,7 +169,7 @@
       private let content: CocoaView
       internal let onClose: () -> Void
       #if canImport(AppKit)
-        public var fieldEditor = _getFieldEditor()
+        internal var fieldEditor = _getFieldEditor()
       #endif
 
       #if canImport(AppKit)
