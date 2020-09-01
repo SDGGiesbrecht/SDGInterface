@@ -616,22 +616,8 @@ final class APITests: ApplicationTestCase {
       )
       _ = labelled.cocoa()
       let shared = Shared<StrictString>("Before")
-      let textField = TextField(contents: shared)
-      #if canImport(AppKit)
-        let nsTextField = textField.cocoa().native as! NSTextField
-        _ = nsTextField.cell?.fieldEditor(for: nsTextField)
-      #endif
+      _ = TextField(contents: shared)
       shared.value = "After"
-      #if canImport(AppKit)
-        XCTAssertEqual(nsTextField.stringValue, String(shared.value))
-        nsTextField.stringValue = "Modifed again."
-        NSApplication.shared.sendAction(
-          nsTextField.action!,
-          to: nsTextField.target,
-          from: nsTextField
-        )
-        XCTAssertEqual(shared.value, "Modifed again.")
-      #endif
     #endif
   }
 
