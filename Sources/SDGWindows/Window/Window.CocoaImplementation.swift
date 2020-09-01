@@ -27,19 +27,6 @@
   import SDGInterfaceBasics
   import SDGViews
 
-  #if canImport(AppKit)
-    private let setUpFieldEditorReset: Void = {
-      _resetFieldEditors = {
-        for (_, window) in allWindows {  // @exempt(from: tests)
-          if let managed = window as? ManagedWindow {
-            // Only reachable with a bungled set‐up.
-            managed.fieldEditor = _getFieldEditor()
-          }
-        }
-      }
-    }()
-  #endif
-
   extension Window {
 
     #if canImport(AppKit)
@@ -62,10 +49,6 @@
         content: Content,
         onClose: @escaping () -> Void
       ) {
-        #if canImport(AppKit)
-          setUpFieldEditorReset
-        #endif
-
         defer {
           switch type {
           case .primary:
@@ -168,16 +151,9 @@
       private let name: UserFacing<StrictString, L>
       private let content: CocoaView
       internal let onClose: () -> Void
-      #if canImport(AppKit)
-        internal var fieldEditor = _getFieldEditor()
-      #endif
 
       #if canImport(AppKit)
         // MARK: - NSWindowDelegate
-
-        internal func windowWillReturnFieldEditor(_ sender: NSWindow, to client: Any?) -> Any? {
-          return fieldEditor
-        }
 
         internal func windowWillClose(_ notification: Notification) {
           finishClosing()

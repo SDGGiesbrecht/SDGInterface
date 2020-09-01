@@ -566,42 +566,6 @@ final class APITests: ApplicationTestCase {
     #if canImport(AppKit) || canImport(UIKit)
       Application.shared.demonstrateTextField()
       forEachWindow { window in
-        #if canImport(AppKit)
-          let fieldEditor =
-            window.native.fieldEditor(
-              true,
-              for: window.content!.native.subviews[0]
-            )
-            as! NSTextView
-          fieldEditor.insertText("...", replacementRange: NSRange(0..<0))
-          fieldEditor.insertText(
-            NSAttributedString(string: "..."),
-            replacementRange: NSRange(0..<0)
-          )
-          fieldEditor.insertText("...", replacementRange: NSRange(0..<0))
-          fieldEditor.selectAll(nil)
-          XCTAssertFalse(
-            fieldEditor.validateMenuItem(
-              NSMenuItem(
-                title: "",
-                action: #selector(NSTextView.makeSuperscript(_:)),
-                keyEquivalent: ""
-              )
-            )
-          )
-
-          fieldEditor.paste(nil)
-          NSPasteboard.general.clearContents()
-          fieldEditor.paste(nil)
-          fieldEditor.selectAll(nil)
-          fieldEditor.copy(nil)
-          fieldEditor.paste(nil)
-          fieldEditor.selectedRange = NSRange(
-            fieldEditor.textStorage!.length..<fieldEditor.textStorage!.length
-          )
-          fieldEditor.paste(nil)
-        #endif
-
         let textField = TextField(contents: Shared(StrictString()))
         #if canImport(UIKit)
           (textField.cocoa().native as! UITextField).insertText("...")

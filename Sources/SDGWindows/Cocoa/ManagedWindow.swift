@@ -20,11 +20,6 @@
   internal var allWindows = [ObjectIdentifier: CocoaWindow.NativeType]()
 
   internal protocol ManagedWindow: AnyObject {
-
-    #if canImport(AppKit)
-      var fieldEditor: NSTextView { get set }
-    #endif
-
     var onClose: () -> Void { get }
   }
 
