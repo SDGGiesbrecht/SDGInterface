@@ -24,6 +24,8 @@
   import SDGLogic
   import SDGText
 
+  import SDGInterfaceBasics
+
   extension TextField {
 
     #if canImport(AppKit)
@@ -33,9 +35,24 @@
     #endif
     internal final class CocoaImplementation: Superclass, SharedValueObserver {
 
+      // MARK: - Static Set‐Up
+
+      #if canImport(AppKit)
+        private static let setUpFieldEditor: Void = {
+          _getFieldEditor = {
+            return TextEditor.CocoaDocumentView()
+          }
+          _resetFieldEditors()
+        }()
+      #endif
+
       // MARK: - Initialization
 
       internal init(contents: Shared<StrictString>) {
+        #if canImport(AppKit)
+          CocoaImplementation.setUpFieldEditor
+        #endif
+
         self.contents = contents
         defer { contents.register(observer: self) }
         #if canImport(UIKit)
