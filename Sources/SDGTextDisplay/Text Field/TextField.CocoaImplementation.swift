@@ -72,11 +72,20 @@
 
       // MARK: - Changes
 
-      internal func contentsChanged() {
+      private func contentsChanged() {
         if ¬contents.value.scalars.elementsEqual(stringValue.scalars) {
           contents.value = StrictString(stringValue)
         }
       }
+
+      #if canImport(AppKit)
+        // MARK: - NSTextField
+
+        internal override func textDidChange(_ notification: Notification) {
+          super.textDidChange(notification)
+          contentsChanged()
+        }
+      #endif
 
       // MARK: - SharedValueObserver
 
