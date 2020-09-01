@@ -21,6 +21,7 @@
   #endif
 
   import SDGControlFlow
+  import SDGLogic
   import SDGText
 
   extension TextField {
@@ -72,13 +73,17 @@
       // MARK: - Changes
 
       internal func contentsChanged() {
-        #warning("Not implemented yet, nor hooked up.")
+        if ¬contents.value.scalars.elementsEqual(stringValue.scalars) {
+          contents.value = StrictString(stringValue)
+        }
       }
 
       // MARK: - SharedValueObserver
 
       internal func valueChanged(for identifier: String) {
-        #warning("Not implemented yet.")
+        if ¬stringValue.scalars.elementsEqual(contents.value) {
+          stringValue = String(contents.value)
+        }
       }
     }
   }
