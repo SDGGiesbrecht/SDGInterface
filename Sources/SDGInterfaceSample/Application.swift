@@ -206,7 +206,10 @@ extension Application {
           return "Labelled Text Field"
         }
       })
-      demonstrate(LabelledTextField(labelText: label), windowTitle: label)
+      demonstrate(
+        LabelledTextField(label: Label(label), field: TextField(contents: Shared(StrictString()))),
+        windowTitle: label
+      )
     }
 
     @objc public func demonstrateLog() {
@@ -288,7 +291,7 @@ extension Application {
 
     @objc public func demonstrateTextField() {
       demonstrate(
-        TextField(),
+        TextField(contents: Shared(StrictString())),
         windowTitle: UserFacing<StrictString, InterfaceLocalization>({ localization in
           switch localization {
           case .englishCanada:

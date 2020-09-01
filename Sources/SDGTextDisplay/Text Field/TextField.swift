@@ -39,7 +39,7 @@
     /// - Parameters:
     ///   - contents: A binding to the contents of the text field.
     public init(
-      _ contents: Shared<StrictString>
+      contents: Shared<StrictString>
     ) {
       self.contents = contents
     }
@@ -68,9 +68,11 @@
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       public func swiftUI() -> some SwiftUI.View {
-        return SwiftUIImplementation(
+        #warning("Not implemented yet.")
+        return SwiftUI.EmptyView()
+        /*return SwiftUIImplementation(
           contents: contents
-        )
+        )*/
       }
     #endif
   }

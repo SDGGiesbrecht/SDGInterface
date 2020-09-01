@@ -602,7 +602,7 @@ final class APITests: ApplicationTestCase {
           fieldEditor.paste(nil)
         #endif
 
-        let textField = TextField()
+        let textField = TextField(contents: Shared(StrictString()))
         #if canImport(UIKit)
           (textField.cocoa().native as! UITextField).insertText("...")
         #endif
@@ -611,16 +611,16 @@ final class APITests: ApplicationTestCase {
       let labelled = LabelledTextField(
         label: Label(
           UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in "" })
-        )
+        ),
+        field: TextField(contents: Shared(StrictString()))
       )
       _ = labelled.cocoa()
-      let textField = TextField()
+      let shared = Shared<StrictString>("Before")
+      let textField = TextField(contents: shared)
       #if canImport(AppKit)
         let nsTextField = textField.cocoa().native as! NSTextField
         _ = nsTextField.cell?.fieldEditor(for: nsTextField)
       #endif
-      let shared = Shared<StrictString>("Before")
-      textField.value = shared
       shared.value = "After"
       #if canImport(AppKit)
         XCTAssertEqual(nsTextField.stringValue, String(shared.value))
