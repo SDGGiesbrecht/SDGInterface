@@ -34,7 +34,6 @@
       internal typealias Superclass = UITextField
     #endif
     internal final class CocoaImplementation: Superclass, SharedValueObserver {
-      #warning("Needs to validate menus.")
 
       // MARK: - Initialization
 
