@@ -42,7 +42,6 @@
         self.contents = contents
         defer { contents.register(observer: self) }
         #if canImport(UIKit)
-          #warning("Can AppKit be done the same?")
           defer {
             addTarget(self, action: #selector(contentsChanged), for: .editingChanged)
           }
