@@ -68,11 +68,9 @@
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       public func swiftUI() -> some SwiftUI.View {
-        #warning("Not implemented yet.")
-        return SwiftUI.EmptyView()
-        /*return SwiftUIImplementation(
+        return SwiftUIImplementation(
           contents: contents
-        )*/
+        )
       }
     #endif
   }
