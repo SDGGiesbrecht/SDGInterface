@@ -23,5 +23,6 @@ final class InternalTests: ApplicationTestCase {
   func testStrictString() {
     var string = StrictString()
     string.compatibility = "..."
+    _ = string.compatibility
   }
 }
