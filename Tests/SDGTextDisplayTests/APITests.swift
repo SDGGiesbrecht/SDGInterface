@@ -597,6 +597,19 @@ final class APITests: ApplicationTestCase {
           )
         )
       }
+      withLegacyMode {
+        let shared = Shared(StrictString("abc"))
+        let field = TextField(contents: shared).cocoa().native as! NSTextField
+        field.stringValue = "xyz"
+        field.textDidChange(
+          Notification(
+            name: NSControl.textDidChangeNotification,
+            object: field.cell?.fieldEditor(for: NSView()),
+            userInfo: [:]
+          )
+        )
+        XCTAssertEqual(shared.value, "xyz")
+      }
     #endif
   }
 
