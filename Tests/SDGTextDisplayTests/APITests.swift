@@ -585,6 +585,7 @@ final class APITests: ApplicationTestCase {
       withLegacyMode {
         let field = TextField(contents: Shared("")).cocoa().native as! NSTextField
         let fieldEditor = field.cell!.fieldEditor(for: NSView())!
+        fieldEditor.string = "..."
         fieldEditor.selectAll(nil)
         XCTAssertFalse(
           fieldEditor.validateMenuItem(
