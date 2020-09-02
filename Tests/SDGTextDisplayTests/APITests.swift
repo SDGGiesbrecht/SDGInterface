@@ -582,6 +582,20 @@ final class APITests: ApplicationTestCase {
       let shared = Shared<StrictString>("Before")
       _ = TextField(contents: shared)
       shared.value = "After"
+      withLegacyMode {
+        let field = TextField(contents: Shared("")).cocoa().native as! NSTextField
+        let fieldEditor = field.cell!.fieldEditor(for: NSView())!
+        fieldEditor.selectAll(nil)
+        XCTAssertFalse(
+          fieldEditor.validateMenuItem(
+            NSMenuItem(
+              title: "...",
+              action: #selector(RichTextEditingResponder.makeSuperscript(_:)),
+              keyEquivalent: ""
+            )
+          )
+        )
+      }
     #endif
   }
 

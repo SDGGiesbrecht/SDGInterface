@@ -208,6 +208,14 @@ extension SDGTextDisplayTests.APITests {
   ]
 }
 
+extension SDGTextDisplayTests.InternalTests {
+  static let windowsTests: [XCTestCaseEntry] = [
+    testCase([
+      ("testStrictString", testStrictString)
+    ])
+  ]
+}
+
 extension SDGViewsTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
@@ -261,6 +269,7 @@ tests += SDGPopOversTests.InternalTests.windowsTests
 tests += SDGProgressIndicatorsTests.APITests.windowsTests
 tests += SDGTablesTests.APITests.windowsTests
 tests += SDGTextDisplayTests.APITests.windowsTests
+tests += SDGTextDisplayTests.InternalTests.windowsTests
 tests += SDGViewsTests.APITests.windowsTests
 tests += SDGViewsTests.InternalTests.windowsTests
 tests += SDGWindowsTests.APITests.windowsTests
