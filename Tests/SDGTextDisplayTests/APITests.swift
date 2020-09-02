@@ -175,6 +175,7 @@ final class APITests: ApplicationTestCase {
         }
         return mutable.copy() as! NSAttributedString
       #else
+        _ = fontNameKey
         return string
       #endif
     }
