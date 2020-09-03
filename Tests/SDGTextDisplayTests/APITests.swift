@@ -568,9 +568,6 @@ final class APITests: ApplicationTestCase {
       Application.shared.demonstrateTextField()
       forEachWindow { window in
         let textField = TextField(contents: Shared(StrictString()))
-        #if canImport(UIKit)
-          (textField.cocoa().native as! UITextField).insertText("...")
-        #endif
       }
       Application.shared.demonstrateLabelledTextField()
       let labelled = LabelledTextField(
@@ -601,8 +598,8 @@ final class APITests: ApplicationTestCase {
         #endif
       }
       withLegacyMode {
+        let shared = Shared(StrictString("abc"))
         #if canImport(AppKit)
-          let shared = Shared(StrictString("abc"))
           let field = TextField(contents: shared).cocoa().native as! NSTextField
           field.stringValue = "xyz"
           field.textDidChange(
@@ -613,6 +610,9 @@ final class APITests: ApplicationTestCase {
             )
           )
           XCTAssertEqual(shared.value, "xyz")
+        #else
+          let field = TextField(contents: shared).cocoa().native as! UITextField
+          field.insertText("...")
         #endif
       }
     #endif
