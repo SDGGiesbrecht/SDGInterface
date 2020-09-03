@@ -85,7 +85,7 @@
           #if canImport(AppKit)
             return stringValue
           #else
-            return text ?? ""
+            return text ?? ""  // @exempt(from: tests) Never nil.
           #endif
         }
         set {
@@ -101,6 +101,7 @@
 
       @objc private func contentsChanged() {  // @exempt(from: tests)
         // tvOS cannot dispatch actions during tests.
+
         if ¬contents.value.scalars.elementsEqual(cocoaContents.scalars) {
           contents.value = StrictString(cocoaContents)
         }
