@@ -567,7 +567,7 @@ final class APITests: ApplicationTestCase {
     #if canImport(AppKit) || canImport(UIKit)
       Application.shared.demonstrateTextField()
       forEachWindow { window in
-        let textField = TextField(contents: Shared(StrictString()))
+        _ = TextField(contents: Shared(StrictString()))
       }
       Application.shared.demonstrateLabelledTextField()
       let labelled = LabelledTextField(
