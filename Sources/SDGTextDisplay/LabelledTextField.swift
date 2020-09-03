@@ -31,26 +31,16 @@
 
     // MARK: - Initialization
 
-    /// Creates a text field with label text.
-    ///
-    /// - Parameters:
-    /// 	- labelText: The text for the label.
-    public convenience init(labelText: UserFacing<StrictString, L>) {
-      let label = Label(labelText)
-      self.init(label: label)
-    }
-
     /// Creates a text field with label and a text field instances.
     ///
     /// - Parameters:
     ///     - label: The label.
     ///     - field: Optional. A specific field.
-    public init(label: Label<L>, field: TextField? = nil) {
+    public init(label: Label<L>, field: TextField) {
       self.label = label
       let cocoaLabel = label.cocoa()
-      let constructedField = field ?? TextField()
-      self.field = constructedField
-      let cocoaField = constructedField.cocoa()
+      self.field = field
+      let cocoaField = field.cocoa()
       container = CocoaView()
       container.position(
         subviews: [cocoaLabel, cocoaField],

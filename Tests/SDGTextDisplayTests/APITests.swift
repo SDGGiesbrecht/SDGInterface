@@ -175,6 +175,7 @@ final class APITests: ApplicationTestCase {
         }
         return mutable.copy() as! NSAttributedString
       #else
+        _ = fontNameKey
         return string
       #endif
     }
@@ -566,73 +567,60 @@ final class APITests: ApplicationTestCase {
     #if canImport(AppKit) || canImport(UIKit)
       Application.shared.demonstrateTextField()
       forEachWindow { window in
-        #if canImport(AppKit)
-          let fieldEditor =
-            window.native.fieldEditor(
-              true,
-              for: window.content!.native.subviews[0]
-            )
-            as! NSTextView
-          fieldEditor.insertText("...", replacementRange: NSRange(0..<0))
-          fieldEditor.insertText(
-            NSAttributedString(string: "..."),
-            replacementRange: NSRange(0..<0)
-          )
-          fieldEditor.insertText("...", replacementRange: NSRange(0..<0))
-          fieldEditor.selectAll(nil)
-          XCTAssertFalse(
-            fieldEditor.validateMenuItem(
-              NSMenuItem(
-                title: "",
-                action: #selector(NSTextView.makeSuperscript(_:)),
-                keyEquivalent: ""
-              )
-            )
-          )
-
-          fieldEditor.paste(nil)
-          NSPasteboard.general.clearContents()
-          fieldEditor.paste(nil)
-          fieldEditor.selectAll(nil)
-          fieldEditor.copy(nil)
-          fieldEditor.paste(nil)
-          fieldEditor.selectedRange = NSRange(
-            fieldEditor.textStorage!.length..<fieldEditor.textStorage!.length
-          )
-          fieldEditor.paste(nil)
-        #endif
-
-        let textField = TextField()
-        #if canImport(UIKit)
-          (textField.cocoa().native as! UITextField).insertText("...")
-        #endif
+        _ = TextField(contents: Shared(StrictString()))
       }
       Application.shared.demonstrateLabelledTextField()
       let labelled = LabelledTextField(
         label: Label(
           UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in "" })
-        )
+        ),
+        field: TextField(contents: Shared(StrictString()))
       )
       _ = labelled.cocoa()
-      let textField = TextField()
-      #if canImport(AppKit)
-        let nsTextField = textField.cocoa().native as! NSTextField
-        _ = nsTextField.cell?.fieldEditor(for: nsTextField)
-      #endif
       let shared = Shared<StrictString>("Before")
-      textField.value = shared
+      _ = TextField(contents: shared)
       shared.value = "After"
-      #if canImport(AppKit)
-        XCTAssertEqual(nsTextField.stringValue, String(shared.value))
-        nsTextField.stringValue = "Modifed again."
-        NSApplication.shared.sendAction(
-          nsTextField.action!,
-          to: nsTextField.target,
-          from: nsTextField
-        )
-        XCTAssertEqual(shared.value, "Modifed again.")
-      #endif
+      withLegacyMode {
+        #if canImport(AppKit)
+          let field = TextField(contents: Shared("")).cocoa().native as! NSTextField
+          let fieldEditor = field.cell!.fieldEditor(for: NSView())!
+          fieldEditor.string = "..."
+          fieldEditor.selectAll(nil)
+          XCTAssertFalse(
+            fieldEditor.validateMenuItem(
+              NSMenuItem(
+                title: "...",
+                action: #selector(RichTextEditingResponder.makeSuperscript(_:)),
+                keyEquivalent: ""
+              )
+            )
+          )
+        #endif
+      }
+      withLegacyMode {
+        let shared = Shared(StrictString("abc"))
+        #if canImport(AppKit)
+          let field = TextField(contents: shared).cocoa().native as! NSTextField
+          field.stringValue = "xyz"
+          field.textDidChange(
+            Notification(
+              name: NSControl.textDidChangeNotification,
+              object: field.cell?.fieldEditor(for: NSView()),
+              userInfo: [:]
+            )
+          )
+          XCTAssertEqual(shared.value, "xyz")
+        #else
+          let field = TextField(contents: shared).cocoa().native as! UITextField
+          field.insertText("...")
+        #endif
+      }
     #endif
+    if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
+      #if canImport(SwiftUI)
+        testViewConformance(of: TextField(contents: Shared("")))
+      #endif
+    }
   }
 
   func testTextView() {
