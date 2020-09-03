@@ -20,11 +20,11 @@ import SDGControlFlow
 import SDGText
 import SDGLocalization
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+// #workaround(Swift 5.2.4, Would be a step backward on other platforms without the ability to interact properly with menus.)
+#if os(watchOS)
   @available(watchOS 6, *)
   extension Label {
 
-    @available(macOS 10.15, tvOS 13, iOS 13, *)
     internal struct SwiftUIImplementation: SwiftUI.View {
 
       // MARK: - Properties

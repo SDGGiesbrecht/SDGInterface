@@ -75,30 +75,42 @@
 
     #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       public func cocoa() -> CocoaView {
-        return useSwiftUIOrFallback(to: {
+        // #workaround(Swift 5.2.4, Would be a step backward on other platforms without the ability to interact properly with menus.)
+        #if os(watchOS)
+          return useSwiftUIOrFallback(to: {
+            return CocoaView(
+              CocoaImplementation(compatibilityText: compatibilityText, colour: colour)
+            )
+          })
+        #else
           return CocoaView(
             CocoaImplementation(compatibilityText: compatibilityText, colour: colour)
           )
-        })
+        #endif
       }
     #endif
   }
 
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  internal typealias View = SDGViews.View
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  extension Label: View {
+  // #workaround(Swift 5.2.4, Would be a step backward on other platforms without the ability to interact properly with menus.)
+  #if os(watchOS)
+    @available(watchOS 6, *)
+    internal typealias View = SDGViews.View
+    @available(watchOS 6, *)
+    extension Label: View {
 
-    // MARK: - View
+      // MARK: - View
 
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      public func swiftUI() -> some SwiftUI.View {
-        return SwiftUIImplementation(
-          compatibilityText: compatibilityText,
-          colour: SwiftUI.Color(colour),
-          localization: LocalizationSetting.current
-        )
-      }
-    #endif
-  }
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        public func swiftUI() -> some SwiftUI.View {
+          return SwiftUIImplementation(
+            compatibilityText: compatibilityText,
+            colour: SwiftUI.Color(colour),
+            localization: LocalizationSetting.current
+          )
+        }
+      #endif
+    }
+  #else
+    extension Label: CocoaViewImplementation {}
+  #endif
 #endif
