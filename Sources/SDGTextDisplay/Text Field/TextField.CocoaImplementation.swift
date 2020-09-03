@@ -99,8 +99,8 @@
 
       // MARK: - Changes
 
-      @objc private func contentsChanged() {
-        // @exempt(from: tests) tvOS cannot dispatch actions during tests.
+      @objc private func contentsChanged() {  // @exempt(from: tests)
+        // tvOS cannot dispatch actions during tests.
         if ¬contents.value.scalars.elementsEqual(cocoaContents.scalars) {
           contents.value = StrictString(cocoaContents)
         }
