@@ -18,9 +18,10 @@
   import SDGControlFlow
   import SDGText
 
+  @available(watchOS 6, *)
   extension TextField {
 
-    @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+    @available(macOS 10.15, tvOS 13, iOS 13, *)
     internal struct SwiftUIImplementation: SwiftUI.View {
 
       // MARK: - Properties
