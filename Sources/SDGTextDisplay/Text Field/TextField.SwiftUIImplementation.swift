@@ -20,7 +20,7 @@
 
   extension TextField {
 
-    @available(macOS 10.15, *)
+    @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
     internal struct SwiftUIImplementation: SwiftUI.View {
 
       // MARK: - Properties

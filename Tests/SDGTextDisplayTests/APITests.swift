@@ -584,32 +584,36 @@ final class APITests: ApplicationTestCase {
       _ = TextField(contents: shared)
       shared.value = "After"
       withLegacyMode {
-        let field = TextField(contents: Shared("")).cocoa().native as! NSTextField
-        let fieldEditor = field.cell!.fieldEditor(for: NSView())!
-        fieldEditor.string = "..."
-        fieldEditor.selectAll(nil)
-        XCTAssertFalse(
-          fieldEditor.validateMenuItem(
-            NSMenuItem(
-              title: "...",
-              action: #selector(RichTextEditingResponder.makeSuperscript(_:)),
-              keyEquivalent: ""
+        #if canImport(AppKit)
+          let field = TextField(contents: Shared("")).cocoa().native as! NSTextField
+          let fieldEditor = field.cell!.fieldEditor(for: NSView())!
+          fieldEditor.string = "..."
+          fieldEditor.selectAll(nil)
+          XCTAssertFalse(
+            fieldEditor.validateMenuItem(
+              NSMenuItem(
+                title: "...",
+                action: #selector(RichTextEditingResponder.makeSuperscript(_:)),
+                keyEquivalent: ""
+              )
             )
           )
-        )
+        #endif
       }
       withLegacyMode {
-        let shared = Shared(StrictString("abc"))
-        let field = TextField(contents: shared).cocoa().native as! NSTextField
-        field.stringValue = "xyz"
-        field.textDidChange(
-          Notification(
-            name: NSControl.textDidChangeNotification,
-            object: field.cell?.fieldEditor(for: NSView()),
-            userInfo: [:]
+        #if canImport(AppKit)
+          let shared = Shared(StrictString("abc"))
+          let field = TextField(contents: shared).cocoa().native as! NSTextField
+          field.stringValue = "xyz"
+          field.textDidChange(
+            Notification(
+              name: NSControl.textDidChangeNotification,
+              object: field.cell?.fieldEditor(for: NSView()),
+              userInfo: [:]
+            )
           )
-        )
-        XCTAssertEqual(shared.value, "xyz")
+          XCTAssertEqual(shared.value, "xyz")
+        #endif
       }
     #endif
   }
