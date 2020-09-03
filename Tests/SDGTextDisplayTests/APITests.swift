@@ -616,6 +616,11 @@ final class APITests: ApplicationTestCase {
         #endif
       }
     #endif
+    if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
+      #if canImport(SwiftUI)
+        testViewConformance(of: TextField(contents: Shared("")))
+      #endif
+    }
   }
 
   func testTextView() {
