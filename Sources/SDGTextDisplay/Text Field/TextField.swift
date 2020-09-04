@@ -52,26 +52,36 @@
 
     #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       public func cocoa() -> CocoaView {
-        return useSwiftUIOrFallback(to: {
-          return CocoaView(
-            CocoaImplementation(contents: contents)
+        // #workaround(Swift 5.2.4, Would be a step backward on other platforms without the ability to interact properly with menus.)
+        #if os(watchOS)
+          return useSwiftUIOrFallback(to: {
+            return CocoaView(
+              CocoaImplementation(contents: contents)
+            )
+          })
+        #else
+          return CocoaView(CocoaImplementation(contents: contents))
+        #endif
+      }
+    #endif
+  }
+
+  // #workaround(Swift 5.2.4, Would be a step backward on other platforms without the ability to interact properly with menus.)
+  #if os(watchOS)
+    @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+    extension TextField: View {
+
+      // MARK: - View
+
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        public func swiftUI() -> some SwiftUI.View {
+          return SwiftUIImplementation(
+            contents: contents
           )
-        })
-      }
-    #endif
-  }
-
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  extension TextField: View {
-
-    // MARK: - View
-
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      public func swiftUI() -> some SwiftUI.View {
-        return SwiftUIImplementation(
-          contents: contents
-        )
-      }
-    #endif
-  }
+        }
+      #endif
+    }
+  #else
+    extension TextField: CocoaViewImplementation {}
+  #endif
 #endif

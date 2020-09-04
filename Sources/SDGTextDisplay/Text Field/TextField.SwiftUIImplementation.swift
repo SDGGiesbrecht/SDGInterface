@@ -12,7 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+// #workaround(Swift 5.2.4, Would be a step backward on other platforms without the ability to interact properly with menus.)
+#if os(watchOS)
   import SwiftUI
 
   import SDGControlFlow

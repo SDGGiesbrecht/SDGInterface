@@ -133,7 +133,14 @@ final class APITests: ApplicationTestCase {
         colour: .black
       )
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {
-        testViewConformance(of: label)
+        let testBody: Bool
+        // #workaround(Swift 5.2.4, Would be a step backward on other platforms without the ability to interact properly with menus.)
+        #if os(watchOS)
+          testBody = true
+        #else
+          testBody = false
+        #endif
+        testViewConformance(of: label, testBody: testBody)
       }
     #endif
   }
@@ -618,7 +625,14 @@ final class APITests: ApplicationTestCase {
     #endif
     if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
       #if canImport(SwiftUI)
-        testViewConformance(of: TextField(contents: Shared("")))
+        let testBody: Bool
+        // #workaround(Swift 5.2.4, Would be a step backward on other platforms without the ability to interact properly with menus.)
+        #if os(watchOS)
+          testBody = true
+        #else
+          testBody = false
+        #endif
+        testViewConformance(of: TextField(contents: Shared("")), testBody: testBody)
       #endif
     }
   }
