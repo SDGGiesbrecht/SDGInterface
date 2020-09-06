@@ -20,14 +20,12 @@
     import UIKit
   #endif
 
-  import SDGText
   import SDGLocalization
 
-  import SDGInterfaceBasics
   import SDGViews
 
   /// A text field with a label.
-  public final class LabelledTextField<L>: CocoaViewImplementation where L: Localization {
+  public struct LabelledTextField<L>: LegacyView where L: Localization {
 
     // MARK: - Initialization
 
@@ -38,10 +36,23 @@
     ///     - field: Optional. A specific field.
     public init(label: Label<L>, field: TextField) {
       self.label = label
-      let cocoaLabel = label.cocoa()
       self.field = field
+
+    }
+
+    // MARK: - Properties
+
+    /// The label.
+    public let label: Label<L>
+    /// The field.
+    public let field: TextField
+
+    // MARK: - LegacyView
+
+    public func cocoa() -> CocoaView {
+      let container = CocoaView()
+      let cocoaLabel = label.cocoa()
       let cocoaField = field.cocoa()
-      container = CocoaView()
       container.position(
         subviews: [cocoaLabel, cocoaField],
         inSequenceAlong: .horizontal,
@@ -50,20 +61,6 @@
       )
       container.alignLastBaselines(ofSubviews: [cocoaLabel, cocoaField])
       container.fill(with: cocoaField, on: .vertical, margin: 0)
-    }
-
-    // MARK: - Properties
-
-    private let container: CocoaView
-
-    /// The label.
-    public let label: Label<L>
-    /// The field.
-    public let field: TextField
-
-    // MARK: - View
-
-    public func cocoa() -> CocoaView {
       return container.cocoa()
     }
   }
