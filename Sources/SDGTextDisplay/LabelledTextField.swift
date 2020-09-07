@@ -12,7 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
+#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+  #if canImport(SwiftUI)
+    import SwiftUI
+  #endif
   #if canImport(AppKit)
     import AppKit
   #endif
@@ -50,18 +53,31 @@
     // MARK: - LegacyView
 
     public func cocoa() -> CocoaView {
-      let container = CocoaView()
-      let cocoaLabel = label.cocoa()
-      let cocoaField = field.cocoa()
-      container.position(
-        subviews: [cocoaLabel, cocoaField],
-        inSequenceAlong: .horizontal,
-        padding: nil,
-        margin: 0
-      )
-      container.alignLastBaselines(ofSubviews: [cocoaLabel, cocoaField])
-      container.fill(with: cocoaField, on: .vertical, margin: 0)
-      return container.cocoa()
+      return useSwiftUIOrFallback(to: {
+        let container = CocoaView()
+        let cocoaLabel = label.cocoa()
+        let cocoaField = field.cocoa()
+        container.position(
+          subviews: [cocoaLabel, cocoaField],
+          inSequenceAlong: .horizontal,
+          padding: nil,
+          margin: 0
+        )
+        container.alignLastBaselines(ofSubviews: [cocoaLabel, cocoaField])
+        container.fill(with: cocoaField, on: .vertical, margin: 0)
+        return container
+      })
+    }
+  }
+
+  // MARK: - View
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  internal typealias View = SDGViews.View
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  extension LabelledTextField: View {
+
+    public func swiftUI() -> some SwiftUI.View {
+      return SwiftUI.EmptyView()
     }
   }
 #endif
