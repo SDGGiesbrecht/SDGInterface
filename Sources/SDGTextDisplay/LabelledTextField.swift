@@ -77,7 +77,10 @@
   extension LabelledTextField: View {
 
     public func swiftUI() -> some SwiftUI.View {
-      return SwiftUI.EmptyView()
+      return HStack(alignment: .firstTextBaseline) {
+        label.swiftUI().fixedSize()
+        field.swiftUI()
+      }
     }
   }
 #endif
