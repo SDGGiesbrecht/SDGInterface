@@ -28,6 +28,7 @@
   import SDGViews
 
   /// A text field with a label.
+  @available(watchOS 6, *)
   public struct LabelledTextField<L>: LegacyView where L: Localization {
 
     // MARK: - Initialization
@@ -50,6 +51,7 @@
     /// The field.
     public let field: TextField
 
+    #if !os(watchOS)
     // MARK: - LegacyView
 
     public func cocoa() -> CocoaView {
@@ -68,6 +70,7 @@
         return container
       })
     }
+    #endif
   }
 
   // MARK: - View
