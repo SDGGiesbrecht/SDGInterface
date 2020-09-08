@@ -79,11 +79,13 @@
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension LabelledTextField: View {
 
-    public func swiftUI() -> some SwiftUI.View {
-      return HStack(alignment: .firstTextBaseline) {
-        label.swiftUI().fixedSize()
-        field.swiftUI()
+    #if !(os(iOS) && arch(arm))
+      public func swiftUI() -> some SwiftUI.View {
+        return HStack(alignment: .firstTextBaseline) {
+          label.swiftUI().fixedSize()
+          field.swiftUI()
+        }
       }
-    }
+    #endif
   }
 #endif
