@@ -52,24 +52,24 @@
     public let field: TextField
 
     #if !os(watchOS)
-    // MARK: - LegacyView
+      // MARK: - LegacyView
 
-    public func cocoa() -> CocoaView {
-      return useSwiftUIOrFallback(to: {
-        let container = CocoaView()
-        let cocoaLabel = label.cocoa()
-        let cocoaField = field.cocoa()
-        container.position(
-          subviews: [cocoaLabel, cocoaField],
-          inSequenceAlong: .horizontal,
-          padding: nil,
-          margin: 0
-        )
-        container.alignLastBaselines(ofSubviews: [cocoaLabel, cocoaField])
-        container.fill(with: cocoaField, on: .vertical, margin: 0)
-        return container
-      })
-    }
+      public func cocoa() -> CocoaView {
+        return useSwiftUIOrFallback(to: {
+          let container = CocoaView()
+          let cocoaLabel = label.cocoa()
+          let cocoaField = field.cocoa()
+          container.position(
+            subviews: [cocoaLabel, cocoaField],
+            inSequenceAlong: .horizontal,
+            padding: nil,
+            margin: 0
+          )
+          container.alignLastBaselines(ofSubviews: [cocoaLabel, cocoaField])
+          container.fill(with: cocoaField, on: .vertical, margin: 0)
+          return container
+        })
+      }
     #endif
   }
 
