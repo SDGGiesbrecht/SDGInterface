@@ -25,6 +25,9 @@
 		3F06856C24886C19006891AD /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F06856B24886C19006891AD /* CheckBox.swift */; };
 		3F06856D24886C19006891AD /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F06856B24886C19006891AD /* CheckBox.swift */; };
 		3F06856E24886C19006891AD /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F06856B24886C19006891AD /* CheckBox.swift */; };
+		3F3218D92508670B00F5C218 /* LabelledProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3218D82508670B00F5C218 /* LabelledProgressBar.swift */; };
+		3F3218DA2508670B00F5C218 /* LabelledProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3218D82508670B00F5C218 /* LabelledProgressBar.swift */; };
+		3F3218DB2508670B00F5C218 /* LabelledProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3218D82508670B00F5C218 /* LabelledProgressBar.swift */; };
 		3F3406D823D50D5F001A627D /* Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3406D723D50D5F001A627D /* Padding.swift */; };
 		3F3406D923D50D5F001A627D /* Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3406D723D50D5F001A627D /* Padding.swift */; };
 		3F3406DA23D50D5F001A627D /* Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3406D723D50D5F001A627D /* Padding.swift */; };
@@ -103,6 +106,7 @@
 
 /* Begin PBXFileReference section */
 		3F06856B24886C19006891AD /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
+		3F3218D82508670B00F5C218 /* LabelledProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelledProgressBar.swift; sourceTree = "<group>"; };
 		3F3406D723D50D5F001A627D /* Padding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Padding.swift; sourceTree = "<group>"; };
 		3F73232423C82AA200B16D40 /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
 		3F7D722423501F4D00A751CE /* macOS Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "macOS Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -207,6 +211,7 @@
 				3F8565A923E8D3CA00228097 /* HorizontalStack.swift */,
 				3FBF288324998A3D00901925 /* Image.swift */,
 				3FCC6A6224F5908E0047EE31 /* Label.swift */,
+				3F3218D82508670B00F5C218 /* LabelledProgressBar.swift */,
 				3FDFDA452505B19B0018BF6C /* LabelledTextField.swift */,
 				3F9B50DF239F5B500027E8A6 /* Letterbox.swift */,
 				3F3406D723D50D5F001A627D /* Padding.swift */,
@@ -550,6 +555,7 @@
 				3F8BD33623C57B0F000931BB /* Frame.swift in Sources */,
 				3F73232523C82AA200B16D40 /* Background.swift in Sources */,
 				3F8565AA23E8D3CA00228097 /* HorizontalStack.swift in Sources */,
+				3F3218D92508670B00F5C218 /* LabelledProgressBar.swift in Sources */,
 				3FAA78E324F8B6D000DADC96 /* TextView.swift in Sources */,
 				3FA770CE24B6A29700E9E0D0 /* Table.swift in Sources */,
 				3FBF288424998A3D00901925 /* Image.swift in Sources */,
@@ -574,6 +580,7 @@
 				3F7D72D323502C8600A751CE /* main.swift in Sources */,
 				3F9F184F2491C6DA00C64CD0 /* SegmentedControl.swift in Sources */,
 				3FEC1D7F23A1AE3B008525FE /* AspectRatio.swift in Sources */,
+				3F3218DA2508670B00F5C218 /* LabelledProgressBar.swift in Sources */,
 				3F06856D24886C19006891AD /* CheckBox.swift in Sources */,
 				3F9B50E1239F5B500027E8A6 /* Letterbox.swift in Sources */,
 				3F93A38B2481AA1A00A10F0E /* Button.swift in Sources */,
@@ -604,6 +611,7 @@
 				3F7D72F923502C9900A751CE /* main.swift in Sources */,
 				3F9F18502491C6DA00C64CD0 /* SegmentedControl.swift in Sources */,
 				3FEC1D8023A1AE3B008525FE /* AspectRatio.swift in Sources */,
+				3F3218DB2508670B00F5C218 /* LabelledProgressBar.swift in Sources */,
 				3F06856E24886C19006891AD /* CheckBox.swift in Sources */,
 				3F9B50E2239F5B500027E8A6 /* Letterbox.swift in Sources */,
 				3F93A38C2481AA1A00A10F0E /* Button.swift in Sources */,
