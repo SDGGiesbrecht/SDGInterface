@@ -22,13 +22,10 @@ import SDGViews
   @available(watchOS 6, *)
   extension LegacyView {
 
-    // #workaround(Swift 5.2.4, Would be a step backward on other platforms without the ability to interact properly with menus.)
-    #if os(watchOS)
-      #if !os(watchOS)
-        internal func useSwiftUIOrFallback(to fallback: () -> CocoaView) -> CocoaView {
-          return useSwiftUIOrFallback(to: fallback, useFallbackRegardless: legacyMode)
-        }
-      #endif
+    #if !os(watchOS)
+      internal func useSwiftUIOrFallback(to fallback: () -> CocoaView) -> CocoaView {
+        return useSwiftUIOrFallback(to: fallback, useFallbackRegardless: legacyMode)
+      }
     #endif
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))

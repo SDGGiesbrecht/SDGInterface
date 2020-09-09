@@ -12,7 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
+#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+  #if canImport(SwiftUI)
+    import SwiftUI
+  #endif
   #if canImport(AppKit)
     import AppKit
   #endif
@@ -20,14 +23,13 @@
     import UIKit
   #endif
 
-  import SDGText
   import SDGLocalization
 
-  import SDGInterfaceBasics
   import SDGViews
 
   /// A text field with a label.
-  public final class LabelledTextField<L>: CocoaViewImplementation where L: Localization {
+  @available(watchOS 6, *)
+  public struct LabelledTextField<L>: LegacyView where L: Localization {
 
     // MARK: - Initialization
 
@@ -38,33 +40,52 @@
     ///     - field: Optional. A specific field.
     public init(label: Label<L>, field: TextField) {
       self.label = label
-      let cocoaLabel = label.cocoa()
       self.field = field
-      let cocoaField = field.cocoa()
-      container = CocoaView()
-      container.position(
-        subviews: [cocoaLabel, cocoaField],
-        inSequenceAlong: .horizontal,
-        padding: nil,
-        margin: 0
-      )
-      container.alignLastBaselines(ofSubviews: [cocoaLabel, cocoaField])
-      container.fill(with: cocoaField, on: .vertical, margin: 0)
+
     }
 
     // MARK: - Properties
-
-    private let container: CocoaView
 
     /// The label.
     public let label: Label<L>
     /// The field.
     public let field: TextField
 
-    // MARK: - View
+    #if !os(watchOS)
+      // MARK: - LegacyView
 
-    public func cocoa() -> CocoaView {
-      return container.cocoa()
-    }
+      public func cocoa() -> CocoaView {
+        return useSwiftUIOrFallback(to: {
+          let container = CocoaView()
+          let cocoaLabel = label.cocoa()
+          let cocoaField = field.cocoa()
+          container.position(
+            subviews: [cocoaLabel, cocoaField],
+            inSequenceAlong: .horizontal,
+            padding: nil,
+            margin: 0
+          )
+          container.alignLastBaselines(ofSubviews: [cocoaLabel, cocoaField])
+          container.fill(with: cocoaField, on: .vertical, margin: 0)
+          return container
+        })
+      }
+    #endif
+  }
+
+  // MARK: - View
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  internal typealias View = SDGViews.View
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  extension LabelledTextField: View {
+
+    #if !(os(iOS) && arch(arm))
+      public func swiftUI() -> some SwiftUI.View {
+        return HStack(alignment: .firstTextBaseline) {
+          label.swiftUI().fixedSize()
+          field.swiftUI()
+        }
+      }
+    #endif
   }
 #endif
