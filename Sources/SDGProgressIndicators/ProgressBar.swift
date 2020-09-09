@@ -25,7 +25,7 @@
   import SDGViews
 
   /// A progress bar.
-  public struct ProgressBar: CocoaViewImplementation, View {
+  public struct ProgressBar: CocoaViewImplementation {
 
     // MARK: - Initialization
 
