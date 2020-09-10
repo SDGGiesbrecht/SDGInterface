@@ -233,6 +233,7 @@ let package = Package(
     .target(
       name: "SDGProgressIndicators",
       dependencies: [
+        "SDGInterfaceLocalizations",
         "SDGInterfaceBasics",
         "SDGViews",
         "SDGTextDisplay",

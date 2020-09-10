@@ -13,6 +13,9 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
+  #if canImport(SwiftUI)
+    import SwiftUI
+  #endif
   #if canImport(AppKit)
     import AppKit
   #endif
@@ -28,7 +31,7 @@
   import SDGTextDisplay
 
   /// A progress bar with a label.
-  public final class LabelledProgressBar<L>: CocoaViewImplementation, View where L: Localization {
+  public struct LabelledProgressBar<L>: LegacyView where L: Localization {
 
     // MARK: - Initialization
 
@@ -39,34 +42,52 @@
     ///     - progressBar: A specific progress bar.
     public init(label: Label<L>, progressBar: ProgressBar) {
       self.label = label
-      let cocoaLabel = label.cocoa()
-      let constructedBar = progressBar
-      self.progressBar = constructedBar
-      let cocoaBar = constructedBar.cocoa()
-      container = CocoaView()
-      container.fill(with: cocoaLabel, on: .horizontal, margin: 0)
-      container.fill(with: cocoaBar, on: .horizontal, margin: 0)
-      container.position(
-        subviews: [cocoaLabel, cocoaBar],
-        inSequenceAlong: .vertical,
-        padding: nil,
-        margin: 0
-      )
+      self.progressBar = progressBar
     }
 
     // MARK: - Properties
-
-    private let container: CocoaView
 
     /// The label.
     public let label: Label<L>
     /// The progress bar.
     public let progressBar: ProgressBar
 
-    // MARK: - View
+    #if !os(watchOS)
+      // MARK: - LegacyView
 
-    public func cocoa() -> CocoaView {
-      return container.cocoa()
-    }
+      public func cocoa() -> CocoaView {
+        return useSwiftUIOrFallback(to: {
+          let cocoaLabel = label.cocoa()
+          let cocoaBar = progressBar.cocoa()
+
+          let container = CocoaView()
+          container.fill(with: cocoaLabel, on: .horizontal, margin: 0)
+          container.fill(with: cocoaBar, on: .horizontal, margin: 0)
+          container.position(
+            subviews: [cocoaLabel, cocoaBar],
+            inSequenceAlong: .vertical,
+            padding: nil,
+            margin: 0
+          )
+          return container.cocoa()
+        })
+      }
+    #endif
+  }
+
+  // MARK: - View
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  internal typealias View = SDGViews.View
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  extension LabelledProgressBar: View {
+
+    #if !(os(iOS) && arch(arm))
+      public func swiftUI() -> some SwiftUI.View {
+        return VStack(alignment: .leading) {
+          label.swiftUI()
+          progressBar.swiftUI()
+        }
+      }
+    #endif
   }
 #endif
