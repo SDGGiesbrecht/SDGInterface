@@ -40,7 +40,7 @@
     /// - Parameters:
     ///     - label: The label.
     ///     - progressBar: A specific progress bar.
-    public init(label: Label<L>, progressBar: ProgressBar) {
+    public init(label: SDGTextDisplay.Label<L>, progressBar: ProgressBar) {
       self.label = label
       self.progressBar = progressBar
     }
@@ -48,7 +48,7 @@
     // MARK: - Properties
 
     /// The label.
-    public let label: Label<L>
+    public let label: SDGTextDisplay.Label<L>
     /// The progress bar.
     public let progressBar: ProgressBar
 

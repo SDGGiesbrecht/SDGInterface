@@ -67,7 +67,7 @@ final class APITests: ApplicationTestCase {
   func testColour() {
     #if canImport(SwiftUI) || canImport(AppKit) || (canImport(UIKit) && !(os(iOS) && arch(arm)))
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {
-        _ = testViewConformance(of: Colour.red, testBody: false)
+        testViewConformance(of: Colour.red, testBody: false)
       }
     #endif
   }
