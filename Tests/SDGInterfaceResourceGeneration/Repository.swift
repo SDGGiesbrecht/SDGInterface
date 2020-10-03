@@ -14,7 +14,7 @@
 
 import Foundation
 
-let repositoryRoot = URL(fileURLWithPath: #file).deletingLastPathComponent()
+let repositoryRoot = URL(fileURLWithPath: #filePath).deletingLastPathComponent()
   .deletingLastPathComponent().deletingLastPathComponent()
 
 let resourcesDirectory = repositoryRoot.appendingPathComponent("Resources")

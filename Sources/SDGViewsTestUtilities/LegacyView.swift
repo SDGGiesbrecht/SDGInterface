@@ -33,7 +33,7 @@ import SDGTesting
   @available(watchOS 6, *)
   public func testLegacyViewConformance<T>(
     of view: T,
-    file: StaticString = #file,
+    file: StaticString = #filePath,
     line: UInt = #line
   ) where T: LegacyView {
 

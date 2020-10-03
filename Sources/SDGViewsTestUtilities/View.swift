@@ -27,7 +27,7 @@ import SDGTesting
   private func testSDGViewsViewConformance<T>(
     of view: T,
     testBody: Bool = true,
-    file: StaticString = #file,
+    file: StaticString = #filePath,
     line: UInt = #line
   ) where T: SDGViews.View {
 
@@ -53,7 +53,7 @@ import SDGTesting
   public func testViewConformance<T>(
     of view: T,
     testBody: Bool = true,
-    file: StaticString = #file,
+    file: StaticString = #filePath,
     line: UInt = #line
   ) where T: SDGViews.View {
     testSDGViewsViewConformance(of: view, testBody: testBody, file: file, line: line)
@@ -63,7 +63,7 @@ import SDGTesting
     public func testViewConformance<T>(
       of view: T,
       testBody: Bool = true,
-      file: StaticString = #file,
+      file: StaticString = #filePath,
       line: UInt = #line
     ) where T: SDGViews.View, T: SwiftUI.View {
       testSDGViewsViewConformance(of: view, testBody: testBody, file: file, line: line)
@@ -77,7 +77,7 @@ import SDGTesting
   private func testSwiftUIViewConformance<T>(
     of view: T,
     testBody: Bool = true,
-    file: StaticString = #file,
+    file: StaticString = #filePath,
     line: UInt = #line
   ) where T: SwiftUI.View {
     if testBody {
@@ -97,7 +97,7 @@ import SDGTesting
   public func testViewConformance<T>(
     of view: T,
     testBody: Bool = true,
-    file: StaticString = #file,
+    file: StaticString = #filePath,
     line: UInt = #line
   ) where T: SwiftUI.View {
     testSwiftUIViewConformance(of: view, testBody: testBody, file: file, line: line)
