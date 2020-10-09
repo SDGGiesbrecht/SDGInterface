@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-// #workaround(Swift 5.2.4, Web doesn’t have Foundation yet.)
+// #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
 #if !os(WASI)
   import Foundation
 #endif
@@ -179,7 +179,7 @@ public protocol SystemMediator {
   ///     - handoff: The handoff activity.
   func preprocess(handoff: Handoff)
 
-  // #workaround(Swift 5.2.4, Web doesn’t have Foundation yet.)
+  // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
   #if !os(WASI)
     /// Called by some systems as the remote notification registration finishes.
     ///
@@ -204,7 +204,7 @@ public protocol SystemMediator {
     details: RemoteNotificationDetails
   ) -> FetchResult
 
-  // #workaround(Swift 5.2.4, Web doesn’t have Foundation yet.)
+  // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
   #if !os(WASI)
     /// Called by some systems to request that one or more files be opened.
     ///
@@ -226,7 +226,7 @@ public protocol SystemMediator {
   /// - Returns: Whether or not a file should be created.
   func shouldCreateNewBlankFile() -> Bool
 
-  // #workaround(Swift 5.2.4, Web doesn’t have Foundation yet.)
+  // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
   #if !os(WASI)
     /// Called by some systems to request that a file be printed.
     ///
@@ -236,7 +236,7 @@ public protocol SystemMediator {
     func print(files: [URL], details: PrintingDetails) -> PrintingResponse
   #endif
 
-  // #workaround(Swift 5.2.4, Web doesn’t have Foundation yet.)
+  // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
   #if !os(WASI)
     /// Called by some systems to ask whether to encode a restorable state.
     ///
@@ -378,7 +378,7 @@ extension SystemMediator {
   }
   public func preprocess(handoff: Handoff) {}
 
-  // #workaround(Swift 5.2.4, Web doesn’t have Foundation yet.)
+  // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
   #if !os(WASI)
     public func finishRegistrationForRemoteNotifications(deviceToken: Data) {
       #if DEBUG
@@ -400,7 +400,7 @@ extension SystemMediator {
     return .noData
   }
 
-  // #workaround(Swift 5.2.4, Web doesn’t have Foundation yet.)
+  // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
   #if !os(WASI)
     public func open(files: [URL], details: OpeningDetails) -> Bool {
       #if DEBUG
@@ -418,7 +418,7 @@ extension SystemMediator {
     return true
   }
 
-  // #workaround(Swift 5.2.4, Web doesn’t have Foundation yet.)
+  // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
   #if !os(WASI)
     public func print(files: [URL], details: PrintingDetails) -> PrintingResponse {
       #if DEBUG

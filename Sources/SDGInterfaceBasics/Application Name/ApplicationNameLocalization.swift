@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-// #workaround(Swift 5.2.4, Web doesn’t have Foundation yet.)
+// #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
 #if !os(WASI)
   import Foundation
 #endif
@@ -34,7 +34,7 @@ public struct ApplicationNameLocalization: Localization {
     if let defined = _correspondingIsolatedName {
       return defined
     } else {
-      // #workaround(Swift 5.2.4, Web doesn’t have Foundation yet.)
+      // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
       #if os(WASI)
         return ""
       #else
@@ -53,7 +53,7 @@ public struct ApplicationNameLocalization: Localization {
   // MARK: - Localization
 
   public init?(exactly code: String) {
-    // #workaround(Swift 5.2.4, Web doesn’t have Foundation yet.)
+    // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
     #if os(WASI)
       return nil
     #else
