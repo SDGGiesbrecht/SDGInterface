@@ -13,7 +13,7 @@
  */
 
 #if !os(Windows)  // #workaround(Swift 5.2.4, Causes linker error.)
-  // #workaround(Swift 5.2.4, Web doesn’t have Foundation yet.)
+  // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
   #if !os(WASI)
     import Foundation
 

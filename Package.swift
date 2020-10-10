@@ -632,13 +632,13 @@ let package = Package(
 
 if ProcessInfo.processInfo.environment["TARGETING_WEB"] == "true" {
   for target in package.targets {
-    // #workaround(Swift 5.2.4, Web lacks Foundation.)
+    // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
     target.exclude.append("Resources.swift")
   }
 }
 
 if ProcessInfo.processInfo.environment["TARGETING_WATCHOS"] == "true" {
-  // #workaround(xcodebuild -version 11.6, Test targets don’t work on watchOS.) @exempt(from: unicode)
+  // #workaround(xcodebuild -version 12.0.1, Test targets don’t work on watchOS.) @exempt(from: unicode)
   package.targets.removeAll(where: { $0.isTest })
 }
 
