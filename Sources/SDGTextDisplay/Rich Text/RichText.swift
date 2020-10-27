@@ -127,7 +127,7 @@
         return _segments
       }
       set {
-        // #workaround(Swift 5.2.4, Declaration may not be in a Comdat!)
+        // #workaround(Swift 5.3, Declaration may not be in a Comdat!)
         #if !os(Windows)
           cache = Cache()
         #endif
@@ -159,7 +159,7 @@
       }
     }
 
-    // #workaround(Swift 5.2.4, Declaration may not be in a Comdat!)
+    // #workaround(Swift 5.3, Declaration may not be in a Comdat!)
     #if !os(Windows)
       private class Cache {
         fileprivate init() {}
@@ -183,7 +183,7 @@
         }
         return string
       }
-      // #workaround(Swift 5.2.4, Declaration may not be in a Comdat!)
+      // #workaround(Swift 5.3, Declaration may not be in a Comdat!)
       #if os(Windows)
         return closure()
       #else
@@ -202,7 +202,7 @@
         }
         return string
       }
-      // #workaround(Swift 5.2.4, Declaration may not be in a Comdat!)
+      // #workaround(Swift 5.3, Declaration may not be in a Comdat!)
       #if os(Windows)
         return closure()
       #else
@@ -220,7 +220,7 @@
         }
         return mutable.copy() as! NSAttributedString
       }
-      // #workaround(Swift 5.2.4, Declaration may not be in a Comdat!)
+      // #workaround(Swift 5.3, Declaration may not be in a Comdat!)
       #if os(Windows)
         return closure()
       #else
