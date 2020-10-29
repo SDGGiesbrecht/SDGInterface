@@ -35,9 +35,7 @@ public struct ContextMenu {
       var entries: [MenuComponent] = [
         .entry(ContextMenu._normalizeText())
       ]
-      if #available(iOS 9, *) {  // @exempt(from: unicode)
-        entries.append(.entry(ContextMenu._showCharacterInformation()))
-      }
+      entries.append(.entry(ContextMenu._showCharacterInformation()))
       menu = Menu(
         label: UserFacing<StrictString, InterfaceLocalization>(
           { localization in  // @exempt(from: tests) Unreachable on iOS.

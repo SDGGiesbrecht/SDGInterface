@@ -42,7 +42,6 @@
       )
     }
 
-    @available(iOS 9, *)  // @exempt(from: unicode)
     public static func _showCharacterInformation() -> MenuEntry<InterfaceLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, InterfaceLocalization>({ localization in

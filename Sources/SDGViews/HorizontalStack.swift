@@ -25,7 +25,7 @@
   import SDGInterfaceBasics
 
   /// A shimmed version of `SwiftUI.HStack` with relaxed availability constraints.
-  @available(iOS 9, watchOS 6, *)
+  @available(watchOS 6, *)
   public struct HorizontalStack<Entry>: LegacyView where Entry: LegacyView {
 
     // MARK: - Initialization

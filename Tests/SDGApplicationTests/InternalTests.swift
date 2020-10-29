@@ -206,13 +206,11 @@ final class InternalTests: ApplicationTestCase {
         )
         delegate.application(UIApplication.shared, didUpdate: NSUserActivity(activityType: " "))
         #if !os(tvOS)
-          if #available(iOS 9, *) {  // @exempt(from: unicode)
-            delegate.application(
-              UIApplication.shared,
-              performActionFor: UIApplicationShortcutItem(type: "", localizedTitle: ""),
-              completionHandler: { _ in }
-            )
-          }
+          delegate.application(
+            UIApplication.shared,
+            performActionFor: UIApplicationShortcutItem(type: "", localizedTitle: ""),
+            completionHandler: { _ in }
+          )
         #endif
         delegate.application(
           UIApplication.shared,

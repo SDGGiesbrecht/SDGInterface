@@ -47,16 +47,10 @@
             self.target = self
             self.action = #selector(Button.CocoaImplementation.triggerAction)
           #else
-            let event: UIControl.Event
-            if #available(iOS 9, *) {
-              event = .primaryActionTriggered
-            } else {  // @exempt(from: tests)
-              event = .touchUpInside
-            }
             self.addTarget(
               self,
               action: #selector(triggerAction),
-              for: event
+              for: .primaryActionTriggered
             )
           #endif
         }

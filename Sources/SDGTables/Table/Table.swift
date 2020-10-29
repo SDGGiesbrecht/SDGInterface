@@ -25,7 +25,6 @@
   import SDGViews
 
   /// A table.
-  @available(iOS 9, *)  // @exempt(from: unicode)
   public struct Table<RowData>: CocoaViewImplementation, View {
 
     // MARK: - Initialization

@@ -26,7 +26,6 @@
 
   import SDGViews
 
-  @available(iOS 9, *)
   extension Table {
 
     #if canImport(AppKit)

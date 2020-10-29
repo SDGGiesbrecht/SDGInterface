@@ -17,7 +17,6 @@
 
   import SDGViews
 
-  @available(iOS 9, *)
   extension Table.CocoaImplementation {
 
     internal class Cell: UIKit.UITableViewCell {
