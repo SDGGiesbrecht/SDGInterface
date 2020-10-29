@@ -126,9 +126,7 @@
         #selector(RichTextEditingResponder.makeSubscript(_:)),
         #selector(RichTextEditingResponder.resetBaseline(_:)),
       ]
-      if #available(iOS 9, *) {  // @exempt(from: unicode)
-        result.insert(#selector(TextDisplayResponder.showCharacterInformation(_:)))
-      }
+      result.insert(#selector(TextDisplayResponder.showCharacterInformation(_:)))
       #if canImport(AppKit)
         result ∪= [
           #selector(RichTextEditingResponder.resetCasing(_:)),
@@ -294,7 +292,6 @@
 
     // MARK: - TextDisplayResponder
 
-    @available(iOS 9, *)  // @exempt(from: unicode)
     @objc public func showCharacterInformation(_ sender: Any?) {
       let possibleString: NSAttributedString?
       #if canImport(AppKit)

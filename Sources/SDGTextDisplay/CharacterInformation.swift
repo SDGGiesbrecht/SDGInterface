@@ -49,7 +49,6 @@
     ///     - origin: The view and selection the characters originate from. If provided, the information will be shown in a pop‐up view instead of a separate window.
     ///     - view: The view the characters originate from.
     ///     - selection: The rectangle the characters originate from.
-    @available(iOS 9, *)  // @exempt(from: unicode)
     public static func display(
       for characters: String,
       origin: (view: CocoaView, selection: Rectangle?)?

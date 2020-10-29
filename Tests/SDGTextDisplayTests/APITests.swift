@@ -96,21 +96,19 @@ final class APITests: ApplicationTestCase {
 
   func testCharacterInformation() {
     #if canImport(AppKit) || canImport(UIKit)
-      if #available(iOS 9, *) {  // @exempt(from: unicode)
-        CharacterInformation.display(for: "abc", origin: nil)
-        let view = CocoaView()
-        let window = Window(
-          type: .primary(nil),
-          name: UserFacing<StrictString, AnyLocalization>({ _ in "..." }),
-          content: view.cocoa()
-        )
-        window.display()
-        CharacterInformation.display(for: "abc", origin: (view, nil))
-        CharacterInformation.display(
-          for: "\u{22}\u{AA}b\u{E7}\u{22}",
-          origin: (view, Rectangle(origin: Point(0, 0), size: Size(width: 0, height: 0)))
-        )
-      }
+      CharacterInformation.display(for: "abc", origin: nil)
+      let view = CocoaView()
+      let window = Window(
+        type: .primary(nil),
+        name: UserFacing<StrictString, AnyLocalization>({ _ in "..." }),
+        content: view.cocoa()
+      )
+      window.display()
+      CharacterInformation.display(for: "abc", origin: (view, nil))
+      CharacterInformation.display(
+        for: "\u{22}\u{AA}b\u{E7}\u{22}",
+        origin: (view, Rectangle(origin: Point(0, 0), size: Size(width: 0, height: 0)))
+      )
     #endif
   }
 
@@ -393,9 +391,7 @@ final class APITests: ApplicationTestCase {
         name: UserFacing<StrictString, AnyLocalization>({ _ in "..." }),
         content: CocoaView(textView)
       ).cocoa()
-      if #available(iOS 9, *) {  // @exempt(from: unicode)
-        textView.showCharacterInformation(nil)
-      }
+      textView.showCharacterInformation(nil)
 
       #if canImport(AppKit)
         let compatibilityTextView = NSTextView(frame: CGRect.zero)
@@ -410,9 +406,7 @@ final class APITests: ApplicationTestCase {
         name: UserFacing<StrictString, AnyLocalization>({ _ in "..." }),
         content: CocoaView(compatibilityTextView)
       ).cocoa()
-      if #available(iOS 9, *) {  // @exempt(from: unicode)
-        compatibilityTextView.showCharacterInformation(nil)
-      }
+      compatibilityTextView.showCharacterInformation(nil)
 
       textView.selectAll(nil)
       textView.normalizeText(nil)
@@ -501,14 +495,12 @@ final class APITests: ApplicationTestCase {
       #if canImport(UIKit)
         textView.insertText("...")
         textView.selectAll(nil)
-        if #available(iOS 9, *) {  // @exempt(from: unicode)
-          XCTAssert(
-            textView.canPerformAction(
-              #selector(TextDisplayResponder.showCharacterInformation(_:)),
-              withSender: nil
-            )
+        XCTAssert(
+          textView.canPerformAction(
+            #selector(TextDisplayResponder.showCharacterInformation(_:)),
+            withSender: nil
           )
-        }
+        )
         #if os(tvOS)
           XCTAssertFalse(
             textView.canPerformAction(
@@ -546,14 +538,12 @@ final class APITests: ApplicationTestCase {
           )
         )
         textView.text = ""
-        if #available(iOS 9, *) {  // @exempt(from: unicode)
-          XCTAssertFalse(
-            textView.canPerformAction(
-              #selector(TextDisplayResponder.showCharacterInformation(_:)),
-              withSender: nil
-            )
+        XCTAssertFalse(
+          textView.canPerformAction(
+            #selector(TextDisplayResponder.showCharacterInformation(_:)),
+            withSender: nil
           )
-        }
+        )
       #endif
       #if canImport(AppKit)
         _ = textView.menu
@@ -656,9 +646,7 @@ final class APITests: ApplicationTestCase {
         name: UserFacing<StrictString, AnyLocalization>({ _ in "..." }),
         content: CocoaView(cocoaTextView)
       ).cocoa()
-      if #available(iOS 9, *) {  // @exempt(from: unicode)
-        cocoaTextView.showCharacterInformation(nil)
-      }
+      cocoaTextView.showCharacterInformation(nil)
       cocoaTextView.makeSuperscript(nil)
       cocoaTextView.makeSubscript(nil)
       cocoaTextView.resetBaseline(nil)
@@ -671,14 +659,12 @@ final class APITests: ApplicationTestCase {
           )
         )
         cocoaTextView.selectedRange = NSRange(location: NSNotFound, length: NSNotFound)
-        if #available(iOS 9, *) {
-          XCTAssertFalse(
-            cocoaTextView.canPerformAction(
-              #selector(TextDisplayResponder.showCharacterInformation),
-              withSender: nil
-            )
+        XCTAssertFalse(
+          cocoaTextView.canPerformAction(
+            #selector(TextDisplayResponder.showCharacterInformation),
+            withSender: nil
           )
-        }
+        )
         XCTAssertTrue(
           cocoaTextView.canPerformAction(#selector(UITextView.selectAll(_:)), withSender: nil)
         )

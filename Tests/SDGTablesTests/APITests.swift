@@ -34,43 +34,41 @@ final class APITests: ApplicationTestCase {
 
   func testTable() {
     #if canImport(AppKit) || canImport(UIKit)
-      if #available(iOS 9, *) {
-        let data = Shared([0])
-        let table = Table<Int>(
-          data: data,
-          columns: [
-            { integer in
-              let view = CocoaView()
-              view.fill(
-                with: Label<InterfaceLocalization>(UserFacing({ _ in "\(integer.inDigits())" }))
-                  .cocoa()
-              )
-              return AnyView(view)
-            }
-          ],
-          sort: { $0 < $1 }
-        )
-        let cocoa = table.cocoa()
+      let data = Shared([0])
+      let table = Table<Int>(
+        data: data,
+        columns: [
+          { integer in
+            let view = CocoaView()
+            view.fill(
+              with: Label<InterfaceLocalization>(UserFacing({ _ in "\(integer.inDigits())" }))
+                .cocoa()
+            )
+            return AnyView(view)
+          }
+        ],
+        sort: { $0 < $1 }
+      )
+      let cocoa = table.cocoa()
+      data.value = [2, 1]
+      let window = Window(
+        type: .primary(nil),
+        name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+        content: cocoa
+      )
+      window.display()
+      #if canImport(UIKit)
         data.value = [2, 1]
-        let window = Window(
-          type: .primary(nil),
-          name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
-          content: cocoa
+        let uiTableView = table.cocoa().native as! UITableView
+        uiTableView.dataSource?.tableView(
+          uiTableView,
+          cellForRowAt: IndexPath(row: 0, section: 0)
         )
-        window.display()
-        #if canImport(UIKit)
-          data.value = [2, 1]
-          let uiTableView = table.cocoa().native as! UITableView
-          uiTableView.dataSource?.tableView(
-            uiTableView,
-            cellForRowAt: IndexPath(row: 0, section: 0)
-          )
-          uiTableView.dataSource?.tableView(
-            uiTableView,
-            cellForRowAt: IndexPath(row: 0, section: 0)
-          )
-        #endif
-      }
+        uiTableView.dataSource?.tableView(
+          uiTableView,
+          cellForRowAt: IndexPath(row: 0, section: 0)
+        )
+      #endif
     #endif
   }
 }
