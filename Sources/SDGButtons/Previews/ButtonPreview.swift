@@ -47,4 +47,10 @@
       }
     }
   }
+
+  struct Button_Previews: PreviewProvider {
+    static var previews: some SwiftUI.View {
+      return ButtonPreviews()
+    }
+  }
 #endif

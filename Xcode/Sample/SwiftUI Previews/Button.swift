@@ -16,8 +16,4 @@ import SwiftUI
 
 @testable import SDGButtons
 
-struct Button_Previews: PreviewProvider {
-  static var previews: some SwiftUI.View {
-    return ButtonPreviews()
-  }
-}
+#warning("Remove.")
