@@ -24,7 +24,7 @@
 
     func testTablePreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-        testViewConformance(of: TablePreviews())
+        testViewConformance(of: TablePreviews.previews)
       }
     }
   }

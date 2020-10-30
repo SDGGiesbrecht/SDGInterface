@@ -20,9 +20,8 @@
   import SDGInterfaceBasics
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  internal struct FramePreviews: SwiftUI.View {
-
-    internal var body: some SwiftUI.View {
+  internal struct FramePreviews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
 
       func circle(radius: CGFloat) -> SwiftUI.AnyView {
         let diameter = radius × 2
@@ -81,13 +80,6 @@
           name: "(≤ ∞) × (≤ ∞), no internal frame"
         )
       }
-    }
-  }
-
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  internal struct Frame_Previews: PreviewProvider {
-    internal static var previews: some SwiftUI.View {
-      return FramePreviews()
     }
   }
 #endif

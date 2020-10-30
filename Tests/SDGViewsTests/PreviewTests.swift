@@ -24,37 +24,37 @@
 
     func testAspectRatioPreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-        testViewConformance(of: AspectRatioPreviews())
+        testViewConformance(of: AspectRatioPreviews.previews)
       }
     }
 
     func testBackgroundPreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-        testViewConformance(of: BackgroundPreviews())
+        testViewConformance(of: BackgroundPreviews.previews)
       }
     }
 
     func testFramePreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-        testViewConformance(of: FramePreviews())
+        testViewConformance(of: FramePreviews.previews)
       }
     }
 
     func testHorizontalStackPreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-        testViewConformance(of: HorizontalStackPreviews())
+        testViewConformance(of: HorizontalStackPreviews.previews)
       }
     }
 
     func testLetterboxPreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-        testViewConformance(of: LetterboxPreviews())
+        testViewConformance(of: LetterboxPreviews.previews)
       }
     }
 
     func testPaddingPreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-        testViewConformance(of: PaddingPreviews())
+        testViewConformance(of: PaddingPreviews.previews)
       }
     }
   }

@@ -18,9 +18,8 @@
   import SDGMathematics
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  internal struct AspectRatioPreviews: SwiftUI.View {
-
-    internal var body: some SwiftUI.View {
+  internal struct AspectRatioPreviews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
 
       let circle = SwiftUI.AnyView(
         Ellipse()
@@ -61,13 +60,6 @@
           name: "(1 ÷ 2) + .fit"
         )
       }
-    }
-  }
-
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  internal struct AspectRatio_Previews: PreviewProvider {
-    internal static var previews: some SwiftUI.View {
-      return AspectRatioPreviews()
     }
   }
 #endif

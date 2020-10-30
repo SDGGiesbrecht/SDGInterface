@@ -18,9 +18,8 @@
   import SDGViews
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  internal struct ImagePreviews: SwiftUI.View {
-
-    internal var body: some SwiftUI.View {
+  internal struct ImagePreviews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
 
       let image: SDGImageDisplay.Image
       #if os(macOS)
@@ -38,13 +37,6 @@
           name: "Image"
         )
       }
-    }
-  }
-
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  internal struct Image_Previews: PreviewProvider {
-    internal static var previews: some SwiftUI.View {
-      return ImagePreviews()
     }
   }
 #endif

@@ -18,9 +18,8 @@
   import SDGInterfaceBasics
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  internal struct PaddingPreviews: SwiftUI.View {
-
-    internal var body: some SwiftUI.View {
+  internal struct PaddingPreviews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
 
       func square() -> SwiftUI.AnyView {
         return SwiftUI.AnyView(
@@ -48,13 +47,6 @@
           name: "Horizontal, 16"
         )
       }
-    }
-  }
-
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  internal struct Padding_Previews: PreviewProvider {
-    internal static var previews: some SwiftUI.View {
-      return PaddingPreviews()
     }
   }
 #endif

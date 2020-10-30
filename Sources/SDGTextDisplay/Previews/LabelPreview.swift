@@ -23,11 +23,10 @@
   import SDGInterfaceLocalizations
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  internal struct LabelPreviews: SwiftUI.View {
+  internal struct LabelPreviews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
 
-    internal var body: some SwiftUI.View {
-
-      return Group {
+      Group {
 
         previewBothModes(
           Label(
@@ -58,13 +57,6 @@
           name: "Red"
         )
       }
-    }
-  }
-
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  internal struct Label_Previews: PreviewProvider {
-    internal static var previews: some SwiftUI.View {
-      return LabelPreviews()
     }
   }
 #endif

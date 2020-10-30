@@ -16,9 +16,8 @@
   import SwiftUI
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  internal struct HorizontalStackPreviews: SwiftUI.View {
-
-    internal var body: some SwiftUI.View {
+  internal struct HorizontalStackPreviews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
 
       func circle(colour: Color, big: Bool = false) -> SDGViews.AnyView {
         let diameter: CGFloat = big ? 32 : 16
@@ -67,13 +66,6 @@
           name: "Bottom"
         )
       }
-    }
-  }
-
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  internal struct HorizontalStack_Previews: PreviewProvider {
-    internal static var previews: some SwiftUI.View {
-      return HorizontalStackPreviews()
     }
   }
 #endif

@@ -30,7 +30,7 @@
       for localization in InterfaceLocalization.allCases {
         LocalizationSetting(orderOfPrecedence: [localization.code]).do {
           if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-            testViewConformance(of: LabelledTextFieldPreviews())
+            testViewConformance(of: LabelledTextFieldPreviews.previews)
           }
         }
       }
@@ -40,7 +40,7 @@
       for localization in InterfaceLocalization.allCases {
         LocalizationSetting(orderOfPrecedence: [localization.code]).do {
           if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-            testViewConformance(of: LabelPreviews())
+            testViewConformance(of: LabelPreviews.previews)
           }
         }
       }
@@ -50,7 +50,7 @@
       for localization in InterfaceLocalization.allCases {
         LocalizationSetting(orderOfPrecedence: [localization.code]).do {
           if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-            testViewConformance(of: TextViewPreviews())
+            testViewConformance(of: TextViewPreviews.previews)
           }
         }
       }
