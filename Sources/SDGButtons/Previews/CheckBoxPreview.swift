@@ -48,4 +48,10 @@
       }
     }
   }
+
+  struct CheckBox_Previews: PreviewProvider {
+    static var previews: some SwiftUI.View {
+      return CheckBoxPreviews()
+    }
+  }
 #endif
