@@ -15,9 +15,3 @@
 import SwiftUI
 
 @testable import SDGProgressIndicators
-
-struct LabelledProgressBar_Previews: PreviewProvider {
-  static var previews: some SwiftUI.View {
-    return LabelledProgressBarPreviews()
-  }
-}
