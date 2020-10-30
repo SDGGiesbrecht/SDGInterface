@@ -103,4 +103,10 @@
       }
     }
   }
+
+  struct SegmentedControl_Previews: PreviewProvider {
+    static var previews: some SwiftUI.View {
+      return SegmentedControlPreviews()
+    }
+  }
 #endif
