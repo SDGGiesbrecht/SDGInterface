@@ -24,13 +24,13 @@
 
     func testLabelledProgressBarPreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-        testViewConformance(of: LabelledProgressBarPreviews.previews)
+        _ = LabelledProgressBarPreviews.previews
       }
     }
 
     func testProgressBarPreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-        testViewConformance(of: ProgressBarPreviews.previews)
+        _ = ProgressBarPreviews.previews
       }
     }
   }
