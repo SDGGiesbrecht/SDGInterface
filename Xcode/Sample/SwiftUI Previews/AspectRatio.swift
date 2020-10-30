@@ -15,9 +15,3 @@
 import SwiftUI
 
 @testable import SDGViews
-
-struct AspectRatio_Previews: PreviewProvider {
-  static var previews: some SwiftUI.View {
-    return AspectRatioPreviews()
-  }
-}

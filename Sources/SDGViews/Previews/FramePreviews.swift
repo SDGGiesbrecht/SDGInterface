@@ -83,4 +83,10 @@
       }
     }
   }
+
+  struct Frame_Previews: PreviewProvider {
+    static var previews: some SwiftUI.View {
+      return FramePreviews()
+    }
+  }
 #endif

@@ -60,4 +60,10 @@
       }
     }
   }
+
+  struct Label_Previews: PreviewProvider {
+    static var previews: some SwiftUI.View {
+      return LabelPreviews()
+    }
+  }
 #endif

@@ -15,9 +15,3 @@
 import SwiftUI
 
 @testable import SDGTextDisplay
-
-struct TextView_Previews: PreviewProvider {
-  static var previews: some SwiftUI.View {
-    return TextViewPreviews()
-  }
-}

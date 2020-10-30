@@ -47,4 +47,10 @@
       }
     }
   }
+
+  struct Letterbox_Previews: PreviewProvider {
+    static var previews: some SwiftUI.View {
+      return LetterboxPreviews()
+    }
+  }
 #endif

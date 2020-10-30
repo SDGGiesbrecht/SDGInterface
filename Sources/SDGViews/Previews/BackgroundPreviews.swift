@@ -96,4 +96,10 @@
       }
     }
   }
+
+  struct Background_Previews: PreviewProvider {
+    static var previews: some SwiftUI.View {
+      return BackgroundPreviews()
+    }
+  }
 #endif

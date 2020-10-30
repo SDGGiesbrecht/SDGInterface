@@ -63,4 +63,10 @@
       }
     }
   }
+
+  struct AspectRatio_Previews: PreviewProvider {
+    static var previews: some SwiftUI.View {
+      return AspectRatioPreviews()
+    }
+  }
 #endif

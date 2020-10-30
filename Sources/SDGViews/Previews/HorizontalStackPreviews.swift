@@ -20,7 +20,7 @@
 
     internal var body: some SwiftUI.View {
 
-      func circle(colour: Color, big: Bool = false) -> AnyView {
+      func circle(colour: Color, big: Bool = false) -> SDGViews.AnyView {
         let diameter: CGFloat = big ? 32 : 16
         return AnyView(
           SwiftUI.AnyView(
@@ -67,6 +67,12 @@
           name: "Bottom"
         )
       }
+    }
+  }
+
+  struct HorizontalStack_Previews: PreviewProvider {
+    static var previews: some SwiftUI.View {
+      return HorizontalStackPreviews()
     }
   }
 #endif

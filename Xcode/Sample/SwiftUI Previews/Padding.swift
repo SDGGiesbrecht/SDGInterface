@@ -15,9 +15,3 @@
 import SwiftUI
 
 @testable import SDGViews
-
-struct Padding_Previews: PreviewProvider {
-  static var previews: some SwiftUI.View {
-    return PaddingPreviews()
-  }
-}
