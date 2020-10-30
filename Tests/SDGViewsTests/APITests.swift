@@ -230,5 +230,15 @@ final class APITests: ApplicationTestCase {
         testViewConformance(of: SwiftUIExample())
       }
     #endif
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        struct SomeView: SwiftUI.View {
+          var body: some SwiftUI.View {
+            return SwiftUI.EmptyView()
+          }
+        }
+        testViewConformance(of: SomeView())
+      }
+    #endif
   }
 }
