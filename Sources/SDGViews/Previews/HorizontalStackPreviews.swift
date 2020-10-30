@@ -70,6 +70,7 @@
     }
   }
 
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   struct HorizontalStack_Previews: PreviewProvider {
     static var previews: some SwiftUI.View {
       return HorizontalStackPreviews()
