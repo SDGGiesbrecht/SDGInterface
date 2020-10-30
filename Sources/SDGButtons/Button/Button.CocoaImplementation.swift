@@ -67,6 +67,8 @@
         #elseif canImport(UIKit)
           titleLabel?.font = UIFont.from(Font.forLabels)
         #endif
+
+        setContentHuggingPriority(.required, for: .horizontal)
       }
 
       internal required init?(coder decoder: NSCoder) {  // @exempt(from: tests)

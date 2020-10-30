@@ -13,7 +13,7 @@
  */
 
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-  import SwiftUI
+import SwiftUI
 
   import SDGText
   import SDGLocalization
