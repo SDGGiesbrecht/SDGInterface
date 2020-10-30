@@ -15,9 +15,3 @@
 import SwiftUI
 
 @testable import SDGTables
-
-struct Table_Previews: PreviewProvider {
-  static var previews: some SwiftUI.View {
-    return TablePreviews()
-  }
-}
