@@ -44,8 +44,8 @@
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  struct Table_Previews: PreviewProvider {
-    static var previews: some SwiftUI.View {
+  internal struct Table_Previews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
       return TablePreviews()
     }
   }

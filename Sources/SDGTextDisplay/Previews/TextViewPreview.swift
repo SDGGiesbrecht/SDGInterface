@@ -53,8 +53,8 @@
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  struct TextView_Previews: PreviewProvider {
-    static var previews: some SwiftUI.View {
+  internal struct TextView_Previews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
       return TextViewPreviews()
     }
   }
