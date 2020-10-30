@@ -22,7 +22,7 @@
 
     internal var body: some SwiftUI.View {
 
-      let image: Image
+      let image: SDGImageDisplay.Image
       #if os(macOS)
         image = .goRight
       #else
@@ -38,6 +38,12 @@
           name: "Image"
         )
       }
+    }
+  }
+
+  struct Image_Previews: PreviewProvider {
+    static var previews: some SwiftUI.View {
+      return ImagePreviews()
     }
   }
 #endif

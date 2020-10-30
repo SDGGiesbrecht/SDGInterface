@@ -15,9 +15,3 @@
 import SwiftUI
 
 @testable import SDGImageDisplay
-
-struct Image_Previews: PreviewProvider {
-  static var previews: some SwiftUI.View {
-    return ImagePreviews()
-  }
-}

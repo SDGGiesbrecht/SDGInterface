@@ -132,6 +132,8 @@
               for: .vertical
             )
           #endif
+          view.setContentHuggingPriority(.required, for: .horizontal)
+          view.setContentHuggingPriority(.required, for: .vertical)
           return CocoaView(view)
         })
       }
