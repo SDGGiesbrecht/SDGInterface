@@ -37,4 +37,10 @@
       }
     }
   }
+
+  struct ProgressBar_Previews: PreviewProvider {
+    static var previews: some SwiftUI.View {
+      return ProgressBarPreviews()
+    }
+  }
 #endif
