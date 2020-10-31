@@ -24,9 +24,8 @@
   import SDGInterfaceLocalizations
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  internal struct SegmentedControlPreviews: SwiftUI.View {
-
-    internal var body: some SwiftUI.View {
+  internal struct SegmentedControlPreviews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
 
       enum Direction: CaseIterable {
         case left

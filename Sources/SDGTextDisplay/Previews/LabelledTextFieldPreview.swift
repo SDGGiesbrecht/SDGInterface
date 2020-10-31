@@ -22,11 +22,10 @@
   import SDGInterfaceLocalizations
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  internal struct LabelledTextFieldPreviews: SwiftUI.View {
+  internal struct LabelledTextFieldPreviews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
 
-    internal var body: some SwiftUI.View {
-
-      return Group {
+      Group {
 
         previewBothModes(
           LabelledTextField(

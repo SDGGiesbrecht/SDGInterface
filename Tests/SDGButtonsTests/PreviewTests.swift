@@ -30,7 +30,7 @@
       for localization in InterfaceLocalization.allCases {
         LocalizationSetting(orderOfPrecedence: [localization.code]).do {
           if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-            testViewConformance(of: ButtonPreviews())
+            _ = ButtonPreviews.previews
           }
         }
       }
@@ -41,7 +41,7 @@
         LocalizationSetting(orderOfPrecedence: [localization.code]).do {
           if #available(macOS 10.15, iOS 13, watchOS 6, *) {
             #if !(os(tvOS) || os(iOS))
-              testViewConformance(of: CheckBoxPreviews())
+              _ = CheckBoxPreviews.previews
             #endif
           }
         }
@@ -52,7 +52,7 @@
       for localization in InterfaceLocalization.allCases {
         LocalizationSetting(orderOfPrecedence: [localization.code]).do {
           if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-            testViewConformance(of: SegmentedControlPreviews())
+            _ = SegmentedControlPreviews.previews
           }
         }
       }

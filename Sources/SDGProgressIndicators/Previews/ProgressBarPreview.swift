@@ -21,12 +21,11 @@
 
   import SDGInterfaceLocalizations
 
-  @available(macOS 10.15, tvOS 13, iOS 13, *)
-  internal struct ProgressBarPreviews: SwiftUI.View {
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  internal struct ProgressBarPreviews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
+      Group {
 
-    internal var body: some SwiftUI.View {
-
-      return Group {
         ProgressBar(range: Shared(0...10), value: Shared(5))
           .swiftUI()
           .previewDisplayName("Half")

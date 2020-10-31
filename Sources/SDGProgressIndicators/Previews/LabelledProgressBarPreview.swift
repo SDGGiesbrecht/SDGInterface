@@ -23,11 +23,10 @@
   import SDGTextDisplay
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  internal struct LabelledProgressBarPreviews: SwiftUI.View {
+  internal struct LabelledProgressBarPreviews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
 
-    internal var body: some SwiftUI.View {
-
-      return Group {
+      Group {
 
         previewBothModes(
           LabelledProgressBar(

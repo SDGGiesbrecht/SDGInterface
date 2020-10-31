@@ -18,11 +18,10 @@
   import SDGViews
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  internal struct ImagePreviews: SwiftUI.View {
+  internal struct ImagePreviews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
 
-    internal var body: some SwiftUI.View {
-
-      let image: Image
+      let image: SDGImageDisplay.Image
       #if os(macOS)
         image = .goRight
       #else

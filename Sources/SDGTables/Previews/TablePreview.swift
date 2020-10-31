@@ -19,12 +19,11 @@
 
   import SDGViews
 
-  @available(macOS 10.15, tvOS 13, iOS 13, *)
-  internal struct TablePreviews: SwiftUI.View {
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  internal struct TablePreviews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
 
-    internal var body: some SwiftUI.View {
-
-      return Group {
+      Group {
         Table(
           data: Shared<[(String, String)]>([
             ("3", "III"),

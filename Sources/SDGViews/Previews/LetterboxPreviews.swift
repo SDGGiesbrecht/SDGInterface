@@ -16,9 +16,8 @@
   import SwiftUI
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  internal struct LetterboxPreviews: SwiftUI.View {
-
-    internal var body: some SwiftUI.View {
+  internal struct LetterboxPreviews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
 
       func letterbox() -> SwiftUI.AnyView {
         return SwiftUI.AnyView(

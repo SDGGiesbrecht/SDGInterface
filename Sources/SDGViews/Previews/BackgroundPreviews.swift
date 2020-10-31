@@ -20,9 +20,8 @@
   import SDGInterfaceBasics
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  internal struct BackgroundPreviews: SwiftUI.View {
-
-    internal var body: some SwiftUI.View {
+  internal struct BackgroundPreviews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
 
       func circle(radius: CGFloat) -> SwiftUI.AnyView {
         let diameter = radius × 2

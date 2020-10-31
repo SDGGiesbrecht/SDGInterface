@@ -24,11 +24,10 @@
   import SDGInterfaceLocalizations
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  internal struct TextViewPreviews: SwiftUI.View {
+  internal struct TextViewPreviews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
 
-    internal var body: some SwiftUI.View {
-
-      return Group {
+      Group {
 
         previewBothModes(
           TextView(

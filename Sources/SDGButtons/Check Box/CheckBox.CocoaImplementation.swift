@@ -48,6 +48,9 @@
         lineBreakMode = .byTruncatingTail
 
         font = NSFont.from(Font.forLabels)
+
+        setContentHuggingPriority(.required, for: .horizontal)
+        setContentHuggingPriority(.required, for: .vertical)
       }
 
       internal required init?(coder: NSCoder) {  // @exempt(from: tests)
