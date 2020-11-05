@@ -28,94 +28,75 @@ import SDGLogic
 import SDGContextMenu
 import SDGMenuBar
 
-/// The application.
-public final class Application {
+/// A type that represents an application.
+///
+/// Create an application by declaring a structure that conforms to the `Application` protocol.
+public protocol Application {
 
-  // MARK: - Static Properties
+  /// Creates an application.
+  init()
 
-  /// The application.
-  public static let shared: Application = Application()
+  #warning("Integrate this? (Wasn’t public anyway.)")
+  func systemMediator() -> SystemMediator
 
-  // MARK: - Initialization
+  #warning("Integrate this?")
+  /// Returns the object which manages the application’s preferences.
+  func preferenceManager() -> PreferenceManager?
+}
 
-  private init() {
-    #if canImport(AppKit)
-      cocoaDelegate = NSApplicationDelegate()
-    #elseif canImport(UIKit) && !os(watchOS)
-      cocoaDelegate = UIApplicationDelegate()
-    #endif
-  }
-
-  // MARK: - Properties
-
-  #if canImport(AppKit)
-    private var cocoaDelegate: NSApplicationDelegate
-  #elseif canImport(UIKit) && !os(watchOS)
-    private var cocoaDelegate: UIApplicationDelegate
-  #endif
-
-  internal var systemMediator: SystemMediator?
-
-  /// An object which manages the application’s preferences.
-  public var preferenceManager: PreferenceManager?
+extension Application {
 
   // MARK: - Launching
 
-  /// Preforms the same preparatory actions taken by `main(mediator:)`, but without triggering the system’s main loop.
-  ///
-  /// This method can set up a portion of the application when helpful for tests, but it should only be called once. Do not call it separately before `main(mediator)`.
-  ///
-  /// - Parameters:
-  ///     - mediator: An object which will mediate between the application and system events.
-  private class func prepareForMain(mediator: SystemMediator) {
-    Application.shared.systemMediator = mediator
+  @discardableResult private static func prepareForMain() -> Self {
+    let application = Self()
     #if canImport(AppKit)
-      NSApplication.shared.delegate = shared.cocoaDelegate
+      NSApplication.shared.delegate = application.cocoaDelegate()
     #endif
+    return application
   }
 
   #if !os(watchOS)
     // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
     #if !os(WASI)
-      /// Starts the application’s main run loop.
-      ///
-      /// - Parameters:
-      ///     - mediator: An object which will mediate between the application and system events.
-      public class func main(mediator: SystemMediator) -> Never {  // @exempt(from: tests)
-        prepareForMain(mediator: mediator)
-        #if canImport(AppKit)
-          exit(NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv))
-        #elseif canImport(UIKit)
-          exit(
-            UIApplicationMain(
-              CommandLine.argc,
-              CommandLine.unsafeArgv,
-              nil,
-              NSStringFromClass(UIApplicationDelegate.self)
+      /// Initializes and runs the application.
+      public static func main() -> Never {  // @exempt(from: tests)
+        let application = prepareForMain()
+        withExtendedLifetime(application) {
+          #if canImport(AppKit)
+            exit(NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv))
+          #elseif canImport(UIKit)
+            exit(
+              UIApplicationMain(
+                CommandLine.argc,
+                CommandLine.unsafeArgv,
+                nil,
+                NSStringFromClass(UIApplicationDelegate.self)
+              )
             )
-          )
-        #else
-          while true {
-            RunLoop.current.run()
-          }
-        #endif
+          #else
+            while true {
+              RunLoop.current.run()
+            }
+          #endif
+        }
       }
     #endif
   #endif
 
-  internal class func postLaunchSetUp() {
+  internal func performPostLaunchSetUp() {
     #if canImport(UIKit) && !os(tvOS) && !os(watchOS)
       UIMenuController.shared.menuItems = ContextMenu().cocoa()
       UIMenuController.shared.update()
     #endif
 
     #if canImport(AppKit)
-      let menuBar = Application.shared.systemMediator?.menuBar.cocoa()
+      let menuBar = systemMediator().menuBar.cocoa()
       NSApplication.shared.mainMenu = menuBar
       NSApplication.shared.servicesMenu =
-        menuBar?.items.first?.submenu?.items.first(where: { $0.submenu ≠ nil })?.submenu
-      NSApplication.shared.windowsMenu = menuBar?.items.dropLast().last?.submenu
-      NSApplication.shared.helpMenu = menuBar?.items.last?.submenu
+        menuBar.items.first?.submenu?.items.first(where: { $0.submenu ≠ nil })?.submenu
+      NSApplication.shared.windowsMenu = menuBar.items.dropLast().last?.submenu
+      NSApplication.shared.helpMenu = menuBar.items.last?.submenu
     #endif
 
     #if canImport(AppKit)
@@ -123,16 +104,26 @@ public final class Application {
     #endif
   }
 
-  /// Preforms the same preparatory actions taken by `main(mediator:)`, but without triggering the system’s main loop.
+  /// Preforms the same preparatory actions taken by `main()`, but without triggering the system’s main loop.
   ///
-  /// This method can set up a portion of the application when helpful for tests, but it should only be called once. Do not call it separately before `main(mediator:)`.
-  ///
-  /// - Parameters:
-  ///     - mediator: An object which will mediate between the application and system events.
-  public class func setUpWithoutMain(mediator: SystemMediator) {
-    prepareForMain(mediator: mediator)
+  /// This method can set up a portion of the application when helpful for tests, but it should only be called once. Do not call it separately before `main()`.
+  public static func setUpWithoutMain() {
+    let application = prepareForMain()
+    let mediator = application.systemMediator()
     _ = mediator.prepareToLaunch(LaunchDetails())
-    postLaunchSetUp()
+    application.performPostLaunchSetUp()
     _ = mediator.finishLaunching(LaunchDetails())
   }
+
+  // MARK: - Cocoa
+
+  #if canImport(AppKit)
+    private func cocoaDelegate() -> NSApplicationDelegate {
+      return NSApplicationDelegate(self)
+    }
+  #elseif canImport(UIKit) && !os(watchOS)
+    private func cocoaDelegate() -> UIApplicationDelegate {
+      return UIApplicationDelegate(self)
+    }
+  #endif
 }
