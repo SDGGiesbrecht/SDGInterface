@@ -1,5 +1,5 @@
 /*
- SystemMediator.swift
+ SystemInterface.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -20,8 +20,8 @@
 import SDGMenus
 import SDGMenuBar
 
-/// An object which mediates between the application and system events.
-public protocol SystemMediator {
+/// An interface for interaction with the operating system.
+public protocol SystemInterface {
 
   /// Called by some systems before the application launches.
   ///
@@ -315,7 +315,7 @@ public protocol SystemMediator {
   func shouldAllowExtension(details: ExtensionDetails) -> Bool
 }
 
-extension SystemMediator {
+extension SystemInterface {
 
   public func prepareToLaunch(_ details: LaunchDetails) -> Bool {
     return true

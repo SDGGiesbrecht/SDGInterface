@@ -31,13 +31,10 @@ import SDGMenuBar
 /// A type that represents an application.
 ///
 /// Create an application by declaring a structure that conforms to the `Application` protocol.
-public protocol Application {
+public protocol Application: SystemInterface {
 
   /// Creates an application.
   init()
-
-  #warning("Integrate this? (Wasn’t public anyway.)")
-  func systemMediator() -> SystemMediator
 
   #warning("Integrate this?")
   /// Returns the object which manages the application’s preferences.
@@ -91,7 +88,7 @@ extension Application {
     #endif
 
     #if canImport(AppKit)
-      let menuBar = systemMediator().menuBar.cocoa()
+      let menuBar = self.menuBar.cocoa()
       NSApplication.shared.mainMenu = menuBar
       NSApplication.shared.servicesMenu =
         menuBar.items.first?.submenu?.items.first(where: { $0.submenu ≠ nil })?.submenu
@@ -109,10 +106,9 @@ extension Application {
   /// This method can set up a portion of the application when helpful for tests, but it should only be called once. Do not call it separately before `main()`.
   public static func setUpWithoutMain() {
     let application = prepareForMain()
-    let mediator = application.systemMediator()
-    _ = mediator.prepareToLaunch(LaunchDetails())
+    _ = application.prepareToLaunch(LaunchDetails())
     application.performPostLaunchSetUp()
-    _ = mediator.finishLaunching(LaunchDetails())
+    _ = application.finishLaunching(LaunchDetails())
   }
 
   // MARK: - Cocoa
