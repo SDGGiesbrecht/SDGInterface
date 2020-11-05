@@ -14,7 +14,7 @@
 
 import SDGApplication
 
-internal class PreferenceManager: SDGApplication.PreferenceManager {
+internal struct PreferenceManager: SDGApplication.PreferenceManager {
   internal func openPreferences() {
     print("Opening preferences...")
   }

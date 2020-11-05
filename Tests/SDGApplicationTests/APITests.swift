@@ -46,7 +46,7 @@ final class APITests: ApplicationTestCase {
 
   func testDemonstrations() {
     #if canImport(AppKit)
-      Application.shared.demonstrateFullscreenWindow()
+      MenuBarTarget.shared.demonstrateFullscreenWindow()
     #endif
   }
 

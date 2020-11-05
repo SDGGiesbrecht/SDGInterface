@@ -61,6 +61,13 @@ final class InternalTests: ApplicationTestCase {
   func testNSApplicationDelegate() {
     struct Error: Swift.Error {}
     struct TestApplication: Application {
+      init() {
+        self.init(preferenceManager: nil)
+      }
+      init(preferenceManager: PreferenceManager?) {
+        self.preferenceManager = preferenceManager
+      }
+      let preferenceManager: PreferenceManager?
       var applicationName: ProcessInfo.ApplicationNameResolver {
         return { _ in "Test Application" }
       }
@@ -68,8 +75,13 @@ final class InternalTests: ApplicationTestCase {
         return true
       }
     }
+    struct TestPreferenceManager: PreferenceManager {
+      func openPreferences() {}
+    }
     #if canImport(AppKit)
-      let delegate = SDGApplication.NSApplicationDelegate(application: TestApplication())
+      var delegate = SDGApplication.NSApplicationDelegate(
+        application: TestApplication(preferenceManager: TestPreferenceManager())
+      )
       func testSystemInteraction() {
         let notification = Notification(name: Notification.Name(""))
         delegate.applicationWillFinishLaunching(notification)
@@ -130,14 +142,11 @@ final class InternalTests: ApplicationTestCase {
           )
         )
       }
-      let mediator = Application.shared.systemMediator
-      Application.shared.systemMediator = nil
-      testSystemInteraction()
-      Application.shared.systemMediator = mediator
       testSystemInteraction()
 
-      let preferenceManager = Application.shared.preferenceManager
-      Application.shared.preferenceManager = nil
+      delegate = SDGApplication.NSApplicationDelegate(
+        application: TestApplication(preferenceManager: nil)
+      )
       XCTAssertFalse(
         delegate.validateMenuItem(
           NSMenuItem(
@@ -147,7 +156,9 @@ final class InternalTests: ApplicationTestCase {
           )
         )
       )
-      Application.shared.preferenceManager = preferenceManager
+      delegate = SDGApplication.NSApplicationDelegate(
+        application: TestApplication(preferenceManager: TestPreferenceManager())
+      )
       XCTAssert(
         delegate.validateMenuItem(
           NSMenuItem(
