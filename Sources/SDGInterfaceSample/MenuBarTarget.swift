@@ -24,6 +24,7 @@ import SDGTextDisplay
 import SDGImageDisplay
 import SDGButtons
 import SDGWindows
+import SDGErrorMessages
 
 @objc public class MenuBarTarget: NSObject {
 

@@ -85,6 +85,40 @@ internal struct SampleApplication: SDGApplication.Application {
 
 extension SampleApplication {
 
+  #if !os(watchOS)
+    // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
+    #if !os(WASI)
+      public static func setUpAndMain() -> Never {  // @exempt(from: tests)
+        #warning("This example needs to be moved.")
+        // @example(main)
+        SampleApplication.main()
+        // @endExample
+      }
+    #endif
+  #endif
+
+  internal func setSamplesUp() {
+    setMenuUp()
+  }
+
+  #warning("This probably doesn’t belong here.")
+  private func setMenuUp() {
+    #if canImport(UIKit) && !os(tvOS) && !os(watchOS)
+      let editor = TextEditor(contents: Shared(RichText()))
+      let window = Window(
+        type: .primary(nil),
+        name: ApplicationNameForm.localizedIsolatedForm,
+        content: editor.cocoa()
+      )
+      if ProcessInfo.processInfo
+        .environment["XCTestConfigurationFilePath"] == nil
+      {  // #exempt(from: tests)
+        // This call fails during tests.
+        window.display()
+      }
+    #endif
+  }
+
   // MARK: - Application
 
   internal var preferenceManager: SDGApplication.PreferenceManager? {
