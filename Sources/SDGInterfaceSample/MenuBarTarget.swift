@@ -28,7 +28,7 @@ import SDGErrorMessages
 
 @objc public class MenuBarTarget: NSObject {
 
-  internal static let shared = MenuBarTarget()
+  public static let shared = MenuBarTarget()
 
   #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
     private func demonstrate<Content, L>(_ window: Window<Content, L>) {

@@ -34,11 +34,7 @@
         ApplicationTestCase.launch
       }
       private static let launch: Void = {
-        let mediator = getSystemMediator()
-        Application.setUpWithoutMain(mediator: mediator)
-        #if canImport(AppKit) || canImport(UIKit)
-          _ = mediator.finishLaunching(LaunchDetails())
-        #endif
+        SDGInterfaceSample.setUpForTests()
       }()
 
       open override func tearDown() {

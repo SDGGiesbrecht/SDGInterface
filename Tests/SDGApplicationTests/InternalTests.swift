@@ -60,8 +60,16 @@ final class InternalTests: ApplicationTestCase {
 
   func testNSApplicationDelegate() {
     struct Error: Swift.Error {}
+    struct TestApplication: Application {
+      var applicationName: ProcessInfo.ApplicationNameResolver {
+        return { _ in "Test Application" }
+      }
+      func finishLaunching(_ details: LaunchDetails) -> Bool {
+        return true
+      }
+    }
     #if canImport(AppKit)
-      let delegate = SDGApplication.NSApplicationDelegate()
+      let delegate = SDGApplication.NSApplicationDelegate(application: TestApplication())
       func testSystemInteraction() {
         let notification = Notification(name: Notification.Name(""))
         delegate.applicationWillFinishLaunching(notification)

@@ -115,11 +115,14 @@ extension Application {
   /// Preforms the same preparatory actions taken by `main()`, but without triggering the system’s main loop.
   ///
   /// This method can set up a portion of the application when helpful for tests, but it should only be called once. Do not call it separately before `main()`.
-  public static func setUpWithoutMain() {
+  ///
+  /// - Returns: The application instance that was set‐up.
+  public static func setUpWithoutMain() -> Self {
     let application = prepareForMain()
     _ = application.prepareToLaunch(LaunchDetails())
     application.performPostLaunchSetUp()
     _ = application.finishLaunching(LaunchDetails())
+    return application
   }
 
   // MARK: - Cocoa

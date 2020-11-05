@@ -139,3 +139,10 @@ extension SampleApplication {
     return true
   }
 }
+
+public func setUpForTests() {
+  let application = SampleApplication.setUpWithoutMain()
+  #if canImport(AppKit) || canImport(UIKit)
+    _ = application.finishLaunching(LaunchDetails())
+  #endif
+}
