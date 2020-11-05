@@ -36,8 +36,7 @@ public protocol Application: SystemInterface {
   /// Creates an application.
   init()
 
-  #warning("Integrate this?")
-  /// Returns the object which manages the application’s preferences.
+  /// Returns a preference manager for the application.
   func preferenceManager() -> PreferenceManager?
 }
 
