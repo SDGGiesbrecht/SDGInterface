@@ -208,7 +208,7 @@
     ) {
       var details = RemoteNotificationDetails()
       details.userInformation = userInfo
-      self.application.acceptRemoteNotification(
+      _ = self.application.acceptRemoteNotification(
         details: details
       )
     }
@@ -217,7 +217,7 @@
       var details = OpeningDetails()
       details.withoutUserInterface = false
       details.asTemporaryFile = false
-      self.application.open(
+      _ = self.application.open(
         files: urls,
         details: details
       )

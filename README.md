@@ -34,19 +34,32 @@ SDGInterface provides tools for implementing a graphical user interface.
 ### Example Usage
 
 ```swift
+import SDGText
+import SDGLocalization
+
+import SDGTextDisplay
+import SDGWindows
 import SDGApplication
 
-internal class SystemMediator: SDGApplication.SystemMediator {
+#warning("Rename file?")
+internal struct SampleApplication: SDGApplication.Application {
 
   internal func finishLaunching(_ details: LaunchDetails) -> Bool {
-    Application.setSamplesUp()
+    let helloWorld = UserFacing<StrictString, AnyLocalization>({ _ in "Hello, world!" })
+    Window(
+      type: .auxiliary(nil),
+      name: helloWorld,
+      content: Label(helloWorld)
+    ).display()
+    #warning("Should be moved below? Is this important for tests?")
+    // Application.setSamplesUp()
     return true
   }
 }
 ```
 
 ```swift
-Application.main(mediator: SystemMediator())
+SampleApplication.main()
 ```
 
 ## Importing

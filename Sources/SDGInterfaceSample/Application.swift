@@ -42,57 +42,10 @@ import SDGApplication
 #warning("Moved to other file?")
 extension SampleApplication {
 
-  public static func setUp() {
-    // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
-    #if !os(WASI)
-      ProcessInfo.applicationName = { form in
-        switch form {
-        case .english(let region):
-          switch region {
-          case .unitedKingdom, .unitedStates, .canada:
-            return "Sample"
-          }
-        case .español(let preposición):
-          switch preposición {
-          case .ninguna:
-            return "Ejemplar"
-          case .de:
-            return "del Ejemplar"
-          }
-        case .deutsch(let fall):
-          switch fall {
-          case .nominativ, .akkusativ, .dativ:
-            return "Beispiel"
-          }
-        case .français(let préposition):
-          switch préposition {
-          case .aucune:
-            return "Exemple"
-          case .de:
-            return "de l’Exemple"
-          }
-
-        case .ελληνικά(let πτώση):
-          switch πτώση {
-          case .ονομαστική:
-            return "Παράδειγμα"
-          case .αιτιατική:
-            return "το Παράδειγμα"
-          case .γενική:
-            return "του Παραδείγματος"
-          }
-        case .עברית:
-          return "דוגמה"
-        }
-      }
-    #endif
-  }
-
   #if !os(watchOS)
     // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
     #if !os(WASI)
       public static func setUpAndMain() -> Never {  // @exempt(from: tests)
-        setUp()
         #warning("This example needs to be moved.")
         // @example(main)
         SampleApplication.main()

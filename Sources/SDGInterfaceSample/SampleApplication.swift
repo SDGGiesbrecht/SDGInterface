@@ -15,6 +15,8 @@
 import SDGMenuBar
 
 // @example(application)
+import Foundation
+
 import SDGText
 import SDGLocalization
 
@@ -22,8 +24,50 @@ import SDGTextDisplay
 import SDGWindows
 import SDGApplication
 
-#warning("Rename file?")
 internal struct SampleApplication: SDGApplication.Application {
+
+  internal var applicationName: ProcessInfo.ApplicationNameResolver {
+    return { form in
+      switch form {
+      case .english(let region):
+        switch region {
+        case .unitedKingdom, .unitedStates, .canada:
+          return "Sample"
+        }
+      case .español(let preposición):
+        switch preposición {
+        case .ninguna:
+          return "Ejemplar"
+        case .de:
+          return "del Ejemplar"
+        }
+      case .deutsch(let fall):
+        switch fall {
+        case .nominativ, .akkusativ, .dativ:
+          return "Beispiel"
+        }
+      case .français(let préposition):
+        switch préposition {
+        case .aucune:
+          return "Exemple"
+        case .de:
+          return "de l’Exemple"
+        }
+
+      case .ελληνικά(let πτώση):
+        switch πτώση {
+        case .ονομαστική:
+          return "Παράδειγμα"
+        case .αιτιατική:
+          return "το Παράδειγμα"
+        case .γενική:
+          return "του Παραδείγματος"
+        }
+      case .עברית:
+        return "דוגמה"
+      }
+    }
+  }
 
   internal func finishLaunching(_ details: LaunchDetails) -> Bool {
     let helloWorld = UserFacing<StrictString, AnyLocalization>({ _ in "Hello, world!" })

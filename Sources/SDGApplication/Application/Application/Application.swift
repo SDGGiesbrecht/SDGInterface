@@ -25,6 +25,7 @@
 
 import SDGLogic
 
+import SDGInterfaceBasics
 import SDGContextMenu
 import SDGMenuBar
 
@@ -35,6 +36,9 @@ public protocol Application: SystemInterface {
 
   /// Creates an application.
   init()
+
+  /// A closure which produces the declined application name suitable for use in various gramatical contexts.
+  var applicationName: ProcessInfo.ApplicationNameResolver { get }
 
   /// The type that manages the application’s preferences.
   var preferenceManager: PreferenceManager? { get }
@@ -50,6 +54,10 @@ extension Application {
 
   @discardableResult private static func prepareForMain() -> Self {
     let application = Self()
+    // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
+    #if !os(WASI)
+      ProcessInfo.applicationName = application.applicationName
+    #endif
     #if canImport(AppKit)
       NSApplication.shared.delegate = application.cocoaDelegate()
     #endif
