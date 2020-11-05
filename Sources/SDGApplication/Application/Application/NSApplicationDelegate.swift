@@ -19,14 +19,24 @@
 
   import SDGMenuBar
 
-  internal class NSApplicationDelegate: NSObject, AppKit.NSApplicationDelegate,
+  internal class NSApplicationDelegate<Application>: NSObject, AppKit.NSApplicationDelegate,
     _NSApplicationDelegateProtocol, NSMenuItemValidation
-  {
+  where Application: SDGApplication.Application {
+
+    // MARK: - Initialization
+
+    internal init(application: Application) {
+      self.application = application
+    }
+
+    // MARK: - Properties
+
+    private let application: Application
 
     // MARK: - Top Responder
 
     @objc internal func openPreferences(_ sender: Any?) {
-      Application.shared.preferenceManager?.openPreferences()
+      application.preferenceManager?.openPreferences()
     }
 
     // MARK: - NSApplicationDelegate
@@ -36,123 +46,123 @@
       system.foundation = notification
       var details = LaunchDetails()
       details.notification = system
-      _ = Application.shared.systemMediator?.prepareToLaunch(details)
+      _ = application.prepareToLaunch(details)
     }
 
     internal func applicationDidFinishLaunching(_ notification: Notification) {
 
-      Application.postLaunchSetUp()
+      application.performPostLaunchSetUp()
 
       var system = SystemNotification()
       system.foundation = notification
       var details = LaunchDetails()
       details.notification = system
-      _ = Application.shared.systemMediator?.finishLaunching(details)
+      _ = application.finishLaunching(details)
     }
 
     internal func applicationWillBecomeActive(_ notification: Notification) {
       var system = SystemNotification()
       system.foundation = notification
-      Application.shared.systemMediator?.prepareToAcquireFocus(system)
+      application.prepareToAcquireFocus(system)
     }
 
     internal func applicationDidBecomeActive(_ notification: Notification) {
       var system = SystemNotification()
       system.foundation = notification
-      Application.shared.systemMediator?.finishAcquiringFocus(system)
+      application.finishAcquiringFocus(system)
     }
 
     internal func applicationWillResignActive(_ notification: Notification) {
       var system = SystemNotification()
       system.foundation = notification
-      Application.shared.systemMediator?.prepareToResignFocus(system)
+      application.prepareToResignFocus(system)
     }
 
     internal func applicationDidResignActive(_ notification: Notification) {
       var system = SystemNotification()
       system.foundation = notification
-      Application.shared.systemMediator?.finishResigningFocus(system)
+      application.finishResigningFocus(system)
     }
 
     internal func applicationShouldTerminate(
       _ sender: NSApplication
     ) -> NSApplication.TerminateReply {
-      return (Application.shared.systemMediator?.terminate() ?? .now).cocoa
+      return application.terminate().cocoa
     }
 
     internal func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-      return ¬(Application.shared.systemMediator?.remainsRunningWithNoWindows ?? false)
+      return ¬application.remainsRunningWithNoWindows
     }
 
     internal func applicationWillTerminate(_ notification: Notification) {
       var system = SystemNotification()
       system.foundation = notification
-      Application.shared.systemMediator?.prepareToTerminate(system)
+      application.prepareToTerminate(system)
     }
 
     internal func applicationWillHide(_ notification: Notification) {
       var system = SystemNotification()
       system.foundation = notification
-      Application.shared.systemMediator?.prepareToHide(system)
+      application.prepareToHide(system)
     }
 
     internal func applicationDidHide(_ notification: Notification) {
       var system = SystemNotification()
       system.foundation = notification
-      Application.shared.systemMediator?.finishHiding(system)
+      application.finishHiding(system)
     }
 
     internal func applicationWillUnhide(_ notification: Notification) {
       var system = SystemNotification()
       system.foundation = notification
-      Application.shared.systemMediator?.prepareToUnhide(system)
+      application.prepareToUnhide(system)
     }
 
     internal func applicationDidUnhide(_ notification: Notification) {
       var system = SystemNotification()
       system.foundation = notification
-      Application.shared.systemMediator?.finishUnhiding(system)
+      application.finishUnhiding(system)
     }
 
     internal func applicationWillUpdate(_ notification: Notification) {
       var system = SystemNotification()
       system.foundation = notification
-      Application.shared.systemMediator?.prepareToUpdateInterface(system)
+      application.prepareToUpdateInterface(system)
     }
 
     internal func applicationDidUpdate(_ notification: Notification) {
       var system = SystemNotification()
       system.foundation = notification
-      Application.shared.systemMediator?.finishUpdatingInterface(system)
+      application.finishUpdatingInterface(system)
     }
 
     internal func applicationShouldHandleReopen(
       _ sender: NSApplication,
       hasVisibleWindows flag: Bool
     ) -> Bool {
-      return ¬(Application.shared.systemMediator?.reopen(hasVisibleWindows: flag) ?? false)
+      return ¬application.reopen(hasVisibleWindows: flag)
     }
 
     internal func applicationDockMenu(_ sender: NSApplication) -> NSMenu? {
-      return Application.shared.systemMediator?.dockMenu?.cocoa()
+      return application.dockMenu?.cocoa()
     }
 
     internal func application(_ application: NSApplication, willPresentError error: Error) -> Error
     {
-      return Application.shared.systemMediator?.preprocessErrorForDisplay(error) ?? error
+      return self.application.preprocessErrorForDisplay(error)
     }
 
     internal func applicationDidChangeScreenParameters(_ notification: Notification) {
       var system = SystemNotification()
       system.foundation = notification
-      Application.shared.systemMediator?.updateAccordingToScreenChange(system)
+      application.updateAccordingToScreenChange(system)
     }
 
     internal func application(
       _ application: NSApplication,
       willContinueUserActivityWithType userActivityType: String
     ) -> Bool {
-      return Application.shared.systemMediator?.notifyHandoffBegan(userActivityType) ?? false
+      return self.application.notifyHandoffBegan(userActivityType)
     }
 
     internal func application(
@@ -164,21 +174,21 @@
       handoff.activity = userActivity
       var details = HandoffAcceptanceDetails()
       details.restorationHandler = restorationHandler
-      return Application.shared.systemMediator?.accept(handoff: handoff, details: details) ?? false
+      return self.application.accept(handoff: handoff, details: details)
     }
 
     internal func application(_ application: NSApplication, didUpdate userActivity: NSUserActivity)
     {
       var handoff = Handoff()
       handoff.activity = userActivity
-      Application.shared.systemMediator?.preprocess(handoff: handoff)
+      self.application.preprocess(handoff: handoff)
     }
 
     internal func application(
       _ application: NSApplication,
       didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
     ) {
-      Application.shared.systemMediator?.finishRegistrationForRemoteNotifications(
+      self.application.finishRegistrationForRemoteNotifications(
         deviceToken: deviceToken
       )
     }
@@ -187,7 +197,7 @@
       _ application: NSApplication,
       didFailToRegisterForRemoteNotificationsWithError error: Error
     ) {
-      Application.shared.systemMediator?.reportFailedRegistrationForRemoteNotifications(
+      self.application.reportFailedRegistrationForRemoteNotifications(
         error: error
       )
     }
@@ -198,7 +208,7 @@
     ) {
       var details = RemoteNotificationDetails()
       details.userInformation = userInfo
-      _ = Application.shared.systemMediator?.acceptRemoteNotification(
+      self.application.acceptRemoteNotification(
         details: details
       )
     }
@@ -207,7 +217,7 @@
       var details = OpeningDetails()
       details.withoutUserInterface = false
       details.asTemporaryFile = false
-      _ = Application.shared.systemMediator?.open(
+      self.application.open(
         files: urls,
         details: details
       )
@@ -217,28 +227,28 @@
       var details = OpeningDetails()
       details.withoutUserInterface = true
       details.asTemporaryFile = false
-      return Application.shared.systemMediator?.open(
+      return application.open(
         files: [URL(fileURLWithPath: filename)],
         details: details
-      ) ?? false
+      )
     }
 
     internal func application(_ sender: NSApplication, openTempFile filename: String) -> Bool {
       var details = OpeningDetails()
       details.withoutUserInterface = false
       details.asTemporaryFile = true
-      return Application.shared.systemMediator?.open(
+      return application.open(
         files: [URL(fileURLWithPath: filename)],
         details: details
-      ) ?? false
+      )
     }
 
     internal func applicationOpenUntitledFile(_ sender: NSApplication) -> Bool {
-      return Application.shared.systemMediator?.createNewBlankFile() ?? false
+      return application.createNewBlankFile()
     }
 
     internal func applicationShouldOpenUntitledFile(_ sender: NSApplication) -> Bool {
-      return Application.shared.systemMediator?.shouldCreateNewBlankFile() ?? true
+      return application.shouldCreateNewBlankFile()
     }
 
     internal func application(
@@ -251,32 +261,32 @@
       details.settings = printSettings
       details.displayPanels = showPrintPanels
       let result =
-        Application.shared.systemMediator?.print(
+        self.application.print(
           files: fileNames.map({ URL(fileURLWithPath: $0) }),
           details: details
-        ) ?? .failure
+        )
       return result.cocoa
     }
 
     internal func application(_ app: NSApplication, didDecodeRestorableState coder: NSCoder) {
-      Application.shared.systemMediator?.finishRestoring(coder: coder)
+      application.finishRestoring(coder: coder)
     }
 
     internal func application(_ app: NSApplication, willEncodeRestorableState coder: NSCoder) {
-      Application.shared.systemMediator?.prepareToEncodeRestorableState(coder: coder)
+      application.prepareToEncodeRestorableState(coder: coder)
     }
 
     internal func applicationDidChangeOcclusionState(_ notification: Notification) {
       var system = SystemNotification()
       system.foundation = notification
-      Application.shared.systemMediator?.updateAccordingToOcclusionChange(system)
+      application.updateAccordingToOcclusionChange(system)
     }
 
     // MARK: - NSMenuItemValidation
 
     internal func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
       if menuItem.action == #selector(NSApplicationDelegate.openPreferences(_:)),
-        Application.shared.preferenceManager == nil
+        application.preferenceManager == nil
       {
         menuItem.isHidden = true
         return false

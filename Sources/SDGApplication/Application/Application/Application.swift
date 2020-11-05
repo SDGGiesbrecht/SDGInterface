@@ -36,8 +36,8 @@ public protocol Application: SystemInterface {
   /// Creates an application.
   init()
 
-  /// Returns a preference manager for the application.
-  func preferenceManager() -> PreferenceManager?
+  /// The type that manages the application’s preferences.
+  var preferenceManager: PreferenceManager? { get }
 }
 
 extension Application {
@@ -58,7 +58,7 @@ extension Application {
       /// Initializes and runs the application.
       public static func main() -> Never {  // @exempt(from: tests)
         let application = prepareForMain()
-        withExtendedLifetime(application) {
+        withExtendedLifetime(application) { () -> Never in
           #if canImport(AppKit)
             exit(NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv))
           #elseif canImport(UIKit)
@@ -113,12 +113,12 @@ extension Application {
   // MARK: - Cocoa
 
   #if canImport(AppKit)
-    private func cocoaDelegate() -> NSApplicationDelegate {
-      return NSApplicationDelegate(self)
+    private func cocoaDelegate() -> NSApplicationDelegate<Self> {
+      return NSApplicationDelegate(application: self)
     }
   #elseif canImport(UIKit) && !os(watchOS)
-    private func cocoaDelegate() -> UIApplicationDelegate {
-      return UIApplicationDelegate(self)
+    private func cocoaDelegate() -> UIApplicationDelegate<Self> {
+      return UIApplicationDelegate(application: self)
     }
   #endif
 }
