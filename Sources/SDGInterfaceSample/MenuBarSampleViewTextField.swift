@@ -34,9 +34,9 @@
             return "Text Field"
           }
         }),
-        action: #selector(Application.demonstrateTextField)
+        action: #selector(MenuBarTarget.demonstrateTextField)
       )
-      .target(Application.shared)
+      .target(MenuBarTarget.shared)
     }
 
     private static func labelledTextField() -> MenuEntry<InterfaceLocalization> {
@@ -47,9 +47,9 @@
             return "Labelled Text Field"
           }
         }),
-        action: #selector(Application.demonstrateLabelledTextField)
+        action: #selector(MenuBarTarget.demonstrateLabelledTextField)
       )
-      .target(Application.shared)
+      .target(MenuBarTarget.shared)
     }
 
     internal static func textField() -> Menu<InterfaceLocalization> {

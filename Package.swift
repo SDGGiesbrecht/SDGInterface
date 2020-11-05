@@ -16,7 +16,7 @@
 
 import PackageDescription
 
-// #example(1, mediator) #example(2, main)
+// #example(1, application) #example(2, main)
 /// SDGInterface provides tools for implementing a graphical user interface.
 ///
 /// > [Καὶ ὁ Λόγος σὰρξ ἐγένετο καὶ ἐσκήνωσεν ἐν ἡμῖν, καὶ ἐθεασάμεθα τὴν δόξαν αὐτοῦ, δόξαν ὡς μονογενοῦς παρὰ πατρός, πλήρης χάριτος καὶ ἀληθείας.](https://www.biblegateway.com/passage/?search=John+1&version=SBLGNT;NIV)
@@ -33,19 +33,32 @@ import PackageDescription
 /// ### Example Usage
 ///
 /// ```swift
+/// import SDGText
+/// import SDGLocalization
+///
+/// import SDGTextDisplay
+/// import SDGWindows
 /// import SDGApplication
 ///
-/// internal class SystemMediator: SDGApplication.SystemMediator {
+/// #warning("Rename file?")
+/// internal struct SampleApplication: SDGApplication.Application {
 ///
 ///   internal func finishLaunching(_ details: LaunchDetails) -> Bool {
-///     Application.setSamplesUp()
+///     let helloWorld = UserFacing<StrictString, AnyLocalization>({ _ in "Hello, world!" })
+///     Window(
+///       type: .auxiliary(nil),
+///       name: helloWorld,
+///       content: Label(helloWorld)
+///     ).display()
+///     #warning("Should be moved below? Is this important for tests?")
+///     // Application.setSamplesUp()
 ///     return true
 ///   }
 /// }
 /// ```
 ///
 /// ```swift
-/// Application.main(mediator: SystemMediator())
+/// SampleApplication.main()
 /// ```
 let package = Package(
   name: "SDGInterface",

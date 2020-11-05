@@ -42,6 +42,10 @@ public protocol Application: SystemInterface {
 
 extension Application {
 
+  public var preferenceManager: PreferenceManager? {
+    return nil
+  }
+
   // MARK: - Launching
 
   @discardableResult private static func prepareForMain() -> Self {

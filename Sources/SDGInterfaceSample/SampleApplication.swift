@@ -1,5 +1,5 @@
 /*
- SystemMediator.swift
+ SampleApplication.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -14,23 +14,40 @@
 
 import SDGMenuBar
 
-public func getSystemMediator() -> SDGApplication.SystemMediator {
-  return SystemMediator()
-}
+// @example(application)
+import SDGText
+import SDGLocalization
 
-// @example(mediator)
+import SDGTextDisplay
+import SDGWindows
 import SDGApplication
 
-internal class SystemMediator: SDGApplication.SystemMediator {
+#warning("Rename file?")
+internal struct SampleApplication: SDGApplication.Application {
 
   internal func finishLaunching(_ details: LaunchDetails) -> Bool {
-    Application.setSamplesUp()
+    let helloWorld = UserFacing<StrictString, AnyLocalization>({ _ in "Hello, world!" })
+    Window(
+      type: .auxiliary(nil),
+      name: helloWorld,
+      content: Label(helloWorld)
+    ).display()
+    #warning("Should be moved below? Is this important for tests?")
+    // Application.setSamplesUp()
     return true
   }
 }
 // @endExample
 
-extension SystemMediator {
+extension SampleApplication {
+
+  // MARK: - Application
+
+  internal var preferenceManager: SDGApplication.PreferenceManager? {
+    return PreferenceManager()
+  }
+
+  // MARK: - SystemInterface
 
   #if canImport(AppKit)
     internal var menuBar: MenuBar {
