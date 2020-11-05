@@ -36,9 +36,8 @@ extension SDGApplicationTests.APITests {
       ("testDemonstrations", testDemonstrations),
       ("testFetchResult", testFetchResult),
       ("testNotification", testNotification),
-      ("testPreferences", testPreferences),
       ("testQuickActionDetails", testQuickActionDetails),
-      ("testSystemMediator", testSystemMediator),
+      ("testSystemInterface", testSystemInterface),
     ])
   ]
 }
