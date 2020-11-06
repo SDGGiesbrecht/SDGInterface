@@ -91,21 +91,14 @@ public struct SampleApplication: SDGApplication.Application {
   }
 
   public func finishLaunching(_ details: LaunchDetails) -> Bool {
-    let helloWorld = UserFacing<StrictString, AnyLocalization>({ _ in "Hello, world!" })
-    Window(
-      type: .auxiliary(nil),
-      name: helloWorld,
-      content: Label(helloWorld)
-    ).display()
-    #warning("Should be moved below? Is this important for tests?")
-    // Application.setSamplesUp()
+    Swift.print("Hello, world!")
     return true
   }
 }
 ```
 
 ```swift
-SampleApplication.main()
+@main extension SampleApplication {}
 ```
 
 ## Importing
