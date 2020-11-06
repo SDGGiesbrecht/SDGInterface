@@ -125,7 +125,7 @@ final class APITests: ApplicationTestCase {
 
   func testLabel() {
     #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
-      Application.shared.demonstrateLabel()
+      MenuBarTarget.shared.demonstrateLabel()
       let label = Label<SDGInterfaceSample.InterfaceLocalization>(
         UserFacing({ _ in "..." }),
         colour: .black
@@ -145,7 +145,7 @@ final class APITests: ApplicationTestCase {
 
   func testLog() {
     #if canImport(AppKit) || canImport(UIKit)
-      Application.shared.demonstrateLog()
+      MenuBarTarget.shared.demonstrateLog()
       if #available(macOS 10.12, tvOS 10, iOS 10, *) {
         let waited = expectation(description: "Waited for log to scroll.")
         Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in waited.fulfill() }
@@ -373,7 +373,7 @@ final class APITests: ApplicationTestCase {
 
   func testTextEditor() {
     #if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS)
-      Application.shared.demonstrateTextEditor()
+      MenuBarTarget.shared.demonstrateTextEditor()
       let text = Shared(RichText())
       let textEditor = TextEditor(contents: text)
       let cocoaTextEditor = textEditor.cocoa()
@@ -562,11 +562,11 @@ final class APITests: ApplicationTestCase {
 
   func testTextField() {
     #if canImport(AppKit) || canImport(UIKit)
-      Application.shared.demonstrateTextField()
+      MenuBarTarget.shared.demonstrateTextField()
       forEachWindow { window in
         _ = TextField(contents: Shared(StrictString()))
       }
-      Application.shared.demonstrateLabelledTextField()
+      MenuBarTarget.shared.demonstrateLabelledTextField()
       let labelled = LabelledTextField(
         label: Label(
           UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in "" })
