@@ -205,9 +205,9 @@
         var details = QuickActionDetails()
         details.shortcutItem = shortcutItem
         let result =
-          Application.shared.systemMediator?.performQuickAction(
+          self.application.performQuickAction(
             details: details
-          ) ?? false
+          )
         completionHandler(result)
       }
     #endif
