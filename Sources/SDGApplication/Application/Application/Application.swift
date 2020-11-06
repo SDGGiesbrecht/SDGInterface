@@ -81,7 +81,7 @@ extension Application {
                 CommandLine.argc,
                 CommandLine.unsafeArgv,
                 nil,
-                NSStringFromClass(UIApplicationDelegate.self)
+                NSStringFromClass(UIApplicationDelegate<Self>.self)
               )
             )
           #else

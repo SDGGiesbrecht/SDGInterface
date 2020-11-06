@@ -15,7 +15,18 @@
 #if canImport(UIKit) && !os(watchOS)
   import UIKit
 
-  internal class UIApplicationDelegate: NSObject, UIKit.UIApplicationDelegate {
+  internal class UIApplicationDelegate<Application>: NSObject, UIKit.UIApplicationDelegate
+  where Application: SDGApplication.Application {
+
+    // MARK: - Initialization
+
+    internal init(application: Application) {
+      self.application = application
+    }
+
+    // MARK: - Properties
+
+    private let application: Application
 
     // MARK: - UIApplicationDelegate
 
@@ -25,7 +36,7 @@
     ) -> Bool {
       var details = LaunchDetails()
       details.options = launchOptions
-      return Application.shared.systemMediator?.prepareToLaunch(details) ?? false
+      return self.application.prepareToLaunch(details)
     }
 
     internal func application(
@@ -33,61 +44,61 @@
       didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
 
-      Application.postLaunchSetUp()
+      self.application.performPostLaunchSetUp()
 
       var details = LaunchDetails()
       details.options = launchOptions
-      return Application.shared.systemMediator?.finishLaunching(details) ?? false
+      return self.application.finishLaunching(details)
     }
 
     internal func applicationDidBecomeActive(_ application: UIApplication) {
-      Application.shared.systemMediator?.finishAcquiringFocus(nil)
+      self.application.finishAcquiringFocus(nil)
     }
 
     internal func applicationWillResignActive(_ application: UIApplication) {
-      Application.shared.systemMediator?.prepareToResignFocus(nil)
+      self.application.prepareToResignFocus(nil)
     }
 
     internal func applicationDidEnterBackground(_ application: UIApplication) {
-      Application.shared.systemMediator?.finishResigningFocus(nil)
+      self.application.finishResigningFocus(nil)
     }
 
     internal func applicationWillEnterForeground(_ application: UIApplication) {
-      Application.shared.systemMediator?.prepareToAcquireFocus(nil)
+      self.application.prepareToAcquireFocus(nil)
     }
 
     internal func applicationWillTerminate(_ application: UIApplication) {
-      Application.shared.systemMediator?.prepareToTerminate(nil)
+      self.application.prepareToTerminate(nil)
     }
 
     internal func applicationProtectedDataDidBecomeAvailable(_ application: UIApplication) {
-      Application.shared.systemMediator?.finishGainingAccessToProtectedData()
+      self.application.finishGainingAccessToProtectedData()
     }
 
     internal func applicationProtectedDataWillBecomeUnavailable(_ application: UIApplication) {
-      Application.shared.systemMediator?.prepareToLoseAccessToProtectedData()
+      self.application.prepareToLoseAccessToProtectedData()
     }
 
     internal func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
-      Application.shared.systemMediator?.purgeUnnecessaryMemory()
+      self.application.purgeUnnecessaryMemory()
     }
 
     internal func applicationSignificantTimeChange(_ application: UIApplication) {
-      Application.shared.systemMediator?.updateAccordingToTimeChange()
+      self.application.updateAccordingToTimeChange()
     }
 
     internal func application(
       _ application: UIApplication,
       shouldSaveApplicationState coder: NSCoder
     ) -> Bool {
-      return Application.shared.systemMediator?.shouldEncodeRestorableState(coder: coder) ?? false
+      return self.application.shouldEncodeRestorableState(coder: coder)
     }
 
     internal func application(
       _ application: UIApplication,
       shouldRestoreApplicationState coder: NSCoder
     ) -> Bool {
-      return Application.shared.systemMediator?.shouldRestorePreviousState(coder: coder) ?? false
+      return self.application.shouldRestorePreviousState(coder: coder)
     }
 
     internal func application(
@@ -95,7 +106,7 @@
       viewControllerWithRestorationIdentifierPath identifierComponents: [String],
       coder: NSCoder
     ) -> UIViewController? {
-      return Application.shared.systemMediator?.viewController(
+      return self.application.viewController(
         forRestorationIdentifierPath: identifierComponents,
         coder: coder
       ).viewController
@@ -105,14 +116,14 @@
       _ application: UIApplication,
       willEncodeRestorableStateWith coder: NSCoder
     ) {
-      Application.shared.systemMediator?.prepareToEncodeRestorableState(coder: coder)
+      self.application.prepareToEncodeRestorableState(coder: coder)
     }
 
     internal func application(
       _ application: UIApplication,
       didDecodeRestorableStateWith coder: NSCoder
     ) {
-      Application.shared.systemMediator?.finishRestoring(coder: coder)
+      self.application.finishRestoring(coder: coder)
     }
 
     internal func application(
@@ -120,7 +131,7 @@
       handleEventsForBackgroundURLSession identifier: String,
       completionHandler: @escaping () -> Void
     ) {
-      Application.shared.systemMediator?.handleEventsForBackgroundURLSession(identifier)
+      self.application.handleEventsForBackgroundURLSession(identifier)
       completionHandler()
     }
 
@@ -128,7 +139,7 @@
       _ application: UIApplication,
       didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
     ) {
-      Application.shared.systemMediator?.finishRegistrationForRemoteNotifications(
+      self.application.finishRegistrationForRemoteNotifications(
         deviceToken: deviceToken
       )
     }
@@ -137,7 +148,7 @@
       _ application: UIApplication,
       didFailToRegisterForRemoteNotificationsWithError error: Error
     ) {
-      Application.shared.systemMediator?.reportFailedRegistrationForRemoteNotifications(
+      self.application.reportFailedRegistrationForRemoteNotifications(
         error: error
       )
     }
@@ -150,9 +161,9 @@
       var details = RemoteNotificationDetails()
       details.userInformation = userInfo
       let result =
-        Application.shared.systemMediator?.acceptRemoteNotification(
+        self.application.acceptRemoteNotification(
           details: details
-        ) ?? .noData
+        )
       completionHandler(result.cocoa)
     }
 
@@ -160,7 +171,7 @@
       _ application: UIApplication,
       willContinueUserActivityWithType userActivityType: String
     ) -> Bool {
-      return Application.shared.systemMediator?.notifyHandoffBegan(userActivityType) ?? false
+      return self.application.notifyHandoffBegan(userActivityType)
     }
 
     internal func application(
@@ -172,17 +183,17 @@
       handoff.activity = userActivity
       var details = HandoffAcceptanceDetails()
       details.restorationHandler = restorationHandler
-      return Application.shared.systemMediator?.accept(
+      return self.application.accept(
         handoff: handoff,
         details: details
-      ) ?? false
+      )
     }
 
     internal func application(_ application: UIApplication, didUpdate userActivity: NSUserActivity)
     {
       var handoff = Handoff()
       handoff.activity = userActivity
-      Application.shared.systemMediator?.preprocess(handoff: handoff)
+      self.application.preprocess(handoff: handoff)
     }
 
     #if !os(tvOS)
@@ -206,12 +217,12 @@
       handleWatchKitExtensionRequest userInfo: [AnyHashable: Any]?,
       reply: @escaping ([AnyHashable: Any]?) -> Void
     ) {
-      let result = Application.shared.systemMediator?.handleWatchRequest(userInformation: userInfo)
+      let result = self.application.handleWatchRequest(userInformation: userInfo)
       reply(result)
     }
 
     internal func applicationShouldRequestHealthAuthorization(_ application: UIApplication) {
-      Application.shared.systemMediator?.requestHealthAuthorization()
+      self.application.requestHealthAuthorization()
     }
 
     internal func application(
@@ -221,10 +232,10 @@
     ) -> Bool {
       var details = OpeningDetails()
       details.options = options
-      return Application.shared.systemMediator?.open(
+      return self.application.open(
         files: [url],
         details: details
-      ) ?? false
+      )
     }
 
     internal func application(
@@ -234,9 +245,9 @@
     ) -> Bool {
       var details = ExtensionDetails()
       details.pointIdentifier = extensionPointIdentifier
-      return Application.shared.systemMediator?.shouldAllowExtension(
+      return self.application.shouldAllowExtension(
         details: details
-      ) ?? true
+      )
     }
   }
 #endif
