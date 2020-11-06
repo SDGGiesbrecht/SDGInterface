@@ -19,6 +19,9 @@
 
   import SDGMenuBar
 
+  /// See Application.prepareForMain()
+  internal var permanentNSApplicationDelegateStorage: NSObject?
+
   internal class NSApplicationDelegate<Application>: NSObject, AppKit.NSApplicationDelegate,
     _NSApplicationDelegateProtocol, NSMenuItemValidation
   where Application: SDGApplication.Application {

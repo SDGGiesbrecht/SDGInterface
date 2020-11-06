@@ -62,7 +62,9 @@ extension Application {
       ProcessInfo.applicationName = application.applicationName
     #endif
     #if canImport(AppKit)
-      NSApplication.shared.delegate = application.cocoaDelegate()
+      let delegate = NSApplicationDelegate(application: application)
+      permanentNSApplicationDelegateStorage = delegate
+      NSApplication.shared.delegate = delegate
     #endif
     return application
   }
@@ -131,16 +133,4 @@ extension Application {
     _ = application.finishLaunching(LaunchDetails())
     return application
   }
-
-  // MARK: - Cocoa
-
-  #if canImport(AppKit)
-    private func cocoaDelegate() -> NSApplicationDelegate<Self> {
-      return NSApplicationDelegate(application: self)
-    }
-  #elseif canImport(UIKit) && !os(watchOS)
-    private func cocoaDelegate() -> UIApplicationDelegate<Self> {
-      return UIApplicationDelegate(application: self)
-    }
-  #endif
 }
