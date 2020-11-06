@@ -28,10 +28,12 @@
 		3F7D723E23501F4F00A751CE /* SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7D723D23501F4F00A751CE /* SampleTests.swift */; };
 		3F7D72482350210600A751CE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3F7D724A2350210600A751CE /* InfoPlist.strings */; };
 		3F7D725523502A7100A751CE /* _SDGInterfaceSample in Frameworks */ = {isa = PBXBuildFile; productRef = 3F7D725423502A7100A751CE /* _SDGInterfaceSample */; };
-		3F7D72EA23502C8800A751CE /* iOS_SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7D72E923502C8800A751CE /* iOS_SampleTests.swift */; };
-		3F7D730E23502C9B00A751CE /* tvOS_SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7D730D23502C9B00A751CE /* tvOS_SampleTests.swift */; };
 		3F7D731723502DDC00A751CE /* _SDGInterfaceSample in Frameworks */ = {isa = PBXBuildFile; productRef = 3F7D731623502DDC00A751CE /* _SDGInterfaceSample */; };
 		3F7D731923502DE200A751CE /* _SDGInterfaceSample in Frameworks */ = {isa = PBXBuildFile; productRef = 3F7D731823502DE200A751CE /* _SDGInterfaceSample */; };
+		3F9A4FE02554F24F00EB4A16 /* SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7D723D23501F4F00A751CE /* SampleTests.swift */; };
+		3F9A4FE12554F25000EB4A16 /* SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7D723D23501F4F00A751CE /* SampleTests.swift */; };
+		3F9A4FE82554F27000EB4A16 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3F7D724A2350210600A751CE /* InfoPlist.strings */; };
+		3F9A4FE92554F27100EB4A16 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3F7D724A2350210600A751CE /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,12 +79,10 @@
 		3F7D72D023502C8600A751CE /* iOS Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F7D72E023502C8700A751CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F7D72E523502C8800A751CE /* iOS SampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS SampleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3F7D72E923502C8800A751CE /* iOS_SampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS_SampleTests.swift; sourceTree = "<group>"; };
 		3F7D72EB23502C8800A751CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F7D72F623502C9800A751CE /* tvOS Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tvOS Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F7D730423502C9B00A751CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F7D730923502C9B00A751CE /* tvOS SampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "tvOS SampleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3F7D730D23502C9B00A751CE /* tvOS_SampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tvOS_SampleTests.swift; sourceTree = "<group>"; };
 		3F7D730F23502C9B00A751CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F93A38D2481AAB100A10F0E /* SDGInterface */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SDGInterface; path = ../..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -202,7 +202,6 @@
 		3F7D72E823502C8800A751CE /* iOS SampleTests */ = {
 			isa = PBXGroup;
 			children = (
-				3F7D72E923502C8800A751CE /* iOS_SampleTests.swift */,
 				3F7D72EB23502C8800A751CE /* Info.plist */,
 			);
 			path = "iOS SampleTests";
@@ -219,7 +218,6 @@
 		3F7D730C23502C9B00A751CE /* tvOS SampleTests */ = {
 			isa = PBXGroup;
 			children = (
-				3F7D730D23502C9B00A751CE /* tvOS_SampleTests.swift */,
 				3F7D730F23502C9B00A751CE /* Info.plist */,
 			);
 			path = "tvOS SampleTests";
@@ -424,6 +422,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F9A4FE82554F27000EB4A16 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,6 +437,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F9A4FE92554F27100EB4A16 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,7 +479,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F7D72EA23502C8800A751CE /* iOS_SampleTests.swift in Sources */,
+				3F9A4FE02554F24F00EB4A16 /* SampleTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,7 +495,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F7D730E23502C9B00A751CE /* tvOS_SampleTests.swift in Sources */,
+				3F9A4FE12554F25000EB4A16 /* SampleTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -955,6 +955,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "tld.developer.Application.iOS-Sample";
+				PRODUCT_MODULE_NAME = Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1020,6 +1021,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "tld.developer.Application.iOS-Sample";
+				PRODUCT_MODULE_NAME = Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -1234,6 +1236,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "tld.developer.Application.tvOS-Sample";
+				PRODUCT_MODULE_NAME = Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1299,6 +1302,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "tld.developer.Application.tvOS-Sample";
+				PRODUCT_MODULE_NAME = Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				SWIFT_COMPILATION_MODE = wholemodule;
