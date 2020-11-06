@@ -15,6 +15,14 @@
 #if canImport(UIKit) && !os(watchOS)
   import UIKit
 
+  import SDGText
+  import SDGLocalization
+
+  import SDGInterfaceLocalizations
+
+  /// See Application.main().
+  internal var applicationToUse: Any?
+
   internal class UIApplicationDelegate<Application>: NSObject, UIKit.UIApplicationDelegate
   where Application: SDGApplication.Application {
 
@@ -22,6 +30,20 @@
 
     internal init(application: Application) {
       self.application = application
+    }
+
+    internal override convenience init() {
+      guard let application = applicationToUse as? Application else {
+        preconditionFailure(
+          UserFacing<StrictString, APILocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+              return "Cannot initialize a delegate when no application has been registered."
+            }
+          })
+        )
+      }
+      self.init(application: application)
     }
 
     // MARK: - Properties

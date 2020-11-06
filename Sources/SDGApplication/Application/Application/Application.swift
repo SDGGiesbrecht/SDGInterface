@@ -76,6 +76,8 @@ extension Application {
           #if canImport(AppKit)
             exit(NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv))
           #elseif canImport(UIKit)
+            // Register the intended application externally, because UIApplicationMain insists on initializing its own.
+            applicationToUse = application
             exit(
               UIApplicationMain(
                 CommandLine.argc,
