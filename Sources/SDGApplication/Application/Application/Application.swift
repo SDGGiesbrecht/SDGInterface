@@ -39,7 +39,7 @@ public protocol Application: SystemInterface {
 
   // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
   #if !os(WASI)
-  /// A closure which produces the declined application name suitable for use in various gramatical contexts.
+    /// A closure which produces the declined application name suitable for use in various gramatical contexts.
     var applicationName: ProcessInfo.ApplicationNameResolver { get }
   #endif
 
