@@ -75,7 +75,7 @@ extension Application {
       /// Initializes and runs the application.
       ///
       /// This method never returns. It is only marked `Void` for compatibility with `@main`.
-      public static func main() -> Void {  // @exempt(from: tests)
+      public static func main() {  // @exempt(from: tests)
         let application = prepareForMain()
         withExtendedLifetime(application) { () -> Never in
           #if canImport(AppKit)

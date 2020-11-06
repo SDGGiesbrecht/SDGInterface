@@ -31,7 +31,7 @@ import SDGErrorMessages
 
 // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
 #if !os(WASI)
-  @objc public class MenuBarTarget: NSObject {
+  @objc public final class MenuBarTarget: NSObject {
 
     public static let shared = MenuBarTarget()
 
