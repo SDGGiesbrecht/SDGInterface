@@ -16,4 +16,6 @@ import SDGApplication
 import SDGInterfaceSample
 
 class BundleClass {}
-Application.setUpAndMain()
+// @example(main)
+SampleApplication.main()
+// @endExample

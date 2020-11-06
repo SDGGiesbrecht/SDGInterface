@@ -42,9 +42,11 @@ import PackageDescription
 /// import SDGWindows
 /// import SDGApplication
 ///
-/// internal struct SampleApplication: SDGApplication.Application {
+/// public struct SampleApplication: SDGApplication.Application {
 ///
-///   internal var applicationName: ProcessInfo.ApplicationNameResolver {
+///   public init() {}
+///
+///   public var applicationName: ProcessInfo.ApplicationNameResolver {
 ///     return { form in
 ///       switch form {
 ///       case .english(let region):
@@ -87,7 +89,7 @@ import PackageDescription
 ///     }
 ///   }
 ///
-///   internal func finishLaunching(_ details: LaunchDetails) -> Bool {
+///   public func finishLaunching(_ details: LaunchDetails) -> Bool {
 ///     let helloWorld = UserFacing<StrictString, AnyLocalization>({ _ in "Hello, world!" })
 ///     Window(
 ///       type: .auxiliary(nil),

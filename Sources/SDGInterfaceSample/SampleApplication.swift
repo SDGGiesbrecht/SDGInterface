@@ -24,9 +24,11 @@ import SDGTextDisplay
 import SDGWindows
 import SDGApplication
 
-internal struct SampleApplication: SDGApplication.Application {
+public struct SampleApplication: SDGApplication.Application {
 
-  internal var applicationName: ProcessInfo.ApplicationNameResolver {
+  public init() {}
+
+  public var applicationName: ProcessInfo.ApplicationNameResolver {
     return { form in
       switch form {
       case .english(let region):
@@ -69,7 +71,7 @@ internal struct SampleApplication: SDGApplication.Application {
     }
   }
 
-  internal func finishLaunching(_ details: LaunchDetails) -> Bool {
+  public func finishLaunching(_ details: LaunchDetails) -> Bool {
     let helloWorld = UserFacing<StrictString, AnyLocalization>({ _ in "Hello, world!" })
     Window(
       type: .auxiliary(nil),
@@ -84,18 +86,6 @@ internal struct SampleApplication: SDGApplication.Application {
 // @endExample
 
 extension SampleApplication {
-
-  #if !os(watchOS)
-    // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
-    #if !os(WASI)
-      public static func setUpAndMain() -> Never {  // @exempt(from: tests)
-        #warning("This example needs to be moved.")
-        // @example(main)
-        SampleApplication.main()
-        // @endExample
-      }
-    #endif
-  #endif
 
   internal func setSamplesUp() {
     setMenuUp()
@@ -121,25 +111,26 @@ extension SampleApplication {
 
   // MARK: - Application
 
-  internal var preferenceManager: SDGApplication.PreferenceManager? {
+  public var preferenceManager: SDGApplication.PreferenceManager? {
     return PreferenceManager()
   }
 
   // MARK: - SystemInterface
 
   #if canImport(AppKit)
-    internal var menuBar: MenuBar {
+    public var menuBar: MenuBar {
       return MenuBar(applicationSpecificSubmenus: [
         MenuBar.sample()
       ])
     }
   #endif
 
-  internal var remainsRunningWithNoWindows: Bool {  // @exempt(from: tests)
+  public var remainsRunningWithNoWindows: Bool {  // @exempt(from: tests)
     return true
   }
 }
 
+#warning("Still needed?")
 public func setUpForTests() {
   let application = SampleApplication.setUpWithoutMain()
   #if canImport(AppKit) || canImport(UIKit)
