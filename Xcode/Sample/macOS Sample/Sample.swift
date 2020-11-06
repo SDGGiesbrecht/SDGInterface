@@ -1,5 +1,5 @@
 /*
- main.swift
+ Sample.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -17,5 +17,5 @@ import SDGInterfaceSample
 
 class BundleClass {}
 // @example(main)
-SampleApplication.main()
+@main extension SampleApplication {}
 // @endExample

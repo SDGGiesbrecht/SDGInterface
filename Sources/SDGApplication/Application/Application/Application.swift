@@ -68,7 +68,9 @@ extension Application {
     // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
     #if !os(WASI)
       /// Initializes and runs the application.
-      public static func main() -> Never {  // @exempt(from: tests)
+      ///
+      /// This method never returns. It is only marked `Void` for compatibility with `@main`.
+      public static func main() -> Void {  // @exempt(from: tests)
         let application = prepareForMain()
         withExtendedLifetime(application) { () -> Never in
           #if canImport(AppKit)

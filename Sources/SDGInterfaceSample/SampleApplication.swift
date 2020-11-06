@@ -72,12 +72,7 @@ public struct SampleApplication: SDGApplication.Application {
   }
 
   public func finishLaunching(_ details: LaunchDetails) -> Bool {
-    let helloWorld = UserFacing<StrictString, AnyLocalization>({ _ in "Hello, world!" })
-    Window(
-      type: .auxiliary(nil),
-      name: helloWorld,
-      content: Label(helloWorld)
-    ).display()
+    Swift.print("Hello, world!")
     return true
   }
 }
