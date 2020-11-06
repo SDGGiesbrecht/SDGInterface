@@ -1,5 +1,5 @@
 /*
- macOS_SampleTests.swift
+ SampleTests.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -14,13 +14,13 @@
 
 import XCTest
 
-@testable import macOS_Sample
+@testable import Sample
 
 import SDGApplication
 
 import SDGInterfaceLocalizations
 
-class macOS_SampleTests: XCTestCase {
+class SampleTests: XCTestCase {
 
   func testBundle() {
     ProcessInfo.validate(

@@ -22,13 +22,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F7D602E2554D4FE00490D48 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7D722723501F4D00A751CE /* Sample.swift */; };
+		3F7D602F2554D4FF00490D48 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7D722723501F4D00A751CE /* Sample.swift */; };
 		3F7D722823501F4D00A751CE /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7D722723501F4D00A751CE /* Sample.swift */; };
-		3F7D723E23501F4F00A751CE /* macOS_SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7D723D23501F4F00A751CE /* macOS_SampleTests.swift */; };
+		3F7D723E23501F4F00A751CE /* SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7D723D23501F4F00A751CE /* SampleTests.swift */; };
 		3F7D72482350210600A751CE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3F7D724A2350210600A751CE /* InfoPlist.strings */; };
 		3F7D725523502A7100A751CE /* _SDGInterfaceSample in Frameworks */ = {isa = PBXBuildFile; productRef = 3F7D725423502A7100A751CE /* _SDGInterfaceSample */; };
-		3F7D72D323502C8600A751CE /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7D72D223502C8600A751CE /* main.swift */; };
 		3F7D72EA23502C8800A751CE /* iOS_SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7D72E923502C8800A751CE /* iOS_SampleTests.swift */; };
-		3F7D72F923502C9900A751CE /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7D72F823502C9900A751CE /* main.swift */; };
 		3F7D730E23502C9B00A751CE /* tvOS_SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7D730D23502C9B00A751CE /* tvOS_SampleTests.swift */; };
 		3F7D731723502DDC00A751CE /* _SDGInterfaceSample in Frameworks */ = {isa = PBXBuildFile; productRef = 3F7D731623502DDC00A751CE /* _SDGInterfaceSample */; };
 		3F7D731923502DE200A751CE /* _SDGInterfaceSample in Frameworks */ = {isa = PBXBuildFile; productRef = 3F7D731823502DE200A751CE /* _SDGInterfaceSample */; };
@@ -62,9 +62,9 @@
 		3F7D722423501F4D00A751CE /* macOS Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "macOS Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F7D722723501F4D00A751CE /* Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
 		3F7D723323501F4F00A751CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3F7D723423501F4F00A751CE /* macOS_Sample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS_Sample.entitlements; sourceTree = "<group>"; };
+		3F7D723423501F4F00A751CE /* Sample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sample.entitlements; sourceTree = "<group>"; };
 		3F7D723923501F4F00A751CE /* macOS SampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "macOS SampleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3F7D723D23501F4F00A751CE /* macOS_SampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = macOS_SampleTests.swift; sourceTree = "<group>"; };
+		3F7D723D23501F4F00A751CE /* SampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleTests.swift; sourceTree = "<group>"; };
 		3F7D723F23501F4F00A751CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F7D724B2350211D00A751CE /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		3F7D724C2350215600A751CE /* en-US */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-US"; path = "en-US.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -75,13 +75,11 @@
 		3F7D7251235021A600A751CE /* he-IL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "he-IL"; path = "he-IL.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		3F7D7252235021C500A751CE /* es-ES */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-ES"; path = "es-ES.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		3F7D72D023502C8600A751CE /* iOS Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3F7D72D223502C8600A751CE /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		3F7D72E023502C8700A751CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F7D72E523502C8800A751CE /* iOS SampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS SampleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F7D72E923502C8800A751CE /* iOS_SampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS_SampleTests.swift; sourceTree = "<group>"; };
 		3F7D72EB23502C8800A751CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F7D72F623502C9800A751CE /* tvOS Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tvOS Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3F7D72F823502C9900A751CE /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		3F7D730423502C9B00A751CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F7D730923502C9B00A751CE /* tvOS SampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "tvOS SampleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F7D730D23502C9B00A751CE /* tvOS_SampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tvOS_SampleTests.swift; sourceTree = "<group>"; };
@@ -142,8 +140,8 @@
 			isa = PBXGroup;
 			children = (
 				3F93A38D2481AAB100A10F0E /* SDGInterface */,
-				3F7D722623501F4D00A751CE /* macOS Sample */,
-				3F7D723C23501F4F00A751CE /* macOS SampleTests */,
+				3F7D722623501F4D00A751CE /* Sample */,
+				3F7D723C23501F4F00A751CE /* SampleTests */,
 				3F7D72D123502C8600A751CE /* iOS Sample */,
 				3F7D72E823502C8800A751CE /* iOS SampleTests */,
 				3F7D72F723502C9900A751CE /* tvOS Sample */,
@@ -166,24 +164,24 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3F7D722623501F4D00A751CE /* macOS Sample */ = {
+		3F7D722623501F4D00A751CE /* Sample */ = {
 			isa = PBXGroup;
 			children = (
 				3F7D722723501F4D00A751CE /* Sample.swift */,
 				3F7D723323501F4F00A751CE /* Info.plist */,
 				3F7D724A2350210600A751CE /* InfoPlist.strings */,
-				3F7D723423501F4F00A751CE /* macOS_Sample.entitlements */,
+				3F7D723423501F4F00A751CE /* Sample.entitlements */,
 			);
-			path = "macOS Sample";
+			path = Sample;
 			sourceTree = "<group>";
 		};
-		3F7D723C23501F4F00A751CE /* macOS SampleTests */ = {
+		3F7D723C23501F4F00A751CE /* SampleTests */ = {
 			isa = PBXGroup;
 			children = (
-				3F7D723D23501F4F00A751CE /* macOS_SampleTests.swift */,
+				3F7D723D23501F4F00A751CE /* SampleTests.swift */,
 				3F7D723F23501F4F00A751CE /* Info.plist */,
 			);
-			path = "macOS SampleTests";
+			path = SampleTests;
 			sourceTree = "<group>";
 		};
 		3F7D725323502A7100A751CE /* Frameworks */ = {
@@ -196,7 +194,6 @@
 		3F7D72D123502C8600A751CE /* iOS Sample */ = {
 			isa = PBXGroup;
 			children = (
-				3F7D72D223502C8600A751CE /* main.swift */,
 				3F7D72E023502C8700A751CE /* Info.plist */,
 			);
 			path = "iOS Sample";
@@ -214,7 +211,6 @@
 		3F7D72F723502C9900A751CE /* tvOS Sample */ = {
 			isa = PBXGroup;
 			children = (
-				3F7D72F823502C9900A751CE /* main.swift */,
 				3F7D730423502C9B00A751CE /* Info.plist */,
 			);
 			path = "tvOS Sample";
@@ -467,7 +463,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F7D723E23501F4F00A751CE /* macOS_SampleTests.swift in Sources */,
+				3F7D723E23501F4F00A751CE /* SampleTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -475,7 +471,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F7D72D323502C8600A751CE /* main.swift in Sources */,
+				3F7D602E2554D4FE00490D48 /* Sample.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,7 +487,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F7D72F923502C9900A751CE /* main.swift in Sources */,
+				3F7D602F2554D4FF00490D48 /* Sample.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -641,7 +637,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = "macOS Sample/macOS_Sample.entitlements";
+				CODE_SIGN_ENTITLEMENTS = Sample/Sample.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -665,7 +661,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "macOS Sample/Info.plist";
+				INFOPLIST_FILE = Sample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -675,6 +671,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "tld.developer.Application.macOS-Sample";
+				PRODUCT_MODULE_NAME = Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -716,7 +713,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = "macOS Sample/macOS_Sample.entitlements";
+				CODE_SIGN_ENTITLEMENTS = Sample/Sample.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -734,7 +731,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "macOS Sample/Info.plist";
+				INFOPLIST_FILE = Sample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -743,6 +740,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "tld.developer.Application.macOS-Sample";
+				PRODUCT_MODULE_NAME = Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -805,7 +803,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "macOS SampleTests/Info.plist";
+				INFOPLIST_FILE = SampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -873,7 +871,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "macOS SampleTests/Info.plist";
+				INFOPLIST_FILE = SampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
