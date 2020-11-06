@@ -37,8 +37,11 @@ public protocol Application: SystemInterface {
   /// Creates an application.
   init()
 
+  // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
+  #if !os(WASI)
   /// A closure which produces the declined application name suitable for use in various gramatical contexts.
-  var applicationName: ProcessInfo.ApplicationNameResolver { get }
+    var applicationName: ProcessInfo.ApplicationNameResolver { get }
+  #endif
 
   /// The type that manages the application’s preferences.
   var preferenceManager: PreferenceManager? { get }
