@@ -44,6 +44,18 @@ import SDGInterfaceSample
 
 final class APITests: ApplicationTestCase {
 
+  func testApplication() {
+    struct ExampleApplication: Application {
+      var applicationName: ProcessInfo.ApplicationNameResolver {
+        return { _ in "..." }
+      }
+      func finishLaunching(_ details: LaunchDetails) -> Bool {
+        return true
+      }
+    }
+    XCTAssertNil(ExampleApplication().preferenceManager)
+  }
+
   func testDemonstrations() {
     #if canImport(AppKit)
       MenuBarTarget.shared.demonstrateFullscreenWindow()

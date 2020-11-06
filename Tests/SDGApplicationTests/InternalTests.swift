@@ -21,6 +21,7 @@ import SDGLocalization
 import SDGInterfaceBasics
 import SDGMenuBar
 @testable import SDGApplication
+import SDGInterfaceSample
 
 import SDGInterfaceLocalizations
 
@@ -56,6 +57,10 @@ final class InternalTests: ApplicationTestCase {
       }
     }
     testAllLocalizations()
+  }
+
+  func testPreferenceManager() {
+    SampleApplication().preferenceManager?.openPreferences()
   }
 
   func testNSApplicationDelegate() {
