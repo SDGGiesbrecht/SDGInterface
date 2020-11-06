@@ -79,11 +79,9 @@
 		3F7D72D023502C8600A751CE /* iOS Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F7D72E023502C8700A751CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F7D72E523502C8800A751CE /* iOS SampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS SampleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3F7D72EB23502C8800A751CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F7D72F623502C9800A751CE /* tvOS Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tvOS Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F7D730423502C9B00A751CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F7D730923502C9B00A751CE /* tvOS SampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "tvOS SampleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3F7D730F23502C9B00A751CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F93A38D2481AAB100A10F0E /* SDGInterface */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SDGInterface; path = ../..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -143,9 +141,7 @@
 				3F7D722623501F4D00A751CE /* Sample */,
 				3F7D723C23501F4F00A751CE /* SampleTests */,
 				3F7D72D123502C8600A751CE /* iOS Sample */,
-				3F7D72E823502C8800A751CE /* iOS SampleTests */,
 				3F7D72F723502C9900A751CE /* tvOS Sample */,
-				3F7D730C23502C9B00A751CE /* tvOS SampleTests */,
 				3F7D722523501F4D00A751CE /* Products */,
 				3F7D725323502A7100A751CE /* Frameworks */,
 			);
@@ -199,28 +195,12 @@
 			path = "iOS Sample";
 			sourceTree = "<group>";
 		};
-		3F7D72E823502C8800A751CE /* iOS SampleTests */ = {
-			isa = PBXGroup;
-			children = (
-				3F7D72EB23502C8800A751CE /* Info.plist */,
-			);
-			path = "iOS SampleTests";
-			sourceTree = "<group>";
-		};
 		3F7D72F723502C9900A751CE /* tvOS Sample */ = {
 			isa = PBXGroup;
 			children = (
 				3F7D730423502C9B00A751CE /* Info.plist */,
 			);
 			path = "tvOS Sample";
-			sourceTree = "<group>";
-		};
-		3F7D730C23502C9B00A751CE /* tvOS SampleTests */ = {
-			isa = PBXGroup;
-			children = (
-				3F7D730F23502C9B00A751CE /* Info.plist */,
-			);
-			path = "tvOS SampleTests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1085,7 +1065,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "iOS SampleTests/Info.plist";
+				INFOPLIST_FILE = SampleTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1153,7 +1133,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "iOS SampleTests/Info.plist";
+				INFOPLIST_FILE = SampleTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1367,7 +1347,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "tvOS SampleTests/Info.plist";
+				INFOPLIST_FILE = SampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1435,7 +1415,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "tvOS SampleTests/Info.plist";
+				INFOPLIST_FILE = SampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
