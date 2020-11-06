@@ -34,7 +34,10 @@
         ApplicationTestCase.launch
       }
       private static let launch: Void = {
-        SDGInterfaceSample.setUpForTests()
+        let application = SampleApplication.setUpWithoutMain()
+        #if canImport(AppKit) || canImport(UIKit)
+          _ = application.finishLaunching(LaunchDetails())
+        #endif
       }()
 
       open override func tearDown() {
