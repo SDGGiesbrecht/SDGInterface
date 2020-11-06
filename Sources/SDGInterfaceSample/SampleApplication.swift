@@ -78,36 +78,12 @@ public struct SampleApplication: SDGApplication.Application {
       name: helloWorld,
       content: Label(helloWorld)
     ).display()
-    #warning("Should be moved below? Is this important for tests?")
-    // Application.setSamplesUp()
     return true
   }
 }
 // @endExample
 
 extension SampleApplication {
-
-  internal func setSamplesUp() {
-    setMenuUp()
-  }
-
-  #warning("This probably doesn’t belong here.")
-  private func setMenuUp() {
-    #if canImport(UIKit) && !os(tvOS) && !os(watchOS)
-      let editor = TextEditor(contents: Shared(RichText()))
-      let window = Window(
-        type: .primary(nil),
-        name: ApplicationNameForm.localizedIsolatedForm,
-        content: editor.cocoa()
-      )
-      if ProcessInfo.processInfo
-        .environment["XCTestConfigurationFilePath"] == nil
-      {  // #exempt(from: tests)
-        // This call fails during tests.
-        window.display()
-      }
-    #endif
-  }
 
   // MARK: - Application
 
