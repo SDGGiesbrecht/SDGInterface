@@ -105,7 +105,6 @@ extension SDGInterfaceBasicsTests.APITests {
     testCase([
       ("testAlignment", testAlignment),
       ("testApplicationName", testApplicationName),
-      ("testBinding", testBinding),
       ("testColour", testColour),
       ("testContentMode", testContentMode),
       ("testEdge", testEdge),
