@@ -32,8 +32,8 @@
       self.application = application
     }
 
-    internal override convenience init() {
-      // @exempt(from: tests) Only reachable through UIApplicationMain.
+    internal override convenience init() {  // @exempt(from: tests)
+      // Only reachable through UIApplicationMain.
       guard let application = applicationToUse as? Application else {
         preconditionFailure(
           UserFacing<StrictString, APILocalization>({ localization in

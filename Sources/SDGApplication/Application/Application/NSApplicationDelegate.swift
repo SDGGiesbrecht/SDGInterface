@@ -19,7 +19,7 @@
 
   import SDGMenuBar
 
-  /// See Application.prepareForMain()
+  // See Application.prepareForMain()
   internal var permanentNSApplicationDelegateStorage: NSObject?
 
   internal class NSApplicationDelegate<Application>: NSObject, AppKit.NSApplicationDelegate,
