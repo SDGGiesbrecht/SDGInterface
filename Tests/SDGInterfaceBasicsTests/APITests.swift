@@ -64,19 +64,6 @@ final class APITests: ApplicationTestCase {
     XCTAssertEqual(ProcessInfo.applicationName(.ελληνικά(.γενική)), "του Παραδείγματος")
   }
 
-  func testBinding() {
-    LocalizationSetting(orderOfPrecedence: ["zxx"]).do {
-      let localized = SDGInterfaceBasics.Binding<Bool, InterfaceLocalization>.static(
-        UserFacing({ _ in true })
-      )
-      XCTAssert(localized.resolved())
-      XCTAssertNil(localized.shared)
-      let bound = SDGInterfaceBasics.Binding<Bool, InterfaceLocalization>.binding(Shared(true))
-      XCTAssert(bound.resolved())
-      XCTAssertNotNil(bound.shared)
-    }
-  }
-
   func testColour() {
     XCTAssertEqual(Colour.white.red, 1)
     XCTAssertEqual(Colour.black.green, 0)
