@@ -21,6 +21,7 @@ import SDGLocalization
 import SDGInterfaceBasics
 import SDGMenuBar
 @testable import SDGApplication
+import SDGInterfaceSample
 
 import SDGInterfaceLocalizations
 
@@ -58,10 +59,34 @@ final class InternalTests: ApplicationTestCase {
     testAllLocalizations()
   }
 
+  func testPreferenceManager() {
+    SampleApplication().preferenceManager?.openPreferences()
+  }
+
   func testNSApplicationDelegate() {
     struct Error: Swift.Error {}
+    struct TestApplication: Application {
+      init() {
+        self.init(preferenceManager: nil)
+      }
+      init(preferenceManager: PreferenceManager?) {
+        self.preferenceManager = preferenceManager
+      }
+      let preferenceManager: PreferenceManager?
+      var applicationName: ProcessInfo.ApplicationNameResolver {
+        return { _ in "Test Application" }
+      }
+      func finishLaunching(_ details: LaunchDetails) -> Bool {
+        return true
+      }
+    }
+    struct TestPreferenceManager: PreferenceManager {
+      func openPreferences() {}
+    }
     #if canImport(AppKit)
-      let delegate = SDGApplication.NSApplicationDelegate()
+      var delegate = SDGApplication.NSApplicationDelegate(
+        application: TestApplication(preferenceManager: TestPreferenceManager())
+      )
       func testSystemInteraction() {
         let notification = Notification(name: Notification.Name(""))
         delegate.applicationWillFinishLaunching(notification)
@@ -122,14 +147,11 @@ final class InternalTests: ApplicationTestCase {
           )
         )
       }
-      let mediator = Application.shared.systemMediator
-      Application.shared.systemMediator = nil
-      testSystemInteraction()
-      Application.shared.systemMediator = mediator
       testSystemInteraction()
 
-      let preferenceManager = Application.shared.preferenceManager
-      Application.shared.preferenceManager = nil
+      delegate = SDGApplication.NSApplicationDelegate(
+        application: TestApplication(preferenceManager: nil)
+      )
       XCTAssertFalse(
         delegate.validateMenuItem(
           NSMenuItem(
@@ -139,7 +161,9 @@ final class InternalTests: ApplicationTestCase {
           )
         )
       )
-      Application.shared.preferenceManager = preferenceManager
+      delegate = SDGApplication.NSApplicationDelegate(
+        application: TestApplication(preferenceManager: TestPreferenceManager())
+      )
       XCTAssert(
         delegate.validateMenuItem(
           NSMenuItem(
@@ -157,8 +181,28 @@ final class InternalTests: ApplicationTestCase {
 
   func testUIApplicationDelegate() {
     struct Error: Swift.Error {}
+    struct TestApplication: Application {
+      init() {
+        self.init(preferenceManager: nil)
+      }
+      init(preferenceManager: PreferenceManager?) {
+        self.preferenceManager = preferenceManager
+      }
+      let preferenceManager: PreferenceManager?
+      var applicationName: ProcessInfo.ApplicationNameResolver {
+        return { _ in "Test Application" }
+      }
+      func finishLaunching(_ details: LaunchDetails) -> Bool {
+        return true
+      }
+    }
+    struct TestPreferenceManager: PreferenceManager {
+      func openPreferences() {}
+    }
     #if canImport(UIKit)
-      let delegate = SDGApplication.UIApplicationDelegate()
+      let delegate = SDGApplication.UIApplicationDelegate(
+        application: TestApplication(preferenceManager: TestPreferenceManager())
+      )
       func testSystemInteraction() {
         _ = delegate.application(UIApplication.shared, willFinishLaunchingWithOptions: nil)
         _ = delegate.application(UIApplication.shared, didFinishLaunchingWithOptions: nil)
@@ -224,10 +268,6 @@ final class InternalTests: ApplicationTestCase {
           shouldAllowExtensionPointIdentifier: UIApplication.ExtensionPointIdentifier(rawValue: "")
         )
       }
-      let mediator = Application.shared.systemMediator
-      Application.shared.systemMediator = nil
-      testSystemInteraction()
-      Application.shared.systemMediator = mediator
       testSystemInteraction()
     #endif
   }

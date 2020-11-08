@@ -1,5 +1,5 @@
 /*
- PreferenceManager.swift
+ SampleTests.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,10 +12,20 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+import XCTest
+
+@testable import Sample
+
 import SDGApplication
 
-internal struct PreferenceManager: SDGApplication.PreferenceManager {
-  internal func openPreferences() {
-    print("Opening preferences...")
+import SDGInterfaceLocalizations
+
+class SampleTests: XCTestCase {
+
+  func testBundle() {
+    ProcessInfo.validate(
+      applicationBundle: Bundle(for: BundleClass.self),
+      localizations: InterfaceLocalization.self
+    )
   }
 }

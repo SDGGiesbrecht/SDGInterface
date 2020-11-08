@@ -36,7 +36,7 @@ final class APITests: ApplicationTestCase {
 
   func testButton() {
     #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
-      Application.shared.demonstrateButton()
+      MenuBarTarget.shared.demonstrateButton()
       let label = UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
         { localization in
           return "Button"
@@ -51,7 +51,7 @@ final class APITests: ApplicationTestCase {
 
   func testCheckBox() {
     #if canImport(AppKit) || canImport(UIKit)
-      Application.shared.demonstrateCheckBox()
+      MenuBarTarget.shared.demonstrateCheckBox()
       #if canImport(AppKit)
         let label = UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
           { _ in
@@ -67,7 +67,7 @@ final class APITests: ApplicationTestCase {
 
   func testSegmentedControl() {
     #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
-      Application.shared.demonstrateSegmentedControl()
+      MenuBarTarget.shared.demonstrateSegmentedControl()
 
       enum Enumeration: CaseIterable {
         case a, b

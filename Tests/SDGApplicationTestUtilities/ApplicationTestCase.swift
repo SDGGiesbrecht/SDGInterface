@@ -34,13 +34,9 @@
         ApplicationTestCase.launch
       }
       private static let launch: Void = {
-        Application.setUp()
-        let mediator = getSystemMediator()
-        Application.setUpWithoutMain(mediator: mediator)
-        #if canImport(AppKit)
-          _ = mediator.finishLaunching(LaunchDetails())
-        #elseif canImport(UIKit)
-          _ = mediator.finishLaunching(LaunchDetails())
+        let application = SampleApplication.setUpWithoutMain()
+        #if canImport(AppKit) || canImport(UIKit)
+          _ = application.finishLaunching(LaunchDetails())
         #endif
       }()
 

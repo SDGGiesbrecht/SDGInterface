@@ -1,10 +1,10 @@
 /*
- PreferenceManager.swift
+ Sample.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
 
- Copyright ©2019–2020 Jeremy David Giesbrecht and the SDGInterface project contributors.
+ Copyright ©2018–2020 Jeremy David Giesbrecht and the SDGInterface project contributors.
 
  Soli Deo gloria.
 
@@ -13,9 +13,9 @@
  */
 
 import SDGApplication
+import SDGInterfaceSample
 
-internal struct PreferenceManager: SDGApplication.PreferenceManager {
-  internal func openPreferences() {
-    print("Opening preferences...")
-  }
-}
+class BundleClass {}
+// @example(main)
+@main extension SampleApplication {}
+// @endExample

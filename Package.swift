@@ -16,7 +16,7 @@
 
 import PackageDescription
 
-// #example(1, mediator) #example(2, main)
+// #example(1, application) #example(2, main)
 /// SDGInterface provides tools for implementing a graphical user interface.
 ///
 /// > [Καὶ ὁ Λόγος σὰρξ ἐγένετο καὶ ἐσκήνωσεν ἐν ἡμῖν, καὶ ἐθεασάμεθα τὴν δόξαν αὐτοῦ, δόξαν ὡς μονογενοῦς παρὰ πατρός, πλήρης χάριτος καὶ ἀληθείας.](https://www.biblegateway.com/passage/?search=John+1&version=SBLGNT;NIV)
@@ -33,19 +33,71 @@ import PackageDescription
 /// ### Example Usage
 ///
 /// ```swift
+/// import Foundation
+///
+/// import SDGText
+/// import SDGLocalization
+///
+/// import SDGTextDisplay
+/// import SDGWindows
 /// import SDGApplication
 ///
-/// internal class SystemMediator: SDGApplication.SystemMediator {
+/// public struct SampleApplication: SDGApplication.Application {
 ///
-///   internal func finishLaunching(_ details: LaunchDetails) -> Bool {
-///     Application.setSamplesUp()
+///   public init() {}
+///
+///   public var applicationName: ProcessInfo.ApplicationNameResolver {
+///     return { form in
+///       switch form {
+///       case .english(let region):
+///         switch region {
+///         case .unitedKingdom, .unitedStates, .canada:
+///           return "Sample"
+///         }
+///       case .español(let preposición):
+///         switch preposición {
+///         case .ninguna:
+///           return "Ejemplar"
+///         case .de:
+///           return "del Ejemplar"
+///         }
+///       case .deutsch(let fall):
+///         switch fall {
+///         case .nominativ, .akkusativ, .dativ:
+///           return "Beispiel"
+///         }
+///       case .français(let préposition):
+///         switch préposition {
+///         case .aucune:
+///           return "Exemple"
+///         case .de:
+///           return "de l’Exemple"
+///         }
+///
+///       case .ελληνικά(let πτώση):
+///         switch πτώση {
+///         case .ονομαστική:
+///           return "Παράδειγμα"
+///         case .αιτιατική:
+///           return "το Παράδειγμα"
+///         case .γενική:
+///           return "του Παραδείγματος"
+///         }
+///       case .עברית:
+///         return "דוגמה"
+///       }
+///     }
+///   }
+///
+///   public func finishLaunching(_ details: LaunchDetails) -> Bool {
+///     Swift.print("Hello, world!")
 ///     return true
 ///   }
 /// }
 /// ```
 ///
 /// ```swift
-/// Application.main(mediator: SystemMediator())
+/// @main extension SampleApplication {}
 /// ```
 let package = Package(
   name: "SDGInterface",
@@ -125,6 +177,7 @@ let package = Package(
       name: "SDGApplication",
       dependencies: [
         "SDGInterfaceLocalizations",
+        "SDGInterfaceBasics",
         "SDGMenus",
         "SDGContextMenu",
         "SDGMenuBar",

@@ -44,9 +44,21 @@ import SDGInterfaceSample
 
 final class APITests: ApplicationTestCase {
 
+  func testApplication() {
+    struct ExampleApplication: Application {
+      var applicationName: ProcessInfo.ApplicationNameResolver {
+        return { _ in "..." }
+      }
+      func finishLaunching(_ details: LaunchDetails) -> Bool {
+        return true
+      }
+    }
+    XCTAssertNil(ExampleApplication().preferenceManager)
+  }
+
   func testDemonstrations() {
     #if canImport(AppKit)
-      Application.shared.demonstrateFullscreenWindow()
+      MenuBarTarget.shared.demonstrateFullscreenWindow()
     #endif
   }
 
@@ -63,10 +75,6 @@ final class APITests: ApplicationTestCase {
     _ = SystemNotification()
   }
 
-  func testPreferences() {
-    Application.shared.preferenceManager?.openPreferences()
-  }
-
   func testQuickActionDetails() {
     #if canImport(UIKit) && !os(tvOS) && !os(watchOS)
       var details = QuickActionDetails()
@@ -76,60 +84,60 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
-  func testSystemMediator() {
-    class Mediator: SystemMediator, Error {
+  func testSystemInterface() {
+    class Interface: SystemInterface, Error {
       func finishLaunching(_ details: LaunchDetails) -> Bool {
         return true
       }
     }
-    let mediator = Mediator()
-    _ = mediator.prepareToLaunch(LaunchDetails())
-    _ = mediator.finishLaunching(LaunchDetails())
-    mediator.prepareToAcquireFocus(nil)
-    mediator.finishAcquiringFocus(nil)
-    mediator.prepareToResignFocus(nil)
-    mediator.finishResigningFocus(nil)
-    _ = mediator.terminate()
-    _ = mediator.remainsRunningWithNoWindows
-    mediator.prepareToTerminate(nil)
-    mediator.prepareToHide(nil)
-    mediator.finishHiding(nil)
-    mediator.prepareToUnhide(nil)
-    mediator.finishUnhiding(nil)
-    mediator.prepareToUpdateInterface(nil)
-    mediator.finishUpdatingInterface(nil)
-    _ = mediator.reopen(hasVisibleWindows: nil)
+    let interface = Interface()
+    _ = interface.prepareToLaunch(LaunchDetails())
+    _ = interface.finishLaunching(LaunchDetails())
+    interface.prepareToAcquireFocus(nil)
+    interface.finishAcquiringFocus(nil)
+    interface.prepareToResignFocus(nil)
+    interface.finishResigningFocus(nil)
+    _ = interface.terminate()
+    _ = interface.remainsRunningWithNoWindows
+    interface.prepareToTerminate(nil)
+    interface.prepareToHide(nil)
+    interface.finishHiding(nil)
+    interface.prepareToUnhide(nil)
+    interface.finishUnhiding(nil)
+    interface.prepareToUpdateInterface(nil)
+    interface.finishUpdatingInterface(nil)
+    _ = interface.reopen(hasVisibleWindows: nil)
     #if canImport(AppKit)
-      _ = mediator.dockMenu
+      _ = interface.dockMenu
     #endif
-    _ = mediator.preprocessErrorForDisplay(mediator)
-    mediator.updateAccordingToScreenChange(nil)
-    mediator.finishGainingAccessToProtectedData()
-    mediator.prepareToLoseAccessToProtectedData()
-    _ = mediator.notifyHandoffBegan("")
-    _ = mediator.accept(handoff: Handoff(), details: HandoffAcceptanceDetails())
-    _ = mediator.notifyHandoffFailed("", error: mediator)
-    mediator.preprocess(handoff: Handoff())
-    mediator.finishRegistrationForRemoteNotifications(deviceToken: Data())
-    mediator.reportFailedRegistrationForRemoteNotifications(error: mediator)
-    _ = mediator.acceptRemoteNotification(details: RemoteNotificationDetails())
-    _ = mediator.open(files: [], details: OpeningDetails())
-    _ = mediator.shouldCreateNewBlankFile()
-    _ = mediator.createNewBlankFile()
-    _ = mediator.print(files: [], details: PrintingDetails())
-    _ = mediator.shouldEncodeRestorableState(coder: NSCoder())
-    mediator.prepareToEncodeRestorableState(coder: NSCoder())
-    _ = mediator.shouldRestorePreviousState(coder: NSCoder())
-    mediator.finishRestoring(coder: NSCoder())
-    _ = mediator.viewController(forRestorationIdentifierPath: [], coder: NSCoder())
-    mediator.updateAccordingToOcclusionChange(nil)
-    mediator.purgeUnnecessaryMemory()
-    mediator.updateAccordingToTimeChange()
-    mediator.handleEventsForBackgroundURLSession("")
-    _ = mediator.performQuickAction(details: QuickActionDetails())
-    _ = mediator.handleWatchRequest(userInformation: nil)
-    mediator.requestHealthAuthorization()
-    _ = mediator.shouldAllowExtension(details: ExtensionDetails())
+    _ = interface.preprocessErrorForDisplay(interface)
+    interface.updateAccordingToScreenChange(nil)
+    interface.finishGainingAccessToProtectedData()
+    interface.prepareToLoseAccessToProtectedData()
+    _ = interface.notifyHandoffBegan("")
+    _ = interface.accept(handoff: Handoff(), details: HandoffAcceptanceDetails())
+    _ = interface.notifyHandoffFailed("", error: interface)
+    interface.preprocess(handoff: Handoff())
+    interface.finishRegistrationForRemoteNotifications(deviceToken: Data())
+    interface.reportFailedRegistrationForRemoteNotifications(error: interface)
+    _ = interface.acceptRemoteNotification(details: RemoteNotificationDetails())
+    _ = interface.open(files: [], details: OpeningDetails())
+    _ = interface.shouldCreateNewBlankFile()
+    _ = interface.createNewBlankFile()
+    _ = interface.print(files: [], details: PrintingDetails())
+    _ = interface.shouldEncodeRestorableState(coder: NSCoder())
+    interface.prepareToEncodeRestorableState(coder: NSCoder())
+    _ = interface.shouldRestorePreviousState(coder: NSCoder())
+    interface.finishRestoring(coder: NSCoder())
+    _ = interface.viewController(forRestorationIdentifierPath: [], coder: NSCoder())
+    interface.updateAccordingToOcclusionChange(nil)
+    interface.purgeUnnecessaryMemory()
+    interface.updateAccordingToTimeChange()
+    interface.handleEventsForBackgroundURLSession("")
+    _ = interface.performQuickAction(details: QuickActionDetails())
+    _ = interface.handleWatchRequest(userInformation: nil)
+    interface.requestHealthAuthorization()
+    _ = interface.shouldAllowExtension(details: ExtensionDetails())
 
     for response in PrintingResponse.allCases {
       #if canImport(AppKit)
@@ -144,7 +152,7 @@ final class APITests: ApplicationTestCase {
       #endif
     }
     #if canImport(AppKit)
-      _ = mediator.menuBar
+      _ = interface.menuBar
     #endif
   }
 }

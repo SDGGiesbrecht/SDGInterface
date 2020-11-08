@@ -34,19 +34,71 @@ SDGInterface provides tools for implementing a graphical user interface.
 ### Example Usage
 
 ```swift
+import Foundation
+
+import SDGText
+import SDGLocalization
+
+import SDGTextDisplay
+import SDGWindows
 import SDGApplication
 
-internal class SystemMediator: SDGApplication.SystemMediator {
+public struct SampleApplication: SDGApplication.Application {
 
-  internal func finishLaunching(_ details: LaunchDetails) -> Bool {
-    Application.setSamplesUp()
+  public init() {}
+
+  public var applicationName: ProcessInfo.ApplicationNameResolver {
+    return { form in
+      switch form {
+      case .english(let region):
+        switch region {
+        case .unitedKingdom, .unitedStates, .canada:
+          return "Sample"
+        }
+      case .español(let preposición):
+        switch preposición {
+        case .ninguna:
+          return "Ejemplar"
+        case .de:
+          return "del Ejemplar"
+        }
+      case .deutsch(let fall):
+        switch fall {
+        case .nominativ, .akkusativ, .dativ:
+          return "Beispiel"
+        }
+      case .français(let préposition):
+        switch préposition {
+        case .aucune:
+          return "Exemple"
+        case .de:
+          return "de l’Exemple"
+        }
+
+      case .ελληνικά(let πτώση):
+        switch πτώση {
+        case .ονομαστική:
+          return "Παράδειγμα"
+        case .αιτιατική:
+          return "το Παράδειγμα"
+        case .γενική:
+          return "του Παραδείγματος"
+        }
+      case .עברית:
+        return "דוגמה"
+      }
+    }
+  }
+
+  public func finishLaunching(_ details: LaunchDetails) -> Bool {
+    Swift.print("Hello, world!")
     return true
   }
 }
 ```
 
 ```swift
-Application.main(mediator: SystemMediator())
+@main extension SampleApplication {}
 ```
 
 ## Importing

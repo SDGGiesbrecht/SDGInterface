@@ -33,12 +33,12 @@ import XCTest
 extension SDGApplicationTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
+      ("testApplication", testApplication),
       ("testDemonstrations", testDemonstrations),
       ("testFetchResult", testFetchResult),
       ("testNotification", testNotification),
-      ("testPreferences", testPreferences),
       ("testQuickActionDetails", testQuickActionDetails),
-      ("testSystemMediator", testSystemMediator),
+      ("testSystemInterface", testSystemInterface),
     ])
   ]
 }
@@ -47,6 +47,7 @@ extension SDGApplicationTests.InternalTests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
       ("testApplicationName", testApplicationName),
+      ("testPreferenceManager", testPreferenceManager),
       ("testNSApplicationDelegate", testNSApplicationDelegate),
       ("testUIApplicationDelegate", testUIApplicationDelegate),
     ])

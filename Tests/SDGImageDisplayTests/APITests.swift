@@ -40,7 +40,7 @@ final class APITests: ApplicationTestCase {
 
   func testImage() {
     #if canImport(AppKit) || canImport(UIKit)
-      Application.shared.demonstrateImage()
+      MenuBarTarget.shared.demonstrateImage()
 
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
         if #available(macOS 10.15, tvOS 13, iOS 13, *) {
