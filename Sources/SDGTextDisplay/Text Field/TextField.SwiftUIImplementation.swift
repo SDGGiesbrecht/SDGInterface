@@ -28,11 +28,16 @@
       // MARK: - Properties
 
       @ObservedObject internal var contents: Shared<StrictString>
+      internal let onCommit: () -> Void
 
       // MARK: - View
 
       internal var body: some SwiftUI.View {
-        return SwiftUI.TextField("", text: $contents.value.compatibility)
+        return SwiftUI.TextField(
+          "",
+          text: $contents.value.compatibility,
+          onCommit: onCommit
+        )
       }
     }
   }
