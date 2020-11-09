@@ -38,6 +38,7 @@
     ///
     /// - Parameters:
     ///   - contents: A binding to the contents of the text field.
+    ///   - onCommit: An action to carry out when changes are committed.
     public init(
       contents: Shared<StrictString>,
       onCommit: @escaping () -> Void = {}
