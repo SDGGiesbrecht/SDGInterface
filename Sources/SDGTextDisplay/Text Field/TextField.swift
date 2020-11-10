@@ -41,7 +41,7 @@
     ///   - onCommit: An action to carry out when changes are committed.
     public init(
       contents: Shared<StrictString>,
-      onCommit: @escaping () -> Void = {}
+      onCommit: @escaping () -> Void = {}  // @exempt(from: tests)
     ) {
       self.contents = contents
       self.onCommit = onCommit
