@@ -46,6 +46,16 @@
       }
     }
 
+    func testRichTextPreviews() {
+      for localization in InterfaceLocalization.allCases {
+        LocalizationSetting(orderOfPrecedence: [localization.code]).do {
+          if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
+            _ = RichTextPreviews.previews
+          }
+        }
+      }
+    }
+
     func testTextViewPreviews() {
       for localization in InterfaceLocalization.allCases {
         LocalizationSetting(orderOfPrecedence: [localization.code]).do {
