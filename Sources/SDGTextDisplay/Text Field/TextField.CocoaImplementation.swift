@@ -37,14 +37,27 @@
 
       // MARK: - Initialization
 
-      internal init(contents: Shared<StrictString>) {
+      internal init(contents: Shared<StrictString>, onCommit: @escaping () -> Void) {
         self.contents = contents
         defer { contents.register(observer: self) }
         #if canImport(UIKit)
           defer {
-            addTarget(self, action: #selector(contentsChanged), for: .editingChanged)
+            addTarget(
+              self,
+              action: #selector(CocoaImplementation.contentsChanged),
+              for: .editingChanged
+            )
           }
         #endif
+        self.onCommit = onCommit
+        defer {
+          #if canImport(AppKit)
+            target = self
+            action = #selector(CocoaImplementation.commit)
+          #else
+            addTarget(self, action: #selector(CocoaImplementation.commit), for: .editingDidEnd)
+          #endif
+        }
 
         super.init(frame: .zero)
         #if canImport(AppKit)
@@ -79,6 +92,7 @@
       // MARK: - Properties
 
       private let contents: Shared<StrictString>
+      private let onCommit: () -> Void
 
       private var cocoaContents: String {
         get {
@@ -105,6 +119,14 @@
         if ¬contents.value.scalars.elementsEqual(cocoaContents.scalars) {
           contents.value = StrictString(cocoaContents)
         }
+      }
+
+      // MARK: - Committing
+
+      @objc private func commit() {  // @exempt(from: tests)
+        // tvOS cannot dispatch actions during tests.
+
+        onCommit()
       }
 
       #if canImport(AppKit)

@@ -38,15 +38,19 @@
     ///
     /// - Parameters:
     ///   - contents: A binding to the contents of the text field.
+    ///   - onCommit: An action to carry out when changes are committed.
     public init(
-      contents: Shared<StrictString>
+      contents: Shared<StrictString>,
+      onCommit: @escaping () -> Void = {}  // @exempt(from: tests)
     ) {
       self.contents = contents
+      self.onCommit = onCommit
     }
 
     // MARK: - Properties
 
     private let contents: Shared<StrictString>
+    private let onCommit: () -> Void
 
     // MARK: - LegacyView
 
@@ -56,11 +60,11 @@
         #if os(watchOS)
           return useSwiftUIOrFallback(to: {
             return CocoaView(
-              CocoaImplementation(contents: contents)
+              CocoaImplementation(contents: contents, onCommit: onCommit)
             )
           })
         #else
-          return CocoaView(CocoaImplementation(contents: contents))
+          return CocoaView(CocoaImplementation(contents: contents, onCommit: onCommit))
         #endif
       }
     #endif
@@ -75,9 +79,7 @@
 
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
         public func swiftUI() -> some SwiftUI.View {
-          return SwiftUIImplementation(
-            contents: contents
-          )
+          return SwiftUIImplementation(contents: contents, onCommit: onCommit)
         }
       #endif
     }
