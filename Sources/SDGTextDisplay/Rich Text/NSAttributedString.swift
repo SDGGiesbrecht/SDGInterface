@@ -156,6 +156,7 @@
     #endif
 
     #if canImport(AppKit)
+      #warning("Dead?")
       private func swapGlyphs(
         in range: NSRange,
         mapping performMap: (String) -> String,
@@ -269,53 +270,18 @@
     #if canImport(AppKit)
       // MARK: - Case
 
-      private static var smallCapsSizeReduction: [String: [Int: Int]] = [:]
-      private static func smallCapsMetrics(for font: Font, baseSize: Int) -> Int {
-        guard let cocoa = NSFont.from(font) else {
-          return baseSize  // @exempt(from: tests)
-        }
-        return cached(in: &smallCapsSizeReduction[font.fontName, default: [:]][baseSize]) {
-          return findLocalMinimum(near: baseSize) { (attemptedFontSize: Int) -> CGFloat in
-            let attemptedFont = font.resized(to: Double(attemptedFontSize))
-            let attemptedCapitalHeight: CGFloat
-            if let attemptedCocoa = NSFont.from(attemptedFont) {
-              attemptedCapitalHeight = attemptedCocoa.capHeight
-            } else {
-              attemptedCapitalHeight = CGFloat(attemptedFont.size)  // @exempt(from: tests)
-            }
-            return |(cocoa.xHeight − attemptedCapitalHeight)|
-          }
-        }
-      }
-
       /// Resets casing.
       ///
       /// - Parameters:
       ///     - range: The range to reset.
       public func resetCasing(of range: NSRange) {
         applyUniformChanges(to: range) { (attributes: inout [NSAttributedString.Key: Any]) in
-
-          attributes[.glyphInfo] = nil
-
-          if attributes[.smallCaps] as? Bool == true {
-            attributes[.smallCaps] = nil
-
-            let font = attributes.font ?? Font.default  // @exempt(from: tests) Never nil.
-            let actualSmallCapsSize = Int(font.size.rounded(.toNearestOrEven))
-
-            let baseSize = findLocalMinimum(
-              near: actualSmallCapsSize
-            ) { (attemptedBaseSize: Int) -> Int in
-
-              let attemptedSmallCapsSize = NSMutableAttributedString.smallCapsMetrics(
-                for: font,
-                baseSize: attemptedBaseSize
-              )
-
-              return |(attemptedSmallCapsSize − actualSmallCapsSize)|
-            }
-            attributes.font = font.resized(to: Double(baseSize))
-          }
+          #warning("Meaningful? Or are case operations naturally mutually exclusive?")
+          attributes.update(fontFeatures: [
+            // See makeSmallCaps(_:)
+            kLowerCaseType: kDefaultLowerCaseSelector,
+            kLetterCaseType: kUpperAndLowerCaseSelector
+          ])
         }
       }
 
@@ -330,22 +296,13 @@
 
       private func makeSmallCaps(_ range: NSRange, caseMapping: (String) -> String) {
         resetCasing(of: range)
-        swapGlyphs(
-          in: range,
-          mapping: { caseMapping($0) },
-          additionalChangesWhenTriggered: { (attributes: inout [NSAttributedString.Key: Any]) in
-
-            attributes[.smallCaps] = true
-
-            let font = attributes.font ?? Font.default
-            let smallCapsSize = NSMutableAttributedString.smallCapsMetrics(
-              for: font,
-              baseSize: Int(font.size.rounded(.toNearestOrEven))
-            )
-
-            attributes.font = font.resized(to: Double(smallCapsSize))
-          }
-        )
+        applyUniformChanges(to: range) { (attributes: inout [NSAttributedString.Key: Any]) in
+          attributes.update(fontFeatures: [
+            kLowerCaseType: kLowerCaseSmallCapsSelector,
+            // Deprecated, but still used by some fonts.
+            kLetterCaseType: kSmallCapsSelector
+          ])
+        }
       }
 
       private static func turkicUpperCase(_ string: String) -> String {

@@ -101,6 +101,8 @@ import PackageDescription
 /// ```
 let package = Package(
   name: "SDGInterface",
+  // #warning(Preview mode.)
+  platforms: [.macOS(.v10_15)],
   products: [
     // @documentation(SDGApplication)
     /// Application‐level functionality and system interaction.
