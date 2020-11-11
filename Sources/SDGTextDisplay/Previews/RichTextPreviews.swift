@@ -13,7 +13,7 @@
  */
 
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm)) && !os(watchOS)
-  import SwiftUI
+import SwiftUI
 
   import SDGText
   import SDGLocalization
@@ -41,7 +41,9 @@
               }
               var rich = RichText(rawText: text)
               rich.set(font: Font.forLabels.resized(to: 32))
-              return rich
+              let attributed = NSMutableAttributedString(rich)
+              attributed.makeLatinateSmallCaps(NSRange(location: 0, length: attributed.length))
+              return RichText(attributed)
             })
           ).adjustForLegacyMode(),
           name: "Small Upper Case"
