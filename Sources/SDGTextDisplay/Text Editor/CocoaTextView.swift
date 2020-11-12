@@ -234,7 +234,6 @@
       }
     }
 
-    #if canImport(AppKit)
       @objc public func resetCasing(_ sender: Any?) {
         attemptToMutateSelection {
           $0.resetCasing(of: NSRange(0..<$0.length))
@@ -258,7 +257,6 @@
           $0.makeLowerCase(NSRange(0..<$0.length))
         }
       }
-    #endif
 
     // MARK: - TextEditingResponder
 

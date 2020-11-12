@@ -183,7 +183,6 @@
       }
     #endif
 
-    #if canImport(AppKit)
       // MARK: - Case
 
       /// Resets casing.
@@ -242,6 +241,5 @@
           ])
         }
       }
-    #endif
   }
 #endif

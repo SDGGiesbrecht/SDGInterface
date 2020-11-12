@@ -63,8 +63,14 @@
       internal mutating func update(fontFeatures: [Int: Int]) {
         #if canImport(AppKit)
           typealias NativeFont = NSFont
+          typealias NativeFontDescriptor = NSFontDescriptor
+          let key = NSFontDescriptor.FeatureKey.typeIdentifier
+          let value = NSFontDescriptor.FeatureKey.selectorIdentifier
         #elseif canImport(UIKit)
           typealias NativeFont = UIFont
+          typealias NativeFontDescriptor = UIFontDescriptor
+          let key = UIFontDescriptor.FeatureKey.featureIdentifier
+          let value = UIFontDescriptor.FeatureKey.typeIdentifier
         #endif
         if let font = (self[.font] as? NativeFont)
           ?? NativeFont.from(Font.default)
@@ -72,13 +78,13 @@
           let descriptor = font.fontDescriptor
           let existingFeatures =
             descriptor.fontAttributes[.featureSettings]
-            as? [[NSFontDescriptor.FeatureKey: Int]] ?? []
+            as? [[NativeFontDescriptor.FeatureKey: Int]] ?? []
 
           var featureDictionary: [Int: Int] = [:]
           for feature in existingFeatures {
             // @exempt(from: tests) System doesn’t report existing features?
-            if let type = feature[.typeIdentifier],
-              let selector = feature[.selectorIdentifier]
+            if let type = feature[key],
+              let selector = feature[value]
             {
               featureDictionary[type] = selector
             }
@@ -86,11 +92,11 @@
 
           featureDictionary = featureDictionary.mergedByOverwriting(from: fontFeatures)
 
-          var featureArray: [[NSFontDescriptor.FeatureKey: Int]] = []
+          var featureArray: [[NativeFontDescriptor.FeatureKey: Int]] = []
           for (type, selector) in featureDictionary {
             featureArray.append([
-              .typeIdentifier: type,
-              .selectorIdentifier: selector,
+              key: type,
+              value: selector,
             ])
           }
 

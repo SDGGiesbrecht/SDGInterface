@@ -40,7 +40,6 @@
       ///     - sender: The sender.
       @objc func resetBaseline(_ sender: Any?)
 
-      #if canImport(AppKit)
         // MARK: - Case
 
         /// Resets the casing of the selection.
@@ -66,7 +65,6 @@
         /// - Parameters:
         ///     - sender: The sender.
         @objc func makeLowerCase(_ sender: Any?)
-      #endif
     }
   #endif
 #endif
