@@ -183,63 +183,65 @@
       }
     #endif
 
-    // MARK: - Case
+    #if canImport(AppKit) || canImport(UIKit)
+      // MARK: - Case
 
-    /// Resets casing.
-    ///
-    /// - Parameters:
-    ///     - range: The range to reset.
-    public func resetCasing(of range: NSRange) {
-      applyUniformChanges(to: range) { (attributes: inout [NSAttributedString.Key: Any]) in
-        attributes.update(fontFeatures: [
-          // See makeSmallCaps(_:).
-          kLowerCaseType: kDefaultLowerCaseSelector,
-          kLetterCaseType: kUpperAndLowerCaseSelector,
-        ])
+      /// Resets casing.
+      ///
+      /// - Parameters:
+      ///     - range: The range to reset.
+      public func resetCasing(of range: NSRange) {
+        applyUniformChanges(to: range) { (attributes: inout [NSAttributedString.Key: Any]) in
+          attributes.update(fontFeatures: [
+            // See makeSmallCaps(_:).
+            kLowerCaseType: kDefaultLowerCaseSelector,
+            kLetterCaseType: kUpperAndLowerCaseSelector,
+          ])
+        }
       }
-    }
 
-    /// Switches to an upper case font.
-    ///
-    /// - Parameters:
-    ///     - range: The range to switch to upper case.
-    public func makeUpperCase(_ range: NSRange) {
-      resetCasing(of: range)
-      applyUniformChanges(to: range) { (attributes: inout [NSAttributedString.Key: Any]) in
-        attributes.update(fontFeatures: [
-          // Deprecated, but still used by some fonts.
-          kLetterCaseType: kAllCapsSelector
-        ])
+      /// Switches to an upper case font.
+      ///
+      /// - Parameters:
+      ///     - range: The range to switch to upper case.
+      public func makeUpperCase(_ range: NSRange) {
+        resetCasing(of: range)
+        applyUniformChanges(to: range) { (attributes: inout [NSAttributedString.Key: Any]) in
+          attributes.update(fontFeatures: [
+            // Deprecated, but still used by some fonts.
+            kLetterCaseType: kAllCapsSelector
+          ])
+        }
       }
-    }
 
-    /// Switches to a small caps font.
-    ///
-    /// - Parameters:
-    ///     - range: The range to switch to small caps.
-    public func makeSmallCaps(_ range: NSRange) {
-      resetCasing(of: range)
-      applyUniformChanges(to: range) { (attributes: inout [NSAttributedString.Key: Any]) in
-        attributes.update(fontFeatures: [
-          kLowerCaseType: kLowerCaseSmallCapsSelector,
-          // Deprecated, but still used by some fonts.
-          kLetterCaseType: kSmallCapsSelector,
-        ])
+      /// Switches to a small caps font.
+      ///
+      /// - Parameters:
+      ///     - range: The range to switch to small caps.
+      public func makeSmallCaps(_ range: NSRange) {
+        resetCasing(of: range)
+        applyUniformChanges(to: range) { (attributes: inout [NSAttributedString.Key: Any]) in
+          attributes.update(fontFeatures: [
+            kLowerCaseType: kLowerCaseSmallCapsSelector,
+            // Deprecated, but still used by some fonts.
+            kLetterCaseType: kSmallCapsSelector,
+          ])
+        }
       }
-    }
 
-    /// Switches to a lower case font.
-    ///
-    /// - Parameters:
-    ///     - range: The range to switch to lower case.
-    public func makeLowerCase(_ range: NSRange) {
-      resetCasing(of: range)
-      applyUniformChanges(to: range) { (attributes: inout [NSAttributedString.Key: Any]) in
-        attributes.update(fontFeatures: [
-          // Deprecated, but still used by some fonts.
-          kLetterCaseType: kAllLowerCaseSelector
-        ])
+      /// Switches to a lower case font.
+      ///
+      /// - Parameters:
+      ///     - range: The range to switch to lower case.
+      public func makeLowerCase(_ range: NSRange) {
+        resetCasing(of: range)
+        applyUniformChanges(to: range) { (attributes: inout [NSAttributedString.Key: Any]) in
+          attributes.update(fontFeatures: [
+            // Deprecated, but still used by some fonts.
+            kLetterCaseType: kAllLowerCaseSelector
+          ])
+        }
       }
-    }
+    #endif
   }
 #endif
