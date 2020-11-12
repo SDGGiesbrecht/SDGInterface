@@ -237,7 +237,6 @@
         resetCasing(of: range)
         applyUniformChanges(to: range) { (attributes: inout [NSAttributedString.Key: Any]) in
           attributes.update(fontFeatures: [
-            // #warning("New way?")
             // Deprecated, but still used by some fonts.
             kLetterCaseType: kAllLowerCaseSelector
           ])
