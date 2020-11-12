@@ -27,26 +27,70 @@ import SwiftUI
   internal struct RichTextPreviews: PreviewProvider {
     internal static var previews: some SwiftUI.View {
 
-      Group {
-
-        previewBothModes(
+      func preview(
+        text: UserFacing<StrictString, InterfaceLocalization>,
+        transformation transform: @escaping (NSMutableAttributedString) -> Void
+      ) -> some SwiftUI.View {
+        return previewBothModes(
           TextView(
             contents: UserFacing<RichText, InterfaceLocalization>({ localization in
-              let text: StrictString
-              switch localization {
-              case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                text = "Small Upper Case"
-              case .deutschDeutschland:
-                text = "Kapitälchen"
-              }
+              let text: StrictString = text.resolved()
               var rich = RichText(rawText: text)
               rich.set(font: Font.forLabels.resized(to: 32))
               let attributed = NSMutableAttributedString(rich)
-              attributed.makeLatinateSmallCaps(NSRange(location: 0, length: attributed.length))
+              transform(attributed)
               return RichText(attributed)
             })
-          ).adjustForLegacyMode(),
-          name: "Small Upper Case"
+          ).adjustForLegacyMode()
+            .frame(
+              width: 250,
+              height: /*@START_MENU_TOKEN@*/ 100 /*@END_MENU_TOKEN@*/,
+              alignment: /*@START_MENU_TOKEN@*/ .center /*@END_MENU_TOKEN@*/
+            ),
+          name: String(text.resolved())
+        )
+      }
+
+      return Group {
+
+        preview(
+          text: UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+              return "Upper Case"
+            case .deutschDeutschland:
+              return "Großbuchstaben"
+            }
+          }),
+          transformation: { attributed in
+            attributed.makeUpperCase(NSRange(location: 0, length: attributed.length))
+          }
+        )
+        preview(
+          text: UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+              return "Small Upper Case"
+            case .deutschDeutschland:
+              return "Kapitälchen"
+            }
+          }),
+          transformation: { attributed in
+            attributed.makeSmallCaps(NSRange(location: 0, length: attributed.length))
+          }
+        )
+        preview(
+          text: UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+              return "Lower Case"
+            case .deutschDeutschland:
+              return "Kleinbuchstaben"
+            }
+          }),
+          transformation: { attributed in
+            attributed.makeLowerCase(NSRange(location: 0, length: attributed.length))
+          }
         )
       }
     }

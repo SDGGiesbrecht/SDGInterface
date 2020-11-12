@@ -130,12 +130,9 @@
       #if canImport(AppKit)
         result ∪= [
           #selector(RichTextEditingResponder.resetCasing(_:)),
-          #selector(RichTextEditingResponder.makeLatinateUpperCase(_:)),
-          #selector(RichTextEditingResponder.makeTurkicUpperCase(_:)),
-          #selector(RichTextEditingResponder.makeLatinateSmallCaps(_:)),
-          #selector(RichTextEditingResponder.makeTurkicSmallCaps(_:)),
-          #selector(RichTextEditingResponder.makeLatinateLowerCase(_:)),
-          #selector(RichTextEditingResponder.makeTurkicLowerCase(_:)),
+          #selector(RichTextEditingResponder.makeUpperCase(_:)),
+          #selector(RichTextEditingResponder.makeSmallCaps(_:)),
+          #selector(RichTextEditingResponder.makeLowerCase(_:)),
         ]
       #endif
       return result
@@ -151,12 +148,9 @@
       #if canImport(AppKit)
         result ∪= [
           #selector(RichTextEditingResponder.resetCasing(_:)),
-          #selector(RichTextEditingResponder.makeLatinateUpperCase(_:)),
-          #selector(RichTextEditingResponder.makeTurkicUpperCase(_:)),
-          #selector(RichTextEditingResponder.makeLatinateSmallCaps(_:)),
-          #selector(RichTextEditingResponder.makeTurkicSmallCaps(_:)),
-          #selector(RichTextEditingResponder.makeLatinateLowerCase(_:)),
-          #selector(RichTextEditingResponder.makeTurkicLowerCase(_:)),
+          #selector(RichTextEditingResponder.makeUpperCase(_:)),
+          #selector(RichTextEditingResponder.makeSmallCaps(_:)),
+          #selector(RichTextEditingResponder.makeLowerCase(_:)),
         ]
       #endif
       return result
@@ -172,12 +166,9 @@
       #if canImport(AppKit)
         result ∪= [
           #selector(RichTextEditingResponder.resetCasing(_:)),
-          #selector(RichTextEditingResponder.makeLatinateUpperCase(_:)),
-          #selector(RichTextEditingResponder.makeTurkicUpperCase(_:)),
-          #selector(RichTextEditingResponder.makeLatinateSmallCaps(_:)),
-          #selector(RichTextEditingResponder.makeTurkicSmallCaps(_:)),
-          #selector(RichTextEditingResponder.makeLatinateLowerCase(_:)),
-          #selector(RichTextEditingResponder.makeTurkicLowerCase(_:)),
+          #selector(RichTextEditingResponder.makeUpperCase(_:)),
+          #selector(RichTextEditingResponder.makeSmallCaps(_:)),
+          #selector(RichTextEditingResponder.makeLowerCase(_:)),
         ]
       #endif
       return result
@@ -250,36 +241,21 @@
         }
       }
 
-      @objc public func makeLatinateUpperCase(_ sender: Any?) {
+      @objc public func makeUpperCase(_ sender: Any?) {
         attemptToMutateSelection {
-          $0.makeLatinateUpperCase(NSRange(0..<$0.length))
-        }
-      }
-      @objc public func makeTurkicUpperCase(_ sender: Any?) {
-        attemptToMutateSelection {
-          $0.makeTurkicUpperCase(NSRange(0..<$0.length))
+          $0.makeUpperCase(NSRange(0..<$0.length))
         }
       }
 
-      @objc public func makeLatinateSmallCaps(_ sender: Any?) {
+      @objc public func makeSmallCaps(_ sender: Any?) {
         attemptToMutateSelection {
-          $0.makeLatinateSmallCaps(NSRange(0..<$0.length))
-        }
-      }
-      @objc public func makeTurkicSmallCaps(_ sender: Any?) {
-        attemptToMutateSelection {
-          $0.makeTurkicSmallCaps(NSRange(0..<$0.length))
+          $0.makeSmallCaps(NSRange(0..<$0.length))
         }
       }
 
-      @objc public func makeLatinateLowerCase(_ sender: Any?) {
+      @objc public func makeLowerCase(_ sender: Any?) {
         attemptToMutateSelection {
-          $0.makeLatinateLowerCase(NSRange(0..<$0.length))
-        }
-      }
-      @objc public func makeTurkicLowerCase(_ sender: Any?) {
-        attemptToMutateSelection {
-          $0.makeTurkicLowerCase(NSRange(0..<$0.length))
+          $0.makeLowerCase(NSRange(0..<$0.length))
         }
       }
     #endif

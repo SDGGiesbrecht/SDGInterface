@@ -49,38 +49,23 @@
         ///     - sender: The sender.
         @objc func resetCasing(_ sender: Any?)
 
-        /// Converts the selection to a Latinate upper case font (where “i” becomes “I”).
+        /// Converts the selection to an upper case font.
         ///
         /// - Parameters:
         ///     - sender: The sender.
-        @objc func makeLatinateUpperCase(_ sender: Any?)
-        /// Converts the selection to a Turkic upper case font (where “i” becomes “İ”).
-        ///
-        /// - Parameters:
-        ///     - sender: The sender.
-        @objc func makeTurkicUpperCase(_ sender: Any?)
+        @objc func makeUpperCase(_ sender: Any?)
 
-        /// Converts the selection to a Latinate small caps font (where “i” becomes “I”).
+        /// Converts the selection to a small caps font.
         ///
         /// - Parameters:
         ///     - sender: The sender.
-        @objc func makeLatinateSmallCaps(_ sender: Any?)
-        /// Converts the selection to a Turkic small caps font (where “i” becomes “İ”).
-        ///
-        /// - Parameters:
-        ///     - sender: The sender.
-        @objc func makeTurkicSmallCaps(_ sender: Any?)
+        @objc func makeSmallCaps(_ sender: Any?)
 
-        /// Converts the selection to a Latinate lower case font (where “I” becomes “i”).
+        /// Converts the selection to a lower case font.
         ///
         /// - Parameters:
         ///     - sender: The sender.
-        @objc func makeLatinateLowerCase(_ sender: Any?)
-        /// Converts the selection to a Turkic lower case font (where “I” becomes “ı”).
-        ///
-        /// - Parameters:
-        ///     - sender: The sender.
-        @objc func makeTurkicLowerCase(_ sender: Any?)
+        @objc func makeLowerCase(_ sender: Any?)
       #endif
     }
   #endif
