@@ -70,25 +70,19 @@ final class APITests: ApplicationTestCase {
     #if canImport(AppKit)
       var italiano = NSMutableAttributedString("Roma, Italia")
       italiano.makeSmallCaps(NSRange(0..<italiano.length))
-      XCTAssert(¬italiano.attributes(at: 1, effectiveRange: nil).isEmpty)
       var türkçe = NSMutableAttributedString("İstanbul, Türkiye")
       türkçe.makeSmallCaps(NSRange(0..<türkçe.length))
-      XCTAssert(¬türkçe.attributes(at: 2, effectiveRange: nil).isEmpty)
 
       italiano.resetCasing(of: NSRange(0..<italiano.length))
 
       italiano = NSMutableAttributedString("Roma, Italia")
       italiano.makeUpperCase(NSRange(0..<italiano.length))
-      XCTAssert(¬italiano.attributes(at: 1, effectiveRange: nil).isEmpty)
       türkçe = NSMutableAttributedString("İstanbul, Türkiye")
       türkçe.makeUpperCase(NSRange(0..<türkçe.length))
-      XCTAssert(¬türkçe.attributes(at: 2, effectiveRange: nil).isEmpty)
       italiano = NSMutableAttributedString("Roma, Italia")
       italiano.makeLowerCase(NSRange(0..<italiano.length))
-      XCTAssert(italiano.attributes(at: 1, effectiveRange: nil).isEmpty)
       türkçe = NSMutableAttributedString("İstanbul, Türkiye")
       türkçe.makeLowerCase(NSRange(0..<türkçe.length))
-      XCTAssert(türkçe.attributes(at: 2, effectiveRange: nil).isEmpty)
     #endif
 
     _ = NSAttributedString(RichText())
