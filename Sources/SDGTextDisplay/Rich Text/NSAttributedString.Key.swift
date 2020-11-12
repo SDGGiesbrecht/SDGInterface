@@ -76,6 +76,7 @@
 
           var featureDictionary: [Int: Int] = [:]
           for feature in existingFeatures {
+            // @exempt(from: tests) System doesn’t report existing features?
             if let type = feature[.typeIdentifier],
               let selector = feature[.selectorIdentifier]
             {
