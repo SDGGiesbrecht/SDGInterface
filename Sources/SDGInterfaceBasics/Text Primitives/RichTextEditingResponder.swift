@@ -40,31 +40,31 @@
       ///     - sender: The sender.
       @objc func resetBaseline(_ sender: Any?)
 
-        // MARK: - Case
+      // MARK: - Case
 
-        /// Resets the casing of the selection.
-        ///
-        /// - Parameters:
-        ///     - sender: The sender.
-        @objc func resetCasing(_ sender: Any?)
+      /// Resets the casing of the selection.
+      ///
+      /// - Parameters:
+      ///     - sender: The sender.
+      @objc func resetCasing(_ sender: Any?)
 
-        /// Converts the selection to an upper case font.
-        ///
-        /// - Parameters:
-        ///     - sender: The sender.
-        @objc func makeUpperCase(_ sender: Any?)
+      /// Converts the selection to an upper case font.
+      ///
+      /// - Parameters:
+      ///     - sender: The sender.
+      @objc func makeUpperCase(_ sender: Any?)
 
-        /// Converts the selection to a small caps font.
-        ///
-        /// - Parameters:
-        ///     - sender: The sender.
-        @objc func makeSmallCaps(_ sender: Any?)
+      /// Converts the selection to a small caps font.
+      ///
+      /// - Parameters:
+      ///     - sender: The sender.
+      @objc func makeSmallCaps(_ sender: Any?)
 
-        /// Converts the selection to a lower case font.
-        ///
-        /// - Parameters:
-        ///     - sender: The sender.
-        @objc func makeLowerCase(_ sender: Any?)
+      /// Converts the selection to a lower case font.
+      ///
+      /// - Parameters:
+      ///     - sender: The sender.
+      @objc func makeLowerCase(_ sender: Any?)
     }
   #endif
 #endif

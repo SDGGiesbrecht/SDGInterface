@@ -234,29 +234,29 @@
       }
     }
 
-      @objc public func resetCasing(_ sender: Any?) {
-        attemptToMutateSelection {
-          $0.resetCasing(of: NSRange(0..<$0.length))
-        }
+    @objc public func resetCasing(_ sender: Any?) {
+      attemptToMutateSelection {
+        $0.resetCasing(of: NSRange(0..<$0.length))
       }
+    }
 
-      @objc public func makeUpperCase(_ sender: Any?) {
-        attemptToMutateSelection {
-          $0.makeUpperCase(NSRange(0..<$0.length))
-        }
+    @objc public func makeUpperCase(_ sender: Any?) {
+      attemptToMutateSelection {
+        $0.makeUpperCase(NSRange(0..<$0.length))
       }
+    }
 
-      @objc public func makeSmallCaps(_ sender: Any?) {
-        attemptToMutateSelection {
-          $0.makeSmallCaps(NSRange(0..<$0.length))
-        }
+    @objc public func makeSmallCaps(_ sender: Any?) {
+      attemptToMutateSelection {
+        $0.makeSmallCaps(NSRange(0..<$0.length))
       }
+    }
 
-      @objc public func makeLowerCase(_ sender: Any?) {
-        attemptToMutateSelection {
-          $0.makeLowerCase(NSRange(0..<$0.length))
-        }
+    @objc public func makeLowerCase(_ sender: Any?) {
+      attemptToMutateSelection {
+        $0.makeLowerCase(NSRange(0..<$0.length))
       }
+    }
 
     // MARK: - TextEditingResponder
 
