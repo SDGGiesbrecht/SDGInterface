@@ -636,6 +636,10 @@ final class APITests: ApplicationTestCase {
       cocoaTextView.makeSuperscript(nil)
       cocoaTextView.makeSubscript(nil)
       cocoaTextView.resetBaseline(nil)
+      cocoaTextView.makeUpperCase(nil)
+      cocoaTextView.makeSmallCaps(nil)
+      cocoaTextView.makeLowerCase(nil)
+      cocoaTextView.resetCasing(nil)
       cocoaTextView.normalizeText(nil)
       #if canImport(UIKit)
         XCTAssertFalse(
