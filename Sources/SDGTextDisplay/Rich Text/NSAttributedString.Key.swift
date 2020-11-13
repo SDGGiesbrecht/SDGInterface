@@ -73,7 +73,7 @@
           let value = UIFontDescriptor.FeatureKey.typeIdentifier
         #endif
         if let font = (self[.font] as? NativeFont)
-          ?? NativeFont.from(Font.default)
+          ?? NativeFont.from(Font.default)  // @exempt(from: tests) Never nil on tvOS.
         {
           let descriptor = font.fontDescriptor
           let existingFeatures =
