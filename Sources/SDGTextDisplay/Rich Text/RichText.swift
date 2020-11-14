@@ -297,7 +297,14 @@
       ///     - range: The range.
       public mutating func set<R>(font: Font?, forRange range: R)
       where R: RangeExpression, R.Bound == Index {
-        set(attribute: NSAttributedString.Key.font, to: font, forRange: range)
+        #if canImport(AppKit)
+          let native: NSFont? = font.flatMap({ NSFont.from($0) })
+        #elseif canImport(UIKit)
+          let native: UIFont? = font.flatMap({ UIFont.from($0) })
+        #else
+          native = font  // No platform recognition anyway.
+        #endif
+        set(attribute: NSAttributedString.Key.font, to: native, forRange: range)
       }
 
       /// Italicizes the entire string.

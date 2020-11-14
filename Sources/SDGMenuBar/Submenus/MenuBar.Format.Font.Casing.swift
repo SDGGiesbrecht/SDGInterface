@@ -39,116 +39,45 @@
       )
     }
 
-    private static func latinate() -> Menu<InterfaceLocalization> {
-      return Menu(
+    private static func upperCase() -> MenuEntry<InterfaceLocalization> {
+      return MenuEntry(
         label: UserFacing<StrictString, InterfaceLocalization>({ localization in
-          var latinate: StrictString
           switch localization {
           case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-            latinate = "Latinate"
+            return "Upper Case"
           case .deutschDeutschland:
-            return "Lateinische"
+            return "Großbuchstaben"
           }
-          return latinate + " (I ↔ i)"
         }),
-        entries: [
-          .entry(latinateUpperCase()),
-          .entry(latinateSmallUpperCase()),
-          .entry(latinateLowerCase()),
-        ]
+        action: #selector(RichTextEditingResponder.makeUpperCase(_:))
       )
     }
 
-    private static func upperCaseLabel() -> UserFacing<StrictString, InterfaceLocalization> {
-      return UserFacing<StrictString, InterfaceLocalization>({ localization in
-        switch localization {
-        case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-          return "Upper Case"
-        case .deutschDeutschland:
-          return "Großbuchstaben"
-        }
-      })
-    }
-    private static func latinateUpperCase() -> MenuEntry<InterfaceLocalization> {
+    private static func smallUpperCase() -> MenuEntry<InterfaceLocalization> {
       return MenuEntry(
-        label: upperCaseLabel(),
-        action: #selector(RichTextEditingResponder.makeLatinateUpperCase(_:))
-      )
-    }
-
-    private static func smallUpperCaseLabel() -> UserFacing<StrictString, InterfaceLocalization> {
-      return UserFacing<StrictString, InterfaceLocalization>({ localization in
-        switch localization {
-        case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-          return "Small Upper Case"
-        case .deutschDeutschland:
-          return "Kapitälchen"
-        }
-      })
-    }
-
-    private static func latinateSmallUpperCase() -> MenuEntry<InterfaceLocalization> {
-      return MenuEntry(
-        label: smallUpperCaseLabel(),
-        action: #selector(RichTextEditingResponder.makeLatinateSmallCaps(_:))
-      )
-    }
-
-    private static func lowerCaseLabel() -> UserFacing<StrictString, InterfaceLocalization> {
-      return UserFacing<StrictString, InterfaceLocalization>({ localization in
-        switch localization {
-        case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-          return "Lower Case"
-        case .deutschDeutschland:
-          return "Kleinbuchstaben"
-        }
-      })
-    }
-    private static func latinateLowerCase() -> MenuEntry<InterfaceLocalization> {
-      return MenuEntry(
-        label: lowerCaseLabel(),
-        action: #selector(RichTextEditingResponder.makeLatinateLowerCase(_:))
-      )
-    }
-
-    private static func turkic() -> Menu<InterfaceLocalization> {
-      return Menu(
         label: UserFacing<StrictString, InterfaceLocalization>({ localization in
-          var turkic: StrictString
           switch localization {
           case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-            turkic = "Turkic"
+            return "Small Upper Case"
           case .deutschDeutschland:
-            return "Türkische"
+            return "Kapitälchen"
           }
-          return turkic + " (I ↔ ı, İ ↔ i)"
         }),
-        entries: [
-          .entry(turkicUpperCase()),
-          .entry(turkicSmallUpperCase()),
-          .entry(turkicLowerCase()),
-        ]
+        action: #selector(RichTextEditingResponder.makeSmallCaps(_:))
       )
     }
 
-    private static func turkicUpperCase() -> MenuEntry<InterfaceLocalization> {
+    private static func lowerCase() -> MenuEntry<InterfaceLocalization> {
       return MenuEntry(
-        label: upperCaseLabel(),
-        action: #selector(RichTextEditingResponder.makeTurkicUpperCase(_:))
-      )
-    }
-
-    private static func turkicSmallUpperCase() -> MenuEntry<InterfaceLocalization> {
-      return MenuEntry(
-        label: smallUpperCaseLabel(),
-        action: #selector(RichTextEditingResponder.makeTurkicSmallCaps(_:))
-      )
-    }
-
-    private static func turkicLowerCase() -> MenuEntry<InterfaceLocalization> {
-      return MenuEntry(
-        label: lowerCaseLabel(),
-        action: #selector(RichTextEditingResponder.makeTurkicLowerCase(_:))
+        label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Lower Case"
+          case .deutschDeutschland:
+            return "Kleinbuchstaben"
+          }
+        }),
+        action: #selector(RichTextEditingResponder.makeLowerCase(_:))
       )
     }
 
@@ -164,8 +93,9 @@
         }),
         entries: [
           .entry(useDefault()),
-          .submenu(latinate()),
-          .submenu(turkic()),
+          .entry(upperCase()),
+          .entry(smallUpperCase()),
+          .entry(lowerCase()),
         ]
       )
     }
