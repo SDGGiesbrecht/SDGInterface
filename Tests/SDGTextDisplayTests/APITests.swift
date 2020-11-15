@@ -149,219 +149,221 @@ final class APITests: ApplicationTestCase {
   }
 
   func testRichText() throws {
-    let fontNameKey = NSAttributedString.Key(rawValue: "SDGTestFontName")
-    func prepareForEqualityCheck(
-      _ string: NSAttributedString,
-      ignoring ignored: [NSAttributedString.Key] = []
-    ) -> NSAttributedString {
-      #if canImport(AppKit) || canImport(UIKit)
-        let processed = NSAttributedString(RichText(string))
-        var font = processed.attributes(at: 0, effectiveRange: nil).font!
-        if font.fontName == ".SFNSDisplay" ∨ font.fontName == ".SFNSText" {
-          font.fontName = ".AppleSystemUIFont"
-        }
-        let mutable = processed.mutableCopy() as! NSMutableAttributedString
-        let all = NSRange(0..<mutable.length)
-        mutable.removeAttribute(.font, range: all)
-        mutable.addAttribute(fontNameKey, value: font.fontName, range: all)
-        mutable.addAttribute(
-          NSAttributedString.Key(rawValue: "SDGTestFontSize"),
-          value: CGFloat(font.size.rounded(.toNearestOrEven)),
-          range: all
-        )
-        for attribute in ignored {
-          mutable.removeAttribute(attribute, range: all)
-        }
-        return mutable.copy() as! NSAttributedString
-      #else
-        _ = fontNameKey
-        return string
-      #endif
-    }
-    for fontSize in sequence(first: 0 as Double, next: { $0 + 1 }).prefix(10).map({ 2 ↑ $0 }) {
-      #if canImport(CoreGraphics)
-        #if canImport(AppKit)
-          typealias NativeFont = NSFont
-        #elseif canImport(UIKit)
-          typealias NativeFont = UIFont
+    #if !os(Windows)  // #workaround(Swift 5.3, Segmentation fault.)
+      let fontNameKey = NSAttributedString.Key(rawValue: "SDGTestFontName")
+      func prepareForEqualityCheck(
+        _ string: NSAttributedString,
+        ignoring ignored: [NSAttributedString.Key] = []
+      ) -> NSAttributedString {
+        #if canImport(AppKit) || canImport(UIKit)
+          let processed = NSAttributedString(RichText(string))
+          var font = processed.attributes(at: 0, effectiveRange: nil).font!
+          if font.fontName == ".SFNSDisplay" ∨ font.fontName == ".SFNSText" {
+            font.fontName = ".AppleSystemUIFont"
+          }
+          let mutable = processed.mutableCopy() as! NSMutableAttributedString
+          let all = NSRange(0..<mutable.length)
+          mutable.removeAttribute(.font, range: all)
+          mutable.addAttribute(fontNameKey, value: font.fontName, range: all)
+          mutable.addAttribute(
+            NSAttributedString.Key(rawValue: "SDGTestFontSize"),
+            value: CGFloat(font.size.rounded(.toNearestOrEven)),
+            range: all
+          )
+          for attribute in ignored {
+            mutable.removeAttribute(attribute, range: all)
+          }
+          return mutable.copy() as! NSAttributedString
+        #else
+          _ = fontNameKey
+          return string
         #endif
-        let placeholderText = "..."
-        let font = Font.system.resized(to: Double(fontSize))
-        let nativeFont = NativeFont.from(font)!
-        let basicString = NSAttributedString(
-          string: placeholderText,
-          attributes: [.font: nativeFont]
-        )
-        let basicHTML = try NSAttributedString.from(html: placeholderText, font: font)
-        let ignored: [NSAttributedString.Key] = [
-          .foregroundColor, .kern, .paragraphStyle, .strokeColor, .strokeWidth,
-        ]
-        XCTAssertEqual(
-          prepareForEqualityCheck(basicString, ignoring: ignored),
-          prepareForEqualityCheck(basicHTML, ignoring: ignored)
-        )
+      }
+      for fontSize in sequence(first: 0 as Double, next: { $0 + 1 }).prefix(10).map({ 2 ↑ $0 }) {
+        #if canImport(CoreGraphics)
+          #if canImport(AppKit)
+            typealias NativeFont = NSFont
+          #elseif canImport(UIKit)
+            typealias NativeFont = UIFont
+          #endif
+          let placeholderText = "..."
+          let font = Font.system.resized(to: Double(fontSize))
+          let nativeFont = NativeFont.from(font)!
+          let basicString = NSAttributedString(
+            string: placeholderText,
+            attributes: [.font: nativeFont]
+          )
+          let basicHTML = try NSAttributedString.from(html: placeholderText, font: font)
+          let ignored: [NSAttributedString.Key] = [
+            .foregroundColor, .kern, .paragraphStyle, .strokeColor, .strokeWidth,
+          ]
+          XCTAssertEqual(
+            prepareForEqualityCheck(basicString, ignoring: ignored),
+            prepareForEqualityCheck(basicHTML, ignoring: ignored)
+          )
 
-        let toFixSup = try NSAttributedString.from(html: "\u{B2}", font: font)
-        let alreadyCorrectSup = try NSAttributedString.from(html: "<sup>2</sup>", font: font)
-        XCTAssertEqual(
-          prepareForEqualityCheck(toFixSup),
-          prepareForEqualityCheck(alreadyCorrectSup)
-        )
+          let toFixSup = try NSAttributedString.from(html: "\u{B2}", font: font)
+          let alreadyCorrectSup = try NSAttributedString.from(html: "<sup>2</sup>", font: font)
+          XCTAssertEqual(
+            prepareForEqualityCheck(toFixSup),
+            prepareForEqualityCheck(alreadyCorrectSup)
+          )
 
-        let toFixSub = try NSAttributedString.from(html: "\u{2082}", font: font)
-        let alreadyCorrectSub = try NSAttributedString.from(html: "<sub>2</sub>", font: font)
-        XCTAssertEqual(
-          prepareForEqualityCheck(toFixSub),
-          prepareForEqualityCheck(alreadyCorrectSub)
-        )
+          let toFixSub = try NSAttributedString.from(html: "\u{2082}", font: font)
+          let alreadyCorrectSub = try NSAttributedString.from(html: "<sub>2</sub>", font: font)
+          XCTAssertEqual(
+            prepareForEqualityCheck(toFixSub),
+            prepareForEqualityCheck(alreadyCorrectSub)
+          )
 
-        let mutable = basicHTML.mutableCopy() as! NSMutableAttributedString
-        mutable.superscript(NSRange(0..<mutable.length))
-        mutable.resetBaseline(for: NSRange(0..<mutable.length))
-        XCTAssertEqual(prepareForEqualityCheck(mutable), prepareForEqualityCheck(basicHTML))
+          let mutable = basicHTML.mutableCopy() as! NSMutableAttributedString
+          mutable.superscript(NSRange(0..<mutable.length))
+          mutable.resetBaseline(for: NSRange(0..<mutable.length))
+          XCTAssertEqual(prepareForEqualityCheck(mutable), prepareForEqualityCheck(basicHTML))
+        #endif
+      }
+
+      #if canImport(AppKit) || canImport(UIKit)
+        let noAttributes = NSAttributedString(string: "...")
+        (noAttributes.mutableCopy() as! NSMutableAttributedString).superscript(
+          NSRange(0..<noAttributes.length)
+        )
+        (noAttributes.mutableCopy() as! NSMutableAttributedString).resetBaseline(
+          for: NSRange(0..<noAttributes.length)
+        )
       #endif
-    }
 
-    #if canImport(AppKit) || canImport(UIKit)
-      let noAttributes = NSAttributedString(string: "...")
-      (noAttributes.mutableCopy() as! NSMutableAttributedString).superscript(
-        NSRange(0..<noAttributes.length)
-      )
-      (noAttributes.mutableCopy() as! NSMutableAttributedString).resetBaseline(
-        for: NSRange(0..<noAttributes.length)
-      )
-    #endif
+      var richText = RichText(rawText: "...")
+      #if canImport(AppKit) || canImport(UIKit)
+        richText.superscript()
+        richText.set(colour: Colour(red: 1, green: 1, blue: 1, opacity: 1))
+        richText.superscript(range: richText.bounds)
+        richText.subscript(range: richText.bounds)
+        richText.set(font: Font.system)
+        richText.set(paragraphStyle: NSParagraphStyle())
+        XCTAssertEqual(richText.rawText(), StrictString("..."))
+        XCTAssert(richText.scalars().elementsEqual("...".scalars))
+        XCTAssertEqual(
+          richText.index(before: richText.index(after: richText.startIndex)),
+          richText.startIndex
+        )
+        richText.superscript(range: ..<richText.index(after: richText.startIndex))
+        XCTAssertEqual(richText.count, 3)
+        XCTAssertEqual(
+          richText.index(before: richText.index(after: richText.startIndex)),
+          richText.startIndex
+        )
+        XCTAssertNotEqual(richText.index(before: richText.endIndex), richText.startIndex)
+        XCTAssertEqual(
+          richText.index(after: richText.index(before: richText.endIndex)),
+          richText.endIndex
+        )
+        XCTAssertEqual(richText[richText.startIndex].rawScalar, ".")
+      #endif
+      _ = richText.playgroundDescription
 
-    var richText = RichText(rawText: "...")
-    #if canImport(AppKit) || canImport(UIKit)
-      richText.superscript()
-      richText.set(colour: Colour(red: 1, green: 1, blue: 1, opacity: 1))
-      richText.superscript(range: richText.bounds)
-      richText.subscript(range: richText.bounds)
-      richText.set(font: Font.system)
-      richText.set(paragraphStyle: NSParagraphStyle())
-      XCTAssertEqual(richText.rawText(), StrictString("..."))
-      XCTAssert(richText.scalars().elementsEqual("...".scalars))
+      testCustomStringConvertibleConformance(
+        of: RichText(rawText: "..."),
+        localizations: APILocalization.self,
+        uniqueTestName: "Rich Text",
+        overwriteSpecificationInsteadOfFailing: false
+      )
+      testEquatableConformance(differingInstances: (RichText(rawText: "1"), RichText(rawText: "2")))
+      #if !os(Windows)  // #workaround(Swift 5.3, Hashing appears broken on Windows.)
+        XCTAssertEqual([richText: true][richText], true)
+      #endif
+
+      richText = RichText(rawText: "......")
+      #if canImport(AppKit) || canImport(UIKit)
+        richText.subscript(
+          range: richText.index(
+            richText.startIndex,
+            offsetBy: 2
+          )..<richText.index(richText.endIndex, offsetBy: −2)
+        )
+      #endif
       XCTAssertEqual(
-        richText.index(before: richText.index(after: richText.startIndex)),
-        richText.startIndex
+        RichText(
+          richText[
+            richText.index(after: richText.startIndex)..<richText.index(before: richText.endIndex)
+          ]
+        ).count,
+        4
       )
-      richText.superscript(range: ..<richText.index(after: richText.startIndex))
-      XCTAssertEqual(richText.count, 3)
-      XCTAssertEqual(
-        richText.index(before: richText.index(after: richText.startIndex)),
-        richText.startIndex
-      )
-      XCTAssertNotEqual(richText.index(before: richText.endIndex), richText.startIndex)
-      XCTAssertEqual(
-        richText.index(after: richText.index(before: richText.endIndex)),
-        richText.endIndex
-      )
-      XCTAssertEqual(richText[richText.startIndex].rawScalar, ".")
-    #endif
-    _ = richText.playgroundDescription
+      XCTAssert(RichText().isEmpty)
+      let array = [RichText.Scalar(".", attributes: [:])]
+      XCTAssertEqual(RichText(array).count, 1)
+      richText = RichText(rawText: "...")
+      richText.append(contentsOf: array)
+      richText.insert(contentsOf: array, at: richText.startIndex)
+      XCTAssertEqual(richText.count, 5)
 
-    testCustomStringConvertibleConformance(
-      of: RichText(rawText: "..."),
-      localizations: APILocalization.self,
-      uniqueTestName: "Rich Text",
-      overwriteSpecificationInsteadOfFailing: false
-    )
-    testEquatableConformance(differingInstances: (RichText(rawText: "1"), RichText(rawText: "2")))
-    #if !os(Windows)  // #workaround(Swift 5.3, Hashing appears broken on Windows.)
-      XCTAssertEqual([richText: true][richText], true)
-    #endif
+      #if canImport(AppKit) || canImport(UIKit)
+        let copy = richText
+        richText.superscript()
+        XCTAssertNotEqual(richText, copy)
+      #endif
 
-    richText = RichText(rawText: "......")
-    #if canImport(AppKit) || canImport(UIKit)
-      richText.subscript(
-        range: richText.index(
+      richText = "abc\("def")ghi"
+      XCTAssertEqual(richText.rawText(), "abcdefghi")
+
+      XCTAssertEqual(("..." as RichText).rawText(), "...")
+      _ = RichText(NSAttributedString(string: "..."))
+      let attributes = [NSAttributedString.Key(rawValue: "Attribute"): NSNumber(value: 0)]
+      let half = RichText(rawText: "...", attributes: attributes)
+      let doubled = half + half
+      let doubledSeparately = RichText(
+        rawText: half.rawText() + half.rawText(),
+        attributes: attributes
+      )
+      #if !os(Linux)
+        XCTAssertEqual(doubled, doubledSeparately)
+      #endif
+      XCTAssert(RichText(rawText: "...").scalars().elementsEqual("...".scalars))
+      for _ in (half + RichText(rawText: "...")).reversed() {}
+      _ = RichText(NSAttributedString(string: "\u{B2}"))
+      _ = RichText(NSAttributedString(string: "\u{2082}"))
+      _ = RichText(richText[richText.bounds])
+      XCTAssert(RichText(rawText: "").isEmpty)
+      let nothingConcatenated = half + RichText(rawText: "")
+      #if !os(Linux)
+        XCTAssertEqual(nothingConcatenated, half)
+      #endif
+      richText = RichText(rawText: "......")
+      let subrange =
+        richText.index(
           richText.startIndex,
           offsetBy: 2
         )..<richText.index(richText.endIndex, offsetBy: −2)
+      let text = RichText(richText[subrange]).rawText()
+      richText.replaceSubrange(
+        subrange,
+        with: RichText(
+          rawText: text,
+          attributes: [NSAttributedString.Key(rawValue: "Key"): NSNumber(value: 0)]
+        )
       )
-    #endif
-    XCTAssertEqual(
-      RichText(
-        richText[
-          richText.index(after: richText.startIndex)..<richText.index(before: richText.endIndex)
-        ]
-      ).count,
-      4
-    )
-    XCTAssert(RichText().isEmpty)
-    let array = [RichText.Scalar(".", attributes: [:])]
-    XCTAssertEqual(RichText(array).count, 1)
-    richText = RichText(rawText: "...")
-    richText.append(contentsOf: array)
-    richText.insert(contentsOf: array, at: richText.startIndex)
-    XCTAssertEqual(richText.count, 5)
-
-    #if canImport(AppKit) || canImport(UIKit)
-      let copy = richText
-      richText.superscript()
-      XCTAssertNotEqual(richText, copy)
-    #endif
-
-    richText = "abc\("def")ghi"
-    XCTAssertEqual(richText.rawText(), "abcdefghi")
-
-    XCTAssertEqual(("..." as RichText).rawText(), "...")
-    _ = RichText(NSAttributedString(string: "..."))
-    let attributes = [NSAttributedString.Key(rawValue: "Attribute"): NSNumber(value: 0)]
-    let half = RichText(rawText: "...", attributes: attributes)
-    let doubled = half + half
-    let doubledSeparately = RichText(
-      rawText: half.rawText() + half.rawText(),
-      attributes: attributes
-    )
-    #if !os(Linux)
-      XCTAssertEqual(doubled, doubledSeparately)
-    #endif
-    XCTAssert(RichText(rawText: "...").scalars().elementsEqual("...".scalars))
-    for _ in (half + RichText(rawText: "...")).reversed() {}
-    _ = RichText(NSAttributedString(string: "\u{B2}"))
-    _ = RichText(NSAttributedString(string: "\u{2082}"))
-    _ = RichText(richText[richText.bounds])
-    XCTAssert(RichText(rawText: "").isEmpty)
-    let nothingConcatenated = half + RichText(rawText: "")
-    #if !os(Linux)
-      XCTAssertEqual(nothingConcatenated, half)
-    #endif
-    richText = RichText(rawText: "......")
-    let subrange =
-      richText.index(
-        richText.startIndex,
-        offsetBy: 2
-      )..<richText.index(richText.endIndex, offsetBy: −2)
-    let text = RichText(richText[subrange]).rawText()
-    richText.replaceSubrange(
-      subrange,
-      with: RichText(
-        rawText: text,
-        attributes: [NSAttributedString.Key(rawValue: "Key"): NSNumber(value: 0)]
+      XCTAssertEqual(
+        RichText(
+          richText[
+            richText.index(after: richText.startIndex)..<richText.index(before: richText.endIndex)
+          ]
+        ).count,
+        4
       )
-    )
-    XCTAssertEqual(
-      RichText(
-        richText[
-          richText.index(after: richText.startIndex)..<richText.index(before: richText.endIndex)
-        ]
-      ).count,
-      4
-    )
-    XCTAssertNotEqual(
-      RichText(rawText: "..."),
-      RichText(
-        rawText: "...",
-        attributes: [NSAttributedString.Key(rawValue: "Key"): NSNumber(value: 0)]
+      XCTAssertNotEqual(
+        RichText(rawText: "..."),
+        RichText(
+          rawText: "...",
+          attributes: [NSAttributedString.Key(rawValue: "Key"): NSNumber(value: 0)]
+        )
       )
-    )
 
-    richText = RichText("...")
-    #if canImport(AppKit) || canImport(UIkit)
-      richText.italicize(range: richText.bounds)
-      richText.embolden(range: richText.bounds)
+      richText = RichText("...")
+      #if canImport(AppKit) || canImport(UIkit)
+        richText.italicize(range: richText.bounds)
+        richText.embolden(range: richText.bounds)
+      #endif
     #endif
   }
 
