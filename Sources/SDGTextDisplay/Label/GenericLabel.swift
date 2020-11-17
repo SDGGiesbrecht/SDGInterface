@@ -23,6 +23,7 @@
     import UIKit
   #endif
 
+  import SDGControlFlow
   import SDGText
   import SDGLocalization
 
@@ -35,11 +36,11 @@
     // MARK: - Initialization
 
     internal init(
-      _ text: UserFacing<S, L>,
+      _ text: Shared<UserFacing<S, L>>,
       colour: Colour
     ) {
       #if DEBUG
-        _ = text.resolved()  // Eager execution to simplify testing.
+        _ = text.value.resolved()  // Eager execution to simplify testing.
       #endif
       self.text = text
       self.colour = colour
@@ -47,7 +48,7 @@
 
     // MARK: - Properties
 
-    private let text: UserFacing<S, L>
+    private let text: Shared<UserFacing<S, L>>
     private let colour: Colour
 
     // MARK: - LegacyView

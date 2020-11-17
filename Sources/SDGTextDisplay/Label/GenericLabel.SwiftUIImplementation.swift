@@ -29,14 +29,14 @@ import SDGLocalization
 
       // MARK: - Properties
 
-      internal let text: UserFacing<S, L>
+      @ObservedObject internal let text: Shared<UserFacing<S, L>>
       internal let colour: SwiftUI.Color
       @ObservedObject internal var localization: Shared<LocalizationSetting>
 
       // MARK: - View
 
       internal var body: some SwiftUI.View {
-        return Text(verbatim: String(text.resolved(for: localization.value.resolved())))
+        return Text(verbatim: String(text.value.resolved(for: localization.value.resolved())))
           .foregroundColor(colour)
       }
     }

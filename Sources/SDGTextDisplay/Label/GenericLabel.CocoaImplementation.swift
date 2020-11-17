@@ -37,9 +37,10 @@
 
       // MARK: - Initialization
 
-      internal init(text: UserFacing<S, L>, colour: Colour) {
+      internal init(text: Shared<UserFacing<S, L>>, colour: Colour) {
         self.text = text
         defer {
+          text.register(observer: self)
           LocalizationSetting.current.register(observer: self)
         }
 
@@ -81,12 +82,12 @@
 
       // MARK: - Properties
 
-      private let text: UserFacing<S, L>
+      private let text: Shared<UserFacing<S, L>>
 
       // MARK: - SharedValueObserver
 
       internal func valueChanged(for identifier: String) {
-        let resolved = String(text.resolved())
+        let resolved = String(text.value.resolved())
         #if canImport(AppKit)
           stringValue = resolved
         #elseif canImport(UIKit)

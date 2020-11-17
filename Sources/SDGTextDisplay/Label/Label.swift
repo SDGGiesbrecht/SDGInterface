@@ -23,6 +23,7 @@
     import UIKit
   #endif
 
+  import SDGControlFlow
   import SDGText
   import SDGLocalization
 
@@ -42,6 +43,18 @@
     ///   - colour: Optional. The colour of the text.
     public init(
       _ text: UserFacing<StrictString, L>,
+      colour: Colour = .black
+    ) {
+      self.init(Shared(text), colour: colour)
+    }
+
+    /// Creates a label.
+    ///
+    /// - Parameters:
+    ///   - text: The text of the label.
+    ///   - colour: Optional. The colour of the text.
+    public init(
+      _ text: Shared<UserFacing<StrictString, L>>,
       colour: Colour = .black
     ) {
       genericLabel = GenericLabel(text, colour: colour)
