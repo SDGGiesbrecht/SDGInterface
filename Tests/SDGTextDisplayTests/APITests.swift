@@ -106,6 +106,15 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
+  func testCompatibilityLabel() {
+    #if canImport(SwiftUI)
+      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
+        let label = CompatibilityLabel(UserFacing<String, AnyLocalization>({ _ in "..." }))
+        testViewConformance(of: label, testBody: false)
+      }
+    #endif
+  }
+
   func testFont() {
     let font = Font.default
     _ = Font.forLabels
