@@ -72,8 +72,8 @@
           },
           { details in
             // @exempt(from: tests) iOS does not call this unless it displays.
-            let codePoint = Label<InterfaceLocalization>(
-              compatibilityText: UserFacing({ _ in details.character }),
+            let codePoint = CompatibilityLabel<InterfaceLocalization>(
+              UserFacing({ _ in details.character }),
               colour: details.warningColour
             )
             return AnyView(codePoint)

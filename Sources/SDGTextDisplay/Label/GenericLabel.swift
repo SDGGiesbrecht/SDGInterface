@@ -1,10 +1,10 @@
 /*
- Label.swift
+ GenericLabel.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
 
- Copyright ©2019–2020 Jeremy David Giesbrecht and the SDGInterface project contributors.
+ Copyright ©2020 Jeremy David Giesbrecht and the SDGInterface project contributors.
 
  Soli Deo gloria.
 
@@ -29,33 +29,43 @@
   import SDGInterfaceBasics
   import SDGViews
 
-  /// A text label.
   @available(watchOS 6, *)
-  public struct Label<L>: LegacyView where L: Localization {
+  internal struct GenericLabel<L, S>: LegacyView where L: Localization, S: StringFamily {
 
     // MARK: - Initialization
 
-    /// Creates a label.
-    ///
-    /// - Parameters:
-    ///   - text: The text of the label.
-    ///   - colour: Optional. The colour of the text.
-    public init(
-      _ text: UserFacing<StrictString, L>,
-      colour: Colour = .black
+    internal init(
+      _ text: UserFacing<S, L>,
+      colour: Colour
     ) {
-      genericLabel = GenericLabel(text, colour: colour)
+      #if DEBUG
+        _ = text.resolved()  // Eager execution to simplify testing.
+      #endif
+      self.text = text
+      self.colour = colour
     }
 
     // MARK: - Properties
 
-    private let genericLabel: GenericLabel<L, StrictString>
+    private let text: UserFacing<S, L>
+    private let colour: Colour
 
     // MARK: - LegacyView
 
     #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       public func cocoa() -> CocoaView {
-        return genericLabel.cocoa()
+        // #workaround(Swift 5.2.4, Would be a step backward on other platforms without the ability to interact properly with menus.)
+        #if os(watchOS)
+          return useSwiftUIOrFallback(to: {
+            return CocoaView(
+              CocoaImplementation(text: text, colour: colour)
+            )
+          })
+        #else
+          return CocoaView(
+            CocoaImplementation(text: text, colour: colour)
+          )
+        #endif
       }
     #endif
   }
@@ -69,11 +79,15 @@
 
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
         public func swiftUI() -> some SwiftUI.View {
-          return genericLabel.swiftUI()
+          return SwiftUIImplementation(
+            text: text,
+            colour: SwiftUI.Color(colour),
+            localization: LocalizationSetting.current
+          )
         }
       #endif
     }
   #else
-    extension Label: CocoaViewImplementation {}
+    extension GenericLabel: CocoaViewImplementation {}
   #endif
 #endif

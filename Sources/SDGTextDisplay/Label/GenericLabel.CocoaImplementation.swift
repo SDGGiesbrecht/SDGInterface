@@ -1,5 +1,5 @@
 /*
- Label.CocoaImplementation.swift
+ GenericLabel.CocoaImplementation.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -26,7 +26,7 @@
 
   import SDGInterfaceBasics
 
-  extension Label {
+  extension GenericLabel {
 
     #if canImport(AppKit)
       internal typealias Superclass = NSTextField
@@ -37,8 +37,8 @@
 
       // MARK: - Initialization
 
-      internal init(compatibilityText: UserFacing<String, L>, colour: Colour) {
-        self.compatibilityText = compatibilityText
+      internal init(text: UserFacing<S, L>, colour: Colour) {
+        self.text = text
         defer {
           LocalizationSetting.current.register(observer: self)
         }
@@ -81,12 +81,12 @@
 
       // MARK: - Properties
 
-      private let compatibilityText: UserFacing<String, L>
+      private let text: UserFacing<S, L>
 
       // MARK: - SharedValueObserver
 
       internal func valueChanged(for identifier: String) {
-        let resolved = compatibilityText.resolved()
+        let resolved = String(text.resolved())
         #if canImport(AppKit)
           stringValue = resolved
         #elseif canImport(UIKit)
