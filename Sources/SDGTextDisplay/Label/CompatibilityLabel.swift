@@ -76,7 +76,7 @@
   // #workaround(Swift 5.2.4, Would be a step backward on other platforms without the ability to interact properly with menus.)
   #if os(watchOS)
     @available(watchOS 6, *)
-    extension Label: View {
+    extension CompatibilityLabel: View {
 
       // MARK: - View
 

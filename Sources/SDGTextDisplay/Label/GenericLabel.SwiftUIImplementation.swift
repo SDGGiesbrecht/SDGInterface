@@ -29,7 +29,7 @@ import SDGLocalization
 
       // MARK: - Properties
 
-      @ObservedObject internal let text: Shared<UserFacing<S, L>>
+      @ObservedObject internal var text: Shared<UserFacing<S, L>>
       internal let colour: SwiftUI.Color
       @ObservedObject internal var localization: Shared<LocalizationSetting>
 
