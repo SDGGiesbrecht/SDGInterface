@@ -12,10 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-// #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
-#if !os(WASI)
   import Foundation
-#endif
 
 import SDGMenus
 import SDGMenuBar
@@ -179,14 +176,11 @@ public protocol SystemInterface {
   ///     - handoff: The handoff activity.
   func preprocess(handoff: Handoff)
 
-  // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
-  #if !os(WASI)
     /// Called by some systems as the remote notification registration finishes.
     ///
     /// - Parameters:
     ///     - deviceToken: The device token
     func finishRegistrationForRemoteNotifications(deviceToken: Data)
-  #endif
 
   /// Called by some systems when remote notification registration fails.
   ///
@@ -204,8 +198,6 @@ public protocol SystemInterface {
     details: RemoteNotificationDetails
   ) -> FetchResult
 
-  // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
-  #if !os(WASI)
     /// Called by some systems to request that one or more files be opened.
     ///
     /// - Parameters:
@@ -214,7 +206,6 @@ public protocol SystemInterface {
     ///
     /// - Returns: Whether or not the files could be opened successfully.
     func open(files: [URL], details: OpeningDetails) -> Bool
-  #endif
 
   /// Called by some systems to request that a new, blank file be created.
   ///
@@ -226,18 +217,13 @@ public protocol SystemInterface {
   /// - Returns: Whether or not a file should be created.
   func shouldCreateNewBlankFile() -> Bool
 
-  // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
-  #if !os(WASI)
     /// Called by some systems to request that a file be printed.
     ///
     /// - Parameters:
     ///     - files: The files to open.
     ///     - details: Details provided by the system.
     func print(files: [URL], details: PrintingDetails) -> PrintingResponse
-  #endif
 
-  // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
-  #if !os(WASI)
     /// Called by some systems to ask whether to encode a restorable state.
     ///
     /// - Parameters:
@@ -271,7 +257,6 @@ public protocol SystemInterface {
       forRestorationIdentifierPath path: [String],
       coder: NSCoder
     ) -> ViewControllerRestorationResponse
-  #endif
 
   /// Called by some systems when the application’s occlusion changes.
   ///
@@ -378,14 +363,11 @@ extension SystemInterface {
   }
   public func preprocess(handoff: Handoff) {}
 
-  // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
-  #if !os(WASI)
     public func finishRegistrationForRemoteNotifications(deviceToken: Data) {
       #if DEBUG
         Swift.print(#function)
       #endif
     }
-  #endif
   public func reportFailedRegistrationForRemoteNotifications(error: Error) {
     #if DEBUG
       Swift.print(#function)
@@ -400,15 +382,12 @@ extension SystemInterface {
     return .noData
   }
 
-  // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
-  #if !os(WASI)
     public func open(files: [URL], details: OpeningDetails) -> Bool {
       #if DEBUG
         Swift.print(#function)
       #endif
       return false
     }
-  #endif
 
   public func createNewBlankFile() -> Bool {
     return false
@@ -418,8 +397,6 @@ extension SystemInterface {
     return true
   }
 
-  // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
-  #if !os(WASI)
     public func print(files: [URL], details: PrintingDetails) -> PrintingResponse {
       #if DEBUG
         Swift.print(#function)
@@ -447,7 +424,6 @@ extension SystemInterface {
       #endif
       return ViewControllerRestorationResponse()
     }
-  #endif
 
   public func updateAccordingToOcclusionChange(_ notification: SystemNotification?) {}
 

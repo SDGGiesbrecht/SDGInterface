@@ -12,8 +12,6 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-// #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
-#if !os(WASI)
   import Foundation
 
   /// An object which responds to actions related to displayed text.
@@ -25,4 +23,3 @@
     ///     - sender: The sender.
     @objc func showCharacterInformation(_ sender: Any?)
   }
-#endif

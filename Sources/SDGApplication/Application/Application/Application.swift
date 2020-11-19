@@ -12,10 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-// #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
-#if !os(WASI)
   import Foundation
-#endif
 #if canImport(AppKit)
   import AppKit
 #endif
@@ -37,7 +34,7 @@ public protocol Application: SystemInterface {
   /// Creates an application.
   init()
 
-  // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
+  // #workaround(Swift 5.3.1, Web lacks ProcessInfo.)
   #if !os(WASI)
     /// A closure which produces the declined application name suitable for use in various gramatical contexts.
     var applicationName: ProcessInfo.ApplicationNameResolver { get }
@@ -57,7 +54,7 @@ extension Application {
 
   @discardableResult private static func prepareForMain() -> Self {
     let application = Self()
-    // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
+    // #workaround(Swift 5.3.1, Web lacks ProcessInfo.)
     #if !os(WASI)
       ProcessInfo.applicationName = application.applicationName
     #endif
@@ -70,7 +67,7 @@ extension Application {
   }
 
   #if !os(watchOS)
-    // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
+    // #workaround(Swift 5.3.1, Web lacks RunLoop.)
     #if !os(WASI)
       /// Initializes and runs the application.
       ///

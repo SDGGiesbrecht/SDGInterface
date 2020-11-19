@@ -13,8 +13,6 @@
  */
 
 #if !os(Windows)  // #workaround(Swift 5.3, Causes linker error.)
-  // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
-  #if !os(WASI)
     import Foundation
 
     /// An object which responds to actions related to editing rich text.
@@ -66,5 +64,4 @@
       ///     - sender: The sender.
       @objc func makeLowerCase(_ sender: Any?)
     }
-  #endif
 #endif

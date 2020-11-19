@@ -12,10 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-// #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
-#if !os(WASI)
   import Foundation
-#endif
 
 import SDGControlFlow
 import SDGLogic
@@ -29,8 +26,6 @@ import SDGButtons
 import SDGWindows
 import SDGErrorMessages
 
-// #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
-#if !os(WASI)
   @objc public final class MenuBarTarget: NSObject {
 
     public static let shared = MenuBarTarget()
@@ -239,10 +234,6 @@ import SDGErrorMessages
       #endif
     #endif
 
-    // #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
-    #if !os(WASI)
       @objc private func doNothing() {  // @exempt(from: tests)
       }
-    #endif
   }
-#endif

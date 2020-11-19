@@ -14,8 +14,6 @@
 
 import SDGMenuBar
 
-// #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
-#if !os(WASI)
   // @example(application)
   import Foundation
 
@@ -102,4 +100,3 @@ import SDGMenuBar
       return true
     }
   }
-#endif
