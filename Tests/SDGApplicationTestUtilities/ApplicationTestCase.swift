@@ -31,9 +31,12 @@
         ApplicationTestCase.launch
       }
       private static let launch: Void = {
+        // #workaround(Swift 5.3.1, Web lacks ProcessInfo.)
+        #if !os(WASI)
         let application = SampleApplication.setUpWithoutMain()
         #if canImport(AppKit) || canImport(UIKit)
           _ = application.finishLaunching(LaunchDetails())
+        #endif
         #endif
       }()
 
