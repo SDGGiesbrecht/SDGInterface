@@ -1,5 +1,5 @@
 /*
- Label.SwiftUIImplementation.swift
+ GenericLabel.SwiftUIImplementation.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -23,20 +23,20 @@ import SDGLocalization
 // #workaround(Swift 5.2.4, Would be a step backward on other platforms without the ability to interact properly with menus.)
 #if os(watchOS)
   @available(watchOS 6, *)
-  extension Label {
+  extension GenericLabel {
 
     internal struct SwiftUIImplementation: SwiftUI.View {
 
       // MARK: - Properties
 
-      internal let compatibilityText: UserFacing<String, L>
+      @ObservedObject internal var text: Shared<UserFacing<S, L>>
       internal let colour: SwiftUI.Color
       @ObservedObject internal var localization: Shared<LocalizationSetting>
 
       // MARK: - View
 
       internal var body: some SwiftUI.View {
-        return Text(verbatim: compatibilityText.resolved(for: localization.value.resolved()))
+        return Text(verbatim: String(text.value.resolved(for: localization.value.resolved())))
           .foregroundColor(colour)
       }
     }

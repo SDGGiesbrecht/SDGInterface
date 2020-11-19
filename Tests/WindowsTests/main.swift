@@ -197,6 +197,7 @@ extension SDGTextDisplayTests.APITests {
     testCase([
       ("testAttributedString", testAttributedString),
       ("testCharacterInformation", testCharacterInformation),
+      ("testCompatibilityLabel", testCompatibilityLabel),
       ("testFont", testFont),
       ("testLabel", testLabel),
       ("testLog", testLog),

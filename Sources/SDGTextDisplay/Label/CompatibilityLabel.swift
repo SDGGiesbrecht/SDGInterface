@@ -1,10 +1,10 @@
 /*
- Label.swift
+ CompatibilityLabel.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
 
- Copyright ©2019–2020 Jeremy David Giesbrecht and the SDGInterface project contributors.
+ Copyright ©2020 Jeremy David Giesbrecht and the SDGInterface project contributors.
 
  Soli Deo gloria.
 
@@ -30,9 +30,9 @@
   import SDGInterfaceBasics
   import SDGViews
 
-  /// A text label.
+  /// A text label that preservers legacy characters in their noncanonical forms.
   @available(watchOS 6, *)
-  public struct Label<L>: LegacyView where L: Localization {
+  public struct CompatibilityLabel<L>: LegacyView where L: Localization {
 
     // MARK: - Initialization
 
@@ -42,7 +42,7 @@
     ///   - text: The text of the label.
     ///   - colour: Optional. The colour of the text.
     public init(
-      _ text: UserFacing<StrictString, L>,
+      _ text: UserFacing<String, L>,
       colour: Colour = .black
     ) {
       self.init(Shared(text), colour: colour)
@@ -54,7 +54,7 @@
     ///   - text: The text of the label.
     ///   - colour: Optional. The colour of the text.
     public init(
-      _ text: Shared<UserFacing<StrictString, L>>,
+      _ text: Shared<UserFacing<String, L>>,
       colour: Colour = .black
     ) {
       genericLabel = GenericLabel(text, colour: colour)
@@ -62,7 +62,7 @@
 
     // MARK: - Properties
 
-    private let genericLabel: GenericLabel<L, StrictString>
+    private let genericLabel: GenericLabel<L, String>
 
     // MARK: - LegacyView
 
@@ -76,7 +76,7 @@
   // #workaround(Swift 5.2.4, Would be a step backward on other platforms without the ability to interact properly with menus.)
   #if os(watchOS)
     @available(watchOS 6, *)
-    extension Label: View {
+    extension CompatibilityLabel: View {
 
       // MARK: - View
 
@@ -87,6 +87,6 @@
       #endif
     }
   #else
-    extension Label: CocoaViewImplementation {}
+    extension CompatibilityLabel: CocoaViewImplementation {}
   #endif
 #endif
