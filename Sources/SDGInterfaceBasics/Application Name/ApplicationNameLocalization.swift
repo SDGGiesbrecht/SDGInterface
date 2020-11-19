@@ -31,6 +31,10 @@ public struct ApplicationNameLocalization: Localization {
     if let defined = _correspondingIsolatedName {
       return defined
     } else {
+      // #workaround(Swift 5.3.1, Web lacks ProcessInfo.)
+      #if os(WASI)
+        return ""
+      #else
         // This fallback is only for “und”.
         let information = Bundle.main.infoDictionary
         if let name = information?["CFBundleDisplayName" as String] as? String
@@ -38,10 +42,6 @@ public struct ApplicationNameLocalization: Localization {
         {
           return StrictString(name)  // @exempt(from: tests)
         }
-      // #workaround(Swift 5.3.1, Web lacks ProcessInfo.)
-      #if os(WASI)
-        return ""
-      #else
         return StrictString(ProcessInfo.processInfo.processName)  // @exempt(from: tests)
       #endif
     }
