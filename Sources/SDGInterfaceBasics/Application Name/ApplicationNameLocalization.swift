@@ -41,7 +41,7 @@ public struct ApplicationNameLocalization: Localization {
       // #workaround(Swift 5.3.1, Web lacks ProcessInfo.)
       #if os(WASI)
         return ""
-      #endif
+      #else
         return StrictString(ProcessInfo.processInfo.processName)  // @exempt(from: tests)
       #endif
     }
