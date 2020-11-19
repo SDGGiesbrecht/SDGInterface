@@ -24,7 +24,7 @@ public struct SystemNotification {
 
   // MARK: - Properties
 
-  #if !os(Linux)
+  #if !(os(WASI) || !os(Linux))
       /// The `Foundation` notification.
       public var foundation: Notification?
   #endif
