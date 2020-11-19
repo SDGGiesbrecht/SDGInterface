@@ -14,6 +14,8 @@
 
 import SDGMenuBar
 
+// #workaround(Swift 5.3.1, Web lacks ProcessInfo.)
+#if !os(WASI)
   // @example(application)
   import Foundation
 
@@ -100,3 +102,4 @@ import SDGMenuBar
       return true
     }
   }
+#endif
