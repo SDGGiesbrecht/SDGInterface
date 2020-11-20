@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-  import Foundation
+import Foundation
 
 /// An activity handoff.
 public struct Handoff {
@@ -25,7 +25,7 @@ public struct Handoff {
   // MARK: - Properties
 
   #if !(os(Windows) || os(WASI) || os(Linux) || os(Android))
-      /// The activity.
-      public var activity: NSUserActivity?
+    /// The activity.
+    public var activity: NSUserActivity?
   #endif
 }

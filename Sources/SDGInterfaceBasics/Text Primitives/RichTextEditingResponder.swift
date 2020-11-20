@@ -13,55 +13,55 @@
  */
 
 #if !os(Windows)  // #workaround(Swift 5.3, Causes linker error.)
-    import Foundation
+  import Foundation
 
-    /// An object which responds to actions related to editing rich text.
-    @objc public protocol RichTextEditingResponder: TextEditingResponder {
+  /// An object which responds to actions related to editing rich text.
+  @objc public protocol RichTextEditingResponder: TextEditingResponder {
 
-      // MARK: - Superscripts & Subscripts
+    // MARK: - Superscripts & Subscripts
 
-      /// Superscripts the selection.
-      ///
-      /// - Parameters:
-      ///     - sender: The sender.
-      @objc func makeSuperscript(_ sender: Any?)
+    /// Superscripts the selection.
+    ///
+    /// - Parameters:
+    ///     - sender: The sender.
+    @objc func makeSuperscript(_ sender: Any?)
 
-      /// Subscripts the selection.
-      ///
-      /// - Parameters:
-      ///     - sender: The sender.
-      @objc func makeSubscript(_ sender: Any?)
+    /// Subscripts the selection.
+    ///
+    /// - Parameters:
+    ///     - sender: The sender.
+    @objc func makeSubscript(_ sender: Any?)
 
-      /// Resets the baseline of the selection.
-      ///
-      /// - Parameters:
-      ///     - sender: The sender.
-      @objc func resetBaseline(_ sender: Any?)
+    /// Resets the baseline of the selection.
+    ///
+    /// - Parameters:
+    ///     - sender: The sender.
+    @objc func resetBaseline(_ sender: Any?)
 
-      // MARK: - Case
+    // MARK: - Case
 
-      /// Resets the casing of the selection.
-      ///
-      /// - Parameters:
-      ///     - sender: The sender.
-      @objc func resetCasing(_ sender: Any?)
+    /// Resets the casing of the selection.
+    ///
+    /// - Parameters:
+    ///     - sender: The sender.
+    @objc func resetCasing(_ sender: Any?)
 
-      /// Converts the selection to an upper case font.
-      ///
-      /// - Parameters:
-      ///     - sender: The sender.
-      @objc func makeUpperCase(_ sender: Any?)
+    /// Converts the selection to an upper case font.
+    ///
+    /// - Parameters:
+    ///     - sender: The sender.
+    @objc func makeUpperCase(_ sender: Any?)
 
-      /// Converts the selection to a small caps font.
-      ///
-      /// - Parameters:
-      ///     - sender: The sender.
-      @objc func makeSmallCaps(_ sender: Any?)
+    /// Converts the selection to a small caps font.
+    ///
+    /// - Parameters:
+    ///     - sender: The sender.
+    @objc func makeSmallCaps(_ sender: Any?)
 
-      /// Converts the selection to a lower case font.
-      ///
-      /// - Parameters:
-      ///     - sender: The sender.
-      @objc func makeLowerCase(_ sender: Any?)
-    }
+    /// Converts the selection to a lower case font.
+    ///
+    /// - Parameters:
+    ///     - sender: The sender.
+    @objc func makeLowerCase(_ sender: Any?)
+  }
 #endif

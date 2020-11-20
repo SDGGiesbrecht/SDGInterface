@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-  import Foundation
+import Foundation
 
 /// A system notification.
 public struct SystemNotification {
@@ -25,7 +25,7 @@ public struct SystemNotification {
   // MARK: - Properties
 
   #if !(os(WASI) || !os(Linux))
-      /// The `Foundation` notification.
-      public var foundation: Notification?
+    /// The `Foundation` notification.
+    public var foundation: Notification?
   #endif
 }

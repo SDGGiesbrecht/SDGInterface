@@ -13,15 +13,15 @@
  */
 
 #if !os(Windows)  // #workaround(Swift 5.3, Causes linker error.)
-    import Foundation
+  import Foundation
 
-    /// An object which responds to actions related to editing text.
-    @objc public protocol TextEditingResponder: TextDisplayResponder {
+  /// An object which responds to actions related to editing text.
+  @objc public protocol TextEditingResponder: TextDisplayResponder {
 
-      /// Normalizes the selection to NFKD.
-      ///
-      /// - Parameters:
-      ///     - sender: The sender.
-      @objc func normalizeText(_ sender: Any?)
-    }
+    /// Normalizes the selection to NFKD.
+    ///
+    /// - Parameters:
+    ///     - sender: The sender.
+    @objc func normalizeText(_ sender: Any?)
+  }
 #endif
