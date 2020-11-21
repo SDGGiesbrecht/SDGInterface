@@ -14,7 +14,7 @@
 
 import SDGMenuBar
 
-// #workaround(Swift 5.3, Web doesn’t have Foundation yet.)
+// #workaround(Swift 5.3.1, Web lacks ProcessInfo.)
 #if !os(WASI)
   // @example(application)
   import Foundation
