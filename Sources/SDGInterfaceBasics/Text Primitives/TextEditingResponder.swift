@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if !os(Windows)  // #workaround(Swift 5.3, Causes linker error.)
+#if !os(Windows)  // #workaround(Swift 5.3.1, Causes linker error.)
   import Foundation
 
   /// An object which responds to actions related to editing text.

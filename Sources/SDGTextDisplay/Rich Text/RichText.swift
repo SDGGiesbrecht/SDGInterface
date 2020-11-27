@@ -125,7 +125,7 @@ public struct RichText: Addable, CustomPlaygroundDisplayConvertible, CustomStrin
       return _segments
     }
     set {
-      // #workaround(Swift 5.3, Declaration may not be in a Comdat!)
+      // #workaround(Swift 5.3.1, Declaration may not be in a Comdat!)
       #if !os(Windows)
         cache = Cache()
       #endif
@@ -157,7 +157,7 @@ public struct RichText: Addable, CustomPlaygroundDisplayConvertible, CustomStrin
     }
   }
 
-  // #workaround(Swift 5.3, Declaration may not be in a Comdat!)
+  // #workaround(Swift 5.3.1, Declaration may not be in a Comdat!)
   #if !os(Windows)
     private class Cache {
       fileprivate init() {}
@@ -181,7 +181,7 @@ public struct RichText: Addable, CustomPlaygroundDisplayConvertible, CustomStrin
       }
       return string
     }
-    // #workaround(Swift 5.3, Declaration may not be in a Comdat!)
+    // #workaround(Swift 5.3.1, Declaration may not be in a Comdat!)
     #if os(Windows)
       return closure()
     #else
@@ -200,7 +200,7 @@ public struct RichText: Addable, CustomPlaygroundDisplayConvertible, CustomStrin
       }
       return string
     }
-    // #workaround(Swift 5.3, Declaration may not be in a Comdat!)
+    // #workaround(Swift 5.3.1, Declaration may not be in a Comdat!)
     #if os(Windows)
       return closure()
     #else
@@ -218,7 +218,7 @@ public struct RichText: Addable, CustomPlaygroundDisplayConvertible, CustomStrin
       }
       return mutable.copy() as! NSAttributedString
     }
-    // #workaround(Swift 5.3, Declaration may not be in a Comdat!)
+    // #workaround(Swift 5.3.1, Declaration may not be in a Comdat!)
     #if os(Windows)
       return closure()
     #else
