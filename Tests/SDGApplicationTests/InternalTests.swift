@@ -34,33 +34,39 @@ import SDGInterfaceSample
 final class InternalTests: ApplicationTestCase {
 
   func testApplicationName() {
-    let previous = ProcessInfo.applicationName
-    func testAllLocalizations() {
-      defer {
-        ProcessInfo.applicationName = previous
-      }
-      let isolated = ApplicationNameForm.localizedIsolatedForm
-      for localization in MenuBarLocalization.allCases {
-        LocalizationSetting(orderOfPrecedence: [localization.code]).do {
-          _ = isolated.resolved()
+    // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
+    #if !os(WASI)
+      let previous = ProcessInfo.applicationName
+      func testAllLocalizations() {
+        defer {
+          ProcessInfo.applicationName = previous
+        }
+        let isolated = ApplicationNameForm.localizedIsolatedForm
+        for localization in MenuBarLocalization.allCases {
+          LocalizationSetting(orderOfPrecedence: [localization.code]).do {
+            _ = isolated.resolved()
+          }
         }
       }
-    }
-    testAllLocalizations()
+      testAllLocalizations()
 
-    ProcessInfo.applicationName = { form in
-      switch form {
-      case .english(.canada):
-        return "..."
-      default:
-        return nil
+      ProcessInfo.applicationName = { form in
+        switch form {
+        case .english(.canada):
+          return "..."
+        default:
+          return nil
+        }
       }
-    }
-    testAllLocalizations()
+      testAllLocalizations()
+    #endif
   }
 
   func testPreferenceManager() {
-    SampleApplication().preferenceManager?.openPreferences()
+    // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
+    #if !os(WASI)
+      SampleApplication().preferenceManager?.openPreferences()
+    #endif
   }
 
   func testNSApplicationDelegate() {
@@ -73,9 +79,12 @@ final class InternalTests: ApplicationTestCase {
         self.preferenceManager = preferenceManager
       }
       let preferenceManager: PreferenceManager?
-      var applicationName: ProcessInfo.ApplicationNameResolver {
-        return { _ in "Test Application" }
-      }
+      // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
+      #if !os(WASI)
+        var applicationName: ProcessInfo.ApplicationNameResolver {
+          return { _ in "Test Application" }
+        }
+      #endif
       func finishLaunching(_ details: LaunchDetails) -> Bool {
         return true
       }
@@ -189,9 +198,12 @@ final class InternalTests: ApplicationTestCase {
         self.preferenceManager = preferenceManager
       }
       let preferenceManager: PreferenceManager?
-      var applicationName: ProcessInfo.ApplicationNameResolver {
-        return { _ in "Test Application" }
-      }
+      // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
+      #if !os(WASI)
+        var applicationName: ProcessInfo.ApplicationNameResolver {
+          return { _ in "Test Application" }
+        }
+      #endif
       func finishLaunching(_ details: LaunchDetails) -> Bool {
         return true
       }
