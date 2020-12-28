@@ -46,9 +46,12 @@ final class APITests: ApplicationTestCase {
 
   func testApplication() {
     struct ExampleApplication: Application {
-      var applicationName: ProcessInfo.ApplicationNameResolver {
-        return { _ in "..." }
-      }
+      // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
+      #if !os(WASI)
+        var applicationName: ProcessInfo.ApplicationNameResolver {
+          return { _ in "..." }
+        }
+      #endif
       func finishLaunching(_ details: LaunchDetails) -> Bool {
         return true
       }
