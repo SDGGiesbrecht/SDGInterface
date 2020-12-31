@@ -278,7 +278,8 @@ final class APITests: ApplicationTestCase {
         overwriteSpecificationInsteadOfFailing: false
       )
       testEquatableConformance(differingInstances: (RichText(rawText: "1"), RichText(rawText: "2")))
-      #if !os(Windows)  // #workaround(Swift 5.3.1, Hashing appears broken on Windows.)
+      // #workaround(Swift 5.3.1, Hashing appears broken on Windows.)
+      #if !(os(Windows) || os(WASI))
         XCTAssertEqual([richText: true][richText], true)
       #endif
 
