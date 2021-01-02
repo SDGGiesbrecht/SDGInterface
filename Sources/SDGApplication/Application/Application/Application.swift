@@ -34,7 +34,7 @@ public protocol Application: SystemInterface {
   /// Creates an application.
   init()
 
-  // #workaround(Swift 5.3.1, Web lacks ProcessInfo.)
+  // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
   #if !os(WASI)
     /// A closure which produces the declined application name suitable for use in various gramatical contexts.
     var applicationName: ProcessInfo.ApplicationNameResolver { get }
@@ -54,7 +54,7 @@ extension Application {
 
   @discardableResult private static func prepareForMain() -> Self {
     let application = Self()
-    // #workaround(Swift 5.3.1, Web lacks ProcessInfo.)
+    // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
     #if !os(WASI)
       ProcessInfo.applicationName = application.applicationName
     #endif
@@ -67,7 +67,7 @@ extension Application {
   }
 
   #if !os(watchOS)
-    // #workaround(Swift 5.3.1, Web lacks RunLoop.)
+    // #workaround(Swift 5.3.2, Web lacks RunLoop.)
     #if !os(WASI)
       /// Initializes and runs the application.
       ///
