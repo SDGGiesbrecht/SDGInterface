@@ -158,7 +158,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testRichText() throws {
-    #if !os(Windows)  // #workaround(Swift 5.3.1, Segmentation fault.)
+    #if !os(Windows)  // #workaround(Swift 5.3.2, Segmentation fault.)
       let fontNameKey = NSAttributedString.Key(rawValue: "SDGTestFontName")
       func prepareForEqualityCheck(
         _ string: NSAttributedString,
@@ -278,7 +278,7 @@ final class APITests: ApplicationTestCase {
         overwriteSpecificationInsteadOfFailing: false
       )
       testEquatableConformance(differingInstances: (RichText(rawText: "1"), RichText(rawText: "2")))
-      // #workaround(Swift 5.3.1, Hashing appears broken on Windows.)
+      // #workaround(Swift 5.3.2, Hashing appears broken on Windows.)
       #if !(os(Windows) || os(WASI))
         XCTAssertEqual([richText: true][richText], true)
       #endif

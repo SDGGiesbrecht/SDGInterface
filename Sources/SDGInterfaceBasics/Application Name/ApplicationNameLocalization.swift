@@ -31,7 +31,7 @@ public struct ApplicationNameLocalization: Localization {
     if let defined = _correspondingIsolatedName {
       return defined
     } else {
-      // #workaround(Swift 5.3.1, Web lacks ProcessInfo.)
+      // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
       #if os(WASI)
         return ""
       #else
@@ -50,7 +50,7 @@ public struct ApplicationNameLocalization: Localization {
   // MARK: - Localization
 
   public init?(exactly code: String) {
-    // #workaround(Swift 5.3.1, Web lacks ProcessInfo.)
+    // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
     #if os(WASI)
       return nil
     #else
