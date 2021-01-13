@@ -12,8 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-// #workaround(Swift 5.2.4, Would be a step backward on other platforms without the ability to interact properly with menus.)
-#if os(watchOS)
+// #workaround(Swift 5.2.4, SwiftUI would be a step backward from AppKit or UIKit without the ability to interact properly with menus such as “Show Character Information”.)
+#if canImport(SwiftUI) && !canImport(AppKit) && !canImport(UIKit)
   import SwiftUI
 
   import SDGControlFlow

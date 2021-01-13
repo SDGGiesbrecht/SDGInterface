@@ -20,8 +20,8 @@ import SDGControlFlow
 import SDGText
 import SDGLocalization
 
-// #workaround(Swift 5.2.4, Would be a step backward on other platforms without the ability to interact properly with menus.)
-#if os(watchOS)
+// #workaround(Swift 5.3.2, SwiftUI would be a step backward from AppKit or UIKit without the ability to interact properly with menus such as “Copy”.)
+#if canImport(SwiftUI) && !canImport(AppKit) && !canImport(UIKit)
   @available(watchOS 6, *)
   extension GenericLabel {
 

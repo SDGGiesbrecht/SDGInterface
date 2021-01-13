@@ -56,8 +56,8 @@
 
     #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       public func cocoa() -> CocoaView {
-        // #workaround(Swift 5.2.4, Would be a step backward on other platforms without the ability to interact properly with menus.)
-        #if os(watchOS)
+        // #workaround(Swift 5.2.4, SwiftUI would be a step backward from AppKit or UIKit without the ability to interact properly with menus such as “Show Character Information”.)
+        #if !canImport(AppKit) && !canImport(UIKit)
           return useSwiftUIOrFallback(to: {
             return CocoaView(
               CocoaImplementation(contents: contents, onCommit: onCommit)
@@ -70,8 +70,8 @@
     #endif
   }
 
-  // #workaround(Swift 5.2.4, Would be a step backward on other platforms without the ability to interact properly with menus.)
-  #if os(watchOS)
+  // #workaround(Swift 5.2.4, SwiftUI would be a step backward from AppKit or UIKit without the ability to interact properly with menus such as “Show Character Information”.)
+  #if !canImport(AppKit) && !canImport(UIKit)
     @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
     extension TextField: View {
 
