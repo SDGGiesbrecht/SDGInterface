@@ -71,7 +71,7 @@
   }
 
   // #workaround(Swift 5.2.4, SwiftUI would be a step backward from AppKit or UIKit without the ability to interact properly with menus such as “Show Character Information”.)
-  #if !canImport(AppKit) && !canImport(UIKit)
+  #if !canImport(AppKit) && !(canImport(UIKit) && !os(watchOS))
     @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
     extension TextField: View {
 

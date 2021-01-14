@@ -13,7 +13,7 @@
  */
 
 // #workaround(Swift 5.2.4, SwiftUI would be a step backward from AppKit or UIKit without the ability to interact properly with menus such as “Show Character Information”.)
-#if canImport(SwiftUI) && !canImport(AppKit) && !canImport(UIKit)
+#if canImport(SwiftUI) && !canImport(AppKit) && !(canImport(UIKit) && !os(watchOS))
   import SwiftUI
 
   import SDGControlFlow
