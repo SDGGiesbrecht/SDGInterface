@@ -135,8 +135,8 @@ final class APITests: ApplicationTestCase {
       )
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {
         let testBody: Bool
-        // #workaround(Swift 5.2.4, Would be a step backward on other platforms without the ability to interact properly with menus.)
-        #if os(watchOS)
+        // #workaround(Swift 5.3.2, SwiftUI would be a step backward from AppKit or UIKit without the ability to interact properly with menus such as “Copy”.)
+        #if !canImport(AppKit) && !canImport(UIKit)
           testBody = true
         #else
           testBody = false
@@ -614,8 +614,8 @@ final class APITests: ApplicationTestCase {
     if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
       #if canImport(SwiftUI)
         let testBody: Bool
-        // #workaround(Swift 5.2.4, Would be a step backward on other platforms without the ability to interact properly with menus.)
-        #if os(watchOS)
+        // #workaround(Swift 5.2.4, SwiftUI would be a step backward from AppKit or UIKit without the ability to interact properly with menus such as “Show Character Information”.)
+        #if !canImport(AppKit) && !canImport(UIKit)
           testBody = true
         #else
           testBody = false
