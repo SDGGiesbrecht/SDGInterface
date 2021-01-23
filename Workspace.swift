@@ -60,6 +60,3 @@ configuration.documentation.api.ignoredDependencies = [
   "Foundation",
   "XCTest",
 ]
-
-// #workaround(workspace version 0.36.0, NDK changed.)
-configuration.continuousIntegration.manage = false
