@@ -56,6 +56,15 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
+  func testCompositeViewImplementation() {
+    struct TestView: CompositeViewImplementation {
+      func compose() -> SDGViews.EmptyView {
+        return EmptyView()
+      }
+    }
+    testViewConformance(of: TestView(), testBody: false)
+  }
+
   func testBackground() {
     #if canImport(AppKit) || canImport(UIKit)
       forAllLegacyModes {

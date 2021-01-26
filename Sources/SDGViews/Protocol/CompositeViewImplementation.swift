@@ -17,12 +17,12 @@
 /// Conformance to this protocol can be declared in order to use default implementations for all the requirements of `SDGSwift.View`.
 @available(macOS 10.15, *)
 public protocol CompositeViewImplementation: CompositeLegacyViewImplementation, View
-where Composition: View, SwiftUIView == Composition.SwiftUIView {}
+where Composition: View {}
 
 @available(macOS 10.15, *)
 extension CompositeViewImplementation {
 
-  public func swiftUI() -> SwiftUIView {
+  public func swiftUI() -> Composition.SwiftUIView {
     return compose().swiftUI()
   }
 }
