@@ -62,7 +62,9 @@ final class APITests: ApplicationTestCase {
         return EmptyView()
       }
     }
-    testViewConformance(of: TestView(), testBody: false)
+    if #available(tvOS 13, iOS 13, *) {
+      testViewConformance(of: TestView(), testBody: false)
+    }
   }
 
   func testBackground() {

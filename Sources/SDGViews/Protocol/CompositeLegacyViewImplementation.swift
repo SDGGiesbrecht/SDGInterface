@@ -15,14 +15,18 @@
 /// A view that is implemented as a composition of other view types.
 ///
 /// Conformance to this protocol can be declared in order to use default implementations for all the requirements of `SDGSwift.LegacyView`.
+@available(watchOS 6, *)
 public protocol CompositeLegacyViewImplementation: LegacyView {
   associatedtype Composition: LegacyView
   func compose() -> Composition
 }
 
+@available(watchOS 6, *)
 extension CompositeLegacyViewImplementation {
 
-  public func cocoa() -> CocoaView {
-    return compose().cocoa()
-  }
+  #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+    public func cocoa() -> CocoaView {
+      return compose().cocoa()
+    }
+  #endif
 }
