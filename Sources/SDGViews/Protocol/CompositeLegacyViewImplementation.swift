@@ -12,21 +12,25 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-/// A view that is implemented as a composition of other view types.
-///
-/// Conformance to this protocol can be declared in order to use default implementations for all the requirements of `SDGSwift.LegacyView`.
-@available(watchOS 6, *)
-public protocol CompositeLegacyViewImplementation: LegacyView {
-  associatedtype Composition: LegacyView
-  func compose() -> Composition
-}
+#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
 
-@available(watchOS 6, *)
-extension CompositeLegacyViewImplementation {
+  /// A view that is implemented as a composition of other view types.
+  ///
+  /// Conformance to this protocol can be declared in order to use default implementations for all the requirements of `SDGSwift.LegacyView`.
+  @available(watchOS 6, *)
+  public protocol CompositeLegacyViewImplementation: LegacyView {
+    associatedtype Composition: LegacyView
+    func compose() -> Composition
+  }
 
-  #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
-    public func cocoa() -> CocoaView {
-      return compose().cocoa()
-    }
-  #endif
-}
+  @available(watchOS 6, *)
+  extension CompositeLegacyViewImplementation {
+
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+      public func cocoa() -> CocoaView {
+        return compose().cocoa()
+      }
+    #endif
+  }
+
+#endif
