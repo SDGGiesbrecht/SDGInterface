@@ -19,7 +19,11 @@
   /// Conformance to this protocol can be declared in order to use default implementations for all the requirements of `SDGSwift.LegacyView`.
   @available(watchOS 6, *)
   public protocol CompositeLegacyViewImplementation: LegacyView {
+
+    /// The type of the root of the composed view.
     associatedtype Composition: LegacyView
+
+    /// Composes the view.
     func compose() -> Composition
   }
 
