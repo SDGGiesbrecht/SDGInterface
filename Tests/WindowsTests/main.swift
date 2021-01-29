@@ -222,6 +222,7 @@ extension SDGViewsTests.APITests {
     testCase([
       ("testAnyView", testAnyView),
       ("testCocoaViewImplementation", testCocoaViewImplementation),
+      ("testCompositeViewImplementation", testCompositeViewImplementation),
       ("testBackground", testBackground),
       ("testColour", testColour),
       ("testEmptyView", testEmptyView),

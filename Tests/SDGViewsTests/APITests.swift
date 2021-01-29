@@ -56,6 +56,19 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
+  func testCompositeViewImplementation() {
+    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+      struct TestView: CompositeViewImplementation {
+        func compose() -> SDGViews.EmptyView {
+          return EmptyView()
+        }
+      }
+      if #available(tvOS 13, iOS 13, *) {
+        testViewConformance(of: TestView(), testBody: false)
+      }
+    #endif
+  }
+
   func testBackground() {
     #if canImport(AppKit) || canImport(UIKit)
       forAllLegacyModes {
