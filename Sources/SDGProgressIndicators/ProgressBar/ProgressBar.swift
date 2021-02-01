@@ -29,7 +29,7 @@
   import SDGViews
 
   /// A progress bar.
-  public struct ProgressBar: View {
+  public struct ProgressBar: LegacyView {
 
     // MARK: - Initialization
 
@@ -64,12 +64,13 @@
     }
   }
 
-  extension ProgressBar {
+  @available(macOS 10.15, tvOS 13, *)
+  extension ProgressBar: View {
 
     // MARK: - View
 
     public func swiftUI() -> some SwiftUI.View {
-      if #available(macOS 11, *) {
+      if #available(macOS 11, tvOS 14, *) {
         return SwiftUI.AnyView(SwiftUIImplementation(range: range, value: value))
       } else {
         return SwiftUI.AnyView(cocoa().swiftUI())

@@ -21,7 +21,7 @@ import SDGMathematics
 
 extension ProgressBar {
 
-  @available(macOS 11, *)
+  @available(macOS 11, tvOS 14, *)
   internal struct SwiftUIImplementation: SwiftUI.View {
 
     // MARK: - Properties
