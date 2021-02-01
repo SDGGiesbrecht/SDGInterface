@@ -112,6 +112,35 @@
       internal func useSwiftUIOrFallback(to fallback: () -> CocoaView) -> CocoaView {
         return useSwiftUIOrFallback(to: fallback, useFallbackRegardless: legacyMode)
       }
+
+      /// Constructs a Cocoa view, preferring to use SwiftUI 2 for the implementation.
+      ///
+      /// - Important: This method should only be used on a view within its own `cocoa()` method. The view must also provide an independent implementation of `swiftUI()`.
+      ///
+      /// This convenience method is intended to aid in conforming to `View`. By wrapping the implementation of the `cocoa()` method in this, the implementation can be diverted to SwiftUI 2 wherever it is available.
+      ///
+      /// - On platform versions which have SwiftUI 2, this method wraps the `swiftUI()` view in a Cocoa view and returns it.
+      /// - On platform versions which do not have SwiftUI 2, the fallback implementation will be used instead.
+      ///
+      /// - Parameters:
+      ///   - fallback: A closure which constructs the fallback Cocoa view. It will be called if SwiftUI 2 is unavailable.
+      ///   - useFallbackRegardless: Pass `true` to force the fallback to be called regardless of whether SwiftUI is available. This is useful as a means to call the fallback implementation out from underneath SwiftUI 2 during testing.
+      public func useSwiftUI2OrFallback(
+        to fallback: () -> CocoaView,
+        useFallbackRegardless: Bool = false
+      ) -> CocoaView {
+        #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+          if #available(macOS 11, tvOS 14, iOS 14, watchOS 7, *),
+            ¬useFallbackRegardless
+          {
+            return swiftUIAnyView().cocoa()
+          } else {
+            return fallback()
+          }
+        #else  // @exempt(from: tests) watchOS
+          return fallback()
+        #endif
+      }
     #endif
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))

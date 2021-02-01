@@ -12,7 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
+#if canImport(SwiftUI) || (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
+  #if canImport(SwiftUI)
+    import SwiftUI
+  #endif
   #if canImport(AppKit)
     import AppKit
   #endif
@@ -21,11 +24,12 @@
   #endif
 
   import SDGControlFlow
+  import SDGMathematics
 
   import SDGViews
 
   /// A progress bar.
-  public struct ProgressBar: CocoaViewImplementation {
+  public struct ProgressBar: View {
 
     // MARK: - Initialization
 
@@ -47,10 +51,29 @@
     private let range: Shared<ClosedRange<Double>>
     private let value: Shared<Double?>
 
+    static func zeroToOneRepresentation(of value: Double, in range: ClosedRange<Double>) -> Double {
+      return (value − range.lowerBound) ÷ (range.upperBound − range.lowerBound)
+    }
+
     // MARK: - LegacyView
 
     public func cocoa() -> CocoaView {
-      return CocoaView(CocoaImplementation(range: range, value: value))
+      return useSwiftUI2OrFallback(to: {
+        return CocoaView(CocoaImplementation(range: range, value: value))
+      })
+    }
+  }
+
+  extension ProgressBar {
+
+    // MARK: - View
+
+    public func swiftUI() -> some SwiftUI.View {
+      if #available(macOS 11, *) {
+        return SwiftUI.AnyView(SwiftUIImplementation(range: range, value: value))
+      } else {
+        return SwiftUI.AnyView(cocoa().swiftUI())
+      }
     }
   }
 #endif
