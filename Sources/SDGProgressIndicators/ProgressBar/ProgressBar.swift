@@ -64,17 +64,19 @@
     }
   }
 
-  @available(macOS 10.15, tvOS 13, *)
+  @available(macOS 10.15, tvOS 13, iOS 13, *)
   extension ProgressBar: View {
 
     // MARK: - View
 
-    public func swiftUI() -> some SwiftUI.View {
-      if #available(macOS 11, tvOS 14, *) {
-        return SwiftUI.AnyView(SwiftUIImplementation(range: range, value: value))
-      } else {
-        return SwiftUI.AnyView(cocoa().swiftUI())
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      public func swiftUI() -> some SwiftUI.View {
+        if #available(macOS 11, tvOS 14, iOS 14, *) {
+          return SwiftUI.AnyView(SwiftUIImplementation(range: range, value: value))
+        } else {
+          return SwiftUI.AnyView(cocoa().swiftUI())
+        }
       }
-    }
+    #endif
   }
 #endif

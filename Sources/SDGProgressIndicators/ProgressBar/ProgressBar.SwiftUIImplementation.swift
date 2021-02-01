@@ -21,25 +21,27 @@ import SDGMathematics
 
 extension ProgressBar {
 
-  @available(macOS 11, tvOS 14, *)
-  internal struct SwiftUIImplementation: SwiftUI.View {
+  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    @available(macOS 11, tvOS 14, iOS 14, *)
+    internal struct SwiftUIImplementation: SwiftUI.View {
 
-    // MARK: - Properties
+      // MARK: - Properties
 
-    @ObservedObject var range: Shared<ClosedRange<Double>>
-    @ObservedObject var value: Shared<Double?>
+      @ObservedObject var range: Shared<ClosedRange<Double>>
+      @ObservedObject var value: Shared<Double?>
 
-    // MARK: - View
+      // MARK: - View
 
-    internal var body: some SwiftUI.View {
-      let view: ProgressView<EmptyView, EmptyView>
-      if let value = value.value {
-        let progress = ProgressBar.zeroToOneRepresentation(of: value, in: range.value)
-        view = ProgressView(value: progress)
-      } else {
-        view = ProgressView()
+      internal var body: some SwiftUI.View {
+        let view: ProgressView<EmptyView, EmptyView>
+        if let value = value.value {
+          let progress = ProgressBar.zeroToOneRepresentation(of: value, in: range.value)
+          view = ProgressView(value: progress)
+        } else {
+          view = ProgressView()
+        }
+        return view.progressViewStyle(LinearProgressViewStyle())
       }
-      return view.progressViewStyle(LinearProgressViewStyle())
     }
-  }
+  #endif
 }
