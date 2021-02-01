@@ -19,9 +19,10 @@
 import SDGControlFlow
 import SDGMathematics
 
-extension ProgressBar {
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  @available(watchOS 7, *)
+  extension ProgressBar {
 
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
     @available(macOS 11, tvOS 14, iOS 14, *)
     internal struct SwiftUIImplementation: SwiftUI.View {
 
@@ -43,5 +44,5 @@ extension ProgressBar {
         return view.progressViewStyle(LinearProgressViewStyle())
       }
     }
-  #endif
-}
+  }
+#endif

@@ -29,6 +29,7 @@
   import SDGViews
 
   /// A progress bar.
+  @available(watchOS 7, *)
   public struct ProgressBar: LegacyView {
 
     // MARK: - Initialization
@@ -57,25 +58,31 @@
 
     // MARK: - LegacyView
 
-    public func cocoa() -> CocoaView {
-      return useSwiftUI2OrFallback(to: {
-        return CocoaView(CocoaImplementation(range: range, value: value))
-      })
-    }
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+      public func cocoa() -> CocoaView {
+        return useSwiftUI2OrFallback(to: {
+          return CocoaView(CocoaImplementation(range: range, value: value))
+        })
+      }
+    #endif
   }
 
-  @available(macOS 10.15, tvOS 13, iOS 13, *)
-  extension ProgressBar: View {
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 7, *)
+  extension ProgressBar: SDGViews.View {
 
     // MARK: - View
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       public func swiftUI() -> some SwiftUI.View {
-        if #available(macOS 11, tvOS 14, iOS 14, *) {
+        #if os(watchOS)
           return SwiftUI.AnyView(SwiftUIImplementation(range: range, value: value))
-        } else {
-          return SwiftUI.AnyView(cocoa().swiftUI())
-        }
+        #else
+          if #available(macOS 11, tvOS 14, iOS 14, *) {
+            return SwiftUI.AnyView(SwiftUIImplementation(range: range, value: value))
+          } else {
+            return SwiftUI.AnyView(cocoa().swiftUI())
+          }
+        #endif
       }
     #endif
   }
