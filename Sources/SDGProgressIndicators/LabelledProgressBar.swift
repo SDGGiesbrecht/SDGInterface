@@ -76,8 +76,7 @@
   }
 
   // MARK: - View
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  internal typealias View = SDGViews.View
+
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension LabelledProgressBar: View {
 

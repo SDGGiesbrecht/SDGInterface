@@ -52,7 +52,9 @@
     private let range: Shared<ClosedRange<Double>>
     private let value: Shared<Double?>
 
-    static func zeroToOneRepresentation(of value: Double, in range: ClosedRange<Double>) -> Double {
+    internal static func zeroToOneRepresentation(of value: Double, in range: ClosedRange<Double>)
+      -> Double
+    {
       return (value − range.lowerBound) ÷ (range.upperBound − range.lowerBound)
     }
 
@@ -68,7 +70,7 @@
   }
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 7, *)
-  extension ProgressBar: SDGViews.View {
+  extension ProgressBar: View {
 
     // MARK: - View
 

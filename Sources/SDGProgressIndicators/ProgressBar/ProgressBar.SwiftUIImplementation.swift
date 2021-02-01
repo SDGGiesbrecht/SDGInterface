@@ -28,8 +28,8 @@ import SDGMathematics
 
       // MARK: - Properties
 
-      @ObservedObject var range: Shared<ClosedRange<Double>>
-      @ObservedObject var value: Shared<Double?>
+      @ObservedObject internal var range: Shared<ClosedRange<Double>>
+      @ObservedObject internal var value: Shared<Double?>
 
       // MARK: - View
 
