@@ -23,6 +23,12 @@ import SDGViews
   extension LegacyView {
 
     #if !os(watchOS)
+      internal func useSwiftUIOrFallback(to fallback: () -> CocoaView) -> CocoaView {
+        return useSwiftUIOrFallback(to: fallback, useFallbackRegardless: legacyMode)
+      }
+    #endif
+
+    #if !os(watchOS)
       internal func useSwiftUI2OrFallback(to fallback: () -> CocoaView) -> CocoaView {
         return useSwiftUI2OrFallback(to: fallback, useFallbackRegardless: legacyMode)
       }
