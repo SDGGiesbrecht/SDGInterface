@@ -49,7 +49,9 @@ final class APITests: ApplicationTestCase {
       range.value = range.value.lowerBound...10
       value.value = 5
 
-      testViewConformance(of: bar, testBody: false)
+      if #available(tvOS 13, iOS 13, *) {
+        testViewConformance(of: bar, testBody: false)
+      }
     #endif
   }
 }
