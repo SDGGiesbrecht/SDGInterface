@@ -31,6 +31,7 @@
   import SDGTextDisplay
 
   /// A progress bar with a label.
+  @available(watchOS 7, *)
   public struct LabelledProgressBar<L>: LegacyView where L: Localization {
 
     // MARK: - Initialization
@@ -77,7 +78,7 @@
 
   // MARK: - View
 
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 7, *)
   extension LabelledProgressBar: View {
 
     #if !(os(iOS) && arch(arm))
