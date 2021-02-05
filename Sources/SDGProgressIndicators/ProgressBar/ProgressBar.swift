@@ -85,7 +85,7 @@
           } else {
             return SwiftUI.AnyView(cocoa().swiftUI())
           }
-        #endif
+        #endif  // @exempt(from: tests)
       }
     #endif
   }
