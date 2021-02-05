@@ -52,6 +52,17 @@ final class APITests: ApplicationTestCase {
       if #available(tvOS 13, iOS 13, *) {
         testViewConformance(of: bar, testBody: false)
       }
+
+      let inderminate = ProgressBar(range: Shared(0...1), value: Shared(nil))
+      if #available(tvOS 13, iOS 13, *) {
+        testViewConformance(of: inderminate, testBody: false)
+      }
+
+      withLegacyMode {
+        if #available(tvOS 13, iOS 13, *) {
+          _ = bar.swiftUI()
+        }
+      }
     #endif
   }
 }

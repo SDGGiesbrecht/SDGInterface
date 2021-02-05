@@ -24,6 +24,7 @@
   #endif
 
   import SDGControlFlow
+  import SDGLogic
   import SDGMathematics
 
   import SDGViews
@@ -79,7 +80,7 @@
         #if os(watchOS)
           return SwiftUI.AnyView(SwiftUIImplementation(range: range, value: value))
         #else
-          if #available(macOS 11, tvOS 14, iOS 14, *) {
+          if #available(macOS 11, tvOS 14, iOS 14, *), ¬legacyMode {
             return SwiftUI.AnyView(SwiftUIImplementation(range: range, value: value))
           } else {
             return SwiftUI.AnyView(cocoa().swiftUI())
