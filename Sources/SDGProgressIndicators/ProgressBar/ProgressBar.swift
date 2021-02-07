@@ -81,7 +81,11 @@
           return SwiftUI.AnyView(SwiftUIImplementation(range: range, value: value))
         #else
           if #available(macOS 11, tvOS 14, iOS 14, *), ¬legacyMode {
-            return SwiftUI.AnyView(SwiftUIImplementation(range: range, value: value))
+            let swiftUI = SwiftUIImplementation(range: range, value: value)
+            #if DEBUG
+              _ = swiftUI.body  // Eager execution to simplify testing.
+            #endif
+            return SwiftUI.AnyView(swiftUI)
           } else {
             return SwiftUI.AnyView(cocoa().swiftUI())
           }
