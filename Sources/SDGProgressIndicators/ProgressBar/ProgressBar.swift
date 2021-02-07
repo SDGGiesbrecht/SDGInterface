@@ -12,7 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
+#if canImport(SwiftUI) || (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
+  #if canImport(SwiftUI)
+    import SwiftUI
+  #endif
   #if canImport(AppKit)
     import AppKit
   #endif
@@ -21,11 +24,14 @@
   #endif
 
   import SDGControlFlow
+  import SDGLogic
+  import SDGMathematics
 
   import SDGViews
 
   /// A progress bar.
-  public struct ProgressBar: CocoaViewImplementation {
+  @available(watchOS 7, *)
+  public struct ProgressBar: LegacyView {
 
     // MARK: - Initialization
 
@@ -47,10 +53,44 @@
     private let range: Shared<ClosedRange<Double>>
     private let value: Shared<Double?>
 
+    internal static func zeroToOneRepresentation(of value: Double, in range: ClosedRange<Double>)
+      -> Double
+    {
+      return (value − range.lowerBound) ÷ (range.upperBound − range.lowerBound)
+    }
+
     // MARK: - LegacyView
 
-    public func cocoa() -> CocoaView {
-      return CocoaView(CocoaImplementation(range: range, value: value))
-    }
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+      public func cocoa() -> CocoaView {
+        return useSwiftUI2OrFallback(to: {
+          return CocoaView(CocoaImplementation(range: range, value: value))
+        })
+      }
+    #endif
+  }
+
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 7, *)
+  extension ProgressBar: View {
+
+    // MARK: - View
+
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      public func swiftUI() -> some SwiftUI.View {
+        #if os(watchOS)
+          return SwiftUI.AnyView(SwiftUIImplementation(range: range, value: value))
+        #else
+          if #available(macOS 11, tvOS 14, iOS 14, *), ¬legacyMode {
+            let swiftUI = SwiftUIImplementation(range: range, value: value)
+            #if DEBUG
+              _ = swiftUI.body  // Eager execution to simplify testing.
+            #endif
+            return SwiftUI.AnyView(swiftUI)
+          } else {
+            return SwiftUI.AnyView(cocoa().swiftUI())
+          }
+        #endif  // @exempt(from: tests)
+      }
+    #endif
   }
 #endif

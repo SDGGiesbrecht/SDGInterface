@@ -28,6 +28,12 @@ import SDGViews
       }
     #endif
 
+    #if !os(watchOS)
+      internal func useSwiftUI2OrFallback(to fallback: () -> CocoaView) -> CocoaView {
+        return useSwiftUI2OrFallback(to: fallback, useFallbackRegardless: legacyMode)
+      }
+    #endif
+
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       @available(macOS 10.15, tvOS 13, iOS 13, *)
       internal func adjustForLegacyMode() -> SwiftUI.AnyView {

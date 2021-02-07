@@ -80,8 +80,7 @@
         #else
           let progress: Float
           if let value = value.value {
-            let range = self.range.value
-            progress = Float((value − range.lowerBound) ÷ (range.upperBound − range.lowerBound))
+            progress = Float(ProgressBar.zeroToOneRepresentation(of: value, in: range.value))
           } else {
             progress = 0
           }

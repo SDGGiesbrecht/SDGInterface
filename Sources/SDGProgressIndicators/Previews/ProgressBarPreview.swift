@@ -26,13 +26,15 @@
     internal static var previews: some SwiftUI.View {
       Group {
 
-        ProgressBar(range: Shared(0...10), value: Shared(5))
-          .swiftUI()
-          .previewDisplayName("Half")
+        previewBothModes(
+          ProgressBar(range: Shared(0...10), value: Shared(5)).adjustForLegacyMode(),
+          name: "Half"
+        )
 
-        ProgressBar(range: Shared(0...10), value: Shared(nil))
-          .swiftUI()
-          .previewDisplayName("Indeterminate")
+        previewBothModes(
+          ProgressBar(range: Shared(0...10), value: Shared(nil)).adjustForLegacyMode(),
+          name: "Indeterminate"
+        )
       }
     }
   }

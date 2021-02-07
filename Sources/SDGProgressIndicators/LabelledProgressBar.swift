@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
+#if canImport(SwiftUI) || canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
   #if canImport(SwiftUI)
     import SwiftUI
   #endif
@@ -31,6 +31,7 @@
   import SDGTextDisplay
 
   /// A progress bar with a label.
+  @available(watchOS 7, *)
   public struct LabelledProgressBar<L>: LegacyView where L: Localization {
 
     // MARK: - Initialization
@@ -76,9 +77,8 @@
   }
 
   // MARK: - View
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  internal typealias View = SDGViews.View
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 7, *)
   extension LabelledProgressBar: View {
 
     #if !(os(iOS) && arch(arm))
