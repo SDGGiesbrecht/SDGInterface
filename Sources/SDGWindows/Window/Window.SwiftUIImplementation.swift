@@ -23,7 +23,7 @@ import SDGLocalization
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   extension Window {
 
-    @available(macOS 11, *)
+    @available(macOS 11, tvOS 14, *)
     internal struct SwiftUIImplementation<ContentView>: Scene where ContentView: SwiftUI.View {
 
       // MARK: - Initialization
@@ -37,7 +37,9 @@ import SDGLocalization
         self.type = type
         self.name = name
         self.content = content
-        self.delegate = Delegate(onClose: onClose)
+        #if canImport(AppKit)
+          self.delegate = Delegate(onClose: onClose)
+        #endif
       }
 
       // MARK: - Properties
@@ -45,7 +47,9 @@ import SDGLocalization
       internal let type: WindowType
       internal let name: UserFacing<StrictString, L>
       internal let content: ContentView
-      internal let delegate: Delegate
+      #if canImport(AppKit)
+        internal let delegate: Delegate
+      #endif
 
       // MARK: - Scene
 
@@ -54,15 +58,23 @@ import SDGLocalization
         let minWidth: CGFloat?
         let minHeight: CGFloat?
 
-        switch type {
-        case .primary(let size),
-          .auxiliary(let size):
-          minWidth = size.map { CGFloat($0.width) }
-          minHeight = size.map { CGFloat($0.height) }
-        case .fullscreen:
-          minWidth = nil
-          minHeight = nil
-        }
+        #if canImport(AppKit)
+          switch type {
+          case .primary(let size),
+            .auxiliary(let size):
+            minWidth = size.map { CGFloat($0.width) }
+            minHeight = size.map { CGFloat($0.height) }
+          case .fullscreen:
+            minWidth = nil
+            minHeight = nil
+          }
+        #else
+          switch type {
+          case .primary(let size):
+            minWidth = size.map { CGFloat($0.width) }
+            minHeight = size.map { CGFloat($0.height) }
+          }
+        #endif
 
         return WindowGroup(String(name.resolved())) {
           content
