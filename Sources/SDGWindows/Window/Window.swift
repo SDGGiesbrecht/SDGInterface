@@ -71,7 +71,6 @@
   @available(macOS 10.15, *)
   extension Window: Scene where Content: SDGViews.View {
 
-    /// Constructs a SwiftUI scene.
     @available(macOS 11, *)
     public var body: some Scene {
       return SwiftUIImplementation(
