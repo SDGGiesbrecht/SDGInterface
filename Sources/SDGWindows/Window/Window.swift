@@ -12,22 +12,22 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(SwiftUI) || (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-  #if canImport(SwiftUI)
-    import SwiftUI
-  #endif
-  #if canImport(AppKit)
-    import AppKit
-  #endif
-  #if canImport(UIKit)
-    import UIKit
-  #endif
+#if canImport(SwiftUI)
+  import SwiftUI
+#endif
+#if canImport(AppKit)
+  import AppKit
+#endif
+#if canImport(UIKit)
+  import UIKit
+#endif
 
-  import SDGText
-  import SDGLocalization
+import SDGText
+import SDGLocalization
 
-  import SDGViews
+import SDGViews
 
+#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
   /// A window.
   public struct Window<Content, L>: WindowProtocol where Content: LegacyView, L: Localization {
 
