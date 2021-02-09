@@ -67,7 +67,6 @@
         SwiftUI.AnyView(
           content.swiftUIAnyView()
             .onDisappear(perform: {
-              #error("Does this work properly?")
               self.onClose()
             })
         )
