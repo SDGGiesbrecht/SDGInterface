@@ -80,15 +80,19 @@ import SDGLocalization
           content
             .background(
               SwiftUIImplementation.WindowFinder(onFound: { found in
-                found?.native.delegate = self.delegate
-                switch type {
-                case .primary:
-                  found?.isPrimary = true
-                case .auxiliary:
-                  found?.isAuxiliary = true
-                case .fullscreen:
-                  found?.isFullscreen = true
-                }
+                #if canImport(AppKit)
+                  found?.native.delegate = self.delegate
+                #endif
+                #if canImport(AppKit)
+                  switch type {
+                  case .primary:
+                    found?.isPrimary = true
+                  case .auxiliary:
+                    found?.isAuxiliary = true
+                  case .fullscreen:
+                    found?.isFullscreen = true
+                  }
+                #endif
               })
             )
             .frame(minWidth: minWidth, minHeight: minHeight)

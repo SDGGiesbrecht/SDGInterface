@@ -16,7 +16,7 @@
   import AppKit
 #endif
 
-@available(macOS 11, *)
+@available(macOS 11, tvOS 14, *)
 extension Window.SwiftUIImplementation {
 
   #if canImport(AppKit)

@@ -68,10 +68,9 @@
     }
   }
 
-  @available(macOS 10.15, *)
+  @available(macOS 11, tvOS 14, *)
   extension Window: Scene where Content: SDGViews.View {
 
-    @available(macOS 11, *)
     public var body: some Scene {
       return SwiftUIImplementation(
         type: type,
