@@ -59,22 +59,26 @@
     private let content: Content
     private let onClose: () -> Void
 
-    @available(macOS 11, *)
-    public func swiftUI() -> some Scene {
-      #warning("Remove AnyView?")
-      return SwiftUIImplementation(
-        type: type,
-        name: name,
-        content: self.content.swiftUIAnyView(),
-        onClose: onClose
-      )
-    }
-
     // MARK: - WindowProtocol
 
     public func cocoa() -> CocoaWindow {
       return CocoaWindow(
         CocoaImplementation(type: type, name: name, content: content, onClose: onClose)
+      )
+    }
+  }
+
+  @available(macOS 10.15, *)
+  extension Window: Scene where Content: SDGViews.View {
+
+    /// Constructs a SwiftUI scene.
+    @available(macOS 11, *)
+    public var body: some Scene {
+      return SwiftUIImplementation(
+        type: type,
+        name: name,
+        content: content.swiftUI(),
+        onClose: onClose
       )
     }
   }
