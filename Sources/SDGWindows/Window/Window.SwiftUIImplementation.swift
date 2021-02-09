@@ -40,6 +40,9 @@ import SDGLocalization
 
       internal var body: some Scene {
         let view = content()
+          .onDisappear(perform: {
+            self.onClose()
+          })
           .background(
             SwiftUIImplementation.WindowFinder(onFound: { found in
               window.value = found
@@ -53,9 +56,6 @@ import SDGLocalization
               }
             })
           )
-          .onDisappear(perform: {
-            self.onClose()
-          })
         #warning("Switch onDisappear?")
         #warning("Remove AnyView?")
         let anyView: SwiftUI.AnyView
