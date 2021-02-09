@@ -26,14 +26,27 @@ import SDGLocalization
     @available(macOS 11, *)
     internal struct SwiftUIImplementation<ContentView>: Scene where ContentView: SwiftUI.View {
 
+      // MARK: - Initialization
+
+      #warning("Why @escaping for content?")
+      internal init(
+        type: WindowType,
+        name: UserFacing<StrictString, L>,
+        content: @escaping () -> ContentView,
+        onClose: @escaping () -> Void
+      ) {
+        self.type = type
+        self.name = name
+        self.content = content
+        self.delegate = Delegate(onClose: onClose)
+      }
+
       // MARK: - Properties
 
       internal let type: WindowType
       internal let name: UserFacing<StrictString, L>
       internal let content: () -> ContentView
-      internal let onClose: () -> Void
-
-      internal let delegate = Delegate()
+      internal let delegate: Delegate
 
       // MARK: - Scene
 
@@ -42,7 +55,6 @@ import SDGLocalization
           .background(
             SwiftUIImplementation.WindowFinder(onFound: { found in
               found?.native.delegate = self.delegate
-              self.delegate.onClose = self.onClose
               switch type {
               case .primary:
                 found?.isPrimary = true
@@ -53,7 +65,6 @@ import SDGLocalization
               }
             })
           )
-        #warning("Switch onDisappear?")
         #warning("Remove AnyView?")
         let anyView: SwiftUI.AnyView
         switch type {

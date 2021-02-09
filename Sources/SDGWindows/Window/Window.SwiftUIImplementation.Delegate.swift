@@ -21,11 +21,13 @@ extension Window.SwiftUIImplementation {
 
     // MARK: - Initialization
 
-    internal override init() {}
+    internal init(onClose: @escaping () -> Void) {
+      self.onClose = onClose
+    }
 
     // MARK: - Properties
 
-    internal var onClose: () -> Void = {}
+    internal let onClose: () -> Void
 
     // MARK: - NSWindowDelegate
 
