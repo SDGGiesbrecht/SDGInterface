@@ -13,9 +13,6 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-  #if canImport(SwiftUI)
-    import SwiftUI
-  #endif
   #if canImport(AppKit)
     import AppKit
   #endif
@@ -58,21 +55,6 @@
     private let name: UserFacing<StrictString, L>
     private let content: Content
     private let onClose: () -> Void
-
-    @available(macOS 11, *)
-    public func swiftUI() -> WindowGroup<SwiftUI.AnyView> {
-      #warning("Remove AnyView?")
-      return WindowGroup(String(name.resolved())) {
-        #warning("Remove AnyView?")
-        SwiftUI.AnyView(
-          content.swiftUIAnyView()
-            .onDisappear(perform: {
-              self.onClose()
-            })
-        )
-      }
-      #error("Not all properties handled yet.")
-    }
 
     // MARK: - WindowProtocol
 
