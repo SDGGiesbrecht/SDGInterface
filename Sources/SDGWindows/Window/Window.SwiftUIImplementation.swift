@@ -39,9 +39,6 @@ import SDGLocalization
 
       internal var body: some Scene {
         let view = content()
-          .onDisappear(perform: {
-            self.onClose()
-          })
           .background(
             SwiftUIImplementation.WindowFinder(onFound: { found in
               found?.native.delegate = self.delegate
