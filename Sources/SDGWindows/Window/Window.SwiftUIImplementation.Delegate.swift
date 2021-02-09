@@ -12,7 +12,9 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-import AppKit
+#if canImport(AppKit)
+  import AppKit
+#endif
 
 @available(macOS 11, *)
 extension Window.SwiftUIImplementation {
