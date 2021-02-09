@@ -51,37 +51,36 @@ import SDGLocalization
       // MARK: - Scene
 
       internal var body: some Scene {
-        let view = content()
-          .background(
-            SwiftUIImplementation.WindowFinder(onFound: { found in
-              found?.native.delegate = self.delegate
-              switch type {
-              case .primary:
-                found?.isPrimary = true
-              case .auxiliary:
-                found?.isAuxiliary = true
-              case .fullscreen:
-                found?.isFullscreen = true
-              }
-            })
-          )
-        #warning("Remove AnyView?")
-        let anyView: SwiftUI.AnyView
+
+        let minWidth: CGFloat?
+        let minHeight: CGFloat?
+
         switch type {
         case .primary(let size),
           .auxiliary(let size):
-          if let size = size {
-            anyView = SwiftUI.AnyView(
-              view.frame(minWidth: CGFloat(size.width), minHeight: CGFloat(size.height))
-            )
-          } else {
-            anyView = SwiftUI.AnyView(view)
-          }
+          minWidth = size.map { CGFloat($0.width) }
+          minHeight = size.map { CGFloat($0.height) }
         case .fullscreen:
-          anyView = SwiftUI.AnyView(view)
+          minWidth = nil
+          minHeight = nil
         }
+
         return WindowGroup(String(name.resolved())) {
-          anyView
+          content()
+            .background(
+              SwiftUIImplementation.WindowFinder(onFound: { found in
+                found?.native.delegate = self.delegate
+                switch type {
+                case .primary:
+                  found?.isPrimary = true
+                case .auxiliary:
+                  found?.isAuxiliary = true
+                case .fullscreen:
+                  found?.isFullscreen = true
+                }
+              })
+            )
+            .frame(minWidth: minWidth, minHeight: minHeight)
         }
       }
     }
