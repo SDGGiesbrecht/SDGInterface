@@ -29,7 +29,7 @@
   import SDGViews
 
   /// A window.
-  public final class Window<Content, L>: WindowProtocol where Content: LegacyView, L: Localization {
+  public struct Window<Content, L>: WindowProtocol where Content: LegacyView, L: Localization {
 
     // MARK: - Initialization
 
