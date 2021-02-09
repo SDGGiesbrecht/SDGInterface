@@ -33,8 +33,7 @@ import SDGLocalization
       internal let content: () -> ContentView
       internal let onClose: () -> Void
 
-      #warning("Needed?")
-      internal var window: Shared<CocoaWindow?> = Shared(nil)
+      internal let delegate = Delegate()
 
       // MARK: - Scene
 
@@ -45,7 +44,8 @@ import SDGLocalization
           })
           .background(
             SwiftUIImplementation.WindowFinder(onFound: { found in
-              window.value = found
+              found?.native.delegate = self.delegate
+              self.delegate.onClose = self.onClose
               switch type {
               case .primary:
                 found?.isPrimary = true

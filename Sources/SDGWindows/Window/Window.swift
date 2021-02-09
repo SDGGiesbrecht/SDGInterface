@@ -62,7 +62,12 @@
     @available(macOS 11, *)
     public func swiftUI() -> some Scene {
       #warning("Remove AnyView?")
-      return SwiftUIImplementation(type: type, name: name, content: { self.content.swiftUIAnyView() }, onClose: onClose)
+      return SwiftUIImplementation(
+        type: type,
+        name: name,
+        content: { self.content.swiftUIAnyView() },
+        onClose: onClose
+      )
     }
 
     // MARK: - WindowProtocol
