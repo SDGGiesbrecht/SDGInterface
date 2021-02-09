@@ -28,11 +28,10 @@ import SDGLocalization
 
       // MARK: - Initialization
 
-      #warning("Why @escaping for content?")
       internal init(
         type: WindowType,
         name: UserFacing<StrictString, L>,
-        content: @escaping () -> ContentView,
+        content: ContentView,
         onClose: @escaping () -> Void
       ) {
         self.type = type
@@ -45,7 +44,7 @@ import SDGLocalization
 
       internal let type: WindowType
       internal let name: UserFacing<StrictString, L>
-      internal let content: () -> ContentView
+      internal let content: ContentView
       internal let delegate: Delegate
 
       // MARK: - Scene
@@ -66,7 +65,7 @@ import SDGLocalization
         }
 
         return WindowGroup(String(name.resolved())) {
-          content()
+          content
             .background(
               SwiftUIImplementation.WindowFinder(onFound: { found in
                 found?.native.delegate = self.delegate

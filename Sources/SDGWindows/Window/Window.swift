@@ -65,7 +65,7 @@
       return SwiftUIImplementation(
         type: type,
         name: name,
-        content: { self.content.swiftUIAnyView() },
+        content: self.content.swiftUIAnyView(),
         onClose: onClose
       )
     }
