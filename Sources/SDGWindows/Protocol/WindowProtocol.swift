@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
   #if canImport(AppKit)
     import AppKit
   #endif
@@ -35,9 +35,11 @@
 
     // MARK: - Display
 
-    /// Displays the window.
-    public func display() {
-      cocoa().display()
-    }
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+      /// Displays the window.
+      public func display() {
+        cocoa().display()
+      }
+    #endif
   }
 #endif

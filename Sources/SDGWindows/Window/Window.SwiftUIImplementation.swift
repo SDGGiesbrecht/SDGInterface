@@ -21,6 +21,7 @@ import SDGText
 import SDGLocalization
 
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  @available(watchOS 7, *)
   extension Window {
 
     @available(macOS 11, tvOS 14, iOS 14, *)
@@ -53,49 +54,57 @@ import SDGLocalization
 
       // MARK: - Scene
 
-      internal var body: some Scene {
-
-        let minWidth: CGFloat?
-        let minHeight: CGFloat?
+      private func minimums() -> (width: CGFloat?, height: CGFloat?) {
+        let minimumWidth: CGFloat?
+        let minimumHeight: CGFloat?
 
         #if canImport(AppKit)
           switch type {
           case .primary(let size),
             .auxiliary(let size):
-            minWidth = size.map { CGFloat($0.width) }
-            minHeight = size.map { CGFloat($0.height) }
+            minimumWidth = size.map { CGFloat($0.width) }
+            minimumHeight = size.map { CGFloat($0.height) }
           case .fullscreen:
-            minWidth = nil
-            minHeight = nil
+            minimumWidth = nil
+            minimumHeight = nil
           }
         #else
           switch type {
           case .primary(let size):
-            minWidth = size.map { CGFloat($0.width) }
-            minHeight = size.map { CGFloat($0.height) }
+            minimumWidth = size.map { CGFloat($0.width) }
+            minimumHeight = size.map { CGFloat($0.height) }
           }
         #endif
 
-        return WindowGroup(String(name.resolved())) {
-          content
+        return (minimumWidth, minimumHeight)
+      }
+
+      private func intermediate() -> some SwiftUI.View {
+        #if canImport(AppKit)
+          return
+            content
             .background(
               SwiftUIImplementation.WindowFinder(onFound: { found in
-                #if canImport(AppKit)
-                  found?.native.delegate = self.delegate
-                #endif
-                #if canImport(AppKit)
-                  switch type {
-                  case .primary:
-                    found?.isPrimary = true
-                  case .auxiliary:
-                    found?.isAuxiliary = true
-                  case .fullscreen:
-                    found?.isFullscreen = true
-                  }
-                #endif
+                found?.native.delegate = self.delegate
+                switch type {
+                case .primary:
+                  found?.isPrimary = true
+                case .auxiliary:
+                  found?.isAuxiliary = true
+                case .fullscreen:
+                  found?.isFullscreen = true
+                }
               })
             )
-            .frame(minWidth: minWidth, minHeight: minHeight)
+        #else
+          return content
+        #endif
+      }
+
+      internal var body: some Scene {
+        let minimums = self.minimums()
+        return WindowGroup(String(name.resolved())) {
+          return intermediate().frame(minWidth: minimums.width, minHeight: minimums.height)
         }
       }
     }

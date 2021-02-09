@@ -14,33 +14,29 @@
 
 #if canImport(AppKit)
   import AppKit
-#endif
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-  @available(macOS 11, tvOS 14, iOS 14, *)
+  @available(macOS 11, tvOS 14, iOS 14, watchOS 7, *)
   extension Window.SwiftUIImplementation {
 
-    #if canImport(AppKit)
-      class Delegate: NSObject, NSWindowDelegate {
+    class Delegate: NSObject, NSWindowDelegate {
 
-        // MARK: - Initialization
+      // MARK: - Initialization
 
-        internal init(onClose: @escaping () -> Void) {
-          self.onClose = onClose
-        }
+      internal init(onClose: @escaping () -> Void) {
+        self.onClose = onClose
+      }
 
-        // MARK: - Properties
+      // MARK: - Properties
 
-        internal let onClose: () -> Void
+      internal let onClose: () -> Void
 
-        // MARK: - NSWindowDelegate
+      // MARK: - NSWindowDelegate
 
-        func windowWillClose(_ notification: Notification) {
-          DispatchQueue.main.async { [onClose = self.onClose] in
-            onClose()
-          }
+      func windowWillClose(_ notification: Notification) {
+        DispatchQueue.main.async { [onClose = self.onClose] in
+          onClose()
         }
       }
-    #endif
+    }
   }
 #endif

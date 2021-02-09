@@ -29,6 +29,7 @@ import SDGViews
 
 #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
   /// A window.
+  @available(watchOS 6, *)
   public struct Window<Content, L>: WindowProtocol where Content: LegacyView, L: Localization {
 
     // MARK: - Initialization
@@ -61,15 +62,17 @@ import SDGViews
 
     // MARK: - WindowProtocol
 
-    public func cocoa() -> CocoaWindow {
-      return CocoaWindow(
-        CocoaImplementation(type: type, name: name, content: content, onClose: onClose)
-      )
-    }
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+      public func cocoa() -> CocoaWindow {
+        return CocoaWindow(
+          CocoaImplementation(type: type, name: name, content: content, onClose: onClose)
+        )
+      }
+    #endif
   }
 
   #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-    @available(macOS 11, tvOS 14, iOS 14, *)
+    @available(macOS 11, tvOS 14, iOS 14, watchOS 7, *)
     extension Window: Scene where Content: SDGViews.View {
 
       public var body: some Scene {
