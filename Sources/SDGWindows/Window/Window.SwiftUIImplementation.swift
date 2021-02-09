@@ -41,8 +41,7 @@ import SDGLocalization
       internal var body: some Scene {
         let view = content()
           .background(
-            SwiftUIImplementation.WindowFinder(onFound: {
-              [type = self.type, window = self.window] found in
+            SwiftUIImplementation.WindowFinder(onFound: { found in
               window.value = found
               switch type {
               case .primary:

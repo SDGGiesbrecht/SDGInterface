@@ -12,7 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
+#if canImport(SwiftUI) || (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
+  #if canImport(SwiftUI)
+    import SwiftUI
+  #endif
   #if canImport(AppKit)
     import AppKit
   #endif
@@ -55,6 +58,12 @@
     private let name: UserFacing<StrictString, L>
     private let content: Content
     private let onClose: () -> Void
+
+    @available(macOS 11, *)
+    public func swiftUI() -> some Scene {
+      #warning("Remove AnyView?")
+      return SwiftUIImplementation(type: type, name: name, content: { self.content.swiftUIAnyView() }, onClose: onClose)
+    }
 
     // MARK: - WindowProtocol
 
