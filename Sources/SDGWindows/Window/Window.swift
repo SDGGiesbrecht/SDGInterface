@@ -68,16 +68,18 @@
     }
   }
 
-  @available(macOS 11, tvOS 14, *)
-  extension Window: Scene where Content: SDGViews.View {
+  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    @available(macOS 11, tvOS 14, iOS 14, *)
+    extension Window: Scene where Content: SDGViews.View {
 
-    public var body: some Scene {
-      return SwiftUIImplementation(
-        type: type,
-        name: name,
-        content: content.swiftUI(),
-        onClose: onClose
-      )
+      public var body: some Scene {
+        return SwiftUIImplementation(
+          type: type,
+          name: name,
+          content: content.swiftUI(),
+          onClose: onClose
+        )
+      }
     }
-  }
+  #endif
 #endif

@@ -16,29 +16,31 @@
   import AppKit
 #endif
 
-@available(macOS 11, tvOS 14, *)
-extension Window.SwiftUIImplementation {
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  @available(macOS 11, tvOS 14, iOS 14, *)
+  extension Window.SwiftUIImplementation {
 
-  #if canImport(AppKit)
-    class Delegate: NSObject, NSWindowDelegate {
+    #if canImport(AppKit)
+      class Delegate: NSObject, NSWindowDelegate {
 
-      // MARK: - Initialization
+        // MARK: - Initialization
 
-      internal init(onClose: @escaping () -> Void) {
-        self.onClose = onClose
-      }
+        internal init(onClose: @escaping () -> Void) {
+          self.onClose = onClose
+        }
 
-      // MARK: - Properties
+        // MARK: - Properties
 
-      internal let onClose: () -> Void
+        internal let onClose: () -> Void
 
-      // MARK: - NSWindowDelegate
+        // MARK: - NSWindowDelegate
 
-      func windowWillClose(_ notification: Notification) {
-        DispatchQueue.main.async { [onClose = self.onClose] in
-          onClose()
+        func windowWillClose(_ notification: Notification) {
+          DispatchQueue.main.async { [onClose = self.onClose] in
+            onClose()
+          }
         }
       }
-    }
-  #endif
-}
+    #endif
+  }
+#endif

@@ -23,7 +23,7 @@ import SDGLocalization
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   extension Window {
 
-    @available(macOS 11, tvOS 14, *)
+    @available(macOS 11, tvOS 14, iOS 14, *)
     internal struct SwiftUIImplementation<ContentView>: Scene where ContentView: SwiftUI.View {
 
       // MARK: - Initialization
