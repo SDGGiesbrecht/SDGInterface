@@ -76,7 +76,7 @@ import SDGViews
     extension Window: Scene where Content: SDGViews.View {
 
       /// The window as a scene.
-      /// 
+      ///
       /// - See: SwiftUI.Scene
       public var body: some Scene {
         return SwiftUIImplementation(
