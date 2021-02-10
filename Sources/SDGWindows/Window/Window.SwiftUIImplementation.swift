@@ -84,18 +84,18 @@ import SDGLocalization
           return
             content
             .background(
-              SwiftUIImplementation.WindowFinder(onFound: { found in
-                // @exempt(from: tests) Unreachable in tests.
-                found?.native.delegate = self.delegate
-                switch type {
-                case .primary:
-                  found?.isPrimary = true
-                case .auxiliary:
-                  found?.isAuxiliary = true
-                case .fullscreen:
-                  found?.isFullscreen = true
-                }
-              })
+              SwiftUIImplementation.WindowFinder(
+                onFound: { found in  // @exempt(from: tests) Unreachable in tests.
+                  found?.native.delegate = self.delegate
+                  switch type {
+                  case .primary:
+                    found?.isPrimary = true
+                  case .auxiliary:
+                    found?.isAuxiliary = true
+                  case .fullscreen:
+                    found?.isFullscreen = true
+                  }
+                })
             )
         #else
           return content

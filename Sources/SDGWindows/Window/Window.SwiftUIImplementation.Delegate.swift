@@ -18,7 +18,7 @@
   @available(macOS 11, tvOS 14, iOS 14, watchOS 7, *)
   extension Window.SwiftUIImplementation {
 
-    class Delegate: NSObject, NSWindowDelegate {
+    internal class Delegate: NSObject, NSWindowDelegate {
 
       // MARK: - Initialization
 
@@ -32,7 +32,7 @@
 
       // MARK: - NSWindowDelegate
 
-      func windowWillClose(_ notification: Notification) {
+      internal func windowWillClose(_ notification: Notification) {
         // @exempt(from: tests) Unreachable in tests.
         DispatchQueue.main.async { [onClose = self.onClose] in
           onClose()

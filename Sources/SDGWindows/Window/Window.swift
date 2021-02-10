@@ -75,6 +75,9 @@ import SDGViews
     @available(macOS 11, tvOS 14, iOS 14, watchOS 7, *)
     extension Window: Scene where Content: SDGViews.View {
 
+      /// The window as a scene.
+      /// 
+      /// - See: SwiftUI.Scene
       public var body: some Scene {
         return SwiftUIImplementation(
           type: type,
