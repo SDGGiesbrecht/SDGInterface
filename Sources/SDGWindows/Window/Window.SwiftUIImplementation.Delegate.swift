@@ -33,6 +33,7 @@
       // MARK: - NSWindowDelegate
 
       func windowWillClose(_ notification: Notification) {
+        // @exempt(from: tests) Unreachable in tests.
         DispatchQueue.main.async { [onClose = self.onClose] in
           onClose()
         }

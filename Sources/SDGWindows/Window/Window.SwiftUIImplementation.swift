@@ -85,6 +85,7 @@ import SDGLocalization
             content
             .background(
               SwiftUIImplementation.WindowFinder(onFound: { found in
+                // @exempt(from: tests) Unreachable in tests.
                 found?.native.delegate = self.delegate
                 switch type {
                 case .primary:

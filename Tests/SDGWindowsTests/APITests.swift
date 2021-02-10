@@ -44,7 +44,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testWindow() {
-    #if canImport(AppKit) || canImport(UIKit)
+    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
       let window = Window(
         type: .primary(nil),
         name: UserFacing<StrictString, AnyLocalization>({ _ in "Title" }),
@@ -112,6 +112,21 @@ final class APITests: ApplicationTestCase {
 
       _ = window.isVisible
       window.location = Point(0, 0)
+
+      if #available(macOS 11, *) {
+        _ =
+          Window(
+            type: .primary(Size(width: 100, height: 100)),
+            name: UserFacing<StrictString, AnyLocalization>({ _ in "Title" }),
+            content: EmptyView()
+          ).body.body
+        _ =
+          Window(
+            type: .fullscreen,
+            name: UserFacing<StrictString, AnyLocalization>({ _ in "Title" }),
+            content: EmptyView()
+          ).body.body
+      }
     #endif
   }
 }

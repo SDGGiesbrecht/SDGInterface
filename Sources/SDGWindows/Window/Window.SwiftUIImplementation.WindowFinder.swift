@@ -27,6 +27,7 @@
       // MARK: - NSViewRepresentable
 
       internal func makeNSView(context: Context) -> some NSView {
+        // @exempt(from: tests) Unreachable in tests.
         let view = NSView()
         DispatchQueue.main.async {
           onFound(view.window.map({ CocoaWindow($0) }))
