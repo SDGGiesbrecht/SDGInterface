@@ -113,19 +113,21 @@ final class APITests: ApplicationTestCase {
       _ = window.isVisible
       window.location = Point(0, 0)
 
-      if #available(macOS 11, *) {
+      if #available(macOS 11, tvOS 14, *) {
         _ =
           Window(
             type: .primary(Size(width: 100, height: 100)),
             name: UserFacing<StrictString, AnyLocalization>({ _ in "Title" }),
             content: EmptyView()
           ).body.body
-        _ =
-          Window(
-            type: .fullscreen,
-            name: UserFacing<StrictString, AnyLocalization>({ _ in "Title" }),
-            content: EmptyView()
-          ).body.body
+        #if canImport(AppKit)
+          _ =
+            Window(
+              type: .fullscreen,
+              name: UserFacing<StrictString, AnyLocalization>({ _ in "Title" }),
+              content: EmptyView()
+            ).body.body
+        #endif
       }
     #endif
   }
