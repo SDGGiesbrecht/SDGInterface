@@ -12,21 +12,25 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
-  #if canImport(AppKit)
-    import AppKit
-  #endif
-  #if canImport(UIKit)
-    import UIKit
-  #endif
+#if canImport(SwiftUI)
+  import SwiftUI
+#endif
+#if canImport(AppKit)
+  import AppKit
+#endif
+#if canImport(UIKit)
+  import UIKit
+#endif
 
-  import SDGText
-  import SDGLocalization
+import SDGText
+import SDGLocalization
 
-  import SDGViews
+import SDGViews
 
+#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
   /// A window.
-  public final class Window<Content, L>: WindowProtocol where Content: LegacyView, L: Localization {
+  @available(watchOS 6, *)
+  public struct Window<Content, L>: WindowProtocol where Content: LegacyView, L: Localization {
 
     // MARK: - Initialization
 
@@ -58,10 +62,30 @@
 
     // MARK: - WindowProtocol
 
-    public func cocoa() -> CocoaWindow {
-      return CocoaWindow(
-        CocoaImplementation(type: type, name: name, content: content, onClose: onClose)
-      )
-    }
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+      public func cocoa() -> CocoaWindow {
+        return CocoaWindow(
+          CocoaImplementation(type: type, name: name, content: content, onClose: onClose)
+        )
+      }
+    #endif
   }
+
+  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    @available(macOS 11, tvOS 14, iOS 14, watchOS 7, *)
+    extension Window: Scene where Content: SDGViews.View {
+
+      /// The window as a scene.
+      ///
+      /// - See: SwiftUI.Scene
+      public var body: some Scene {
+        return SwiftUIImplementation(
+          type: type,
+          name: name,
+          content: content.swiftUI(),
+          onClose: onClose
+        )
+      }
+    }
+  #endif
 #endif
