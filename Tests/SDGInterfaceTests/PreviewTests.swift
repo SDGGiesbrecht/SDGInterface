@@ -15,9 +15,9 @@
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   import SwiftUI
 
-  @testable import SDGViews
+  @testable import SDGInterface
 
-  import SDGViewsTestUtilities
+  import SDGInterfaceTestUtilities
   import SDGApplicationTestUtilities
 
   final class PreviewTests: ApplicationTestCase {

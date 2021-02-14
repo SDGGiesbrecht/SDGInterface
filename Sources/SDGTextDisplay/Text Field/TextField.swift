@@ -26,7 +26,7 @@
   import SDGControlFlow
   import SDGText
 
-  import SDGViews
+  import SDGInterface
 
   /// A text label.
   @available(watchOS 6, *)

@@ -125,7 +125,7 @@ final class APITests: ApplicationTestCase {
   func testCompositeViewImplementation() {
     #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
       struct TestView: CompositeViewImplementation {
-        func compose() -> SDGViews.EmptyView {
+        func compose() -> SDGInterface.EmptyView {
           return EmptyView()
         }
       }

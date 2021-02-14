@@ -27,7 +27,7 @@
   import SDGText
   import SDGLocalization
 
-  import SDGViews
+  import SDGInterface
 
   /// A button.
   public struct SegmentedControl<Option, L>: LegacyView

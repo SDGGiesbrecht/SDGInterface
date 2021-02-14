@@ -19,7 +19,6 @@ import SDGMathematics
 import SDGLocalization
 
 import SDGInterface
-import SDGViews
 import SDGTextDisplay
 import SDGWindows
 import SDGApplication
@@ -35,7 +34,7 @@ import SDGLogicTestUtilities
 import SDGLocalizationTestUtilities
 
 import SDGApplicationTestUtilities
-import SDGViewsTestUtilities
+import SDGInterfaceTestUtilities
 
 final class APITests: ApplicationTestCase {
 

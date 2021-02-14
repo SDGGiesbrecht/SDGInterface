@@ -15,7 +15,7 @@
 #if canImport(AppKit)
   import AppKit
 
-  import SDGViews
+  import SDGInterface
 
   extension Table.CocoaImplementation {
 

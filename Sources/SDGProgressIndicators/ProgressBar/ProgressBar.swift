@@ -27,7 +27,7 @@
   import SDGLogic
   import SDGMathematics
 
-  import SDGViews
+  import SDGInterface
 
   /// A progress bar.
   @available(watchOS 7, *)

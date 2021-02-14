@@ -25,7 +25,6 @@
   import SDGLocalization
 
   import SDGInterface
-  import SDGViews
 
   extension Window {
 

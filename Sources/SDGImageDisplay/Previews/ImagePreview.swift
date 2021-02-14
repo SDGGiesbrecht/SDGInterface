@@ -15,7 +15,7 @@
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   import SwiftUI
 
-  import SDGViews
+  import SDGInterface
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   internal struct ImagePreviews: PreviewProvider {

@@ -19,7 +19,7 @@
     import UIKit
   #endif
 
-  import SDGViews
+  import SDGInterface
 
   extension CocoaView {
 

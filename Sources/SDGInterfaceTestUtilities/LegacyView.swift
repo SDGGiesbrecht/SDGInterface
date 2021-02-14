@@ -16,7 +16,7 @@ import SDGControlFlow
 import SDGText
 import SDGLocalization
 
-import SDGViews
+import SDGInterface
 import SDGWindows
 
 import SDGInterfaceLocalizations

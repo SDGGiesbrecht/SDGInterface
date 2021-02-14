@@ -25,7 +25,7 @@
 
   import SDGLocalization
 
-  import SDGViews
+  import SDGInterface
 
   /// A text field with a label.
   @available(watchOS 6, *)
@@ -75,7 +75,7 @@
 
   // MARK: - View
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  internal typealias View = SDGViews.View
+  internal typealias View = SDGInterface.View
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension LabelledTextField: View {
 

@@ -25,7 +25,7 @@
 import SDGText
 import SDGLocalization
 
-import SDGViews
+import SDGInterface
 
 #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
   /// A window.
@@ -73,7 +73,7 @@ import SDGViews
 
   #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
     @available(macOS 11, tvOS 14, iOS 14, watchOS 7, *)
-    extension Window: Scene where Content: SDGViews.View {
+    extension Window: Scene where Content: SDGInterface.View {
 
       /// The window as a scene.
       ///

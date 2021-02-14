@@ -17,7 +17,6 @@ import SDGText
 import SDGLocalization
 
 import SDGInterface
-import SDGViews
 import SDGButtons
 import SDGApplication
 
@@ -29,7 +28,7 @@ import XCTest
 
 import SDGXCTestUtilities
 
-import SDGViewsTestUtilities
+import SDGInterfaceTestUtilities
 import SDGApplicationTestUtilities
 
 final class APITests: ApplicationTestCase {

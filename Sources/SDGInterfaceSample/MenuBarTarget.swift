@@ -19,7 +19,7 @@ import SDGLogic
 import SDGText
 import SDGLocalization
 
-import SDGViews
+import SDGInterface
 import SDGTextDisplay
 import SDGImageDisplay
 import SDGButtons

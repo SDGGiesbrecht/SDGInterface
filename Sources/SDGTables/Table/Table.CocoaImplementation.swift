@@ -24,7 +24,7 @@
   import SDGLogic
   import SDGMathematics
 
-  import SDGViews
+  import SDGInterface
 
   extension Table {
 

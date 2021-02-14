@@ -16,13 +16,13 @@ import SDGControlFlow
 import SDGText
 import SDGLocalization
 
-import SDGViews
+import SDGInterface
 import SDGWindows
 @testable import SDGPopOvers
 
 import XCTest
 
-import SDGViewsTestUtilities
+import SDGInterfaceTestUtilities
 import SDGApplicationTestUtilities
 
 final class InternalTests: ApplicationTestCase {
@@ -31,9 +31,9 @@ final class InternalTests: ApplicationTestCase {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       forAllLegacyModes {
         if #available(macOS 10.15, tvOS 13, iOS 13, *) {
-          let combined = SDGViews.EmptyView().popOver(
+          let combined = SDGInterface.EmptyView().popOver(
             isPresented: Shared(false),
-            content: { SDGViews.EmptyView() }
+            content: { SDGInterface.EmptyView() }
           ).adjustForLegacyMode()
           testViewConformance(of: combined, testBody: false)
         }
@@ -46,9 +46,9 @@ final class InternalTests: ApplicationTestCase {
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
         let isPresented = Shared(false)
         if #available(macOS 10.15, tvOS 13, iOS 13, *) {
-          let combined = SDGViews.EmptyView().popOver(
+          let combined = SDGInterface.EmptyView().popOver(
             isPresented: isPresented,
-            content: { SDGViews.EmptyView() }
+            content: { SDGInterface.EmptyView() }
           ).adjustForLegacyMode()
           let window = Window(
             type: .primary(nil),

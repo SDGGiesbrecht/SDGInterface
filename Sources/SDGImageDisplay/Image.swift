@@ -23,7 +23,7 @@
     import UIKit
   #endif
 
-  import SDGViews
+  import SDGInterface
 
   /// An image.
   public struct Image: LegacyView {

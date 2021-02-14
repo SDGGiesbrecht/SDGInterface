@@ -17,7 +17,7 @@
 
   @testable import SDGImageDisplay
 
-  import SDGViewsTestUtilities
+  import SDGInterfaceTestUtilities
   import SDGApplicationTestUtilities
 
   final class PreviewTests: ApplicationTestCase {

@@ -26,7 +26,6 @@
   import SDGControlFlow
 
   import SDGInterface
-  import SDGViews
 
   @available(watchOS 6, *)
   extension LegacyView {

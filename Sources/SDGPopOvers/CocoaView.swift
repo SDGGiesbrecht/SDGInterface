@@ -21,7 +21,6 @@
   #endif
 
   import SDGInterface
-  import SDGViews
 
   extension CocoaView {
 

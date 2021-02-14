@@ -26,7 +26,7 @@
   import SDGText
   import SDGLocalization
 
-  import SDGViews
+  import SDGInterface
 
   /// A button.
   @available(watchOS 6, *)

@@ -22,7 +22,7 @@
 
   import SDGControlFlow
 
-  import SDGViews
+  import SDGInterface
 
   /// A textual log.
   ///

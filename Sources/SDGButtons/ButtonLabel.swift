@@ -19,7 +19,7 @@
 
   import SDGText
 
-  import SDGViews
+  import SDGInterface
   import SDGImageDisplay
 
   /// A button label.

@@ -19,7 +19,7 @@
   internal struct HorizontalStackPreviews: PreviewProvider {
     internal static var previews: some SwiftUI.View {
 
-      func circle(colour: Color, big: Bool = false) -> SDGViews.AnyView {
+      func circle(colour: Color, big: Bool = false) -> SDGInterface.AnyView {
         let diameter: CGFloat = big ? 32 : 16
         return AnyView(
           SwiftUI.AnyView(

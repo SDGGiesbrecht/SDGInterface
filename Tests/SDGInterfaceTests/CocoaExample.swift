@@ -19,7 +19,7 @@
     import UIKit
   #endif
 
-  import SDGViews
+  import SDGInterface
 
   #if canImport(AppKit)
     class CocoaExample: NSView {}
