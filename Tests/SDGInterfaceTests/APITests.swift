@@ -23,7 +23,7 @@ import SDGControlFlow
 import SDGLogic
 import SDGLocalization
 
-import SDGInterfaceBasics
+import SDGInterface
 
 import SDGInterfaceLocalizations
 
@@ -36,19 +36,19 @@ import SDGApplicationTestUtilities
 final class APITests: ApplicationTestCase {
 
   func testAlignment() {
-    XCTAssertEqual(SDGInterfaceBasics.Alignment(horizontal: .centre, vertical: .centre), .centre)
+    XCTAssertEqual(SDGInterface.Alignment(horizontal: .centre, vertical: .centre), .centre)
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         var swiftUI: SwiftUI.Alignment = .center
-        var sdgInterface = SDGInterfaceBasics.Alignment(swiftUI)!
+        var sdgInterface = SDGInterface.Alignment(swiftUI)!
         XCTAssertEqual(sdgInterface, .centre)
         XCTAssertEqual(SwiftUI.Alignment(sdgInterface), .center)
         swiftUI = .topLeading
-        sdgInterface = SDGInterfaceBasics.Alignment(swiftUI)!
+        sdgInterface = SDGInterface.Alignment(swiftUI)!
         XCTAssertEqual(sdgInterface, .topLeading)
         XCTAssertEqual(SwiftUI.Alignment(sdgInterface), .topLeading)
         swiftUI = .bottomTrailing
-        sdgInterface = SDGInterfaceBasics.Alignment(swiftUI)!
+        sdgInterface = SDGInterface.Alignment(swiftUI)!
         XCTAssertEqual(sdgInterface, .bottomTrailing)
         XCTAssertEqual(SwiftUI.Alignment(sdgInterface), .bottomTrailing)
       }
@@ -85,11 +85,11 @@ final class APITests: ApplicationTestCase {
   }
 
   func testContentMode() {
-    for mode in SDGInterfaceBasics.ContentMode.allCases {
+    for mode in SDGInterface.ContentMode.allCases {
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
         if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
           let swiftUI = SwiftUI.ContentMode(mode)
-          let roundTrip = SDGInterfaceBasics.ContentMode(swiftUI)
+          let roundTrip = SDGInterface.ContentMode(swiftUI)
           XCTAssertEqual(roundTrip, mode)
         }
       #endif
@@ -97,11 +97,11 @@ final class APITests: ApplicationTestCase {
   }
 
   func testEdge() {
-    for edge in SDGInterfaceBasics.Edge.allCases {
+    for edge in SDGInterface.Edge.allCases {
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
         if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
           let swiftUI = SwiftUI.Edge(edge)
-          let roundTrip = SDGInterfaceBasics.Edge(swiftUI)
+          let roundTrip = SDGInterface.Edge(swiftUI)
           XCTAssertEqual(roundTrip, edge)
         }
       #endif
@@ -109,25 +109,25 @@ final class APITests: ApplicationTestCase {
   }
 
   func testEdgeSet() {
-    let horizontal = SDGInterfaceBasics.Edge.Set.horizontal
+    let horizontal = SDGInterface.Edge.Set.horizontal
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         let swiftUIHorizontal = SwiftUI.Edge.Set(horizontal)
-        let roundTrip = SDGInterfaceBasics.Edge.Set(swiftUIHorizontal)
+        let roundTrip = SDGInterface.Edge.Set(swiftUIHorizontal)
         XCTAssertEqual(roundTrip, horizontal)
-        for edge in SDGInterfaceBasics.Edge.allCases {
+        for edge in SDGInterface.Edge.allCases {
           let swiftUIEdge = SwiftUI.Edge(edge)
-          let entry = SDGInterfaceBasics.Edge.Set(edge)
+          let entry = SDGInterface.Edge.Set(edge)
           let swiftUIEntry = SwiftUI.Edge.Set(swiftUIEdge)
           XCTAssertEqual(horizontal.contains(entry), swiftUIHorizontal.contains(swiftUIEntry))
         }
       }
     #endif
-    for edge in SDGInterfaceBasics.Edge.allCases {
-      let set = SDGInterfaceBasics.Edge.Set(edge)
-      XCTAssert(set.contains(SDGInterfaceBasics.Edge.Set(edge)))
-      for other in SDGInterfaceBasics.Edge.allCases where other ≠ edge {
-        XCTAssertFalse(set.contains(SDGInterfaceBasics.Edge.Set(other)))
+    for edge in SDGInterface.Edge.allCases {
+      let set = SDGInterface.Edge.Set(edge)
+      XCTAssert(set.contains(SDGInterface.Edge.Set(edge)))
+      for other in SDGInterface.Edge.allCases where other ≠ edge {
+        XCTAssertFalse(set.contains(SDGInterface.Edge.Set(other)))
       }
     }
   }
@@ -135,7 +135,7 @@ final class APITests: ApplicationTestCase {
   func testNSRectEdge() {
     #if canImport(AppKit)
       var converted: Set<NSRectEdge> = []
-      for edge in SDGInterfaceBasics.Edge.allCases {
+      for edge in SDGInterface.Edge.allCases {
         converted.insert(NSRectEdge(edge))
       }
       XCTAssertEqual(converted.count, 4)

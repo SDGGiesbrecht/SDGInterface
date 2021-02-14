@@ -40,7 +40,7 @@
               switch localization {
               case .englishCanada:  // @exempt(from: tests)
                 return
-                  "“ProcessInfo.applicationName” has not been set yet. (Import Foundation, SDGText and SDGInterfaceBasics.)"
+                  "“ProcessInfo.applicationName” has not been set yet. (Import Foundation, SDGText and SDGInterface.)"
               }
             })
           )

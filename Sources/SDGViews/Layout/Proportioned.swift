@@ -26,7 +26,7 @@
   import SDGLogic
   import SDGMathematics
 
-  import SDGInterfaceBasics
+  import SDGInterface
 
   /// The result of `aspectRatio(_:contentMode:)`.
   @available(watchOS 6, *)
@@ -37,7 +37,7 @@
     internal init(
       content: Content,
       aspectRatio: Double?,
-      contentMode: SDGInterfaceBasics.ContentMode
+      contentMode: SDGInterface.ContentMode
     ) {
       self.content = content
       self.aspectRatio = aspectRatio
@@ -48,7 +48,7 @@
 
     private let content: Content
     private let aspectRatio: Double?
-    private let contentMode: SDGInterfaceBasics.ContentMode
+    private let contentMode: SDGInterface.ContentMode
 
     // MARK: - LegacyView
 

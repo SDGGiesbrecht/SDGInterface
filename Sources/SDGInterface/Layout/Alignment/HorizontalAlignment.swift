@@ -1,5 +1,5 @@
 /*
- VerticalAlignment.swift
+ HorizontalAlignment.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -18,53 +18,53 @@
 
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  extension SwiftUI.VerticalAlignment {
+  extension SwiftUI.HorizontalAlignment {
 
-    /// Unwraps an instance of a shimmed `SDGInterfaceBasics.VerticalAlignment`.
+    /// Unwraps an instance of a shimmed `SDGInterface.HorizontalAlignment`.
     ///
     /// - Parameters:
     ///   - shimmed: The shimmed instance.
-    public init(_ shimmed: SDGInterfaceBasics.VerticalAlignment) {
+    public init(_ shimmed: SDGInterface.HorizontalAlignment) {
       switch shimmed {
-      case .top:
-        self = .top
+      case .leading:
+        self = .leading
       case .centre:
         self = .center
-      case .bottom:
-        self = .bottom
+      case .trailing:
+        self = .trailing
       }
     }
   }
 #endif
 
-/// A shimmed version of `SwiftUI.VerticalAlignment` with no availability constraints.
-public enum VerticalAlignment: Equatable {
+/// A shimmed version of `SwiftUI.HorizontalAlignment` with no availability constraints.
+public enum HorizontalAlignment: Equatable {
 
   // MARK: - Cases
 
-  /// A shimmed version of `SwiftUI.VerticalAlignment.top` with no availability constraints.
-  case top
-  /// A shimmed version of `SwiftUI.VerticalAlignment.center` with no availability constraints.
+  /// A shimmed version of `SwiftUI.HorizontalAlignment.leading` with no availability constraints.
+  case leading
+  /// A shimmed version of `SwiftUI.HorizontalAlignment.center` with no availability constraints.
   case centre
-  /// A shimmed version of `SwiftUI.VerticalAlignment.bottom` with no availability constraints.
-  case bottom
+  /// A shimmed version of `SwiftUI.HorizontalAlignment.trailing` with no availability constraints.
+  case trailing
 
   // MARK: - Initialization
 
   #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-    /// Wraps an instance of a standard `SwiftUI.VerticalAlignment`.
+    /// Wraps an instance of a standard `SwiftUI.HorizontalAlignment`.
     ///
     /// - Parameters:
     ///   - standard: The standard instance.
     @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-    public init?(_ standard: SwiftUI.VerticalAlignment) {
+    public init?(_ standard: SwiftUI.HorizontalAlignment) {
       switch standard {
-      case .top:
-        self = .top
+      case .leading:
+        self = .leading
       case .center:
         self = .centre
-      case .bottom:
-        self = .bottom
+      case .trailing:
+        self = .trailing
       default:  // @exempt(from: tests) Not sure how to create such an alignment.
         // @exempt(from: tests)
         return nil

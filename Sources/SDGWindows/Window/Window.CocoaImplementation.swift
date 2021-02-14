@@ -24,7 +24,7 @@
   import SDGText
   import SDGLocalization
 
-  import SDGInterfaceBasics
+  import SDGInterface
   import SDGViews
 
   extension Window {

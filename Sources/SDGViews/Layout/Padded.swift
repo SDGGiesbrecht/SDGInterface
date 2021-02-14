@@ -25,7 +25,7 @@
 
   import SDGLogic
 
-  import SDGInterfaceBasics
+  import SDGInterface
 
   /// The result of `padding(_:_:)`.
   @available(watchOS 6, *)
@@ -33,7 +33,7 @@
 
     // MARK: - Initialization
 
-    internal init(content: Content, edges: SDGInterfaceBasics.Edge.Set, width: Double?) {
+    internal init(content: Content, edges: SDGInterface.Edge.Set, width: Double?) {
       self.content = content
       self.edges = edges
       self.width = width
@@ -42,7 +42,7 @@
     // MARK: - Properties
 
     private let content: Content
-    private let edges: SDGInterfaceBasics.Edge.Set
+    private let edges: SDGInterface.Edge.Set
     private let width: Double?
 
     // MARK: - LegacyView
@@ -54,7 +54,7 @@
           let content = self.content.cocoa()
           let container = CocoaView()
 
-          func spacing(for edge: SDGInterfaceBasics.Edge) -> Double? {
+          func spacing(for edge: SDGInterface.Edge) -> Double? {
             var spacing = width
             if ¬edges.contains(Edge.Set(edge)) {
               spacing = 0

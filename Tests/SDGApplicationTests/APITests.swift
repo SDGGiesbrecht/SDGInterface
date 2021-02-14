@@ -20,7 +20,7 @@ import SDGMathematics
 import SDGText
 import SDGLocalization
 
-import SDGInterfaceBasics
+import SDGInterface
 import SDGViews
 import SDGTextDisplay
 import SDGTables

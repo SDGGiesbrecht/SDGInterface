@@ -20,11 +20,11 @@
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension SwiftUI.ContentMode {
 
-    /// Unwraps an instance of a shimmed `SDGInterfaceBasics.ContentMode`.
+    /// Unwraps an instance of a shimmed `SDGInterface.ContentMode`.
     ///
     /// - Parameters:
     ///   - shimmed: The shimmed instance.
-    public init(_ shimmed: SDGInterfaceBasics.ContentMode) {
+    public init(_ shimmed: SDGInterface.ContentMode) {
       switch shimmed {
       case .fill:
         self = .fill

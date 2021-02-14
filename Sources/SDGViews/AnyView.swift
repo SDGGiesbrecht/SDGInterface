@@ -23,7 +23,7 @@
     import UIKit
   #endif
 
-  import SDGInterfaceBasics
+  import SDGInterface
 
   /// A type‐erased view.
   @available(watchOS 6, *)

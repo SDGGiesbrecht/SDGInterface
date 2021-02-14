@@ -20,11 +20,11 @@
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension SwiftUI.Edge {
 
-    /// Unwraps an instance of a shimmed `SDGInterfaceBasics.Edge`.
+    /// Unwraps an instance of a shimmed `SDGInterface.Edge`.
     ///
     /// - Parameters:
     ///   - shimmed: The shimmed instance.
-    public init(_ shimmed: SDGInterfaceBasics.Edge) {
+    public init(_ shimmed: SDGInterface.Edge) {
       switch shimmed {
       case .top:
         self = .top

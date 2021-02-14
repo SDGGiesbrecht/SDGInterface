@@ -22,7 +22,7 @@
 
   import SDGControlFlow
 
-  import SDGInterfaceBasics
+  import SDGInterface
   import SDGViews
 
   extension PopOver {
@@ -35,7 +35,7 @@
         anchor: Anchor,
         isPresented: Shared<Bool>,
         attachmentAnchor: AttachmentAnchor,
-        arrowEdge: SDGInterfaceBasics.Edge,
+        arrowEdge: SDGInterface.Edge,
         content: @escaping () -> Content
       ) {
         self.anchor = anchor.cocoa()
@@ -59,7 +59,7 @@
       private let anchor: CocoaView
       private let isPresented: Shared<Bool>
       private let attachmentAnchor: AttachmentAnchor
-      private let arrowEdge: SDGInterfaceBasics.Edge
+      private let arrowEdge: SDGInterface.Edge
       private let content: () -> Content
 
       // MARK: - Pop Over

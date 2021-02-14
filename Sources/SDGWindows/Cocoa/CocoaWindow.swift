@@ -22,7 +22,7 @@
 
   import SDGMathematics
 
-  import SDGInterfaceBasics
+  import SDGInterface
   import SDGViews
 
   /// A Cocoa window.

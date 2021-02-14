@@ -22,7 +22,7 @@
     import UIKit
   #endif
 
-  import SDGInterfaceBasics
+  import SDGInterface
 
   /// A shimmed version of `SwiftUI.HStack` with relaxed availability constraints.
   @available(watchOS 6, *)
@@ -37,7 +37,7 @@
     ///   - spacing: The spacing.
     ///   - content: The content.
     public init(
-      alignment: SDGInterfaceBasics.VerticalAlignment = .centre,
+      alignment: SDGInterface.VerticalAlignment = .centre,
       spacing: Double? = nil,
       content: [Entry]
     ) {
@@ -48,7 +48,7 @@
 
     // MARK: - Properties
 
-    private let alignment: SDGInterfaceBasics.VerticalAlignment
+    private let alignment: SDGInterface.VerticalAlignment
     private let spacing: Double?
     private let content: [Entry]
 

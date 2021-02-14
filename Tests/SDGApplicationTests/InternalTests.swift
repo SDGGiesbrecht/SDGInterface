@@ -18,7 +18,7 @@ import XCTest
 import SDGLogic
 import SDGLocalization
 
-import SDGInterfaceBasics
+import SDGInterface
 import SDGMenuBar
 @testable import SDGApplication
 import SDGInterfaceSample

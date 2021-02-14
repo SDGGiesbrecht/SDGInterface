@@ -22,7 +22,7 @@
     import UIKit
   #endif
 
-  import SDGInterfaceBasics
+  import SDGInterface
 
   extension Colour: View {
 

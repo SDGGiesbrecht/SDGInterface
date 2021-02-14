@@ -20,7 +20,7 @@
     import UIKit
   #endif
 
-  import SDGInterfaceBasics
+  import SDGInterface
   import SDGViews
 
   extension CocoaView {
@@ -34,7 +34,7 @@
     public func displayPopOver<Content>(
       _ content: Content,
       attachmentAnchor: AttachmentAnchor = .rectangle(.bounds),
-      arrowEdge: SDGInterfaceBasics.Edge = .top
+      arrowEdge: SDGInterface.Edge = .top
     ) where Content: LegacyView {
 
       let popOverView = CocoaView.PopOverView(content)

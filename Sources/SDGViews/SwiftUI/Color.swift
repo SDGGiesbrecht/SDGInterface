@@ -16,7 +16,7 @@
   import SwiftUI
 #endif
 
-import SDGInterfaceBasics
+import SDGInterface
 
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
 
@@ -27,7 +27,7 @@ import SDGInterfaceBasics
     ///
     /// - Parameters:
     ///   - colour: The colour.
-    public init(_ colour: SDGInterfaceBasics.Colour) {
+    public init(_ colour: SDGInterface.Colour) {
       self.init(red: colour.red, green: colour.green, blue: colour.blue, opacity: colour.opacity)
     }
   }

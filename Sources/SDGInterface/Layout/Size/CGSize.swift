@@ -1,5 +1,5 @@
 /*
- UnitPoint.swift
+ CGSize.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,20 +12,17 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-  import SwiftUI
+#if canImport(CoreGraphics)
+  import CoreGraphics
 
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  extension UnitPoint {
+  extension CGSize {
 
-    // MARK: - Initialization
-
-    /// Creates a SwiftUI point from a point.
+    /// Creates a CoreGraphics size from a size.
     ///
     /// - Parameters:
-    ///   - point: The point.
-    public init(_ point: SDGInterfaceBasics.Point) {
-      self.init(x: CGFloat(point.x), y: CGFloat(point.y))
+    ///   - size: The size.
+    public init(_ size: SDGInterface.Size) {
+      self.init(width: CGFloat(size.width), height: CGFloat(size.height))
     }
   }
 #endif

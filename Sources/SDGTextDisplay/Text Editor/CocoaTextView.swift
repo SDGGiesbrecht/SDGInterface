@@ -24,7 +24,7 @@
   import SDGCollections
 
   import SDGViews
-  import SDGInterfaceBasics
+  import SDGInterface
 
   #if canImport(AppKit)
     internal typealias CocoaTextView = NSTextView

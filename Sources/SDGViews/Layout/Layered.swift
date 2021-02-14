@@ -23,7 +23,7 @@
     import UIKit
   #endif
 
-  import SDGInterfaceBasics
+  import SDGInterface
 
   /// The result of `background(_:alignment:)`.
   @available(watchOS 6, *)
@@ -35,7 +35,7 @@
     internal init(
       foreground: Foreground,
       background: Background,
-      alignment: SDGInterfaceBasics.Alignment
+      alignment: SDGInterface.Alignment
     ) {
       self.foreground = foreground
       self.background = background
@@ -46,7 +46,7 @@
 
     private let foreground: Foreground
     private let background: Background
-    private let alignment: SDGInterfaceBasics.Alignment
+    private let alignment: SDGInterface.Alignment
 
     // MARK: - LegacyView
 
