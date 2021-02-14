@@ -23,8 +23,6 @@
     import UIKit
   #endif
 
-  import SDGInterface
-
   /// A type‐erased view.
   @available(watchOS 6, *)
   public struct AnyView: LegacyView {

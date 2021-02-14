@@ -25,8 +25,6 @@
 
   import SDGLogic
 
-  import SDGInterface
-
   /// The result of `frame(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)`.
   @available(watchOS 6, *)
   public struct Framed<Content>: LegacyView where Content: LegacyView {

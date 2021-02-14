@@ -23,8 +23,6 @@
     import UIKit
   #endif
 
-  import SDGInterface
-
   /// The result of `background(_:alignment:)`.
   @available(watchOS 6, *)
   public struct Layered<Foreground, Background>: LegacyView

@@ -17,8 +17,6 @@
 
   import SDGMathematics
 
-  import SDGInterface
-
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   internal struct FramePreviews: PreviewProvider {
     internal static var previews: some SwiftUI.View {

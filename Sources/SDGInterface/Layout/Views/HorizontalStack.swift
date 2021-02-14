@@ -22,8 +22,6 @@
     import UIKit
   #endif
 
-  import SDGInterface
-
   /// A shimmed version of `SwiftUI.HStack` with relaxed availability constraints.
   @available(watchOS 6, *)
   public struct HorizontalStack<Entry>: LegacyView where Entry: LegacyView {

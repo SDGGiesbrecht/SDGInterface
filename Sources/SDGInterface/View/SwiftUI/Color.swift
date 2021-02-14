@@ -16,8 +16,6 @@
   import SwiftUI
 #endif
 
-import SDGInterface
-
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)

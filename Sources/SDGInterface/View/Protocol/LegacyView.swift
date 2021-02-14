@@ -27,8 +27,6 @@
   import SDGText
   import SDGLocalization
 
-  import SDGInterface
-
   import SDGInterfaceLocalizations
 
   /// The subset of the `View` protocol that can be conformed to even on platform versions preceding SwiftUI’s availability.

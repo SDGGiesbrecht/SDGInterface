@@ -26,8 +26,6 @@
   import SDGLogic
   import SDGMathematics
 
-  import SDGInterface
-
   /// The result of `aspectRatio(_:contentMode:)`.
   @available(watchOS 6, *)
   public struct Proportioned<Content>: LegacyView where Content: LegacyView {

@@ -22,8 +22,6 @@
 
   import SDGLogic
 
-  import SDGInterface
-
   /// A Cocoa view.
   public struct CocoaView: CocoaViewImplementation {
 

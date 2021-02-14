@@ -15,15 +15,13 @@
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   import SwiftUI
 
-  import SDGInterface
-
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   internal struct PaddingPreviews: PreviewProvider {
     internal static var previews: some SwiftUI.View {
 
       func square() -> SwiftUI.AnyView {
         return SwiftUI.AnyView(
-          Rectangle()
+          SwiftUI.Rectangle()
             .fill(Color.red)
             .frame(width: 32, height: 32)
         )

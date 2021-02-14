@@ -25,8 +25,6 @@
 
   import SDGLogic
 
-  import SDGInterface
-
   /// The result of `padding(_:_:)`.
   @available(watchOS 6, *)
   public struct Padded<Content>: LegacyView where Content: LegacyView {
