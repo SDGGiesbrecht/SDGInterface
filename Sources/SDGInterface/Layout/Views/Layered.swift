@@ -23,6 +23,8 @@
     import UIKit
   #endif
 
+  import SDGMathematics
+
   /// The result of `background(_:alignment:)`.
   @available(watchOS 6, *)
   public struct Layered<Foreground, Background>: LegacyView
@@ -108,5 +110,84 @@
         )
       }
     #endif
+  }
+#endif
+
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  internal struct LayeredPreviews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
+
+      func circle(radius: CGFloat) -> SwiftUI.AnyView {
+        let diameter = radius × 2
+        return SwiftUI.AnyView(
+          Ellipse()
+            .fill(Color.black)
+            .frame(width: diameter, height: diameter)
+            .border(Color.green)
+        )
+      }
+
+      return Group {
+
+        previewBothModes(
+          circle(radius: 16)
+            .background(
+              SwiftUI.AnyView(
+                Color.red
+                  .frame(width: 48, height: 48)
+              )
+            )
+            .adjustForLegacyMode()
+            .border(Color.blue)
+            .frame(width: 128, height: 64),
+          name: "red"
+        )
+
+        previewBothModes(
+          circle(radius: 16)
+            .background(
+              SwiftUI.AnyView(
+                Color.red
+                  .frame(width: 48, height: 48)
+              ),
+              alignment: .topLeading
+            )
+            .adjustForLegacyMode()
+            .border(Color.blue)
+            .frame(width: 128, height: 64),
+          name: "red, .topLeading"
+        )
+
+        previewBothModes(
+          circle(radius: 16)
+            .background(
+              SwiftUI.AnyView(
+                Color.red
+                  .frame(width: 48, height: 48)
+              ),
+              alignment: .bottomTrailing
+            )
+            .adjustForLegacyMode()
+            .border(Color.blue)
+            .frame(width: 128, height: 64),
+          name: "red, .bottomTrailing"
+        )
+
+        previewBothModes(
+          SwiftUI.AnyView(
+            Ellipse()
+              .aspectRatio(1, contentMode: .fit)
+              .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .centre)
+              .background(Colour.red)
+              .adjustForLegacyMode()
+          )
+          .frame(width: 128, height: 64)
+          .padding(1)
+          .border(Color.gray, width: 1),
+          name: "Behind Filling Frame"
+        )
+      }
+    }
   }
 #endif
