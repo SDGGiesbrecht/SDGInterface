@@ -16,7 +16,7 @@
   import SwiftUI
 #endif
 
-import SDGInterfaceBasics
+import SDGInterface
 
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
 

@@ -27,7 +27,7 @@
   import SDGText
   import SDGLocalization
 
-  import SDGInterfaceBasics
+  import SDGInterface
   import SDGViews
 
   /// A text label.

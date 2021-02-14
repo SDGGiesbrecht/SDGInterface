@@ -18,7 +18,7 @@ import SDGText
 import SDGMathematics
 import SDGLocalization
 
-import SDGInterfaceBasics
+import SDGInterface
 import SDGViews
 import SDGTextDisplay
 import SDGWindows

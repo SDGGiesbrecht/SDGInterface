@@ -15,7 +15,7 @@
 #if canImport(UIKit) && !os(watchOS)
   import UIKit
 
-  import SDGInterfaceBasics
+  import SDGInterface
 
   extension UIPopoverArrowDirection {
 

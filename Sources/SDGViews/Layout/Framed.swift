@@ -25,7 +25,7 @@
 
   import SDGLogic
 
-  import SDGInterfaceBasics
+  import SDGInterface
 
   /// The result of `frame(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)`.
   @available(watchOS 6, *)

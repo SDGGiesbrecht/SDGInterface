@@ -18,8 +18,8 @@ import XCTest
 @testable import SDGButtonsTests
 @testable import SDGContextMenuTests
 @testable import SDGImageDisplayTests
-@testable import SDGInterfaceBasicsTests
 @testable import SDGInterfaceResourceGeneration
+@testable import SDGInterfaceTests
 @testable import SDGKeyboardTests
 @testable import SDGMenuBarTests
 @testable import SDGMenusTests
@@ -100,7 +100,7 @@ extension SDGImageDisplayTests.InternalTests {
   ]
 }
 
-extension SDGInterfaceBasicsTests.APITests {
+extension SDGInterfaceTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
       ("testAlignment", testAlignment),
@@ -261,7 +261,7 @@ tests += SDGButtonsTests.InternalTests.windowsTests
 tests += SDGContextMenuTests.APITests.windowsTests
 tests += SDGImageDisplayTests.APITests.windowsTests
 tests += SDGImageDisplayTests.InternalTests.windowsTests
-tests += SDGInterfaceBasicsTests.APITests.windowsTests
+tests += SDGInterfaceTests.APITests.windowsTests
 tests += SDGKeyboardTests.APITests.windowsTests
 tests += SDGMenuBarTests.APITests.windowsTests
 tests += SDGMenusTests.APITests.windowsTests

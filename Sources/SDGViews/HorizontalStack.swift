@@ -22,7 +22,7 @@
     import UIKit
   #endif
 
-  import SDGInterfaceBasics
+  import SDGInterface
 
   /// A shimmed version of `SwiftUI.HStack` with relaxed availability constraints.
   @available(watchOS 6, *)

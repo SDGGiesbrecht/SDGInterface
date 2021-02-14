@@ -29,7 +29,7 @@
   import SDGText
   import SDGLocalization
 
-  import SDGInterfaceBasics
+  import SDGInterface
   import SDGViews
   import SDGTables
   import SDGWindows

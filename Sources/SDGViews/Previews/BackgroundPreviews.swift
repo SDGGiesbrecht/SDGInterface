@@ -17,7 +17,7 @@
 
   import SDGMathematics
 
-  import SDGInterfaceBasics
+  import SDGInterface
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   internal struct BackgroundPreviews: PreviewProvider {

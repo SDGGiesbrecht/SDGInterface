@@ -22,7 +22,7 @@ import Foundation
 
 import SDGLogic
 
-import SDGInterfaceBasics
+import SDGInterface
 import SDGContextMenu
 import SDGMenuBar
 

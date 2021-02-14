@@ -20,7 +20,7 @@ import SDGControlFlow
 import SDGText
 import SDGLocalization
 
-import SDGInterfaceBasics
+import SDGInterface
 
 #if canImport(SwiftUI) && !(os(tvOS) || os(iOS) || os(watchOS))
   extension CheckBox {

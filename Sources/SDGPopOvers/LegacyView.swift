@@ -25,7 +25,7 @@
 
   import SDGControlFlow
 
-  import SDGInterfaceBasics
+  import SDGInterface
   import SDGViews
 
   @available(watchOS 6, *)

@@ -25,7 +25,7 @@ import SDGLogic
 import SDGMathematics
 import SDGText
 
-import SDGInterfaceBasics
+import SDGInterface
 
 /// Rich text.
 ///

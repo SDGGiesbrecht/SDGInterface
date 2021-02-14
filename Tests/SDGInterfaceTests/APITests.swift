@@ -23,7 +23,7 @@ import SDGControlFlow
 import SDGLogic
 import SDGLocalization
 
-import SDGInterfaceBasics
+import SDGInterface
 
 import SDGInterfaceLocalizations
 

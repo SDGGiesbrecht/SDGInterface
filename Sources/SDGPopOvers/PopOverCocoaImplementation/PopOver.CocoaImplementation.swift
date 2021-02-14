@@ -22,7 +22,7 @@
 
   import SDGControlFlow
 
-  import SDGInterfaceBasics
+  import SDGInterface
   import SDGViews
 
   extension PopOver {

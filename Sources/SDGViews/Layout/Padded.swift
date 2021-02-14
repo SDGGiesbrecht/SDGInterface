@@ -25,7 +25,7 @@
 
   import SDGLogic
 
-  import SDGInterfaceBasics
+  import SDGInterface
 
   /// The result of `padding(_:_:)`.
   @available(watchOS 6, *)

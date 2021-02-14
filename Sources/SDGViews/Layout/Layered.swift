@@ -23,7 +23,7 @@
     import UIKit
   #endif
 
-  import SDGInterfaceBasics
+  import SDGInterface
 
   /// The result of `background(_:alignment:)`.
   @available(watchOS 6, *)

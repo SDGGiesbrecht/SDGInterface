@@ -24,7 +24,7 @@
   import SDGLogic
   import SDGText
 
-  import SDGInterfaceBasics
+  import SDGInterface
 
   extension TextField {
 

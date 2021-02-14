@@ -24,7 +24,7 @@
   import SDGText
   import SDGLocalization
 
-  import SDGInterfaceBasics
+  import SDGInterface
 
   /// A menu entry.
   public struct MenuEntry<L>: AnyMenuEntry where L: Localization {

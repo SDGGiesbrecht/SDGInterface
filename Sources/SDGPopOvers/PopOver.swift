@@ -25,7 +25,7 @@
 
   import SDGControlFlow
 
-  import SDGInterfaceBasics
+  import SDGInterface
   import SDGViews
 
   /// The result of `popOver(isPresented:attachmentAnchor:arrowEdge:content:)`.

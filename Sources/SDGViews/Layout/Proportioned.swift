@@ -26,7 +26,7 @@
   import SDGLogic
   import SDGMathematics
 
-  import SDGInterfaceBasics
+  import SDGInterface
 
   /// The result of `aspectRatio(_:contentMode:)`.
   @available(watchOS 6, *)

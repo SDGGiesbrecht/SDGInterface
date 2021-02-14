@@ -15,7 +15,7 @@
 #if canImport(AppKit)
   import AppKit
 
-  import SDGInterfaceBasics
+  import SDGInterface
 
   extension Colour {
     internal class Container: NSView, CocoaViewImplementation {
