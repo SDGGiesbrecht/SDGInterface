@@ -22,21 +22,21 @@
 
   final class PreviewTests: ApplicationTestCase {
 
-    func testAspectRatioPreviews() {
+    func testProportionedPreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-        _ = AspectRatioPreviews.previews
+        _ = ProportionedPreviews.previews
       }
     }
 
-    func testBackgroundPreviews() {
+    func testLayeredPreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-        _ = BackgroundPreviews.previews
+        _ = LayeredPreviews.previews
       }
     }
 
-    func testFramePreviews() {
+    func testFramedPreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-        _ = FramePreviews.previews
+        _ = FramedPreviews.previews
       }
     }
 
@@ -52,9 +52,9 @@
       }
     }
 
-    func testPaddingPreviews() {
+    func testPaddedPreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-        _ = PaddingPreviews.previews
+        _ = PaddedPreviews.previews
       }
     }
   }
