@@ -27,7 +27,6 @@ import XCTest
 @testable import SDGProgressIndicatorsTests
 @testable import SDGTablesTests
 @testable import SDGTextDisplayTests
-@testable import SDGViewsTests
 @testable import SDGWindowsTests
 
 extension SDGApplicationTests.APITests {
@@ -104,16 +103,34 @@ extension SDGInterfaceTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
       ("testAlignment", testAlignment),
+      ("testAnyView", testAnyView),
       ("testApplicationName", testApplicationName),
+      ("testBackground", testBackground),
+      ("testCocoaViewImplementation", testCocoaViewImplementation),
       ("testColour", testColour),
+      ("testCompositeViewImplementation", testCompositeViewImplementation),
       ("testContentMode", testContentMode),
       ("testEdge", testEdge),
       ("testEdgeSet", testEdgeSet),
+      ("testEmptyView", testEmptyView),
+      ("testHorizontalStack", testHorizontalStack),
+      ("testLayoutConstraintPriority", testLayoutConstraintPriority),
+      ("testLegacyView", testLegacyView),
       ("testNSRectEdge", testNSRectEdge),
       ("testPoint", testPoint),
       ("testRectangle", testRectangle),
       ("testSize", testSize),
+      ("testSwiftUIViewImplementation", testSwiftUIViewImplementation),
       ("testUnitPoint", testUnitPoint),
+      ("testView", testView),
+    ])
+  ]
+}
+
+extension SDGInterfaceTests.InternalTests {
+  static let windowsTests: [XCTestCaseEntry] = [
+    testCase([
+      ("testProportionedView", testProportionedView)
     ])
   ]
 }
@@ -217,32 +234,6 @@ extension SDGTextDisplayTests.InternalTests {
   ]
 }
 
-extension SDGViewsTests.APITests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
-      ("testAnyView", testAnyView),
-      ("testCocoaViewImplementation", testCocoaViewImplementation),
-      ("testCompositeViewImplementation", testCompositeViewImplementation),
-      ("testBackground", testBackground),
-      ("testColour", testColour),
-      ("testEmptyView", testEmptyView),
-      ("testHorizontalStack", testHorizontalStack),
-      ("testLayoutConstraintPriority", testLayoutConstraintPriority),
-      ("testLegacyView", testLegacyView),
-      ("testSwiftUIViewImplementation", testSwiftUIViewImplementation),
-      ("testView", testView),
-    ])
-  ]
-}
-
-extension SDGViewsTests.InternalTests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
-      ("testProportionedView", testProportionedView)
-    ])
-  ]
-}
-
 extension SDGWindowsTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
@@ -262,6 +253,7 @@ tests += SDGContextMenuTests.APITests.windowsTests
 tests += SDGImageDisplayTests.APITests.windowsTests
 tests += SDGImageDisplayTests.InternalTests.windowsTests
 tests += SDGInterfaceTests.APITests.windowsTests
+tests += SDGInterfaceTests.InternalTests.windowsTests
 tests += SDGKeyboardTests.APITests.windowsTests
 tests += SDGMenuBarTests.APITests.windowsTests
 tests += SDGMenusTests.APITests.windowsTests
@@ -272,8 +264,6 @@ tests += SDGProgressIndicatorsTests.APITests.windowsTests
 tests += SDGTablesTests.APITests.windowsTests
 tests += SDGTextDisplayTests.APITests.windowsTests
 tests += SDGTextDisplayTests.InternalTests.windowsTests
-tests += SDGViewsTests.APITests.windowsTests
-tests += SDGViewsTests.InternalTests.windowsTests
 tests += SDGWindowsTests.APITests.windowsTests
 
 XCTMain(tests)

@@ -21,9 +21,12 @@
 
 import SDGControlFlow
 import SDGLogic
+import SDGText
 import SDGLocalization
 
 import SDGInterface
+import SDGWindows
+import SDGApplication
 
 import SDGInterfaceLocalizations
 
@@ -31,6 +34,7 @@ import XCTest
 
 import SDGXCTestUtilities
 
+import SDGInterfaceTestUtilities
 import SDGApplicationTestUtilities
 
 final class APITests: ApplicationTestCase {
@@ -54,6 +58,14 @@ final class APITests: ApplicationTestCase {
       }
     #endif
   }
+  
+  func testAnyView() {
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        _ = AnyView(EmptyView()).swiftUI()
+      }
+    #endif
+  }
 
   func testApplicationName() {
     // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
@@ -64,6 +76,26 @@ final class APITests: ApplicationTestCase {
       XCTAssertEqual(ProcessInfo.applicationName(.français(.de)), "de l’Exemple")
       XCTAssertEqual(ProcessInfo.applicationName(.ελληνικά(.αιτιατική)), "το Παράδειγμα")
       XCTAssertEqual(ProcessInfo.applicationName(.ελληνικά(.γενική)), "του Παραδείγματος")
+    #endif
+  }
+  
+  func testBackground() {
+    #if canImport(AppKit) || canImport(UIKit)
+      forAllLegacyModes {
+        _ = Colour.red.background(Colour.blue).cocoa()
+      }
+    #endif
+  }
+  
+  func testCocoaViewImplementation() {
+    #if canImport(AppKit) || canImport(UIKit)
+      let view = CocoaExample()
+      _ = view.cocoa()
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+          _ = view.swiftUI()
+        }
+      #endif
     #endif
   }
 
@@ -81,6 +113,25 @@ final class APITests: ApplicationTestCase {
     #endif
     #if canImport(UIKit)
       XCTAssertEqual(Colour.cyan.blue, Colour(UIColor(Colour.cyan)).blue)
+    #endif
+
+    #if canImport(SwiftUI) || canImport(AppKit) || (canImport(UIKit) && !(os(iOS) && arch(arm)))
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        testViewConformance(of: Colour.red, testBody: false)
+      }
+    #endif
+  }
+  
+  func testCompositeViewImplementation() {
+    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+      struct TestView: CompositeViewImplementation {
+        func compose() -> SDGViews.EmptyView {
+          return EmptyView()
+        }
+      }
+      if #available(tvOS 13, iOS 13, *) {
+        testViewConformance(of: TestView(), testBody: false)
+      }
     #endif
   }
 
@@ -131,6 +182,52 @@ final class APITests: ApplicationTestCase {
       }
     }
   }
+  
+  func testEmptyView() {
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        _ = EmptyView().swiftUI()
+      }
+    #endif
+  }
+  
+  func testHorizontalStack() {
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      if #available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *) {
+        testViewConformance(
+          of: HorizontalStack(spacing: 0, content: [AnyView(CocoaView())]),
+          testBody: false
+        )
+        testViewConformance(
+          of: HorizontalStack(alignment: .top, spacing: 1, content: [AnyView(CocoaView())]),
+          testBody: false
+        )
+        testViewConformance(
+          of: HorizontalStack(alignment: .bottom, spacing: 2, content: [AnyView(CocoaView())]),
+          testBody: false
+        )
+      }
+    #endif
+  }
+  
+  func testLayoutConstraintPriority() {
+    #if canImport(AppKit) || canImport(UIKit)
+      _ = LayoutConstraintPriority(rawValue: 500)
+    #endif
+  }
+
+  func testLegacyView() {
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      class Legacy: LegacyView {
+        func cocoa() -> CocoaView {
+          return EmptyView().cocoa()
+        }
+      }
+      if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
+        _ = Legacy().swiftUIAnyView()
+      }
+    #endif
+  }
 
   func testNSRectEdge() {
     #if canImport(AppKit)
@@ -169,6 +266,18 @@ final class APITests: ApplicationTestCase {
       XCTAssertEqual(Size(CGSize(width: 0, height: 0)), Size(width: 0, height: 0))
     #endif
   }
+  
+  func testSwiftUIViewImplementation() {
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {  // @exempt(from: unicode)
+        let view = SwiftUIExample()
+        _ = view.swiftUI()
+        #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+          _ = view.cocoa()
+        #endif
+      }
+    #endif
+  }
 
   func testUnitPoint() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
@@ -178,6 +287,118 @@ final class APITests: ApplicationTestCase {
         XCTAssertEqual(converted.x, 1)
         XCTAssertEqual(converted.y, 2)
         XCTAssertEqual(Point(converted), point)
+      }
+    #endif
+  }
+
+  func testView() {
+    #if canImport(AppKit) || canImport(UIKit)
+      func newView() -> CocoaView {
+        #if canImport(AppKit)
+          let native = NSView()
+        #elseif canImport(UIKit)
+          let native = UIView()
+        #endif
+        return CocoaView(native)
+      }
+      newView().fill(with: EmptyView().cocoa())
+      newView().constrain(.width, toBe: .greaterThanOrEqual, 10)
+      newView().position(
+        subviews: [EmptyView().cocoa(), EmptyView().cocoa()],
+        inSequenceAlong: .vertical
+      )
+      newView().centre(subview: EmptyView().cocoa())
+      newView().equalize(.width, amongSubviews: [EmptyView().cocoa(), EmptyView().cocoa()])
+      newView().equalize(.height, amongSubviews: [EmptyView().cocoa(), EmptyView().cocoa()])
+      newView().constrain(
+        .width,
+        toBe: .equal,
+        .width,
+        ofSubviews: [EmptyView().cocoa(), EmptyView().cocoa()]
+      )
+      newView().constrain(
+        .height,
+        toBe: .equal,
+        .height,
+        ofSubviews: [EmptyView().cocoa(), EmptyView().cocoa()]
+      )
+      newView().alignCentres(
+        ofSubviews: [EmptyView().cocoa(), EmptyView().cocoa()],
+        on: .horizontal
+      )
+      newView().alignCentres(
+        ofSubviews: [EmptyView().cocoa(), EmptyView().cocoa()],
+        on: .vertical
+      )
+      newView().alignLastBaselines(ofSubviews: [
+        EmptyView().cocoa(), EmptyView().cocoa(),
+      ])
+      _ = newView().aspectRatio(1, contentMode: .fit).cocoa()
+      newView().position(
+        subviews: [EmptyView().cocoa(), EmptyView().cocoa()],
+        inSequenceAlong: .horizontal,
+        padding: 0,
+        leadingMargin: 0,
+        trailingMargin: nil
+      )
+
+      #if !(os(iOS) && arch(arm))
+        if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+          let swiftUI = newView().swiftUI()
+          let window = Window(
+            type: .primary(nil),
+            name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+            content: SwiftUI.AnyView(swiftUI).cocoa()
+          ).cocoa()
+          window.display()
+          window.close()
+        }
+      #endif
+
+      forAllLegacyModes {
+        #if canImport(AppKit)
+          typealias Superclass = NSView
+        #else
+          typealias Superclass = UIView
+        #endif
+        class IntrinsicSize: Superclass, CocoaViewImplementation {
+          init(_ size: CGSize) {
+            self.size = size
+            super.init(frame: CGRect(origin: CGPoint(0, 0), size: size))
+          }
+          required init?(coder: NSCoder) {
+            fatalError()
+          }
+          let size: CGSize
+          override var intrinsicContentSize: CGSize {
+            return size
+          }
+        }
+        _ =
+          IntrinsicSize(CGSize(width: 0, height: 1)).aspectRatio(nil, contentMode: .fill).cocoa()
+        _ =
+          IntrinsicSize(CGSize(width: 1, height: 0)).aspectRatio(nil, contentMode: .fill).cocoa()
+        _ =
+          IntrinsicSize(CGSize(width: 1, height: 1)).aspectRatio(nil, contentMode: .fill).cocoa()
+      }
+
+      forAllLegacyModes {
+        _ = newView().frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .centre).cocoa()
+      }
+    #endif
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        testViewConformance(of: SwiftUIExample())
+      }
+    #endif
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        struct SomeView: SwiftUI.View {
+          var body: some SwiftUI.View {
+            return SwiftUI.EmptyView()
+          }
+        }
+        testViewConformance(of: SomeView())
       }
     #endif
   }

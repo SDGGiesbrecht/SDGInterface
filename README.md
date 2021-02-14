@@ -134,8 +134,6 @@ let package = Package(
         .product(name: "SDGButtons", package: "SDGInterface"),
         .product(name: "SDGImageDisplay", package: "SDGInterface"),
         .product(name: "SDGTextDisplay", package: "SDGInterface"),
-        .product(name: "SDGViews", package: "SDGInterface"),
-        .product(name: "SDGViewsTestUtilities", package: "SDGInterface"),
         .product(name: "SDGKeyboard", package: "SDGInterface"),
       ]
     )
@@ -159,8 +157,6 @@ import SDGProgressIndicators
 import SDGButtons
 import SDGImageDisplay
 import SDGTextDisplay
-import SDGViews
-import SDGViewsTestUtilities
 import SDGKeyboard
 ```
 
