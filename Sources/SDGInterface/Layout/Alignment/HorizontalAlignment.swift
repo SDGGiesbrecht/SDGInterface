@@ -20,11 +20,11 @@
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension SwiftUI.HorizontalAlignment {
 
-    /// Unwraps an instance of a shimmed `SDGInterfaceBasics.HorizontalAlignment`.
+    /// Unwraps an instance of a shimmed `SDGInterface.HorizontalAlignment`.
     ///
     /// - Parameters:
     ///   - shimmed: The shimmed instance.
-    public init(_ shimmed: SDGInterfaceBasics.HorizontalAlignment) {
+    public init(_ shimmed: SDGInterface.HorizontalAlignment) {
       switch shimmed {
       case .leading:
         self = .leading

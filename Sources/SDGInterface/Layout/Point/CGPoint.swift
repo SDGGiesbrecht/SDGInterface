@@ -21,7 +21,7 @@
     ///
     /// - Parameters:
     ///   - point: The point.
-    public init(_ point: SDGInterfaceBasics.Point) {
+    public init(_ point: SDGInterface.Point) {
       self.init(x: point.x, y: point.y)
     }
   }

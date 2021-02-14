@@ -20,11 +20,11 @@
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension SwiftUI.Alignment {
 
-    /// Unwraps an instance of a shimmed `SDGInterfaceBasics.Alignment`.
+    /// Unwraps an instance of a shimmed `SDGInterface.Alignment`.
     ///
     /// - Parameters:
     ///   - shimmed: The shimmed instance.
-    public init(_ shimmed: SDGInterfaceBasics.Alignment) {
+    public init(_ shimmed: SDGInterface.Alignment) {
       self.init(
         horizontal: SwiftUI.HorizontalAlignment(shimmed.horizontal),
         vertical: SwiftUI.VerticalAlignment(shimmed.vertical)

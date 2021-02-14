@@ -42,7 +42,7 @@
     public func popOver<Content>(
       isPresented: Shared<Bool>,
       attachmentAnchor: AttachmentAnchor = .rectangle(.bounds),
-      arrowEdge: SDGInterfaceBasics.Edge = .top,
+      arrowEdge: SDGInterface.Edge = .top,
       content: @escaping () -> Content
     ) -> PopOver<Self, Content> {
       return PopOver(

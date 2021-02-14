@@ -21,7 +21,7 @@
     ///
     /// - Parameters:
     ///   - size: The size.
-    public init(_ size: SDGInterfaceBasics.Size) {
+    public init(_ size: SDGInterface.Size) {
       self.init(width: CGFloat(size.width), height: CGFloat(size.height))
     }
   }

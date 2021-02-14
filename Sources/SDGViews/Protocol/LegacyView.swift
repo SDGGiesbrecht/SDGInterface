@@ -183,7 +183,7 @@
     ///   - width: The width of the padding.
     @available(watchOS 6, *)
     public func padding(
-      _ edges: SDGInterfaceBasics.Edge.Set = .all,
+      _ edges: SDGInterface.Edge.Set = .all,
       _ width: Double? = nil
     ) -> Padded<Self> {
       return Padded(content: self, edges: edges, width: width)
@@ -197,7 +197,7 @@
     @available(watchOS 6, *)
     public func background<Background>(
       _ background: Background,
-      alignment: SDGInterfaceBasics.Alignment = .centre
+      alignment: SDGInterface.Alignment = .centre
     ) -> Layered<Self, Background> {
       return Layered(foreground: self, background: background, alignment: alignment)
     }
@@ -210,7 +210,7 @@
     @available(watchOS 6, *)
     public func aspectRatio(
       _ aspectRatio: Double? = nil,
-      contentMode: SDGInterfaceBasics.ContentMode
+      contentMode: SDGInterface.ContentMode
     ) -> Proportioned<Self> {
       return Proportioned(content: self, aspectRatio: aspectRatio, contentMode: contentMode)
     }
@@ -233,7 +233,7 @@
       minHeight: Double? = nil,
       idealHeight: Double? = nil,
       maxHeight: Double? = nil,
-      alignment: SDGInterfaceBasics.Alignment = .centre
+      alignment: SDGInterface.Alignment = .centre
     ) -> Framed<Self> {
       return Framed(
         content: self,

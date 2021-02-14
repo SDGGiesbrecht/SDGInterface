@@ -39,7 +39,7 @@
       anchor: Anchor,
       isPresented: Shared<Bool>,
       attachmentAnchor: AttachmentAnchor,
-      arrowEdge: SDGInterfaceBasics.Edge,
+      arrowEdge: SDGInterface.Edge,
       content: @escaping () -> Content
     ) {
       self.anchor = anchor
@@ -54,7 +54,7 @@
     private let anchor: Anchor
     private let isPresented: Shared<Bool>
     private let attachmentAnchor: AttachmentAnchor
-    private let arrowEdge: SDGInterfaceBasics.Edge
+    private let arrowEdge: SDGInterface.Edge
     private let content: () -> Content
 
     // MARK: - LegacyView

@@ -20,11 +20,11 @@
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension SwiftUI.VerticalAlignment {
 
-    /// Unwraps an instance of a shimmed `SDGInterfaceBasics.VerticalAlignment`.
+    /// Unwraps an instance of a shimmed `SDGInterface.VerticalAlignment`.
     ///
     /// - Parameters:
     ///   - shimmed: The shimmed instance.
-    public init(_ shimmed: SDGInterfaceBasics.VerticalAlignment) {
+    public init(_ shimmed: SDGInterface.VerticalAlignment) {
       switch shimmed {
       case .top:
         self = .top

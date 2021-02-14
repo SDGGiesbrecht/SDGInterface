@@ -40,7 +40,7 @@ final class APITests: ApplicationTestCase {
   func testAnchorSource() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {
-        var shimmed = RectangularAttachmentAnchor.rectangle(SDGInterfaceBasics.Rectangle())
+        var shimmed = RectangularAttachmentAnchor.rectangle(SDGInterface.Rectangle())
         _ = Anchor<CGRect>.Source(shimmed)
         shimmed = .bounds
         _ = Anchor<CGRect>.Source(shimmed)
@@ -106,7 +106,7 @@ final class APITests: ApplicationTestCase {
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {
         var shimmed = AttachmentAnchor.point(Point(0, 0))
         _ = PopoverAttachmentAnchor(shimmed)
-        shimmed = AttachmentAnchor.rectangle(.rectangle(SDGInterfaceBasics.Rectangle()))
+        shimmed = AttachmentAnchor.rectangle(.rectangle(SDGInterface.Rectangle()))
         _ = PopoverAttachmentAnchor(shimmed)
       }
     #endif
@@ -115,10 +115,10 @@ final class APITests: ApplicationTestCase {
   func testUIPopOverArrowDirection() {
     #if canImport(UIKit) && !(os(iOS) && arch(arm)) && !os(watchOS)
       var set: Set<UIPopoverArrowDirection.RawValue> = []
-      for edge in SDGInterfaceBasics.Edge.allCases {
+      for edge in SDGInterface.Edge.allCases {
         set.insert(UIPopoverArrowDirection(edge).rawValue)
       }
-      XCTAssertEqual(set.count, SDGInterfaceBasics.Edge.allCases.count)
+      XCTAssertEqual(set.count, SDGInterface.Edge.allCases.count)
     #endif
   }
 }

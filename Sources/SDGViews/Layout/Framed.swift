@@ -41,7 +41,7 @@
       minHeight: Double?,
       idealHeight: Double?,
       maxHeight: Double?,
-      alignment: SDGInterfaceBasics.Alignment
+      alignment: SDGInterface.Alignment
     ) {
       self.content = content
       self.minWidth = minWidth
@@ -62,7 +62,7 @@
     private let minHeight: Double?
     private let idealHeight: Double?
     private let maxHeight: Double?
-    private let alignment: SDGInterfaceBasics.Alignment
+    private let alignment: SDGInterface.Alignment
 
     // MARK: - LegacyView
 

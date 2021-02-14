@@ -21,7 +21,7 @@
     ///
     /// - Parameters:
     ///   - rectangle: The rectangle.
-    public init(_ rectangle: SDGInterfaceBasics.Rectangle) {
+    public init(_ rectangle: SDGInterface.Rectangle) {
       self.init(origin: CGPoint(rectangle.origin), size: CGSize(rectangle.size))
     }
   }
