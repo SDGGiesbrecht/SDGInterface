@@ -109,6 +109,9 @@ let package = Package(
     // @documentation(SDGInterface)
     /// Basic interface building blocks.
     .library(name: "SDGInterface", targets: ["SDGInterface"]),
+    // @documentation(SDGInterfaceTestUtilities)
+    /// Utilities for testing code which uses `SDGInterface`.
+    .library(name: "SDGInterfaceTestUtilities", targets: ["SDGInterfaceTestUtilities"]),
 
     // @documentation(SDGMenuBar)
     /// A menu bar.

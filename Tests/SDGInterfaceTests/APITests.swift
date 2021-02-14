@@ -58,7 +58,7 @@ final class APITests: ApplicationTestCase {
       }
     #endif
   }
-  
+
   func testAnyView() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {
@@ -78,7 +78,7 @@ final class APITests: ApplicationTestCase {
       XCTAssertEqual(ProcessInfo.applicationName(.ελληνικά(.γενική)), "του Παραδείγματος")
     #endif
   }
-  
+
   func testBackground() {
     #if canImport(AppKit) || canImport(UIKit)
       forAllLegacyModes {
@@ -86,7 +86,7 @@ final class APITests: ApplicationTestCase {
       }
     #endif
   }
-  
+
   func testCocoaViewImplementation() {
     #if canImport(AppKit) || canImport(UIKit)
       let view = CocoaExample()
@@ -121,7 +121,7 @@ final class APITests: ApplicationTestCase {
       }
     #endif
   }
-  
+
   func testCompositeViewImplementation() {
     #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
       struct TestView: CompositeViewImplementation {
@@ -182,7 +182,7 @@ final class APITests: ApplicationTestCase {
       }
     }
   }
-  
+
   func testEmptyView() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {
@@ -190,7 +190,7 @@ final class APITests: ApplicationTestCase {
       }
     #endif
   }
-  
+
   func testHorizontalStack() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *) {
@@ -209,7 +209,7 @@ final class APITests: ApplicationTestCase {
       }
     #endif
   }
-  
+
   func testLayoutConstraintPriority() {
     #if canImport(AppKit) || canImport(UIKit)
       _ = LayoutConstraintPriority(rawValue: 500)
@@ -266,7 +266,7 @@ final class APITests: ApplicationTestCase {
       XCTAssertEqual(Size(CGSize(width: 0, height: 0)), Size(width: 0, height: 0))
     #endif
   }
-  
+
   func testSwiftUIViewImplementation() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {  // @exempt(from: unicode)
