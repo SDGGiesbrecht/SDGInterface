@@ -23,7 +23,7 @@
 #endif
 
 /// A colour.
-public struct Colour: Hashable, View {
+public struct Colour: Hashable {
 
   // MARK: - Static Properties
 
@@ -141,25 +141,30 @@ public struct Colour: Hashable, View {
 
   /// The opacity. (0–1)
   public var opacity: Double = 0
-
-  // MARK: - View
-
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-    @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-    public func swiftUI() -> some SwiftUI.View {
-      return SwiftUI.Color(self)
-    }
-  #endif
-
-  #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
-    public func cocoa() -> CocoaView {
-      #if canImport(AppKit)
-        return CocoaView(Colour.Container(self))
-      #else
-        let view = UIView()
-        view.backgroundColor = UIColor(self)
-        return CocoaView(view)
-      #endif
-    }
-  #endif
 }
+
+#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+  extension Colour: View {
+
+    // MARK: - View
+
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+      public func swiftUI() -> some SwiftUI.View {
+        return SwiftUI.Color(self)
+      }
+    #endif
+
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+      public func cocoa() -> CocoaView {
+        #if canImport(AppKit)
+          return CocoaView(Colour.Container(self))
+        #else
+          let view = UIView()
+          view.backgroundColor = UIColor(self)
+          return CocoaView(view)
+        #endif
+      }
+    #endif
+  }
+#endif
