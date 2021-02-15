@@ -21,7 +21,7 @@
 
   import SDGInterfaceLocalizations
 
-  import SDGViewsTestUtilities
+  import SDGInterfaceTestUtilities
   import SDGApplicationTestUtilities
 
   final class PreviewTests: ApplicationTestCase {

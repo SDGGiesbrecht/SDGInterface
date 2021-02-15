@@ -17,7 +17,7 @@
 
   import SDGControlFlow
 
-  import SDGViews
+  import SDGInterface
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   internal struct TablePreviews: PreviewProvider {
@@ -31,8 +31,8 @@
             ("1", "I"),
           ]),
           columns: [
-            { SDGViews.AnyView(Text(verbatim: $0.0)) },
-            { SDGViews.AnyView(Text(verbatim: $0.1)) },
+            { SDGInterface.AnyView(Text(verbatim: $0.0)) },
+            { SDGInterface.AnyView(Text(verbatim: $0.1)) },
           ],
           sort: { $0.0 < $1.0 }
         )

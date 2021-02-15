@@ -22,8 +22,6 @@
     import UIKit
   #endif
 
-  import SDGInterface
-
   /// A shimmed version of `SwiftUI.HStack` with relaxed availability constraints.
   @available(watchOS 6, *)
   public struct HorizontalStack<Entry>: LegacyView where Entry: LegacyView {
@@ -108,5 +106,61 @@
         )
       }
     #endif
+  }
+#endif
+
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  internal struct HorizontalStackPreviews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
+
+      func circle(colour: Color, big: Bool = false) -> SDGInterface.AnyView {
+        let diameter: CGFloat = big ? 32 : 16
+        return AnyView(
+          SwiftUI.AnyView(
+            Ellipse()
+              .fill(colour)
+              .frame(width: diameter, height: diameter)
+          )
+        )
+      }
+
+      return Group {
+
+        previewBothModes(
+          HorizontalStack(content: [
+            circle(colour: .red),
+            circle(colour: .green),
+            circle(colour: .blue),
+          ]).adjustForLegacyMode()
+            .frame(width: 128, height: 32, alignment: .center),
+          name: "Red, Green, Blue"
+        )
+
+        previewBothModes(
+          HorizontalStack(
+            alignment: .top,
+            content: [
+              circle(colour: .black),
+              circle(colour: .black, big: true),
+            ]
+          ).adjustForLegacyMode()
+            .frame(width: 128, height: 32, alignment: .center),
+          name: "Top"
+        )
+
+        previewBothModes(
+          HorizontalStack(
+            alignment: .bottom,
+            content: [
+              circle(colour: .black),
+              circle(colour: .black, big: true),
+            ]
+          ).adjustForLegacyMode()
+            .frame(width: 128, height: 32, alignment: .center),
+          name: "Bottom"
+        )
+      }
+    }
   }
 #endif

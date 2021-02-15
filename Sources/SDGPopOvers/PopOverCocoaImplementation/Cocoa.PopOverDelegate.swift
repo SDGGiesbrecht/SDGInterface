@@ -15,7 +15,7 @@
 #if canImport(UIKit) && !os(tvOS) && !os(watchOS)
   import UIKit
 
-  import SDGViews
+  import SDGInterface
 
   extension CocoaView {
 

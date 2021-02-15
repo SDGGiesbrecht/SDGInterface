@@ -25,8 +25,6 @@
 
   import SDGLogic
 
-  import SDGInterface
-
   /// The result of `padding(_:_:)`.
   @available(watchOS 6, *)
   public struct Padded<Content>: LegacyView where Content: LegacyView {
@@ -90,5 +88,40 @@
         return content.swiftUI().padding(SwiftUI.Edge.Set(edges), width.map({ CGFloat($0) }))
       }
     #endif
+  }
+#endif
+
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  internal struct PaddedPreviews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
+
+      func square() -> SwiftUI.AnyView {
+        return SwiftUI.AnyView(
+          SwiftUI.Rectangle()
+            .fill(Color.red)
+            .frame(width: 32, height: 32)
+        )
+      }
+
+      return Group {
+
+        previewBothModes(
+          square()
+            .padding()
+            .adjustForLegacyMode()
+            .background(Color.blue),
+          name: "Default"
+        )
+
+        previewBothModes(
+          square()
+            .padding(.horizontal, 16)
+            .adjustForLegacyMode()
+            .background(Color.blue),
+          name: "Horizontal, 16"
+        )
+      }
+    }
   }
 #endif

@@ -18,18 +18,18 @@
 
 import SDGLogic
 
-import SDGViews
+import SDGInterface
 
 import SDGTesting
 
 #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  private func testSDGViewsViewConformance<T>(
+  private func testSDGInterfaceViewConformance<T>(
     of view: T,
     testBody: Bool = true,
     file: StaticString = #filePath,
     line: UInt = #line
-  ) where T: SDGViews.View {
+  ) where T: SDGInterface.View {
 
     testLegacyViewConformance(of: view, file: file, line: line)
 
@@ -55,8 +55,8 @@ import SDGTesting
     testBody: Bool = true,
     file: StaticString = #filePath,
     line: UInt = #line
-  ) where T: SDGViews.View {
-    testSDGViewsViewConformance(of: view, testBody: testBody, file: file, line: line)
+  ) where T: SDGInterface.View {
+    testSDGInterfaceViewConformance(of: view, testBody: testBody, file: file, line: line)
   }
   #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
     @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
@@ -65,8 +65,8 @@ import SDGTesting
       testBody: Bool = true,
       file: StaticString = #filePath,
       line: UInt = #line
-    ) where T: SDGViews.View, T: SwiftUI.View {
-      testSDGViewsViewConformance(of: view, testBody: testBody, file: file, line: line)
+    ) where T: SDGInterface.View, T: SwiftUI.View {
+      testSDGInterfaceViewConformance(of: view, testBody: testBody, file: file, line: line)
       testSwiftUIViewConformance(of: view, testBody: testBody, file: file, line: line)
     }
   #endif

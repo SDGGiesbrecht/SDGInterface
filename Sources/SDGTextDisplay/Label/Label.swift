@@ -28,7 +28,6 @@
   import SDGLocalization
 
   import SDGInterface
-  import SDGViews
 
   /// A text label.
   @available(watchOS 6, *)

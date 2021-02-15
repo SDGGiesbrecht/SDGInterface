@@ -21,7 +21,6 @@ import SDGText
 import SDGLocalization
 
 import SDGInterface
-import SDGViews
 import SDGWindows
 import SDGPopOvers
 import SDGApplication
@@ -32,7 +31,7 @@ import XCTest
 
 import SDGXCTestUtilities
 
-import SDGViewsTestUtilities
+import SDGInterfaceTestUtilities
 import SDGApplicationTestUtilities
 
 final class APITests: ApplicationTestCase {
@@ -71,9 +70,9 @@ final class APITests: ApplicationTestCase {
 
   func testLegacyView() {
     #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
-      let combined = SDGViews.EmptyView().popOver(
+      let combined = SDGInterface.EmptyView().popOver(
         isPresented: Shared(false),
-        content: { SDGViews.EmptyView() }
+        content: { SDGInterface.EmptyView() }
       )
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {
         let testBody: Bool

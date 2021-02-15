@@ -23,7 +23,7 @@
   import SDGControlFlow
   import SDGMathematics
 
-  import SDGViews
+  import SDGInterface
 
   extension ProgressBar {
 

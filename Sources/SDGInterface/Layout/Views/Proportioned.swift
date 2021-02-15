@@ -26,8 +26,6 @@
   import SDGLogic
   import SDGMathematics
 
-  import SDGInterface
-
   /// The result of `aspectRatio(_:contentMode:)`.
   @available(watchOS 6, *)
   public struct Proportioned<Content>: LegacyView where Content: LegacyView {
@@ -122,5 +120,53 @@
         )
       }
     #endif
+  }
+#endif
+
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  internal struct ProportionedPreviews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
+
+      let circle = SwiftUI.AnyView(
+        Ellipse()
+          .fill(Color.black)
+      )
+
+      return Group {
+
+        previewBothModes(
+          circle
+            .aspectRatio(nil, contentMode: .fill)
+            .adjustForLegacyMode()
+            .frame(width: 124, height: 64),
+          name: "nil + .fill"
+        )
+
+        previewBothModes(
+          circle
+            .aspectRatio(nil, contentMode: .fit)
+            .adjustForLegacyMode()
+            .frame(width: 124, height: 64),
+          name: "nil + .fit"
+        )
+
+        previewBothModes(
+          circle
+            .aspectRatio(1 ÷ 2, contentMode: .fill)
+            .adjustForLegacyMode()
+            .frame(width: 124, height: 64),
+          name: "(1 ÷ 2) + .fill"
+        )
+
+        previewBothModes(
+          circle
+            .aspectRatio(1 ÷ 2, contentMode: .fit)
+            .adjustForLegacyMode()
+            .frame(width: 124, height: 64),
+          name: "(1 ÷ 2) + .fit"
+        )
+      }
+    }
   }
 #endif

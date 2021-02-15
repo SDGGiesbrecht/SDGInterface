@@ -25,7 +25,6 @@
   import SDGLocalization
 
   import SDGInterface
-  import SDGViews
 
   /// A check box.
   public struct CheckBox<L>: LegacyView where L: Localization {

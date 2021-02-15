@@ -30,7 +30,6 @@
   import SDGLocalization
 
   import SDGInterface
-  import SDGViews
   import SDGTables
   import SDGWindows
   import SDGPopOvers

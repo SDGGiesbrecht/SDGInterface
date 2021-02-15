@@ -16,7 +16,7 @@
   import SwiftUI
 #endif
 
-import SDGViews
+import SDGInterface
 
 #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
   @available(watchOS 6, *)

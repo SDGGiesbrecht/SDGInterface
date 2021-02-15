@@ -23,7 +23,6 @@
   import SDGLogic
   import SDGCollections
 
-  import SDGViews
   import SDGInterface
 
   #if canImport(AppKit)

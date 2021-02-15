@@ -23,7 +23,6 @@
   import SDGMathematics
 
   import SDGInterface
-  import SDGViews
 
   /// A Cocoa window.
   public final class CocoaWindow: CocoaWindowImplementation {

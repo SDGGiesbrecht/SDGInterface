@@ -22,7 +22,7 @@
 
   import SDGLocalization
 
-  import SDGViews
+  import SDGInterface
 
   /// A view for displaying text that cannot be edited.
   public struct TextView<L>: CocoaViewImplementation where L: Localization {

@@ -12,6 +12,9 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(SwiftUI)
+  import SwiftUI
+#endif
 #if canImport(AppKit)
   import AppKit
 #endif
@@ -139,3 +142,29 @@ public struct Colour: Hashable {
   /// The opacity. (0–1)
   public var opacity: Double = 0
 }
+
+#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+  extension Colour: View {
+
+    // MARK: - View
+
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+      public func swiftUI() -> some SwiftUI.View {
+        return SwiftUI.Color(self)
+      }
+    #endif
+
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+      public func cocoa() -> CocoaView {
+        #if canImport(AppKit)
+          return CocoaView(Colour.Container(self))
+        #else
+          let view = UIView()
+          view.backgroundColor = UIColor(self)
+          return CocoaView(view)
+        #endif
+      }
+    #endif
+  }
+#endif

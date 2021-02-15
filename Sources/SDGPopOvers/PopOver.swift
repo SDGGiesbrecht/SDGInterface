@@ -26,7 +26,6 @@
   import SDGControlFlow
 
   import SDGInterface
-  import SDGViews
 
   /// The result of `popOver(isPresented:attachmentAnchor:arrowEdge:content:)`.
   @available(watchOS 6, *)
@@ -89,8 +88,8 @@
   #else
     @available(macOS 10.15, iOS 13, watchOS 6, *)
     @available(watchOS, unavailable)
-    extension PopOver: SDGViews.View, ViewShims
-    where Anchor: SDGViews.View, Content: SDGViews.View {
+    extension PopOver: SDGInterface.View, ViewShims
+    where Anchor: SDGInterface.View, Content: SDGInterface.View {
 
       // MARK: - View
 

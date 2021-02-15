@@ -21,7 +21,6 @@ import SDGText
 import SDGLocalization
 
 import SDGInterface
-import SDGViews
 import SDGTextDisplay
 import SDGTables
 import SDGWindows

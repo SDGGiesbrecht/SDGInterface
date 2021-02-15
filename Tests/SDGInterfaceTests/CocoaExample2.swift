@@ -19,7 +19,7 @@
     import UIKit
   #endif
 
-  import SDGViews
+  import SDGInterface
 
   struct CocoaExample2: LegacyView {
 

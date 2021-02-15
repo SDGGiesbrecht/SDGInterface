@@ -1,5 +1,5 @@
 /*
- Rectangle.swift
+ SwiftUI.Rectangle.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -16,5 +16,5 @@
   import SwiftUI
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  extension Rectangle: SwiftUIViewImplementation {}
+  extension SwiftUI.Rectangle: SwiftUIViewImplementation {}
 #endif

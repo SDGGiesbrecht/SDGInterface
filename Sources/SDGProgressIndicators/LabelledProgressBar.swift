@@ -27,7 +27,6 @@
   import SDGLocalization
 
   import SDGInterface
-  import SDGViews
   import SDGTextDisplay
 
   /// A progress bar with a label.

@@ -123,6 +123,7 @@ let package = Package(
       dependencies: [
         .product(name: "SDGApplication", package: "SDGInterface"),
         .product(name: "SDGInterface", package: "SDGInterface"),
+        .product(name: "SDGInterfaceTestUtilities", package: "SDGInterface"),
         .product(name: "SDGMenuBar", package: "SDGInterface"),
         .product(name: "SDGContextMenu", package: "SDGInterface"),
         .product(name: "SDGErrorMessages", package: "SDGInterface"),
@@ -134,8 +135,6 @@ let package = Package(
         .product(name: "SDGButtons", package: "SDGInterface"),
         .product(name: "SDGImageDisplay", package: "SDGInterface"),
         .product(name: "SDGTextDisplay", package: "SDGInterface"),
-        .product(name: "SDGViews", package: "SDGInterface"),
-        .product(name: "SDGViewsTestUtilities", package: "SDGInterface"),
         .product(name: "SDGKeyboard", package: "SDGInterface"),
       ]
     )
@@ -148,6 +147,7 @@ The modules can then be imported in source files:
 ```swift
 import SDGApplication
 import SDGInterface
+import SDGInterfaceTestUtilities
 import SDGMenuBar
 import SDGContextMenu
 import SDGErrorMessages
@@ -159,8 +159,6 @@ import SDGProgressIndicators
 import SDGButtons
 import SDGImageDisplay
 import SDGTextDisplay
-import SDGViews
-import SDGViewsTestUtilities
 import SDGKeyboard
 ```
 
