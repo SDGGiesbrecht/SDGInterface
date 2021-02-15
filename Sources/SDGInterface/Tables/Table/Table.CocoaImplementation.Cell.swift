@@ -15,8 +15,6 @@
 #if canImport(UIKit) && !os(watchOS)
   import UIKit
 
-  import SDGInterface
-
   extension Table.CocoaImplementation {
 
     internal class Cell: UIKit.UITableViewCell {
