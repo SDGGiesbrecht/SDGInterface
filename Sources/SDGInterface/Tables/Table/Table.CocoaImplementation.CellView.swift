@@ -15,8 +15,6 @@
 #if canImport(AppKit)
   import AppKit
 
-  import SDGInterface
-
   extension Table.CocoaImplementation {
 
     internal class CellView: AppKit.NSTableCellView {

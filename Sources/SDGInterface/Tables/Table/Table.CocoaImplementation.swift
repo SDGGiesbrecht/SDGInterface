@@ -24,8 +24,6 @@
   import SDGLogic
   import SDGMathematics
 
-  import SDGInterface
-
   extension Table {
 
     #if canImport(AppKit)

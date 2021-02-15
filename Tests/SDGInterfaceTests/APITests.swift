@@ -26,7 +26,6 @@ import SDGLocalization
 
 import SDGInterface
 import SDGTextDisplay
-import SDGTables
 import SDGWindows
 import SDGApplication
 

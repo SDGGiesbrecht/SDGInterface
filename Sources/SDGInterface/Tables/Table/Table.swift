@@ -25,8 +25,6 @@
 
   import SDGControlFlow
 
-  import SDGInterface
-
   /// A table.
   public struct Table<RowData>: CocoaViewImplementation, View {
 
