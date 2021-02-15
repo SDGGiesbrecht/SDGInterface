@@ -13,6 +13,9 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
+  #if canImport(SwiftUI)
+    import SwiftUI
+  #endif
   #if canImport(AppKit)
     import AppKit
   #endif
@@ -58,6 +61,31 @@
 
     public func cocoa() -> CocoaView {
       return CocoaView(CocoaImplementation(data: data, columns: columns, sort: sort))
+    }
+  }
+#endif
+
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm)) && !os(watchOS)
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  internal struct TablePreviews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
+
+      Group {
+        Table(
+          data: Shared<[(String, String)]>([
+            ("3", "III"),
+            ("2", "II"),
+            ("1", "I"),
+          ]),
+          columns: [
+            { SDGInterface.AnyView(Text(verbatim: $0.0)) },
+            { SDGInterface.AnyView(Text(verbatim: $0.1)) },
+          ],
+          sort: { $0.0 < $1.0 }
+        )
+        .swiftUI()
+        .previewDisplayName("Table")
+      }
     }
   }
 #endif
