@@ -137,10 +137,6 @@ let package = Package(
     /// Windows.
     .library(name: "SDGWindows", targets: ["SDGWindows"]),
 
-    // @documentation(SDGTables)
-    /// Tables.
-    .library(name: "SDGTables", targets: ["SDGTables"]),
-
     // @documentation(SDGProgressIndicators)
     /// Progress indicators.
     .library(name: "SDGProgressIndicators", targets: ["SDGProgressIndicators"]),
@@ -294,18 +290,6 @@ let package = Package(
       ]
     ),
 
-    // #documentation(SDGTables)
-    /// Tables.
-    .target(
-      name: "SDGTables",
-      dependencies: [
-        "SDGInterface",
-        .product(name: "SDGControlFlow", package: "SDGCornerstone"),
-        .product(name: "SDGLogic", package: "SDGCornerstone"),
-        .product(name: "SDGMathematics", package: "SDGCornerstone"),
-      ]
-    ),
-
     // #documentation(SDGProgressIndicators)
     /// Progress indicators.
     .target(
@@ -352,7 +336,6 @@ let package = Package(
       name: "SDGTextDisplay",
       dependencies: [
         "SDGInterface",
-        "SDGTables",
         "SDGWindows",
         "SDGPopOvers",
         "SDGMenus",
@@ -415,6 +398,7 @@ let package = Package(
       name: "SDGInterfaceTests",
       dependencies: [
         "SDGInterface",
+        "SDGTextDisplay",
         "SDGWindows",
         "SDGApplication",
         "SDGInterfaceSample",
@@ -490,24 +474,6 @@ let package = Package(
         "SDGInterfaceTestUtilities",
         "SDGApplicationTestUtilities",
         .product(name: "SDGControlFlow", package: "SDGCornerstone"),
-        .product(name: "SDGLocalization", package: "SDGCornerstone"),
-        .product(name: "SDGXCTestUtilities", package: "SDGCornerstone"),
-      ]
-    ),
-
-    .testTarget(
-      name: "SDGTablesTests",
-      dependencies: [
-        "SDGInterface",
-        "SDGTextDisplay",
-        "SDGTables",
-        "SDGWindows",
-        "SDGApplication",
-        "SDGInterfaceSample",
-        "SDGInterfaceTestUtilities",
-        "SDGApplicationTestUtilities",
-        .product(name: "SDGControlFlow", package: "SDGCornerstone"),
-        .product(name: "SDGText", package: "SDGCornerstone"),
         .product(name: "SDGLocalization", package: "SDGCornerstone"),
         .product(name: "SDGXCTestUtilities", package: "SDGCornerstone"),
       ]
