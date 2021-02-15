@@ -291,8 +291,10 @@ final class APITests: ApplicationTestCase {
           { integer in
             let view = CocoaView()
             view.fill(
-              with: Label<InterfaceLocalization>(UserFacing({ _ in "\(integer.inDigits())" }))
-                .cocoa()
+              with: SDGTextDisplay.Label<SDGInterfaceLocalizations.InterfaceLocalization>(
+                UserFacing({ _ in "\(integer.inDigits())" })
+              )
+              .cocoa()
             )
             return AnyView(view)
           }
