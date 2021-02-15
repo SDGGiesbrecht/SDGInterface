@@ -101,14 +101,6 @@ extension SDGImageDisplayTests.InternalTests {
 extension SDGInterfaceTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
-      ("testTable", testTable)
-    ])
-  ]
-}
-
-extension SDGInterfaceTests.APITests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
       ("testAlignment", testAlignment),
       ("testAnyView", testAnyView),
       ("testApplicationName", testApplicationName),
@@ -128,6 +120,7 @@ extension SDGInterfaceTests.APITests {
       ("testRectangle", testRectangle),
       ("testSize", testSize),
       ("testSwiftUIViewImplementation", testSwiftUIViewImplementation),
+      ("testTable", testTable),
       ("testUnitPoint", testUnitPoint),
       ("testView", testView),
     ])
@@ -251,7 +244,6 @@ tests += SDGButtonsTests.InternalTests.windowsTests
 tests += SDGContextMenuTests.APITests.windowsTests
 tests += SDGImageDisplayTests.APITests.windowsTests
 tests += SDGImageDisplayTests.InternalTests.windowsTests
-tests += SDGInterfaceTests.APITests.windowsTests
 tests += SDGInterfaceTests.APITests.windowsTests
 tests += SDGInterfaceTests.InternalTests.windowsTests
 tests += SDGKeyboardTests.APITests.windowsTests
