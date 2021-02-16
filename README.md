@@ -130,7 +130,6 @@ let package = Package(
         .product(name: "SDGMenus", package: "SDGInterface"),
         .product(name: "SDGPopOvers", package: "SDGInterface"),
         .product(name: "SDGWindows", package: "SDGInterface"),
-        .product(name: "SDGTables", package: "SDGInterface"),
         .product(name: "SDGProgressIndicators", package: "SDGInterface"),
         .product(name: "SDGButtons", package: "SDGInterface"),
         .product(name: "SDGImageDisplay", package: "SDGInterface"),
@@ -154,7 +153,6 @@ import SDGErrorMessages
 import SDGMenus
 import SDGPopOvers
 import SDGWindows
-import SDGTables
 import SDGProgressIndicators
 import SDGButtons
 import SDGImageDisplay
