@@ -1,10 +1,10 @@
 /*
- CocoaExample.swift
+ CocoaViewExample2.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
 
- Copyright ©2019–2021 Jeremy David Giesbrecht and the SDGInterface project contributors.
+ Copyright ©2020–2021 Jeremy David Giesbrecht and the SDGInterface project contributors.
 
  Soli Deo gloria.
 
@@ -21,10 +21,13 @@
 
   import SDGInterface
 
-  #if canImport(AppKit)
-    class CocoaExample: NSView {}
-  #else
-    class CocoaExample: UIView {}
-  #endif
-  extension CocoaExample: CocoaViewImplementation {}
+  struct CocoaViewExample2: LegacyView {
+
+    func cocoa() -> CocoaView {
+      return CocoaView()
+    }
+  }
+
+  extension CocoaViewExample2: View, ViewShims {}
+  extension CocoaViewExample2: CocoaViewImplementation {}
 #endif

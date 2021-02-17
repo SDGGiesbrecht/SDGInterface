@@ -105,6 +105,8 @@ extension SDGInterfaceTests.APITests {
       ("testApplicationName", testApplicationName),
       ("testBackground", testBackground),
       ("testCocoaViewImplementation", testCocoaViewImplementation),
+      ("testCocoaWindow", testCocoaWindow),
+      ("testCocoaWindowImplementation", testCocoaWindowImplementation),
       ("testColour", testColour),
       ("testCompositeViewImplementation", testCompositeViewImplementation),
       ("testContentMode", testContentMode),
@@ -122,15 +124,6 @@ extension SDGInterfaceTests.APITests {
       ("testTable", testTable),
       ("testUnitPoint", testUnitPoint),
       ("testView", testView),
-    ])
-  ]
-}
-
-extension SDGInterfaceTests.APITests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
-      ("testCocoaWindow", testCocoaWindow),
-      ("testCocoaWindowImplementation", testCocoaWindowImplementation),
       ("testWindow", testWindow),
     ])
   ]
@@ -243,7 +236,6 @@ tests += SDGButtonsTests.InternalTests.windowsTests
 tests += SDGContextMenuTests.APITests.windowsTests
 tests += SDGImageDisplayTests.APITests.windowsTests
 tests += SDGImageDisplayTests.InternalTests.windowsTests
-tests += SDGInterfaceTests.APITests.windowsTests
 tests += SDGInterfaceTests.APITests.windowsTests
 tests += SDGInterfaceTests.InternalTests.windowsTests
 tests += SDGKeyboardTests.APITests.windowsTests
