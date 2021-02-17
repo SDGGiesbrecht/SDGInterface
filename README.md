@@ -39,8 +39,8 @@ import Foundation
 import SDGText
 import SDGLocalization
 
+import SDGInterface
 import SDGTextDisplay
-import SDGWindows
 import SDGApplication
 
 public struct SampleApplication: SDGApplication.Application {
@@ -90,6 +90,10 @@ public struct SampleApplication: SDGApplication.Application {
     }
   }
 
+  public var applicationIdentifier: String {
+    return "com.example.SampleApplication"
+  }
+
   public func finishLaunching(_ details: LaunchDetails) -> Bool {
     Swift.print("Hello, world!")
     return true
@@ -129,7 +133,6 @@ let package = Package(
         .product(name: "SDGErrorMessages", package: "SDGInterface"),
         .product(name: "SDGMenus", package: "SDGInterface"),
         .product(name: "SDGPopOvers", package: "SDGInterface"),
-        .product(name: "SDGWindows", package: "SDGInterface"),
         .product(name: "SDGProgressIndicators", package: "SDGInterface"),
         .product(name: "SDGButtons", package: "SDGInterface"),
         .product(name: "SDGImageDisplay", package: "SDGInterface"),
@@ -152,7 +155,6 @@ import SDGContextMenu
 import SDGErrorMessages
 import SDGMenus
 import SDGPopOvers
-import SDGWindows
 import SDGProgressIndicators
 import SDGButtons
 import SDGImageDisplay
