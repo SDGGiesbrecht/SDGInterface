@@ -15,9 +15,39 @@
 #if canImport(CoreGraphics)
   import CoreGraphics
 #endif
+#if canImport(AppKit)
+  import AppKit
+#endif
+#if canImport(UIKit)
+  import UIKit
+#endif
 
 /// A window size.
 public struct Size: Equatable, Hashable {
+
+  // MARK: - Static Properties
+
+  #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+    /// A size that fills the available space on the main screen, without obscuring menu bars, docks, etc.
+    public static func fillingAvailable() -> Size {
+      #if canImport(AppKit)
+        return Size(
+          (NSScreen.main
+            ?? NSScreen()  // @exempt(from: tests) Screen should not be nil.
+            ).frame.size
+        )
+      #elseif canImport(UIKit)
+        return Size(UIScreen.main.bounds.size)
+      #endif
+    }
+  #endif
+
+  #if canImport(AppKit)
+    /// The default size of an auxiliary window.
+    public static var auxiliaryWindow: Size {
+      return Size(width: 480, height: 270)
+    }
+  #endif
 
   // MARK: - Initialization
 

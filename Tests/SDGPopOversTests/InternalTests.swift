@@ -17,7 +17,6 @@ import SDGText
 import SDGLocalization
 
 import SDGInterface
-import SDGWindows
 @testable import SDGPopOvers
 
 import XCTest

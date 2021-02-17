@@ -22,7 +22,6 @@ import SDGLocalization
 
 import SDGInterface
 import SDGTextDisplay
-import SDGWindows
 import SDGMenus
 import SDGContextMenu
 import SDGMenuBar

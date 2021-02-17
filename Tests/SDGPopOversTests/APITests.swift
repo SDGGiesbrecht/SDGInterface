@@ -21,7 +21,6 @@ import SDGText
 import SDGLocalization
 
 import SDGInterface
-import SDGWindows
 import SDGPopOvers
 import SDGApplication
 

@@ -22,8 +22,8 @@ import SDGMenuBar
   import SDGText
   import SDGLocalization
 
+  import SDGInterface
   import SDGTextDisplay
-  import SDGWindows
   import SDGApplication
 
   public struct SampleApplication: SDGApplication.Application {

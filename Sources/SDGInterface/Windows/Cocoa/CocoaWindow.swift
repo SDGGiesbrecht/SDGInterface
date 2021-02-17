@@ -22,8 +22,6 @@
 
   import SDGMathematics
 
-  import SDGInterface
-
   /// A Cocoa window.
   public final class CocoaWindow: CocoaWindowImplementation {
 
