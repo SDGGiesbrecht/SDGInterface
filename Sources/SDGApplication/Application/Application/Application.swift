@@ -38,6 +38,9 @@ public protocol Application: SystemInterface {
   #if !os(WASI)
     /// A closure which produces the declined application name suitable for use in various gramatical contexts.
     var applicationName: ProcessInfo.ApplicationNameResolver { get }
+
+    /// The application identifier.
+    var applicationIdentifier: String { get }
   #endif
 
   /// The type that manages the application’s preferences.
@@ -56,6 +59,7 @@ extension Application {
     let application = Self()
     // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
     #if !os(WASI)
+      ProcessInfo.applicationIdentifier = application.applicationIdentifier
       ProcessInfo.applicationName = application.applicationName
     #endif
     #if canImport(AppKit)

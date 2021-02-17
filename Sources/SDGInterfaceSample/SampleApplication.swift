@@ -73,6 +73,10 @@ import SDGMenuBar
       }
     }
 
+    public var applicationIdentifier: String {
+      return "com.example.SampleApplication"
+    }
+
     public func finishLaunching(_ details: LaunchDetails) -> Bool {
       Swift.print("Hello, world!")
       return true

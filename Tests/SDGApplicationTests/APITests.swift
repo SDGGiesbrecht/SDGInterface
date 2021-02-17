@@ -49,6 +49,9 @@ final class APITests: ApplicationTestCase {
         var applicationName: ProcessInfo.ApplicationNameResolver {
           return { _ in "..." }
         }
+        var applicationIdentifier: String {
+          return "com.example.identifier"
+        }
       #endif
       func finishLaunching(_ details: LaunchDetails) -> Bool {
         return true
