@@ -91,7 +91,7 @@ final class APITests: ApplicationTestCase {
 
   func testCocoaViewImplementation() {
     #if canImport(AppKit) || canImport(UIKit)
-      let view = CocoaExample()
+      let view = CocoaViewExample()
       _ = view.cocoa()
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
         if #available(macOS 10.15, tvOS 13, iOS 13, *) {
@@ -110,7 +110,7 @@ final class APITests: ApplicationTestCase {
 
   func testCocoaWindowImplementation() {
     #if canImport(AppKit) || canImport(UIKit)
-      _ = CocoaExample().cocoa()
+      _ = CocoaWindowExample().cocoa()
     #endif
   }
 
@@ -285,7 +285,7 @@ final class APITests: ApplicationTestCase {
   func testSwiftUIViewImplementation() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {  // @exempt(from: unicode)
-        let view = SwiftUIExample()
+        let view = SwiftUIViewExample()
         _ = view.swiftUI()
         #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
           _ = view.cocoa()
@@ -445,7 +445,7 @@ final class APITests: ApplicationTestCase {
     #endif
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {
-        testViewConformance(of: SwiftUIExample())
+        testViewConformance(of: SwiftUIViewExample())
       }
     #endif
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))

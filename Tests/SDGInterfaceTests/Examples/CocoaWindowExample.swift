@@ -13,7 +13,7 @@
  */
 
 #if canImport(AppKit) || canImport(UIKit)
-  import SDGWindows
+  import SDGInterface
 
   class CocoaWindowExample: CocoaWindow.NativeType, CocoaWindowImplementation {}
 #endif
