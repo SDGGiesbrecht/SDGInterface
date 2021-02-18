@@ -23,7 +23,6 @@ import XCTest
 @testable import SDGKeyboardTests
 @testable import SDGMenuBarTests
 @testable import SDGMenusTests
-@testable import SDGPopOversTests
 @testable import SDGProgressIndicatorsTests
 @testable import SDGTextDisplayTests
 
@@ -101,9 +100,11 @@ extension SDGInterfaceTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
       ("testAlignment", testAlignment),
+      ("testAnchorSource", testAnchorSource),
       ("testAnyView", testAnyView),
       ("testApplicationName", testApplicationName),
       ("testBackground", testBackground),
+      ("testCocoaView", testCocoaView),
       ("testCocoaViewImplementation", testCocoaViewImplementation),
       ("testCocoaWindow", testCocoaWindow),
       ("testCocoaWindowImplementation", testCocoaWindowImplementation),
@@ -118,10 +119,13 @@ extension SDGInterfaceTests.APITests {
       ("testLegacyView", testLegacyView),
       ("testNSRectEdge", testNSRectEdge),
       ("testPoint", testPoint),
+      ("testPopOver", testPopOver),
+      ("testPopOverAttachmentAnchor", testPopOverAttachmentAnchor),
       ("testRectangle", testRectangle),
       ("testSize", testSize),
       ("testSwiftUIViewImplementation", testSwiftUIViewImplementation),
       ("testTable", testTable),
+      ("testUIPopOverArrowDirection", testUIPopOverArrowDirection),
       ("testUnitPoint", testUnitPoint),
       ("testView", testView),
       ("testWindow", testWindow),
@@ -132,7 +136,9 @@ extension SDGInterfaceTests.APITests {
 extension SDGInterfaceTests.InternalTests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
-      ("testProportionedView", testProportionedView)
+      ("testLegacyView", testLegacyView),
+      ("testPopOverCocoaImplementation", testPopOverCocoaImplementation),
+      ("testProportionedView", testProportionedView),
     ])
   ]
 }
@@ -168,28 +174,6 @@ extension SDGMenusTests.RegressionTests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
       ("testMenuEntryCocoaImplementationCanBeCopied", testMenuEntryCocoaImplementationCanBeCopied)
-    ])
-  ]
-}
-
-extension SDGPopOversTests.APITests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
-      ("testAnchorSource", testAnchorSource),
-      ("testCocoaView", testCocoaView),
-      ("testLegacyView", testLegacyView),
-      ("testPopOver", testPopOver),
-      ("testPopOverAttachmentAnchor", testPopOverAttachmentAnchor),
-      ("testUIPopOverArrowDirection", testUIPopOverArrowDirection),
-    ])
-  ]
-}
-
-extension SDGPopOversTests.InternalTests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
-      ("testLegacyView", testLegacyView),
-      ("testPopOverCocoaImplementation", testPopOverCocoaImplementation),
     ])
   ]
 }
@@ -242,8 +226,6 @@ tests += SDGKeyboardTests.APITests.windowsTests
 tests += SDGMenuBarTests.APITests.windowsTests
 tests += SDGMenusTests.APITests.windowsTests
 tests += SDGMenusTests.RegressionTests.windowsTests
-tests += SDGPopOversTests.APITests.windowsTests
-tests += SDGPopOversTests.InternalTests.windowsTests
 tests += SDGProgressIndicatorsTests.APITests.windowsTests
 tests += SDGTextDisplayTests.APITests.windowsTests
 tests += SDGTextDisplayTests.InternalTests.windowsTests
