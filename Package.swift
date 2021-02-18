@@ -133,10 +133,6 @@ let package = Package(
     /// Menus.
     .library(name: "SDGMenus", targets: ["SDGMenus"]),
 
-    // @documentation(SDGPopOvers)
-    /// Pop‐over interfaces.
-    .library(name: "SDGPopOvers", targets: ["SDGPopOvers"]),
-
     // @documentation(SDGProgressIndicators)
     /// Progress indicators.
     .library(name: "SDGProgressIndicators", targets: ["SDGProgressIndicators"]),
@@ -263,17 +259,6 @@ let package = Package(
       ]
     ),
 
-    // #documentation(SDGPopOvers)
-    /// Pop‐over interfaces.
-    .target(
-      name: "SDGPopOvers",
-      dependencies: [
-        "SDGInterface",
-        .product(name: "SDGControlFlow", package: "SDGCornerstone"),
-        .product(name: "SDGLogic", package: "SDGCornerstone"),
-      ]
-    ),
-
     // #documentation(SDGProgressIndicators)
     /// Progress indicators.
     .target(
@@ -320,7 +305,6 @@ let package = Package(
       name: "SDGTextDisplay",
       dependencies: [
         "SDGInterface",
-        "SDGPopOvers",
         "SDGMenus",
         "SDGContextMenu",
         "SDGInterfaceLocalizations",
@@ -465,22 +449,6 @@ let package = Package(
       dependencies: [
         "SDGKeyboard",
         "SDGApplicationTestUtilities",
-        .product(name: "SDGXCTestUtilities", package: "SDGCornerstone"),
-      ]
-    ),
-
-    .testTarget(
-      name: "SDGPopOversTests",
-      dependencies: [
-        "SDGInterface",
-        "SDGPopOvers",
-        "SDGApplication",
-        "SDGInterfaceSample",
-        "SDGInterfaceTestUtilities",
-        "SDGApplicationTestUtilities",
-        .product(name: "SDGControlFlow", package: "SDGCornerstone"),
-        .product(name: "SDGText", package: "SDGCornerstone"),
-        .product(name: "SDGLocalization", package: "SDGCornerstone"),
         .product(name: "SDGXCTestUtilities", package: "SDGCornerstone"),
       ]
     ),
