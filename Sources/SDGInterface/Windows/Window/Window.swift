@@ -25,8 +25,6 @@
 import SDGText
 import SDGLocalization
 
-import SDGInterface
-
 #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
   /// A window.
   @available(watchOS 6, *)

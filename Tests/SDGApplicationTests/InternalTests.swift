@@ -84,6 +84,9 @@ final class InternalTests: ApplicationTestCase {
         var applicationName: ProcessInfo.ApplicationNameResolver {
           return { _ in "Test Application" }
         }
+        var applicationIdentifier: String {
+          return "com.example.identifier"
+        }
       #endif
       func finishLaunching(_ details: LaunchDetails) -> Bool {
         return true
@@ -202,6 +205,9 @@ final class InternalTests: ApplicationTestCase {
       #if !os(WASI)
         var applicationName: ProcessInfo.ApplicationNameResolver {
           return { _ in "Test Application" }
+        }
+        var applicationIdentifier: String {
+          return "com.example.identifier"
         }
       #endif
       func finishLaunching(_ details: LaunchDetails) -> Bool {

@@ -1,5 +1,5 @@
 /*
- CocoaExample.swift
+ CocoaWindowExample.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -13,7 +13,7 @@
  */
 
 #if canImport(AppKit) || canImport(UIKit)
-  import SDGWindows
+  import SDGInterface
 
-  class CocoaExample: CocoaWindow.NativeType, CocoaWindowImplementation {}
+  class CocoaWindowExample: CocoaWindow.NativeType, CocoaWindowImplementation {}
 #endif

@@ -38,8 +38,8 @@ import PackageDescription
 /// import SDGText
 /// import SDGLocalization
 ///
+/// import SDGInterface
 /// import SDGTextDisplay
-/// import SDGWindows
 /// import SDGApplication
 ///
 /// public struct SampleApplication: SDGApplication.Application {
@@ -89,6 +89,10 @@ import PackageDescription
 ///     }
 ///   }
 ///
+///   public var applicationIdentifier: String {
+///     return "com.example.SampleApplication"
+///   }
+///
 ///   public func finishLaunching(_ details: LaunchDetails) -> Bool {
 ///     Swift.print("Hello, world!")
 ///     return true
@@ -132,10 +136,6 @@ let package = Package(
     // @documentation(SDGPopOvers)
     /// Pop‐over interfaces.
     .library(name: "SDGPopOvers", targets: ["SDGPopOvers"]),
-
-    // @documentation(SDGWindows)
-    /// Windows.
-    .library(name: "SDGWindows", targets: ["SDGWindows"]),
 
     // @documentation(SDGProgressIndicators)
     /// Progress indicators.
@@ -201,7 +201,6 @@ let package = Package(
       name: "SDGInterfaceTestUtilities",
       dependencies: [
         "SDGInterface",
-        "SDGWindows",
         "SDGInterfaceLocalizations",
         .product(name: "SDGControlFlow", package: "SDGCornerstone"),
         .product(name: "SDGLogic", package: "SDGCornerstone"),
@@ -275,21 +274,6 @@ let package = Package(
       ]
     ),
 
-    // #documentation(SDGWindows)
-    /// Windows.
-    .target(
-      name: "SDGWindows",
-      dependencies: [
-        "SDGInterface",
-        .product(name: "SDGControlFlow", package: "SDGCornerstone"),
-        .product(name: "SDGLogic", package: "SDGCornerstone"),
-        .product(name: "SDGMathematics", package: "SDGCornerstone"),
-        .product(name: "SDGText", package: "SDGCornerstone"),
-        .product(name: "SDGLocalization", package: "SDGCornerstone"),
-        .product(name: "SDGGeometry", package: "SDGCornerstone"),
-      ]
-    ),
-
     // #documentation(SDGProgressIndicators)
     /// Progress indicators.
     .target(
@@ -336,7 +320,6 @@ let package = Package(
       name: "SDGTextDisplay",
       dependencies: [
         "SDGInterface",
-        "SDGWindows",
         "SDGPopOvers",
         "SDGMenus",
         "SDGContextMenu",
@@ -399,7 +382,6 @@ let package = Package(
       dependencies: [
         "SDGInterface",
         "SDGTextDisplay",
-        "SDGWindows",
         "SDGApplication",
         "SDGInterfaceSample",
         "SDGInterfaceLocalizations",
@@ -417,7 +399,6 @@ let package = Package(
       name: "SDGTextDisplayTests",
       dependencies: [
         "SDGInterface",
-        "SDGWindows",
         "SDGApplication",
         "SDGInterfaceLocalizations",
         "SDGInterfaceSample",
@@ -489,24 +470,9 @@ let package = Package(
     ),
 
     .testTarget(
-      name: "SDGWindowsTests",
-      dependencies: [
-        "SDGInterface",
-        "SDGWindows",
-        "SDGInterfaceLocalizations",
-        "SDGApplicationTestUtilities",
-        .product(name: "SDGControlFlow", package: "SDGCornerstone"),
-        .product(name: "SDGText", package: "SDGCornerstone"),
-        .product(name: "SDGLocalization", package: "SDGCornerstone"),
-        .product(name: "SDGXCTestUtilities", package: "SDGCornerstone"),
-      ]
-    ),
-
-    .testTarget(
       name: "SDGPopOversTests",
       dependencies: [
         "SDGInterface",
-        "SDGWindows",
         "SDGPopOvers",
         "SDGApplication",
         "SDGInterfaceSample",
@@ -566,7 +532,6 @@ let package = Package(
       dependencies: [
         "SDGInterface",
         "SDGTextDisplay",
-        "SDGWindows",
         "SDGMenus",
         "SDGContextMenu",
         "SDGMenuBar",
@@ -594,7 +559,6 @@ let package = Package(
         "SDGImageDisplay",
         "SDGButtons",
         "SDGProgressIndicators",
-        "SDGWindows",
         "SDGMenus",
         "SDGErrorMessages",
         "SDGMenuBar",

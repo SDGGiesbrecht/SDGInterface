@@ -22,7 +22,6 @@ import SDGLocalization
 
 import SDGInterface
 import SDGTextDisplay
-import SDGWindows
 import SDGMenus
 import SDGContextMenu
 import SDGMenuBar
@@ -48,6 +47,9 @@ final class APITests: ApplicationTestCase {
       #if !os(WASI)
         var applicationName: ProcessInfo.ApplicationNameResolver {
           return { _ in "..." }
+        }
+        var applicationIdentifier: String {
+          return "com.example.identifier"
         }
       #endif
       func finishLaunching(_ details: LaunchDetails) -> Bool {

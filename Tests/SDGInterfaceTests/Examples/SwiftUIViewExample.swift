@@ -1,5 +1,5 @@
 /*
- SwiftUIExample.swift
+ SwiftUIViewExample.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -18,7 +18,7 @@
   import SDGInterface
 
   @available(macOS 10.15, tvOS 13, iOS 13, *)
-  struct SwiftUIExample: SwiftUI.View, SwiftUIViewImplementation {
+  struct SwiftUIViewExample: SwiftUI.View, SwiftUIViewImplementation {
 
     // MARK: - View
 

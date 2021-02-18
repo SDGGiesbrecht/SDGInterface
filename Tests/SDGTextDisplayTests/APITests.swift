@@ -20,7 +20,6 @@ import SDGLocalization
 
 import SDGInterface
 import SDGTextDisplay
-import SDGWindows
 import SDGApplication
 
 import SDGInterfaceLocalizations

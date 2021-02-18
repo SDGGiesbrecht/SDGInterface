@@ -22,8 +22,8 @@ import SDGMenuBar
   import SDGText
   import SDGLocalization
 
+  import SDGInterface
   import SDGTextDisplay
-  import SDGWindows
   import SDGApplication
 
   public struct SampleApplication: SDGApplication.Application {
@@ -71,6 +71,10 @@ import SDGMenuBar
           return "דוגמה"
         }
       }
+    }
+
+    public var applicationIdentifier: String {
+      return "com.example.SampleApplication"
     }
 
     public func finishLaunching(_ details: LaunchDetails) -> Bool {

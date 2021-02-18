@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-@testable import SDGWindows
+@testable import SDGInterface
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
   public func forEachWindow(_ closure: (CocoaWindow) -> Void) {
