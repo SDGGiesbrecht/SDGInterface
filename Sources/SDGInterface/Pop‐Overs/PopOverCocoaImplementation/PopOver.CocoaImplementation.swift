@@ -22,8 +22,6 @@
 
   import SDGControlFlow
 
-  import SDGInterface
-
   extension PopOver {
 
     internal final class CocoaImplementation: CocoaView.NativeType, SharedValueObserver {

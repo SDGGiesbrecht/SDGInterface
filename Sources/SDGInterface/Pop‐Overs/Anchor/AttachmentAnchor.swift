@@ -12,8 +12,6 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-import SDGInterface
-
 /// A shimmed version of `SwiftUI.PopoverAttachmentAnchor` with no availability constraints.
 public enum AttachmentAnchor {
 
