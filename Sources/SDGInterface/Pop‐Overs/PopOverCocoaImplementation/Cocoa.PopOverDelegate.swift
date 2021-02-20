@@ -15,8 +15,6 @@
 #if canImport(UIKit) && !os(tvOS) && !os(watchOS)
   import UIKit
 
-  import SDGInterface
-
   extension CocoaView {
 
     internal class PopOverDelegate: NSObject, UIKit.UIPopoverPresentationControllerDelegate {
