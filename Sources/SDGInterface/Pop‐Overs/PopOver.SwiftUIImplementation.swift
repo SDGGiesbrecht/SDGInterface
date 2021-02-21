@@ -17,8 +17,6 @@
 
   import SDGControlFlow
 
-  import SDGInterface
-
   @available(macOS 10.15, iOS 13, watchOS 6, *)
   @available(watchOS, unavailable)
   extension PopOver where Anchor: SDGInterface.View, Content: SDGInterface.View {

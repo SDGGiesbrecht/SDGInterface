@@ -25,8 +25,6 @@
 
   import SDGControlFlow
 
-  import SDGInterface
-
   /// The result of `popOver(isPresented:attachmentAnchor:arrowEdge:content:)`.
   @available(watchOS 6, *)
   @available(watchOS, unavailable)

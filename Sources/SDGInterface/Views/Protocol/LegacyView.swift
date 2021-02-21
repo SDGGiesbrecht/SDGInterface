@@ -23,6 +23,7 @@
     import UIKit
   #endif
 
+  import SDGControlFlow
   import SDGLogic
   import SDGText
   import SDGLocalization
@@ -262,6 +263,31 @@
         .aspectRatio(aspectRatio, contentMode: .fit)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .centre)
         .background(background)
+    }
+
+    // MARK: - Pop‐Overs
+
+    /// A shimmed version of `SwiftUI.View.popover(isPresented:attachmentAnchor:arrowEdge:content:)` with no availability constraints.
+    ///
+    /// - Parameters:
+    ///   - isPresented: Whether the pop‐over is presented.
+    ///   - attachmentAnchor: The anchor where the pop‐over is attached.
+    ///   - arrowEdge: The edge where the pop‐over’s arrow is located.
+    ///   - content: The content of the pop‐over.
+    @available(watchOS, unavailable)
+    public func popOver<Content>(
+      isPresented: Shared<Bool>,
+      attachmentAnchor: AttachmentAnchor = .rectangle(.bounds),
+      arrowEdge: SDGInterface.Edge = .top,
+      content: @escaping () -> Content
+    ) -> PopOver<Self, Content> {
+      return PopOver(
+        anchor: self,
+        isPresented: isPresented,
+        attachmentAnchor: attachmentAnchor,
+        arrowEdge: arrowEdge,
+        content: content
+      )
     }
   }
 #endif

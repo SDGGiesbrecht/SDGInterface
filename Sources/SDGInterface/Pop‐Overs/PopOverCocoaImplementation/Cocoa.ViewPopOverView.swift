@@ -19,8 +19,6 @@
     import UIKit
   #endif
 
-  import SDGInterface
-
   extension CocoaView {
 
     internal class PopOverView: CocoaView.NativeType {

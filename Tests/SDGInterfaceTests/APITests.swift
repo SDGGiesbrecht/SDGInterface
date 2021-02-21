@@ -61,6 +61,17 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
+  func testAnchorSource() {
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        var shimmed = RectangularAttachmentAnchor.rectangle(SDGInterface.Rectangle())
+        _ = Anchor<CGRect>.Source(shimmed)
+        shimmed = .bounds
+        _ = Anchor<CGRect>.Source(shimmed)
+      }
+    #endif
+  }
+
   func testAnyView() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {
@@ -86,6 +97,27 @@ final class APITests: ApplicationTestCase {
       forAllLegacyModes {
         _ = Colour.red.background(Colour.blue).cocoa()
       }
+    #endif
+  }
+
+  func testCocoaView() {
+    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+      let anchor = CocoaView()
+      let window = Window(
+        type: .primary(nil),
+        name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+        content: anchor
+      )
+      let cocoaWindow = window.cocoa()
+      defer { cocoaWindow.close() }
+      let popOver = CocoaView()
+      anchor.displayPopOver(popOver, attachmentAnchor: .point(Point(0, 0)))
+      anchor.displayPopOver(
+        popOver,
+        attachmentAnchor: .rectangle(
+          .rectangle(Rectangle(origin: Point(10, 20), size: Size(width: 30, height: 40)))
+        )
+      )
     #endif
   }
 
@@ -242,6 +274,21 @@ final class APITests: ApplicationTestCase {
         _ = Legacy().swiftUIAnyView()
       }
     #endif
+    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+      let combined = SDGInterface.EmptyView().popOver(
+        isPresented: Shared(false),
+        content: { SDGInterface.EmptyView() }
+      )
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        let testBody: Bool
+        #if os(tvOS)
+          testBody = false
+        #else
+          testBody = true
+        #endif
+        testViewConformance(of: combined, testBody: testBody)
+      }
+    #endif
   }
 
   func testNSRectEdge() {
@@ -258,6 +305,31 @@ final class APITests: ApplicationTestCase {
     #if canImport(CoreGraphics)
       XCTAssertEqual(Point(CGPoint(x: 0, y: 0)), Point(0, 0))
       XCTAssertEqual(CGPoint(Point(0, 0)).x, 0)
+    #endif
+  }
+
+  func testPopOver() {
+    #if canImport(AppKit) || canImport(UIKit)
+      let window = Window(
+        type: .primary(nil),
+        name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+        content: EmptyView().cocoa()
+      ).cocoa()
+      window.content?.displayPopOver(EmptyView())
+      #if canImport(UIKit)
+        CocoaView().displayPopOver(EmptyView())
+      #endif
+    #endif
+  }
+
+  func testPopOverAttachmentAnchor() {
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        var shimmed = AttachmentAnchor.point(Point(0, 0))
+        _ = PopoverAttachmentAnchor(shimmed)
+        shimmed = AttachmentAnchor.rectangle(.rectangle(SDGInterface.Rectangle()))
+        _ = PopoverAttachmentAnchor(shimmed)
+      }
     #endif
   }
 
@@ -333,6 +405,16 @@ final class APITests: ApplicationTestCase {
           cellForRowAt: IndexPath(row: 0, section: 0)
         )
       #endif
+    #endif
+  }
+
+  func testUIPopOverArrowDirection() {
+    #if canImport(UIKit) && !(os(iOS) && arch(arm)) && !os(watchOS)
+      var set: Set<UIPopoverArrowDirection.RawValue> = []
+      for edge in SDGInterface.Edge.allCases {
+        set.insert(UIPopoverArrowDirection(edge).rawValue)
+      }
+      XCTAssertEqual(set.count, SDGInterface.Edge.allCases.count)
     #endif
   }
 

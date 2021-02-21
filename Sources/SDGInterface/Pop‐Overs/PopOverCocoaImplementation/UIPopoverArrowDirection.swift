@@ -15,8 +15,6 @@
 #if canImport(UIKit) && !os(watchOS)
   import UIKit
 
-  import SDGInterface
-
   extension UIPopoverArrowDirection {
 
     /// Creates a UIKit arrow direction from an edge.
