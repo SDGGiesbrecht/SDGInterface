@@ -257,6 +257,13 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
+  func testKeyModifiers() {
+    let modifiers: KeyModifiers = [.command, .shift, .option, .control, .function, .capsLock]
+    #if canImport(AppKit)
+      XCTAssertEqual(KeyModifiers(modifiers.cocoa), modifiers)
+    #endif
+  }
+
   func testLayoutConstraintPriority() {
     #if canImport(AppKit) || canImport(UIKit)
       _ = LayoutConstraintPriority(rawValue: 500)
@@ -288,6 +295,65 @@ final class APITests: ApplicationTestCase {
         #endif
         testViewConformance(of: combined, testBody: testBody)
       }
+    #endif
+  }
+
+  func testMenu() {
+    #if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
+      _ = MenuEntry(label: UserFacing<StrictString, APILocalization>({ _ in "..." }))
+      let menuLabel = UserFacing<StrictString, APILocalization>({ _ in "initial" })
+      let menu = Menu<APILocalization>(label: menuLabel, entries: [])
+      _ = menu.cocoa()
+    #endif
+  }
+
+  func testMenuComponent() {
+    #if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
+      XCTAssertNotNil(
+        MenuComponent.entry(
+          MenuEntry<InterfaceLocalization>(
+            label: UserFacing<StrictString, InterfaceLocalization>({ _ in "" })
+          )
+        ).asEntry
+      )
+      #if canImport(AppKit)
+        XCTAssertNotNil(
+          MenuComponent.submenu(
+            Menu<InterfaceLocalization>(
+              label: UserFacing<StrictString, InterfaceLocalization>({ _ in "" }),
+              entries: []
+            )
+          ).asSubmenu
+        )
+        XCTAssertNil(
+          MenuComponent.submenu(
+            Menu<InterfaceLocalization>(
+              label: UserFacing<StrictString, InterfaceLocalization>({ _ in "initial" }),
+              entries: []
+            )
+          ).asEntry
+        )
+        XCTAssertNil(
+          MenuComponent.entry(
+            MenuEntry<InterfaceLocalization>(
+              label: UserFacing<StrictString, InterfaceLocalization>({ _ in "" })
+            )
+          )
+          .asSubmenu
+        )
+      #endif
+    #endif
+  }
+
+  func testMenuEntry() {
+    #if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
+      let menuLabel = Shared<StrictString>("initial")
+      let entry = MenuEntry<APILocalization>(
+        label: UserFacing<StrictString, APILocalization>({ _ in "" })
+      )
+      menuLabel.value = "changed"
+      menuLabel.value = "unrelated"
+      _ = entry.cocoa()
     #endif
   }
 
