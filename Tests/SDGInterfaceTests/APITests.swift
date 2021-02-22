@@ -302,7 +302,7 @@ final class APITests: ApplicationTestCase {
     #if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
       _ = MenuEntry(label: UserFacing<StrictString, APILocalization>({ _ in "..." }))
       let menuLabel = UserFacing<StrictString, APILocalization>({ _ in "initial" })
-      let menu = Menu<APILocalization>(label: menuLabel, entries: [])
+      let menu = SDGInterface.Menu<APILocalization>(label: menuLabel, entries: [])
       _ = menu.cocoa()
     #endif
   }
@@ -311,32 +311,32 @@ final class APITests: ApplicationTestCase {
     #if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
       XCTAssertNotNil(
         MenuComponent.entry(
-          MenuEntry<InterfaceLocalization>(
-            label: UserFacing<StrictString, InterfaceLocalization>({ _ in "" })
+          MenuEntry<SDGInterfaceLocalizations.InterfaceLocalization>(
+            label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in "" })
           )
         ).asEntry
       )
       #if canImport(AppKit)
         XCTAssertNotNil(
           MenuComponent.submenu(
-            Menu<InterfaceLocalization>(
-              label: UserFacing<StrictString, InterfaceLocalization>({ _ in "" }),
+            SDGInterface.Menu<SDGInterfaceLocalizations.InterfaceLocalization>(
+              label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in "" }),
               entries: []
             )
           ).asSubmenu
         )
         XCTAssertNil(
           MenuComponent.submenu(
-            Menu<InterfaceLocalization>(
-              label: UserFacing<StrictString, InterfaceLocalization>({ _ in "initial" }),
+            SDGInterface.Menu<SDGInterfaceLocalizations.InterfaceLocalization>(
+              label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in "initial" }),
               entries: []
             )
           ).asEntry
         )
         XCTAssertNil(
           MenuComponent.entry(
-            MenuEntry<InterfaceLocalization>(
-              label: UserFacing<StrictString, InterfaceLocalization>({ _ in "" })
+            MenuEntry<SDGInterfaceLocalizations.InterfaceLocalization>(
+              label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in "" })
             )
           )
           .asSubmenu
