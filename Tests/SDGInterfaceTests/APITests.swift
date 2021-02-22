@@ -312,7 +312,9 @@ final class APITests: ApplicationTestCase {
       XCTAssertNotNil(
         MenuComponent.entry(
           MenuEntry<SDGInterfaceLocalizations.InterfaceLocalization>(
-            label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in "" })
+            label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
+              { _ in "" }
+            )
           )
         ).asEntry
       )
@@ -320,7 +322,9 @@ final class APITests: ApplicationTestCase {
         XCTAssertNotNil(
           MenuComponent.submenu(
             SDGInterface.Menu<SDGInterfaceLocalizations.InterfaceLocalization>(
-              label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in "" }),
+              label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
+                { _ in "" }
+              ),
               entries: []
             )
           ).asSubmenu
@@ -328,7 +332,9 @@ final class APITests: ApplicationTestCase {
         XCTAssertNil(
           MenuComponent.submenu(
             SDGInterface.Menu<SDGInterfaceLocalizations.InterfaceLocalization>(
-              label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in "initial" }),
+              label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
+                { _ in "initial" }
+              ),
               entries: []
             )
           ).asEntry
@@ -336,7 +342,9 @@ final class APITests: ApplicationTestCase {
         XCTAssertNil(
           MenuComponent.entry(
             MenuEntry<SDGInterfaceLocalizations.InterfaceLocalization>(
-              label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in "" })
+              label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
+                { _ in "" }
+              )
             )
           )
           .asSubmenu
