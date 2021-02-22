@@ -18,7 +18,7 @@
   import SDGText
   import SDGLocalization
 
-  import SDGMenus
+  import SDGInterface
 
   import SDGInterfaceLocalizations
 

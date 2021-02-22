@@ -222,6 +222,7 @@ let package = Package(
       name: "SDGContextMenu",
       dependencies: [
         "SDGInterfaceLocalizations",
+        "SDGInterface",
         .product(name: "SDGLogic", package: "SDGCornerstone"),
         .product(name: "SDGText", package: "SDGCornerstone"),
         .product(name: "SDGLocalization", package: "SDGCornerstone"),

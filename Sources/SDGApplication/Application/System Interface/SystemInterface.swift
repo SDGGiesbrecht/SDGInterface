@@ -14,7 +14,7 @@
 
 import Foundation
 
-import SDGMenus
+import SDGInterface
 import SDGMenuBar
 
 /// An interface for interaction with the operating system.
