@@ -22,7 +22,6 @@ import XCTest
 @testable import SDGInterfaceTests
 @testable import SDGKeyboardTests
 @testable import SDGMenuBarTests
-@testable import SDGMenusTests
 @testable import SDGProgressIndicatorsTests
 @testable import SDGTextDisplayTests
 
@@ -115,8 +114,12 @@ extension SDGInterfaceTests.APITests {
       ("testEdgeSet", testEdgeSet),
       ("testEmptyView", testEmptyView),
       ("testHorizontalStack", testHorizontalStack),
+      ("testKeyModifiers", testKeyModifiers),
       ("testLayoutConstraintPriority", testLayoutConstraintPriority),
       ("testLegacyView", testLegacyView),
+      ("testMenu", testMenu),
+      ("testMenuComponent", testMenuComponent),
+      ("testMenuEntry", testMenuEntry),
       ("testNSRectEdge", testNSRectEdge),
       ("testPoint", testPoint),
       ("testPopOver", testPopOver),
@@ -143,6 +146,14 @@ extension SDGInterfaceTests.InternalTests {
   ]
 }
 
+extension SDGInterfaceTests.RegressionTests {
+  static let windowsTests: [XCTestCaseEntry] = [
+    testCase([
+      ("testMenuEntryCocoaImplementationCanBeCopied", testMenuEntryCocoaImplementationCanBeCopied)
+    ])
+  ]
+}
+
 extension SDGKeyboardTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
@@ -155,25 +166,6 @@ extension SDGMenuBarTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
       ("testMenuBar", testMenuBar)
-    ])
-  ]
-}
-
-extension SDGMenusTests.APITests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
-      ("testKeyModifiers", testKeyModifiers),
-      ("testMenu", testMenu),
-      ("testMenuComponent", testMenuComponent),
-      ("testMenuEntry", testMenuEntry),
-    ])
-  ]
-}
-
-extension SDGMenusTests.RegressionTests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
-      ("testMenuEntryCocoaImplementationCanBeCopied", testMenuEntryCocoaImplementationCanBeCopied)
     ])
   ]
 }
@@ -222,10 +214,9 @@ tests += SDGImageDisplayTests.APITests.windowsTests
 tests += SDGImageDisplayTests.InternalTests.windowsTests
 tests += SDGInterfaceTests.APITests.windowsTests
 tests += SDGInterfaceTests.InternalTests.windowsTests
+tests += SDGInterfaceTests.RegressionTests.windowsTests
 tests += SDGKeyboardTests.APITests.windowsTests
 tests += SDGMenuBarTests.APITests.windowsTests
-tests += SDGMenusTests.APITests.windowsTests
-tests += SDGMenusTests.RegressionTests.windowsTests
 tests += SDGProgressIndicatorsTests.APITests.windowsTests
 tests += SDGTextDisplayTests.APITests.windowsTests
 tests += SDGTextDisplayTests.InternalTests.windowsTests
