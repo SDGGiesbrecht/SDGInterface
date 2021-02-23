@@ -19,7 +19,6 @@
   import SDGLocalization
 
   import SDGInterface
-  import SDGContextMenu
 
   import SDGInterfaceLocalizations
 

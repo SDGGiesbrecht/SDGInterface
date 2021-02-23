@@ -121,10 +121,6 @@ let package = Package(
     /// A menu bar.
     .library(name: "SDGMenuBar", targets: ["SDGMenuBar"]),
 
-    // @documentation(SDGContextMenu)
-    /// A context menu.
-    .library(name: "SDGContextMenu", targets: ["SDGContextMenu"]),
-
     // @documentation(SDGErrorMessages)
     /// Error messages.
     .library(name: "SDGErrorMessages", targets: ["SDGErrorMessages"]),
@@ -162,7 +158,6 @@ let package = Package(
       dependencies: [
         "SDGInterfaceLocalizations",
         "SDGInterface",
-        "SDGContextMenu",
         "SDGMenuBar",
         .product(name: "SDGLogic", package: "SDGCornerstone"),
         .product(name: "SDGText", package: "SDGCornerstone"),
@@ -207,23 +202,9 @@ let package = Package(
       name: "SDGMenuBar",
       dependencies: [
         "SDGInterface",
-        "SDGContextMenu",
         "SDGInterfaceLocalizations",
         .product(name: "SDGControlFlow", package: "SDGCornerstone"),
         .product(name: "SDGMathematics", package: "SDGCornerstone"),
-        .product(name: "SDGText", package: "SDGCornerstone"),
-        .product(name: "SDGLocalization", package: "SDGCornerstone"),
-      ]
-    ),
-
-    // #documentation(SDGContextMenu)
-    /// A context menu.
-    .target(
-      name: "SDGContextMenu",
-      dependencies: [
-        "SDGInterfaceLocalizations",
-        "SDGInterface",
-        .product(name: "SDGLogic", package: "SDGCornerstone"),
         .product(name: "SDGText", package: "SDGCornerstone"),
         .product(name: "SDGLocalization", package: "SDGCornerstone"),
       ]
@@ -286,7 +267,6 @@ let package = Package(
       name: "SDGTextDisplay",
       dependencies: [
         "SDGInterface",
-        "SDGContextMenu",
         "SDGInterfaceLocalizations",
         .product(name: "SDGControlFlow", package: "SDGCornerstone"),
         .product(name: "SDGLogic", package: "SDGCornerstone"),
@@ -434,23 +414,9 @@ let package = Package(
     ),
 
     .testTarget(
-      name: "SDGContextMenuTests",
-      dependencies: [
-        "SDGInterface",
-        "SDGContextMenu",
-        "SDGInterfaceLocalizations",
-        "SDGApplicationTestUtilities",
-        .product(name: "SDGControlFlow", package: "SDGCornerstone"),
-        .product(name: "SDGLocalization", package: "SDGCornerstone"),
-        .product(name: "SDGXCTestUtilities", package: "SDGCornerstone"),
-      ]
-    ),
-
-    .testTarget(
       name: "SDGMenuBarTests",
       dependencies: [
         "SDGInterface",
-        "SDGContextMenu",
         "SDGMenuBar",
         "SDGInterfaceLocalizations",
         "SDGApplicationTestUtilities",
@@ -467,7 +433,6 @@ let package = Package(
       dependencies: [
         "SDGInterface",
         "SDGTextDisplay",
-        "SDGContextMenu",
         "SDGMenuBar",
         "SDGApplication",
         "SDGInterfaceLocalizations",

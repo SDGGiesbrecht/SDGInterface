@@ -16,7 +16,6 @@ import XCTest
 
 @testable import SDGApplicationTests
 @testable import SDGButtonsTests
-@testable import SDGContextMenuTests
 @testable import SDGImageDisplayTests
 @testable import SDGInterfaceResourceGeneration
 @testable import SDGInterfaceTests
@@ -70,14 +69,6 @@ extension SDGButtonsTests.InternalTests {
   ]
 }
 
-extension SDGContextMenuTests.APITests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
-      ("testContextMenu", testContextMenu)
-    ])
-  ]
-}
-
 extension SDGImageDisplayTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
@@ -110,6 +101,7 @@ extension SDGInterfaceTests.APITests {
       ("testColour", testColour),
       ("testCompositeViewImplementation", testCompositeViewImplementation),
       ("testContentMode", testContentMode),
+      ("testContextMenu", testContextMenu),
       ("testEdge", testEdge),
       ("testEdgeSet", testEdgeSet),
       ("testEmptyView", testEmptyView),
@@ -209,7 +201,6 @@ tests += SDGApplicationTests.APITests.windowsTests
 tests += SDGApplicationTests.InternalTests.windowsTests
 tests += SDGButtonsTests.APITests.windowsTests
 tests += SDGButtonsTests.InternalTests.windowsTests
-tests += SDGContextMenuTests.APITests.windowsTests
 tests += SDGImageDisplayTests.APITests.windowsTests
 tests += SDGImageDisplayTests.InternalTests.windowsTests
 tests += SDGInterfaceTests.APITests.windowsTests
