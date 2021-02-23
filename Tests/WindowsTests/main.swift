@@ -22,7 +22,6 @@ import XCTest
 @testable import SDGKeyboardTests
 @testable import SDGMenuBarTests
 @testable import SDGProgressIndicatorsTests
-@testable import SDGTextDisplayTests
 
 extension SDGApplicationTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
@@ -171,31 +170,6 @@ extension SDGProgressIndicatorsTests.APITests {
   ]
 }
 
-extension SDGTextDisplayTests.APITests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
-      ("testAttributedString", testAttributedString),
-      ("testCharacterInformation", testCharacterInformation),
-      ("testCompatibilityLabel", testCompatibilityLabel),
-      ("testFont", testFont),
-      ("testLabel", testLabel),
-      ("testLog", testLog),
-      ("testRichText", testRichText),
-      ("testTextEditor", testTextEditor),
-      ("testTextField", testTextField),
-      ("testTextView", testTextView),
-    ])
-  ]
-}
-
-extension SDGTextDisplayTests.InternalTests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
-      ("testStrictString", testStrictString)
-    ])
-  ]
-}
-
 var tests = [XCTestCaseEntry]()
 tests += SDGApplicationTests.APITests.windowsTests
 tests += SDGApplicationTests.InternalTests.windowsTests
@@ -209,7 +183,5 @@ tests += SDGInterfaceTests.RegressionTests.windowsTests
 tests += SDGKeyboardTests.APITests.windowsTests
 tests += SDGMenuBarTests.APITests.windowsTests
 tests += SDGProgressIndicatorsTests.APITests.windowsTests
-tests += SDGTextDisplayTests.APITests.windowsTests
-tests += SDGTextDisplayTests.InternalTests.windowsTests
 
 XCTMain(tests)
