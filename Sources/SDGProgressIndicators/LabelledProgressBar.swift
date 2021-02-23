@@ -27,7 +27,6 @@
   import SDGLocalization
 
   import SDGInterface
-  import SDGTextDisplay
 
   /// A progress bar with a label.
   @available(watchOS 7, *)

@@ -76,8 +76,7 @@
   }
 
   // MARK: - View
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  internal typealias View = SDGInterface.View
+
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension LabelledTextField: View {
 

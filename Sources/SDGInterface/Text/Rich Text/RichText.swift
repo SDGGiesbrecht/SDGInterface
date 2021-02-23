@@ -289,7 +289,7 @@ public struct RichText: Addable, CustomPlaygroundDisplayConvertible, CustomStrin
     ///
     /// - Parameters:
     ///     - font: The font.
-    public mutating func set(font: Font?) {
+    public mutating func set(font: SDGText.Font?) {
       set(font: font, forRange: bounds)
     }
     /// Sets the font for a particular range.
@@ -297,7 +297,7 @@ public struct RichText: Addable, CustomPlaygroundDisplayConvertible, CustomStrin
     /// - Parameters:
     ///     - font: The font.
     ///     - range: The range.
-    public mutating func set<R>(font: Font?, forRange range: R)
+    public mutating func set<R>(font: SDGText.Font?, forRange range: R)
     where R: RangeExpression, R.Bound == Index {
       #if canImport(AppKit)
         let native: NSFont? = font.flatMap({ NSFont.from($0) })
