@@ -20,7 +20,6 @@
   import SDGLocalization
 
   import SDGInterface
-  import SDGContextMenu
 
   import SDGInterfaceLocalizations
 
@@ -40,11 +39,11 @@
         ?? NSMenu()  // @exempt(from: tests) Never nil.
       let adjustments: [(menu: MenuComponent, selector: Selector?)] = [
         (
-          .entry(SDGContextMenu.ContextMenu._normalizeText()),
+          .entry(SDGInterface.ContextMenu._normalizeText()),
           #selector(TextEditingResponder.normalizeText(_:))
         ),
         (
-          .entry(SDGContextMenu.ContextMenu._showCharacterInformation()),
+          .entry(SDGInterface.ContextMenu._showCharacterInformation()),
           #selector(TextDisplayResponder.showCharacterInformation(_:))
         ),
       ]
