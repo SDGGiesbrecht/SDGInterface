@@ -15,7 +15,11 @@
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   import SwiftUI
 
+  import SDGLocalization
+
   @testable import SDGInterface
+
+  import SDGInterfaceLocalizations
 
   import SDGInterfaceTestUtilities
   import SDGApplicationTestUtilities
@@ -31,6 +35,26 @@
     func testHorizontalStackPreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         _ = HorizontalStackPreviews.previews
+      }
+    }
+
+    func testLabelledTextFieldPreviews() {
+      for localization in InterfaceLocalization.allCases {
+        LocalizationSetting(orderOfPrecedence: [localization.code]).do {
+          if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
+            _ = LabelledTextFieldPreviews.previews
+          }
+        }
+      }
+    }
+
+    func testLabelPreviews() {
+      for localization in InterfaceLocalization.allCases {
+        LocalizationSetting(orderOfPrecedence: [localization.code]).do {
+          if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
+            _ = LabelPreviews.previews
+          }
+        }
       }
     }
 
@@ -58,9 +82,29 @@
       }
     }
 
+    func testRichTextPreviews() {
+      for localization in InterfaceLocalization.allCases {
+        LocalizationSetting(orderOfPrecedence: [localization.code]).do {
+          if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
+            _ = RichTextPreviews.previews
+          }
+        }
+      }
+    }
+
     func testTablePreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         _ = TablePreviews.previews
+      }
+    }
+
+    func testTextViewPreviews() {
+      for localization in InterfaceLocalization.allCases {
+        LocalizationSetting(orderOfPrecedence: [localization.code]).do {
+          if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
+            _ = TextViewPreviews.previews
+          }
+        }
       }
     }
   }
