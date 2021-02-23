@@ -194,6 +194,12 @@ final class APITests: ApplicationTestCase {
     }
   }
 
+  func testContextMenu() {
+    #if canImport(UIKit) && !os(tvOS) && !os(watchOS)
+      _ = ContextMenu()
+    #endif
+  }
+
   func testEdge() {
     for edge in SDGInterface.Edge.allCases {
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
