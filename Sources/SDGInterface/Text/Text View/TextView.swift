@@ -13,6 +13,9 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
+  #if canImport(SwiftUI)
+    import SwiftUI
+  #endif
   #if canImport(AppKit)
     import AppKit
   #endif
@@ -20,9 +23,10 @@
     import UIKit
   #endif
 
+  import SDGText
   import SDGLocalization
 
-  import SDGInterface
+  import SDGInterfaceLocalizations
 
   /// A view for displaying text that cannot be edited.
   public struct TextView<L>: CocoaViewImplementation where L: Localization {
@@ -59,5 +63,35 @@
         )
       }
     #endif
+  }
+#endif
+
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm)) && !os(watchOS)
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  internal struct TextViewPreviews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
+
+      Group {
+
+        previewBothModes(
+          TextView(
+            contents: UserFacing<RichText, InterfaceLocalization>({ localization in
+              switch localization {
+              case .englishUnitedKingdom, .englishUnitedStates, .englishCanada,
+                .deutschDeutschland:
+                let markup =
+                  SemanticMarkup("e")
+                  + SemanticMarkup("πi").superscripted()
+                  + SemanticMarkup(" − 1 = 0")
+                var text = RichText(markup.richText(font: Font.forLabels.resized(to: 32)))
+                text.italicize(range: ..<text.index(text.startIndex, offsetBy: 3))
+                return text
+              }
+            })
+          ).adjustForLegacyMode(),
+          name: "Default"
+        )
+      }
+    }
   }
 #endif

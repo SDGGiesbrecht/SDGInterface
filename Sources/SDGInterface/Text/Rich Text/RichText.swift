@@ -13,6 +13,9 @@
  */
 
 import Foundation
+#if canImport(SwiftUI)
+  import SwiftUI
+#endif
 #if canImport(AppKit)
   import AppKit
 #endif
@@ -24,8 +27,9 @@ import SDGControlFlow
 import SDGLogic
 import SDGMathematics
 import SDGText
+import SDGLocalization
 
-import SDGInterface
+import SDGInterfaceLocalizations
 
 /// Rich text.
 ///
@@ -556,3 +560,78 @@ public struct RichText: Addable, CustomPlaygroundDisplayConvertible, CustomStrin
     self = result
   }
 }
+
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm)) && !os(watchOS)
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  internal struct RichTextPreviews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
+
+      func preview(
+        text: UserFacing<StrictString, InterfaceLocalization>,
+        transformation transform: @escaping (NSMutableAttributedString) -> Void
+      ) -> some SwiftUI.View {
+        return previewBothModes(
+          TextView(
+            contents: UserFacing<RichText, InterfaceLocalization>({ localization in
+              let text: StrictString = text.resolved()
+              var rich = RichText(rawText: text)
+              rich.set(font: Font.forLabels.resized(to: 32))
+              let attributed = NSMutableAttributedString(rich)
+              transform(attributed)
+              return RichText(attributed)
+            })
+          ).adjustForLegacyMode()
+            .frame(
+              width: 250,
+              height: /*@START_MENU_TOKEN@*/ 100 /*@END_MENU_TOKEN@*/,
+              alignment: /*@START_MENU_TOKEN@*/ .center /*@END_MENU_TOKEN@*/
+            ),
+          name: String(text.resolved())
+        )
+      }
+
+      return Group {
+
+        preview(
+          text: UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+              return "Upper Case"
+            case .deutschDeutschland:
+              return "Großbuchstaben"
+            }
+          }),
+          transformation: { attributed in
+            attributed.makeUpperCase(NSRange(location: 0, length: attributed.length))
+          }
+        )
+        preview(
+          text: UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+              return "Small Upper Case"
+            case .deutschDeutschland:
+              return "Kapitälchen"
+            }
+          }),
+          transformation: { attributed in
+            attributed.makeSmallCaps(NSRange(location: 0, length: attributed.length))
+          }
+        )
+        preview(
+          text: UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+              return "Lower Case"
+            case .deutschDeutschland:
+              return "Kleinbuchstaben"
+            }
+          }),
+          transformation: { attributed in
+            attributed.makeLowerCase(NSRange(location: 0, length: attributed.length))
+          }
+        )
+      }
+    }
+  }
+#endif
