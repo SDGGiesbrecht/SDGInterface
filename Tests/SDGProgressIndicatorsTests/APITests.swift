@@ -15,7 +15,7 @@
 import SDGControlFlow
 import SDGLocalization
 
-import SDGTextDisplay
+import SDGInterface
 import SDGProgressIndicators
 import SDGApplication
 

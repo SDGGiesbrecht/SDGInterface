@@ -26,7 +26,6 @@ import SDGText
 import SDGLocalization
 
 import SDGInterface
-import SDGTextDisplay
 import SDGApplication
 
 import SDGInterfaceLocalizations
@@ -796,7 +795,7 @@ final class APITests: ApplicationTestCase {
           { integer in
             let view = CocoaView()
             view.fill(
-              with: SDGTextDisplay.Label<SDGInterfaceLocalizations.InterfaceLocalization>(
+              with: SDGInterface.Label<SDGInterfaceLocalizations.InterfaceLocalization>(
                 UserFacing({ _ in "\(integer.inDigits())" })
               )
               .cocoa()

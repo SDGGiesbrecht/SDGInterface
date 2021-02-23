@@ -18,7 +18,7 @@
   import SDGLocalization
   import SDGPersistence
 
-  @testable import SDGTextDisplay
+  @testable import SDGInterface
 
   extension RichText.NormalizationAttribute.Mapping: Encodable, FileConvertible {
 

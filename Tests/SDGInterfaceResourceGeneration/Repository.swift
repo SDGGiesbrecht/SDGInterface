@@ -18,4 +18,4 @@ let repositoryRoot = URL(fileURLWithPath: #filePath).deletingLastPathComponent()
   .deletingLastPathComponent().deletingLastPathComponent()
 
 let resourcesDirectory = repositoryRoot.appendingPathComponent("Resources")
-let textDisplayResourcesDirectory = resourcesDirectory.appendingPathComponent("SDGTextDisplay")
+let interfaceResourcesDirectory = resourcesDirectory.appendingPathComponent("SDGInterface")

@@ -18,7 +18,7 @@
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension Anchor.Source where Value == CGRect {
 
-    /// Unwraps an instance of a shimmed `SDGPopOvers.RectangularAttachmentAnchor`.
+    /// Unwraps an instance of a shimmed `SDGInterface.RectangularAttachmentAnchor`.
     ///
     /// - Parameters:
     ///   - shimmed: The shimmed instance.

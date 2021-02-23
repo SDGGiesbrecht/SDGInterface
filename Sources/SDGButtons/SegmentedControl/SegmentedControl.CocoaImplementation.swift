@@ -25,7 +25,7 @@
   import SDGText
   import SDGLocalization
 
-  import SDGTextDisplay
+  import SDGInterface
 
   extension SegmentedControl {
 

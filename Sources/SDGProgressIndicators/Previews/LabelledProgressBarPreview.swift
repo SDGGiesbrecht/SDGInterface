@@ -19,8 +19,9 @@
   import SDGText
   import SDGLocalization
 
+  import SDGInterface
+
   import SDGInterfaceLocalizations
-  import SDGTextDisplay
 
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   internal struct LabelledProgressBarPreviews: PreviewProvider {
