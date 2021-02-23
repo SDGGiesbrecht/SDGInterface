@@ -22,8 +22,6 @@
 
   import SDGControlFlow
 
-  import SDGInterface
-
   /// An editor for multiline text.
   public struct TextEditor: CocoaViewImplementation {
 

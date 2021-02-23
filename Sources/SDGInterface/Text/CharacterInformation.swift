@@ -29,8 +29,6 @@
   import SDGText
   import SDGLocalization
 
-  import SDGInterface
-
   import SDGInterfaceLocalizations
 
   /// User‐presentable Unicode information about the characters in a string.

@@ -23,8 +23,6 @@
   import SDGLogic
   import SDGCollections
 
-  import SDGInterface
-
   #if canImport(AppKit)
     internal typealias CocoaTextView = NSTextView
   #elseif canImport(UIKit)

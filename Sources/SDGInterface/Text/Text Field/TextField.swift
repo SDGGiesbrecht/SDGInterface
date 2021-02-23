@@ -26,8 +26,6 @@
   import SDGControlFlow
   import SDGText
 
-  import SDGInterface
-
   /// A text label.
   @available(watchOS 6, *)
   public struct TextField: LegacyView {
