@@ -362,7 +362,7 @@ final class APITests: ApplicationTestCase {
   func testLabel() {
     #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
       MenuBarTarget.shared.demonstrateLabel()
-      let label = Label<SDGInterfaceSample.InterfaceLocalization>(
+      let label = SDGInterface.Label<SDGInterfaceSample.InterfaceLocalization>(
         UserFacing({ _ in "..." }),
         colour: .black
       )
