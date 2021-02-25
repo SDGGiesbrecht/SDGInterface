@@ -19,7 +19,7 @@
   import SDGLocalization
   import SDGPersistence
 
-  @testable import SDGTextDisplay
+  @testable import SDGInterface
 
   final class ResourceGeneration: XCTestCase {
 
@@ -59,9 +59,9 @@
       }
 
       let mapping = RichText.NormalizationAttribute.Mapping(compatibility)
-      let mappingURL = textDisplayResourcesDirectory.appendingPathComponent(
-        "Normalization Mapping.json"
-      )
+      let mappingURL =
+        interfaceResourcesDirectory
+        .appendingPathComponent("Normalization Mapping.json")
       try mapping.save(to: mappingURL)
       try String(from: mappingURL).appending("\n").save(to: mappingURL)
     }

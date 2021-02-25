@@ -22,7 +22,6 @@ import XCTest
 @testable import SDGKeyboardTests
 @testable import SDGMenuBarTests
 @testable import SDGProgressIndicatorsTests
-@testable import SDGTextDisplayTests
 
 extension SDGApplicationTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
@@ -93,22 +92,28 @@ extension SDGInterfaceTests.APITests {
       ("testAnchorSource", testAnchorSource),
       ("testAnyView", testAnyView),
       ("testApplicationName", testApplicationName),
+      ("testAttributedString", testAttributedString),
       ("testBackground", testBackground),
+      ("testCharacterInformation", testCharacterInformation),
       ("testCocoaView", testCocoaView),
       ("testCocoaViewImplementation", testCocoaViewImplementation),
       ("testCocoaWindow", testCocoaWindow),
       ("testCocoaWindowImplementation", testCocoaWindowImplementation),
       ("testColour", testColour),
+      ("testCompatibilityLabel", testCompatibilityLabel),
       ("testCompositeViewImplementation", testCompositeViewImplementation),
       ("testContentMode", testContentMode),
       ("testContextMenu", testContextMenu),
       ("testEdge", testEdge),
       ("testEdgeSet", testEdgeSet),
       ("testEmptyView", testEmptyView),
+      ("testFont", testFont),
       ("testHorizontalStack", testHorizontalStack),
       ("testKeyModifiers", testKeyModifiers),
+      ("testLabel", testLabel),
       ("testLayoutConstraintPriority", testLayoutConstraintPriority),
       ("testLegacyView", testLegacyView),
+      ("testLog", testLog),
       ("testMenu", testMenu),
       ("testMenuComponent", testMenuComponent),
       ("testMenuEntry", testMenuEntry),
@@ -117,9 +122,13 @@ extension SDGInterfaceTests.APITests {
       ("testPopOver", testPopOver),
       ("testPopOverAttachmentAnchor", testPopOverAttachmentAnchor),
       ("testRectangle", testRectangle),
+      ("testRichText", testRichText),
       ("testSize", testSize),
       ("testSwiftUIViewImplementation", testSwiftUIViewImplementation),
       ("testTable", testTable),
+      ("testTextEditor", testTextEditor),
+      ("testTextField", testTextField),
+      ("testTextView", testTextView),
       ("testUIPopOverArrowDirection", testUIPopOverArrowDirection),
       ("testUnitPoint", testUnitPoint),
       ("testView", testView),
@@ -134,6 +143,7 @@ extension SDGInterfaceTests.InternalTests {
       ("testLegacyView", testLegacyView),
       ("testPopOverCocoaImplementation", testPopOverCocoaImplementation),
       ("testProportionedView", testProportionedView),
+      ("testStrictString", testStrictString),
     ])
   ]
 }
@@ -171,31 +181,6 @@ extension SDGProgressIndicatorsTests.APITests {
   ]
 }
 
-extension SDGTextDisplayTests.APITests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
-      ("testAttributedString", testAttributedString),
-      ("testCharacterInformation", testCharacterInformation),
-      ("testCompatibilityLabel", testCompatibilityLabel),
-      ("testFont", testFont),
-      ("testLabel", testLabel),
-      ("testLog", testLog),
-      ("testRichText", testRichText),
-      ("testTextEditor", testTextEditor),
-      ("testTextField", testTextField),
-      ("testTextView", testTextView),
-    ])
-  ]
-}
-
-extension SDGTextDisplayTests.InternalTests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
-      ("testStrictString", testStrictString)
-    ])
-  ]
-}
-
 var tests = [XCTestCaseEntry]()
 tests += SDGApplicationTests.APITests.windowsTests
 tests += SDGApplicationTests.InternalTests.windowsTests
@@ -209,7 +194,5 @@ tests += SDGInterfaceTests.RegressionTests.windowsTests
 tests += SDGKeyboardTests.APITests.windowsTests
 tests += SDGMenuBarTests.APITests.windowsTests
 tests += SDGProgressIndicatorsTests.APITests.windowsTests
-tests += SDGTextDisplayTests.APITests.windowsTests
-tests += SDGTextDisplayTests.InternalTests.windowsTests
 
 XCTMain(tests)

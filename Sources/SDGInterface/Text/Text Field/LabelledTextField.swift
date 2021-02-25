@@ -23,9 +23,11 @@
     import UIKit
   #endif
 
+  import SDGControlFlow
+  import SDGText
   import SDGLocalization
 
-  import SDGInterface
+  import SDGInterfaceLocalizations
 
   /// A text field with a label.
   @available(watchOS 6, *)
@@ -74,8 +76,7 @@
   }
 
   // MARK: - View
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  internal typealias View = SDGInterface.View
+
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension LabelledTextField: View {
 
@@ -87,5 +88,31 @@
         }
       }
     #endif
+  }
+#endif
+
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  internal struct LabelledTextFieldPreviews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
+
+      Group {
+
+        previewBothModes(
+          LabelledTextField(
+            label: Label(
+              UserFacing<StrictString, APILocalization>({ localization in
+                switch localization {
+                case .englishCanada:
+                  return "Label"
+                }
+              })
+            ),
+            field: TextField(contents: Shared(""))
+          ).adjustForLegacyMode(),
+          name: "Default"
+        )
+      }
+    }
   }
 #endif

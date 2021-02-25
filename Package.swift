@@ -39,7 +39,6 @@ import PackageDescription
 /// import SDGLocalization
 ///
 /// import SDGInterface
-/// import SDGTextDisplay
 /// import SDGApplication
 ///
 /// public struct SampleApplication: SDGApplication.Application {
@@ -137,10 +136,6 @@ let package = Package(
     /// Images.
     .library(name: "SDGImageDisplay", targets: ["SDGImageDisplay"]),
 
-    // @documentation(SDGTextDisplay)
-    /// Text.
-    .library(name: "SDGTextDisplay", targets: ["SDGTextDisplay"]),
-
     // @documentation(SDGKeyboard)
     /// Utilities for working with keyboard input.
     .library(name: "SDGKeyboard", targets: ["SDGKeyboard"]),
@@ -228,7 +223,6 @@ let package = Package(
       dependencies: [
         "SDGInterfaceLocalizations",
         "SDGInterface",
-        "SDGTextDisplay",
         .product(name: "SDGControlFlow", package: "SDGCornerstone"),
         .product(name: "SDGLogic", package: "SDGCornerstone"),
         .product(name: "SDGMathematics", package: "SDGCornerstone"),
@@ -243,7 +237,6 @@ let package = Package(
       name: "SDGButtons",
       dependencies: [
         "SDGInterface",
-        "SDGTextDisplay",
         "SDGImageDisplay",
         .product(name: "SDGControlFlow", package: "SDGCornerstone"),
         .product(name: "SDGLogic", package: "SDGCornerstone"),
@@ -258,22 +251,6 @@ let package = Package(
       name: "SDGImageDisplay",
       dependencies: [
         "SDGInterface"
-      ]
-    ),
-
-    // #documentation(SDGTextDisplay)
-    /// Text.
-    .target(
-      name: "SDGTextDisplay",
-      dependencies: [
-        "SDGInterface",
-        "SDGInterfaceLocalizations",
-        .product(name: "SDGControlFlow", package: "SDGCornerstone"),
-        .product(name: "SDGLogic", package: "SDGCornerstone"),
-        .product(name: "SDGMathematics", package: "SDGCornerstone"),
-        .product(name: "SDGCollections", package: "SDGCornerstone"),
-        .product(name: "SDGText", package: "SDGCornerstone"),
-        .product(name: "SDGLocalization", package: "SDGCornerstone"),
       ]
     ),
 
@@ -302,7 +279,7 @@ let package = Package(
     .testTarget(
       name: "SDGInterfaceResourceGeneration",
       dependencies: [
-        "SDGTextDisplay",
+        "SDGInterface",
         .product(name: "SDGText", package: "SDGCornerstone"),
         .product(name: "SDGLocalization", package: "SDGCornerstone"),
         .product(name: "SDGPersistence", package: "SDGCornerstone"),
@@ -325,27 +302,9 @@ let package = Package(
       name: "SDGInterfaceTests",
       dependencies: [
         "SDGInterface",
-        "SDGTextDisplay",
         "SDGApplication",
         "SDGInterfaceSample",
         "SDGInterfaceLocalizations",
-        "SDGInterfaceTestUtilities",
-        "SDGApplicationTestUtilities",
-        .product(name: "SDGControlFlow", package: "SDGCornerstone"),
-        .product(name: "SDGLogic", package: "SDGCornerstone"),
-        .product(name: "SDGText", package: "SDGCornerstone"),
-        .product(name: "SDGLocalization", package: "SDGCornerstone"),
-        .product(name: "SDGXCTestUtilities", package: "SDGCornerstone"),
-      ]
-    ),
-
-    .testTarget(
-      name: "SDGTextDisplayTests",
-      dependencies: [
-        "SDGInterface",
-        "SDGApplication",
-        "SDGInterfaceLocalizations",
-        "SDGInterfaceSample",
         "SDGInterfaceTestUtilities",
         "SDGApplicationTestUtilities",
         .product(name: "SDGControlFlow", package: "SDGCornerstone"),
@@ -362,7 +321,7 @@ let package = Package(
     .testTarget(
       name: "SDGImageDisplayTests",
       dependencies: [
-        "SDGTextDisplay",
+        "SDGInterface",
         "SDGApplication",
         "SDGInterfaceSample",
         "SDGInterfaceTestUtilities",
@@ -392,7 +351,7 @@ let package = Package(
     .testTarget(
       name: "SDGProgressIndicatorsTests",
       dependencies: [
-        "SDGTextDisplay",
+        "SDGInterface",
         "SDGProgressIndicators",
         "SDGApplication",
         "SDGInterfaceSample",
@@ -432,7 +391,6 @@ let package = Package(
       name: "SDGApplicationTests",
       dependencies: [
         "SDGInterface",
-        "SDGTextDisplay",
         "SDGMenuBar",
         "SDGApplication",
         "SDGInterfaceLocalizations",
@@ -454,7 +412,6 @@ let package = Package(
       dependencies: [
         "SDGInterfaceLocalizations",
         "SDGInterface",
-        "SDGTextDisplay",
         "SDGImageDisplay",
         "SDGButtons",
         "SDGProgressIndicators",

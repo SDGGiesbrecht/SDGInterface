@@ -27,8 +27,6 @@
   import SDGText
   import SDGLocalization
 
-  import SDGInterface
-
   @available(watchOS 6, *)
   internal struct GenericLabel<L, S>: LegacyView where L: Localization, S: StringFamily {
 

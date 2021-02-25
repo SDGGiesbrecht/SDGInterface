@@ -66,4 +66,10 @@ final class InternalTests: ApplicationTestCase {
       _ = Proportioned(content: CocoaView(), aspectRatio: 1, contentMode: .fit).cocoa()
     #endif
   }
+
+  func testStrictString() {
+    var string = StrictString()
+    string.compatibility = "..."
+    _ = string.compatibility
+  }
 }

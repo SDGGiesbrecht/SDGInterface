@@ -27,8 +27,6 @@
   import SDGText
   import SDGLocalization
 
-  import SDGInterface
-
   /// A text label that preservers legacy characters in their noncanonical forms.
   @available(watchOS 6, *)
   public struct CompatibilityLabel<L>: LegacyView where L: Localization {

@@ -24,8 +24,6 @@
   import SDGText
   import SDGLocalization
 
-  import SDGInterface
-
   extension GenericLabel {
 
     #if canImport(AppKit)

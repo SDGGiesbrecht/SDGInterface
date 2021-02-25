@@ -40,7 +40,6 @@ import SDGText
 import SDGLocalization
 
 import SDGInterface
-import SDGTextDisplay
 import SDGApplication
 
 public struct SampleApplication: SDGApplication.Application {
@@ -133,7 +132,6 @@ let package = Package(
         .product(name: "SDGProgressIndicators", package: "SDGInterface"),
         .product(name: "SDGButtons", package: "SDGInterface"),
         .product(name: "SDGImageDisplay", package: "SDGInterface"),
-        .product(name: "SDGTextDisplay", package: "SDGInterface"),
         .product(name: "SDGKeyboard", package: "SDGInterface"),
       ]
     )
@@ -152,7 +150,6 @@ import SDGErrorMessages
 import SDGProgressIndicators
 import SDGButtons
 import SDGImageDisplay
-import SDGTextDisplay
 import SDGKeyboard
 ```
 

@@ -24,8 +24,6 @@
   import SDGLogic
   import SDGText
 
-  import SDGInterface
-
   extension TextField {
 
     #if canImport(AppKit)

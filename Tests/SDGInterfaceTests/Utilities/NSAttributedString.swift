@@ -17,7 +17,7 @@ import Foundation
 import SDGMathematics
 import SDGText
 
-@testable import SDGTextDisplay
+@testable import SDGInterface
 
 extension NSAttributedString {
 

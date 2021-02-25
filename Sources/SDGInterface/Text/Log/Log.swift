@@ -22,8 +22,6 @@
 
   import SDGControlFlow
 
-  import SDGInterface
-
   /// A textual log.
   ///
   /// A log is a text view that displays a progress log or similar text content that will be repeatedly appended to over time. Whenever the content is modified, the log scrolls to the bottom on the assumption that that is where the latest entry has been appended.

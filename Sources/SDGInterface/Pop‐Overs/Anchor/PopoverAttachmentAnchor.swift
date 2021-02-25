@@ -18,7 +18,7 @@
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension PopoverAttachmentAnchor {
 
-    /// Unwraps an instance of a shimmed `SDGPopOvers.AttachementAnchor`.
+    /// Unwraps an instance of a shimmed `SDGInterface.AttachementAnchor`.
     ///
     /// - Parameters:
     ///   - shimmed: The shimmed instance.
