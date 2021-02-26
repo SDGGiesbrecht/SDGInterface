@@ -169,6 +169,15 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
+  func testCocoaImage() {
+    #if canImport(AppKit) || canImport(UIKit)
+      var image = CocoaImage()
+      let native = CocoaImage.NativeType()
+      image.native = native
+      _ = image.native
+    #endif
+  }
+
   func testCocoaView() {
     #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
       let anchor = CocoaView()
@@ -349,6 +358,21 @@ final class APITests: ApplicationTestCase {
           testBody: false
         )
       }
+    #endif
+  }
+
+  func testImage() {
+    #if canImport(AppKit) || canImport(UIKit)
+      MenuBarTarget.shared.demonstrateImage()
+
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+          let swiftUI = SwiftUI.Image(CocoaImage())
+          let image = Image(swiftUI)
+          _ = image.swiftUI()
+          _ = image.cocoaImage()
+        }
+      #endif
     #endif
   }
 

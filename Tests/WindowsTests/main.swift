@@ -16,7 +16,6 @@ import XCTest
 
 @testable import SDGApplicationTests
 @testable import SDGButtonsTests
-@testable import SDGImageDisplayTests
 @testable import SDGInterfaceResourceGeneration
 @testable import SDGInterfaceTests
 @testable import SDGKeyboardTests
@@ -68,23 +67,6 @@ extension SDGButtonsTests.InternalTests {
   ]
 }
 
-extension SDGImageDisplayTests.APITests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
-      ("testCocoaImage", testCocoaImage),
-      ("testImage", testImage),
-    ])
-  ]
-}
-
-extension SDGImageDisplayTests.InternalTests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
-      ("testImage", testImage)
-    ])
-  ]
-}
-
 extension SDGInterfaceTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
@@ -95,6 +77,7 @@ extension SDGInterfaceTests.APITests {
       ("testAttributedString", testAttributedString),
       ("testBackground", testBackground),
       ("testCharacterInformation", testCharacterInformation),
+      ("testCocoaImage", testCocoaImage),
       ("testCocoaView", testCocoaView),
       ("testCocoaViewImplementation", testCocoaViewImplementation),
       ("testCocoaWindow", testCocoaWindow),
@@ -109,6 +92,7 @@ extension SDGInterfaceTests.APITests {
       ("testEmptyView", testEmptyView),
       ("testFont", testFont),
       ("testHorizontalStack", testHorizontalStack),
+      ("testImage", testImage),
       ("testKeyModifiers", testKeyModifiers),
       ("testLabel", testLabel),
       ("testLayoutConstraintPriority", testLayoutConstraintPriority),
@@ -140,6 +124,7 @@ extension SDGInterfaceTests.APITests {
 extension SDGInterfaceTests.InternalTests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
+      ("testImage", testImage),
       ("testLegacyView", testLegacyView),
       ("testPopOverCocoaImplementation", testPopOverCocoaImplementation),
       ("testProportionedView", testProportionedView),
@@ -186,8 +171,6 @@ tests += SDGApplicationTests.APITests.windowsTests
 tests += SDGApplicationTests.InternalTests.windowsTests
 tests += SDGButtonsTests.APITests.windowsTests
 tests += SDGButtonsTests.InternalTests.windowsTests
-tests += SDGImageDisplayTests.APITests.windowsTests
-tests += SDGImageDisplayTests.InternalTests.windowsTests
 tests += SDGInterfaceTests.APITests.windowsTests
 tests += SDGInterfaceTests.InternalTests.windowsTests
 tests += SDGInterfaceTests.RegressionTests.windowsTests
