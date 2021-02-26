@@ -20,7 +20,6 @@
   import SDGText
 
   import SDGInterface
-  import SDGImageDisplay
 
   /// A button label.
   public enum ButtonLabel {
@@ -29,7 +28,7 @@
     case text(StrictString)
 
     /// A symbol.
-    case symbol(SDGImageDisplay.Image)
+    case symbol(SDGInterface.Image)
 
     // MARK: - View
 

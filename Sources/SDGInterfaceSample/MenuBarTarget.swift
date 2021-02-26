@@ -20,7 +20,6 @@ import SDGText
 import SDGLocalization
 
 import SDGInterface
-import SDGImageDisplay
 import SDGButtons
 import SDGErrorMessages
 

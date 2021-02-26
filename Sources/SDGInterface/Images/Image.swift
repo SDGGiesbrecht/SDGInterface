@@ -23,8 +23,6 @@
     import UIKit
   #endif
 
-  import SDGInterface
-
   /// An image.
   public struct Image: LegacyView {
 
@@ -158,7 +156,7 @@
   internal struct ImagePreviews: PreviewProvider {
     internal static var previews: some SwiftUI.View {
 
-      let image: SDGImageDisplay.Image
+      let image: SDGInterface.Image
       #if os(macOS)
         image = .goRight
       #else
