@@ -25,8 +25,6 @@
   import SDGText
   import SDGLocalization
 
-  import SDGInterface
-
   extension SegmentedControl {
 
     #if canImport(AppKit)

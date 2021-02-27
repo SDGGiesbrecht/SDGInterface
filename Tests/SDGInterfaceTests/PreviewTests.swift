@@ -26,6 +26,28 @@
 
   final class PreviewTests: ApplicationTestCase {
 
+    func testButtonPreviews() {
+      for localization in InterfaceLocalization.allCases {
+        LocalizationSetting(orderOfPrecedence: [localization.code]).do {
+          if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
+            _ = ButtonPreviews.previews
+          }
+        }
+      }
+    }
+
+    func testCheckBoxPreviews() {
+      for localization in InterfaceLocalization.allCases {
+        LocalizationSetting(orderOfPrecedence: [localization.code]).do {
+          if #available(macOS 10.15, iOS 13, watchOS 6, *) {
+            #if !(os(tvOS) || os(iOS))
+              _ = CheckBoxPreviews.previews
+            #endif
+          }
+        }
+      }
+    }
+
     func testFramedPreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         _ = FramedPreviews.previews
@@ -93,6 +115,16 @@
         LocalizationSetting(orderOfPrecedence: [localization.code]).do {
           if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
             _ = RichTextPreviews.previews
+          }
+        }
+      }
+    }
+
+    func testSegmentedControlPreviews() {
+      for localization in InterfaceLocalization.allCases {
+        LocalizationSetting(orderOfPrecedence: [localization.code]).do {
+          if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
+            _ = SegmentedControlPreviews.previews
           }
         }
       }

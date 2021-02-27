@@ -19,8 +19,6 @@
 
   import SDGText
 
-  import SDGInterface
-
   /// A button label.
   public enum ButtonLabel {
 

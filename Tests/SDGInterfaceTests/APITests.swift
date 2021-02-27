@@ -151,6 +151,21 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
+  func testButton() {
+    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+      MenuBarTarget.shared.demonstrateButton()
+      let label = UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
+        { localization in
+          return "Button"
+        }
+      )
+      let button = Button(label: label, action: {})
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        testViewConformance(of: button)
+      }
+    #endif
+  }
+
   func testCharacterInformation() {
     #if canImport(AppKit) || canImport(UIKit)
       CharacterInformation.display(for: "abc", origin: nil)
@@ -166,6 +181,22 @@ final class APITests: ApplicationTestCase {
         for: "\u{22}\u{AA}b\u{E7}\u{22}",
         origin: (view, Rectangle(origin: Point(0, 0), size: Size(width: 0, height: 0)))
       )
+    #endif
+  }
+
+  func testCheckBox() {
+    #if canImport(AppKit) || canImport(UIKit)
+      MenuBarTarget.shared.demonstrateCheckBox()
+      #if canImport(AppKit)
+        let label = UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
+          { _ in
+            "Check Box"
+          })
+        let checkBox = CheckBox(label: label, isChecked: Shared(false))
+        if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+          testViewConformance(of: checkBox)
+        }
+      #endif
     #endif
   }
 
@@ -788,6 +819,27 @@ final class APITests: ApplicationTestCase {
         richText.italicize(range: richText.bounds)
         richText.embolden(range: richText.bounds)
       #endif
+    #endif
+  }
+
+  func testSegmentedControl() {
+    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+      MenuBarTarget.shared.demonstrateSegmentedControl()
+
+      enum Enumeration: CaseIterable {
+        case a, b
+      }
+      let segmentedControl = SegmentedControl(
+        labels: { _ in
+          UserFacing<ButtonLabel, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in
+            .text("label")
+          })
+        },
+        selection: Shared(Enumeration.a)
+      )
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        testViewConformance(of: segmentedControl)
+      }
     #endif
   }
 

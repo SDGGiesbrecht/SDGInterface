@@ -128,10 +128,6 @@ let package = Package(
     /// Progress indicators.
     .library(name: "SDGProgressIndicators", targets: ["SDGProgressIndicators"]),
 
-    // @documentation(SDGButtons)
-    /// Buttons.
-    .library(name: "SDGButtons", targets: ["SDGButtons"]),
-
     // @documentation(SDGKeyboard)
     /// Utilities for working with keyboard input.
     .library(name: "SDGKeyboard", targets: ["SDGKeyboard"]),
@@ -227,19 +223,6 @@ let package = Package(
       ]
     ),
 
-    // #documentation(SDGButtons)
-    /// Buttons.
-    .target(
-      name: "SDGButtons",
-      dependencies: [
-        "SDGInterface",
-        .product(name: "SDGControlFlow", package: "SDGCornerstone"),
-        .product(name: "SDGLogic", package: "SDGCornerstone"),
-        .product(name: "SDGText", package: "SDGCornerstone"),
-        .product(name: "SDGLocalization", package: "SDGCornerstone"),
-      ]
-    ),
-
     // #documentation(SDGKeyboard)
     /// Utilities for working with keyboard input.
     .target(
@@ -301,23 +284,6 @@ let package = Package(
         .product(name: "SDGXCTestUtilities", package: "SDGCornerstone"),
         .product(name: "SDGLogicTestUtilities", package: "SDGCornerstone"),
         .product(name: "SDGLocalizationTestUtilities", package: "SDGCornerstone"),
-      ]
-    ),
-
-    .testTarget(
-      name: "SDGButtonsTests",
-      dependencies: [
-        "SDGInterface",
-        "SDGButtons",
-        "SDGApplication",
-        "SDGInterfaceSample",
-        "SDGInterfaceLocalizations",
-        "SDGInterfaceTestUtilities",
-        "SDGApplicationTestUtilities",
-        .product(name: "SDGControlFlow", package: "SDGCornerstone"),
-        .product(name: "SDGText", package: "SDGCornerstone"),
-        .product(name: "SDGLocalization", package: "SDGCornerstone"),
-        .product(name: "SDGXCTestUtilities", package: "SDGCornerstone"),
       ]
     ),
 
@@ -385,7 +351,6 @@ let package = Package(
       dependencies: [
         "SDGInterfaceLocalizations",
         "SDGInterface",
-        "SDGButtons",
         "SDGProgressIndicators",
         "SDGErrorMessages",
         "SDGMenuBar",

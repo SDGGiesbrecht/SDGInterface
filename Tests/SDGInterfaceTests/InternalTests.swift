@@ -12,11 +12,17 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(AppKit)
+  import AppKit
+#endif
+
 import SDGControlFlow
 import SDGText
 import SDGLocalization
 
 @testable import SDGInterface
+
+import SDGInterfaceLocalizations
 
 import XCTest
 
@@ -24,6 +30,50 @@ import SDGInterfaceTestUtilities
 import SDGApplicationTestUtilities
 
 final class InternalTests: ApplicationTestCase {
+
+  func testButtonCocoaImplementation() {
+    #if canImport(AppKit) || canImport(UIKit)
+      let button = Button(
+        label: UserFacing<StrictString, InterfaceLocalization>({ _ in "Button" }),
+        action: {}
+      )
+      legacyMode = true
+      defer { legacyMode = false }
+      let cocoa = button.cocoa().native as! Button.Superclass
+      #if canImport(AppKit)
+        cocoa.sendAction(cocoa.action, to: cocoa.target)
+      #else
+        _ = cocoa
+      #endif
+    #endif
+  }
+
+  func testButtonLabel() {
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        _ = ButtonLabel.text("text").swiftUI()
+        _ = ButtonLabel.symbol(Image.empty).swiftUI()
+      }
+    #endif
+  }
+
+  func testCheckBoxCocoaImplementation() {
+    #if canImport(AppKit)
+      let isChecked = Shared(false)
+      let label = UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
+        { _ in
+          "Check Box"
+        })
+      let checkBox = CheckBox(label: label, isChecked: isChecked)
+      legacyMode = true
+      defer { legacyMode = false }
+      let cocoa = checkBox.cocoa().native as! NSButton
+      cocoa.state = .on
+      XCTAssert(isChecked.value)
+      isChecked.value = false
+      XCTAssertEqual(cocoa.state, .off)
+    #endif
+  }
 
   func testImage() {
     #if canImport(AppKit)
@@ -70,6 +120,26 @@ final class InternalTests: ApplicationTestCase {
     #if canImport(AppKit) || canImport(UIKit)
       _ = Proportioned(content: CocoaView(), aspectRatio: 1, contentMode: .fill).cocoa()
       _ = Proportioned(content: CocoaView(), aspectRatio: 1, contentMode: .fit).cocoa()
+    #endif
+  }
+
+  func testSegmentedControlCocoaImplementation() {
+    #if canImport(AppKit) || canImport(UIKit)
+      enum Enumeration: CaseIterable {
+        case a, b
+      }
+      let segmentedControl = SegmentedControl(
+        labels: { _ in UserFacing<ButtonLabel, InterfaceLocalization>({ _ in .text("label") }) },
+        selection: Shared(Enumeration.a)
+      )
+      legacyMode = true
+      defer { legacyMode = false }
+      let cocoa = segmentedControl.cocoa().native as! SegmentedControl.Superclass
+      #if canImport(AppKit)
+        cocoa.selectSegment(withTag: 1)
+      #else
+        cocoa.selectedSegmentIndex = 1
+      #endif
     #endif
   }
 

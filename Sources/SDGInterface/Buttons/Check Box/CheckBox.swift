@@ -24,7 +24,7 @@
   import SDGText
   import SDGLocalization
 
-  import SDGInterface
+  import SDGInterfaceLocalizations
 
   /// A check box.
   public struct CheckBox<L>: LegacyView where L: Localization {
@@ -71,5 +71,32 @@
         )
       }
     #endif
+  }
+#endif
+
+#if canImport(SwiftUI) && !(os(tvOS) || os(iOS) || os(watchOS))
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  internal struct CheckBoxPreviews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
+
+      Group {
+
+        previewBothModes(
+          CheckBox(
+            label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+              switch localization {
+              case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+                return "Check Box"
+              case .deutschDeutschland:
+                return "Kontrollkästchen"
+              }
+            }),
+            isChecked: Shared(false)
+          ).adjustForLegacyMode()
+            .padding(),
+          name: "Check Box"
+        )
+      }
+    }
   }
 #endif

@@ -20,8 +20,6 @@ import SDGControlFlow
 import SDGText
 import SDGLocalization
 
-import SDGInterface
-
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm)) && !os(watchOS)
   extension SegmentedControl {
 
@@ -51,7 +49,7 @@ import SDGInterface
       internal var body: some SwiftUI.View {
         return Picker(
           selection: $selection.value,
-          label: EmptyView(),
+          label: SwiftUI.EmptyView(),
           content: { content }
         ).pickerStyle(SegmentedPickerStyle())
       }
