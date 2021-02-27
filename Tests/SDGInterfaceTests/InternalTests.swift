@@ -25,6 +25,12 @@ import SDGApplicationTestUtilities
 
 final class InternalTests: ApplicationTestCase {
 
+  func testImage() {
+    #if canImport(AppKit)
+      XCTAssertNil(Image(systemIdentifier: "no such image"))
+    #endif
+  }
+
   func testLegacyView() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       forAllLegacyModes {

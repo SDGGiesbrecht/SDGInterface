@@ -23,8 +23,6 @@
     import UIKit
   #endif
 
-  import SDGInterface
-
   /// An image.
   public struct Image: LegacyView {
 
@@ -150,5 +148,30 @@
         return swiftUIImage()
       }
     #endif
+  }
+#endif
+
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  internal struct ImagePreviews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
+
+      let image: SDGInterface.Image
+      #if os(macOS)
+        image = .goRight
+      #else
+        image = .empty
+      #endif
+
+      return Group {
+
+        previewBothModes(
+          image
+            .adjustForLegacyMode()
+            .padding(),
+          name: "Image"
+        )
+      }
+    }
   }
 #endif

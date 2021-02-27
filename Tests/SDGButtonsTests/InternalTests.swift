@@ -20,7 +20,7 @@ import SDGControlFlow
 import SDGText
 import SDGLocalization
 
-import SDGImageDisplay
+import SDGInterface
 @testable import SDGButtons
 
 import SDGInterfaceLocalizations
