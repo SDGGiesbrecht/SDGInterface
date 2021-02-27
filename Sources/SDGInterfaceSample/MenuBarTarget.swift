@@ -20,7 +20,6 @@ import SDGText
 import SDGLocalization
 
 import SDGInterface
-import SDGButtons
 import SDGErrorMessages
 
 @objc public final class MenuBarTarget: NSObject {

@@ -24,8 +24,6 @@
   import SDGText
   import SDGLocalization
 
-  import SDGInterface
-
   import SDGInterfaceLocalizations
 
   /// A check box.
