@@ -15,7 +15,6 @@
 import XCTest
 
 @testable import SDGApplicationTests
-@testable import SDGButtonsTests
 @testable import SDGInterfaceResourceGeneration
 @testable import SDGInterfaceTests
 @testable import SDGKeyboardTests
@@ -46,27 +45,6 @@ extension SDGApplicationTests.InternalTests {
   ]
 }
 
-extension SDGButtonsTests.APITests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
-      ("testButton", testButton),
-      ("testCheckBox", testCheckBox),
-      ("testSegmentedControl", testSegmentedControl),
-    ])
-  ]
-}
-
-extension SDGButtonsTests.InternalTests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
-      ("testButtonCocoaImplementation", testButtonCocoaImplementation),
-      ("testButtonLabel", testButtonLabel),
-      ("testCheckBoxCocoaImplementation", testCheckBoxCocoaImplementation),
-      ("testSegmentedControlCocoaImplementation", testSegmentedControlCocoaImplementation),
-    ])
-  ]
-}
-
 extension SDGInterfaceTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
@@ -76,7 +54,9 @@ extension SDGInterfaceTests.APITests {
       ("testApplicationName", testApplicationName),
       ("testAttributedString", testAttributedString),
       ("testBackground", testBackground),
+      ("testButton", testButton),
       ("testCharacterInformation", testCharacterInformation),
+      ("testCheckBox", testCheckBox),
       ("testCocoaImage", testCocoaImage),
       ("testCocoaView", testCocoaView),
       ("testCocoaViewImplementation", testCocoaViewImplementation),
@@ -107,6 +87,7 @@ extension SDGInterfaceTests.APITests {
       ("testPopOverAttachmentAnchor", testPopOverAttachmentAnchor),
       ("testRectangle", testRectangle),
       ("testRichText", testRichText),
+      ("testSegmentedControl", testSegmentedControl),
       ("testSize", testSize),
       ("testSwiftUIViewImplementation", testSwiftUIViewImplementation),
       ("testTable", testTable),
@@ -124,10 +105,14 @@ extension SDGInterfaceTests.APITests {
 extension SDGInterfaceTests.InternalTests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
+      ("testButtonCocoaImplementation", testButtonCocoaImplementation),
+      ("testButtonLabel", testButtonLabel),
+      ("testCheckBoxCocoaImplementation", testCheckBoxCocoaImplementation),
       ("testImage", testImage),
       ("testLegacyView", testLegacyView),
       ("testPopOverCocoaImplementation", testPopOverCocoaImplementation),
       ("testProportionedView", testProportionedView),
+      ("testSegmentedControlCocoaImplementation", testSegmentedControlCocoaImplementation),
       ("testStrictString", testStrictString),
     ])
   ]
@@ -169,8 +154,6 @@ extension SDGProgressIndicatorsTests.APITests {
 var tests = [XCTestCaseEntry]()
 tests += SDGApplicationTests.APITests.windowsTests
 tests += SDGApplicationTests.InternalTests.windowsTests
-tests += SDGButtonsTests.APITests.windowsTests
-tests += SDGButtonsTests.InternalTests.windowsTests
 tests += SDGInterfaceTests.APITests.windowsTests
 tests += SDGInterfaceTests.InternalTests.windowsTests
 tests += SDGInterfaceTests.RegressionTests.windowsTests
