@@ -179,7 +179,7 @@
       @available(macOS 10.15, *)
       public func swiftUI() -> some SwiftUI.View {
         #warning("Parameters missing.")
-        return SwiftUIImplementation()
+        return SwiftUIImplementation(label: label)
       }
     #endif
   }
@@ -205,6 +205,7 @@
           hotKey: "d",
           action: #selector(TextEditingResponder.normalizeText)
         ).swiftUI()
+          .padding()
           .previewDisplayName("Menu Entry")
       }
     }

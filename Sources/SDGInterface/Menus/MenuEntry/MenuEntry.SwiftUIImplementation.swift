@@ -23,10 +23,19 @@
     @available(macOS 10.15, *)
     internal struct SwiftUIImplementation: SwiftUI.View {
 
+      // MARK: - Properties
+
+      let label: UserFacing<StrictString, L>
+
       // MARK: - View
 
       var body: some SwiftUI.View {
-        return SwiftUI.Text(verbatim: "...")
+        return Button(
+          label: label,
+          action: {
+            #warning("No action yet.")
+          }
+        ).swiftUI()
       }
     }
   }
