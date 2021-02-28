@@ -26,15 +26,14 @@
       // MARK: - Properties
 
       let label: UserFacing<StrictString, L>
+      let action: () -> Void
 
       // MARK: - View
 
       var body: some SwiftUI.View {
         return Button(
           label: label,
-          action: {
-            #warning("No action yet.")
-          }
+          action: action
         ).swiftUI()
       }
     }

@@ -179,7 +179,10 @@
       @available(macOS 10.15, *)
       public func swiftUI() -> some SwiftUI.View {
         #warning("Parameters missing.")
-        return SwiftUIImplementation(label: label)
+        return SwiftUIImplementation(
+          label: label,
+          action: action.action(target: target, sender: self)
+        )
       }
     #endif
   }

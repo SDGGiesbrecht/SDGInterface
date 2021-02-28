@@ -16,10 +16,27 @@
   import Foundation
   import ObjectiveC
 
+  #if canImport(AppKit)
+    import AppKit
+  #endif
+
   extension Selector {
+
+    // MARK: - None
+
     private class Responder: NSObject {
       @objc fileprivate func unimplementedSelector(_ sender: Any?) {}  // @exmpt(from: tests)
     }
     internal static let none: Selector = #selector(Responder.unimplementedSelector(_:))
+
+    // MARK: - Actions
+
+    #if canImport(AppKit)
+      public func action(target: Any?, sender: Any?) -> () -> Void {
+        return {
+          NSApplication.shared.sendAction(self, to: target, from: sender)
+        }
+      }
+    #endif
   }
 #endif
