@@ -13,6 +13,9 @@
  */
 
 #if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
+  #if canImport(SwiftUI)
+    import SwiftUI
+  #endif
   #if canImport(AppKit)
     import AppKit
   #endif
@@ -23,6 +26,8 @@
   import SDGControlFlow
   import SDGText
   import SDGLocalization
+
+  import SDGInterfaceLocalizations
 
   /// A menu entry.
   public struct MenuEntry<L>: AnyMenuEntry where L: Localization {
@@ -168,5 +173,40 @@
         )
       }
     #endif
+
+    #warning("This type’s methods need organizing.")
+    #if canImport(SwiftUI)
+      @available(macOS 10.15, *)
+      public func swiftUI() -> some SwiftUI.View {
+        #warning("Parameters missing.")
+        return SwiftUIImplementation()
+      }
+    #endif
+  }
+#endif
+
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  internal struct MenuEntryPreviews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
+
+      Group {
+
+        MenuEntry(
+          label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+              return "Do Something"
+            case .deutschDeutschland:
+              return "Etwas machen"
+            }
+          }),
+          hotKeyModifiers: [.command],
+          hotKey: "d",
+          action: #selector(TextEditingResponder.normalizeText)
+        ).swiftUI()
+          .previewDisplayName("Menu Entry")
+      }
+    }
   }
 #endif

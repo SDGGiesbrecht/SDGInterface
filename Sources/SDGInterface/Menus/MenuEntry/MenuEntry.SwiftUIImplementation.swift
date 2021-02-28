@@ -12,4 +12,22 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-import Foundation
+#if canImport(SwiftUI)
+  import SwiftUI
+
+  import SDGText
+  import SDGLocalization
+
+  extension MenuEntry {
+
+    @available(macOS 10.15, *)
+    internal struct SwiftUIImplementation: SwiftUI.View {
+
+      // MARK: - View
+
+      var body: some SwiftUI.View {
+        return SwiftUI.Text(verbatim: "...")
+      }
+    }
+  }
+#endif
