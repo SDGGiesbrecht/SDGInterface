@@ -27,8 +27,7 @@
 
       internal let label: UserFacing<StrictString, L>
       internal let action: () -> Void
-      #warning("Not handled yet.")
-      internal let hotKeyModifiers: KeyModifiers
+      internal let hotKeyModifiers: EventModifiers
       internal let hotKey: Character?
       internal let isDisabled: () -> Bool
 
@@ -43,7 +42,7 @@
       @ViewBuilder
       private var partialBody2: some SwiftUI.View {
         if let hotKey = hotKey {
-          partialBody1.keyboardShortcut(KeyEquivalent(hotKey), modifiers: .command)
+          partialBody1.keyboardShortcut(KeyEquivalent(hotKey), modifiers: hotKeyModifiers)
         } else {
           partialBody1
         }

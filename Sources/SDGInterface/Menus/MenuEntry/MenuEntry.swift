@@ -205,7 +205,7 @@
         return SwiftUIImplementation(
           label: label,
           action: action,
-          hotKeyModifiers: hotKeyModifiers,
+          hotKeyModifiers: hotKeyModifiers.swiftUI(),
           hotKey: hotKey,
           isDisabled: isDisabled
         )

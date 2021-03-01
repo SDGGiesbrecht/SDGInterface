@@ -66,7 +66,7 @@
             action: #selector(ClosureSelector.send),
             keyEquivalent: hotKey ?? ""
           )
-          self.keyEquivalentModifierMask = hotKeyModifiers.cocoa
+          self.keyEquivalentModifierMask = hotKeyModifiers.cocoa()
           self.target = self.closureSelector
         #else
           super.init(title: "" /* temporary placeholder */, action: action ?? .none)
