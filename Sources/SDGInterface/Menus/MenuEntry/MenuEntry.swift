@@ -71,7 +71,6 @@
         self.hotKeyModifiers = hotKeyModifiers
         self.hotKey = hotKey
         self.action = {
-          let target = target ?? NSApplication.shared
           NSApplication.shared.sendAction(selector, to: target, from: nil)
         }
         self.isDisabled = {
