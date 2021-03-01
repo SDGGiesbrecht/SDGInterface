@@ -15,6 +15,7 @@
 #if canImport(SwiftUI)
   import SwiftUI
 
+  import SDGControlFlow
   import SDGText
   import SDGLocalization
 
@@ -30,6 +31,7 @@
       internal let hotKeyModifiers: EventModifiers
       internal let hotKey: Character?
       internal let isDisabled: () -> Bool
+      @ObservedObject internal var isHidden: Shared<Bool>
 
       // MARK: - View
 
@@ -47,10 +49,18 @@
           partialBody1
         }
       }
-
-      var body: some SwiftUI.View {
-        partialBody2
+      private var partialBody3: some SwiftUI.View {
+        return
+          partialBody2
           .disabled(isDisabled())
+      }
+      @ViewBuilder
+      internal var body: some SwiftUI.View {
+        if isHidden.value {
+          partialBody3.hidden()
+        } else {
+          partialBody3
+        }
       }
     }
   }

@@ -135,7 +135,6 @@
 
     // MARK: - Properties
 
-    #warning("Properties need switching to SwiftUI style.")
     private let label: UserFacing<StrictString, L>
     private let hotKeyModifiers: KeyModifiers
     private let hotKey: Character?
@@ -207,7 +206,8 @@
           action: action,
           hotKeyModifiers: hotKeyModifiers.swiftUI(),
           hotKey: hotKey,
-          isDisabled: isDisabled
+          isDisabled: isDisabled,
+          isHidden: isHidden
         )
       }
     #endif
