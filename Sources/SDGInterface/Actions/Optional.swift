@@ -19,7 +19,7 @@
 
     // MARK: - Actions
 
-    public func action(target: Any?, sender: Any?) -> () -> Void {
+    public func action(target: Any? = nil, sender: Any? = nil) -> () -> Void {
       if let selector = self {
         return selector.action(target: target, sender: sender)
       } else {

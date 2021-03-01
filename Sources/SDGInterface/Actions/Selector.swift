@@ -32,7 +32,7 @@
     // MARK: - Actions
 
     #if canImport(AppKit)
-      public func action(target: Any?, sender: Any?) -> () -> Void {
+      public func action(target: Any? = nil, sender: Any? = nil) -> () -> Void {
         return {
           NSApplication.shared.sendAction(self, to: target, from: sender)
         }
