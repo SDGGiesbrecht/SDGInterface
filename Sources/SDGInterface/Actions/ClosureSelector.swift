@@ -36,7 +36,7 @@ internal class ClosureSelector: NSObject {
 
   // MARK: - Selector
 
-  internal @objc func send() {
+  @objc internal func send() {
     action()
   }
 }
