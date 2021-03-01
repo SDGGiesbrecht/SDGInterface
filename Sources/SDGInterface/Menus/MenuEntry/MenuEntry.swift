@@ -87,7 +87,9 @@
         self.isDisabled = {
           let proxy = { () -> NSMenuItem in
             let item = NSMenuItem(title: "", action: selector, keyEquivalent: "")
-            item.tag = platformTag ?? 0
+            if let tag = platformTag {
+              item.tag = tag
+            }
             return item
           }
           if let target = target {
