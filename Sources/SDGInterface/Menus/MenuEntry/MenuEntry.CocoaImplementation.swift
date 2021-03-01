@@ -69,7 +69,10 @@
           self.keyEquivalentModifierMask = hotKeyModifiers.cocoa()
           self.target = self.closureSelector
         #else
-          super.init(title: "" /* temporary placeholder */, action: action ?? .none)
+          super.init(
+            title: "" /* temporary placeholder */,
+            action: #selector(UIResponder.executeClosureAction(_:))
+          )
         #endif
 
         #if canImport(AppKit)
@@ -86,7 +89,7 @@
       // MARK: - Properties
 
       private let label: UserFacing<StrictString, L>
-      private let actionClosure: () -> Void
+      internal let actionClosure: () -> Void
       private let isDisabled: () -> Bool
       private let closureSelector: ClosureSelector
       #if canImport(AppKit)
@@ -130,4 +133,8 @@
       }
     }
   }
+#endif
+
+#if canImport(UIKit)
+  extension MenuEntry.CocoaImplementation: ClosureActionSender {}
 #endif
