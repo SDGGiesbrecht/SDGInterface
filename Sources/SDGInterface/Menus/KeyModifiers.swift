@@ -71,7 +71,7 @@ public struct KeyModifiers: OptionSet {
 
   // MARK: - Properties
 
-  #if canImport(SwiftUI)
+  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
     /// The SwiftUI event modifiers.
     @available(macOS 10.15, iOS 13, *)
     public func swiftUI() -> EventModifiers {

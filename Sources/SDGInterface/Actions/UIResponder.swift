@@ -19,7 +19,7 @@
 
     @objc internal func executeClosureAction(_ sender: Any?) {
       if let actionSender = sender as? ClosureActionSender {
-        actionSender.action()
+        actionSender.actionClosure()
       }
     }
   }

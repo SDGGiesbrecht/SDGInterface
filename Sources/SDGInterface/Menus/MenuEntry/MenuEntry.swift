@@ -140,9 +140,7 @@
     private let hotKeyModifiers: KeyModifiers
     private let hotKey: Character?
     private let action: () -> Void
-    #if canImport(AppKit)
-      private let tag: Int?
-    #endif
+    private let tag: Int?
     private let isDisabled: () -> Bool
     #if canImport(AppKit)
       private let isHidden: Shared<Bool>
@@ -170,9 +168,9 @@
 
     // MARK: - SwiftUI
 
-    #if canImport(SwiftUI)
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       /// Creates the menu item in SwiftUI.
-      @available(macOS 11, *)
+      @available(macOS 11, iOS 14, *)
       public func swiftUI() -> some SwiftUI.View {
         return SwiftUIImplementation(
           label: label,
@@ -206,10 +204,11 @@
           label: label,
           hotKeyModifiers:
             hotKeyModifiers,
-          hotKey: hotKey,
+          hotKey: hotKey.map({ String($0) }),
           action: action,
+          isDisabled: isDisabled,
           isHidden: Shared(false),
-          tag: nil
+          tag: tag
         )
       }
     #endif
