@@ -54,11 +54,9 @@
       self.hotKeyModifiers = hotKeyModifiers
       self.hotKey = hotKey
       self.action = action
+      self.tag = nil
       self.isDisabled = isDisabled
-      #if canImport(AppKit)
-        isHidden = Shared(false)
-        tag = nil
-      #endif
+      self.isHidden = Shared(false)
     }
 
     #if canImport(AppKit)
@@ -125,31 +123,34 @@
         selector: Selector
       ) {
         self.label = label
+        self.hotKeyModifiers = []
+        self.hotKey = nil
         self.action = {
           UIApplication.shared.sendAction(selector, to: nil, from: nil, for: nil)
         }
+        self.tag = nil
+        self.isDisabled = { false }
+        self.isHidden = Shared(false)
       }
     #endif
 
-    #if canImport(AppKit)
-      private init(
-        label: UserFacing<StrictString, L>,
-        hotKeyModifiers: KeyModifiers = [],
-        hotKey: Character? = nil,
-        action: @escaping () -> Void,
-        isDisabled: @escaping () -> Bool,
-        isHidden: Shared<Bool> = Shared(false),
-        platformTag: Int? = nil
-      ) {
-        self.label = label
-        self.hotKeyModifiers = hotKeyModifiers
-        self.hotKey = hotKey
-        self.action = action
-        self.isDisabled = isDisabled
-        self.isHidden = isHidden
-        self.tag = platformTag
-      }
-    #endif
+    private init(
+      label: UserFacing<StrictString, L>,
+      hotKeyModifiers: KeyModifiers = [],
+      hotKey: Character? = nil,
+      action: @escaping () -> Void,
+      isDisabled: @escaping () -> Bool,
+      isHidden: Shared<Bool> = Shared(false),
+      platformTag: Int? = nil
+    ) {
+      self.label = label
+      self.hotKeyModifiers = hotKeyModifiers
+      self.hotKey = hotKey
+      self.action = action
+      self.isDisabled = isDisabled
+      self.isHidden = isHidden
+      self.tag = platformTag
+    }
 
     // MARK: - Properties
 
@@ -159,29 +160,25 @@
     private let action: () -> Void
     private let tag: Int?
     private let isDisabled: () -> Bool
-    #if canImport(AppKit)
-      private let isHidden: Shared<Bool>
-    #endif
+    private let isHidden: Shared<Bool>
 
     // MARK: - Platform‐Specific Adjustements
 
-    #if canImport(AppKit)
-      /// Returns a menu entry reconfigured to hide itself according to the state of a binding.
-      ///
-      /// - Parameters:
-      ///   - isHidden: A binding indicating whether the menu item should be hidden.
-      public func hidden(when isHidden: Shared<Bool>) -> MenuEntry {
-        return MenuEntry(
-          label: label,
-          hotKeyModifiers: hotKeyModifiers,
-          hotKey: hotKey,
-          action: action,
-          isDisabled: isDisabled,
-          isHidden: isHidden,
-          platformTag: tag
-        )
-      }
-    #endif
+    /// Returns a menu entry reconfigured to hide itself according to the state of a binding.
+    ///
+    /// - Parameters:
+    ///   - isHidden: A binding indicating whether the menu item should be hidden.
+    public func hidden(when isHidden: Shared<Bool>) -> MenuEntry {
+      return MenuEntry(
+        label: label,
+        hotKeyModifiers: hotKeyModifiers,
+        hotKey: hotKey,
+        action: action,
+        isDisabled: isDisabled,
+        isHidden: isHidden,
+        platformTag: tag
+      )
+    }
 
     // MARK: - SwiftUI
 
@@ -233,7 +230,7 @@
 #endif
 
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-  @available(macOS 11, *)
+  @available(macOS 11, iOS 14, *)
   internal struct MenuEntryPreviews: PreviewProvider {
     internal static var previews: some SwiftUI.View {
 
