@@ -40,6 +40,7 @@
         hotKeyModifiers: KeyModifiers,
         hotKey: String?,
         action: @escaping () -> Void,
+        isDisabled: @escaping () -> Bool,
         isHidden: Shared<Bool>,
         tag: Int?
       ) {
@@ -49,7 +50,8 @@
         }
 
         self.actionClosure = action
-        self.closureSelector = ClosureSelector(action: action)
+        self.isDisabled = isDisabled
+        self.closureSelector = ClosureSelector(action: action, isDisabled: isDisabled)
 
         #if canImport(AppKit)
           self.isHiddenBinding = isHidden
@@ -85,6 +87,7 @@
 
       private let label: UserFacing<StrictString, L>
       private let actionClosure: () -> Void
+      private let isDisabled: () -> Bool
       private let closureSelector: ClosureSelector
       #if canImport(AppKit)
         private let isHiddenBinding: Shared<Bool>
@@ -100,6 +103,7 @@
             hotKeyModifiers: KeyModifiers(keyEquivalentModifierMask),
             hotKey: keyEquivalent,
             action: actionClosure,
+            isDisabled: isDisabled,
             isHidden: isHiddenBinding,
             tag: tag
           )
