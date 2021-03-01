@@ -24,6 +24,7 @@
   #endif
 
   import SDGControlFlow
+  import SDGLogic
   import SDGText
   import SDGLocalization
 
@@ -79,12 +80,12 @@
           }
           if let target = target {
             if let custom = target as? NSMenuItemValidation {
-              return custom.validateMenuItem(proxy())
+              return ¬custom.validateMenuItem(proxy())
             } else {
-              return true
+              return false
             }
           } else {
-            return NSApplication.shared.validateMenuItem(proxy())
+            return ¬NSApplication.shared.validateMenuItem(proxy())
           }
         }
         isHidden = Shared(false)
