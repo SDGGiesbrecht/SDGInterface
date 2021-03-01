@@ -39,9 +39,10 @@
     ///
     /// - Parameters:
     ///   - label: The label.
-    ///   - hotKeyModifiers: The hot key modifiers.
-    ///   - hotKey: The hot key.
+    ///   - hotKeyModifiers: Optional. The hot key modifiers.
+    ///   - hotKey: Optional. The hot key.
     ///   - action: The action.
+    ///   - isDisabled: Optional. A closure that determines whether or not the menu item is disabled.
     public init(
       label: UserFacing<StrictString, L>,
       hotKeyModifiers: KeyModifiers = [],
@@ -170,6 +171,7 @@
     // MARK: - SwiftUI
 
     #if canImport(SwiftUI)
+      /// Creates the menu item in SwiftUI.
       @available(macOS 11, *)
       public func swiftUI() -> some SwiftUI.View {
         return SwiftUIImplementation(
