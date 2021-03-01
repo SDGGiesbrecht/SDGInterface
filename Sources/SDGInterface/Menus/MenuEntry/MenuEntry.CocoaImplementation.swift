@@ -39,8 +39,7 @@
         label: UserFacing<StrictString, L>,
         hotKeyModifiers: KeyModifiers,
         hotKey: String?,
-        action: Selector?,
-        target: AnyObject?,
+        action: @escaping () -> Void,
         isHidden: Shared<Bool>,
         tag: Int?
       ) {
@@ -48,6 +47,9 @@
         defer {
           LocalizationSetting.current.register(observer: self, identifier: localizationIdentifier)
         }
+
+        self.actionClosure = action
+        self.closureSelector = ClosureSelector(action: action)
 
         #if canImport(AppKit)
           self.isHiddenBinding = isHidden
@@ -59,13 +61,11 @@
         #if canImport(AppKit)
           super.init(
             title: "" /* temporary placeholder */,
-            action: action,
+            action: #selector(ClosureSelector.send),
             keyEquivalent: hotKey ?? ""
           )
           self.keyEquivalentModifierMask = hotKeyModifiers.cocoa
-          if let target = target {
-            self.target = target
-          }
+          self.target = self.closureSelector
         #else
           super.init(title: "" /* temporary placeholder */, action: action ?? .none)
         #endif
@@ -84,6 +84,8 @@
       // MARK: - Properties
 
       private let label: UserFacing<StrictString, L>
+      private let actionClosure: () -> Void
+      private let closureSelector: ClosureSelector
       #if canImport(AppKit)
         private let isHiddenBinding: Shared<Bool>
       #endif
@@ -97,8 +99,7 @@
             label: label,
             hotKeyModifiers: KeyModifiers(keyEquivalentModifierMask),
             hotKey: keyEquivalent,
-            action: action,
-            target: target,
+            action: actionClosure,
             isHidden: isHiddenBinding,
             tag: tag
           )

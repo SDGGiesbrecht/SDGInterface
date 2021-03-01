@@ -45,14 +45,13 @@
       label: UserFacing<StrictString, L>,
       hotKeyModifiers: KeyModifiers = [],
       hotKey: String? = nil,
-      action: Selector? = nil
+      action: @escaping () -> Void
     ) {
       self.label = label
       self.hotKeyModifiers = hotKeyModifiers
       self.hotKey = hotKey
       self.action = action
       #if canImport(AppKit)
-        target = nil
         isHidden = Shared(false)
         tag = nil
       #endif
@@ -63,8 +62,7 @@
         label: UserFacing<StrictString, L>,
         hotKeyModifiers: KeyModifiers = [],
         hotKey: String? = nil,
-        action: Selector? = nil,
-        target: AnyObject? = nil,
+        action: @escaping () -> Void,
         isHidden: Shared<Bool> = Shared(false),
         platformTag: Int? = nil
       ) {
@@ -72,7 +70,6 @@
         self.hotKeyModifiers = hotKeyModifiers
         self.hotKey = hotKey
         self.action = action
-        self.target = target
         self.isHidden = isHidden
         self.tag = platformTag
       }
@@ -80,12 +77,12 @@
 
     // MARK: - Properties
 
+    #warning("Properties need switching to SwiftUI style.")
     private let label: UserFacing<StrictString, L>
     private let hotKeyModifiers: KeyModifiers
     private let hotKey: String?
-    private let action: Selector?
+    private let action: () -> Void
     #if canImport(AppKit)
-      private weak var target: AnyObject?
       private let isHidden: Shared<Bool>
       private let tag: Int?
     #endif
@@ -93,22 +90,6 @@
     // MARK: - Platform‐Specific Adjustements
 
     #if canImport(AppKit)
-      /// Returns a menu entry reconfigured to send its action to a specific target.
-      ///
-      /// - Parameters:
-      ///   - target: The target of the action.
-      public func target(_ target: AnyObject) -> MenuEntry {
-        return MenuEntry(
-          label: label,
-          hotKeyModifiers: hotKeyModifiers,
-          hotKey: hotKey,
-          action: action,
-          target: target,
-          isHidden: isHidden,
-          platformTag: tag
-        )
-      }
-
       /// Returns a menu entry reconfigured to hide itself according to the state of a binding.
       ///
       /// - Parameters:
@@ -119,7 +100,6 @@
           hotKeyModifiers: hotKeyModifiers,
           hotKey: hotKey,
           action: action,
-          target: target,
           isHidden: isHidden,
           platformTag: tag
         )
@@ -137,7 +117,6 @@
           hotKeyModifiers: hotKeyModifiers,
           hotKey: hotKey,
           action: action,
-          target: target,
           isHidden: isHidden,
           platformTag: platformTag
         )
@@ -154,7 +133,6 @@
             hotKeyModifiers,
           hotKey: hotKey,
           action: action,
-          target: target,
           isHidden: isHidden,
           tag: tag
         )
@@ -167,7 +145,6 @@
             hotKeyModifiers,
           hotKey: hotKey,
           action: action,
-          target: nil,
           isHidden: Shared(false),
           tag: nil
         )
@@ -181,7 +158,7 @@
         #warning("Parameters missing.")
         return SwiftUIImplementation(
           label: label,
-          action: action.action(target: target, sender: self)
+          action: action
         )
       }
     #endif
@@ -206,7 +183,7 @@
           }),
           hotKeyModifiers: [.command],
           hotKey: "d",
-          action: #selector(TextEditingResponder.normalizeText)
+          action: { print("Hello, world!") }
         ).swiftUI()
           .padding()
           .previewDisplayName("Menu Entry")
