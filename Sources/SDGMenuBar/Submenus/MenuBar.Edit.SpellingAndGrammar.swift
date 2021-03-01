@@ -44,7 +44,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: ":",
-        action: #selector(NSText.showGuessPanel(_:))
+        action: #selector(NSText.showGuessPanel(_:)).action()
       )
     }
 
@@ -68,7 +68,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: ";",
-        action: #selector(NSText.checkSpelling(_:))
+        action: #selector(NSText.checkSpelling(_:)).action()
       )
     }
 
@@ -90,7 +90,7 @@
             return "בדוק איות תוך כדי הקלדה"
           }
         }),
-        action: #selector(NSTextView.toggleContinuousSpellChecking(_:))
+        action: #selector(NSTextView.toggleContinuousSpellChecking(_:)).action()
       )
     }
 
@@ -112,7 +112,7 @@
             return "בדוק דקדוק ביחד עם איות"
           }
         }),
-        action: #selector(NSTextView.toggleGrammarChecking(_:))
+        action: #selector(NSTextView.toggleGrammarChecking(_:)).action()
       )
     }
 
@@ -135,7 +135,7 @@
             return "תקן איות באופן אוטומטי"
           }
         }),
-        action: #selector(NSTextView.toggleAutomaticSpellingCorrection(_:))
+        action: #selector(NSTextView.toggleAutomaticSpellingCorrection(_:)).action()
       )
     }
 

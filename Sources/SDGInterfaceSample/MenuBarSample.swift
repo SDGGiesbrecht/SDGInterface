@@ -34,9 +34,8 @@
             return "Error"
           }
         }),
-        action: #selector(MenuBarTarget.demonstrateError)
+        action: #selector(MenuBarTarget.demonstrateError).action(target: MenuBarTarget.shared)
       )
-      .target(MenuBarTarget.shared)
     }
 
     internal static func sample() -> Menu<InterfaceLocalization> {

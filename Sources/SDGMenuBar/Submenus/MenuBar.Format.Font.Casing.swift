@@ -34,7 +34,7 @@
             return "Normal"
           }
         }),
-        action: #selector(RichTextEditingResponder.resetCasing(_:))
+        action: #selector(RichTextEditingResponder.resetCasing(_:)).action()
       )
     }
 
@@ -48,7 +48,7 @@
             return "Großbuchstaben"
           }
         }),
-        action: #selector(RichTextEditingResponder.makeUpperCase(_:))
+        action: #selector(RichTextEditingResponder.makeUpperCase(_:)).action()
       )
     }
 
@@ -62,7 +62,7 @@
             return "Kapitälchen"
           }
         }),
-        action: #selector(RichTextEditingResponder.makeSmallCaps(_:))
+        action: #selector(RichTextEditingResponder.makeSmallCaps(_:)).action()
       )
     }
 
@@ -76,7 +76,7 @@
             return "Kleinbuchstaben"
           }
         }),
-        action: #selector(RichTextEditingResponder.makeLowerCase(_:))
+        action: #selector(RichTextEditingResponder.makeLowerCase(_:)).action()
       )
     }
 

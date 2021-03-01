@@ -45,7 +45,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "f",
-        action: #selector(NSTextView.performFindPanelAction(_:))
+        action: #selector(NSTextView.performFindPanelAction(_:)).action()
       )
       .tag(1)
     }
@@ -70,7 +70,7 @@
         }),
         hotKeyModifiers: [.command, .option],
         hotKey: "f",
-        action: #selector(NSTextView.performFindPanelAction(_:))
+        action: #selector(NSTextView.performFindPanelAction(_:)).action()
       )
       .tag(12)
     }
@@ -95,7 +95,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "g",
-        action: #selector(NSTextView.performFindPanelAction(_:))
+        action: #selector(NSTextView.performFindPanelAction(_:)).action()
       )
       .tag(2)
     }
@@ -120,7 +120,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "G",
-        action: #selector(NSTextView.performFindPanelAction(_:))
+        action: #selector(NSTextView.performFindPanelAction(_:)).action()
       )
       .tag(3)
     }
@@ -145,7 +145,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "e",
-        action: #selector(NSTextView.performFindPanelAction(_:))
+        action: #selector(NSTextView.performFindPanelAction(_:)).action()
       )
       .tag(7)
     }
@@ -170,7 +170,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "j",
-        action: #selector(NSResponder.centerSelectionInVisibleArea(_:))
+        action: #selector(NSResponder.centerSelectionInVisibleArea(_:)).action()
       )
     }
 

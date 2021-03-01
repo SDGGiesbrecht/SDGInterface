@@ -44,7 +44,7 @@
         }),
         hotKeyModifiers: [.command, .option],
         hotKey: "t",
-        action: #selector(NSWindow.toggleToolbarShown(_:))
+        action: #selector(NSWindow.toggleToolbarShown(_:)).action()
       )
     }
 
@@ -68,7 +68,7 @@
             return "התאמה אישית של סרגל הכלים..."
           }
         }),
-        action: #selector(NSWindow.runToolbarCustomizationPalette(_:))
+        action: #selector(NSWindow.runToolbarCustomizationPalette(_:)).action()
       )
     }
 
@@ -92,7 +92,7 @@
         }),
         hotKeyModifiers: [.command, .control],
         hotKey: "s",
-        action: Selector.toggleSourceList
+        action: Selector.toggleSourceList.action()
       )
     }
 
@@ -116,7 +116,7 @@
         }),
         hotKeyModifiers: [.command, .control],
         hotKey: "f",
-        action: #selector(NSWindow.toggleFullScreen(_:))
+        action: #selector(NSWindow.toggleFullScreen(_:)).action()
       )
     }
 

@@ -42,7 +42,7 @@
             return "השתמש בברירת המחדל"
           }
         }),
-        action: #selector(NSTextView.useStandardLigatures(_:))
+        action: #selector(NSTextView.useStandardLigatures(_:)).action()
       )
     }
 
@@ -64,7 +64,7 @@
             return "אל תשתמש בשום אפשרות"
           }
         }),
-        action: #selector(NSTextView.turnOffLigatures(_:))
+        action: #selector(NSTextView.turnOffLigatures(_:)).action()
       )
     }
 
@@ -86,7 +86,7 @@
             return "השתמש בכולם"
           }
         }),
-        action: #selector(NSTextView.useAllLigatures(_:))
+        action: #selector(NSTextView.useAllLigatures(_:)).action()
       )
     }
 

@@ -30,7 +30,8 @@
           case .englishCanada:
             return "Menu Entry"
           }
-        })
+        }),
+        action: {}
       )
     }
 

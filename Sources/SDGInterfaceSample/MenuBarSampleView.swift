@@ -34,9 +34,8 @@
             return "Button"
           }
         }),
-        action: #selector(MenuBarTarget.demonstrateButton)
+        action: #selector(MenuBarTarget.demonstrateButton).action(target: MenuBarTarget.shared)
       )
-      .target(MenuBarTarget.shared)
     }
 
     private static func buttonSet() -> MenuEntry<InterfaceLocalization> {
@@ -47,9 +46,10 @@
             return "Radio Buttons"
           }
         }),
-        action: #selector(MenuBarTarget.demonstrateSegmentedControl)
+        action: #selector(MenuBarTarget.demonstrateSegmentedControl).action(
+          target: MenuBarTarget.shared
+        )
       )
-      .target(MenuBarTarget.shared)
     }
 
     private static func checkBox() -> MenuEntry<InterfaceLocalization> {
@@ -60,9 +60,8 @@
             return "Check Box"
           }
         }),
-        action: #selector(MenuBarTarget.demonstrateCheckBox)
+        action: #selector(MenuBarTarget.demonstrateCheckBox).action(target: MenuBarTarget.shared)
       )
-      .target(MenuBarTarget.shared)
     }
 
     private static func image() -> MenuEntry<InterfaceLocalization> {
@@ -73,9 +72,8 @@
             return "Image"
           }
         }),
-        action: #selector(MenuBarTarget.demonstrateImage)
+        action: #selector(MenuBarTarget.demonstrateImage).action(target: MenuBarTarget.shared)
       )
-      .target(MenuBarTarget.shared)
     }
 
     private static func label() -> MenuEntry<InterfaceLocalization> {
@@ -86,9 +84,8 @@
             return "Label"
           }
         }),
-        action: #selector(MenuBarTarget.demonstrateLabel)
+        action: #selector(MenuBarTarget.demonstrateLabel).action(target: MenuBarTarget.shared)
       )
-      .target(MenuBarTarget.shared)
     }
 
     private static func log() -> MenuEntry<InterfaceLocalization> {
@@ -99,9 +96,8 @@
             return "Log"
           }
         }),
-        action: #selector(MenuBarTarget.demonstrateLog)
+        action: #selector(MenuBarTarget.demonstrateLog).action(target: MenuBarTarget.shared)
       )
-      .target(MenuBarTarget.shared)
     }
 
     private static func textEditor() -> MenuEntry<InterfaceLocalization> {
@@ -112,9 +108,8 @@
             return "Text Editor"
           }
         }),
-        action: #selector(MenuBarTarget.demonstrateTextEditor)
+        action: #selector(MenuBarTarget.demonstrateTextEditor).action(target: MenuBarTarget.shared)
       )
-      .target(MenuBarTarget.shared)
     }
 
     internal static func view() -> Menu<InterfaceLocalization> {

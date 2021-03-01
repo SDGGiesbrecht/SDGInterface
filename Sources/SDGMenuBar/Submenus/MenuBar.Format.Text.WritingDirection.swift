@@ -72,7 +72,7 @@
     private static func paragraphDefault() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: defaultLabel(),
-        action: #selector(NSResponder.makeBaseWritingDirectionNatural(_:))
+        action: #selector(NSResponder.makeBaseWritingDirectionNatural(_:)).action()
       )
     }
 
@@ -97,7 +97,7 @@
     private static func paragraphRightToLeft() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: rightToLeftLabel(),
-        action: #selector(NSResponder.makeBaseWritingDirectionRightToLeft(_:))
+        action: #selector(NSResponder.makeBaseWritingDirectionRightToLeft(_:)).action()
       )
     }
 
@@ -122,7 +122,7 @@
     private static func paragraphLeftToRight() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: leftToRightLabel(),
-        action: #selector(NSResponder.makeBaseWritingDirectionLeftToRight(_:))
+        action: #selector(NSResponder.makeBaseWritingDirectionLeftToRight(_:)).action()
       )
     }
 
@@ -156,21 +156,21 @@
     private static func selectionDefault() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: defaultLabel(),
-        action: #selector(NSResponder.makeTextWritingDirectionNatural(_:))
+        action: #selector(NSResponder.makeTextWritingDirectionNatural(_:)).action()
       )
     }
 
     private static func selectionRightToLeft() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: rightToLeftLabel(),
-        action: #selector(NSResponder.makeTextWritingDirectionRightToLeft(_:))
+        action: #selector(NSResponder.makeTextWritingDirectionRightToLeft(_:)).action()
       )
     }
 
     private static func selectionLeftToRight() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: leftToRightLabel(),
-        action: #selector(NSResponder.makeTextWritingDirectionLeftToRight(_:))
+        action: #selector(NSResponder.makeTextWritingDirectionLeftToRight(_:)).action()
       )
     }
 
