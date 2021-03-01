@@ -70,9 +70,9 @@
         hotKeyModifiers: .command,
         hotKey: "b",
         selector: #selector(NSFontManager.addFontTrait(_:)),
-        target: NSFontManager.shared
+        target: NSFontManager.shared,
+        platformTag: 2
       )
-      .tag(2)
     }
 
     private static func italic() -> MenuEntry<MenuBarLocalization> {
@@ -98,9 +98,9 @@
         hotKeyModifiers: .command,
         hotKey: "i",
         selector: #selector(NSFontManager.addFontTrait(_:)),
-        target: NSFontManager.shared
+        target: NSFontManager.shared,
+        platformTag: 1
       )
-      .tag(1)
     }
 
     private static func underline() -> MenuEntry<MenuBarLocalization> {
@@ -150,9 +150,9 @@
         hotKeyModifiers: .command,
         hotKey: "+",
         selector: #selector(NSFontManager.modifyFont(_:)),
-        target: NSFontManager.shared
+        target: NSFontManager.shared,
+        platformTag: 3
       )
-      .tag(3)
     }
 
     private static func smaller() -> MenuEntry<MenuBarLocalization> {
@@ -177,9 +177,9 @@
         hotKeyModifiers: .command,
         hotKey: "\u{2D}",
         selector: #selector(NSFontManager.modifyFont(_:)),
-        target: NSFontManager.shared
+        target: NSFontManager.shared,
+        platformTag: 4
       )
-      .tag(4)
     }
 
     private static func showColours() -> MenuEntry<MenuBarLocalization> {

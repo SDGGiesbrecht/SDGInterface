@@ -45,9 +45,9 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "f",
-        selector: #selector(NSTextView.performFindPanelAction(_:))
+        selector: #selector(NSTextView.performFindPanelAction(_:)),
+        platformTag: 1
       )
-      .tag(1)
     }
 
     private static func findAndReplace() -> MenuEntry<MenuBarLocalization> {
@@ -70,9 +70,9 @@
         }),
         hotKeyModifiers: [.command, .option],
         hotKey: "f",
-        selector: #selector(NSTextView.performFindPanelAction(_:))
+        selector: #selector(NSTextView.performFindPanelAction(_:)),
+        platformTag: 12
       )
-      .tag(12)
     }
 
     private static func findNext() -> MenuEntry<MenuBarLocalization> {
@@ -95,9 +95,9 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "g",
-        selector: #selector(NSTextView.performFindPanelAction(_:))
+        selector: #selector(NSTextView.performFindPanelAction(_:)),
+        platformTag: 2
       )
-      .tag(2)
     }
 
     private static func findPrevious() -> MenuEntry<MenuBarLocalization> {
@@ -120,9 +120,9 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "G",
-        selector: #selector(NSTextView.performFindPanelAction(_:))
+        selector: #selector(NSTextView.performFindPanelAction(_:)),
+        platformTag: 3
       )
-      .tag(3)
     }
 
     private static func useSelectionForFind() -> MenuEntry<MenuBarLocalization> {
@@ -145,9 +145,9 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "e",
-        selector: #selector(NSTextView.performFindPanelAction(_:))
+        selector: #selector(NSTextView.performFindPanelAction(_:)),
+        platformTag: 7
       )
-      .tag(7)
     }
 
     private static func jumpToSelection() -> MenuEntry<MenuBarLocalization> {

@@ -61,12 +61,22 @@
     }
 
     #if canImport(AppKit)
+      /// Creates a menu entry with a Cocoa selector.
+      ///
+      /// - Parameters:
+      ///   - label: The label.
+      ///   - hotKeyModifiers: The hot key modifiers.
+      ///   - hotKey: The hot key.
+      ///   - selector: The selector.
+      ///   - target: Optional. A target.
+      ///   - platformTag: Optional. Some platforms require tags in order to identify some of the actions they offer. This parameter should not otherwise be used.
       public init(
         label: UserFacing<StrictString, L>,
         hotKeyModifiers: KeyModifiers = [],
         hotKey: String? = nil,
         selector: Selector,
-        target: Any? = nil
+        target: Any? = nil,
+        platformTag: Int? = nil
       ) {
         self.label = label
         self.hotKeyModifiers = hotKeyModifiers
@@ -75,8 +85,10 @@
           NSApplication.shared.sendAction(selector, to: target, from: nil)
         }
         self.isDisabled = {
-          let proxy: () -> NSMenuItem = {
-            return NSMenuItem(title: "", action: selector, keyEquivalent: "")
+          let proxy = { () -> NSMenuItem in
+            let item = NSMenuItem(title: "", action: selector, keyEquivalent: "")
+            item.tag = platformTag ?? 0
+            return item
           }
           if let target = target {
             if let custom = target as? NSMenuItemValidation {
@@ -95,7 +107,7 @@
           }
         }
         isHidden = Shared(false)
-        tag = nil
+        tag = platformTag
       }
     #endif
 
@@ -126,10 +138,12 @@
     private let hotKeyModifiers: KeyModifiers
     private let hotKey: String?
     private let action: () -> Void
+    #if canImport(AppKit)
+      private let tag: Int?
+    #endif
     private let isDisabled: () -> Bool
     #if canImport(AppKit)
       private let isHidden: Shared<Bool>
-      private let tag: Int?
     #endif
 
     // MARK: - Platform‐Specific Adjustements
@@ -148,24 +162,6 @@
           isDisabled: isDisabled,
           isHidden: isHidden,
           platformTag: tag
-        )
-      }
-
-      /// Returns a menu entry reconfigured with a particular platform tag.
-      ///
-      /// System actions on some platforms need numeric tag identifiers to provide additional information when the action is triggered. Use of this method is discouraged except when necessary to interact with such system actions.
-      ///
-      /// - Parameters:
-      ///   - platformTag: The platform tag.
-      public func tag(_ platformTag: Int) -> MenuEntry {
-        return MenuEntry(
-          label: label,
-          hotKeyModifiers: hotKeyModifiers,
-          hotKey: hotKey,
-          action: action,
-          isDisabled: isDisabled,
-          isHidden: isHidden,
-          platformTag: platformTag
         )
       }
     #endif
