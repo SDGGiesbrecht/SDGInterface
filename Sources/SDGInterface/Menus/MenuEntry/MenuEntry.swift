@@ -167,6 +167,22 @@
       }
     #endif
 
+    // MARK: - SwiftUI
+
+    #if canImport(SwiftUI)
+      @available(macOS 11, *)
+      public func swiftUI() -> some SwiftUI.View {
+        return SwiftUIImplementation(
+          label: label,
+          action: action,
+          hotKeyModifiers: hotKeyModifiers.swiftUI(),
+          hotKey: hotKey,
+          isDisabled: isDisabled,
+          isHidden: isHidden
+        )
+      }
+    #endif
+
     // MARK: - AnyMenuEntry
 
     #if canImport(AppKit)
@@ -192,22 +208,6 @@
           action: action,
           isHidden: Shared(false),
           tag: nil
-        )
-      }
-    #endif
-
-    #warning("This type’s methods need organizing.")
-    #if canImport(SwiftUI)
-      @available(macOS 11, *)
-      public func swiftUI() -> some SwiftUI.View {
-        #warning("Parameters missing.")
-        return SwiftUIImplementation(
-          label: label,
-          action: action,
-          hotKeyModifiers: hotKeyModifiers.swiftUI(),
-          hotKey: hotKey,
-          isDisabled: isDisabled,
-          isHidden: isHidden
         )
       }
     #endif

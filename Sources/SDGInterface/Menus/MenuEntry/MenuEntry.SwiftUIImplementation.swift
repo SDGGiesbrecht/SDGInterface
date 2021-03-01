@@ -57,7 +57,7 @@
       @ViewBuilder
       internal var body: some SwiftUI.View {
         if isHidden.value {
-          partialBody3.hidden()
+          SwiftUI.EmptyView()
         } else {
           partialBody3
         }
