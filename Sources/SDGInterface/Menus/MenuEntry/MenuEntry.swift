@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
+#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
   #if canImport(SwiftUI)
     import SwiftUI
   #endif
@@ -31,6 +31,7 @@
   import SDGInterfaceLocalizations
 
   /// A menu entry.
+  @available(tvOS 14, *)
   public struct MenuEntry<L>: AnyMenuEntry where L: Localization {
 
     // MARK: - Initialization
@@ -212,7 +213,7 @@
           tag: tag
         )
       }
-    #elseif canImport(UIKit)
+    #elseif canImport(UIKit) && !os(tvOS) && !os(watchOS)
       public func cocoa() -> UIMenuItem {
         return CocoaImplementation(
           label: label,
@@ -230,7 +231,7 @@
 #endif
 
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-  @available(macOS 11, iOS 14, *)
+  @available(macOS 11, tvOS 14, iOS 14, *)
   internal struct MenuEntryPreviews: PreviewProvider {
     internal static var previews: some SwiftUI.View {
 

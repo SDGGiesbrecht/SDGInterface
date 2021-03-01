@@ -133,8 +133,6 @@
       }
     }
   }
-#endif
 
-#if canImport(UIKit)
   extension MenuEntry.CocoaImplementation: ClosureActionSender {}
 #endif

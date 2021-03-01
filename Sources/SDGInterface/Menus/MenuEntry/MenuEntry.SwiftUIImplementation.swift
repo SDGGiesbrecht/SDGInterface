@@ -19,6 +19,7 @@
   import SDGText
   import SDGLocalization
 
+  @available(tvOS 14, *)
   extension MenuEntry {
 
     @available(macOS 11, iOS 14, *)
@@ -43,11 +44,15 @@
       }
       @ViewBuilder
       private var partialBody2: some SwiftUI.View {
-        if let hotKey = hotKey {
-          partialBody1.keyboardShortcut(KeyEquivalent(hotKey), modifiers: hotKeyModifiers)
-        } else {
+        #if os(tvOS)
           partialBody1
-        }
+        #else
+          if let hotKey = hotKey {
+            partialBody1.keyboardShortcut(KeyEquivalent(hotKey), modifiers: hotKeyModifiers)
+          } else {
+            partialBody1
+          }
+        #endif
       }
       private var partialBody3: some SwiftUI.View {
         return
