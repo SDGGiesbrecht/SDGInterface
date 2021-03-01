@@ -75,7 +75,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "?",
-        action: #selector(NSApplication.showHelp(_:)).action()
+        selector: #selector(NSApplication.showHelp(_:))
       )
       .hidden(when: Shared(Bundle.main.infoDictionary?["CFBundleHelpBookName"] == nil))
     }

@@ -72,7 +72,7 @@
     private static func paragraphDefault() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: defaultLabel(),
-        action: #selector(NSResponder.makeBaseWritingDirectionNatural(_:)).action()
+        selector: #selector(NSResponder.makeBaseWritingDirectionNatural(_:))
       )
     }
 
@@ -97,7 +97,7 @@
     private static func paragraphRightToLeft() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: rightToLeftLabel(),
-        action: #selector(NSResponder.makeBaseWritingDirectionRightToLeft(_:)).action()
+        selector: #selector(NSResponder.makeBaseWritingDirectionRightToLeft(_:))
       )
     }
 
@@ -122,7 +122,7 @@
     private static func paragraphLeftToRight() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: leftToRightLabel(),
-        action: #selector(NSResponder.makeBaseWritingDirectionLeftToRight(_:)).action()
+        selector: #selector(NSResponder.makeBaseWritingDirectionLeftToRight(_:))
       )
     }
 
@@ -156,21 +156,21 @@
     private static func selectionDefault() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: defaultLabel(),
-        action: #selector(NSResponder.makeTextWritingDirectionNatural(_:)).action()
+        selector: #selector(NSResponder.makeTextWritingDirectionNatural(_:))
       )
     }
 
     private static func selectionRightToLeft() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: rightToLeftLabel(),
-        action: #selector(NSResponder.makeTextWritingDirectionRightToLeft(_:)).action()
+        selector: #selector(NSResponder.makeTextWritingDirectionRightToLeft(_:))
       )
     }
 
     private static func selectionLeftToRight() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: leftToRightLabel(),
-        action: #selector(NSResponder.makeTextWritingDirectionLeftToRight(_:)).action()
+        selector: #selector(NSResponder.makeTextWritingDirectionLeftToRight(_:))
       )
     }
 

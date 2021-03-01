@@ -42,7 +42,7 @@
             return "הצג החלפות"
           }
         }),
-        action: #selector(NSTextView.orderFrontSubstitutionsPanel(_:)).action()
+        selector: #selector(NSTextView.orderFrontSubstitutionsPanel(_:))
       )
     }
 
@@ -64,7 +64,7 @@
             return "העתקה והדבקה חכמות"
           }
         }),
-        action: #selector(NSTextView.toggleSmartInsertDelete(_:)).action()
+        selector: #selector(NSTextView.toggleSmartInsertDelete(_:))
       )
     }
 
@@ -86,7 +86,7 @@
             return "מרכאות חכמות"
           }
         }),
-        action: #selector(NSTextView.toggleAutomaticQuoteSubstitution(_:)).action()
+        selector: #selector(NSTextView.toggleAutomaticQuoteSubstitution(_:))
       )
     }
 
@@ -108,7 +108,7 @@
             return "מיקוף חכם"
           }
         }),
-        action: #selector(NSTextView.toggleAutomaticDashSubstitution(_:)).action()
+        selector: #selector(NSTextView.toggleAutomaticDashSubstitution(_:))
       )
     }
 
@@ -130,7 +130,7 @@
             return "קישורים חכמים"
           }
         }),
-        action: #selector(NSTextView.toggleAutomaticLinkDetection(_:)).action()
+        selector: #selector(NSTextView.toggleAutomaticLinkDetection(_:))
       )
     }
 
@@ -153,7 +153,7 @@
             return "גלאי נתונים"
           }
         }),
-        action: #selector(NSTextView.toggleAutomaticDataDetection(_:)).action()
+        selector: #selector(NSTextView.toggleAutomaticDataDetection(_:))
       )
     }
 
@@ -175,7 +175,7 @@
             return "החלפת מלל"
           }
         }),
-        action: #selector(NSTextView.toggleAutomaticTextReplacement(_:)).action()
+        selector: #selector(NSTextView.toggleAutomaticTextReplacement(_:))
       )
     }
 

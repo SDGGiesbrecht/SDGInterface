@@ -34,7 +34,8 @@
             return "Text Field"
           }
         }),
-        action: #selector(MenuBarTarget.demonstrateTextField).action(target: MenuBarTarget.shared)
+        selector: #selector(MenuBarTarget.demonstrateTextField),
+        target: MenuBarTarget.shared
       )
     }
 
@@ -46,9 +47,8 @@
             return "Labelled Text Field"
           }
         }),
-        action: #selector(MenuBarTarget.demonstrateLabelledTextField).action(
-          target: MenuBarTarget.shared
-        )
+        selector: #selector(MenuBarTarget.demonstrateLabelledTextField),
+        target: MenuBarTarget.shared
       )
     }
 

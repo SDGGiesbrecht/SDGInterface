@@ -45,7 +45,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "n",
-        action: #selector(NSDocumentController.newDocument(_:)).action()
+        selector: #selector(NSDocumentController.newDocument(_:))
       )
     }
 
@@ -70,7 +70,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "o",
-        action: #selector(NSDocumentController.openDocument(_:)).action()
+        selector: #selector(NSDocumentController.openDocument(_:))
       )
     }
 
@@ -94,7 +94,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "w",
-        action: #selector(NSWindow.performClose(_:)).action()
+        selector: #selector(NSWindow.performClose(_:))
       )
     }
 
@@ -118,7 +118,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "s",
-        action: #selector(NSDocument.save(_:)).action()
+        selector: #selector(NSDocument.save(_:))
       )
     }
 
@@ -143,7 +143,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "S",
-        action: #selector(NSDocument.duplicate(_:)).action()
+        selector: #selector(NSDocument.duplicate(_:))
       )
     }
 
@@ -166,7 +166,7 @@
             return "שינוי שם..."
           }
         }),
-        action: #selector(NSDocument.rename(_:)).action()
+        selector: #selector(NSDocument.rename(_:))
       )
     }
 
@@ -188,7 +188,7 @@
             return "העבר אל..."
           }
         }),
-        action: #selector(NSDocument.move(_:)).action()
+        selector: #selector(NSDocument.move(_:))
       )
     }
 
@@ -204,7 +204,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "r",
-        action: #selector(NSDocument.revertToSaved(_:)).action()
+        selector: #selector(NSDocument.revertToSaved(_:))
       )
     }
 
@@ -228,7 +228,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "P",
-        action: #selector(NSDocument.runPageLayout(_:)).action()
+        selector: #selector(NSDocument.runPageLayout(_:))
       )
     }
 
@@ -252,7 +252,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "p",
-        action: #selector(NSView.printView(_:)).action()
+        selector: #selector(NSView.printView(_:))
       )
     }
 

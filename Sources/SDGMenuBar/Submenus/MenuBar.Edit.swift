@@ -44,7 +44,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "z",
-        action: Selector.undo.action()
+        selector: Selector.undo
       )
     }
 
@@ -68,7 +68,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "Z",
-        action: Selector.redo.action()
+        selector: Selector.redo
       )
     }
 
@@ -92,7 +92,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "x",
-        action: #selector(NSText.cut(_:)).action()
+        selector: #selector(NSText.cut(_:))
       )
     }
 
@@ -117,7 +117,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "c",
-        action: #selector(NSText.copy(_:)).action()
+        selector: #selector(NSText.copy(_:))
       )
     }
 
@@ -143,7 +143,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "v",
-        action: #selector(NSText.paste(_:)).action()
+        selector: #selector(NSText.paste(_:))
       )
     }
 
@@ -167,7 +167,7 @@
         }),
         hotKeyModifiers: [.command, .option],
         hotKey: "V",
-        action: #selector(NSTextView.pasteAsPlainText(_:)).action()
+        selector: #selector(NSTextView.pasteAsPlainText(_:))
       )
     }
 
@@ -189,7 +189,7 @@
             return "מחק"
           }
         }),
-        action: #selector(NSText.delete(_:)).action()
+        selector: #selector(NSText.delete(_:))
       )
     }
 
@@ -213,7 +213,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "a",
-        action: #selector(NSResponder.selectAll(_:)).action()
+        selector: #selector(NSResponder.selectAll(_:))
       )
     }
 

@@ -34,9 +34,8 @@
             return "Fullscreen"
           }
         }),
-        action: #selector(MenuBarTarget.demonstrateFullscreenWindow).action(
-          target: MenuBarTarget.shared
-        )
+        selector: #selector(MenuBarTarget.demonstrateFullscreenWindow),
+        target: MenuBarTarget.shared
       )
     }
 

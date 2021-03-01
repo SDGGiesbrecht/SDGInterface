@@ -44,9 +44,8 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "t",
-        action: #selector(NSFontManager.orderFrontFontPanel(_:)).action(
-          target: NSFontManager.shared
-        )
+        selector: #selector(NSFontManager.orderFrontFontPanel(_:)),
+        target: NSFontManager.shared
       )
     }
 
@@ -70,7 +69,8 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "b",
-        action: #selector(NSFontManager.addFontTrait(_:)).action(target: NSFontManager.shared)
+        selector: #selector(NSFontManager.addFontTrait(_:)),
+        target: NSFontManager.shared
       )
       .tag(2)
     }
@@ -97,7 +97,8 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "i",
-        action: #selector(NSFontManager.addFontTrait(_:)).action(target: NSFontManager.shared)
+        selector: #selector(NSFontManager.addFontTrait(_:)),
+        target: NSFontManager.shared
       )
       .tag(1)
     }
@@ -122,7 +123,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "u",
-        action: #selector(NSText.underline(_:)).action()
+        selector: #selector(NSText.underline(_:))
       )
     }
 
@@ -148,7 +149,8 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "+",
-        action: #selector(NSFontManager.modifyFont(_:)).action(target: NSFontManager.shared)
+        selector: #selector(NSFontManager.modifyFont(_:)),
+        target: NSFontManager.shared
       )
       .tag(3)
     }
@@ -174,7 +176,8 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "\u{2D}",
-        action: #selector(NSFontManager.modifyFont(_:)).action(target: NSFontManager.shared)
+        selector: #selector(NSFontManager.modifyFont(_:)),
+        target: NSFontManager.shared
       )
       .tag(4)
     }
@@ -201,7 +204,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "C",
-        action: #selector(NSApplication.orderFrontColorPanel(_:)).action()
+        selector: #selector(NSApplication.orderFrontColorPanel(_:))
       )
     }
 
@@ -226,7 +229,7 @@
         }),
         hotKeyModifiers: [.command, .option],
         hotKey: "c",
-        action: #selector(NSText.copyFont(_:)).action()
+        selector: #selector(NSText.copyFont(_:))
       )
     }
 
@@ -250,7 +253,7 @@
         }),
         hotKeyModifiers: [.command, .option],
         hotKey: "v",
-        action: #selector(NSText.pasteFont(_:)).action()
+        selector: #selector(NSText.pasteFont(_:))
       )
     }
 

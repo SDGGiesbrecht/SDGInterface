@@ -69,7 +69,7 @@
             return "אותות \(היישום)"
           }
         }),
-        action: #selector(NSApplication.orderFrontStandardAboutPanel(_:)).action()
+        selector: #selector(NSApplication.orderFrontStandardAboutPanel(_:))
       )
     }
 
@@ -94,7 +94,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: ",",
-        action: #selector(_NSApplicationDelegateProtocol.openPreferences(_:)).action()
+        selector: #selector(_NSApplicationDelegateProtocol.openPreferences(_:))
       )
     }
 
@@ -167,7 +167,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "h",
-        action: #selector(NSApplication.hide(_:)).action()
+        selector: #selector(NSApplication.hide(_:))
       )
     }
 
@@ -191,7 +191,7 @@
         }),
         hotKeyModifiers: [.option, .command],
         hotKey: "h",
-        action: #selector(NSApplication.hideOtherApplications(_:)).action()
+        selector: #selector(NSApplication.hideOtherApplications(_:))
       )
     }
 
@@ -213,7 +213,7 @@
             return "הצג הכול"
           }
         }),
-        action: #selector(NSApplication.unhideAllApplications(_:)).action()
+        selector: #selector(NSApplication.unhideAllApplications(_:))
       )
     }
 
@@ -267,7 +267,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "q",
-        action: #selector(NSApplication.terminate(_:)).action()
+        selector: #selector(NSApplication.terminate(_:))
       )
     }
 

@@ -34,7 +34,8 @@
             return "Button"
           }
         }),
-        action: #selector(MenuBarTarget.demonstrateButton).action(target: MenuBarTarget.shared)
+        selector: #selector(MenuBarTarget.demonstrateButton),
+        target: MenuBarTarget.shared
       )
     }
 
@@ -46,9 +47,8 @@
             return "Radio Buttons"
           }
         }),
-        action: #selector(MenuBarTarget.demonstrateSegmentedControl).action(
-          target: MenuBarTarget.shared
-        )
+        selector: #selector(MenuBarTarget.demonstrateSegmentedControl),
+        target: MenuBarTarget.shared
       )
     }
 
@@ -60,7 +60,8 @@
             return "Check Box"
           }
         }),
-        action: #selector(MenuBarTarget.demonstrateCheckBox).action(target: MenuBarTarget.shared)
+        selector: #selector(MenuBarTarget.demonstrateCheckBox),
+        target: MenuBarTarget.shared
       )
     }
 
@@ -72,7 +73,8 @@
             return "Image"
           }
         }),
-        action: #selector(MenuBarTarget.demonstrateImage).action(target: MenuBarTarget.shared)
+        selector: #selector(MenuBarTarget.demonstrateImage),
+        target: MenuBarTarget.shared
       )
     }
 
@@ -84,7 +86,8 @@
             return "Label"
           }
         }),
-        action: #selector(MenuBarTarget.demonstrateLabel).action(target: MenuBarTarget.shared)
+        selector: #selector(MenuBarTarget.demonstrateLabel),
+        target: MenuBarTarget.shared
       )
     }
 
@@ -96,7 +99,8 @@
             return "Log"
           }
         }),
-        action: #selector(MenuBarTarget.demonstrateLog).action(target: MenuBarTarget.shared)
+        selector: #selector(MenuBarTarget.demonstrateLog),
+        target: MenuBarTarget.shared
       )
     }
 
@@ -108,7 +112,8 @@
             return "Text Editor"
           }
         }),
-        action: #selector(MenuBarTarget.demonstrateTextEditor).action(target: MenuBarTarget.shared)
+        selector: #selector(MenuBarTarget.demonstrateTextEditor),
+        target: MenuBarTarget.shared
       )
     }
 

@@ -46,7 +46,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "m",
-        action: #selector(NSWindow.performMiniaturize(_:)).action()
+        selector: #selector(NSWindow.performMiniaturize(_:))
       )
     }
 
@@ -68,7 +68,7 @@
             return "הגדל/הקטן"
           }
         }),
-        action: #selector(NSWindow.performZoom(_:)).action()
+        selector: #selector(NSWindow.performZoom(_:))
       )
     }
 
@@ -90,7 +90,7 @@
             return "הבא הכל קדימה"
           }
         }),
-        action: #selector(NSApplication.arrangeInFront(_:)).action()
+        selector: #selector(NSApplication.arrangeInFront(_:))
       )
     }
 

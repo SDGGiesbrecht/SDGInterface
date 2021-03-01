@@ -34,7 +34,8 @@
             return "Error"
           }
         }),
-        action: #selector(MenuBarTarget.demonstrateError).action(target: MenuBarTarget.shared)
+        selector: #selector(MenuBarTarget.demonstrateError),
+        target: MenuBarTarget.shared
       )
     }
 

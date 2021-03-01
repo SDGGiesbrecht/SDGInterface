@@ -42,7 +42,7 @@
             return "נקה תפריט"
           }
         }),
-        action: #selector(NSDocumentController.clearRecentDocuments(_:)).action()
+        selector: #selector(NSDocumentController.clearRecentDocuments(_:))
       )
     }
 

@@ -42,7 +42,7 @@
             return "השתמש בברירת המחדל"
           }
         }),
-        action: #selector(NSTextView.useStandardKerning(_:)).action()
+        selector: #selector(NSTextView.useStandardKerning(_:))
       )
     }
 
@@ -64,7 +64,7 @@
             return "אל תשתמש בשום אפשרות"
           }
         }),
-        action: #selector(NSTextView.turnOffKerning(_:)).action()
+        selector: #selector(NSTextView.turnOffKerning(_:))
       )
     }
 
@@ -86,7 +86,7 @@
             return "הדוק יותר"
           }
         }),
-        action: #selector(NSTextView.tightenKerning(_:)).action()
+        selector: #selector(NSTextView.tightenKerning(_:))
       )
     }
 
@@ -108,7 +108,7 @@
             return "מרווח יותר"
           }
         }),
-        action: #selector(NSTextView.loosenKerning(_:)).action()
+        selector: #selector(NSTextView.loosenKerning(_:))
       )
     }
 

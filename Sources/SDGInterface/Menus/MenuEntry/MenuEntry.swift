@@ -34,6 +34,7 @@
 
     // MARK: - Initialization
 
+    #warning("Does not permit disabling yet.")
     /// Creates a menu entry.
     ///
     /// - Parameters:
@@ -51,6 +52,7 @@
       self.hotKeyModifiers = hotKeyModifiers
       self.hotKey = hotKey
       self.action = action
+      self.isDisabled = { return false }
       #if canImport(AppKit)
         isHidden = Shared(false)
         tag = nil
@@ -58,11 +60,46 @@
     }
 
     #if canImport(AppKit)
+      public init(
+        label: UserFacing<StrictString, L>,
+        hotKeyModifiers: KeyModifiers = [],
+        hotKey: String? = nil,
+        selector: Selector,
+        target: Any? = nil
+      ) {
+        self.label = label
+        self.hotKeyModifiers = hotKeyModifiers
+        self.hotKey = hotKey
+        self.action = {
+          let target = target ?? NSApplication.shared
+          NSApplication.shared.sendAction(selector, to: target, from: nil)
+        }
+        self.isDisabled = {
+          let proxy: () -> NSMenuItem = {
+            return NSMenuItem(title: "", action: selector, keyEquivalent: "")
+          }
+          if let target = target {
+            if let custom = target as? NSMenuItemValidation {
+              return custom.validateMenuItem(proxy())
+            } else {
+              return true
+            }
+          } else {
+            return NSApplication.shared.validateMenuItem(proxy())
+          }
+        }
+        isHidden = Shared(false)
+        tag = nil
+      }
+    #endif
+
+    #if canImport(AppKit)
       private init(
         label: UserFacing<StrictString, L>,
         hotKeyModifiers: KeyModifiers = [],
         hotKey: String? = nil,
         action: @escaping () -> Void,
+        isDisabled: @escaping () -> Bool,
         isHidden: Shared<Bool> = Shared(false),
         platformTag: Int? = nil
       ) {
@@ -70,6 +107,7 @@
         self.hotKeyModifiers = hotKeyModifiers
         self.hotKey = hotKey
         self.action = action
+        self.isDisabled = isDisabled
         self.isHidden = isHidden
         self.tag = platformTag
       }
@@ -82,6 +120,7 @@
     private let hotKeyModifiers: KeyModifiers
     private let hotKey: String?
     private let action: () -> Void
+    private let isDisabled: () -> Bool
     #if canImport(AppKit)
       private let isHidden: Shared<Bool>
       private let tag: Int?
@@ -100,6 +139,7 @@
           hotKeyModifiers: hotKeyModifiers,
           hotKey: hotKey,
           action: action,
+          isDisabled: isDisabled,
           isHidden: isHidden,
           platformTag: tag
         )
@@ -117,6 +157,7 @@
           hotKeyModifiers: hotKeyModifiers,
           hotKey: hotKey,
           action: action,
+          isDisabled: isDisabled,
           isHidden: isHidden,
           platformTag: platformTag
         )
