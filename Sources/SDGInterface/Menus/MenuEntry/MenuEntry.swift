@@ -78,20 +78,20 @@
         target: Any? = nil,
         platformTag: Int? = nil
       ) {
+        let proxy = { () -> NSMenuItem in
+          let item = NSMenuItem(title: "", action: selector, keyEquivalent: "")
+          if let tag = platformTag {
+            item.tag = tag
+          }
+          return item
+        }
         self.label = label
         self.hotKeyModifiers = hotKeyModifiers
         self.hotKey = hotKey
         self.action = {
-          NSApplication.shared.sendAction(selector, to: target, from: nil)
+          NSApplication.shared.sendAction(selector, to: target, from: proxy())
         }
         self.isDisabled = {
-          let proxy = { () -> NSMenuItem in
-            let item = NSMenuItem(title: "", action: selector, keyEquivalent: "")
-            if let tag = platformTag {
-              item.tag = tag
-            }
-            return item
-          }
           if let target = target {
             if let custom = target as? NSMenuItemValidation {
               return ¬custom.validateMenuItem(proxy())
