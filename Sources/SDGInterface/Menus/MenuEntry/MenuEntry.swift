@@ -35,7 +35,6 @@
 
     // MARK: - Initialization
 
-    #warning("Does not permit disabling yet.")
     /// Creates a menu entry.
     ///
     /// - Parameters:
@@ -47,13 +46,14 @@
       label: UserFacing<StrictString, L>,
       hotKeyModifiers: KeyModifiers = [],
       hotKey: String? = nil,
-      action: @escaping () -> Void
+      action: @escaping () -> Void,
+      isDisabled: @escaping () -> Bool = { return false }
     ) {
       self.label = label
       self.hotKeyModifiers = hotKeyModifiers
       self.hotKey = hotKey
       self.action = action
-      self.isDisabled = { return false }
+      self.isDisabled = isDisabled
       #if canImport(AppKit)
         isHidden = Shared(false)
         tag = nil
@@ -204,7 +204,8 @@
         #warning("Parameters missing.")
         return SwiftUIImplementation(
           label: label,
-          action: action
+          action: action,
+          isDisabled: isDisabled
         )
       }
     #endif
@@ -233,6 +234,23 @@
         ).swiftUI()
           .padding()
           .previewDisplayName("Menu Entry")
+
+        MenuEntry(
+          label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+              return "Disabled"
+            case .deutschDeutschland:
+              return "Deaktiviert"
+            }
+          }),
+          hotKeyModifiers: [.command],
+          hotKey: "d",
+          action: { print("Hello, world!") },
+          isDisabled: { true }
+        ).swiftUI()
+          .padding()
+          .previewDisplayName("Disabled")
       }
     }
   }

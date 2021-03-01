@@ -27,6 +27,7 @@
 
       let label: UserFacing<StrictString, L>
       let action: () -> Void
+      let isDisabled: () -> Bool
 
       // MARK: - View
 
@@ -35,6 +36,7 @@
           label: label,
           action: action
         ).swiftUI()
+          .disabled(isDisabled())
       }
     }
   }
