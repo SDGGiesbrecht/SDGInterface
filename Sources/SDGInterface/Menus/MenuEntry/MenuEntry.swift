@@ -114,6 +114,23 @@
       }
     #endif
 
+    #if canImport(UIKit)
+      /// Creates a menu entry with a Cocoa selector.
+      ///
+      /// - Parameters:
+      ///   - label: The label.
+      ///   - selector: The selector.
+      public init(
+        label: UserFacing<StrictString, L>,
+        selector: Selector
+      ) {
+        self.label = label
+        self.action = {
+          UIApplication.shared.sendAction(selector, to: nil, from: nil, for: nil)
+        }
+      }
+    #endif
+
     #if canImport(AppKit)
       private init(
         label: UserFacing<StrictString, L>,
