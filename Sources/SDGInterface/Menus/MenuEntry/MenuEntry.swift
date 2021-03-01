@@ -85,7 +85,13 @@
               return false
             }
           } else {
-            return ¬NSApplication.shared.validateMenuItem(proxy())
+            if let window = NSApplication.shared.keyWindow,
+              let responder = window.firstResponder as? NSMenuItemValidation
+            {
+              return ¬responder.validateMenuItem(proxy())
+            } else {
+              return ¬NSApplication.shared.validateMenuItem(proxy())
+            }
           }
         }
         isHidden = Shared(false)
