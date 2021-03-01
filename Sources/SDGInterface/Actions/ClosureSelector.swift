@@ -36,7 +36,7 @@ internal class ClosureSelector: NSObject {
 
   // MARK: - Selector
 
-  @objc func send() {
+  internal @objc func send() {
     action()
   }
 }
@@ -46,7 +46,7 @@ internal class ClosureSelector: NSObject {
 
     // MARK: - NSMenuItemValidation
 
-    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+    internal func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
       return ¬isDisabled()
     }
   }
