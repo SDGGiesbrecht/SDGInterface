@@ -173,10 +173,7 @@
             hotKeyModifiers,
           hotKey: hotKey,
           action: action,
-          isDisabled: {
-            #warning("Not handled yet.")
-            return false
-          },
+          isDisabled: isDisabled,
           isHidden: isHidden,
           tag: tag
         )
