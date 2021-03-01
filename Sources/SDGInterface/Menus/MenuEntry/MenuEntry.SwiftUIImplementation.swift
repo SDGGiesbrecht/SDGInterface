@@ -20,22 +20,37 @@
 
   extension MenuEntry {
 
-    @available(macOS 10.15, *)
+    @available(macOS 11, *)
     internal struct SwiftUIImplementation: SwiftUI.View {
 
       // MARK: - Properties
 
-      let label: UserFacing<StrictString, L>
-      let action: () -> Void
-      let isDisabled: () -> Bool
+      internal let label: UserFacing<StrictString, L>
+      internal let action: () -> Void
+      #warning("Not handled yet.")
+      internal let hotKeyModifiers: KeyModifiers
+      internal let hotKey: Character?
+      internal let isDisabled: () -> Bool
 
       // MARK: - View
 
-      var body: some SwiftUI.View {
+      private var partialBody1: some SwiftUI.View {
         return Button(
           label: label,
           action: action
         ).swiftUI()
+      }
+      @ViewBuilder
+      private var partialBody2: some SwiftUI.View {
+        if let hotKey = hotKey {
+          partialBody1.keyboardShortcut(KeyEquivalent(hotKey), modifiers: .command)
+        } else {
+          partialBody1
+        }
+      }
+
+      var body: some SwiftUI.View {
+        partialBody2
           .disabled(isDisabled())
       }
     }

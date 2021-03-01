@@ -45,7 +45,7 @@
     public init(
       label: UserFacing<StrictString, L>,
       hotKeyModifiers: KeyModifiers = [],
-      hotKey: String? = nil,
+      hotKey: Character? = nil,
       action: @escaping () -> Void,
       isDisabled: @escaping () -> Bool = { return false }
     ) {
@@ -73,7 +73,7 @@
       public init(
         label: UserFacing<StrictString, L>,
         hotKeyModifiers: KeyModifiers = [],
-        hotKey: String? = nil,
+        hotKey: Character? = nil,
         selector: Selector,
         target: Any? = nil,
         platformTag: Int? = nil
@@ -117,7 +117,7 @@
       private init(
         label: UserFacing<StrictString, L>,
         hotKeyModifiers: KeyModifiers = [],
-        hotKey: String? = nil,
+        hotKey: Character? = nil,
         action: @escaping () -> Void,
         isDisabled: @escaping () -> Bool,
         isHidden: Shared<Bool> = Shared(false),
@@ -138,7 +138,7 @@
     #warning("Properties need switching to SwiftUI style.")
     private let label: UserFacing<StrictString, L>
     private let hotKeyModifiers: KeyModifiers
-    private let hotKey: String?
+    private let hotKey: Character?
     private let action: () -> Void
     #if canImport(AppKit)
       private let tag: Int?
@@ -176,7 +176,7 @@
           label: label,
           hotKeyModifiers:
             hotKeyModifiers,
-          hotKey: hotKey,
+          hotKey: hotKey.map({ String($0) }),
           action: action,
           isDisabled: isDisabled,
           isHidden: isHidden,
@@ -199,12 +199,14 @@
 
     #warning("This type’s methods need organizing.")
     #if canImport(SwiftUI)
-      @available(macOS 10.15, *)
+      @available(macOS 11, *)
       public func swiftUI() -> some SwiftUI.View {
         #warning("Parameters missing.")
         return SwiftUIImplementation(
           label: label,
           action: action,
+          hotKeyModifiers: hotKeyModifiers,
+          hotKey: hotKey,
           isDisabled: isDisabled
         )
       }
@@ -213,7 +215,7 @@
 #endif
 
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  @available(macOS 11, *)
   internal struct MenuEntryPreviews: PreviewProvider {
     internal static var previews: some SwiftUI.View {
 
