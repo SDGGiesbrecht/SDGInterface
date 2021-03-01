@@ -19,7 +19,7 @@
   import SDGText
   import SDGLocalization
 
-  @available(tvOS 14, *)
+  @available(tvOS 14, watchOS 6, *)
   extension MenuEntry {
 
     @available(macOS 11, iOS 14, *)
@@ -44,7 +44,7 @@
       }
       @ViewBuilder
       private var partialBody2: some SwiftUI.View {
-        #if os(tvOS)
+        #if os(tvOS) || os(watchOS)
           partialBody1
         #else
           if let hotKey = hotKey {

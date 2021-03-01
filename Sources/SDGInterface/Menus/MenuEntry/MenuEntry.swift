@@ -31,7 +31,7 @@
   import SDGInterfaceLocalizations
 
   /// A menu entry.
-  @available(tvOS 14, *)
+  @available(tvOS 14, watchOS 6, *)
   public struct MenuEntry<L>: AnyMenuEntry where L: Localization {
 
     // MARK: - Initialization
@@ -113,7 +113,7 @@
       }
     #endif
 
-    #if canImport(UIKit)
+    #if canImport(UIKit) && !os(watchOS)
       /// Creates a menu entry with a Cocoa selector.
       ///
       /// - Parameters:
@@ -231,7 +231,7 @@
 #endif
 
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-  @available(macOS 11, tvOS 14, iOS 14, *)
+  @available(macOS 11, tvOS 14, iOS 14, watchOS 6, *)
   internal struct MenuEntryPreviews: PreviewProvider {
     internal static var previews: some SwiftUI.View {
 
