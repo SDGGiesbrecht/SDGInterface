@@ -71,29 +71,31 @@ public struct KeyModifiers: OptionSet {
 
   // MARK: - Properties
 
-  /// The SwiftUI event modifiers.
-  public func swiftUI() -> EventModifiers {
-    var result = EventModifiers()
-    if contains(.command) {
-      result.insert(.command)
+  #if canImport(SwiftUI)
+    /// The SwiftUI event modifiers.
+    public func swiftUI() -> EventModifiers {
+      var result = EventModifiers()
+      if contains(.command) {
+        result.insert(.command)
+      }
+      if contains(.shift) {
+        result.insert(.shift)
+      }
+      if contains(.option) {
+        result.insert(.option)
+      }
+      if contains(.control) {
+        result.insert(.control)
+      }
+      if contains(.function) {
+        result.insert(.function)
+      }
+      if contains(.capsLock) {
+        result.insert(.capsLock)
+      }
+      return result
     }
-    if contains(.shift) {
-      result.insert(.shift)
-    }
-    if contains(.option) {
-      result.insert(.option)
-    }
-    if contains(.control) {
-      result.insert(.control)
-    }
-    if contains(.function) {
-      result.insert(.function)
-    }
-    if contains(.capsLock) {
-      result.insert(.capsLock)
-    }
-    return result
-  }
+  #endif
 
   #if canImport(AppKit)
     /// The Cocoa modifier flags.
