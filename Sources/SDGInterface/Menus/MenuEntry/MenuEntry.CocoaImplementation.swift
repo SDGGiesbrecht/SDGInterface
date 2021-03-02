@@ -51,7 +51,9 @@
 
         self.actionClosure = action
         self.isDisabled = isDisabled
-        self.closureSelector = ClosureSelector(action: action, isDisabled: isDisabled)
+        #if canImport(AppKit)
+          self.closureSelector = ClosureSelector(action: action, isDisabled: isDisabled)
+        #endif
 
         #if canImport(AppKit)
           self.isHiddenBinding = isHidden
@@ -91,8 +93,8 @@
       private let label: UserFacing<StrictString, L>
       internal let actionClosure: () -> Void
       private let isDisabled: () -> Bool
-      private let closureSelector: ClosureSelector
       #if canImport(AppKit)
+        private let closureSelector: ClosureSelector
         private let isHiddenBinding: Shared<Bool>
       #endif
 

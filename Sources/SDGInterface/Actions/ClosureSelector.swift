@@ -12,36 +12,34 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-import Foundation
-
 #if canImport(AppKit)
+  import Foundation
+
   import AppKit
-#endif
 
-import SDGLogic
+  import SDGLogic
 
-internal class ClosureSelector: NSObject {
+  internal class ClosureSelector: NSObject {
 
-  // MARK: - Initialization
+    // MARK: - Initialization
 
-  internal init(action: @escaping () -> Void, isDisabled: @escaping () -> Bool) {
-    self.action = action
-    self.isDisabled = isDisabled
+    internal init(action: @escaping () -> Void, isDisabled: @escaping () -> Bool) {
+      self.action = action
+      self.isDisabled = isDisabled
+    }
+
+    // MARK: - Properties
+
+    private let action: () -> Void
+    private let isDisabled: () -> Bool
+
+    // MARK: - Selector
+
+    @objc internal func send() {
+      action()
+    }
   }
 
-  // MARK: - Properties
-
-  private let action: () -> Void
-  private let isDisabled: () -> Bool
-
-  // MARK: - Selector
-
-  @objc internal func send() {
-    action()
-  }
-}
-
-#if canImport(AppKit)
   extension ClosureSelector: NSMenuItemValidation {
 
     // MARK: - NSMenuItemValidation
