@@ -412,6 +412,11 @@ final class APITests: ApplicationTestCase {
     #if canImport(AppKit)
       XCTAssertEqual(KeyModifiers(modifiers.cocoa), modifiers)
     #endif
+    #if canImport(SwiftUI)
+      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
+        _ = modifiers.swiftUI()
+      }
+    #endif
   }
 
   func testLabel() {
