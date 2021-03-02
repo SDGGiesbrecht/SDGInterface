@@ -15,6 +15,9 @@
 #if canImport(AppKit)
   import AppKit
 #endif
+#if canImport(UIKit)
+  import UIKit
+#endif
 
 import SDGControlFlow
 import SDGText
@@ -147,5 +150,20 @@ final class InternalTests: ApplicationTestCase {
     var string = StrictString()
     string.compatibility = "..."
     _ = string.compatibility
+  }
+
+  func testUIResponder() {
+    #if canImport(UIKit)
+      let executed = expectation(description: "Action executed.")
+      let menuEntry = MenuEntry(
+        label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
+          { _ in
+            "Menu Item"
+          }),
+        action: { executed.fulfill() }
+      )
+      UILabel().executeClosureAction(menuEntry.cocoa())
+      wait(for: [executed], timeout: 1)
+    #endif
   }
 }
