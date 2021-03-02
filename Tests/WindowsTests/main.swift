@@ -114,6 +114,7 @@ extension SDGInterfaceTests.InternalTests {
       ("testProportionedView", testProportionedView),
       ("testSegmentedControlCocoaImplementation", testSegmentedControlCocoaImplementation),
       ("testStrictString", testStrictString),
+      ("testUIResponder", testUIResponder),
     ])
   ]
 }
