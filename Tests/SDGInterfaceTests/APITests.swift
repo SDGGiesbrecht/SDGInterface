@@ -481,7 +481,7 @@ final class APITests: ApplicationTestCase {
 
   func testMenu() {
     #if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
-      _ = MenuEntry(label: UserFacing<StrictString, APILocalization>({ _ in "..." }))
+      _ = MenuEntry(label: UserFacing<StrictString, APILocalization>({ _ in "..." }), action: {})
       let menuLabel = UserFacing<StrictString, APILocalization>({ _ in "initial" })
       let menu = SDGInterface.Menu<APILocalization>(label: menuLabel, entries: [])
       _ = menu.cocoa()
@@ -495,7 +495,8 @@ final class APITests: ApplicationTestCase {
           MenuEntry<SDGInterfaceLocalizations.InterfaceLocalization>(
             label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
               { _ in "" }
-            )
+            ),
+            action: {}
           )
         ).asEntry
       )
@@ -538,7 +539,8 @@ final class APITests: ApplicationTestCase {
     #if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
       let menuLabel = Shared<StrictString>("initial")
       let entry = MenuEntry<APILocalization>(
-        label: UserFacing<StrictString, APILocalization>({ _ in "" })
+        label: UserFacing<StrictString, APILocalization>({ _ in "" }),
+        action: {}
       )
       menuLabel.value = "changed"
       menuLabel.value = "unrelated"
