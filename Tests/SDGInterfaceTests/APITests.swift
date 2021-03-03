@@ -410,7 +410,7 @@ final class APITests: ApplicationTestCase {
   func testKeyModifiers() {
     let modifiers: KeyModifiers = [.command, .shift, .option, .control, .function, .capsLock]
     #if canImport(AppKit)
-      XCTAssertEqual(KeyModifiers(modifiers.cocoa), modifiers)
+      XCTAssertEqual(KeyModifiers(modifiers.cocoa()), modifiers)
     #endif
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
@@ -531,7 +531,8 @@ final class APITests: ApplicationTestCase {
             MenuEntry<SDGInterfaceLocalizations.InterfaceLocalization>(
               label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
                 { _ in "" }
-              )
+              ),
+              action: {}
             )
           )
           .asSubmenu

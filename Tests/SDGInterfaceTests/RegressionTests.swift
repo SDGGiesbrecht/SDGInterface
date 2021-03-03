@@ -30,7 +30,8 @@ final class RegressionTests: ApplicationTestCase {
 
     #if canImport(AppKit)
       let cocoa = MenuEntry<APILocalization>(
-        label: UserFacing<StrictString, APILocalization>({ _ in "Menu Entry" })
+        label: UserFacing<StrictString, APILocalization>({ _ in "Menu Entry" }),
+        action: {}
       ).cocoa()
       _ = cocoa.copy()
     #endif
