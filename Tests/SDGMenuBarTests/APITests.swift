@@ -70,10 +70,6 @@ final class APITests: ApplicationTestCase {
       }
       testAllLocalizations()
 
-      let preferencesMenuItem = NSApplication.shared.mainMenu?.items.first?.submenu?.items.first(
-        where: { $0.action == #selector(_NSApplicationDelegateProtocol.openPreferences(_:)) })
-      XCTAssertNotNil(preferencesMenuItem)
-
       _ = MenuBar(applicationSpecificSubmenus: []).cocoa()
     #endif
   }
