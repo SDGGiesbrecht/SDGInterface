@@ -153,7 +153,7 @@ final class InternalTests: ApplicationTestCase {
   }
 
   func testUIResponder() {
-    #if canImport(UIKit)
+    #if canImport(UIKit) && !os(tvOS)
       let executed = expectation(description: "Action executed.")
       let menuEntry = MenuEntry(
         label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
