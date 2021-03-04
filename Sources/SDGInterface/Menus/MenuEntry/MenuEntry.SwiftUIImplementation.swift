@@ -42,8 +42,7 @@
           action: action
         ).swiftUI()
       }
-      @ViewBuilder
-      private var partialBody2: some SwiftUI.View {
+      @ViewBuilder private var partialBody2: some SwiftUI.View {
         #if os(tvOS) || os(watchOS)
           partialBody1
         #else
@@ -59,8 +58,7 @@
           partialBody2
           .disabled(isDisabled())
       }
-      @ViewBuilder
-      internal var body: some SwiftUI.View {
+      @ViewBuilder internal var body: some SwiftUI.View {
         if isHidden.value {
           SwiftUI.EmptyView()
         } else {
