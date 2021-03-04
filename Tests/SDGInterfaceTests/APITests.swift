@@ -551,6 +551,11 @@ final class APITests: ApplicationTestCase {
       menuLabel.value = "changed"
       menuLabel.value = "unrelated"
       _ = entry.cocoa()
+      #if canImport(SwiftUI)
+        if #available(macOS 11, tvOS 14, iOS 14, *) {
+          _ = entry.swiftUI().body
+        }
+      #endif
     #endif
   }
 
