@@ -542,7 +542,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testMenuEntry() {
-    #if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
+    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
       let menuLabel = Shared<StrictString>("initial")
       let entry = MenuEntry<APILocalization>(
         label: UserFacing<StrictString, APILocalization>({ _ in "" }),
@@ -551,7 +551,7 @@ final class APITests: ApplicationTestCase {
       menuLabel.value = "changed"
       menuLabel.value = "unrelated"
       _ = entry.cocoa()
-      #if canImport(SwiftUI)
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
         if #available(macOS 11, tvOS 14, iOS 14, *) {
           _ = entry.swiftUI().body
         }
