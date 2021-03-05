@@ -79,13 +79,13 @@
           }
         case #selector(TextDisplayResponder.showCharacterInformation(_:)):
           if let normalize = cachedNormalize,
-             let transformations = systemMenu.items.indices.lazy
-            .first(where: { index in
-              let submenu = systemMenu.items[index].submenu
-              return submenu?.items.contains(
-                where: { $0 === normalize }
-              ) ?? false
-            })
+            let transformations = systemMenu.items.indices.lazy
+              .first(where: { index in
+                let submenu = systemMenu.items[index].submenu
+                return submenu?.items.contains(
+                  where: { $0 === normalize }
+                ) ?? false
+              })
           {
             systemMenu.items.insert(adjustment.menu.cocoa(), at: transformations + 1)
             handled = true
