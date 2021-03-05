@@ -110,6 +110,7 @@ extension SDGInterfaceTests.InternalTests {
       ("testCheckBoxCocoaImplementation", testCheckBoxCocoaImplementation),
       ("testImage", testImage),
       ("testLegacyView", testLegacyView),
+      ("testMenuEntry", testMenuEntry),
       ("testPopOverCocoaImplementation", testPopOverCocoaImplementation),
       ("testProportionedView", testProportionedView),
       ("testSegmentedControlCocoaImplementation", testSegmentedControlCocoaImplementation),

@@ -80,7 +80,7 @@
         target: Any? = nil,
         platformTag: Int? = nil
       ) {
-        let proxy = { () -> NSMenuItem in  // @exempt(from: tests) Unreachable from tests.
+        let proxy = { () -> NSMenuItem in
           let item = NSMenuItem(title: "", action: selector, keyEquivalent: "")
           if let tag = platformTag {
             item.tag = tag
@@ -94,7 +94,7 @@
           action: {
             NSApplication.shared.sendAction(selector, to: target, from: proxy())
           },
-          isDisabled: {  // @exempt(from: tests) Unreachable from tests.
+          isDisabled: {
             if let target = target {
               if let custom = target as? NSMenuItemValidation {
                 return ¬custom.validateMenuItem(proxy())
@@ -105,7 +105,7 @@
               if let window = NSApplication.shared.keyWindow,
                 let responder = window.firstResponder as? NSMenuItemValidation
               {
-                return ¬responder.validateMenuItem(proxy())
+                return ¬responder.validateMenuItem(proxy())  // @exempt(from: tests) Unreachable from tests.
               } else {
                 return ¬NSApplication.shared.validateMenuItem(proxy())
               }

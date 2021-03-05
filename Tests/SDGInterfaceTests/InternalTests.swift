@@ -98,6 +98,18 @@ final class InternalTests: ApplicationTestCase {
     #endif
   }
 
+  func testMenuEntry() {
+    #if canImport(AppKit)
+      let entry = MenuEntry<APILocalization>(
+        label: UserFacing<StrictString, APILocalization>({ _ in "" }),
+        action: {}
+      ).cocoa()
+      let selector = entry.target as? ClosureSelector
+      selector?.send()
+      _ = selector?.validateMenuItem(entry)
+    #endif
+  }
+
   func testPopOverCocoaImplementation() {
     withLegacyMode {
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
