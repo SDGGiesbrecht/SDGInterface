@@ -582,7 +582,7 @@ final class APITests: ApplicationTestCase {
             _ = hidden.swiftUI().body
           }
         #endif
-        #if canImport(UIKit) && !os(tvOS)
+        #if canImport(UIKit)
           let withSelector = MenuEntry<APILocalization>(
             label: UserFacing<StrictString, APILocalization>({ _ in "" }),
             selector: #selector(NSObject.copy)
