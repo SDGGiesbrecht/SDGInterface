@@ -587,9 +587,11 @@ final class APITests: ApplicationTestCase {
             label: UserFacing<StrictString, APILocalization>({ _ in "" }),
             selector: #selector(NSObject.copy)
           )
-          if #available(iOS 14, *) {
-            _ = withSelector.swiftUI().body
-          }
+          #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+            if #available(iOS 14, *) {
+              _ = withSelector.swiftUI().body
+            }
+          #endif
         #endif
       }
     #endif

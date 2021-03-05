@@ -105,9 +105,9 @@
               if let window = NSApplication.shared.keyWindow,
                 let responder = window.firstResponder as? NSMenuItemValidation
               {
-                return
+                return  // @exempt(from: tests) Unreachable from tests.
                   ¬responder
-                  .validateMenuItem(proxy())  // @exempt(from: tests) Unreachable from tests.
+                  .validateMenuItem(proxy())
               } else {
                 return ¬NSApplication.shared.validateMenuItem(proxy())
               }
