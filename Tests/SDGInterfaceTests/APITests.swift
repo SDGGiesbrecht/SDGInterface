@@ -543,49 +543,55 @@ final class APITests: ApplicationTestCase {
 
   func testMenuEntry() {
     #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
-      let menuLabel = Shared<StrictString>("initial")
-      let entry = MenuEntry<APILocalization>(
-        label: UserFacing<StrictString, APILocalization>({ _ in "" }),
-        action: {}
-      )
-      menuLabel.value = "changed"
-      menuLabel.value = "unrelated"
-      _ = entry.cocoa()
-      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-        if #available(macOS 11, tvOS 14, iOS 14, *) {
-          _ = entry.swiftUI().body
-        }
-      #endif
-      let withHotKey = MenuEntry<APILocalization>(
-        label: UserFacing<StrictString, APILocalization>({ _ in "" }),
-        hotKeyModifiers: [.command],
-        hotKey: "a",
-        action: {}
-      )
-      _ = withHotKey.cocoa()
-      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-        if #available(macOS 11, tvOS 14, iOS 14, *) {
-          _ = withHotKey.swiftUI().body
-        }
-      #endif
-      let hidden = MenuEntry<APILocalization>(
-        label: UserFacing<StrictString, APILocalization>({ _ in "" }),
-        action: {}
-      ).hidden(when: Shared(true))
-      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-        if #available(macOS 11, tvOS 14, iOS 14, *) {
-          _ = hidden.swiftUI().body
-        }
-      #endif
-      #if canImport(UIKit) && !os(tvOS)
-        let withSelector = MenuEntry<APILocalization>(
+      if #available(tvOS 14, *) {
+        let menuLabel = Shared<StrictString>("initial")
+        let entry = MenuEntry<APILocalization>(
           label: UserFacing<StrictString, APILocalization>({ _ in "" }),
-          selector: #selector(NSObject.copy)
+          action: {}
         )
-        if #available(iOS 14, *) {
-          _ = withSelector.swiftUI().body
-        }
-      #endif
+        menuLabel.value = "changed"
+        menuLabel.value = "unrelated"
+        #if !os(tvOS)
+          _ = entry.cocoa()
+        #endif
+        #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+          if #available(macOS 11, iOS 14, *) {
+            _ = entry.swiftUI().body
+          }
+        #endif
+        let withHotKey = MenuEntry<APILocalization>(
+          label: UserFacing<StrictString, APILocalization>({ _ in "" }),
+          hotKeyModifiers: [.command],
+          hotKey: "a",
+          action: {}
+        )
+        #if !os(tvOS)
+          _ = withHotKey.cocoa()
+        #endif
+        #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+          if #available(macOS 11, iOS 14, *) {
+            _ = withHotKey.swiftUI().body
+          }
+        #endif
+        let hidden = MenuEntry<APILocalization>(
+          label: UserFacing<StrictString, APILocalization>({ _ in "" }),
+          action: {}
+        ).hidden(when: Shared(true))
+        #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+          if #available(macOS 11, iOS 14, *) {
+            _ = hidden.swiftUI().body
+          }
+        #endif
+        #if canImport(UIKit) && !os(tvOS)
+          let withSelector = MenuEntry<APILocalization>(
+            label: UserFacing<StrictString, APILocalization>({ _ in "" }),
+            selector: #selector(NSObject.copy)
+          )
+          if #available(iOS 14, *) {
+            _ = withSelector.swiftUI().body
+          }
+        #endif
+      }
     #endif
   }
 
