@@ -591,6 +591,8 @@ final class APITests: ApplicationTestCase {
             if #available(iOS 14, *) {
               _ = withSelector.swiftUI().body
             }
+          #else
+            _ = withSelector
           #endif
         #endif
       }
