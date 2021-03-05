@@ -42,7 +42,7 @@
             return "השתמש בברירת המחדל"
           }
         }),
-        action: #selector(RichTextEditingResponder.resetBaseline(_:))
+        selector: #selector(RichTextEditingResponder.resetBaseline(_:))
       )
     }
 
@@ -64,7 +64,7 @@
             return "כתב עילי"
           }
         }),
-        action: #selector(RichTextEditingResponder.makeSuperscript(_:))
+        selector: #selector(RichTextEditingResponder.makeSuperscript(_:))
       )
     }
 
@@ -87,7 +87,7 @@
             return "כתב תחתי"
           }
         }),
-        action: #selector(RichTextEditingResponder.makeSubscript(_:))
+        selector: #selector(RichTextEditingResponder.makeSubscript(_:))
       )
     }
 
@@ -109,7 +109,7 @@
             return "הגבה"
           }
         }),
-        action: #selector(NSTextView.raiseBaseline(_:))
+        selector: #selector(NSTextView.raiseBaseline(_:))
       )
     }
 
@@ -131,7 +131,7 @@
             return "נמוך יותר"
           }
         }),
-        action: #selector(NSTextView.lowerBaseline(_:))
+        selector: #selector(NSTextView.lowerBaseline(_:))
       )
     }
 

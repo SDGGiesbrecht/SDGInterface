@@ -44,7 +44,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "}",
-        action: #selector(NSText.alignRight(_:))
+        selector: #selector(NSText.alignRight(_:))
       )
     }
 
@@ -71,7 +71,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "|",
-        action: #selector(NSText.alignCenter(_:))
+        selector: #selector(NSText.alignCenter(_:))
       )
     }
 
@@ -94,7 +94,7 @@
             return "יישר לשני הצדדים"
           }
         }),
-        action: #selector(NSTextView.alignJustified(_:))
+        selector: #selector(NSTextView.alignJustified(_:))
       )
     }
 
@@ -118,7 +118,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "{",
-        action: #selector(NSText.alignLeft(_:))
+        selector: #selector(NSText.alignLeft(_:))
       )
     }
 
@@ -140,7 +140,7 @@
             return "הצג סרגל"
           }
         }),
-        action: #selector(NSText.toggleRuler(_:))
+        selector: #selector(NSText.toggleRuler(_:))
       )
     }
 
@@ -165,7 +165,7 @@
         }),
         hotKeyModifiers: [.command, .control],
         hotKey: "c",
-        action: #selector(NSText.copyRuler(_:))
+        selector: #selector(NSText.copyRuler(_:))
       )
     }
 
@@ -189,7 +189,7 @@
         }),
         hotKeyModifiers: [.command, .control],
         hotKey: "v",
-        action: #selector(NSText.pasteRuler(_:))
+        selector: #selector(NSText.pasteRuler(_:))
       )
     }
 

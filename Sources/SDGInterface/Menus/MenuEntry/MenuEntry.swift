@@ -12,7 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
+#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+  #if canImport(SwiftUI)
+    import SwiftUI
+  #endif
   #if canImport(AppKit)
     import AppKit
   #endif
@@ -21,10 +24,14 @@
   #endif
 
   import SDGControlFlow
+  import SDGLogic
   import SDGText
   import SDGLocalization
 
+  import SDGInterfaceLocalizations
+
   /// A menu entry.
+  @available(tvOS 14, watchOS 6, *)
   public struct MenuEntry<L>: AnyMenuEntry where L: Localization {
 
     // MARK: - Initialization
@@ -33,108 +40,174 @@
     ///
     /// - Parameters:
     ///   - label: The label.
-    ///   - hotKeyModifiers: The hot key modifiers.
-    ///   - hotKey: The hot key.
+    ///   - hotKeyModifiers: Optional. The hot key modifiers.
+    ///   - hotKey: Optional. The hot key.
     ///   - action: The action.
+    ///   - isDisabled: Optional. A closure that determines whether or not the menu item is disabled.
     public init(
       label: UserFacing<StrictString, L>,
       hotKeyModifiers: KeyModifiers = [],
-      hotKey: String? = nil,
-      action: Selector? = nil
+      hotKey: Character? = nil,
+      action: @escaping () -> Void,
+      isDisabled: @escaping () -> Bool = { return false }
     ) {
-      self.label = label
-      self.hotKeyModifiers = hotKeyModifiers
-      self.hotKey = hotKey
-      self.action = action
-      #if canImport(AppKit)
-        target = nil
-        isHidden = Shared(false)
-        tag = nil
-      #endif
+      self.init(
+        label: label,
+        hotKeyModifiers: hotKeyModifiers,
+        hotKey: hotKey,
+        action: action,
+        isDisabled: isDisabled,
+        isHidden: Shared(false),
+        platformTag: nil
+      )
     }
 
     #if canImport(AppKit)
-      private init(
+      /// Creates a menu entry with a Cocoa selector.
+      ///
+      /// - Parameters:
+      ///   - label: The label.
+      ///   - hotKeyModifiers: The hot key modifiers.
+      ///   - hotKey: The hot key.
+      ///   - selector: The selector.
+      ///   - target: Optional. A target.
+      ///   - platformTag: Optional. Some platforms require tags in order to identify some of the actions they offer. This parameter should not otherwise be used.
+      public init(
         label: UserFacing<StrictString, L>,
         hotKeyModifiers: KeyModifiers = [],
-        hotKey: String? = nil,
-        action: Selector? = nil,
-        target: AnyObject? = nil,
-        isHidden: Shared<Bool> = Shared(false),
+        hotKey: Character? = nil,
+        selector: Selector,
+        target: Any? = nil,
         platformTag: Int? = nil
       ) {
-        self.label = label
-        self.hotKeyModifiers = hotKeyModifiers
-        self.hotKey = hotKey
-        self.action = action
-        self.target = target
-        self.isHidden = isHidden
-        self.tag = platformTag
+        let proxy = { () -> NSMenuItem in
+          let item = NSMenuItem(title: "", action: selector, keyEquivalent: "")
+          if let tag = platformTag {
+            item.tag = tag
+          }
+          return item
+        }
+        self.init(
+          label: label,
+          hotKeyModifiers: hotKeyModifiers,
+          hotKey: hotKey,
+          action: {
+            NSApplication.shared.sendAction(selector, to: target, from: proxy())
+          },
+          isDisabled: {
+            if let target = target {
+              if let custom = target as? NSMenuItemValidation {
+                return ¬custom.validateMenuItem(proxy())
+              } else {
+                return false
+              }
+            } else {
+              if let window = NSApplication.shared.keyWindow,
+                let responder = window.firstResponder as? NSMenuItemValidation
+              {
+                return  // @exempt(from: tests) Unreachable from tests.
+                  ¬responder
+                  .validateMenuItem(proxy())
+              } else {
+                return ¬NSApplication.shared.validateMenuItem(proxy())
+              }
+            }
+          },
+          isHidden: Shared(false),
+          platformTag: platformTag
+        )
       }
     #endif
+
+    #if canImport(UIKit) && !os(watchOS)
+      /// Creates a menu entry with a Cocoa selector.
+      ///
+      /// - Parameters:
+      ///   - label: The label.
+      ///   - selector: The selector.
+      public init(
+        label: UserFacing<StrictString, L>,
+        selector: Selector
+      ) {
+        self.init(
+          label: label,
+          hotKeyModifiers: [],
+          hotKey: nil,
+          action: {
+            UIApplication.shared.sendAction(selector, to: nil, from: nil, for: nil)
+          },
+          isDisabled: { false },
+          isHidden: Shared(false),
+          platformTag: nil
+        )
+      }
+    #endif
+
+    private init(
+      label: UserFacing<StrictString, L>,
+      hotKeyModifiers: KeyModifiers = [],
+      hotKey: Character? = nil,
+      action: @escaping () -> Void,
+      isDisabled: @escaping () -> Bool,
+      isHidden: Shared<Bool> = Shared(false),
+      platformTag: Int? = nil
+    ) {
+      self.label = label
+      #if DEBUG
+        _ = label.resolved()  // Eager execution to simplify testing.
+      #endif
+      self.hotKeyModifiers = hotKeyModifiers
+      self.hotKey = hotKey
+      self.action = action
+      self.isDisabled = isDisabled
+      #if DEBUG
+        _ = isDisabled()  // Eager execution to simplify testing.
+      #endif
+      self.isHidden = isHidden
+      self.tag = platformTag
+    }
 
     // MARK: - Properties
 
     private let label: UserFacing<StrictString, L>
     private let hotKeyModifiers: KeyModifiers
-    private let hotKey: String?
-    private let action: Selector?
-    #if canImport(AppKit)
-      private weak var target: AnyObject?
-      private let isHidden: Shared<Bool>
-      private let tag: Int?
-    #endif
+    private let hotKey: Character?
+    private let action: () -> Void
+    private let tag: Int?
+    private let isDisabled: () -> Bool
+    private let isHidden: Shared<Bool>
 
     // MARK: - Platform‐Specific Adjustements
 
-    #if canImport(AppKit)
-      /// Returns a menu entry reconfigured to send its action to a specific target.
-      ///
-      /// - Parameters:
-      ///   - target: The target of the action.
-      public func target(_ target: AnyObject) -> MenuEntry {
-        return MenuEntry(
-          label: label,
-          hotKeyModifiers: hotKeyModifiers,
-          hotKey: hotKey,
-          action: action,
-          target: target,
-          isHidden: isHidden,
-          platformTag: tag
-        )
-      }
+    /// Returns a menu entry reconfigured to hide itself according to the state of a binding.
+    ///
+    /// - Parameters:
+    ///   - isHidden: A binding indicating whether the menu item should be hidden.
+    public func hidden(when isHidden: Shared<Bool>) -> MenuEntry {
+      return MenuEntry(
+        label: label,
+        hotKeyModifiers: hotKeyModifiers,
+        hotKey: hotKey,
+        action: action,
+        isDisabled: isDisabled,
+        isHidden: isHidden,
+        platformTag: tag
+      )
+    }
 
-      /// Returns a menu entry reconfigured to hide itself according to the state of a binding.
-      ///
-      /// - Parameters:
-      ///   - isHidden: A binding indicating whether the menu item should be hidden.
-      public func hidden(when isHidden: Shared<Bool>) -> MenuEntry {
-        return MenuEntry(
-          label: label,
-          hotKeyModifiers: hotKeyModifiers,
-          hotKey: hotKey,
-          action: action,
-          target: target,
-          isHidden: isHidden,
-          platformTag: tag
-        )
-      }
+    // MARK: - SwiftUI
 
-      /// Returns a menu entry reconfigured with a particular platform tag.
-      ///
-      /// System actions on some platforms need numeric tag identifiers to provide additional information when the action is triggered. Use of this method is discouraged except when necessary to interact with such system actions.
-      ///
-      /// - Parameters:
-      ///   - platformTag: The platform tag.
-      public func tag(_ platformTag: Int) -> MenuEntry {
-        return MenuEntry(
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      /// Creates the menu item in SwiftUI.
+      @available(macOS 11, iOS 14, *)
+      public func swiftUI() -> some SwiftUI.View {
+        return SwiftUIImplementation(
           label: label,
-          hotKeyModifiers: hotKeyModifiers,
-          hotKey: hotKey,
           action: action,
-          target: target,
-          isHidden: isHidden,
-          platformTag: platformTag
+          hotKeyModifiers: hotKeyModifiers.swiftUI(),
+          hotKey: hotKey,
+          isDisabled: isDisabled,
+          isHidden: isHidden
         )
       }
     #endif
@@ -147,26 +220,70 @@
           label: label,
           hotKeyModifiers:
             hotKeyModifiers,
-          hotKey: hotKey,
+          hotKey: hotKey.map({ String($0) }),
           action: action,
-          target: target,
+          isDisabled: isDisabled,
           isHidden: isHidden,
           tag: tag
         )
       }
-    #elseif canImport(UIKit)
+    #elseif canImport(UIKit) && !os(tvOS) && !os(watchOS)
       public func cocoa() -> UIMenuItem {
         return CocoaImplementation(
           label: label,
           hotKeyModifiers:
             hotKeyModifiers,
-          hotKey: hotKey,
+          hotKey: hotKey.map({ String($0) }),
           action: action,
-          target: nil,
+          isDisabled: isDisabled,
           isHidden: Shared(false),
-          tag: nil
+          tag: tag
         )
       }
     #endif
+  }
+#endif
+
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  @available(macOS 11, tvOS 14, iOS 14, watchOS 6, *)
+  internal struct MenuEntryPreviews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
+
+      Group {
+
+        MenuEntry(
+          label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+              return "Do Something"
+            case .deutschDeutschland:
+              return "Etwas machen"
+            }
+          }),
+          hotKeyModifiers: [.command],
+          hotKey: "d",
+          action: { print("Hello, world!") }  // @exempt(from: tests)
+        ).swiftUI()
+          .padding()
+          .previewDisplayName("Menu Entry")
+
+        MenuEntry(
+          label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+              return "Disabled"
+            case .deutschDeutschland:
+              return "Deaktiviert"
+            }
+          }),
+          hotKeyModifiers: [.command],
+          hotKey: "d",
+          action: { print("Hello, world!") },  // @exempt(from: tests)
+          isDisabled: { true }
+        ).swiftUI()
+          .padding()
+          .previewDisplayName("Disabled")
+      }
+    }
   }
 #endif

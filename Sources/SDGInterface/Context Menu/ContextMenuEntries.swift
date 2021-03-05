@@ -35,7 +35,7 @@
             return "Text normalisieren"
           }
         }),
-        action: #selector(TextEditingResponder.normalizeText(_:))
+        selector: #selector(TextEditingResponder.normalizeText(_:))
       )
     }
 
@@ -49,7 +49,7 @@
             return "Schriftzeicheninformationen einblenden"
           }
         }),
-        action: #selector(TextDisplayResponder.showCharacterInformation(_:))
+        selector: #selector(TextDisplayResponder.showCharacterInformation(_:))
       )
     }
   }

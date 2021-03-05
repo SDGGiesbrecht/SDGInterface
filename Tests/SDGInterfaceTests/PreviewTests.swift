@@ -98,6 +98,16 @@
       }
     }
 
+    func testMenuEntryPreviews() {
+      for localization in InterfaceLocalization.allCases {
+        LocalizationSetting(orderOfPrecedence: [localization.code]).do {
+          if #available(macOS 11, tvOS 14, iOS 14, watchOS 7, *) {
+            _ = MenuEntryPreviews.previews
+          }
+        }
+      }
+    }
+
     func testPaddedPreviews() {
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         _ = PaddedPreviews.previews

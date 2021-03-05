@@ -12,6 +12,9 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(SwiftUI)
+  import SwiftUI
+#endif
 #if canImport(AppKit)
   import AppKit
 #endif
@@ -68,9 +71,36 @@ public struct KeyModifiers: OptionSet {
 
   // MARK: - Properties
 
+  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    /// The SwiftUI event modifiers.
+    @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+    public func swiftUI() -> EventModifiers {
+      var result = EventModifiers()
+      if contains(.command) {
+        result.insert(.command)
+      }
+      if contains(.shift) {
+        result.insert(.shift)
+      }
+      if contains(.option) {
+        result.insert(.option)
+      }
+      if contains(.control) {
+        result.insert(.control)
+      }
+      if contains(.function) {
+        result.insert(.function)
+      }
+      if contains(.capsLock) {
+        result.insert(.capsLock)
+      }
+      return result
+    }
+  #endif
+
   #if canImport(AppKit)
     /// The Cocoa modifier flags.
-    public var cocoa: NSEvent.ModifierFlags {
+    public func cocoa() -> NSEvent.ModifierFlags {
       var result = NSEvent.ModifierFlags()
       if contains(.command) {
         result.insert(.command)

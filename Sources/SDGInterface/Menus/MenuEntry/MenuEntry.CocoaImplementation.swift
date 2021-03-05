@@ -39,8 +39,8 @@
         label: UserFacing<StrictString, L>,
         hotKeyModifiers: KeyModifiers,
         hotKey: String?,
-        action: Selector?,
-        target: AnyObject?,
+        action: @escaping () -> Void,
+        isDisabled: @escaping () -> Bool,
         isHidden: Shared<Bool>,
         tag: Int?
       ) {
@@ -48,6 +48,12 @@
         defer {
           LocalizationSetting.current.register(observer: self, identifier: localizationIdentifier)
         }
+
+        self.actionClosure = action
+        self.isDisabled = isDisabled
+        #if canImport(AppKit)
+          self.closureSelector = ClosureSelector(action: action, isDisabled: isDisabled)
+        #endif
 
         #if canImport(AppKit)
           self.isHiddenBinding = isHidden
@@ -59,15 +65,16 @@
         #if canImport(AppKit)
           super.init(
             title: "" /* temporary placeholder */,
-            action: action,
+            action: #selector(ClosureSelector.send),
             keyEquivalent: hotKey ?? ""
           )
-          self.keyEquivalentModifierMask = hotKeyModifiers.cocoa
-          if let target = target {
-            self.target = target
-          }
+          self.keyEquivalentModifierMask = hotKeyModifiers.cocoa()
+          self.target = self.closureSelector
         #else
-          super.init(title: "" /* temporary placeholder */, action: action ?? .none)
+          super.init(
+            title: "" /* temporary placeholder */,
+            action: #selector(UIResponder.executeClosureAction(_:))
+          )
         #endif
 
         #if canImport(AppKit)
@@ -84,7 +91,10 @@
       // MARK: - Properties
 
       private let label: UserFacing<StrictString, L>
+      internal let actionClosure: () -> Void
+      private let isDisabled: () -> Bool
       #if canImport(AppKit)
+        private let closureSelector: ClosureSelector
         private let isHiddenBinding: Shared<Bool>
       #endif
 
@@ -97,8 +107,8 @@
             label: label,
             hotKeyModifiers: KeyModifiers(keyEquivalentModifierMask),
             hotKey: keyEquivalent,
-            action: action,
-            target: target,
+            action: actionClosure,
+            isDisabled: isDisabled,
             isHidden: isHiddenBinding,
             tag: tag
           )
@@ -125,4 +135,6 @@
       }
     }
   }
+
+  extension MenuEntry.CocoaImplementation: ClosureActionSender {}
 #endif

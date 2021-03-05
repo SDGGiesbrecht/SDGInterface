@@ -42,7 +42,7 @@
             return "התחל לדבר"
           }
         }),
-        action: #selector(NSTextView.startSpeaking(_:))
+        selector: #selector(NSTextView.startSpeaking(_:))
       )
     }
 
@@ -64,7 +64,7 @@
             return "הפסק לדבר"
           }
         }),
-        action: #selector(NSTextView.stopSpeaking(_:))
+        selector: #selector(NSTextView.stopSpeaking(_:))
       )
     }
 

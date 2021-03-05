@@ -17,6 +17,9 @@
   import ObjectiveC
 
   extension Selector {
+
+    // MARK: - None
+
     private class Responder: NSObject {
       @objc fileprivate func unimplementedSelector(_ sender: Any?) {}  // @exmpt(from: tests)
     }

@@ -15,6 +15,9 @@
 #if canImport(AppKit)
   import AppKit
 #endif
+#if canImport(UIKit)
+  import UIKit
+#endif
 
 import SDGControlFlow
 import SDGText
@@ -95,6 +98,18 @@ final class InternalTests: ApplicationTestCase {
     #endif
   }
 
+  func testMenuEntry() {
+    #if canImport(AppKit)
+      let entry = MenuEntry<APILocalization>(
+        label: UserFacing<StrictString, APILocalization>({ _ in "" }),
+        action: {}
+      ).cocoa()
+      let selector = entry.target as? ClosureSelector
+      selector?.send()
+      _ = selector?.validateMenuItem(entry)
+    #endif
+  }
+
   func testPopOverCocoaImplementation() {
     withLegacyMode {
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
@@ -147,5 +162,20 @@ final class InternalTests: ApplicationTestCase {
     var string = StrictString()
     string.compatibility = "..."
     _ = string.compatibility
+  }
+
+  func testUIResponder() {
+    #if canImport(UIKit) && !os(tvOS)
+      let executed = expectation(description: "Action executed.")
+      let menuEntry = MenuEntry(
+        label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
+          { _ in
+            "Menu Item"
+          }),
+        action: { executed.fulfill() }
+      )
+      UILabel().executeClosureAction(menuEntry.cocoa())
+      wait(for: [executed], timeout: 1)
+    #endif
   }
 }

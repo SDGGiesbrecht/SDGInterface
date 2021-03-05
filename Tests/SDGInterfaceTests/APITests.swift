@@ -410,7 +410,12 @@ final class APITests: ApplicationTestCase {
   func testKeyModifiers() {
     let modifiers: KeyModifiers = [.command, .shift, .option, .control, .function, .capsLock]
     #if canImport(AppKit)
-      XCTAssertEqual(KeyModifiers(modifiers.cocoa), modifiers)
+      XCTAssertEqual(KeyModifiers(modifiers.cocoa()), modifiers)
+    #endif
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
+        _ = modifiers.swiftUI()
+      }
     #endif
   }
 
@@ -481,7 +486,7 @@ final class APITests: ApplicationTestCase {
 
   func testMenu() {
     #if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
-      _ = MenuEntry(label: UserFacing<StrictString, APILocalization>({ _ in "..." }))
+      _ = MenuEntry(label: UserFacing<StrictString, APILocalization>({ _ in "..." }), action: {})
       let menuLabel = UserFacing<StrictString, APILocalization>({ _ in "initial" })
       let menu = SDGInterface.Menu<APILocalization>(label: menuLabel, entries: [])
       _ = menu.cocoa()
@@ -495,7 +500,8 @@ final class APITests: ApplicationTestCase {
           MenuEntry<SDGInterfaceLocalizations.InterfaceLocalization>(
             label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
               { _ in "" }
-            )
+            ),
+            action: {}
           )
         ).asEntry
       )
@@ -525,7 +531,8 @@ final class APITests: ApplicationTestCase {
             MenuEntry<SDGInterfaceLocalizations.InterfaceLocalization>(
               label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
                 { _ in "" }
-              )
+              ),
+              action: {}
             )
           )
           .asSubmenu
@@ -535,14 +542,60 @@ final class APITests: ApplicationTestCase {
   }
 
   func testMenuEntry() {
-    #if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
-      let menuLabel = Shared<StrictString>("initial")
-      let entry = MenuEntry<APILocalization>(
-        label: UserFacing<StrictString, APILocalization>({ _ in "" })
-      )
-      menuLabel.value = "changed"
-      menuLabel.value = "unrelated"
-      _ = entry.cocoa()
+    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+      if #available(tvOS 14, *) {
+        let menuLabel = Shared<StrictString>("initial")
+        let entry = MenuEntry<APILocalization>(
+          label: UserFacing<StrictString, APILocalization>({ _ in "" }),
+          action: {}
+        )
+        menuLabel.value = "changed"
+        menuLabel.value = "unrelated"
+        #if !os(tvOS)
+          _ = entry.cocoa()
+        #endif
+        #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+          if #available(macOS 11, iOS 14, *) {
+            _ = entry.swiftUI().body
+          }
+        #endif
+        let withHotKey = MenuEntry<APILocalization>(
+          label: UserFacing<StrictString, APILocalization>({ _ in "" }),
+          hotKeyModifiers: [.command],
+          hotKey: "a",
+          action: {}
+        )
+        #if !os(tvOS)
+          _ = withHotKey.cocoa()
+        #endif
+        #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+          if #available(macOS 11, iOS 14, *) {
+            _ = withHotKey.swiftUI().body
+          }
+        #endif
+        let hidden = MenuEntry<APILocalization>(
+          label: UserFacing<StrictString, APILocalization>({ _ in "" }),
+          action: {}
+        ).hidden(when: Shared(true))
+        #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+          if #available(macOS 11, iOS 14, *) {
+            _ = hidden.swiftUI().body
+          }
+        #endif
+        #if canImport(UIKit)
+          let withSelector = MenuEntry<APILocalization>(
+            label: UserFacing<StrictString, APILocalization>({ _ in "" }),
+            selector: #selector(NSObject.copy)
+          )
+          #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+            if #available(iOS 14, *) {
+              _ = withSelector.swiftUI().body
+            }
+          #else
+            _ = withSelector
+          #endif
+        #endif
+      }
     #endif
   }
 
