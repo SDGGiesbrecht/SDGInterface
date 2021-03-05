@@ -99,8 +99,12 @@
     }
 
     func testMenuEntryPreviews() {
-      if #available(macOS 11, tvOS 14, iOS 14, watchOS 7, *) {
-        _ = MenuEntryPreviews.previews
+      for localization in InterfaceLocalization.allCases {
+        LocalizationSetting(orderOfPrecedence: [localization.code]).do {
+          if #available(macOS 11, tvOS 14, iOS 14, watchOS 7, *) {
+            _ = MenuEntryPreviews.previews
+          }
+        }
       }
     }
 
