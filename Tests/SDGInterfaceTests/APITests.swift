@@ -556,6 +556,36 @@ final class APITests: ApplicationTestCase {
           _ = entry.swiftUI().body
         }
       #endif
+      let withHotKey = MenuEntry<APILocalization>(
+        label: UserFacing<StrictString, APILocalization>({ _ in "" }),
+        hotKeyModifiers: [.command],
+        hotKey: "a",
+        action: {}
+      )
+      _ = withHotKey.cocoa()
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        if #available(macOS 11, tvOS 14, iOS 14, *) {
+          _ = withHotKey.swiftUI().body
+        }
+      #endif
+      let hidden = MenuEntry<APILocalization>(
+        label: UserFacing<StrictString, APILocalization>({ _ in "" }),
+        action: {}
+      ).hidden(when: Shared(true))
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        if #available(macOS 11, tvOS 14, iOS 14, *) {
+          _ = hidden.swiftUI().body
+        }
+      #endif
+      #if canImport(UIKit) && !os(tvOS)
+        let withSelector = MenuEntry<APILocalization>(
+          label: UserFacing<StrictString, APILocalization>({ _ in "" }),
+          selector: #selector(NSObject.copy)
+        )
+        if #available(iOS 14, *) {
+          _ = withSelector.swiftUI().body
+        }
+      #endif
     #endif
   }
 
