@@ -46,6 +46,7 @@
         ),
       ]
       var appendix: [MenuComponent] = []
+      var cachedNormalize: NSMenuItem?
       for adjustment in adjustments {
         var handled = false
         defer {
@@ -71,15 +72,18 @@
               }
               return true
             })
-            transformations.items.append(adjustment.menu.cocoa())
+            let cocoa = adjustment.menu.cocoa()
+            cachedNormalize = cocoa
+            transformations.items.append(cocoa)
             handled = true
           }
         case #selector(TextDisplayResponder.showCharacterInformation(_:)):
-          if let transformations = systemMenu.items.indices.lazy
+          if let normalize = cachedNormalize,
+             let transformations = systemMenu.items.indices.lazy
             .first(where: { index in
               let submenu = systemMenu.items[index].submenu
               return submenu?.items.contains(
-                where: { $0.action == #selector(TextEditingResponder.normalizeText(_:)) }
+                where: { $0 === normalize }
               ) ?? false
             })
           {

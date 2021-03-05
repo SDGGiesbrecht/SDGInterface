@@ -151,10 +151,16 @@
       platformTag: Int? = nil
     ) {
       self.label = label
+      #if DEBUG
+        _ = label.resolved()  // Eager execution to simplify testing.
+      #endif
       self.hotKeyModifiers = hotKeyModifiers
       self.hotKey = hotKey
       self.action = action
       self.isDisabled = isDisabled
+      #if DEBUG
+        _ = isDisabled()  // Eager execution to simplify testing.
+      #endif
       self.isHidden = isHidden
       self.tag = platformTag
     }
