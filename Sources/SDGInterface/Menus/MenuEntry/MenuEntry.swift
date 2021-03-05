@@ -51,13 +51,15 @@
       action: @escaping () -> Void,
       isDisabled: @escaping () -> Bool = { return false }
     ) {
-      self.label = label
-      self.hotKeyModifiers = hotKeyModifiers
-      self.hotKey = hotKey
-      self.action = action
-      self.tag = nil
-      self.isDisabled = isDisabled
-      self.isHidden = Shared(false)
+      self.init(
+        label: label,
+        hotKeyModifiers: hotKeyModifiers,
+        hotKey: hotKey,
+        action: action,
+        isDisabled: isDisabled,
+        isHidden: Shared(false),
+        platformTag: nil
+      )
     }
 
     #if canImport(AppKit)
@@ -78,38 +80,40 @@
         target: Any? = nil,
         platformTag: Int? = nil
       ) {
-        let proxy = { () -> NSMenuItem in
+        let proxy = { () -> NSMenuItem in  // @exempt(from: tests) Unreachable from tests.
           let item = NSMenuItem(title: "", action: selector, keyEquivalent: "")
           if let tag = platformTag {
             item.tag = tag
           }
           return item
         }
-        self.label = label
-        self.hotKeyModifiers = hotKeyModifiers
-        self.hotKey = hotKey
-        self.action = {
-          NSApplication.shared.sendAction(selector, to: target, from: proxy())
-        }
-        self.isDisabled = {
-          if let target = target {
-            if let custom = target as? NSMenuItemValidation {
-              return ¬custom.validateMenuItem(proxy())
+        self.init(
+          label: label,
+          hotKeyModifiers: hotKeyModifiers,
+          hotKey: hotKey,
+          action: {
+            NSApplication.shared.sendAction(selector, to: target, from: proxy())
+          },
+          isDisabled: {  // @exempt(from: tests) Unreachable from tests.
+            if let target = target {
+              if let custom = target as? NSMenuItemValidation {
+                return ¬custom.validateMenuItem(proxy())
+              } else {
+                return false
+              }
             } else {
-              return false
+              if let window = NSApplication.shared.keyWindow,
+                let responder = window.firstResponder as? NSMenuItemValidation
+              {
+                return ¬responder.validateMenuItem(proxy())
+              } else {
+                return ¬NSApplication.shared.validateMenuItem(proxy())
+              }
             }
-          } else {
-            if let window = NSApplication.shared.keyWindow,
-              let responder = window.firstResponder as? NSMenuItemValidation
-            {
-              return ¬responder.validateMenuItem(proxy())
-            } else {
-              return ¬NSApplication.shared.validateMenuItem(proxy())
-            }
-          }
-        }
-        isHidden = Shared(false)
-        tag = platformTag
+          },
+          isHidden: Shared(false),
+          platformTag: platformTag
+        )
       }
     #endif
 
@@ -123,15 +127,17 @@
         label: UserFacing<StrictString, L>,
         selector: Selector
       ) {
-        self.label = label
-        self.hotKeyModifiers = []
-        self.hotKey = nil
-        self.action = {
-          UIApplication.shared.sendAction(selector, to: nil, from: nil, for: nil)
-        }
-        self.tag = nil
-        self.isDisabled = { false }
-        self.isHidden = Shared(false)
+        self.init(
+          label: label,
+          hotKeyModifiers: [],
+          hotKey: nil,
+          action: {
+            UIApplication.shared.sendAction(selector, to: nil, from: nil, for: nil)
+          },
+          isDisabled: { false },
+          isHidden: Shared(false),
+          platformTag: nil
+        )
       }
     #endif
 
@@ -248,7 +254,7 @@
           }),
           hotKeyModifiers: [.command],
           hotKey: "d",
-          action: { print("Hello, world!") }
+          action: { print("Hello, world!") }  // @exempt(from: tests)
         ).swiftUI()
           .padding()
           .previewDisplayName("Menu Entry")
@@ -264,7 +270,7 @@
           }),
           hotKeyModifiers: [.command],
           hotKey: "d",
-          action: { print("Hello, world!") },
+          action: { print("Hello, world!") },  // @exempt(from: tests)
           isDisabled: { true }
         ).swiftUI()
           .padding()
