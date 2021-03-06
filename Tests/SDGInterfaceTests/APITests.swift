@@ -518,16 +518,20 @@ final class APITests: ApplicationTestCase {
         }
       #endif
       #if canImport(AppKit)
-        XCTAssertNotNil(
-          MenuComponent.submenu(
-            SDGInterface.Menu<SDGInterfaceLocalizations.InterfaceLocalization>(
-              label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
-                { _ in "" }
-              ),
-              entries: []
-            )
-          ).asSubmenu
+        let submenu = MenuComponent.submenu(
+          SDGInterface.Menu<SDGInterfaceLocalizations.InterfaceLocalization>(
+            label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
+              { _ in "" }
+            ),
+            entries: []
+          )
         )
+        XCTAssertNotNil(submenu.asSubmenu)
+        #if canImport(SwiftUI)
+          if #available(macOS 11, iOS 14, *) {
+            _ = entry.swiftUI().body
+          }
+        #endif
         XCTAssertNil(
           MenuComponent.submenu(
             SDGInterface.Menu<SDGInterfaceLocalizations.InterfaceLocalization>(
