@@ -12,7 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
+#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+  #if canImport(SwiftUI)
+    import SwiftUI
+  #endif
   #if canImport(AppKit)
     import AppKit
   #endif
@@ -59,6 +62,18 @@
         }
       }
     #endif
+
+    // MARK: - SwiftUI
+
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      /// Creates the component in SwiftUI.
+      @available(macOS 11, *)
+      public func swiftUI() -> some SwiftUI.View {
+        return SwiftUIImplementation(component: self)
+      }
+    #endif
+
+    // MARK: - Cocoa
 
     #if canImport(AppKit)
       /// Generates an `NSMenuItem` instance representing the menu component.

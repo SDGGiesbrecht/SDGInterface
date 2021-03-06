@@ -1,5 +1,5 @@
 /*
- Menu.SwiftUIImplementation.swift
+ MenuComponent.SwiftUIImplementation.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -18,26 +18,30 @@
   import SDGText
   import SDGLocalization
 
-  extension Menu {
+  extension MenuComponent {
 
     @available(macOS 11, *)
     internal struct SwiftUIImplementation: SwiftUI.View {
 
       // MARK: - Properties
 
-      internal let label: UserFacing<StrictString, L>
-      internal let entries: [MenuComponent]
+      internal let component: MenuComponent
 
       // MARK: - View
 
-      internal var body: some SwiftUI.View {
-        return SwiftUI.Menu(String(label.resolved())) {
-          ForEach(entries.indices) { (index) -> SwiftUI.EmptyView in
-            let entry = entries[index]
-            #warning("Placeholder")
-            return SwiftUI.EmptyView()
-            //return entry.swiftUI()
-          }
+      @ViewBuilder internal var body: some SwiftUI.View {
+        switch component {
+        case .entry(let entry):
+          #warning("Placeholder.")
+          SwiftUI.EmptyView()
+        //entry.swiftUI()
+        case .submenu(let submenu):
+          SwiftUI.Group {}
+          #warning("Placeholder")
+        //submenu.swiftUI()
+        case .separator:
+          SwiftUI.AnyView(SwiftUI.EmptyView())
+          #warning("Placeholder")
         }
       }
     }
