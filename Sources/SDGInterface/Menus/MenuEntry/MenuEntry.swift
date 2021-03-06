@@ -211,7 +211,7 @@
         )
       }
 
-      @available(macOS 11, *)
+      @available(macOS 11, iOS 14, *)
       public func swiftUIAnyView() -> SwiftUI.AnyView {
         return SwiftUI.AnyView(swiftUI())
       }

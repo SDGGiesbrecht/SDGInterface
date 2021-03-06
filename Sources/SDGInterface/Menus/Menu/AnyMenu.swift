@@ -28,10 +28,12 @@
   /// A menu with no particular localization.
   public protocol AnyMenu {
 
-    #warning("Make generic?")
-    /// Constructs a type‐erased SwiftUI view.
-    @available(macOS 11, *)
-    func swiftUIAnyView() -> SwiftUI.AnyView
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      #warning("Make generic?")
+      /// Constructs a type‐erased SwiftUI view.
+      @available(macOS 11, iOS 14, *)
+      func swiftUIAnyView() -> SwiftUI.AnyView
+    #endif
 
     #if canImport(AppKit)
       /// Generates an `NSMenu` instance representing the menu.

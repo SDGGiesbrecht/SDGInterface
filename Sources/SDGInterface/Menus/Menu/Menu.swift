@@ -55,7 +55,7 @@
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       /// Creates the menu in SwiftUI.
-      @available(macOS 11, *)
+      @available(macOS 11, iOS 14, *)
       public func swiftUI() -> some SwiftUI.View {
         return SwiftUIImplementation(
           label: label,
@@ -64,7 +64,7 @@
         )
       }
 
-      @available(macOS 11, *)
+      @available(macOS 11, iOS 14, *)
       public func swiftUIAnyView() -> SwiftUI.AnyView {
         return SwiftUI.AnyView(swiftUI())
       }
@@ -105,17 +105,9 @@
 
       return Group {
 
-        Menu(
-          label: UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Menu"
-            case .deutschDeutschland:
-              return "Menü"
-            }
-          }),
-          entries: [
-            .entry(entry),
+        var entries: [MenuComponent] = [.entry(entry)]
+        #if canImport(AppKit)
+          entries.append(contentsOf: [
             .separator,
             .submenu(
               Menu(
@@ -132,7 +124,18 @@
                 ]
               )
             ),
-          ]
+          ])
+        #endif
+        Menu(
+          label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+              return "Menu"
+            case .deutschDeutschland:
+              return "Menü"
+            }
+          }),
+          entries: entries
         ).swiftUI()
           .padding()
           .previewDisplayName("Menu")

@@ -67,7 +67,7 @@
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       /// Creates the component in SwiftUI.
-      @available(macOS 11, *)
+      @available(macOS 11, iOS 14, *)
       public func swiftUI() -> some SwiftUI.View {
         return SwiftUIImplementation(component: self)
       }

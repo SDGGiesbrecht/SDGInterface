@@ -20,7 +20,7 @@
 
   extension MenuComponent {
 
-    @available(macOS 11, *)
+    @available(macOS 11, iOS 14, *)
     internal struct SwiftUIImplementation: SwiftUI.View {
 
       // MARK: - Properties
@@ -33,10 +33,12 @@
         switch component {
         case .entry(let entry):
           entry.swiftUIAnyView()
-        case .submenu(let submenu):
-          submenu.swiftUIAnyView()
-        case .separator:
-          Divider()
+        #if canImport(AppKit)
+          case .submenu(let submenu):
+            submenu.swiftUIAnyView()
+          case .separator:
+            Divider()
+        #endif
         }
       }
     }
