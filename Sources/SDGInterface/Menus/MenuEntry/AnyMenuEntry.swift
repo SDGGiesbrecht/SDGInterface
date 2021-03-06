@@ -31,7 +31,7 @@
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       #warning("Make generic?")
       /// Constructs a type‐erased SwiftUI view.
-      @available(macOS 11, iOS 14, tvOS 14, *)
+      @available(macOS 11, iOS 14, tvOS 14, watchOS 7, *)
       func swiftUIAnyView() -> SwiftUI.AnyView
     #endif
 

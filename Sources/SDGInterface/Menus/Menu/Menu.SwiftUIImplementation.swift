@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(SwiftUI) && !os(tvOS) && !(os(iOS) && arch(arm))
+#if canImport(SwiftUI) && !os(tvOS)  && !os(watchOS) && !(os(iOS) && arch(arm))
   import SwiftUI
 
   import SDGControlFlow
