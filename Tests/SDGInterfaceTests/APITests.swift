@@ -494,17 +494,19 @@ final class APITests: ApplicationTestCase {
   }
 
   func testMenuComponent() {
-    #if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
-      XCTAssertNotNil(
-        MenuComponent.entry(
-          MenuEntry<SDGInterfaceLocalizations.InterfaceLocalization>(
-            label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
-              { _ in "" }
-            ),
-            action: {}
-          )
-        ).asEntry
+    #if canImport(SwiftUI) && !os(tvOS) && !os(watchOS) && !(os(iOS) && arch(arm))
+      let entry = MenuComponent.entry(
+        MenuEntry<SDGInterfaceLocalizations.InterfaceLocalization>(
+          label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
+            { _ in "" }
+          ),
+          action: {}
+        )
       )
+      XCTAssertNotNil(entry.asEntry)
+      if #available(macOS 11, iOS 14, *) {
+        _ = entry.swiftUI().body
+      }
       #if canImport(AppKit)
         XCTAssertNotNil(
           MenuComponent.submenu(
