@@ -12,7 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit) || (canImport(UIKit) && !os(tvOS) && !os(watchOS))
+#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+  #if canImport(SwiftUI)
+    import SwiftUI
+  #endif
   #if canImport(AppKit)
     import AppKit
   #endif
@@ -45,6 +48,19 @@
 
     private let label: UserFacing<StrictString, L>
     private let entries: [MenuComponent]
+
+    // MARK: - SwiftUI
+
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      /// Creates the menu in SwiftUI.
+      @available(macOS 11, *)
+      public func swiftUI() -> some SwiftUI.View {
+        return SwiftUIImplementation(
+          label: label,
+          entries: entries
+        )
+      }
+    #endif
 
     // MARK: - AnyMenu
 
