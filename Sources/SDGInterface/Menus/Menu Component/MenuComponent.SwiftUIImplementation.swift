@@ -40,8 +40,7 @@
           #warning("Placeholder")
         //submenu.swiftUI()
         case .separator:
-          SwiftUI.AnyView(SwiftUI.EmptyView())
-          #warning("Placeholder")
+          Divider()
         }
       }
     }
