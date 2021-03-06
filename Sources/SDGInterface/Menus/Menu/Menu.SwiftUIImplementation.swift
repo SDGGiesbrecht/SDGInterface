@@ -15,6 +15,7 @@
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   import SwiftUI
 
+  import SDGControlFlow
   import SDGText
   import SDGLocalization
 
@@ -27,6 +28,7 @@
 
       internal let label: UserFacing<StrictString, L>
       internal let entries: [MenuComponent]
+      @ObservedObject internal var localization: Shared<LocalizationSetting>
 
       // MARK: - View
 
@@ -35,7 +37,7 @@
         return entry.swiftUI()
       }
       internal var body: some SwiftUI.View {
-        return SwiftUI.Menu(String(label.resolved())) {
+        return SwiftUI.Menu(String(label.resolved(for: localization.value.resolved()))) {
           ForEach(entries.indices) { entryView(index: $0) }
         }
       }

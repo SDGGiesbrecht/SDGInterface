@@ -57,7 +57,8 @@
       public func swiftUI() -> some SwiftUI.View {
         return SwiftUIImplementation(
           label: label,
-          entries: entries
+          entries: entries,
+          localization: LocalizationSetting.current
         )
       }
     #endif
