@@ -32,9 +32,7 @@
       @ViewBuilder internal var body: some SwiftUI.View {
         switch component {
         case .entry(let entry):
-          #warning("Placeholder.")
-          SwiftUI.EmptyView()
-        //entry.swiftUI()
+          entry.swiftUIAnyView()
         case .submenu(let submenu):
           SwiftUI.Group {}
           #warning("Placeholder")

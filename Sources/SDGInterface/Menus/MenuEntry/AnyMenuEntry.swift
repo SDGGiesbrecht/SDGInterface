@@ -13,6 +13,9 @@
  */
 
 #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+  #if canImport(SwiftUI)
+    import SwiftUI
+  #endif
   #if canImport(AppKit)
     import AppKit
   #endif
@@ -24,6 +27,11 @@
 
   /// A menu entry with no particular localization.
   public protocol AnyMenuEntry {
+
+    #warning("Make generic?")
+    /// Constructs a type‐erased SwiftUI view.
+    @available(macOS 11, *)
+    func swiftUIAnyView() -> SwiftUI.AnyView
 
     #if canImport(AppKit)
       /// Contsructs a Cocoa menu item.

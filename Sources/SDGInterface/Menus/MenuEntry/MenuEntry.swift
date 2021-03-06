@@ -210,6 +210,11 @@
           isHidden: isHidden
         )
       }
+
+      @available(macOS 11, *)
+      public func swiftUIAnyView() -> SwiftUI.AnyView {
+        return SwiftUI.AnyView(swiftUI())
+      }
     #endif
 
     // MARK: - AnyMenuEntry
