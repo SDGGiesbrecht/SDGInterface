@@ -26,6 +26,8 @@
   import SDGText
   import SDGLocalization
 
+  import SDGInterfaceLocalizations
+
   /// A menu.
   public struct Menu<L>: AnyMenu where L: Localization {
 
@@ -81,5 +83,60 @@
         return entries.map { $0.cocoa() }
       }
     #endif
+  }
+#endif
+
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  @available(macOS 11, tvOS 14, iOS 14, watchOS 6, *)
+  internal struct MenuPreviews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
+
+      let entry = MenuEntry(
+        label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Entry"
+          case .deutschDeutschland:
+            return "Eintrag"
+          }
+        }),
+        action: {}
+      )
+
+      return Group {
+
+        Menu(
+          label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+            switch localization {
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+              return "Menu"
+            case .deutschDeutschland:
+              return "Menü"
+            }
+          }),
+          entries: [
+            .entry(entry),
+            .separator,
+            .submenu(
+              Menu(
+                label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+                  switch localization {
+                  case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+                    return "Submenu"
+                  case .deutschDeutschland:
+                    return "Untermenü"
+                  }
+                }),
+                entries: [
+                  .entry(entry)
+                ]
+              )
+            ),
+          ]
+        ).swiftUI()
+          .padding()
+          .previewDisplayName("Menu")
+      }
+    }
   }
 #endif
