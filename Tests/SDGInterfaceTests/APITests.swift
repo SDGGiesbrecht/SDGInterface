@@ -529,7 +529,7 @@ final class APITests: ApplicationTestCase {
         XCTAssertNotNil(submenu.asSubmenu)
         #if canImport(SwiftUI)
           if #available(macOS 11, iOS 14, *) {
-            _ = entry.swiftUI().body
+            _ = submenu.swiftUI().body
           }
         #endif
         XCTAssertNil(
