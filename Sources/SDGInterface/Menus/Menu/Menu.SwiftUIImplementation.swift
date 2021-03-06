@@ -32,13 +32,18 @@
 
       // MARK: - View
 
-      private func entryView(index: Array<MenuComponent>.Index) -> some SwiftUI.View {
+      private func entryView(
+        index: Array<MenuComponent>.Index
+      ) -> some SwiftUI.View {  // @exempt(from: tests) Unreachable from tests.
         let entry = entries[index]
         return entry.swiftUI()
       }
       internal var body: some SwiftUI.View {
         return SwiftUI.Menu(String(label.resolved(for: localization.value.resolved()))) {
-          ForEach(entries.indices) { entryView(index: $0) }
+          ForEach(
+            entries.indices,
+            content: { entryView(index: $0) }  // @exempt(from: tests) Unreachable from tests.
+          )
         }
       }
     }
