@@ -30,14 +30,13 @@
 
       // MARK: - View
 
+      private func entryView(index: Array<MenuComponent>.Index) -> some SwiftUI.View {
+        let entry = entries[index]
+        return entry.swiftUI()
+      }
       internal var body: some SwiftUI.View {
         return SwiftUI.Menu(String(label.resolved())) {
-          ForEach(entries.indices) { (index) -> SwiftUI.EmptyView in
-            let entry = entries[index]
-            #warning("Placeholder")
-            return SwiftUI.EmptyView()
-            //return entry.swiftUI()
-          }
+          ForEach(entries.indices) { entryView(index: $0) }
         }
       }
     }
