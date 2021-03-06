@@ -127,14 +127,15 @@
           ])
         #endif
         Menu(
-          label: UserFacing<StrictString, InterfaceLocalization>({ localization in
-            switch localization {
-            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-              return "Menu"
-            case .deutschDeutschland:
-              return "Menü"
-            }
-          }),
+          label: UserFacing<StrictString, InterfaceLocalization>(
+            { localization in  // @exempt(from: tests) Unreachable.
+              switch localization {
+              case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+                return "Menu"
+              case .deutschDeutschland:
+                return "Menü"
+              }
+            }),
           entries: entries
         ).swiftUI()
           .padding()

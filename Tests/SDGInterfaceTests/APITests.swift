@@ -498,6 +498,11 @@ final class APITests: ApplicationTestCase {
           _ = menu.swiftUI().body
         }
       #endif
+      #if canImport(SwiftUI)
+        if #available(macOS 11, iOS 14, *) {
+          _ = menu.swiftUIAnyView()
+        }
+      #endif
     #endif
   }
 
