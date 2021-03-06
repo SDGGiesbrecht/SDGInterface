@@ -12,7 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit) || (canImport(UIKit) && !os(tvOS) && !os(watchOS))
+#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+  #if canImport(SwiftUI)
+    import SwiftUI
+  #endif
   #if canImport(AppKit)
     import AppKit
   #endif
@@ -24,6 +27,11 @@
 
   /// A menu with no particular localization.
   public protocol AnyMenu {
+
+    #warning("Make generic?")
+    /// Constructs a type‐erased SwiftUI view.
+    @available(macOS 11, *)
+    func swiftUIAnyView() -> SwiftUI.AnyView
 
     #if canImport(AppKit)
       /// Generates an `NSMenu` instance representing the menu.

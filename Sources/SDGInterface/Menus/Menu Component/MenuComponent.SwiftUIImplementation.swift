@@ -34,9 +34,7 @@
         case .entry(let entry):
           entry.swiftUIAnyView()
         case .submenu(let submenu):
-          SwiftUI.Group {}
-          #warning("Placeholder")
-        //submenu.swiftUI()
+          submenu.swiftUIAnyView()
         case .separator:
           Divider()
         }
