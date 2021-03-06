@@ -30,7 +30,7 @@
 
     #warning("Make generic?")
     /// Constructs a type‐erased SwiftUI view.
-    @available(macOS 11, *)
+    @available(macOS 11, tvOS 14, *)
     func swiftUIAnyView() -> SwiftUI.AnyView
 
     #if canImport(AppKit)

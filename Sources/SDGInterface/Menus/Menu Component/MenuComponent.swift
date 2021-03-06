@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+#if (canImport(SwiftUI) && !os(tvOS)) || canImport(AppKit) || (canImport(UIKit) && !os(tvOS))
   #if canImport(SwiftUI)
     import SwiftUI
   #endif

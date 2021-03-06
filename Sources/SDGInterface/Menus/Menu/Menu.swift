@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+#if (canImport(SwiftUI) && !os(tvOS)) || canImport(AppKit) || (canImport(UIKit) && !os(tvOS))
   #if canImport(SwiftUI)
     import SwiftUI
   #endif
@@ -86,7 +86,7 @@
   }
 #endif
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+#if canImport(SwiftUI) && !os(tvOS) && !(os(iOS) && arch(arm))
   @available(macOS 11, tvOS 14, iOS 14, watchOS 6, *)
   internal struct MenuPreviews: PreviewProvider {
     internal static var previews: some SwiftUI.View {
