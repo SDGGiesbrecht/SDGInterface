@@ -103,41 +103,41 @@
         action: {}
       )
 
+      var entries: [MenuComponent] = [.entry(entry)]
+      #if canImport(AppKit)
+        entries.append(contentsOf: [
+          .separator,
+          .submenu(
+            Menu(
+              label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+                switch localization {
+                case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+                  return "Submenu"
+                case .deutschDeutschland:
+                  return "Untermenü"
+                }
+              }),
+              entries: [
+                .entry(entry)
+              ]
+            )
+          ),
+        ])
+      #endif
+      let menu = Menu(
+        label: UserFacing<StrictString, InterfaceLocalization>(
+          { localization in  // @exempt(from: tests) Unreachable.
+            switch localization {  // @exempt(from: tests)
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+              return "Menu"
+            case .deutschDeutschland:
+              return "Menü"
+            }
+          }),
+        entries: entries
+      )
       return Group {
-
-        var entries: [MenuComponent] = [.entry(entry)]
-        #if canImport(AppKit)
-          entries.append(contentsOf: [
-            .separator,
-            .submenu(
-              Menu(
-                label: UserFacing<StrictString, InterfaceLocalization>({ localization in
-                  switch localization {
-                  case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                    return "Submenu"
-                  case .deutschDeutschland:
-                    return "Untermenü"
-                  }
-                }),
-                entries: [
-                  .entry(entry)
-                ]
-              )
-            ),
-          ])
-        #endif
-        Menu(
-          label: UserFacing<StrictString, InterfaceLocalization>(
-            { localization in  // @exempt(from: tests) Unreachable.
-              switch localization {  // @exempt(from: tests)
-              case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                return "Menu"
-              case .deutschDeutschland:
-                return "Menü"
-              }
-            }),
-          entries: entries
-        ).swiftUI()
+        menu.swiftUI()
           .padding()
           .previewDisplayName("Menu")
       }
