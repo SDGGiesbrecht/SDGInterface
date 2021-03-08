@@ -513,7 +513,7 @@ final class APITests: ApplicationTestCase {
         )
       )
       XCTAssertNotNil(entry.asEntry)
-      #if canImport(SwiftUI)
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
         if #available(macOS 11, iOS 14, *) {
           _ = entry.swiftUI().body
         }
