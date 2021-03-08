@@ -42,6 +42,9 @@
       label: UserFacing<StrictString, L>,
       entries: [MenuComponent]
     ) {
+      #if DEBUG
+        _ = label.resolved()  // Eager execution to simplify testing.
+      #endif
       self.label = label
       self.entries = entries
     }

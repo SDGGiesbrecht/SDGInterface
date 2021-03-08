@@ -528,11 +528,9 @@ final class APITests: ApplicationTestCase {
           )
         )
         XCTAssertNotNil(submenu.asSubmenu)
-        #if canImport(SwiftUI)
-          if #available(macOS 11, iOS 14, *) {
-            _ = submenu.swiftUI().body
-          }
-        #endif
+        if #available(macOS 11, *) {
+          _ = submenu.swiftUI().body
+        }
         XCTAssertNil(
           MenuComponent.submenu(
             SDGInterface.Menu<SDGInterfaceLocalizations.InterfaceLocalization>(
@@ -554,6 +552,9 @@ final class APITests: ApplicationTestCase {
           )
           .asSubmenu
         )
+        if #available(macOS 11, *) {
+          _ = MenuComponent.separator.swiftUI().body
+        }
       #endif
     #endif
   }
