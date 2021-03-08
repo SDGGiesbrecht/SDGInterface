@@ -314,7 +314,11 @@ final class APITests: ApplicationTestCase {
 
   func testContextMenu() {
     #if canImport(UIKit) && !os(tvOS) && !os(watchOS)
-      _ = ContextMenu()
+      for localization in SDGInterfaceLocalizations.InterfaceLocalization.allCases {
+        LocalizationSetting(orderOfPrecedence: [localization.code]).do {
+          _ = ContextMenu().cocoa()
+        }
+      }
     #endif
   }
 
