@@ -129,7 +129,7 @@
         Menu(
           label: UserFacing<StrictString, InterfaceLocalization>(
             { localization in  // @exempt(from: tests) Unreachable.
-              switch localization {
+              switch localization {  // @exempt(from: tests)
               case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
                 return "Menu"
               case .deutschDeutschland:

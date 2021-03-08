@@ -493,13 +493,9 @@ final class APITests: ApplicationTestCase {
       let menuLabel = UserFacing<StrictString, APILocalization>({ _ in "initial" })
       let menu = SDGInterface.Menu<APILocalization>(label: menuLabel, entries: [.entry(entry)])
       _ = menu.cocoa()
-      #if canImport(SwiftUI)
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
         if #available(macOS 11, iOS 14, *) {
           _ = menu.swiftUI().body
-        }
-      #endif
-      #if canImport(SwiftUI)
-        if #available(macOS 11, iOS 14, *) {
           _ = menu.swiftUIAnyView()
         }
       #endif
