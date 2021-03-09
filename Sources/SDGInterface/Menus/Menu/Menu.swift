@@ -12,7 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit) || (canImport(UIKit) && !os(tvOS) && !os(watchOS))
+#if (canImport(SwiftUI) && !os(tvOS) && !os(watchOS)) || canImport(AppKit) || (canImport(UIKit) && !os(tvOS) && !os(watchOS))
+  #if canImport(SwiftUI)
+    import SwiftUI
+  #endif
   #if canImport(AppKit)
     import AppKit
   #endif
@@ -22,6 +25,8 @@
 
   import SDGText
   import SDGLocalization
+
+  import SDGInterfaceLocalizations
 
   /// A menu.
   public struct Menu<L>: AnyMenu where L: Localization {
@@ -37,6 +42,9 @@
       label: UserFacing<StrictString, L>,
       entries: [MenuComponent]
     ) {
+      #if DEBUG
+        _ = label.resolved()  // Eager execution to simplify testing.
+      #endif
       self.label = label
       self.entries = entries
     }
@@ -45,6 +53,25 @@
 
     private let label: UserFacing<StrictString, L>
     private let entries: [MenuComponent]
+
+    // MARK: - SwiftUI
+
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      /// Creates the menu in SwiftUI.
+      @available(macOS 11, iOS 14, *)
+      public func swiftUI() -> some SwiftUI.View {
+        return SwiftUIImplementation(
+          label: label,
+          entries: entries,
+          localization: LocalizationSetting.current
+        )
+      }
+
+      @available(macOS 11, iOS 14, *)
+      public func swiftUIAnyView() -> SwiftUI.AnyView {
+        return SwiftUI.AnyView(swiftUI())
+      }
+    #endif
 
     // MARK: - AnyMenu
 
@@ -59,5 +86,64 @@
         return entries.map { $0.cocoa() }
       }
     #endif
+  }
+#endif
+
+#if canImport(SwiftUI) && !os(tvOS) && !os(watchOS) && !(os(iOS) && arch(arm))
+  @available(macOS 11, tvOS 14, iOS 14, watchOS 6, *)
+  internal struct MenuPreviews: PreviewProvider {
+    internal static var previews: some SwiftUI.View {
+
+      let entry = MenuEntry(
+        label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Entry"
+          case .deutschDeutschland:
+            return "Eintrag"
+          }
+        }),
+        action: {}
+      )
+
+      var entries: [MenuComponent] = [.entry(entry)]
+      #if canImport(AppKit)
+        entries.append(contentsOf: [
+          .separator,
+          .submenu(
+            Menu(
+              label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+                switch localization {
+                case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+                  return "Submenu"
+                case .deutschDeutschland:
+                  return "Untermenü"
+                }
+              }),
+              entries: [
+                .entry(entry)
+              ]
+            )
+          ),
+        ])
+      #endif
+      let menu = Menu(
+        label: UserFacing<StrictString, InterfaceLocalization>(
+          { localization in  // @exempt(from: tests) Unreachable.
+            switch localization {  // @exempt(from: tests)
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+              return "Menu"
+            case .deutschDeutschland:
+              return "Menü"
+            }
+          }),
+        entries: entries
+      )
+      return Group {
+        menu.swiftUI()
+          .padding()
+          .previewDisplayName("Menu")
+      }
+    }
   }
 #endif

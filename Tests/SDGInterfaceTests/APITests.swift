@@ -314,7 +314,11 @@ final class APITests: ApplicationTestCase {
 
   func testContextMenu() {
     #if canImport(UIKit) && !os(tvOS) && !os(watchOS)
-      _ = ContextMenu()
+      for localization in SDGInterfaceLocalizations.InterfaceLocalization.allCases {
+        LocalizationSetting(orderOfPrecedence: [localization.code]).do {
+          _ = ContextMenu().cocoa()
+        }
+      }
     #endif
   }
 
@@ -485,37 +489,52 @@ final class APITests: ApplicationTestCase {
   }
 
   func testMenu() {
-    #if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
-      _ = MenuEntry(label: UserFacing<StrictString, APILocalization>({ _ in "..." }), action: {})
+    #if (canImport(SwiftUI) && !os(tvOS)) || canImport(AppKit) || (canImport(UIKit) && !os(tvOS))
+      let entry = MenuEntry(
+        label: UserFacing<StrictString, APILocalization>({ _ in "..." }),
+        action: {}
+      )
       let menuLabel = UserFacing<StrictString, APILocalization>({ _ in "initial" })
-      let menu = SDGInterface.Menu<APILocalization>(label: menuLabel, entries: [])
+      let menu = SDGInterface.Menu<APILocalization>(label: menuLabel, entries: [.entry(entry)])
       _ = menu.cocoa()
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        if #available(macOS 11, iOS 14, *) {
+          _ = menu.swiftUI().body
+          _ = menu.swiftUIAnyView()
+        }
+      #endif
     #endif
   }
 
   func testMenuComponent() {
-    #if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
-      XCTAssertNotNil(
-        MenuComponent.entry(
-          MenuEntry<SDGInterfaceLocalizations.InterfaceLocalization>(
+    #if (canImport(SwiftUI) && !os(tvOS)) || canImport(AppKit) || (canImport(UIKit) && !os(tvOS))
+      let entry = MenuComponent.entry(
+        MenuEntry<SDGInterfaceLocalizations.InterfaceLocalization>(
+          label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
+            { _ in "" }
+          ),
+          action: {}
+        )
+      )
+      XCTAssertNotNil(entry.asEntry)
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        if #available(macOS 11, iOS 14, *) {
+          _ = entry.swiftUI().body
+        }
+      #endif
+      #if canImport(AppKit)
+        let submenu = MenuComponent.submenu(
+          SDGInterface.Menu<SDGInterfaceLocalizations.InterfaceLocalization>(
             label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
               { _ in "" }
             ),
-            action: {}
+            entries: []
           )
-        ).asEntry
-      )
-      #if canImport(AppKit)
-        XCTAssertNotNil(
-          MenuComponent.submenu(
-            SDGInterface.Menu<SDGInterfaceLocalizations.InterfaceLocalization>(
-              label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
-                { _ in "" }
-              ),
-              entries: []
-            )
-          ).asSubmenu
         )
+        XCTAssertNotNil(submenu.asSubmenu)
+        if #available(macOS 11, *) {
+          _ = submenu.swiftUI().body
+        }
         XCTAssertNil(
           MenuComponent.submenu(
             SDGInterface.Menu<SDGInterfaceLocalizations.InterfaceLocalization>(
@@ -537,6 +556,9 @@ final class APITests: ApplicationTestCase {
           )
           .asSubmenu
         )
+        if #available(macOS 11, *) {
+          _ = MenuComponent.separator.swiftUI().body
+        }
       #endif
     #endif
   }
@@ -557,6 +579,7 @@ final class APITests: ApplicationTestCase {
         #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
           if #available(macOS 11, iOS 14, *) {
             _ = entry.swiftUI().body
+            _ = entry.swiftUIAnyView()
           }
         #endif
         let withHotKey = MenuEntry<APILocalization>(

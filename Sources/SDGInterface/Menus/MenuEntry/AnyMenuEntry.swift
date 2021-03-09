@@ -13,6 +13,9 @@
  */
 
 #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+  #if canImport(SwiftUI)
+    import SwiftUI
+  #endif
   #if canImport(AppKit)
     import AppKit
   #endif
@@ -24,6 +27,12 @@
 
   /// A menu entry with no particular localization.
   public protocol AnyMenuEntry {
+
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      /// Constructs a type‐erased SwiftUI view.
+      @available(macOS 11, iOS 14, tvOS 14, watchOS 7, *)
+      func swiftUIAnyView() -> SwiftUI.AnyView
+    #endif
 
     #if canImport(AppKit)
       /// Contsructs a Cocoa menu item.
