@@ -29,7 +29,8 @@
   import SDGInterfaceLocalizations
 
   /// A menu.
-  public struct Menu<L>: AnyMenu where L: Localization {
+  public struct Menu<L, Components>: LegacyMenuComponents
+  where L: Localization, Components: LegacyMenuComponents {
 
     // MARK: - Initialization
 
@@ -40,50 +41,50 @@
     ///     - entries: The menu entries.
     public init(
       label: UserFacing<StrictString, L>,
-      entries: [MenuComponent]
+      // #workaround(Swift 5.3.3, Should be @MenuComponentsBuilder.)
+      entries: () -> Components
     ) {
       #if DEBUG
-        _ = label.resolved()  // Eager execution to simplify testing.
+        // Eager execution to simplify testing.
+        _ = label.resolved()
+        _ = entries()
       #endif
       self.label = label
-      self.entries = entries
+      self.entries = entries()
     }
 
     // MARK: - Properties
 
     private let label: UserFacing<StrictString, L>
-    private let entries: [MenuComponent]
+    private let entries: Components
 
-    // MARK: - SwiftUI
+    // MARK: - LegacyMenuComponents
+
+    #if canImport(AppKit)
+      public func cocoa() -> [NSMenuItem] {
+        return [CocoaImplementation(label: label, entries: entries)]
+      }
+    #endif
+
+    #if canImport(UIKit)
+      public func cocoa() -> [UIMenuItem] {
+        return entries.cocoa()
+      }
+    #endif
+  }
+
+  @available(macOS 11, iOS 14, *)
+  extension Menu: MenuComponents where Components: MenuComponents {
+
+    // MARK: - MenuComponents
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      /// Creates the menu in SwiftUI.
-      @available(macOS 11, iOS 14, *)
       public func swiftUI() -> some SwiftUI.View {
         return SwiftUIImplementation(
           label: label,
           entries: entries,
           localization: LocalizationSetting.current
         )
-      }
-
-      @available(macOS 11, iOS 14, *)
-      public func swiftUIAnyView() -> SwiftUI.AnyView {
-        return SwiftUI.AnyView(swiftUI())
-      }
-    #endif
-
-    // MARK: - AnyMenu
-
-    #if canImport(AppKit)
-      public func cocoa() -> NSMenu {
-        return CocoaImplementation(label: label, entries: entries)
-      }
-    #endif
-
-    #if canImport(UIKit)
-      public func cocoa() -> [UIMenuItem] {
-        return entries.map { $0.cocoa() }
       }
     #endif
   }
@@ -106,28 +107,15 @@
         action: {}
       )
 
-      var entries: [MenuComponent] = [.entry(entry)]
-      #if canImport(AppKit)
-        entries.append(contentsOf: [
-          .separator,
-          .submenu(
-            Menu(
-              label: UserFacing<StrictString, InterfaceLocalization>({ localization in
-                switch localization {
-                case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                  return "Submenu"
-                case .deutschDeutschland:
-                  return "Untermenü"
-                }
-              }),
-              entries: [
-                .entry(entry)
-              ]
-            )
-          ),
-        ])
+      #if !canImport(AppKit)
+        typealias Entries = MenuEntry<InterfaceLocalization>
+      #else
+        typealias Entries = MenuComponentsConcatenation<
+          MenuComponentsConcatenation<MenuEntry<InterfaceLocalization>, Divider>,
+          Menu<InterfaceLocalization, MenuEntry<InterfaceLocalization>>
+        >
       #endif
-      let menu = Menu(
+      let menu = Menu<InterfaceLocalization, Entries>(
         label: UserFacing<StrictString, InterfaceLocalization>(
           { localization in  // @exempt(from: tests) Unreachable.
             switch localization {  // @exempt(from: tests)
@@ -137,7 +125,29 @@
               return "Menü"
             }
           }),
-        entries: entries
+        entries: {
+          #if !canImport(AppKit)
+            return MenuComponentsBuilder.buildBlock(entry)
+          #else
+            return MenuComponentsBuilder.buildBlock(
+              entry,
+              Divider(),
+              Menu(
+                label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+                  switch localization {
+                  case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+                    return "Submenu"
+                  case .deutschDeutschland:
+                    return "Untermenü"
+                  }
+                }),
+                entries: {
+                  entry
+                }
+              )
+            )
+          #endif
+        }
       )
       return Group {
         menu.swiftUI()

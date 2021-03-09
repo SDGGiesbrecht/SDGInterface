@@ -80,7 +80,16 @@
       )
     }
 
-    internal static func casing() -> Menu<InterfaceLocalization> {
+    internal static func casing() -> Menu<
+      InterfaceLocalization,
+      MenuComponentsConcatenation<
+        MenuComponentsConcatenation<
+          MenuComponentsConcatenation<
+            MenuEntry<InterfaceLocalization>, MenuEntry<InterfaceLocalization>
+          >, MenuEntry<InterfaceLocalization>
+        >, MenuEntry<InterfaceLocalization>
+      >
+    > {
       return Menu(
         label: UserFacing<StrictString, InterfaceLocalization>({ localization in
           switch localization {
@@ -90,12 +99,14 @@
             return "Buchstabengröße"
           }
         }),
-        entries: [
-          .entry(useDefault()),
-          .entry(upperCase()),
-          .entry(smallUpperCase()),
-          .entry(lowerCase()),
-        ]
+        entries: {
+          return MenuComponentsBuilder.buildBlock(
+            useDefault(),
+            upperCase(),
+            smallUpperCase(),
+            lowerCase()
+          )
+        }
       )
     }
   }

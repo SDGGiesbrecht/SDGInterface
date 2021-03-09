@@ -75,12 +75,12 @@
         }),
         hotKeyModifiers: .command,
         hotKey: "?",
-        selector: #selector(NSApplication.showHelp(_:))
+        selector: #selector(NSApplication.showHelp(_:)),
+        isHidden: Shared(Bundle.main.infoDictionary?["CFBundleHelpBookName"] == nil)
       )
-      .hidden(when: Shared(Bundle.main.infoDictionary?["CFBundleHelpBookName"] == nil))
     }
 
-    internal static func help() -> Menu<MenuBarLocalization> {
+    internal static func help() -> Menu<MenuBarLocalization, MenuEntry<MenuBarLocalization>> {
       return Menu(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -100,9 +100,11 @@
             return "עזרה"
           }
         }),
-        entries: [
-          .entry(helpEntry())
-        ]
+        entries: {
+          return MenuComponentsBuilder.buildBlock(
+            helpEntry()
+          )
+        }
       )
     }
   }

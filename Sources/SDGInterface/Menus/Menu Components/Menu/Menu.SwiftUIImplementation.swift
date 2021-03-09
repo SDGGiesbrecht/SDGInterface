@@ -19,7 +19,8 @@
   import SDGText
   import SDGLocalization
 
-  extension Menu {
+  @available(macOS 11, *)
+  extension Menu where Components: MenuComponents {
 
     @available(macOS 11, iOS 14, *)
     internal struct SwiftUIImplementation: SwiftUI.View {
@@ -27,23 +28,14 @@
       // MARK: - Properties
 
       internal let label: UserFacing<StrictString, L>
-      internal let entries: [MenuComponent]
+      internal let entries: Components
       @ObservedObject internal var localization: Shared<LocalizationSetting>
 
       // MARK: - View
 
-      private func entryView(
-        index: Array<MenuComponent>.Index
-      ) -> some SwiftUI.View {  // @exempt(from: tests) Unreachable from tests.
-        let entry = entries[index]
-        return entry.swiftUI()
-      }
       internal var body: some SwiftUI.View {
         return SwiftUI.Menu(String(label.resolved(for: localization.value.resolved()))) {
-          ForEach(
-            entries.indices,
-            content: { entryView(index: $0) }  // @exempt(from: tests) Unreachable from tests.
-          )
+          entries.swiftUI()
         }
       }
     }

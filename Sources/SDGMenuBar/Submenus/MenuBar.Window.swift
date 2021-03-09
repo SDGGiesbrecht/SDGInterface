@@ -94,7 +94,16 @@
       )
     }
 
-    internal static func window() -> Menu<MenuBarLocalization> {
+    internal static func window() -> Menu<
+      MenuBarLocalization,
+      MenuComponentsConcatenation<
+        MenuComponentsConcatenation<
+          MenuComponentsConcatenation<
+            MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+          >, Divider
+        >, MenuEntry<MenuBarLocalization>
+      >
+    > {
       return Menu(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -114,12 +123,14 @@
             return "חלון"
           }
         }),
-        entries: [
-          .entry(minimize()),
-          .entry(zoom()),
-          .separator,
-          .entry(bringAllToFront()),
-        ]
+        entries: {
+          return MenuComponentsBuilder.buildBlock(
+            minimize(),
+            zoom(),
+            Divider(),
+            bringAllToFront()
+          )
+        }
       )
     }
   }

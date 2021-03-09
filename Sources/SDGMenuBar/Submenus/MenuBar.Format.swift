@@ -24,7 +24,131 @@
 
   extension MenuBar {
 
-    internal static func format() -> Menu<MenuBarLocalization> {
+    internal static func format() -> Menu<
+      MenuBarLocalization,
+      MenuComponentsConcatenation<
+        Menu<
+          MenuBarLocalization,
+          MenuComponentsConcatenation<
+            MenuComponentsConcatenation<
+              MenuComponentsConcatenation<
+                MenuComponentsConcatenation<
+                  MenuComponentsConcatenation<
+                    MenuComponentsConcatenation<
+                      MenuComponentsConcatenation<
+                        MenuComponentsConcatenation<
+                          MenuComponentsConcatenation<
+                            MenuComponentsConcatenation<
+                              MenuComponentsConcatenation<
+                                MenuComponentsConcatenation<
+                                  MenuComponentsConcatenation<
+                                    MenuComponentsConcatenation<
+                                      MenuComponentsConcatenation<
+                                        MenuComponentsConcatenation<
+                                          MenuEntry<MenuBarLocalization>,
+                                          MenuEntry<MenuBarLocalization>
+                                        >, MenuEntry<MenuBarLocalization>
+                                      >, MenuEntry<MenuBarLocalization>
+                                    >, Divider
+                                  >, MenuEntry<MenuBarLocalization>
+                                >, MenuEntry<MenuBarLocalization>
+                              >, Divider
+                            >,
+                            Menu<
+                              MenuBarLocalization,
+                              MenuComponentsConcatenation<
+                                MenuComponentsConcatenation<
+                                  MenuComponentsConcatenation<
+                                    MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+                                  >, MenuEntry<MenuBarLocalization>
+                                >, MenuEntry<MenuBarLocalization>
+                              >
+                            >
+                          >,
+                          Menu<
+                            MenuBarLocalization,
+                            MenuComponentsConcatenation<
+                              MenuComponentsConcatenation<
+                                MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+                              >, MenuEntry<MenuBarLocalization>
+                            >
+                          >
+                        >,
+                        Menu<
+                          MenuBarLocalization,
+                          MenuComponentsConcatenation<
+                            MenuComponentsConcatenation<
+                              MenuComponentsConcatenation<
+                                MenuComponentsConcatenation<
+                                  MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+                                >, MenuEntry<MenuBarLocalization>
+                              >, MenuEntry<MenuBarLocalization>
+                            >, MenuEntry<MenuBarLocalization>
+                          >
+                        >
+                      >,
+                      Menu<
+                        InterfaceLocalization,
+                        MenuComponentsConcatenation<
+                          MenuComponentsConcatenation<
+                            MenuComponentsConcatenation<
+                              MenuEntry<InterfaceLocalization>, MenuEntry<InterfaceLocalization>
+                            >, MenuEntry<InterfaceLocalization>
+                          >, MenuEntry<InterfaceLocalization>
+                        >
+                      >
+                    >, Divider
+                  >, MenuEntry<MenuBarLocalization>
+                >, Divider
+              >, MenuEntry<MenuBarLocalization>
+            >, MenuEntry<MenuBarLocalization>
+          >
+        >,
+        Menu<
+          MenuBarLocalization,
+          MenuComponentsConcatenation<
+            MenuComponentsConcatenation<
+              MenuComponentsConcatenation<
+                MenuComponentsConcatenation<
+                  MenuComponentsConcatenation<
+                    MenuComponentsConcatenation<
+                      MenuComponentsConcatenation<
+                        MenuComponentsConcatenation<
+                          MenuComponentsConcatenation<
+                            MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+                          >, MenuEntry<MenuBarLocalization>
+                        >, MenuEntry<MenuBarLocalization>
+                      >, Divider
+                    >,
+                    Menu<
+                      MenuBarLocalization,
+                      MenuComponentsConcatenation<
+                        Menu<
+                          MenuBarLocalization,
+                          MenuComponentsConcatenation<
+                            MenuComponentsConcatenation<
+                              MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+                            >, MenuEntry<MenuBarLocalization>
+                          >
+                        >,
+                        Menu<
+                          MenuBarLocalization,
+                          MenuComponentsConcatenation<
+                            MenuComponentsConcatenation<
+                              MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+                            >, MenuEntry<MenuBarLocalization>
+                          >
+                        >
+                      >
+                    >
+                  >, Divider
+                >, MenuEntry<MenuBarLocalization>
+              >, MenuEntry<MenuBarLocalization>
+            >, MenuEntry<MenuBarLocalization>
+          >
+        >
+      >
+    > {
       return Menu(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -41,10 +165,12 @@
             return "Μορφή"
           }
         }),
-        entries: [
-          .submenu(font()),
-          .submenu(text()),
-        ]
+        entries: {
+          return MenuComponentsBuilder.buildBlock(
+            font(),
+            text()
+          )
+        }
       )
     }
   }

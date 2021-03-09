@@ -219,7 +219,91 @@
 
     // Show Character Information (See context menu.)
 
-    internal static func edit() -> Menu<MenuBarLocalization> {
+    internal static func edit() -> Menu<
+      MenuBarLocalization,
+      MenuComponentsConcatenation<
+        MenuComponentsConcatenation<
+          MenuComponentsConcatenation<
+            MenuComponentsConcatenation<
+              MenuComponentsConcatenation<
+                MenuComponentsConcatenation<
+                  MenuComponentsConcatenation<
+                    MenuComponentsConcatenation<
+                      MenuComponentsConcatenation<
+                        MenuComponentsConcatenation<
+                          MenuComponentsConcatenation<
+                            MenuComponentsConcatenation<
+                              MenuComponentsConcatenation<
+                                MenuComponentsConcatenation<
+                                  MenuComponentsConcatenation<
+                                    MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+                                  >, Divider
+                                >, MenuEntry<MenuBarLocalization>
+                              >, MenuEntry<MenuBarLocalization>
+                            >, MenuEntry<MenuBarLocalization>
+                          >, MenuEntry<MenuBarLocalization>
+                        >, MenuEntry<MenuBarLocalization>
+                      >, MenuEntry<MenuBarLocalization>
+                    >, Divider
+                  >,
+                  Menu<
+                    MenuBarLocalization,
+                    MenuComponentsConcatenation<
+                      MenuComponentsConcatenation<
+                        MenuComponentsConcatenation<
+                          MenuComponentsConcatenation<
+                            MenuComponentsConcatenation<
+                              MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+                            >, MenuEntry<MenuBarLocalization>
+                          >, MenuEntry<MenuBarLocalization>
+                        >, MenuEntry<MenuBarLocalization>
+                      >, MenuEntry<MenuBarLocalization>
+                    >
+                  >
+                >,
+                Menu<
+                  MenuBarLocalization,
+                  MenuComponentsConcatenation<
+                    MenuComponentsConcatenation<
+                      MenuComponentsConcatenation<
+                        MenuComponentsConcatenation<
+                          MenuComponentsConcatenation<
+                            MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+                          >, Divider
+                        >, MenuEntry<MenuBarLocalization>
+                      >, MenuEntry<MenuBarLocalization>
+                    >, MenuEntry<MenuBarLocalization>
+                  >
+                >
+              >,
+              Menu<
+                MenuBarLocalization,
+                MenuComponentsConcatenation<
+                  MenuComponentsConcatenation<
+                    MenuComponentsConcatenation<
+                      MenuComponentsConcatenation<
+                        MenuComponentsConcatenation<
+                          MenuComponentsConcatenation<
+                            MenuComponentsConcatenation<MenuEntry<MenuBarLocalization>, Divider>,
+                            MenuEntry<MenuBarLocalization>
+                          >, MenuEntry<MenuBarLocalization>
+                        >, MenuEntry<MenuBarLocalization>
+                      >, MenuEntry<MenuBarLocalization>
+                    >, MenuEntry<MenuBarLocalization>
+                  >, MenuEntry<MenuBarLocalization>
+                >
+              >
+            >, Menu<MenuBarLocalization, MenuEntry<InterfaceLocalization>>
+          >, MenuEntry<InterfaceLocalization>
+        >,
+        Menu<
+          MenuBarLocalization,
+          MenuComponentsConcatenation<
+            MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+          >
+        >
+      >
+    > {
       return Menu(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -237,24 +321,26 @@
             return "עריכה"
           }
         }),
-        entries: [
-          .entry(undo()),
-          .entry(redo()),
-          .separator,
-          .entry(cut()),
-          .entry(copy()),
-          .entry(paste()),
-          .entry(pasteAndMatchStyle()),
-          .entry(delete()),
-          .entry(selectAll()),
-          .separator,
-          .submenu(find()),
-          .submenu(spellingAndGrammar()),
-          .submenu(substitutions()),
-          .submenu(transformations()),
-          .entry(ContextMenu._showCharacterInformation()),
-          .submenu(speech()),
-        ]
+        entries: {
+          return MenuComponentsBuilder.buildBlock(
+            undo(),
+            redo(),
+            Divider(),
+            cut(),
+            copy(),
+            paste(),
+            pasteAndMatchStyle(),
+            delete(),
+            selectAll(),
+            Divider(),
+            find(),
+            spellingAndGrammar(),
+            substitutions(),
+            transformations(),
+            ContextMenu._showCharacterInformation(),
+            speech()
+          )
+        }
       )
     }
   }

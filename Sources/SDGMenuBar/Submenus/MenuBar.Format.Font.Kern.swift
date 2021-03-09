@@ -112,7 +112,16 @@
       )
     }
 
-    internal static func kern() -> Menu<MenuBarLocalization> {
+    internal static func kern() -> Menu<
+      MenuBarLocalization,
+      MenuComponentsConcatenation<
+        MenuComponentsConcatenation<
+          MenuComponentsConcatenation<
+            MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+          >, MenuEntry<MenuBarLocalization>
+        >, MenuEntry<MenuBarLocalization>
+      >
+    > {
       return Menu(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -132,12 +141,14 @@
             return "מרווח בין אותיות"
           }
         }),
-        entries: [
-          .entry(useDefault()),
-          .entry(useNone()),
-          .entry(tighten()),
-          .entry(loosen()),
-        ]
+        entries: {
+          return MenuComponentsBuilder.buildBlock(
+            useDefault(),
+            useNone(),
+            tighten(),
+            loosen()
+          )
+        }
       )
     }
   }

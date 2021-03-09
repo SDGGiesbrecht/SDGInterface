@@ -68,7 +68,10 @@
       )
     }
 
-    internal static func speech() -> Menu<MenuBarLocalization> {
+    internal static func speech() -> Menu<
+      MenuBarLocalization,
+      MenuComponentsConcatenation<MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>>
+    > {
       return Menu(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -88,10 +91,12 @@
             return "דיבור"
           }
         }),
-        entries: [
-          .entry(startSpeaking()),
-          .entry(stopSpeaking()),
-        ]
+        entries: {
+          return MenuComponentsBuilder.buildBlock(
+            startSpeaking(),
+            stopSpeaking()
+          )
+        }
       )
     }
   }

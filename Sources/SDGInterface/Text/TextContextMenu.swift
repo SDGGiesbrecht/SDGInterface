@@ -35,17 +35,17 @@
       let systemMenu =
         NSTextView.defaultMenu
         ?? NSMenu()  // @exempt(from: tests) Never nil.
-      let adjustments: [(menu: MenuComponent, selector: Selector?)] = [
+      let adjustments: [(menu: MenuEntry<InterfaceLocalization>, selector: Selector?)] = [
         (
-          .entry(SDGInterface.ContextMenu._normalizeText()),
+          SDGInterface.ContextMenu._normalizeText(),
           #selector(TextEditingResponder.normalizeText(_:))
         ),
         (
-          .entry(SDGInterface.ContextMenu._showCharacterInformation()),
+          SDGInterface.ContextMenu._showCharacterInformation(),
           #selector(TextDisplayResponder.showCharacterInformation(_:))
         ),
       ]
-      var appendix: [MenuComponent] = []
+      var appendix: [LegacyMenuComponents] = []
       var cachedNormalize: NSMenuItem?
       for adjustment in adjustments {
         var handled = false
@@ -73,8 +73,8 @@
               return true
             })
             let cocoa = adjustment.menu.cocoa()
-            cachedNormalize = cocoa
-            transformations.items.append(cocoa)
+            cachedNormalize = cocoa.first
+            transformations.items.append(contentsOf: cocoa)
             handled = true
           }
         case #selector(TextDisplayResponder.showCharacterInformation(_:)):
@@ -87,7 +87,7 @@
                 ) ?? false
               })
           {
-            systemMenu.items.insert(adjustment.menu.cocoa(), at: transformations + 1)
+            systemMenu.items.insert(contentsOf: adjustment.menu.cocoa(), at: transformations + 1)
             handled = true
           }
         default:
@@ -104,19 +104,24 @@
               return "Kontextmenü"
             }
           }),
-        entries: []
+        entries: {
+          MenuComponentsBuilder.buildBlock()
+        }
       )
       let items =
         systemMenu.items
-        + appendix.map({ $0.cocoa() })  // @exempt(from: tests) No appendix yet.
+        + appendix.flatMap({ $0.cocoa() })  // @exempt(from: tests) No appendix yet.
       for item in items {
         if let index = item.menu?.index(of: item) {
           item.menu?.removeItem(at: index)
         }
       }
-      let cocoa = menu.cocoa()
-      cocoa.items = items
-      self.menu = cocoa
+      if let cocoa: NSMenu = menu.cocoa().first?.menu {
+        cocoa.items = items
+        self.menu = cocoa
+      } else {  // @exempt(from: tests) should never occur.
+        self.menu = systemMenu
+      }
     }
 
     // MARK: - Properties

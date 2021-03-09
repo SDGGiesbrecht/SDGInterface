@@ -98,7 +98,7 @@
       )
     }
 
-    private static func services() -> Menu<MenuBarLocalization> {
+    private static func services() -> Menu<MenuBarLocalization, EmptyMenuComponents> {
       return Menu(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -115,7 +115,9 @@
             return "שירותים"
           }
         }),
-        entries: []
+        entries: {
+          return MenuComponentsBuilder.buildBlock()
+        }
       )
     }
 
@@ -271,22 +273,46 @@
       )
     }
 
-    internal static func application() -> Menu<ApplicationNameLocalization> {
+    internal static func application() -> Menu<
+      ApplicationNameLocalization,
+      MenuComponentsConcatenation<
+        MenuComponentsConcatenation<
+          MenuComponentsConcatenation<
+            MenuComponentsConcatenation<
+              MenuComponentsConcatenation<
+                MenuComponentsConcatenation<
+                  MenuComponentsConcatenation<
+                    MenuComponentsConcatenation<
+                      MenuComponentsConcatenation<
+                        MenuComponentsConcatenation<MenuEntry<MenuBarLocalization>, Divider>,
+                        MenuEntry<MenuBarLocalization>
+                      >, Divider
+                    >, Menu<MenuBarLocalization, EmptyMenuComponents>
+                  >, Divider
+                >, MenuEntry<MenuBarLocalization>
+              >, MenuEntry<MenuBarLocalization>
+            >, MenuEntry<MenuBarLocalization>
+          >, Divider
+        >, MenuEntry<MenuBarLocalization>
+      >
+    > {
       return Menu(
         label: ApplicationNameForm.localizedIsolatedForm,
-        entries: [
-          .entry(about()),
-          .separator,
-          .entry(preferences()),
-          .separator,
-          .submenu(services()),
-          .separator,
-          .entry(hide()),
-          .entry(hideOthers()),
-          .entry(showAll()),
-          .separator,
-          .entry(quit()),
-        ]
+        entries: {
+          return MenuComponentsBuilder.buildBlock(
+            about(),
+            Divider(),
+            preferences(),
+            Divider(),
+            services(),
+            Divider(),
+            hide(),
+            hideOthers(),
+            showAll(),
+            Divider(),
+            quit()
+          )
+        }
       )
     }
   }

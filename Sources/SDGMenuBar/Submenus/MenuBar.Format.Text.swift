@@ -193,7 +193,49 @@
       )
     }
 
-    internal static func text() -> Menu<MenuBarLocalization> {
+    internal static func text() -> Menu<
+      MenuBarLocalization,
+      MenuComponentsConcatenation<
+        MenuComponentsConcatenation<
+          MenuComponentsConcatenation<
+            MenuComponentsConcatenation<
+              MenuComponentsConcatenation<
+                MenuComponentsConcatenation<
+                  MenuComponentsConcatenation<
+                    MenuComponentsConcatenation<
+                      MenuComponentsConcatenation<
+                        MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+                      >, MenuEntry<MenuBarLocalization>
+                    >, MenuEntry<MenuBarLocalization>
+                  >, Divider
+                >,
+                Menu<
+                  MenuBarLocalization,
+                  MenuComponentsConcatenation<
+                    Menu<
+                      MenuBarLocalization,
+                      MenuComponentsConcatenation<
+                        MenuComponentsConcatenation<
+                          MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+                        >, MenuEntry<MenuBarLocalization>
+                      >
+                    >,
+                    Menu<
+                      MenuBarLocalization,
+                      MenuComponentsConcatenation<
+                        MenuComponentsConcatenation<
+                          MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+                        >, MenuEntry<MenuBarLocalization>
+                      >
+                    >
+                  >
+                >
+              >, Divider
+            >, MenuEntry<MenuBarLocalization>
+          >, MenuEntry<MenuBarLocalization>
+        >, MenuEntry<MenuBarLocalization>
+      >
+    > {
       return Menu(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -210,18 +252,20 @@
             return "מלל"
           }
         }),
-        entries: [
-          .entry(alignRight()),
-          .entry(centre()),
-          .entry(justify()),
-          .entry(alignLeft()),
-          .separator,
-          .submenu(writingDirection()),
-          .separator,
-          .entry(showRuler()),
-          .entry(copyRuler()),
-          .entry(pasteRuler()),
-        ]
+        entries: {
+          return MenuComponentsBuilder.buildBlock(
+            alignRight(),
+            centre(),
+            justify(),
+            alignLeft(),
+            Divider(),
+            writingDirection(),
+            Divider(),
+            showRuler(),
+            copyRuler(),
+            pasteRuler()
+          )
+        }
       )
     }
   }
