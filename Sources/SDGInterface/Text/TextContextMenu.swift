@@ -116,12 +116,9 @@
           item.menu?.removeItem(at: index)
         }
       }
-      if let cocoa: NSMenu = menu.cocoa().first?.menu {
-        cocoa.items = items
-        self.menu = cocoa
-      } else {  // @exempt(from: tests) should never occur.
-        self.menu = systemMenu
-      }
+      let cocoa: NSMenu = menu.cocoaMenu()
+      cocoa.items = items
+      self.menu = cocoa
     }
 
     // MARK: - Properties

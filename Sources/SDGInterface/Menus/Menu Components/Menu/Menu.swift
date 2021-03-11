@@ -61,6 +61,10 @@
     // MARK: - LegacyMenuComponents
 
     #if canImport(AppKit)
+      public func cocoaMenu() -> NSMenu {
+        #warning("Refactor.")
+        return cocoa().first!.menu!
+      }
       public func cocoa() -> [NSMenuItem] {
         return [CocoaImplementation(label: label, entries: entries)]
       }
