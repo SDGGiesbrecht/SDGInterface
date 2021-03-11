@@ -40,7 +40,7 @@
     /// - Parameters:
     ///   - applicationSpecificSubmenus: Application‐specific submenus to place before the “Window” menu.
     public init(
-      applicationSpecificSubmenus: ApplicationSpecificMenus
+      applicationSpecificSubmenus: () -> ApplicationSpecificMenus
     ) {
       menu = Menu(
         label: UserFacing<StrictString, InterfaceLocalization>({ localization in
@@ -58,7 +58,7 @@
             MenuBar.edit(),
             MenuBar.format(),
             MenuBar.view(),
-            applicationSpecificSubmenus,
+            applicationSpecificSubmenus(),
             MenuBar.window(),
             MenuBar.help()
           )

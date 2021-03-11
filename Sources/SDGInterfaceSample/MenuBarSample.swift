@@ -39,7 +39,47 @@
       )
     }
 
-    internal static func sample() -> Menu<InterfaceLocalization> {
+    internal static func sample() -> Menu<
+      InterfaceLocalization,
+      MenuComponentsConcatenation<
+        MenuComponentsConcatenation<
+          MenuComponentsConcatenation<
+            MenuEntry<InterfaceLocalization>,
+            Menu<
+              InterfaceLocalization,
+              MenuComponentsConcatenation<
+                MenuComponentsConcatenation<MenuEntry<InterfaceLocalization>, Divider>,
+                Menu<InterfaceLocalization, MenuEntry<InterfaceLocalization>>
+              >
+            >
+          >,
+          Menu<
+            InterfaceLocalization,
+            MenuComponentsConcatenation<
+              MenuComponentsConcatenation<
+                MenuComponentsConcatenation<
+                  MenuComponentsConcatenation<
+                    MenuComponentsConcatenation<
+                      MenuComponentsConcatenation<
+                        MenuComponentsConcatenation<
+                          MenuEntry<InterfaceLocalization>, MenuEntry<InterfaceLocalization>
+                        >, MenuEntry<InterfaceLocalization>
+                      >, MenuEntry<InterfaceLocalization>
+                    >, MenuEntry<InterfaceLocalization>
+                  >, MenuEntry<InterfaceLocalization>
+                >, MenuEntry<InterfaceLocalization>
+              >,
+              Menu<
+                InterfaceLocalization,
+                MenuComponentsConcatenation<
+                  MenuEntry<InterfaceLocalization>, MenuEntry<InterfaceLocalization>
+                >
+              >
+            >
+          >
+        >, Menu<InterfaceLocalization, MenuEntry<InterfaceLocalization>>
+      >
+    > {
       return Menu(
         label: UserFacing<StrictString, InterfaceLocalization>({ localization in
           switch localization {
@@ -47,12 +87,14 @@
             return "Sample"
           }
         }),
-        entries: [
-          .entry(error()),
-          .submenu(menu()),
-          .submenu(view()),
-          .submenu(window()),
-        ]
+        entries: {
+          MenuComponentsBuilder.buildBlock(
+            error(),
+            menu(),
+            view(),
+            window()
+          )
+        }
       )
     }
   }

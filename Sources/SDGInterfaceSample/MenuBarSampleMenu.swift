@@ -35,7 +35,7 @@
       )
     }
 
-    private static func submenu() -> Menu<InterfaceLocalization> {
+    private static func submenu() -> Menu<InterfaceLocalization, MenuEntry<InterfaceLocalization>> {
       return Menu(
         label: UserFacing<StrictString, InterfaceLocalization>({ localization in
           switch localization {
@@ -43,13 +43,21 @@
             return "Submenu"
           }
         }),
-        entries: [
-          .entry(menuEntry())
-        ]
+        entries: {
+          MenuComponentsBuilder.buildBlock(
+            menuEntry()
+          )
+        }
       )
     }
 
-    internal static func menu() -> Menu<InterfaceLocalization> {
+    internal static func menu() -> Menu<
+      InterfaceLocalization,
+      MenuComponentsConcatenation<
+        MenuComponentsConcatenation<MenuEntry<InterfaceLocalization>, Divider>,
+        Menu<InterfaceLocalization, MenuEntry<InterfaceLocalization>>
+      >
+    > {
       return Menu(
         label: UserFacing<StrictString, InterfaceLocalization>({ localization in
           switch localization {
@@ -57,11 +65,13 @@
             return "Menu"
           }
         }),
-        entries: [
-          .entry(menuEntry()),
-          .separator,
-          .submenu(submenu()),
-        ]
+        entries: {
+          MenuComponentsBuilder.buildBlock(
+            menuEntry(),
+            Divider(),
+            submenu()
+          )
+        }
       )
     }
   }

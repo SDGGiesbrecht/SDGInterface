@@ -341,7 +341,7 @@ extension SystemInterface {
 
   #if canImport(AppKit)
     public var menuBar: MenuBar<EmptyMenuComponents> {
-      return MenuBar(applicationSpecificSubmenus: EmptyMenuComponents())
+      return MenuBar(applicationSpecificSubmenus: { EmptyMenuComponents() })
     }
   #endif
 

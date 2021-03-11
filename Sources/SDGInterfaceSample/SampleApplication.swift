@@ -94,10 +94,58 @@ import SDGMenuBar
     // MARK: - SystemInterface
 
     #if canImport(AppKit)
-      public var menuBar: MenuBar {
-        return MenuBar(applicationSpecificSubmenus: [
-          MenuBar.sample()
-        ])
+      public var menuBar:
+        MenuBar<
+          Menu<
+            InterfaceLocalization,
+            MenuComponentsConcatenation<
+              MenuComponentsConcatenation<
+                MenuComponentsConcatenation<
+                  MenuEntry<InterfaceLocalization>,
+                  Menu<
+                    InterfaceLocalization,
+                    MenuComponentsConcatenation<
+                      MenuComponentsConcatenation<MenuEntry<InterfaceLocalization>, Divider>,
+                      Menu<InterfaceLocalization, MenuEntry<InterfaceLocalization>>
+                    >
+                  >
+                >,
+                Menu<
+                  InterfaceLocalization,
+                  MenuComponentsConcatenation<
+                    MenuComponentsConcatenation<
+                      MenuComponentsConcatenation<
+                        MenuComponentsConcatenation<
+                          MenuComponentsConcatenation<
+                            MenuComponentsConcatenation<
+                              MenuComponentsConcatenation<
+                                MenuEntry<InterfaceLocalization>, MenuEntry<InterfaceLocalization>
+                              >, MenuEntry<InterfaceLocalization>
+                            >, MenuEntry<InterfaceLocalization>
+                          >, MenuEntry<InterfaceLocalization>
+                        >, MenuEntry<InterfaceLocalization>
+                      >, MenuEntry<InterfaceLocalization>
+                    >,
+                    Menu<
+                      InterfaceLocalization,
+                      MenuComponentsConcatenation<
+                        MenuEntry<InterfaceLocalization>, MenuEntry<InterfaceLocalization>
+                      >
+                    >
+                  >
+                >
+              >, Menu<InterfaceLocalization, MenuEntry<InterfaceLocalization>>
+            >
+          >
+        >
+      {
+        return MenuBar(
+          applicationSpecificSubmenus: {
+            return MenuComponentsBuilder.buildBlock(
+              MenuBar<EmptyMenuComponents>.sample()
+            )
+          }
+        )
       }
     #endif
 
