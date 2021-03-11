@@ -16,9 +16,11 @@
   import AppKit
 #endif
 
+/// A menu.
 public protocol MenuProtocol {
 
   #if canImport(AppKit)
+    /// Generates a Cocoa representation of the menu.
     func cocoaMenu() -> NSMenu
   #endif
 }

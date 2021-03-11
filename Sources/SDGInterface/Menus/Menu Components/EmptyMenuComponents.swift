@@ -21,6 +21,7 @@
 
 import SDGLocalization
 
+/// Empty menu components.
 public struct EmptyMenuComponents: LegacyMenuComponents {
 
   // MARK: - Initialization
