@@ -505,6 +505,28 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
+  func testMenuComponentsBuilder() {
+    _ = MenuComponentsBuilder.buildBlock(
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents()
+    )
+  }
+
   func testMenuEntry() {
     #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
       if #available(tvOS 14, *) {
