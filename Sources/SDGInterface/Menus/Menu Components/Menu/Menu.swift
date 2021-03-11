@@ -62,8 +62,7 @@
 
     #if canImport(AppKit)
       public func cocoaMenu() -> NSMenu {
-        #warning("Refactor.")
-        return cocoa().first!.menu!
+        return CocoaMenu(label: label, entries: entries)
       }
       public func cocoa() -> [NSMenuItem] {
         return [CocoaImplementation(label: label, entries: entries)]
