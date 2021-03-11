@@ -23,6 +23,11 @@ import SDGLocalization
 
 public struct EmptyMenuComponents: LegacyMenuComponents {
 
+  // MARK: - Initialization
+
+  /// Creates empty menu components.
+  public init() {}
+
   // MARK: - LegacyMenuComponents
 
   #if canImport(AppKit)

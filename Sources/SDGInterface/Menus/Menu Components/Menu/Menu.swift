@@ -29,7 +29,7 @@
   import SDGInterfaceLocalizations
 
   /// A menu.
-  public struct Menu<L, Components>: LegacyMenuComponents
+  public struct Menu<L, Components>: LegacyMenuComponents, MenuProtocol
   where L: Localization, Components: LegacyMenuComponents {
 
     // MARK: - Initialization

@@ -147,7 +147,7 @@
     }
 
     internal func applicationDockMenu(_ sender: NSApplication) -> NSMenu? {
-      return application.dockMenu?.cocoa()
+      return application.dockMenu?.cocoaMenu()
     }
 
     internal func application(_ application: NSApplication, willPresentError error: Error) -> Error
