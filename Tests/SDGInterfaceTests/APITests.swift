@@ -495,69 +495,11 @@ final class APITests: ApplicationTestCase {
         action: {}
       )
       let menuLabel = UserFacing<StrictString, APILocalization>({ _ in "initial" })
-      let menu = SDGInterface.Menu<APILocalization>(label: menuLabel, entries: [.entry(entry)])
+      let menu = SDGInterface.Menu(label: menuLabel, entries: { entry })
       _ = menu.cocoa()
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
         if #available(macOS 11, iOS 14, *) {
           _ = menu.swiftUI().body
-          _ = menu.swiftUIAnyView()
-        }
-      #endif
-    #endif
-  }
-
-  func testMenuComponent() {
-    #if (canImport(SwiftUI) && !os(tvOS)) || canImport(AppKit) || (canImport(UIKit) && !os(tvOS))
-      let entry = MenuComponent.entry(
-        MenuEntry<SDGInterfaceLocalizations.InterfaceLocalization>(
-          label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
-            { _ in "" }
-          ),
-          action: {}
-        )
-      )
-      XCTAssertNotNil(entry.asEntry)
-      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-        if #available(macOS 11, iOS 14, *) {
-          _ = entry.swiftUI().body
-        }
-      #endif
-      #if canImport(AppKit)
-        let submenu = MenuComponent.submenu(
-          SDGInterface.Menu<SDGInterfaceLocalizations.InterfaceLocalization>(
-            label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
-              { _ in "" }
-            ),
-            entries: []
-          )
-        )
-        XCTAssertNotNil(submenu.asSubmenu)
-        if #available(macOS 11, *) {
-          _ = submenu.swiftUI().body
-        }
-        XCTAssertNil(
-          MenuComponent.submenu(
-            SDGInterface.Menu<SDGInterfaceLocalizations.InterfaceLocalization>(
-              label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
-                { _ in "initial" }
-              ),
-              entries: []
-            )
-          ).asEntry
-        )
-        XCTAssertNil(
-          MenuComponent.entry(
-            MenuEntry<SDGInterfaceLocalizations.InterfaceLocalization>(
-              label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
-                { _ in "" }
-              ),
-              action: {}
-            )
-          )
-          .asSubmenu
-        )
-        if #available(macOS 11, *) {
-          _ = MenuComponent.separator.swiftUI().body
         }
       #endif
     #endif
@@ -579,7 +521,6 @@ final class APITests: ApplicationTestCase {
         #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
           if #available(macOS 11, iOS 14, *) {
             _ = entry.swiftUI().body
-            _ = entry.swiftUIAnyView()
           }
         #endif
         let withHotKey = MenuEntry<APILocalization>(
@@ -598,8 +539,9 @@ final class APITests: ApplicationTestCase {
         #endif
         let hidden = MenuEntry<APILocalization>(
           label: UserFacing<StrictString, APILocalization>({ _ in "" }),
-          action: {}
-        ).hidden(when: Shared(true))
+          action: {},
+          isHidden: Shared(true)
+        )
         #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
           if #available(macOS 11, iOS 14, *) {
             _ = hidden.swiftUI().body

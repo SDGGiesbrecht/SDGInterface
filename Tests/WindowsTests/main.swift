@@ -79,7 +79,6 @@ extension SDGInterfaceTests.APITests {
       ("testLegacyView", testLegacyView),
       ("testLog", testLog),
       ("testMenu", testMenu),
-      ("testMenuComponent", testMenuComponent),
       ("testMenuEntry", testMenuEntry),
       ("testNSRectEdge", testNSRectEdge),
       ("testPoint", testPoint),

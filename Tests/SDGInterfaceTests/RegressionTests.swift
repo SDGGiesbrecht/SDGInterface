@@ -33,7 +33,7 @@ final class RegressionTests: ApplicationTestCase {
         label: UserFacing<StrictString, APILocalization>({ _ in "Menu Entry" }),
         action: {}
       ).cocoa()
-      _ = cocoa.copy()
+      _ = cocoa.first!.copy()
     #endif
   }
 }
