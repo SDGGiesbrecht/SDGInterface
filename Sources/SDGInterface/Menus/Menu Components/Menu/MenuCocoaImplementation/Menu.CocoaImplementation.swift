@@ -36,8 +36,10 @@
           LocalizationSetting.current.register(observer: self)
         }
 
-        let temporaryPlaceholderTitle = ""
         menuObject = CocoaMenu(label: label, entries: entries)
+        defer { submenu = menuObject }
+
+        let temporaryPlaceholderTitle = ""
         super.init(title: temporaryPlaceholderTitle, action: nil, keyEquivalent: "")
       }
 
@@ -46,7 +48,7 @@
       private let label: UserFacing<StrictString, L>
       private let menuObject: CocoaMenu
 
-      // MARK: - NSMenu
+      // MARK: - NSMenuItem
 
       internal required init(coder: NSCoder) {  // @exempt(from: tests)
         codingNotSupported()

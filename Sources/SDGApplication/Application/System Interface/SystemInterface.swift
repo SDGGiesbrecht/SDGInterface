@@ -120,7 +120,7 @@ public protocol SystemInterface {
 
   #if canImport(AppKit)
     /// The type of the menu bar.
-    associatedtype MenuBarType
+    associatedtype MenuBarType: MenuBarProtocol
 
     /// Used by some systems as the menu bar.
     var menuBar: MenuBarType { get }
@@ -128,7 +128,7 @@ public protocol SystemInterface {
 
   #if canImport(AppKit)
     /// The type of the dock menu.
-    associatedtype DockMenuType
+    associatedtype DockMenuType: MenuProtocol
 
     /// Used by some systems as the dock menu.
     var dockMenu: DockMenuType? { get }
