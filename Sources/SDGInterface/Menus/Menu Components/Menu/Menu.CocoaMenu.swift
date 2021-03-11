@@ -1,10 +1,10 @@
 /*
- Menu.CocoaImplementation.swift
+ Menu.CocoaMenu.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
 
- Copyright ©2020–2021 Jeremy David Giesbrecht and the SDGInterface project contributors.
+ Copyright ©2021 Jeremy David Giesbrecht and the SDGInterface project contributors.
 
  Soli Deo gloria.
 
@@ -23,7 +23,7 @@
 
   extension Menu {
 
-    internal class CocoaImplementation: NSMenuItem, SharedValueObserver {
+    internal class CocoaMenu: NSMenu, SharedValueObserver {
 
       // MARK: - Initialization
 
@@ -37,14 +37,14 @@
         }
 
         let temporaryPlaceholderTitle = ""
-        menuObject = CocoaMenu(label: label, entries: entries)
-        super.init(title: temporaryPlaceholderTitle, action: nil, keyEquivalent: "")
+        super.init(title: temporaryPlaceholderTitle)
+
+        items = entries.cocoa()
       }
 
       // MARK: - Properties
 
       private let label: UserFacing<StrictString, L>
-      private let menuObject: CocoaMenu
 
       // MARK: - NSMenu
 
