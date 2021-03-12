@@ -174,7 +174,7 @@ final class InternalTests: ApplicationTestCase {
           }),
         action: { executed.fulfill() }
       )
-      UILabel().executeClosureAction(menuEntry.cocoa())
+      UILabel().executeClosureAction(menuEntry.cocoa().first)
       wait(for: [executed], timeout: 1)
     #endif
   }
