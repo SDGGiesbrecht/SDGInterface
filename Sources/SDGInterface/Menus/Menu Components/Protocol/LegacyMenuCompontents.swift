@@ -15,6 +15,9 @@
 #if canImport(AppKit)
   import AppKit
 #endif
+#if canImport(UIKit)
+  import UIKit
+#endif
 
 /// The subset of the `MenuComponents` protocol that can be conformed to even on platform versions preceding SwiftUI’s availability.
 public protocol LegacyMenuComponents {

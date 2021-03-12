@@ -52,11 +52,11 @@ where Leading: LegacyMenuComponents, Trailing: LegacyMenuComponents {
   #endif
 }
 
-@available(macOS 11, *)
+@available(macOS 11, iOS 14, *)
 extension MenuComponentsConcatenation: MenuComponents
 where Leading: MenuComponents, Trailing: MenuComponents {
 
-  #if canImport(SwiftUI)
+  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
     public func swiftUI() -> some SwiftUI.View {
       Group {
         leading.swiftUI()

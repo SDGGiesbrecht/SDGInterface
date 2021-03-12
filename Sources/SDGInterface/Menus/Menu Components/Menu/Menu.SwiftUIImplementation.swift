@@ -19,10 +19,9 @@
   import SDGText
   import SDGLocalization
 
-  @available(macOS 11, *)
+  @available(macOS 11, iOS 14, *)
   extension Menu where Components: MenuComponents {
 
-    @available(macOS 11, iOS 14, *)
     internal struct SwiftUIImplementation: SwiftUI.View {
 
       // MARK: - Properties

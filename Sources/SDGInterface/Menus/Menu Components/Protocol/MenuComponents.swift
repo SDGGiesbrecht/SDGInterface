@@ -17,10 +17,10 @@
 #endif
 
 /// A list of menu components.
-@available(macOS 11, *)
+@available(macOS 11, iOS 14, *)
 public protocol MenuComponents: LegacyMenuComponents {
 
-  #if canImport(SwiftUI)
+  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
     /// The type of the SwiftUI view.
     associatedtype SwiftUIView: SwiftUI.View
     /// Constructs a SwiftUI representation of the menu components.

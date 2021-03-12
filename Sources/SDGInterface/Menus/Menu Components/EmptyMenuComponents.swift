@@ -36,14 +36,20 @@ public struct EmptyMenuComponents: LegacyMenuComponents {
       return []
     }
   #endif
+
+  #if canImport(UIKit)
+    public func cocoa() -> [UIMenuItem] {
+      return []
+    }
+  #endif
 }
 
-@available(macOS 11, *)
+@available(macOS 11, iOS 14, *)
 extension EmptyMenuComponents: MenuComponents {
 
   // MARK: - MenuComponents
 
-  #if canImport(SwiftUI)
+  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
     public func swiftUI() -> some SwiftUI.View {
       return SwiftUI.EmptyView()
     }

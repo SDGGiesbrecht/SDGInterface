@@ -30,10 +30,6 @@ public struct ContextMenu {
 
     /// Creates a context menu.
     public init() {
-      var entries: [MenuComponent] = [
-        .entry(ContextMenu._normalizeText())
-      ]
-      entries.append(.entry(ContextMenu._showCharacterInformation()))
       menu = Menu(
         label: UserFacing<StrictString, InterfaceLocalization>(
           { localization in  // @exempt(from: tests) Unreachable on iOS.
@@ -44,13 +40,24 @@ public struct ContextMenu {
               return "Kontextmenü"
             }
           }),
-        entries: entries
+        entries: {
+          MenuComponentsBuilder.buildBlock(
+            ContextMenu._normalizeText(),
+            ContextMenu._showCharacterInformation()
+          )
+        }
       )
     }
 
     // MARK: - Properties
 
-    private let menu: AnyMenu
+    private let menu:
+      Menu<
+        InterfaceLocalization,
+        MenuComponentsConcatenation<
+          MenuEntry<InterfaceLocalization>, MenuEntry<InterfaceLocalization>
+        >
+      >
 
     /// Generates a Cocoa representation of the context menu.
     public func cocoa() -> [UIMenuItem] {
