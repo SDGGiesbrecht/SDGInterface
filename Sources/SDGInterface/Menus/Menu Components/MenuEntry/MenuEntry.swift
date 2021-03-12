@@ -216,7 +216,7 @@
     #endif
   }
 
-  @available(tvOS 14, *)
+  @available(tvOS 14, watchOS 6, *)
   extension MenuEntry: MenuComponents {
 
     // MARK: - MenuComponents

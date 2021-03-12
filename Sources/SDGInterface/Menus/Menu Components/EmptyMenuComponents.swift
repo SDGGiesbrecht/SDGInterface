@@ -37,14 +37,14 @@ public struct EmptyMenuComponents: LegacyMenuComponents {
     }
   #endif
 
-  #if canImport(UIKit) && !os(tvOS)
+  #if canImport(UIKit) && !os(tvOS) && !os(watchOS)
     public func cocoa() -> [UIMenuItem] {
       return []
     }
   #endif
 }
 
-@available(macOS 11, tvOS 14, iOS 14, *)
+@available(macOS 11, tvOS 14, iOS 14, watchOS 6, *)
 extension EmptyMenuComponents: MenuComponents {
 
   // MARK: - MenuComponents

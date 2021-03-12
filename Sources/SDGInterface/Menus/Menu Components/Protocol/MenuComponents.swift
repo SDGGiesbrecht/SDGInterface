@@ -17,7 +17,7 @@
 #endif
 
 /// A list of menu components.
-@available(macOS 11, tvOS 14, iOS 14, *)
+@available(macOS 11, tvOS 14, iOS 14, watchOS 6, *)
 public protocol MenuComponents: LegacyMenuComponents {
 
   #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
