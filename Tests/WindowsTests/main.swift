@@ -67,6 +67,7 @@ extension SDGInterfaceTests.APITests {
       ("testCompositeViewImplementation", testCompositeViewImplementation),
       ("testContentMode", testContentMode),
       ("testContextMenu", testContextMenu),
+      ("testDivider", testDivider),
       ("testEdge", testEdge),
       ("testEdgeSet", testEdgeSet),
       ("testEmptyMenuComponents", testEmptyMenuComponents),

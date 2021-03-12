@@ -322,6 +322,12 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
+  func testDivider() {
+    #if canImport(AppKit)
+      _ = Divider().swiftUI()
+    #endif
+  }
+
   func testEdge() {
     for edge in SDGInterface.Edge.allCases {
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
