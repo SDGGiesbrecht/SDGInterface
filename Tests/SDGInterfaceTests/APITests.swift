@@ -358,6 +358,18 @@ final class APITests: ApplicationTestCase {
     }
   }
 
+  func testEmptyMenuComponents() {
+    let empty = EmptyMenuComponents()
+    #if canImport(AppKit) || (canImport(UIKit) && !os(tvOS) && !os(watchOS))
+      _ = empty.cocoa()
+    #endif
+    #if canImport(SwiftUI)
+      if #available(tvOS 13, iOS 13, *) {
+        _ = empty.swiftUI()
+      }
+    #endif
+  }
+
   func testEmptyView() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {
@@ -527,6 +539,18 @@ final class APITests: ApplicationTestCase {
       EmptyMenuComponents(),
       EmptyMenuComponents()
     )
+  }
+
+  func testMenuComponentsConcatenation() {
+    let concatenation = MenuComponentsBuilder.buildBlock(
+      EmptyMenuComponents(),
+      EmptyMenuComponents()
+    )
+    #if canImport(SwiftUI)
+      if #available(macOS 11, tvOS 13, iOS 14, *) {
+        _ = concatenation.swiftUI()
+      }
+    #endif
   }
 
   func testMenuEntry() {
