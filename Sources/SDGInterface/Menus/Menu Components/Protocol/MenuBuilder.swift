@@ -26,7 +26,7 @@ public enum MenuComponentsBuilder {
   /// Builds menu components.
   ///
   /// - Parameters:
-  ///   - compontents: The menu components.
+  ///   - components: The menu components.
   public static func buildBlock<A>(
     _ components: A
   ) -> A
