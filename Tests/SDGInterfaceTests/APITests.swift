@@ -557,7 +557,7 @@ final class APITests: ApplicationTestCase {
           _ = withHotKey.cocoa()
         #endif
         #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-          if #available(macOS 10.15, iOS 13, *) {
+          if #available(macOS 11, iOS 14, *) {
             _ = withHotKey.swiftUI().body
           }
         #endif
@@ -567,7 +567,7 @@ final class APITests: ApplicationTestCase {
           isHidden: Shared(true)
         )
         #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-          if #available(macOS 10.15, iOS 13, *) {
+          if #available(macOS 11, iOS 14, *) {
             _ = hidden.swiftUI().body
           }
         #endif
@@ -577,7 +577,7 @@ final class APITests: ApplicationTestCase {
             selector: #selector(NSObject.copy)
           )
           #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-            if #available(iOS 13, *) {
+            if #available(iOS 14, *) {
               _ = withSelector.swiftUI().body
             }
           #else
@@ -1447,7 +1447,7 @@ final class APITests: ApplicationTestCase {
       _ = window.isVisible
       window.location = Point(0, 0)
 
-      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+      if #available(macOS 11, tvOS 14, iOS 14, *) {
         #if !(canImport(UIKit) && (os(iOS) && arch(arm)))
           _ =
             Window(
