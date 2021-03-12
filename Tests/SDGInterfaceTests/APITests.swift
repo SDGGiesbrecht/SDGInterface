@@ -363,7 +363,7 @@ final class APITests: ApplicationTestCase {
     #if canImport(AppKit) || (canImport(UIKit) && !os(tvOS) && !os(watchOS))
       _ = empty.cocoa()
     #endif
-    #if canImport(SwiftUI)
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(tvOS 13, iOS 13, *) {
         _ = empty.swiftUI()
       }
@@ -546,7 +546,7 @@ final class APITests: ApplicationTestCase {
       EmptyMenuComponents(),
       EmptyMenuComponents()
     )
-    #if canImport(SwiftUI)
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 11, tvOS 13, iOS 14, *) {
         _ = concatenation.swiftUI()
       }
