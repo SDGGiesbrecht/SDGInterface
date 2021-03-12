@@ -216,6 +216,7 @@
     #endif
   }
 
+  @available(tvOS 14, *)
   extension MenuEntry: MenuComponents {
 
     // MARK: - MenuComponents

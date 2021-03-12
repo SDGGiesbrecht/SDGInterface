@@ -45,14 +45,14 @@ where Leading: LegacyMenuComponents, Trailing: LegacyMenuComponents {
     }
   #endif
 
-  #if canImport(UIKit)
+  #if canImport(UIKit) && !os(tvOS)
     public func cocoa() -> [UIMenuItem] {
       return leading.cocoa().appending(contentsOf: trailing.cocoa())
     }
   #endif
 }
 
-@available(macOS 11, iOS 14, *)
+@available(macOS 11, tvOS 14, iOS 14, *)
 extension MenuComponentsConcatenation: MenuComponents
 where Leading: MenuComponents, Trailing: MenuComponents {
 

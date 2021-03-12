@@ -27,7 +27,7 @@ public protocol LegacyMenuComponents {
     func cocoa() -> [NSMenuItem]
   #endif
 
-  #if canImport(UIKit)
+  #if canImport(UIKit) && !os(tvOS)
     /// Constructs a Cocoa representation of the view.
     func cocoa() -> [UIMenuItem]
   #endif
