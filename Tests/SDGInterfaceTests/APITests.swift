@@ -531,7 +531,7 @@ final class APITests: ApplicationTestCase {
 
   func testMenuEntry() {
     #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
-      if #available(tvOS 14, *) {
+      if #available(tvOS 13, *) {
         let menuLabel = Shared<StrictString>("initial")
         let entry = MenuEntry<APILocalization>(
           label: UserFacing<StrictString, APILocalization>({ _ in "" }),
@@ -557,7 +557,7 @@ final class APITests: ApplicationTestCase {
           _ = withHotKey.cocoa()
         #endif
         #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-          if #available(macOS 11, iOS 14, *) {
+          if #available(macOS 10.15, iOS 13, *) {
             _ = withHotKey.swiftUI().body
           }
         #endif
@@ -567,7 +567,7 @@ final class APITests: ApplicationTestCase {
           isHidden: Shared(true)
         )
         #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-          if #available(macOS 11, iOS 14, *) {
+          if #available(macOS 10.15, iOS 13, *) {
             _ = hidden.swiftUI().body
           }
         #endif
@@ -577,7 +577,7 @@ final class APITests: ApplicationTestCase {
             selector: #selector(NSObject.copy)
           )
           #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-            if #available(iOS 14, *) {
+            if #available(iOS 13, *) {
               _ = withSelector.swiftUI().body
             }
           #else
@@ -1447,7 +1447,7 @@ final class APITests: ApplicationTestCase {
       _ = window.isVisible
       window.location = Point(0, 0)
 
-      if #available(macOS 11, tvOS 14, iOS 14, *) {
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
         #if !(canImport(UIKit) && (os(iOS) && arch(arm)))
           _ =
             Window(

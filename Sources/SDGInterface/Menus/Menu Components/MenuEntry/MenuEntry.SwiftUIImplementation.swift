@@ -19,7 +19,7 @@
   import SDGText
   import SDGLocalization
 
-  @available(tvOS 14, watchOS 6, *)
+  @available(tvOS 13, watchOS 6, *)
   extension MenuEntry {
 
     @available(macOS 11, iOS 14, *)

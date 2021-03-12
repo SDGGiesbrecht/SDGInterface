@@ -52,7 +52,7 @@ where Leading: LegacyMenuComponents, Trailing: LegacyMenuComponents {
   #endif
 }
 
-@available(macOS 11, tvOS 14, iOS 14, watchOS 6, *)
+@available(macOS 11, tvOS 13, iOS 14, watchOS 6, *)
 extension MenuComponentsConcatenation: MenuComponents
 where Leading: MenuComponents, Trailing: MenuComponents {
 

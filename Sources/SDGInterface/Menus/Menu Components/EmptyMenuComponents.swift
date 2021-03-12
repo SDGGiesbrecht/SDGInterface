@@ -44,7 +44,7 @@ public struct EmptyMenuComponents: LegacyMenuComponents {
   #endif
 }
 
-@available(macOS 11, tvOS 14, iOS 14, watchOS 6, *)
+@available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
 extension EmptyMenuComponents: MenuComponents {
 
   // MARK: - MenuComponents

@@ -94,7 +94,7 @@
 #endif
 
 #if canImport(SwiftUI) && !os(tvOS) && !os(watchOS) && !(os(iOS) && arch(arm))
-  @available(macOS 11, tvOS 14, iOS 14, watchOS 6, *)
+  @available(macOS 11, tvOS 13, iOS 14, watchOS 6, *)
   internal struct MenuPreviews: PreviewProvider {
     internal static var previews: some SwiftUI.View {
 
