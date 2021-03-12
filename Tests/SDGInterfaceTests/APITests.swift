@@ -506,6 +506,8 @@ final class APITests: ApplicationTestCase {
   }
 
   func testMenuComponentsBuilder() {
+    _ = MenuComponentsBuilder.buildBlock()
+    _ = MenuComponentsBuilder.buildBlock(EmptyMenuComponents())
     _ = MenuComponentsBuilder.buildBlock(
       EmptyMenuComponents(),
       EmptyMenuComponents(),
