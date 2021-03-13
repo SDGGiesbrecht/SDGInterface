@@ -15,6 +15,8 @@
 #if canImport(AppKit)
   import AppKit
 
+  import SwiftUI
+
   import SDGMathematics
   import SDGText
   import SDGLocalization
@@ -42,34 +44,15 @@
     public init(
       applicationSpecificSubmenus: () -> ApplicationSpecificMenus
     ) {
-      menu = Menu(
-        label: UserFacing<StrictString, InterfaceLocalization>({ localization in
-          switch localization {
-          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-            return "Menu Bar"
-          case .deutschDeutschland:
-            return "Menüleiste"
-          }
-        }),
-        entries: {
-          MenuComponentsBuilder.buildBlock(
-            MenuBar.application(),
-            MenuBar.file(),
-            MenuBar.edit(),
-            MenuBar.format(),
-            MenuBar.view(),
-            applicationSpecificSubmenus(),
-            MenuBar.window(),
-            MenuBar.help()
-          )
-        }
-      )
+      self.applicationSpecificSubmenus = applicationSpecificSubmenus()
     }
 
     // MARK: - Properties
 
-    private let menu:
-      Menu<
+    private let applicationSpecificSubmenus: ApplicationSpecificMenus
+
+    private var menu:
+      SDGInterface.Menu<
         InterfaceLocalization,
         MenuComponentsConcatenation<
           MenuComponentsConcatenation<
@@ -78,7 +61,7 @@
                 MenuComponentsConcatenation<
                   MenuComponentsConcatenation<
                     MenuComponentsConcatenation<
-                      Menu<
+                      SDGInterface.Menu<
                         ApplicationNameLocalization,
                         MenuComponentsConcatenation<
                           MenuComponentsConcatenation<
@@ -90,19 +73,19 @@
                                       MenuComponentsConcatenation<
                                         MenuComponentsConcatenation<
                                           MenuComponentsConcatenation<
-                                            MenuEntry<MenuBarLocalization>, Divider
+                                            MenuEntry<MenuBarLocalization>, SDGInterface.Divider
                                           >, MenuEntry<MenuBarLocalization>
-                                        >, Divider
-                                      >, Menu<MenuBarLocalization, EmptyMenuComponents>
-                                    >, Divider
+                                        >, SDGInterface.Divider
+                                      >, SDGInterface.Menu<MenuBarLocalization, EmptyMenuComponents>
+                                    >, SDGInterface.Divider
                                   >, MenuEntry<MenuBarLocalization>
                                 >, MenuEntry<MenuBarLocalization>
                               >, MenuEntry<MenuBarLocalization>
-                            >, Divider
+                            >, SDGInterface.Divider
                           >, MenuEntry<MenuBarLocalization>
                         >
                       >,
-                      Menu<
+                      SDGInterface.Menu<
                         MenuBarLocalization,
                         MenuComponentsConcatenation<
                           MenuComponentsConcatenation<
@@ -119,23 +102,23 @@
                                                 MenuEntry<MenuBarLocalization>,
                                                 MenuEntry<MenuBarLocalization>
                                               >,
-                                              Menu<
+                                              SDGInterface.Menu<
                                                 MenuBarLocalization, MenuEntry<MenuBarLocalization>
                                               >
-                                            >, Divider
+                                            >, SDGInterface.Divider
                                           >, MenuEntry<MenuBarLocalization>
                                         >, MenuEntry<MenuBarLocalization>
                                       >, MenuEntry<MenuBarLocalization>
                                     >, MenuEntry<MenuBarLocalization>
                                   >, MenuEntry<MenuBarLocalization>
                                 >, MenuEntry<InterfaceLocalization>
-                              >, Divider
+                              >, SDGInterface.Divider
                             >, MenuEntry<MenuBarLocalization>
                           >, MenuEntry<MenuBarLocalization>
                         >
                       >
                     >,
-                    Menu<
+                    SDGInterface.Menu<
                       MenuBarLocalization,
                       MenuComponentsConcatenation<
                         MenuComponentsConcatenation<
@@ -154,16 +137,16 @@
                                                   MenuComponentsConcatenation<
                                                     MenuEntry<MenuBarLocalization>,
                                                     MenuEntry<MenuBarLocalization>
-                                                  >, Divider
+                                                  >, SDGInterface.Divider
                                                 >, MenuEntry<MenuBarLocalization>
                                               >, MenuEntry<MenuBarLocalization>
                                             >, MenuEntry<MenuBarLocalization>
                                           >, MenuEntry<MenuBarLocalization>
                                         >, MenuEntry<MenuBarLocalization>
                                       >, MenuEntry<MenuBarLocalization>
-                                    >, Divider
+                                    >, SDGInterface.Divider
                                   >,
-                                  Menu<
+                                  SDGInterface.Menu<
                                     MenuBarLocalization,
                                     MenuComponentsConcatenation<
                                       MenuComponentsConcatenation<
@@ -179,7 +162,7 @@
                                     >
                                   >
                                 >,
-                                Menu<
+                                SDGInterface.Menu<
                                   MenuBarLocalization,
                                   MenuComponentsConcatenation<
                                     MenuComponentsConcatenation<
@@ -188,14 +171,14 @@
                                           MenuComponentsConcatenation<
                                             MenuEntry<MenuBarLocalization>,
                                             MenuEntry<MenuBarLocalization>
-                                          >, Divider
+                                          >, SDGInterface.Divider
                                         >, MenuEntry<MenuBarLocalization>
                                       >, MenuEntry<MenuBarLocalization>
                                     >, MenuEntry<MenuBarLocalization>
                                   >
                                 >
                               >,
-                              Menu<
+                              SDGInterface.Menu<
                                 MenuBarLocalization,
                                 MenuComponentsConcatenation<
                                   MenuComponentsConcatenation<
@@ -204,7 +187,7 @@
                                         MenuComponentsConcatenation<
                                           MenuComponentsConcatenation<
                                             MenuComponentsConcatenation<
-                                              MenuEntry<MenuBarLocalization>, Divider
+                                              MenuEntry<MenuBarLocalization>, SDGInterface.Divider
                                             >, MenuEntry<MenuBarLocalization>
                                           >, MenuEntry<MenuBarLocalization>
                                         >, MenuEntry<MenuBarLocalization>
@@ -213,10 +196,11 @@
                                   >, MenuEntry<MenuBarLocalization>
                                 >
                               >
-                            >, Menu<MenuBarLocalization, MenuEntry<InterfaceLocalization>>
+                            >,
+                            SDGInterface.Menu<MenuBarLocalization, MenuEntry<InterfaceLocalization>>
                           >, MenuEntry<InterfaceLocalization>
                         >,
-                        Menu<
+                        SDGInterface.Menu<
                           MenuBarLocalization,
                           MenuComponentsConcatenation<
                             MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
@@ -225,10 +209,10 @@
                       >
                     >
                   >,
-                  Menu<
+                  SDGInterface.Menu<
                     MenuBarLocalization,
                     MenuComponentsConcatenation<
-                      Menu<
+                      SDGInterface.Menu<
                         MenuBarLocalization,
                         MenuComponentsConcatenation<
                           MenuComponentsConcatenation<
@@ -250,12 +234,12 @@
                                                         MenuEntry<MenuBarLocalization>
                                                       >, MenuEntry<MenuBarLocalization>
                                                     >, MenuEntry<MenuBarLocalization>
-                                                  >, Divider
+                                                  >, SDGInterface.Divider
                                                 >, MenuEntry<MenuBarLocalization>
                                               >, MenuEntry<MenuBarLocalization>
-                                            >, Divider
+                                            >, SDGInterface.Divider
                                           >,
-                                          Menu<
+                                          SDGInterface.Menu<
                                             MenuBarLocalization,
                                             MenuComponentsConcatenation<
                                               MenuComponentsConcatenation<
@@ -267,7 +251,7 @@
                                             >
                                           >
                                         >,
-                                        Menu<
+                                        SDGInterface.Menu<
                                           MenuBarLocalization,
                                           MenuComponentsConcatenation<
                                             MenuComponentsConcatenation<
@@ -277,7 +261,7 @@
                                           >
                                         >
                                       >,
-                                      Menu<
+                                      SDGInterface.Menu<
                                         MenuBarLocalization,
                                         MenuComponentsConcatenation<
                                           MenuComponentsConcatenation<
@@ -291,7 +275,7 @@
                                         >
                                       >
                                     >,
-                                    Menu<
+                                    SDGInterface.Menu<
                                       InterfaceLocalization,
                                       MenuComponentsConcatenation<
                                         MenuComponentsConcatenation<
@@ -302,14 +286,14 @@
                                         >, MenuEntry<InterfaceLocalization>
                                       >
                                     >
-                                  >, Divider
+                                  >, SDGInterface.Divider
                                 >, MenuEntry<MenuBarLocalization>
-                              >, Divider
+                              >, SDGInterface.Divider
                             >, MenuEntry<MenuBarLocalization>
                           >, MenuEntry<MenuBarLocalization>
                         >
                       >,
-                      Menu<
+                      SDGInterface.Menu<
                         MenuBarLocalization,
                         MenuComponentsConcatenation<
                           MenuComponentsConcatenation<
@@ -324,12 +308,12 @@
                                           MenuEntry<MenuBarLocalization>
                                         >, MenuEntry<MenuBarLocalization>
                                       >, MenuEntry<MenuBarLocalization>
-                                    >, Divider
+                                    >, SDGInterface.Divider
                                   >,
-                                  Menu<
+                                  SDGInterface.Menu<
                                     MenuBarLocalization,
                                     MenuComponentsConcatenation<
-                                      Menu<
+                                      SDGInterface.Menu<
                                         MenuBarLocalization,
                                         MenuComponentsConcatenation<
                                           MenuComponentsConcatenation<
@@ -338,7 +322,7 @@
                                           >, MenuEntry<MenuBarLocalization>
                                         >
                                       >,
-                                      Menu<
+                                      SDGInterface.Menu<
                                         MenuBarLocalization,
                                         MenuComponentsConcatenation<
                                           MenuComponentsConcatenation<
@@ -349,7 +333,7 @@
                                       >
                                     >
                                   >
-                                >, Divider
+                                >, SDGInterface.Divider
                               >, MenuEntry<MenuBarLocalization>
                             >, MenuEntry<MenuBarLocalization>
                           >, MenuEntry<MenuBarLocalization>
@@ -358,37 +342,69 @@
                     >
                   >
                 >,
-                Menu<
+                SDGInterface.Menu<
                   MenuBarLocalization,
                   MenuComponentsConcatenation<
                     MenuComponentsConcatenation<
                       MenuComponentsConcatenation<
                         MenuComponentsConcatenation<
                           MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
-                        >, Divider
+                        >, SDGInterface.Divider
                       >, MenuEntry<MenuBarLocalization>
                     >, MenuEntry<MenuBarLocalization>
                   >
                 >
               >, ApplicationSpecificMenus
             >,
-            Menu<
+            SDGInterface.Menu<
               MenuBarLocalization,
               MenuComponentsConcatenation<
                 MenuComponentsConcatenation<
                   MenuComponentsConcatenation<
                     MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
-                  >, Divider
+                  >, SDGInterface.Divider
                 >, MenuEntry<MenuBarLocalization>
               >
             >
-          >, Menu<MenuBarLocalization, MenuEntry<MenuBarLocalization>>
+          >, SDGInterface.Menu<MenuBarLocalization, MenuEntry<MenuBarLocalization>>
         >
       >
+    {
+      return Menu(
+        label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Menu Bar"
+          case .deutschDeutschland:
+            return "Menüleiste"
+          }
+        }),
+        entries: {
+          MenuComponentsBuilder.buildBlock(
+            MenuBar.application(),
+            MenuBar.file(),
+            MenuBar.edit(),
+            MenuBar.format(),
+            MenuBar.view(),
+            applicationSpecificSubmenus,
+            MenuBar.window(),
+            MenuBar.help()
+          )
+        }
+      )
+    }
 
     /// The menu bar as an `NSMenu`.
     public func cocoa() -> NSMenu {
       return menu.cocoaMenu()
+    }
+
+    @available(macOS 11, *)
+    public func swiftUI() -> some Commands {
+      @CommandsBuilder func built() -> some Commands {
+        applicationSpecificSubmenus
+      }
+      return built()
     }
 
     // MARK: - Items
