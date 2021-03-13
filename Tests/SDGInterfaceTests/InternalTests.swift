@@ -103,7 +103,7 @@ final class InternalTests: ApplicationTestCase {
       let entry = MenuEntry<APILocalization>(
         label: UserFacing<StrictString, APILocalization>({ _ in "" }),
         action: {}
-      ).cocoa()
+      ).cocoa().first!
       let selector = entry.target as? ClosureSelector
       selector?.send()
       _ = selector?.validateMenuItem(entry)
@@ -174,7 +174,7 @@ final class InternalTests: ApplicationTestCase {
           }),
         action: { executed.fulfill() }
       )
-      UILabel().executeClosureAction(menuEntry.cocoa())
+      UILabel().executeClosureAction(menuEntry.cocoa().first)
       wait(for: [executed], timeout: 1)
     #endif
   }

@@ -46,7 +46,7 @@
       )
     }
 
-    internal static func openRecent() -> Menu<MenuBarLocalization> {
+    internal static func openRecent() -> Menu<MenuBarLocalization, MenuEntry<MenuBarLocalization>> {
       return Menu(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -64,9 +64,11 @@
             return "פתח אחרונים"
           }
         }),
-        entries: [
-          .entry(clearMenu())
-        ]
+        entries: {
+          return MenuComponentsBuilder.buildBlock(
+            clearMenu()
+          )
+        }
       )
     }
   }

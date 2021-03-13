@@ -30,7 +30,8 @@
   /// Some menu items only appear if the application provides details they need to operate:
   /// - “Preferences...” appears if the application has a preference manager.
   /// - “Help” appears if a help book is specified in the `Info.plist` file.
-  public struct MenuBar {
+  public struct MenuBar<ApplicationSpecificMenus>: MenuBarProtocol
+  where ApplicationSpecificMenus: LegacyMenuComponents {
 
     // MARK: - Initialization
 
@@ -39,7 +40,7 @@
     /// - Parameters:
     ///   - applicationSpecificSubmenus: Application‐specific submenus to place before the “Window” menu.
     public init(
-      applicationSpecificSubmenus: [AnyMenu]
+      applicationSpecificSubmenus: () -> ApplicationSpecificMenus
     ) {
       menu = Menu(
         label: UserFacing<StrictString, InterfaceLocalization>({ localization in
@@ -50,26 +51,344 @@
             return "Menüleiste"
           }
         }),
-        entries: [
-          .submenu(MenuBar.application()),
-          .submenu(MenuBar.file()),
-          .submenu(MenuBar.edit()),
-          .submenu(MenuBar.format()),
-          .submenu(MenuBar.view()),
-        ] + applicationSpecificSubmenus.lazy.map({ .submenu($0) }) + [
-          .submenu(MenuBar.window()),
-          .submenu(MenuBar.help()),
-        ]
+        entries: {
+          MenuComponentsBuilder.buildBlock(
+            MenuBar.application(),
+            MenuBar.file(),
+            MenuBar.edit(),
+            MenuBar.format(),
+            MenuBar.view(),
+            applicationSpecificSubmenus(),
+            MenuBar.window(),
+            MenuBar.help()
+          )
+        }
       )
     }
 
     // MARK: - Properties
 
-    private let menu: AnyMenu
+    private let menu:
+      Menu<
+        InterfaceLocalization,
+        MenuComponentsConcatenation<
+          MenuComponentsConcatenation<
+            MenuComponentsConcatenation<
+              MenuComponentsConcatenation<
+                MenuComponentsConcatenation<
+                  MenuComponentsConcatenation<
+                    MenuComponentsConcatenation<
+                      Menu<
+                        ApplicationNameLocalization,
+                        MenuComponentsConcatenation<
+                          MenuComponentsConcatenation<
+                            MenuComponentsConcatenation<
+                              MenuComponentsConcatenation<
+                                MenuComponentsConcatenation<
+                                  MenuComponentsConcatenation<
+                                    MenuComponentsConcatenation<
+                                      MenuComponentsConcatenation<
+                                        MenuComponentsConcatenation<
+                                          MenuComponentsConcatenation<
+                                            MenuEntry<MenuBarLocalization>, Divider
+                                          >, MenuEntry<MenuBarLocalization>
+                                        >, Divider
+                                      >, Menu<MenuBarLocalization, EmptyMenuComponents>
+                                    >, Divider
+                                  >, MenuEntry<MenuBarLocalization>
+                                >, MenuEntry<MenuBarLocalization>
+                              >, MenuEntry<MenuBarLocalization>
+                            >, Divider
+                          >, MenuEntry<MenuBarLocalization>
+                        >
+                      >,
+                      Menu<
+                        MenuBarLocalization,
+                        MenuComponentsConcatenation<
+                          MenuComponentsConcatenation<
+                            MenuComponentsConcatenation<
+                              MenuComponentsConcatenation<
+                                MenuComponentsConcatenation<
+                                  MenuComponentsConcatenation<
+                                    MenuComponentsConcatenation<
+                                      MenuComponentsConcatenation<
+                                        MenuComponentsConcatenation<
+                                          MenuComponentsConcatenation<
+                                            MenuComponentsConcatenation<
+                                              MenuComponentsConcatenation<
+                                                MenuEntry<MenuBarLocalization>,
+                                                MenuEntry<MenuBarLocalization>
+                                              >,
+                                              Menu<
+                                                MenuBarLocalization, MenuEntry<MenuBarLocalization>
+                                              >
+                                            >, Divider
+                                          >, MenuEntry<MenuBarLocalization>
+                                        >, MenuEntry<MenuBarLocalization>
+                                      >, MenuEntry<MenuBarLocalization>
+                                    >, MenuEntry<MenuBarLocalization>
+                                  >, MenuEntry<MenuBarLocalization>
+                                >, MenuEntry<InterfaceLocalization>
+                              >, Divider
+                            >, MenuEntry<MenuBarLocalization>
+                          >, MenuEntry<MenuBarLocalization>
+                        >
+                      >
+                    >,
+                    Menu<
+                      MenuBarLocalization,
+                      MenuComponentsConcatenation<
+                        MenuComponentsConcatenation<
+                          MenuComponentsConcatenation<
+                            MenuComponentsConcatenation<
+                              MenuComponentsConcatenation<
+                                MenuComponentsConcatenation<
+                                  MenuComponentsConcatenation<
+                                    MenuComponentsConcatenation<
+                                      MenuComponentsConcatenation<
+                                        MenuComponentsConcatenation<
+                                          MenuComponentsConcatenation<
+                                            MenuComponentsConcatenation<
+                                              MenuComponentsConcatenation<
+                                                MenuComponentsConcatenation<
+                                                  MenuComponentsConcatenation<
+                                                    MenuEntry<MenuBarLocalization>,
+                                                    MenuEntry<MenuBarLocalization>
+                                                  >, Divider
+                                                >, MenuEntry<MenuBarLocalization>
+                                              >, MenuEntry<MenuBarLocalization>
+                                            >, MenuEntry<MenuBarLocalization>
+                                          >, MenuEntry<MenuBarLocalization>
+                                        >, MenuEntry<MenuBarLocalization>
+                                      >, MenuEntry<MenuBarLocalization>
+                                    >, Divider
+                                  >,
+                                  Menu<
+                                    MenuBarLocalization,
+                                    MenuComponentsConcatenation<
+                                      MenuComponentsConcatenation<
+                                        MenuComponentsConcatenation<
+                                          MenuComponentsConcatenation<
+                                            MenuComponentsConcatenation<
+                                              MenuEntry<MenuBarLocalization>,
+                                              MenuEntry<MenuBarLocalization>
+                                            >, MenuEntry<MenuBarLocalization>
+                                          >, MenuEntry<MenuBarLocalization>
+                                        >, MenuEntry<MenuBarLocalization>
+                                      >, MenuEntry<MenuBarLocalization>
+                                    >
+                                  >
+                                >,
+                                Menu<
+                                  MenuBarLocalization,
+                                  MenuComponentsConcatenation<
+                                    MenuComponentsConcatenation<
+                                      MenuComponentsConcatenation<
+                                        MenuComponentsConcatenation<
+                                          MenuComponentsConcatenation<
+                                            MenuEntry<MenuBarLocalization>,
+                                            MenuEntry<MenuBarLocalization>
+                                          >, Divider
+                                        >, MenuEntry<MenuBarLocalization>
+                                      >, MenuEntry<MenuBarLocalization>
+                                    >, MenuEntry<MenuBarLocalization>
+                                  >
+                                >
+                              >,
+                              Menu<
+                                MenuBarLocalization,
+                                MenuComponentsConcatenation<
+                                  MenuComponentsConcatenation<
+                                    MenuComponentsConcatenation<
+                                      MenuComponentsConcatenation<
+                                        MenuComponentsConcatenation<
+                                          MenuComponentsConcatenation<
+                                            MenuComponentsConcatenation<
+                                              MenuEntry<MenuBarLocalization>, Divider
+                                            >, MenuEntry<MenuBarLocalization>
+                                          >, MenuEntry<MenuBarLocalization>
+                                        >, MenuEntry<MenuBarLocalization>
+                                      >, MenuEntry<MenuBarLocalization>
+                                    >, MenuEntry<MenuBarLocalization>
+                                  >, MenuEntry<MenuBarLocalization>
+                                >
+                              >
+                            >, Menu<MenuBarLocalization, MenuEntry<InterfaceLocalization>>
+                          >, MenuEntry<InterfaceLocalization>
+                        >,
+                        Menu<
+                          MenuBarLocalization,
+                          MenuComponentsConcatenation<
+                            MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+                          >
+                        >
+                      >
+                    >
+                  >,
+                  Menu<
+                    MenuBarLocalization,
+                    MenuComponentsConcatenation<
+                      Menu<
+                        MenuBarLocalization,
+                        MenuComponentsConcatenation<
+                          MenuComponentsConcatenation<
+                            MenuComponentsConcatenation<
+                              MenuComponentsConcatenation<
+                                MenuComponentsConcatenation<
+                                  MenuComponentsConcatenation<
+                                    MenuComponentsConcatenation<
+                                      MenuComponentsConcatenation<
+                                        MenuComponentsConcatenation<
+                                          MenuComponentsConcatenation<
+                                            MenuComponentsConcatenation<
+                                              MenuComponentsConcatenation<
+                                                MenuComponentsConcatenation<
+                                                  MenuComponentsConcatenation<
+                                                    MenuComponentsConcatenation<
+                                                      MenuComponentsConcatenation<
+                                                        MenuEntry<MenuBarLocalization>,
+                                                        MenuEntry<MenuBarLocalization>
+                                                      >, MenuEntry<MenuBarLocalization>
+                                                    >, MenuEntry<MenuBarLocalization>
+                                                  >, Divider
+                                                >, MenuEntry<MenuBarLocalization>
+                                              >, MenuEntry<MenuBarLocalization>
+                                            >, Divider
+                                          >,
+                                          Menu<
+                                            MenuBarLocalization,
+                                            MenuComponentsConcatenation<
+                                              MenuComponentsConcatenation<
+                                                MenuComponentsConcatenation<
+                                                  MenuEntry<MenuBarLocalization>,
+                                                  MenuEntry<MenuBarLocalization>
+                                                >, MenuEntry<MenuBarLocalization>
+                                              >, MenuEntry<MenuBarLocalization>
+                                            >
+                                          >
+                                        >,
+                                        Menu<
+                                          MenuBarLocalization,
+                                          MenuComponentsConcatenation<
+                                            MenuComponentsConcatenation<
+                                              MenuEntry<MenuBarLocalization>,
+                                              MenuEntry<MenuBarLocalization>
+                                            >, MenuEntry<MenuBarLocalization>
+                                          >
+                                        >
+                                      >,
+                                      Menu<
+                                        MenuBarLocalization,
+                                        MenuComponentsConcatenation<
+                                          MenuComponentsConcatenation<
+                                            MenuComponentsConcatenation<
+                                              MenuComponentsConcatenation<
+                                                MenuEntry<MenuBarLocalization>,
+                                                MenuEntry<MenuBarLocalization>
+                                              >, MenuEntry<MenuBarLocalization>
+                                            >, MenuEntry<MenuBarLocalization>
+                                          >, MenuEntry<MenuBarLocalization>
+                                        >
+                                      >
+                                    >,
+                                    Menu<
+                                      InterfaceLocalization,
+                                      MenuComponentsConcatenation<
+                                        MenuComponentsConcatenation<
+                                          MenuComponentsConcatenation<
+                                            MenuEntry<InterfaceLocalization>,
+                                            MenuEntry<InterfaceLocalization>
+                                          >, MenuEntry<InterfaceLocalization>
+                                        >, MenuEntry<InterfaceLocalization>
+                                      >
+                                    >
+                                  >, Divider
+                                >, MenuEntry<MenuBarLocalization>
+                              >, Divider
+                            >, MenuEntry<MenuBarLocalization>
+                          >, MenuEntry<MenuBarLocalization>
+                        >
+                      >,
+                      Menu<
+                        MenuBarLocalization,
+                        MenuComponentsConcatenation<
+                          MenuComponentsConcatenation<
+                            MenuComponentsConcatenation<
+                              MenuComponentsConcatenation<
+                                MenuComponentsConcatenation<
+                                  MenuComponentsConcatenation<
+                                    MenuComponentsConcatenation<
+                                      MenuComponentsConcatenation<
+                                        MenuComponentsConcatenation<
+                                          MenuEntry<MenuBarLocalization>,
+                                          MenuEntry<MenuBarLocalization>
+                                        >, MenuEntry<MenuBarLocalization>
+                                      >, MenuEntry<MenuBarLocalization>
+                                    >, Divider
+                                  >,
+                                  Menu<
+                                    MenuBarLocalization,
+                                    MenuComponentsConcatenation<
+                                      Menu<
+                                        MenuBarLocalization,
+                                        MenuComponentsConcatenation<
+                                          MenuComponentsConcatenation<
+                                            MenuEntry<MenuBarLocalization>,
+                                            MenuEntry<MenuBarLocalization>
+                                          >, MenuEntry<MenuBarLocalization>
+                                        >
+                                      >,
+                                      Menu<
+                                        MenuBarLocalization,
+                                        MenuComponentsConcatenation<
+                                          MenuComponentsConcatenation<
+                                            MenuEntry<MenuBarLocalization>,
+                                            MenuEntry<MenuBarLocalization>
+                                          >, MenuEntry<MenuBarLocalization>
+                                        >
+                                      >
+                                    >
+                                  >
+                                >, Divider
+                              >, MenuEntry<MenuBarLocalization>
+                            >, MenuEntry<MenuBarLocalization>
+                          >, MenuEntry<MenuBarLocalization>
+                        >
+                      >
+                    >
+                  >
+                >,
+                Menu<
+                  MenuBarLocalization,
+                  MenuComponentsConcatenation<
+                    MenuComponentsConcatenation<
+                      MenuComponentsConcatenation<
+                        MenuComponentsConcatenation<
+                          MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+                        >, Divider
+                      >, MenuEntry<MenuBarLocalization>
+                    >, MenuEntry<MenuBarLocalization>
+                  >
+                >
+              >, ApplicationSpecificMenus
+            >,
+            Menu<
+              MenuBarLocalization,
+              MenuComponentsConcatenation<
+                MenuComponentsConcatenation<
+                  MenuComponentsConcatenation<
+                    MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+                  >, Divider
+                >, MenuEntry<MenuBarLocalization>
+              >
+            >
+          >, Menu<MenuBarLocalization, MenuEntry<MenuBarLocalization>>
+        >
+      >
 
     /// The menu bar as an `NSMenu`.
     public func cocoa() -> NSMenu {
-      return menu.cocoa()
+      return menu.cocoaMenu()
     }
 
     // MARK: - Items

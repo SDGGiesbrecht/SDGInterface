@@ -117,7 +117,30 @@
       )
     }
 
-    internal static func view() -> Menu<InterfaceLocalization> {
+    internal static func view() -> Menu<
+      InterfaceLocalization,
+      MenuComponentsConcatenation<
+        MenuComponentsConcatenation<
+          MenuComponentsConcatenation<
+            MenuComponentsConcatenation<
+              MenuComponentsConcatenation<
+                MenuComponentsConcatenation<
+                  MenuComponentsConcatenation<
+                    MenuEntry<InterfaceLocalization>, MenuEntry<InterfaceLocalization>
+                  >, MenuEntry<InterfaceLocalization>
+                >, MenuEntry<InterfaceLocalization>
+              >, MenuEntry<InterfaceLocalization>
+            >, MenuEntry<InterfaceLocalization>
+          >, MenuEntry<InterfaceLocalization>
+        >,
+        Menu<
+          InterfaceLocalization,
+          MenuComponentsConcatenation<
+            MenuEntry<InterfaceLocalization>, MenuEntry<InterfaceLocalization>
+          >
+        >
+      >
+    > {
       return Menu(
         label: UserFacing<StrictString, InterfaceLocalization>({ localization in
           switch localization {
@@ -125,16 +148,18 @@
             return "View"
           }
         }),
-        entries: [
-          .entry(button()),
-          .entry(buttonSet()),
-          .entry(checkBox()),
-          .entry(image()),
-          .entry(label()),
-          .entry(log()),
-          .entry(textEditor()),
-          .submenu(textField()),
-        ]
+        entries: {
+          MenuComponentsBuilder.buildBlock(
+            button(),
+            buttonSet(),
+            checkBox(),
+            image(),
+            label(),
+            log(),
+            textEditor(),
+            textField()
+          )
+        }
       )
     }
   }

@@ -24,7 +24,13 @@
 
   extension MenuBar {
 
-    private static func paragraph() -> Menu<MenuBarLocalization> {
+    private static func paragraph() -> Menu<
+      MenuBarLocalization,
+      MenuComponentsConcatenation<
+        MenuComponentsConcatenation<MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>>,
+        MenuEntry<MenuBarLocalization>
+      >
+    > {
       return Menu(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -43,11 +49,13 @@
             return "פיסקה"
           }
         }),
-        entries: [
-          .entry(paragraphDefault()),
-          .entry(paragraphRightToLeft()),
-          .entry(paragraphLeftToRight()),
-        ]
+        entries: {
+          return MenuComponentsBuilder.buildBlock(
+            paragraphDefault(),
+            paragraphRightToLeft(),
+            paragraphLeftToRight()
+          )
+        }
       )
     }
 
@@ -126,7 +134,13 @@
       )
     }
 
-    private static func selection() -> Menu<MenuBarLocalization> {
+    private static func selection() -> Menu<
+      MenuBarLocalization,
+      MenuComponentsConcatenation<
+        MenuComponentsConcatenation<MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>>,
+        MenuEntry<MenuBarLocalization>
+      >
+    > {
       return Menu(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -145,11 +159,13 @@
             return "בחירה"
           }
         }),
-        entries: [
-          .entry(selectionDefault()),
-          .entry(selectionRightToLeft()),
-          .entry(selectionLeftToRight()),
-        ]
+        entries: {
+          return MenuComponentsBuilder.buildBlock(
+            selectionDefault(),
+            selectionRightToLeft(),
+            selectionLeftToRight()
+          )
+        }
       )
     }
 
@@ -174,7 +190,27 @@
       )
     }
 
-    internal static func writingDirection() -> Menu<MenuBarLocalization> {
+    internal static func writingDirection() -> Menu<
+      MenuBarLocalization,
+      MenuComponentsConcatenation<
+        Menu<
+          MenuBarLocalization,
+          MenuComponentsConcatenation<
+            MenuComponentsConcatenation<
+              MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+            >, MenuEntry<MenuBarLocalization>
+          >
+        >,
+        Menu<
+          MenuBarLocalization,
+          MenuComponentsConcatenation<
+            MenuComponentsConcatenation<
+              MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+            >, MenuEntry<MenuBarLocalization>
+          >
+        >
+      >
+    > {
       return Menu(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -193,10 +229,12 @@
             return "כיווניות הכתיבה"
           }
         }),
-        entries: [
-          .submenu(paragraph()),
-          .submenu(selection()),
-        ]
+        entries: {
+          return MenuComponentsBuilder.buildBlock(
+            paragraph(),
+            selection()
+          )
+        }
       )
     }
   }

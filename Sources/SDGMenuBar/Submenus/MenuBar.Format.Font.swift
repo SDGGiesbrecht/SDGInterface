@@ -257,7 +257,82 @@
       )
     }
 
-    internal static func font() -> Menu<MenuBarLocalization> {
+    internal static func font() -> Menu<
+      MenuBarLocalization,
+      MenuComponentsConcatenation<
+        MenuComponentsConcatenation<
+          MenuComponentsConcatenation<
+            MenuComponentsConcatenation<
+              MenuComponentsConcatenation<
+                MenuComponentsConcatenation<
+                  MenuComponentsConcatenation<
+                    MenuComponentsConcatenation<
+                      MenuComponentsConcatenation<
+                        MenuComponentsConcatenation<
+                          MenuComponentsConcatenation<
+                            MenuComponentsConcatenation<
+                              MenuComponentsConcatenation<
+                                MenuComponentsConcatenation<
+                                  MenuComponentsConcatenation<
+                                    MenuComponentsConcatenation<
+                                      MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+                                    >, MenuEntry<MenuBarLocalization>
+                                  >, MenuEntry<MenuBarLocalization>
+                                >, Divider
+                              >, MenuEntry<MenuBarLocalization>
+                            >, MenuEntry<MenuBarLocalization>
+                          >, Divider
+                        >,
+                        Menu<
+                          MenuBarLocalization,
+                          MenuComponentsConcatenation<
+                            MenuComponentsConcatenation<
+                              MenuComponentsConcatenation<
+                                MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+                              >, MenuEntry<MenuBarLocalization>
+                            >, MenuEntry<MenuBarLocalization>
+                          >
+                        >
+                      >,
+                      Menu<
+                        MenuBarLocalization,
+                        MenuComponentsConcatenation<
+                          MenuComponentsConcatenation<
+                            MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+                          >, MenuEntry<MenuBarLocalization>
+                        >
+                      >
+                    >,
+                    Menu<
+                      MenuBarLocalization,
+                      MenuComponentsConcatenation<
+                        MenuComponentsConcatenation<
+                          MenuComponentsConcatenation<
+                            MenuComponentsConcatenation<
+                              MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+                            >, MenuEntry<MenuBarLocalization>
+                          >, MenuEntry<MenuBarLocalization>
+                        >, MenuEntry<MenuBarLocalization>
+                      >
+                    >
+                  >,
+                  Menu<
+                    InterfaceLocalization,
+                    MenuComponentsConcatenation<
+                      MenuComponentsConcatenation<
+                        MenuComponentsConcatenation<
+                          MenuEntry<InterfaceLocalization>, MenuEntry<InterfaceLocalization>
+                        >, MenuEntry<InterfaceLocalization>
+                      >, MenuEntry<InterfaceLocalization>
+                    >
+                  >
+                >, Divider
+              >, MenuEntry<MenuBarLocalization>
+            >, Divider
+          >, MenuEntry<MenuBarLocalization>
+        >, MenuEntry<MenuBarLocalization>
+      >
+    > {
       return Menu(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -275,25 +350,27 @@
             return "גופן"
           }
         }),
-        entries: [
-          .entry(showFonts()),
-          .entry(bold()),
-          .entry(italic()),
-          .entry(underline()),
-          .separator,
-          .entry(bigger()),
-          .entry(smaller()),
-          .separator,
-          .submenu(kern()),
-          .submenu(ligatures()),
-          .submenu(baseline()),
-          .submenu(casing()),
-          .separator,
-          .entry(showColours()),
-          .separator,
-          .entry(copyStyle()),
-          .entry(pasteStyle()),
-        ]
+        entries: {
+          return MenuComponentsBuilder.buildBlock(
+            showFonts(),
+            bold(),
+            italic(),
+            underline(),
+            Divider(),
+            bigger(),
+            smaller(),
+            Divider(),
+            kern(),
+            ligatures(),
+            baseline(),
+            casing(),
+            Divider(),
+            showColours(),
+            Divider(),
+            copyStyle(),
+            pasteStyle()
+          )
+        }
       )
     }
   }

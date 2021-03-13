@@ -256,7 +256,34 @@
       )
     }
 
-    internal static func file() -> Menu<MenuBarLocalization> {
+    internal static func file() -> Menu<
+      MenuBarLocalization,
+      MenuComponentsConcatenation<
+        MenuComponentsConcatenation<
+          MenuComponentsConcatenation<
+            MenuComponentsConcatenation<
+              MenuComponentsConcatenation<
+                MenuComponentsConcatenation<
+                  MenuComponentsConcatenation<
+                    MenuComponentsConcatenation<
+                      MenuComponentsConcatenation<
+                        MenuComponentsConcatenation<
+                          MenuComponentsConcatenation<
+                            MenuComponentsConcatenation<
+                              MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+                            >, Menu<MenuBarLocalization, MenuEntry<MenuBarLocalization>>
+                          >, Divider
+                        >, MenuEntry<MenuBarLocalization>
+                      >, MenuEntry<MenuBarLocalization>
+                    >, MenuEntry<MenuBarLocalization>
+                  >, MenuEntry<MenuBarLocalization>
+                >, MenuEntry<MenuBarLocalization>
+              >, MenuEntry<InterfaceLocalization>
+            >, Divider
+          >, MenuEntry<MenuBarLocalization>
+        >, MenuEntry<MenuBarLocalization>
+      >
+    > {
       return Menu(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -275,21 +302,23 @@
             return "קובץ"
           }
         }),
-        entries: [
-          .entry(new()),
-          .entry(open()),
-          .submenu(openRecent()),
-          .separator,
-          .entry(close()),
-          .entry(save()),
-          .entry(duplicate()),
-          .entry(rename()),
-          .entry(moveTo()),
-          .entry(revertToSaved()),
-          .separator,
-          .entry(pageSetUp()),
-          .entry(print()),
-        ]
+        entries: {
+          return MenuComponentsBuilder.buildBlock(
+            new(),
+            open(),
+            openRecent(),
+            Divider(),
+            close(),
+            save(),
+            duplicate(),
+            rename(),
+            moveTo(),
+            revertToSaved(),
+            Divider(),
+            pageSetUp(),
+            print()
+          )
+        }
       )
     }
   }

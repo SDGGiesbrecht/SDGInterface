@@ -39,7 +39,7 @@
       )
     }
 
-    internal static func window() -> Menu<InterfaceLocalization> {
+    internal static func window() -> Menu<InterfaceLocalization, MenuEntry<InterfaceLocalization>> {
       return Menu(
         label: UserFacing<StrictString, InterfaceLocalization>({ localization in
           switch localization {
@@ -47,9 +47,11 @@
             return "Window"
           }
         }),
-        entries: [
-          .entry(fullscreen())
-        ]
+        entries: {
+          MenuComponentsBuilder.buildBlock(
+            fullscreen()
+          )
+        }
       )
     }
   }

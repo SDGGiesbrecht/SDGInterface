@@ -90,7 +90,13 @@
       )
     }
 
-    internal static func ligatures() -> Menu<MenuBarLocalization> {
+    internal static func ligatures() -> Menu<
+      MenuBarLocalization,
+      MenuComponentsConcatenation<
+        MenuComponentsConcatenation<MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>>,
+        MenuEntry<MenuBarLocalization>
+      >
+    > {
       return Menu(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -108,11 +114,13 @@
             return "משלבי אותיות"
           }
         }),
-        entries: [
-          .entry(useDefault()),
-          .entry(useNone()),
-          .entry(useAll()),
-        ]
+        entries: {
+          return MenuComponentsBuilder.buildBlock(
+            useDefault(),
+            useNone(),
+            useAll()
+          )
+        }
       )
     }
   }

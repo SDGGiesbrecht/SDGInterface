@@ -52,7 +52,12 @@
       )
     }
 
-    internal static func textField() -> Menu<InterfaceLocalization> {
+    internal static func textField() -> Menu<
+      InterfaceLocalization,
+      MenuComponentsConcatenation<
+        MenuEntry<InterfaceLocalization>, MenuEntry<InterfaceLocalization>
+      >
+    > {
       return Menu(
         label: UserFacing<StrictString, InterfaceLocalization>({ localization in
           switch localization {
@@ -60,10 +65,12 @@
             return "Text Field"
           }
         }),
-        entries: [
-          .entry(textFieldEntry()),
-          .entry(labelledTextField()),
-        ]
+        entries: {
+          MenuComponentsBuilder.buildBlock(
+            textFieldEntry(),
+            labelledTextField()
+          )
+        }
       )
     }
   }

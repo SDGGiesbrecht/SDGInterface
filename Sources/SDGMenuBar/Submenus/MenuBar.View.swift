@@ -120,7 +120,18 @@
       )
     }
 
-    internal static func view() -> Menu<MenuBarLocalization> {
+    internal static func view() -> Menu<
+      MenuBarLocalization,
+      MenuComponentsConcatenation<
+        MenuComponentsConcatenation<
+          MenuComponentsConcatenation<
+            MenuComponentsConcatenation<
+              MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+            >, Divider
+          >, MenuEntry<MenuBarLocalization>
+        >, MenuEntry<MenuBarLocalization>
+      >
+    > {
       return Menu(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -138,13 +149,15 @@
             return "תצוגה"
           }
         }),
-        entries: [
-          .entry(showToolbar()),
-          .entry(customizeToolbar()),
-          .separator,
-          .entry(showSideBar()),
-          .entry(enterFullScreen()),
-        ]
+        entries: {
+          return MenuComponentsBuilder.buildBlock(
+            showToolbar(),
+            customizeToolbar(),
+            Divider(),
+            showSideBar(),
+            enterFullScreen()
+          )
+        }
       )
     }
   }

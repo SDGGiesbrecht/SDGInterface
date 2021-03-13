@@ -135,7 +135,18 @@
       )
     }
 
-    internal static func baseline() -> Menu<MenuBarLocalization> {
+    internal static func baseline() -> Menu<
+      MenuBarLocalization,
+      MenuComponentsConcatenation<
+        MenuComponentsConcatenation<
+          MenuComponentsConcatenation<
+            MenuComponentsConcatenation<
+              MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+            >, MenuEntry<MenuBarLocalization>
+          >, MenuEntry<MenuBarLocalization>
+        >, MenuEntry<MenuBarLocalization>
+      >
+    > {
       return Menu(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -154,13 +165,15 @@
             return "קו בסיס"
           }
         }),
-        entries: [
-          .entry(normal()),
-          .entry(superscript()),
-          .entry(`subscript`()),
-          .entry(raise()),
-          .entry(lower()),
-        ]
+        entries: {
+          return MenuComponentsBuilder.buildBlock(
+            normal(),
+            superscript(),
+            `subscript`(),
+            raise(),
+            lower()
+          )
+        }
       )
     }
   }

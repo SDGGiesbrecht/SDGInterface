@@ -179,7 +179,23 @@
       )
     }
 
-    internal static func substitutions() -> Menu<MenuBarLocalization> {
+    internal static func substitutions() -> Menu<
+      MenuBarLocalization,
+      MenuComponentsConcatenation<
+        MenuComponentsConcatenation<
+          MenuComponentsConcatenation<
+            MenuComponentsConcatenation<
+              MenuComponentsConcatenation<
+                MenuComponentsConcatenation<
+                  MenuComponentsConcatenation<MenuEntry<MenuBarLocalization>, Divider>,
+                  MenuEntry<MenuBarLocalization>
+                >, MenuEntry<MenuBarLocalization>
+              >, MenuEntry<MenuBarLocalization>
+            >, MenuEntry<MenuBarLocalization>
+          >, MenuEntry<MenuBarLocalization>
+        >, MenuEntry<MenuBarLocalization>
+      >
+    > {
       return Menu(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -198,16 +214,18 @@
             return "החלפות"
           }
         }),
-        entries: [
-          .entry(showSubstitutions()),
-          .separator,
-          .entry(smartCopyPaste()),
-          .entry(smartQuotes()),
-          .entry(smartDashes()),
-          .entry(smartLinks()),
-          .entry(dataDetectors()),
-          .entry(textReplacement()),
-        ]
+        entries: {
+          return MenuComponentsBuilder.buildBlock(
+            showSubstitutions(),
+            Divider(),
+            smartCopyPaste(),
+            smartQuotes(),
+            smartDashes(),
+            smartLinks(),
+            dataDetectors(),
+            textReplacement()
+          )
+        }
       )
     }
   }

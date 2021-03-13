@@ -322,6 +322,12 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
+  func testDivider() {
+    #if canImport(AppKit)
+      _ = Divider().swiftUI()
+    #endif
+  }
+
   func testEdge() {
     for edge in SDGInterface.Edge.allCases {
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
@@ -356,6 +362,18 @@ final class APITests: ApplicationTestCase {
         XCTAssertFalse(set.contains(SDGInterface.Edge.Set(other)))
       }
     }
+  }
+
+  func testEmptyMenuComponents() {
+    let empty = EmptyMenuComponents()
+    #if canImport(AppKit) || (canImport(UIKit) && !os(tvOS) && !os(watchOS))
+      _ = empty.cocoa()
+    #endif
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      if #available(tvOS 13, iOS 13, *) {
+        _ = empty.swiftUI()
+      }
+    #endif
   }
 
   func testEmptyView() {
@@ -495,77 +513,55 @@ final class APITests: ApplicationTestCase {
         action: {}
       )
       let menuLabel = UserFacing<StrictString, APILocalization>({ _ in "initial" })
-      let menu = SDGInterface.Menu<APILocalization>(label: menuLabel, entries: [.entry(entry)])
+      let menu = SDGInterface.Menu(label: menuLabel, entries: { entry })
       _ = menu.cocoa()
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
         if #available(macOS 11, iOS 14, *) {
           _ = menu.swiftUI().body
-          _ = menu.swiftUIAnyView()
         }
       #endif
     #endif
   }
 
-  func testMenuComponent() {
-    #if (canImport(SwiftUI) && !os(tvOS)) || canImport(AppKit) || (canImport(UIKit) && !os(tvOS))
-      let entry = MenuComponent.entry(
-        MenuEntry<SDGInterfaceLocalizations.InterfaceLocalization>(
-          label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
-            { _ in "" }
-          ),
-          action: {}
-        )
-      )
-      XCTAssertNotNil(entry.asEntry)
-      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-        if #available(macOS 11, iOS 14, *) {
-          _ = entry.swiftUI().body
-        }
-      #endif
-      #if canImport(AppKit)
-        let submenu = MenuComponent.submenu(
-          SDGInterface.Menu<SDGInterfaceLocalizations.InterfaceLocalization>(
-            label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
-              { _ in "" }
-            ),
-            entries: []
-          )
-        )
-        XCTAssertNotNil(submenu.asSubmenu)
-        if #available(macOS 11, *) {
-          _ = submenu.swiftUI().body
-        }
-        XCTAssertNil(
-          MenuComponent.submenu(
-            SDGInterface.Menu<SDGInterfaceLocalizations.InterfaceLocalization>(
-              label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
-                { _ in "initial" }
-              ),
-              entries: []
-            )
-          ).asEntry
-        )
-        XCTAssertNil(
-          MenuComponent.entry(
-            MenuEntry<SDGInterfaceLocalizations.InterfaceLocalization>(
-              label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
-                { _ in "" }
-              ),
-              action: {}
-            )
-          )
-          .asSubmenu
-        )
-        if #available(macOS 11, *) {
-          _ = MenuComponent.separator.swiftUI().body
-        }
-      #endif
+  func testMenuComponentsBuilder() {
+    _ = MenuComponentsBuilder.buildBlock()
+    _ = MenuComponentsBuilder.buildBlock(EmptyMenuComponents())
+    _ = MenuComponentsBuilder.buildBlock(
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents(),
+      EmptyMenuComponents()
+    )
+  }
+
+  func testMenuComponentsConcatenation() {
+    let concatenation = MenuComponentsBuilder.buildBlock(
+      EmptyMenuComponents(),
+      EmptyMenuComponents()
+    )
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      if #available(macOS 11, tvOS 13, iOS 14, *) {
+        _ = concatenation.swiftUI()
+      }
     #endif
   }
 
   func testMenuEntry() {
     #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
-      if #available(tvOS 14, *) {
+      if #available(tvOS 13, *) {
         let menuLabel = Shared<StrictString>("initial")
         let entry = MenuEntry<APILocalization>(
           label: UserFacing<StrictString, APILocalization>({ _ in "" }),
@@ -579,7 +575,6 @@ final class APITests: ApplicationTestCase {
         #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
           if #available(macOS 11, iOS 14, *) {
             _ = entry.swiftUI().body
-            _ = entry.swiftUIAnyView()
           }
         #endif
         let withHotKey = MenuEntry<APILocalization>(
@@ -598,8 +593,9 @@ final class APITests: ApplicationTestCase {
         #endif
         let hidden = MenuEntry<APILocalization>(
           label: UserFacing<StrictString, APILocalization>({ _ in "" }),
-          action: {}
-        ).hidden(when: Shared(true))
+          action: {},
+          isHidden: Shared(true)
+        )
         #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
           if #available(macOS 11, iOS 14, *) {
             _ = hidden.swiftUI().body

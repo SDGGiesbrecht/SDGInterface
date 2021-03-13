@@ -174,7 +174,20 @@
       )
     }
 
-    internal static func find() -> Menu<MenuBarLocalization> {
+    internal static func find() -> Menu<
+      MenuBarLocalization,
+      MenuComponentsConcatenation<
+        MenuComponentsConcatenation<
+          MenuComponentsConcatenation<
+            MenuComponentsConcatenation<
+              MenuComponentsConcatenation<
+                MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+              >, MenuEntry<MenuBarLocalization>
+            >, MenuEntry<MenuBarLocalization>
+          >, MenuEntry<MenuBarLocalization>
+        >, MenuEntry<MenuBarLocalization>
+      >
+    > {
       return Menu(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -192,14 +205,16 @@
             return "חיפוש"
           }
         }),
-        entries: [
-          .entry(findEntry()),
-          .entry(findAndReplace()),
-          .entry(findNext()),
-          .entry(findPrevious()),
-          .entry(jumpToSelection()),
-          .entry(useSelectionForFind()),
-        ]
+        entries: {
+          return MenuComponentsBuilder.buildBlock(
+            findEntry(),
+            findAndReplace(),
+            findNext(),
+            findPrevious(),
+            jumpToSelection(),
+            useSelectionForFind()
+          )
+        }
       )
     }
   }

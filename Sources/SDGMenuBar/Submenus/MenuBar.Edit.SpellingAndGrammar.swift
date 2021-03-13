@@ -139,7 +139,20 @@
       )
     }
 
-    internal static func spellingAndGrammar() -> Menu<MenuBarLocalization> {
+    internal static func spellingAndGrammar() -> Menu<
+      MenuBarLocalization,
+      MenuComponentsConcatenation<
+        MenuComponentsConcatenation<
+          MenuComponentsConcatenation<
+            MenuComponentsConcatenation<
+              MenuComponentsConcatenation<
+                MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+              >, Divider
+            >, MenuEntry<MenuBarLocalization>
+          >, MenuEntry<MenuBarLocalization>
+        >, MenuEntry<MenuBarLocalization>
+      >
+    > {
       return Menu(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -158,14 +171,16 @@
             return "איות ודקדוק"
           }
         }),
-        entries: [
-          .entry(showSpellingAndGrammar()),
-          .entry(checkDocumentNow()),
-          .separator,
-          .entry(checkSpellingWhileTyping()),
-          .entry(checkGrammarWithSpelling()),
-          .entry(correctSpellingAutomatically()),
-        ]
+        entries: {
+          return MenuComponentsBuilder.buildBlock(
+            showSpellingAndGrammar(),
+            checkDocumentNow(),
+            Divider(),
+            checkSpellingWhileTyping(),
+            checkGrammarWithSpelling(),
+            correctSpellingAutomatically()
+          )
+        }
       )
     }
   }

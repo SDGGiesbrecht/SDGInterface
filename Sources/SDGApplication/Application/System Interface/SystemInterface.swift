@@ -14,6 +14,8 @@
 
 import Foundation
 
+import SDGLocalization
+
 import SDGInterface
 import SDGMenuBar
 
@@ -117,13 +119,19 @@ public protocol SystemInterface {
   func reopen(hasVisibleWindows: Bool?) -> Bool
 
   #if canImport(AppKit)
+    /// The type of the menu bar.
+    associatedtype MenuBarType: MenuBarProtocol
+
     /// Used by some systems as the menu bar.
-    var menuBar: MenuBar { get }
+    var menuBar: MenuBarType { get }
   #endif
 
   #if canImport(AppKit)
+    /// The type of the dock menu.
+    associatedtype DockMenuType: MenuProtocol
+
     /// Used by some systems as the dock menu.
-    var dockMenu: AnyMenu? { get }
+    var dockMenu: DockMenuType? { get }
   #endif
 
   /// Called by some systems before displaying an error to the user.
@@ -332,13 +340,13 @@ extension SystemInterface {
   }
 
   #if canImport(AppKit)
-    public var menuBar: MenuBar {
-      return MenuBar(applicationSpecificSubmenus: [])
+    public var menuBar: MenuBar<EmptyMenuComponents> {
+      return MenuBar(applicationSpecificSubmenus: { EmptyMenuComponents() })
     }
   #endif
 
   #if canImport(AppKit)
-    public var dockMenu: AnyMenu? {
+    public var dockMenu: Menu<AnyLocalization, EmptyMenuComponents>? {
       return nil
     }
   #endif
