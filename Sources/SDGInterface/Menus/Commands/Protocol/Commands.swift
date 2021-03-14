@@ -17,7 +17,7 @@
 #endif
 
 /// A list of commands.
-@available(macOS 11, *)
+@available(macOS 11, iOS 14, *)
 public protocol Commands: LegacyCommands {
 
   #if canImport(SwiftUI) && !os(tvOS) && !(os(iOS) && arch(arm))

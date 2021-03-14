@@ -41,7 +41,7 @@ where Leading: LegacyCommands, Trailing: LegacyCommands {
   }
 }
 
-@available(macOS 11, *)
+@available(macOS 11, iOS 14, *)
 extension CommandsConcatenation: Commands
 where Leading: Commands, Trailing: Commands {
 

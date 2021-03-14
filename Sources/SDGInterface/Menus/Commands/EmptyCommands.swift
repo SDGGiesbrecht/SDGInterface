@@ -31,7 +31,7 @@ public struct EmptyCommands: LegacyCommands {
   }
 }
 
-@available(macOS 11, *)
+@available(macOS 11, iOS 14, *)
 extension EmptyCommands: Commands {
 
   // MARK: - MenuComponents
