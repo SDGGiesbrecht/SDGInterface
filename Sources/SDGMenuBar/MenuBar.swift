@@ -354,7 +354,7 @@
                     >, MenuEntry<MenuBarLocalization>
                   >
                 >
-              >, ApplicationSpecificMenus
+              >, ApplicationSpecificMenus.MenuComponents
             >,
             SDGInterface.Menu<
               MenuBarLocalization,
@@ -386,7 +386,7 @@
             MenuBar.edit(),
             MenuBar.format(),
             MenuBar.view(),
-            applicationSpecificSubmenus,
+            applicationSpecificSubmenus.menuComponents(),
             MenuBar.window(),
             MenuBar.help()
           )
