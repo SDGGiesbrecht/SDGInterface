@@ -278,6 +278,13 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
+  func testCommandsConcatenation() {
+    _ = CommandsBuilder.buildBlock(
+      EmptyCommands(),
+      EmptyCommands()
+    )
+  }
+
   func testCompatibilityLabel() {
     #if canImport(SwiftUI)
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {

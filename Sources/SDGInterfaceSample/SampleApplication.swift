@@ -141,8 +141,8 @@ import SDGMenuBar
       {
         return MenuBar(
           applicationSpecificSubmenus: {
-            return MenuComponentsBuilder.buildBlock(
-              MenuBar<EmptyMenuComponents>.sample()
+            return CommandsBuilder.buildBlock(
+              MenuBar<EmptyCommands>.sample()
             )
           }
         )

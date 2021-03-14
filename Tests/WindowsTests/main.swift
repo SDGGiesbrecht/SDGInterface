@@ -63,6 +63,7 @@ extension SDGInterfaceTests.APITests {
       ("testCocoaWindow", testCocoaWindow),
       ("testCocoaWindowImplementation", testCocoaWindowImplementation),
       ("testColour", testColour),
+      ("testCommandsConcatenation", testCommandsConcatenation),
       ("testCompatibilityLabel", testCompatibilityLabel),
       ("testCompositeViewImplementation", testCompositeViewImplementation),
       ("testContentMode", testContentMode),
