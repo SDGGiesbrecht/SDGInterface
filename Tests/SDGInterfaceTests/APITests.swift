@@ -279,10 +279,16 @@ final class APITests: ApplicationTestCase {
   }
 
   func testCommandsConcatenation() {
-    _ = CommandsBuilder.buildBlock(
+    let commands = CommandsBuilder.buildBlock(
       EmptyCommands(),
       EmptyCommands()
     )
+    _ = commands.menuComponents()
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      if #available(macOS 11, *) {
+        _ = commands.swiftUICommands()
+      }
+    #endif
   }
 
   func testCompatibilityLabel() {
