@@ -12,14 +12,12 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-import SDGInterface
-
 /// The subset of the `Commands` protocol that can be conformed to even on platform versions preceding SwiftUI’s availability.
 public protocol LegacyCommands {
 
   /// The type of the menu components.
-  associatedtype MenuComponents: LegacyMenuComponents
+  associatedtype MenuComponentsType: LegacyMenuComponents
 
   /// Constructs menu components from the commansds.
-  func menuComponents() -> MenuComponents
+  func menuComponents() -> MenuComponentsType
 }

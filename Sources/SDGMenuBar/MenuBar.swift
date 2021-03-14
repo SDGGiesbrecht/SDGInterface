@@ -354,7 +354,7 @@
                     >, MenuEntry<MenuBarLocalization>
                   >
                 >
-              >, ApplicationSpecificMenus.MenuComponents
+              >, ApplicationSpecificMenus.MenuComponentsType
             >,
             SDGInterface.Menu<
               MenuBarLocalization,
@@ -414,7 +414,7 @@
   }
 
   @available(macOS 11, *)
-  extension MenuBar where ApplicationSpecificMenus: Commands {
+  extension MenuBar where ApplicationSpecificMenus: SDGInterface.Commands {
 
     public func swiftUI() -> some SwiftUI.Commands {
       applicationSpecificSubmenus.swiftUICommands()

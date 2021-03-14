@@ -16,6 +16,7 @@
   import SwiftUI
 #endif
 
+/// A list of commands.
 @available(macOS 11, *)
 public protocol Commands: LegacyCommands {
 
