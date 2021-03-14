@@ -16,8 +16,6 @@
   import SwiftUI
 #endif
 
-import SDGLocalization
-
 /// Empty commands.
 public struct EmptyCommands: LegacyCommands {
 
