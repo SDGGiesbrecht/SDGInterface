@@ -399,14 +399,6 @@
       return menu.cocoaMenu()
     }
 
-    @available(macOS 11, *)
-    public func swiftUI() -> some Commands {
-      @CommandsBuilder func built() -> some Commands {
-        applicationSpecificSubmenus
-      }
-      return built()
-    }
-
     // MARK: - Items
 
     internal static func fallbackApplicationName(
@@ -418,6 +410,17 @@
       result.append("\u{2069}")
       result.append(contentsOf: quotationMarks.trailing)
       return result
+    }
+  }
+
+  @available(macOS 11, *)
+  extension MenuBar where ApplicationSpecificMenus: MenuComponents {
+
+    public func swiftUI() -> some Commands {
+      @CommandsBuilder func built() -> some Commands {
+        applicationSpecificSubmenus
+      }
+      return built()
     }
   }
 #endif
