@@ -416,6 +416,7 @@
   @available(macOS 11, *)
   extension MenuBar where ApplicationSpecificMenus: SDGInterface.Commands {
 
+    /// Generates a SwiftUI representation of the application‐specific menus.
     public func swiftUI() -> some SwiftUI.Commands {
       applicationSpecificSubmenus.swiftUICommands()
     }
