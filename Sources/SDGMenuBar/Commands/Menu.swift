@@ -32,9 +32,10 @@ extension SDGInterface.Menu: Commands where Components: SDGInterface.MenuCompone
 
   #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
     public func swiftUICommands() -> some SwiftUI.Commands {
+      #warning("Sink to lower module.")
       #warning("Needs a separate type to track localization.")
       return CommandMenu(String(label.resolved())) {
-        self.swiftUI()
+        self.entries.swiftUI()
       }
     }
   #endif
