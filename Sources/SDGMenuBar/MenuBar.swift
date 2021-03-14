@@ -417,7 +417,7 @@
   extension MenuBar where ApplicationSpecificMenus: Commands {
 
     public func swiftUI() -> some SwiftUI.Commands {
-      applicationSpecificSubmenus.commands()
+      applicationSpecificSubmenus.swiftUICommands()
     }
   }
 #endif

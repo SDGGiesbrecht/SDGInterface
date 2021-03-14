@@ -12,11 +12,30 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(SwiftUI)
+  import SwiftUI
+#endif
+
 import SDGInterface
 
-extension Menu: LegacyCommands {
+extension SDGInterface.Menu: LegacyCommands {
 
-  public func menuComponents() -> Menu {
+  // MARK: - LegacyCommands
+
+  public func menuComponents() -> Self {
     return self
   }
+}
+
+@available(macOS 11, *)
+extension SDGInterface.Menu: Commands where Components: SDGInterface.MenuComponents {
+
+  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    public func swiftUICommands() -> some SwiftUI.Commands {
+      #warning("Needs a separate type to track localization.")
+      return CommandMenu(String(label.resolved())) {
+        self.swiftUI()
+      }
+    }
+  #endif
 }

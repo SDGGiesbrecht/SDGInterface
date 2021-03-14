@@ -55,8 +55,10 @@
 
     // MARK: - Properties
 
-    private let label: UserFacing<StrictString, L>
-    private let entries: Components
+    /// The label of the menu.
+    public let label: UserFacing<StrictString, L>
+    /// The entries in the menu.
+    public let entries: Components
 
     // MARK: - LegacyMenuComponents
 

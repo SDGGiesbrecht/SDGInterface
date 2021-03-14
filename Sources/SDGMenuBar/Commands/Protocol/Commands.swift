@@ -24,6 +24,6 @@ public protocol Commands: LegacyCommands {
     associatedtype SwiftUICommands: SwiftUI.Commands
 
     /// Constructs a SwiftUI representation of the commands.
-    func commands() -> SwiftUICommands
+    func swiftUICommands() -> SwiftUICommands
   #endif
 }
