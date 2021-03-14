@@ -33,7 +33,7 @@
   /// - “Preferences...” appears if the application has a preference manager.
   /// - “Help” appears if a help book is specified in the `Info.plist` file.
   public struct MenuBar<ApplicationSpecificMenus>: MenuBarProtocol
-  where ApplicationSpecificMenus: LegacyMenuComponents {
+  where ApplicationSpecificMenus: LegacyCommands {
 
     // MARK: - Initialization
 
@@ -414,13 +414,10 @@
   }
 
   @available(macOS 11, *)
-  extension MenuBar where ApplicationSpecificMenus: MenuComponents {
+  extension MenuBar where ApplicationSpecificMenus: Commands {
 
-    public func swiftUI() -> some Commands {
-      @CommandsBuilder func built() -> some Commands {
-        applicationSpecificSubmenus
-      }
-      return built()
+    public func swiftUI() -> some SwiftUI.Commands {
+      applicationSpecificSubmenus.commands()
     }
   }
 #endif
