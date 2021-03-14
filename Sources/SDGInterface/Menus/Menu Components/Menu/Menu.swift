@@ -89,10 +89,11 @@
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       public func swiftUICommands() -> some SwiftUI.Commands {
-        #warning("Needs a separate type to track localization.")
-        return CommandMenu(String(label.resolved())) {
-          self.entries.swiftUI()
-        }
+        return SwiftUICommandsImplementation(
+          label: label,
+          entries: entries,
+          localization: LocalizationSetting.current
+        )
       }
     #endif
 
