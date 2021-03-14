@@ -45,7 +45,7 @@ where Leading: LegacyCommands, Trailing: LegacyCommands {
 extension CommandsConcatenation: Commands
 where Leading: Commands, Trailing: Commands {
 
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  #if canImport(SwiftUI) && !os(tvOS) && !(os(iOS) && arch(arm))
     @SwiftUI.CommandsBuilder public func swiftUICommands() -> some SwiftUI.Commands {
       leading.swiftUICommands()
       trailing.swiftUICommands()

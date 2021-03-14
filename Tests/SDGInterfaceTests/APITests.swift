@@ -288,7 +288,7 @@ final class APITests: ApplicationTestCase {
       EmptyCommands()
     )
     _ = commands.menuComponents()
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI) && !os(tvOS) && !(os(iOS) && arch(arm))
       if #available(macOS 11, *) {
         _ = commands.swiftUICommands()
       }

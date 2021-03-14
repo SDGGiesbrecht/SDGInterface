@@ -20,7 +20,7 @@
 @available(macOS 11, *)
 public protocol Commands: LegacyCommands {
 
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  #if canImport(SwiftUI) && !os(tvOS) && !(os(iOS) && arch(arm))
     /// The type of the SwiftUI commands.
     associatedtype SwiftUICommands: SwiftUI.Commands
 
