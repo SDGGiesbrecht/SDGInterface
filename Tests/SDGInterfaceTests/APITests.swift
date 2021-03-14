@@ -280,6 +280,7 @@ final class APITests: ApplicationTestCase {
 
   func testCommandsBuilder() {
     _ = CommandsBuilder.buildBlock()
+    _ = CommandsBuilder.buildBlock(EmptyCommands())
   }
 
   func testCommandsConcatenation() {
