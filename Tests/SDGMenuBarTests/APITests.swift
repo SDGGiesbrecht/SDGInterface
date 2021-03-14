@@ -71,6 +71,9 @@ final class APITests: ApplicationTestCase {
       testAllLocalizations()
 
       _ = MenuBar(applicationSpecificSubmenus: { EmptyCommands() }).cocoa()
+      if #available(macOS 11, *) {
+        _ = MenuBar(applicationSpecificSubmenus: { EmptyCommands() }).swiftUI()
+      }
     #endif
   }
 }

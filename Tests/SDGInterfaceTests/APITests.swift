@@ -535,6 +535,7 @@ final class APITests: ApplicationTestCase {
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
         if #available(macOS 11, iOS 14, *) {
           _ = menu.swiftUI().body
+          _ = menu.swiftUICommands().body
         }
       #endif
     #endif
