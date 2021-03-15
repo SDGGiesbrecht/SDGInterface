@@ -288,12 +288,6 @@
     // MARK: - NSMenuItemValidation
 
     internal func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-      if menuItem.action == #selector(NSApplicationDelegate.openPreferences(_:)),
-        application.preferenceManager == nil
-      {
-        menuItem.isHidden = true
-        return false
-      }
       if let action = menuItem.action {
         return responds(to: action)
       } else {
