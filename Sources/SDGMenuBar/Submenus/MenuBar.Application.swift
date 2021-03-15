@@ -25,6 +25,7 @@
 
   // #workaround(Shouldn’t need low line.)
   public let _hidePreferences = Shared(true)
+
   extension MenuBar {
     internal static func about() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
@@ -125,7 +126,7 @@
       )
     }
 
-    private static func hide() -> MenuEntry<MenuBarLocalization> {
+    internal static func hide() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -177,7 +178,7 @@
       )
     }
 
-    private static func hideOthers() -> MenuEntry<MenuBarLocalization> {
+    internal static func hideOthers() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -201,7 +202,7 @@
       )
     }
 
-    private static func showAll() -> MenuEntry<MenuBarLocalization> {
+    internal static func showAll() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -223,7 +224,7 @@
       )
     }
 
-    private static func quit() -> MenuEntry<MenuBarLocalization> {
+    internal static func quit() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {

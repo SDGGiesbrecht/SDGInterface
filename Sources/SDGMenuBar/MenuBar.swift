@@ -422,8 +422,19 @@
       CommandGroup(replacing: .appInfo) {
         MenuBar<SDGInterface.EmptyCommands>.about().swiftUI()
       }
+
       CommandGroup(replacing: .appSettings) {
         MenuBar<SDGInterface.EmptyCommands>.preferences().swiftUI()
+      }
+
+      CommandGroup(replacing: .appVisibility) {
+        MenuBar<SDGInterface.EmptyCommands>.hide().swiftUI()
+        MenuBar<SDGInterface.EmptyCommands>.hideOthers().swiftUI()
+        MenuBar<SDGInterface.EmptyCommands>.showAll().swiftUI()
+      }
+
+      CommandGroup(replacing: .appTermination) {
+        MenuBar<SDGInterface.EmptyCommands>.quit().swiftUI()
       }
 
       applicationSpecificSubmenus.swiftUICommands()
