@@ -24,7 +24,7 @@
   import SDGInterfaceLocalizations
 
   // #workaround(Shouldn’t need low line.)
-  public let _hidePreferences = Shared(false)
+  public let _hidePreferences = Shared(true)
   extension MenuBar {
     internal static func about() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
@@ -76,7 +76,7 @@
       )
     }
 
-    private static func preferences() -> MenuEntry<MenuBarLocalization> {
+    internal static func preferences() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {

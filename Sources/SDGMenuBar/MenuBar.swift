@@ -422,6 +422,9 @@
       CommandGroup(replacing: .appInfo) {
         MenuBar<SDGInterface.EmptyCommands>.about().swiftUI()
       }
+      CommandGroup(replacing: .appSettings) {
+        MenuBar<SDGInterface.EmptyCommands>.preferences().swiftUI()
+      }
 
       applicationSpecificSubmenus.swiftUICommands()
     }
