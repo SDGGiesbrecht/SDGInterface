@@ -23,7 +23,7 @@
   import SDGInterfaceLocalizations
 
   extension MenuBar {
-    private static func about() -> MenuEntry<MenuBarLocalization> {
+    internal static func about() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {

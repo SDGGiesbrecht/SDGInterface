@@ -417,7 +417,12 @@
   extension MenuBar where ApplicationSpecificMenus: SDGInterface.Commands {
 
     /// Generates a SwiftUI representation of the application‐specific menus.
-    public func swiftUI() -> some SwiftUI.Commands {
+    @SwiftUI.CommandsBuilder public func swiftUI() -> some SwiftUI.Commands {
+
+      CommandGroup(replacing: .appInfo) {
+        MenuBar<SDGInterface.EmptyCommands>.about().swiftUI()
+      }
+
       applicationSpecificSubmenus.swiftUICommands()
     }
   }
