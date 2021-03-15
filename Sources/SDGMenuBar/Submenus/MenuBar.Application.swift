@@ -15,6 +15,7 @@
 #if canImport(AppKit)
   import AppKit
 
+  import SDGControlFlow
   import SDGText
   import SDGLocalization
 
@@ -94,7 +95,8 @@
         }),
         hotKeyModifiers: .command,
         hotKey: ",",
-        selector: #selector(_NSApplicationDelegateProtocol.openPreferences(_:))
+        selector: #selector(_NSApplicationDelegateProtocol.openPreferences(_:)),
+        isHidden:
       )
     }
 
