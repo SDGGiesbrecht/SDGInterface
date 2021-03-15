@@ -108,6 +108,7 @@ extension Application {
     #endif
 
     #if canImport(AppKit)
+      _hidePreferences.value = preferenceManager == nil
       let menuBar = self.menuBar.cocoa()
       NSApplication.shared.mainMenu = menuBar
       NSApplication.shared.servicesMenu =
