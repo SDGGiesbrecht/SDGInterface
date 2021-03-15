@@ -32,7 +32,7 @@ final class APITests: ApplicationTestCase {
 
   func testMenuBar() {
     #if canImport(AppKit)
-      let menuBar = MenuBar(applicationSpecificSubmenus: { EmptyMenuComponents() })
+      let menuBar = MenuBar(applicationSpecificSubmenus: { EmptyCommands() })
       XCTAssertNotNil(menuBar)
       let submenu = menuBar.cocoa().items.first(where: { $0.submenu ≠ nil })
       XCTAssertNotNil(submenu)
@@ -70,7 +70,10 @@ final class APITests: ApplicationTestCase {
       }
       testAllLocalizations()
 
-      _ = MenuBar(applicationSpecificSubmenus: { EmptyMenuComponents() }).cocoa()
+      _ = MenuBar(applicationSpecificSubmenus: { EmptyCommands() }).cocoa()
+      if #available(macOS 11, *) {
+        _ = MenuBar(applicationSpecificSubmenus: { EmptyCommands() }).swiftUI()
+      }
     #endif
   }
 }

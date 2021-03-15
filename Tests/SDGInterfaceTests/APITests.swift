@@ -278,6 +278,24 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
+  func testCommandsBuilder() {
+    _ = CommandsBuilder.buildBlock()
+    _ = CommandsBuilder.buildBlock(EmptyCommands())
+  }
+
+  func testCommandsConcatenation() {
+    let commands = CommandsBuilder.buildBlock(
+      EmptyCommands(),
+      EmptyCommands()
+    )
+    _ = commands.menuComponents()
+    #if canImport(SwiftUI) && !os(tvOS) && !(os(iOS) && arch(arm))
+      if #available(macOS 11, iOS 14, *) {
+        _ = commands.swiftUICommands()
+      }
+    #endif
+  }
+
   func testCompatibilityLabel() {
     #if canImport(SwiftUI)
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
@@ -515,9 +533,11 @@ final class APITests: ApplicationTestCase {
       let menuLabel = UserFacing<StrictString, APILocalization>({ _ in "initial" })
       let menu = SDGInterface.Menu(label: menuLabel, entries: { entry })
       _ = menu.cocoa()
+      _ = menu.menuComponents()
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
         if #available(macOS 11, iOS 14, *) {
           _ = menu.swiftUI().body
+          _ = menu.swiftUICommands().body
         }
       #endif
     #endif

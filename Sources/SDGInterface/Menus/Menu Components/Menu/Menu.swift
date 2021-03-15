@@ -29,7 +29,7 @@
   import SDGInterfaceLocalizations
 
   /// A menu.
-  public struct Menu<L, Components>: LegacyMenuComponents, MenuProtocol
+  public struct Menu<L, Components>: LegacyMenuComponents, LegacyCommands, MenuProtocol
   where L: Localization, Components: LegacyMenuComponents {
 
     // MARK: - Initialization
@@ -58,6 +58,12 @@
     private let label: UserFacing<StrictString, L>
     private let entries: Components
 
+    // MARK: - LegacyCommands
+
+    public func menuComponents() -> Self {
+      return self
+    }
+
     // MARK: - LegacyMenuComponents
 
     #if canImport(AppKit)
@@ -77,7 +83,19 @@
   }
 
   @available(macOS 11, iOS 14, *)
-  extension Menu: MenuComponents where Components: MenuComponents {
+  extension Menu: Commands, MenuComponents where Components: SDGInterface.MenuComponents {
+
+    // MARK: - Commands
+
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      public func swiftUICommands() -> some SwiftUI.Commands {
+        return SwiftUICommandsImplementation(
+          label: label,
+          entries: entries,
+          localization: LocalizationSetting.current
+        )
+      }
+    #endif
 
     // MARK: - MenuComponents
 
