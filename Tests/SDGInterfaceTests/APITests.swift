@@ -557,8 +557,7 @@ final class APITests: ApplicationTestCase {
         }
         for localization in MenuBarLocalization.allCases {
           LocalizationSetting(orderOfPrecedence: [localization.code]).do {
-            _ = ContextMenu._normalizeText().cocoa()
-            _ = ContextMenu._showCharacterInformation().cocoa()
+            _ = TextContextMenu.contextMenu.menu
             _ = menuBar.cocoa()
           }
         }
