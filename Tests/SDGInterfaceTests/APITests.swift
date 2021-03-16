@@ -27,7 +27,6 @@ import SDGText
 import SDGLocalization
 
 import SDGInterface
-import SDGApplication
 
 import SDGInterfaceLocalizations
 
@@ -40,7 +39,7 @@ import SDGLogicTestUtilities
 import SDGLocalizationTestUtilities
 
 import SDGInterfaceTestUtilities
-import SDGApplicationTestUtilities
+import SDGInterfaceInternalTestUtilities
 
 final class APITests: ApplicationTestCase {
 

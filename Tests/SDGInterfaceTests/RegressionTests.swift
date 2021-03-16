@@ -21,7 +21,7 @@ import SDGInterface
 
 import SDGInterfaceLocalizations
 
-import SDGApplicationTestUtilities
+import SDGInterfaceInternalTestUtilities
 
 final class RegressionTests: ApplicationTestCase {
 

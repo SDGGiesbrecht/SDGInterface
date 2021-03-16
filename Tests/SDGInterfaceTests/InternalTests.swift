@@ -35,7 +35,7 @@ import XCTest
 
 import SDGXCTestUtilities
 import SDGInterfaceTestUtilities
-import SDGApplicationTestUtilities
+import SDGInterfaceInternalTestUtilities
 
 final class InternalTests: ApplicationTestCase {
 
@@ -171,7 +171,7 @@ final class InternalTests: ApplicationTestCase {
       func openPreferences() {}
     }
     #if canImport(AppKit)
-      var delegate = SDGApplication.NSApplicationDelegate(
+      var delegate = SDGInterface.NSApplicationDelegate(
         application: TestApplication(preferenceManager: TestPreferenceManager())
       )
       func testSystemInteraction() {
@@ -236,10 +236,10 @@ final class InternalTests: ApplicationTestCase {
       }
       testSystemInteraction()
 
-      delegate = SDGApplication.NSApplicationDelegate(
+      delegate = SDGInterface.NSApplicationDelegate(
         application: TestApplication(preferenceManager: nil)
       )
-      delegate = SDGApplication.NSApplicationDelegate(
+      delegate = SDGInterface.NSApplicationDelegate(
         application: TestApplication(preferenceManager: TestPreferenceManager())
       )
       XCTAssert(
