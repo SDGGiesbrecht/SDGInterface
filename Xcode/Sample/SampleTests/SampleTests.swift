@@ -16,7 +16,7 @@ import XCTest
 
 @testable import Sample
 
-import SDGApplication
+import SDGInterface
 
 import SDGInterfaceLocalizations
 

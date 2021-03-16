@@ -345,7 +345,7 @@ final class InternalTests: ApplicationTestCase {
       func openPreferences() {}
     }
     #if canImport(UIKit)
-      let delegate = SDGApplication.UIApplicationDelegate(
+      let delegate = SDGInterface.UIApplicationDelegate(
         application: TestApplication(preferenceManager: TestPreferenceManager())
       )
       func testSystemInteraction() {
