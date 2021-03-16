@@ -70,7 +70,7 @@
       )
     }
 
-    private static func cut() -> MenuEntry<MenuBarLocalization> {
+    internal static func cut() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -94,7 +94,7 @@
       )
     }
 
-    private static func copy() -> MenuEntry<MenuBarLocalization> {
+    internal static func copy() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -119,7 +119,7 @@
       )
     }
 
-    private static func paste() -> MenuEntry<MenuBarLocalization> {
+    internal static func paste() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -145,7 +145,7 @@
       )
     }
 
-    private static func pasteAndMatchStyle() -> MenuEntry<MenuBarLocalization> {
+    internal static func pasteAndMatchStyle() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -169,7 +169,7 @@
       )
     }
 
-    private static func delete() -> MenuEntry<MenuBarLocalization> {
+    internal static func delete() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -191,7 +191,7 @@
       )
     }
 
-    private static func selectAll() -> MenuEntry<MenuBarLocalization> {
+    internal static func selectAll() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {

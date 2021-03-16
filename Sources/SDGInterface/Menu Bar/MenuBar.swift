@@ -440,6 +440,25 @@
         MenuBar<SDGInterface.EmptyCommands>.print().swiftUI()
       }
 
+      CommandGroup(replacing: .pasteboard) {
+        Group {
+          MenuBar<SDGInterface.EmptyCommands>.cut().swiftUI()
+          MenuBar<SDGInterface.EmptyCommands>.copy().swiftUI()
+          MenuBar<SDGInterface.EmptyCommands>.paste().swiftUI()
+          MenuBar<SDGInterface.EmptyCommands>.pasteAndMatchStyle().swiftUI()
+          MenuBar<SDGInterface.EmptyCommands>.delete().swiftUI()
+          MenuBar<SDGInterface.EmptyCommands>.selectAll().swiftUI()
+        }
+        Group {
+          Divider().swiftUI()
+          MenuBar<SDGInterface.EmptyCommands>.find().swiftUI()
+          MenuBar<SDGInterface.EmptyCommands>.spellingAndGrammar().swiftUI()
+          MenuBar<SDGInterface.EmptyCommands>.substitutions().swiftUI()
+          MenuBar<SDGInterface.EmptyCommands>.transformations().swiftUI()
+          ContextMenu.showCharacterInformation().swiftUI()
+        }
+      }
+
       applicationSpecificSubmenus.swiftUICommands()
     }
   }
