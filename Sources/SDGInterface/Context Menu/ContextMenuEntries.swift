@@ -23,7 +23,7 @@
 
   extension ContextMenu {
 
-    public static func _normalizeText() -> MenuEntry<InterfaceLocalization> {
+    internal static func normalizeText() -> MenuEntry<InterfaceLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, InterfaceLocalization>({ localization in
           switch localization {
@@ -39,7 +39,7 @@
       )
     }
 
-    public static func _showCharacterInformation() -> MenuEntry<InterfaceLocalization> {
+    internal static func showCharacterInformation() -> MenuEntry<InterfaceLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, InterfaceLocalization>({ localization in
           switch localization {

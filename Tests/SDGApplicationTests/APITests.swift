@@ -21,7 +21,6 @@ import SDGText
 import SDGLocalization
 
 import SDGInterface
-import SDGMenuBar
 import SDGApplication
 
 import SDGInterfaceLocalizations

@@ -18,7 +18,6 @@ import XCTest
 @testable import SDGInterfaceResourceGeneration
 @testable import SDGInterfaceTests
 @testable import SDGKeyboardTests
-@testable import SDGMenuBarTests
 @testable import SDGProgressIndicatorsTests
 
 extension SDGApplicationTests.APITests {
@@ -83,6 +82,7 @@ extension SDGInterfaceTests.APITests {
       ("testLegacyView", testLegacyView),
       ("testLog", testLog),
       ("testMenu", testMenu),
+      ("testMenuBar", testMenuBar),
       ("testMenuComponentsBuilder", testMenuComponentsBuilder),
       ("testMenuComponentsConcatenation", testMenuComponentsConcatenation),
       ("testMenuEntry", testMenuEntry),
@@ -141,14 +141,6 @@ extension SDGKeyboardTests.APITests {
   ]
 }
 
-extension SDGMenuBarTests.APITests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
-      ("testMenuBar", testMenuBar)
-    ])
-  ]
-}
-
 extension SDGProgressIndicatorsTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
@@ -165,7 +157,6 @@ tests += SDGInterfaceTests.APITests.windowsTests
 tests += SDGInterfaceTests.InternalTests.windowsTests
 tests += SDGInterfaceTests.RegressionTests.windowsTests
 tests += SDGKeyboardTests.APITests.windowsTests
-tests += SDGMenuBarTests.APITests.windowsTests
 tests += SDGProgressIndicatorsTests.APITests.windowsTests
 
 XCTMain(tests)

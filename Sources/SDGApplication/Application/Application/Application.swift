@@ -23,7 +23,6 @@ import Foundation
 import SDGLogic
 
 import SDGInterface
-import SDGMenuBar
 
 /// A type that represents an application.
 ///

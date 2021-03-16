@@ -21,8 +21,6 @@
   import SDGText
   import SDGLocalization
 
-  import SDGInterface
-
   import SDGInterfaceLocalizations
 
   /// An application’s menu bar.

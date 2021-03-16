@@ -18,8 +18,6 @@
   import SDGText
   import SDGLocalization
 
-  import SDGInterface
-
   import SDGInterfaceLocalizations
 
   extension MenuBar {
@@ -337,7 +335,7 @@
             spellingAndGrammar(),
             substitutions(),
             transformations(),
-            ContextMenu._showCharacterInformation(),
+            ContextMenu.showCharacterInformation(),
             speech()
           )
         }

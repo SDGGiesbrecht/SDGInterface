@@ -17,7 +17,6 @@ import Foundation
 import SDGLocalization
 
 import SDGInterface
-import SDGMenuBar
 
 /// An interface for interaction with the operating system.
 public protocol SystemInterface {

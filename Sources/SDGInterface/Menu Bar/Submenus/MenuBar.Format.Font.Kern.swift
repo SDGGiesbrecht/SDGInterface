@@ -1,5 +1,5 @@
 /*
- MenuBar.View.swift
+ MenuBar.Format.Font.Kern.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -18,116 +18,104 @@
   import SDGText
   import SDGLocalization
 
-  import SDGInterface
-
   import SDGInterfaceLocalizations
 
   extension MenuBar {
 
-    private static func showToolbar() -> MenuEntry<MenuBarLocalization> {
+    private static func useDefault() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
           case .españolEspaña:
-            return "Mostrar barra de herramientas"
+            return "Valor por omisión"
           case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-            return "Show Toolbar"
+            return "Use Default"
           case .deutschDeutschland:
-            return "Symbolleiste einblenden"
+            return "Normal"
           case .françaisFrance:
-            return "Afficher la barre d’outils"
+            return "Valeur par défaut"
           case .ελληνικάΕλλάδα:
-            return "Εμφάνιση γραμμής εργαλείων"
+            return "Χρήση προεπιλογής"
           case .עברית־ישראל:
-            return "הצג את סרגל הכלים"
+            return "השתמש בברירת המחדל"
           }
         }),
-        hotKeyModifiers: [.command, .option],
-        hotKey: "t",
-        selector: #selector(NSWindow.toggleToolbarShown(_:))
+        selector: #selector(NSTextView.useStandardKerning(_:))
       )
     }
 
-    private static func customizeToolbar() -> MenuEntry<MenuBarLocalization> {
+    private static func useNone() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
           case .españolEspaña:
-            return "Personalizar barra de herramientas..."
-          case .englishUnitedKingdom:
-            return "Customise Toolbar..."
-          case .englishUnitedStates, .englishCanada:
-            return "Customize Toolbar..."
-          case .deutschDeutschland:
-            return "Symbolleiste anpassen ..."
-          case .françaisFrance:
-            return "Personnaliser la barre d’outils..."
-          case .ελληνικάΕλλάδα:
-            return "Προσαρμογή γραμμής εργαλείων..."
-          case .עברית־ישראל:
-            return "התאמה אישית של סרגל הכלים..."
-          }
-        }),
-        selector: #selector(NSWindow.runToolbarCustomizationPalette(_:))
-      )
-    }
-
-    private static func showSideBar() -> MenuEntry<MenuBarLocalization> {
-      return MenuEntry(
-        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
-          switch localization {
-          case .españolEspaña:
-            return "Mostrar barra lateral"
+            return "Ninguno"
           case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-            return "Show Side Bar"
+            return "Use None"
           case .deutschDeutschland:
-            return "Seitenleiste einblenden"
+            return "Nicht verwenden"
           case .françaisFrance:
-            return "Afficher la barre latérale"
+            return "Aucun"
           case .ελληνικάΕλλάδα:
-            return "Εμφάνιση πλαϊνής στήλης"
+            return "Καμία"
           case .עברית־ישראל:
-            return "הצג את סרגל הצד"
+            return "אל תשתמש בשום אפשרות"
           }
         }),
-        hotKeyModifiers: [.command, .control],
-        hotKey: "s",
-        selector: Selector.toggleSourceList
+        selector: #selector(NSTextView.turnOffKerning(_:))
       )
     }
 
-    private static func enterFullScreen() -> MenuEntry<MenuBarLocalization> {
+    private static func tighten() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
           case .españolEspaña:
-            return "Usar pantalla completa"
+            return "Reducir"
           case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-            return "Enter Full Screen"
+            return "Tighten"
           case .deutschDeutschland:
-            return "Vollbild ein"
+            return "Enger"
           case .françaisFrance:
-            return "Activer le mode plein écran"
+            return "Resserrer"
           case .ελληνικάΕλλάδα:
-            return "Είσοδος σε πλήρη οθόνη"
+            return "Πιο κοντά"
           case .עברית־ישראל:
-            return "עבור למסך מלא"
+            return "הדוק יותר"
           }
         }),
-        hotKeyModifiers: [.command, .control],
-        hotKey: "f",
-        selector: #selector(NSWindow.toggleFullScreen(_:))
+        selector: #selector(NSTextView.tightenKerning(_:))
       )
     }
 
-    internal static func view() -> Menu<
+    private static func loosen() -> MenuEntry<MenuBarLocalization> {
+      return MenuEntry(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña:
+            return "Aumentar"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Loosen"
+          case .deutschDeutschland:
+            return "Weiter"
+          case .françaisFrance:
+            return "Desserrer"
+          case .ελληνικάΕλλάδα:
+            return "Πιο αραιά"
+          case .עברית־ישראל:
+            return "מרווח יותר"
+          }
+        }),
+        selector: #selector(NSTextView.loosenKerning(_:))
+      )
+    }
+
+    internal static func kern() -> Menu<
       MenuBarLocalization,
       MenuComponentsConcatenation<
         MenuComponentsConcatenation<
           MenuComponentsConcatenation<
-            MenuComponentsConcatenation<
-              MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
-            >, Divider
+            MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
           >, MenuEntry<MenuBarLocalization>
         >, MenuEntry<MenuBarLocalization>
       >
@@ -136,26 +124,27 @@
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
           case .españolEspaña:
-            return "Visualización"
+            return "Interletraje"
+
           case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-            return "View"
-          case .deutschDeutschland:
-            return "Darstellung"
+            return "Kern"
           case .françaisFrance:
-            return "Présentation"
+            return "Crénage"
+
+          case .deutschDeutschland:
+            return "Zeichenabstand"
           case .ελληνικάΕλλάδα:
-            return "Προβολή"
+            return "Διαγραμμάτωση"
           case .עברית־ישראל:
-            return "תצוגה"
+            return "מרווח בין אותיות"
           }
         }),
         entries: {
           return MenuComponentsBuilder.buildBlock(
-            showToolbar(),
-            customizeToolbar(),
-            Divider(),
-            showSideBar(),
-            enterFullScreen()
+            useDefault(),
+            useNone(),
+            tighten(),
+            loosen()
           )
         }
       )
