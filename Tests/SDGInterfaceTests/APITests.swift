@@ -543,6 +543,53 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
+  func testMenuBar() {
+    #if canImport(AppKit)
+      let menuBar = MenuBar(applicationSpecificSubmenus: { EmptyCommands() })
+      XCTAssertNotNil(menuBar)
+      let submenu = menuBar.cocoa().items.first(where: { $0.submenu ≠ nil })
+      XCTAssertNotNil(submenu)
+
+      let previous = ProcessInfo.applicationName
+      func testAllLocalizations() {
+        defer {
+          ProcessInfo.applicationName = previous
+        }
+        for localization in MenuBarLocalization.allCases {
+          LocalizationSetting(orderOfPrecedence: [localization.code]).do {
+            _ = ContextMenu._normalizeText().cocoa()
+            _ = ContextMenu._showCharacterInformation().cocoa()
+            _ = menuBar.cocoa()
+          }
+        }
+      }
+
+      ProcessInfo.applicationName = { form in
+        switch form {
+        case .english(.canada):
+          return "..."
+        default:
+          return nil
+        }
+      }
+      testAllLocalizations()
+      ProcessInfo.applicationName = { form in
+        switch form {
+        case .english(.unitedKingdom):
+          return "..."
+        default:
+          return nil
+        }
+      }
+      testAllLocalizations()
+
+      _ = MenuBar(applicationSpecificSubmenus: { EmptyCommands() }).cocoa()
+      if #available(macOS 11, *) {
+        _ = MenuBar(applicationSpecificSubmenus: { EmptyCommands() }).swiftUI()
+      }
+    #endif
+  }
+
   func testMenuComponentsBuilder() {
     _ = MenuComponentsBuilder.buildBlock()
     _ = MenuComponentsBuilder.buildBlock(EmptyMenuComponents())

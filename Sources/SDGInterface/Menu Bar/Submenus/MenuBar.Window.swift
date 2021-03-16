@@ -1,5 +1,5 @@
 /*
- MenuBar.Format.Font.Ligatures.swift
+ MenuBar.Window.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -18,107 +18,115 @@
   import SDGText
   import SDGLocalization
 
-  import SDGInterface
-
   import SDGInterfaceLocalizations
 
   extension MenuBar {
 
-    private static func useDefault() -> MenuEntry<MenuBarLocalization> {
+    private static func minimize() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
           case .españolEspaña:
-            return "Valor por omisión"
-          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-            return "Use Default"
+            return "Minimizar"
+          case .englishUnitedKingdom:
+            return "Minimise"
+          case .englishUnitedStates, .englishCanada:
+            return "Minimize"
           case .deutschDeutschland:
-            return "Normal"
+            return "Im Dock ablegen"
           case .françaisFrance:
-            return "Valeur par défaut"
+            return "Placer dans le Dock"
           case .ελληνικάΕλλάδα:
-            return "Χρήση προεπιλογής"
+            return "Ελαχιστοποίηση"
           case .עברית־ישראל:
-            return "השתמש בברירת המחדל"
+            return "מזער"
           }
         }),
-        selector: #selector(NSTextView.useStandardLigatures(_:))
+        hotKeyModifiers: .command,
+        hotKey: "m",
+        selector: #selector(NSWindow.performMiniaturize(_:))
       )
     }
 
-    private static func useNone() -> MenuEntry<MenuBarLocalization> {
+    private static func zoom() -> MenuEntry<MenuBarLocalization> {
+      return MenuEntry(
+        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
+          switch localization {
+          case .españolEspaña,
+            .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Zoom"
+          case .deutschDeutschland:
+            return "Zoomen"
+          case .ελληνικάΕλλάδα:
+            return "Ζουμ"
+
+          case .françaisFrance:
+            return "Réduire/agrandir"
+          case .עברית־ישראל:
+            return "הגדל/הקטן"
+          }
+        }),
+        selector: #selector(NSWindow.performZoom(_:))
+      )
+    }
+
+    private static func bringAllToFront() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
           case .españolEspaña:
-            return "Ninguna"
+            return "Traer todo al frente"
           case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-            return "Use None"
+            return "Bring All to Front"
           case .deutschDeutschland:
-            return "Nicht verwenden"
+            return "Alle nach vorne bringen"
           case .françaisFrance:
-            return "Aucune"
+            return "Tout ramener au premier plan"
           case .ελληνικάΕλλάδα:
-            return "Κανένα"
+            return "Μεταφωρά όλων σε πρώτο πλάνο"
           case .עברית־ישראל:
-            return "אל תשתמש בשום אפשרות"
+            return "הבא הכל קדימה"
           }
         }),
-        selector: #selector(NSTextView.turnOffLigatures(_:))
+        selector: #selector(NSApplication.arrangeInFront(_:))
       )
     }
 
-    private static func useAll() -> MenuEntry<MenuBarLocalization> {
-      return MenuEntry(
-        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
-          switch localization {
-          case .españolEspaña:
-            return "Todas"
-          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-            return "Use All"
-          case .deutschDeutschland:
-            return "Alle verwenden"
-          case .françaisFrance:
-            return "Toutes"
-          case .ελληνικάΕλλάδα:
-            return "Χρήση όλων"
-          case .עברית־ישראל:
-            return "השתמש בכולם"
-          }
-        }),
-        selector: #selector(NSTextView.useAllLigatures(_:))
-      )
-    }
-
-    internal static func ligatures() -> Menu<
+    internal static func window() -> Menu<
       MenuBarLocalization,
       MenuComponentsConcatenation<
-        MenuComponentsConcatenation<MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>>,
-        MenuEntry<MenuBarLocalization>
+        MenuComponentsConcatenation<
+          MenuComponentsConcatenation<
+            MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+          >, Divider
+        >, MenuEntry<MenuBarLocalization>
       >
     > {
       return Menu(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
           case .españolEspaña:
-            return "Ligaduras"
-          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada,
-            .françaisFrance:
-            return "Ligatures"
+            return "Ventana"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Window"
+
           case .deutschDeutschland:
-            return "Ligaturen"
+            return "Fenster"
+          case .françaisFrance:
+            return "Fenêtre"
 
           case .ελληνικάΕλλάδα:
-            return "Συμπλέγματα"
+            return "Παράθυρο"
           case .עברית־ישראל:
-            return "משלבי אותיות"
+            return "חלון"
           }
         }),
         entries: {
           return MenuComponentsBuilder.buildBlock(
-            useDefault(),
-            useNone(),
-            useAll()
+            minimize(),
+            zoom(),
+            Divider(),
+            bringAllToFront()
           )
         }
       )

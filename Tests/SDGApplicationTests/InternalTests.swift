@@ -19,7 +19,6 @@ import SDGLogic
 import SDGLocalization
 
 import SDGInterface
-import SDGMenuBar
 @testable import SDGApplication
 import SDGInterfaceSample
 

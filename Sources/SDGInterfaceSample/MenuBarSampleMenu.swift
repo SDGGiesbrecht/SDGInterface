@@ -17,7 +17,6 @@
   import SDGLocalization
 
   import SDGInterface
-  import SDGMenuBar
 
   import SDGInterfaceLocalizations
 

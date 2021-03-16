@@ -17,7 +17,7 @@
 
   import SDGLogic
 
-  import SDGMenuBar
+  import SDGInterface
 
   // See Application.prepareForMain()
   internal var permanentNSApplicationDelegateStorage: NSObject?

@@ -18,11 +18,18 @@
 
   extension Selector {
 
-    // MARK: - None
-
     private class Responder: NSObject {
       @objc fileprivate func unimplementedSelector(_ sender: Any?) {}  // @exmpt(from: tests)
+
+      @objc fileprivate func undo(_ sender: Any?) {}  // @exempt(from: tests)
+      @objc fileprivate func redo(_ sender: Any?) {}  // @exempt(from: tests)
+      @objc fileprivate func toggleSourceList(_ sender: Any?) {}  // @exempt(from: tests)
     }
+
     internal static let none: Selector = #selector(Responder.unimplementedSelector(_:))
+
+    internal static let undo: Selector = #selector(Responder.undo(_:))
+    internal static let redo: Selector = #selector(Responder.redo(_:))
+    internal static let toggleSourceList: Selector = #selector(Responder.toggleSourceList(_:))
   }
 #endif

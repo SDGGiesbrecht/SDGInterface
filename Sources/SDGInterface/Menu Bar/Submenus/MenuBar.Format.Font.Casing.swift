@@ -18,8 +18,6 @@
   import SDGText
   import SDGLocalization
 
-  import SDGInterface
-
   import SDGInterfaceLocalizations
 
   extension MenuBar {

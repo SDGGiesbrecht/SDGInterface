@@ -19,8 +19,6 @@
   import SDGText
   import SDGLocalization
 
-  import SDGInterface
-
   import SDGInterfaceLocalizations
 
   // #workaround(Shouldn’t need low line.)

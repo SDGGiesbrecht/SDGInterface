@@ -1,5 +1,5 @@
 /*
- MenuBar.Format.Font.Kern.swift
+ MenuBar.Format.Font.Ligatures.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -17,8 +17,6 @@
 
   import SDGText
   import SDGLocalization
-
-  import SDGInterface
 
   import SDGInterfaceLocalizations
 
@@ -42,7 +40,7 @@
             return "השתמש בברירת המחדל"
           }
         }),
-        selector: #selector(NSTextView.useStandardKerning(_:))
+        selector: #selector(NSTextView.useStandardLigatures(_:))
       )
     }
 
@@ -51,102 +49,74 @@
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
           case .españolEspaña:
-            return "Ninguno"
+            return "Ninguna"
           case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
             return "Use None"
           case .deutschDeutschland:
             return "Nicht verwenden"
           case .françaisFrance:
-            return "Aucun"
+            return "Aucune"
           case .ελληνικάΕλλάδα:
-            return "Καμία"
+            return "Κανένα"
           case .עברית־ישראל:
             return "אל תשתמש בשום אפשרות"
           }
         }),
-        selector: #selector(NSTextView.turnOffKerning(_:))
+        selector: #selector(NSTextView.turnOffLigatures(_:))
       )
     }
 
-    private static func tighten() -> MenuEntry<MenuBarLocalization> {
+    private static func useAll() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
           case .españolEspaña:
-            return "Reducir"
+            return "Todas"
           case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-            return "Tighten"
+            return "Use All"
           case .deutschDeutschland:
-            return "Enger"
+            return "Alle verwenden"
           case .françaisFrance:
-            return "Resserrer"
+            return "Toutes"
           case .ελληνικάΕλλάδα:
-            return "Πιο κοντά"
+            return "Χρήση όλων"
           case .עברית־ישראל:
-            return "הדוק יותר"
+            return "השתמש בכולם"
           }
         }),
-        selector: #selector(NSTextView.tightenKerning(_:))
+        selector: #selector(NSTextView.useAllLigatures(_:))
       )
     }
 
-    private static func loosen() -> MenuEntry<MenuBarLocalization> {
-      return MenuEntry(
-        label: UserFacing<StrictString, MenuBarLocalization>({ localization in
-          switch localization {
-          case .españolEspaña:
-            return "Aumentar"
-          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-            return "Loosen"
-          case .deutschDeutschland:
-            return "Weiter"
-          case .françaisFrance:
-            return "Desserrer"
-          case .ελληνικάΕλλάδα:
-            return "Πιο αραιά"
-          case .עברית־ישראל:
-            return "מרווח יותר"
-          }
-        }),
-        selector: #selector(NSTextView.loosenKerning(_:))
-      )
-    }
-
-    internal static func kern() -> Menu<
+    internal static func ligatures() -> Menu<
       MenuBarLocalization,
       MenuComponentsConcatenation<
-        MenuComponentsConcatenation<
-          MenuComponentsConcatenation<
-            MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
-          >, MenuEntry<MenuBarLocalization>
-        >, MenuEntry<MenuBarLocalization>
+        MenuComponentsConcatenation<MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>>,
+        MenuEntry<MenuBarLocalization>
       >
     > {
       return Menu(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
           case .españolEspaña:
-            return "Interletraje"
-
-          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-            return "Kern"
-          case .françaisFrance:
-            return "Crénage"
-
+            return "Ligaduras"
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada,
+            .françaisFrance:
+            return "Ligatures"
           case .deutschDeutschland:
-            return "Zeichenabstand"
+            return "Ligaturen"
+
           case .ελληνικάΕλλάδα:
-            return "Διαγραμμάτωση"
+            return "Συμπλέγματα"
           case .עברית־ישראל:
-            return "מרווח בין אותיות"
+            return "משלבי אותיות"
           }
         }),
         entries: {
           return MenuComponentsBuilder.buildBlock(
             useDefault(),
             useNone(),
-            tighten(),
-            loosen()
+            useAll()
           )
         }
       )

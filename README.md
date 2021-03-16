@@ -127,7 +127,6 @@ let package = Package(
         .product(name: "SDGApplication", package: "SDGInterface"),
         .product(name: "SDGInterface", package: "SDGInterface"),
         .product(name: "SDGInterfaceTestUtilities", package: "SDGInterface"),
-        .product(name: "SDGMenuBar", package: "SDGInterface"),
         .product(name: "SDGErrorMessages", package: "SDGInterface"),
         .product(name: "SDGProgressIndicators", package: "SDGInterface"),
         .product(name: "SDGKeyboard", package: "SDGInterface"),
@@ -143,7 +142,6 @@ The modules can then be imported in source files:
 import SDGApplication
 import SDGInterface
 import SDGInterfaceTestUtilities
-import SDGMenuBar
 import SDGErrorMessages
 import SDGProgressIndicators
 import SDGKeyboard
