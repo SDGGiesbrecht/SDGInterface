@@ -225,7 +225,7 @@ let package = Package(
     .target(
       name: "SDGInterfaceInternalTestUtilities",
       dependencies: [
-        "SDGApplication",
+        "SDGInterface",
         "SDGInterfaceSample",
         .product(name: "SDGXCTestUtilities", package: "SDGCornerstone"),
       ],
