@@ -206,7 +206,7 @@
       )
     }
 
-    private static func pageSetUp() -> MenuEntry<MenuBarLocalization> {
+    internal static func pageSetUp() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -230,7 +230,7 @@
       )
     }
 
-    private static func print() -> MenuEntry<MenuBarLocalization> {
+    internal static func print() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {

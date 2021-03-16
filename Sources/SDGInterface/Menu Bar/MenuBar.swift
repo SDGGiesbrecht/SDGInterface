@@ -435,6 +435,11 @@
         MenuBar<SDGInterface.EmptyCommands>.quit().swiftUI()
       }
 
+      CommandGroup(replacing: .printItem) {
+        MenuBar<SDGInterface.EmptyCommands>.pageSetUp().swiftUI()
+        MenuBar<SDGInterface.EmptyCommands>.print().swiftUI()
+      }
+
       applicationSpecificSubmenus.swiftUICommands()
     }
   }
