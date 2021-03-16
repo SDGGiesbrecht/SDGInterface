@@ -38,7 +38,7 @@ import SDGInterfaceTestUtilities
 import SDGApplicationTestUtilities
 
 final class InternalTests: ApplicationTestCase {
-  
+
   func testApplicationName() {
     // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
     #if !os(WASI)
@@ -143,7 +143,7 @@ final class InternalTests: ApplicationTestCase {
       _ = selector?.validateMenuItem(entry)
     #endif
   }
-  
+
   func testNSApplicationDelegate() {
     struct Error: Swift.Error {}
     struct TestApplication: Application {
@@ -277,7 +277,7 @@ final class InternalTests: ApplicationTestCase {
       #endif
     }
   }
-  
+
   func testPreferenceManager() {
     // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
     #if !os(WASI)
@@ -317,7 +317,7 @@ final class InternalTests: ApplicationTestCase {
     string.compatibility = "..."
     _ = string.compatibility
   }
-  
+
   func testUIApplicationDelegate() {
     struct Error: Swift.Error {}
     struct TestApplication: Application {

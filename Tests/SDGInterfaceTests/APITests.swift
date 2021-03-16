@@ -82,7 +82,7 @@ final class APITests: ApplicationTestCase {
       }
     #endif
   }
-  
+
   func testApplication() {
     struct ExampleApplication: Application {
       // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
@@ -358,7 +358,7 @@ final class APITests: ApplicationTestCase {
       }
     #endif
   }
-  
+
   func testDemonstrations() {
     #if canImport(AppKit)
       MenuBarTarget.shared.demonstrateFullscreenWindow()
@@ -426,7 +426,7 @@ final class APITests: ApplicationTestCase {
       }
     #endif
   }
-  
+
   func testFetchResult() {
     #if canImport(UIKit)
       for result in FetchResult.allCases {
@@ -717,7 +717,7 @@ final class APITests: ApplicationTestCase {
       }
     #endif
   }
-  
+
   func testNotification() {
     _ = SystemNotification()
   }
@@ -763,7 +763,7 @@ final class APITests: ApplicationTestCase {
       }
     #endif
   }
-  
+
   func testQuickActionDetails() {
     #if canImport(UIKit) && !os(tvOS) && !os(watchOS)
       var details = QuickActionDetails()
@@ -1046,7 +1046,7 @@ final class APITests: ApplicationTestCase {
       }
     #endif
   }
-  
+
   func testSystemInterface() {
     class Interface: SystemInterface, Error {
       func finishLaunching(_ details: LaunchDetails) -> Bool {

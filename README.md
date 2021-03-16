@@ -124,7 +124,6 @@ let package = Package(
     .target(
       name: "MyTarget",
       dependencies: [
-        .product(name: "SDGApplication", package: "SDGInterface"),
         .product(name: "SDGInterface", package: "SDGInterface"),
         .product(name: "SDGInterfaceTestUtilities", package: "SDGInterface"),
         .product(name: "SDGErrorMessages", package: "SDGInterface"),
@@ -139,7 +138,6 @@ let package = Package(
 The modules can then be imported in source files:
 
 ```swift
-import SDGApplication
 import SDGInterface
 import SDGInterfaceTestUtilities
 import SDGErrorMessages

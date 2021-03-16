@@ -14,35 +14,10 @@
 
 import XCTest
 
-@testable import SDGApplicationTests
 @testable import SDGInterfaceResourceGeneration
 @testable import SDGInterfaceTests
 @testable import SDGKeyboardTests
 @testable import SDGProgressIndicatorsTests
-
-extension SDGApplicationTests.APITests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
-      ("testApplication", testApplication),
-      ("testDemonstrations", testDemonstrations),
-      ("testFetchResult", testFetchResult),
-      ("testNotification", testNotification),
-      ("testQuickActionDetails", testQuickActionDetails),
-      ("testSystemInterface", testSystemInterface),
-    ])
-  ]
-}
-
-extension SDGApplicationTests.InternalTests {
-  static let windowsTests: [XCTestCaseEntry] = [
-    testCase([
-      ("testApplicationName", testApplicationName),
-      ("testPreferenceManager", testPreferenceManager),
-      ("testNSApplicationDelegate", testNSApplicationDelegate),
-      ("testUIApplicationDelegate", testUIApplicationDelegate),
-    ])
-  ]
-}
 
 extension SDGInterfaceTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
@@ -50,6 +25,7 @@ extension SDGInterfaceTests.APITests {
       ("testAlignment", testAlignment),
       ("testAnchorSource", testAnchorSource),
       ("testAnyView", testAnyView),
+      ("testApplication", testApplication),
       ("testApplicationName", testApplicationName),
       ("testAttributedString", testAttributedString),
       ("testBackground", testBackground),
@@ -68,11 +44,13 @@ extension SDGInterfaceTests.APITests {
       ("testCompositeViewImplementation", testCompositeViewImplementation),
       ("testContentMode", testContentMode),
       ("testContextMenu", testContextMenu),
+      ("testDemonstrations", testDemonstrations),
       ("testDivider", testDivider),
       ("testEdge", testEdge),
       ("testEdgeSet", testEdgeSet),
       ("testEmptyMenuComponents", testEmptyMenuComponents),
       ("testEmptyView", testEmptyView),
+      ("testFetchResult", testFetchResult),
       ("testFont", testFont),
       ("testHorizontalStack", testHorizontalStack),
       ("testImage", testImage),
@@ -86,15 +64,18 @@ extension SDGInterfaceTests.APITests {
       ("testMenuComponentsBuilder", testMenuComponentsBuilder),
       ("testMenuComponentsConcatenation", testMenuComponentsConcatenation),
       ("testMenuEntry", testMenuEntry),
+      ("testNotification", testNotification),
       ("testNSRectEdge", testNSRectEdge),
       ("testPoint", testPoint),
       ("testPopOver", testPopOver),
       ("testPopOverAttachmentAnchor", testPopOverAttachmentAnchor),
+      ("testQuickActionDetails", testQuickActionDetails),
       ("testRectangle", testRectangle),
       ("testRichText", testRichText),
       ("testSegmentedControl", testSegmentedControl),
       ("testSize", testSize),
       ("testSwiftUIViewImplementation", testSwiftUIViewImplementation),
+      ("testSystemInterface", testSystemInterface),
       ("testTable", testTable),
       ("testTextEditor", testTextEditor),
       ("testTextField", testTextField),
@@ -110,16 +91,20 @@ extension SDGInterfaceTests.APITests {
 extension SDGInterfaceTests.InternalTests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
+      ("testApplicationName", testApplicationName),
       ("testButtonCocoaImplementation", testButtonCocoaImplementation),
       ("testButtonLabel", testButtonLabel),
       ("testCheckBoxCocoaImplementation", testCheckBoxCocoaImplementation),
       ("testImage", testImage),
       ("testLegacyView", testLegacyView),
       ("testMenuEntry", testMenuEntry),
+      ("testNSApplicationDelegate", testNSApplicationDelegate),
       ("testPopOverCocoaImplementation", testPopOverCocoaImplementation),
+      ("testPreferenceManager", testPreferenceManager),
       ("testProportionedView", testProportionedView),
       ("testSegmentedControlCocoaImplementation", testSegmentedControlCocoaImplementation),
       ("testStrictString", testStrictString),
+      ("testUIApplicationDelegate", testUIApplicationDelegate),
       ("testUIResponder", testUIResponder),
     ])
   ]
@@ -151,8 +136,6 @@ extension SDGProgressIndicatorsTests.APITests {
 }
 
 var tests = [XCTestCaseEntry]()
-tests += SDGApplicationTests.APITests.windowsTests
-tests += SDGApplicationTests.InternalTests.windowsTests
 tests += SDGInterfaceTests.APITests.windowsTests
 tests += SDGInterfaceTests.InternalTests.windowsTests
 tests += SDGInterfaceTests.RegressionTests.windowsTests
