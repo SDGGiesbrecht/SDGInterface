@@ -22,8 +22,6 @@ import Foundation
 
 import SDGLogic
 
-import SDGInterface
-
 /// A type that represents an application.
 ///
 /// Create an application by declaring a structure that conforms to the `Application` protocol.
@@ -107,7 +105,7 @@ extension Application {
     #endif
 
     #if canImport(AppKit)
-      _hidePreferences.value = preferenceManager == nil
+      hidePreferences.value = preferenceManager == nil
       let menuBar = self.menuBar.cocoa()
       NSApplication.shared.mainMenu = menuBar
       NSApplication.shared.servicesMenu =

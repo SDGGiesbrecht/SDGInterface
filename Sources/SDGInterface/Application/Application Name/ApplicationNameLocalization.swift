@@ -54,7 +54,7 @@ public struct ApplicationNameLocalization: Localization {
     #if os(WASI)
       return nil
     #else
-      guard let form = ApplicationNameForm._isolatedForm(for: code),
+      guard let form = ApplicationNameForm.isolatedForm(for: code),
         let name = ProcessInfo.applicationName(form)
       else {
         return nil

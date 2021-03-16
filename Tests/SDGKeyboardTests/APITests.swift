@@ -18,7 +18,7 @@ import XCTest
 
 import SDGXCTestUtilities
 
-import SDGApplicationTestUtilities
+import SDGInterfaceInternalTestUtilities
 
 final class APITests: ApplicationTestCase {
 

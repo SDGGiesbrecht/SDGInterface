@@ -21,9 +21,8 @@
   import SDGLocalization
 
   import SDGInterface
-  import SDGApplication
 
-  public struct SampleApplication: SDGApplication.Application {
+  public struct SampleApplication: SDGInterface.Application {
 
     public init() {}
 
@@ -85,7 +84,7 @@
 
     // MARK: - Application
 
-    public var preferenceManager: SDGApplication.PreferenceManager? {
+    public var preferenceManager: SDGInterface.PreferenceManager? {
       return PreferenceManager()
     }
 

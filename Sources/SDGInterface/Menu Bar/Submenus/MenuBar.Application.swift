@@ -21,8 +21,7 @@
 
   import SDGInterfaceLocalizations
 
-  // #workaround(Shouldn’t need low line.)
-  public let _hidePreferences = Shared(true)
+  internal let hidePreferences = Shared(true)
 
   extension MenuBar {
     internal static func about() -> MenuEntry<MenuBarLocalization> {
@@ -97,7 +96,7 @@
         hotKeyModifiers: .command,
         hotKey: ",",
         selector: #selector(_NSApplicationDelegateProtocol.openPreferences(_:)),
-        isHidden: _hidePreferences
+        isHidden: hidePreferences
       )
     }
 

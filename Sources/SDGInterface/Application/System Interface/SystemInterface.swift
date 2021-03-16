@@ -16,8 +16,6 @@ import Foundation
 
 import SDGLocalization
 
-import SDGInterface
-
 /// An interface for interaction with the operating system.
 public protocol SystemInterface {
 
