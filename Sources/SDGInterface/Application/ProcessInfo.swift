@@ -130,7 +130,7 @@
             let systemName: String? = dictionary?[nameKey] as? String
             let short: String? = dictionary?[shortKey] as? String
 
-            let form = ApplicationNameForm._isolatedForm(for: localization.code)
+            let form = ApplicationNameForm.isolatedForm(for: localization.code)
             let name: String? = form.flatMap({ ProcessInfo.applicationName($0) }).flatMap({
               String($0)
             })
