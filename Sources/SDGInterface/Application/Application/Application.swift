@@ -22,8 +22,6 @@ import Foundation
 
 import SDGLogic
 
-import SDGInterface
-
 /// A type that represents an application.
 ///
 /// Create an application by declaring a structure that conforms to the `Application` protocol.

@@ -17,14 +17,12 @@
 
   import SDGLogic
 
-  import SDGInterface
-
   // See Application.prepareForMain()
   internal var permanentNSApplicationDelegateStorage: NSObject?
 
   internal class NSApplicationDelegate<Application>: NSObject, AppKit.NSApplicationDelegate,
     _NSApplicationDelegateProtocol, NSMenuItemValidation
-  where Application: SDGApplication.Application {
+  where Application: SDGInterface.Application {
 
     // MARK: - Initialization
 

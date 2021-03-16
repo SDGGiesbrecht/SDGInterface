@@ -17,7 +17,6 @@ import SDGLocalization
 
 import SDGInterface
 import SDGProgressIndicators
-import SDGApplication
 
 import SDGInterfaceSample
 
@@ -26,7 +25,7 @@ import XCTest
 import SDGXCTestUtilities
 
 import SDGInterfaceTestUtilities
-import SDGApplicationTestUtilities
+import SDGInterfaceInternalTestUtilities
 
 final class APITests: ApplicationTestCase {
 

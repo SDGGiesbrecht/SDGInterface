@@ -18,7 +18,7 @@
   @testable import SDGProgressIndicators
 
   import SDGInterfaceTestUtilities
-  import SDGApplicationTestUtilities
+  import SDGInterfaceInternalTestUtilities
 
   final class PreviewTests: ApplicationTestCase {
 

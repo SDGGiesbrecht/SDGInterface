@@ -16,7 +16,7 @@
 
   import Foundation
 
-  import SDGApplication
+  import SDGInterface
 
   import SDGInterfaceSample
 

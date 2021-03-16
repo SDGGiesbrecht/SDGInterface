@@ -39,9 +39,8 @@ import PackageDescription
 /// import SDGLocalization
 ///
 /// import SDGInterface
-/// import SDGApplication
 ///
-/// public struct SampleApplication: SDGApplication.Application {
+/// public struct SampleApplication: SDGInterface.Application {
 ///
 ///   public init() {}
 ///
