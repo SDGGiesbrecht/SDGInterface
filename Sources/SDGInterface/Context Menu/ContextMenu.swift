@@ -42,8 +42,8 @@ public struct ContextMenu {
           }),
         entries: {
           MenuComponentsBuilder.buildBlock(
-            ContextMenu._normalizeText(),
-            ContextMenu._showCharacterInformation()
+            ContextMenu.normalizeText(),
+            ContextMenu.showCharacterInformation()
           )
         }
       )
