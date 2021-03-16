@@ -335,7 +335,7 @@
             spellingAndGrammar(),
             substitutions(),
             transformations(),
-            ContextMenu._showCharacterInformation(),
+            ContextMenu.showCharacterInformation(),
             speech()
           )
         }

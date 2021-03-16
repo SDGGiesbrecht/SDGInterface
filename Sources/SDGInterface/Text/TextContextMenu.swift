@@ -37,11 +37,11 @@
         ?? NSMenu()  // @exempt(from: tests) Never nil.
       let adjustments: [(menu: MenuEntry<InterfaceLocalization>, selector: Selector?)] = [
         (
-          SDGInterface.ContextMenu._normalizeText(),
+          SDGInterface.ContextMenu.normalizeText(),
           #selector(TextEditingResponder.normalizeText(_:))
         ),
         (
-          SDGInterface.ContextMenu._showCharacterInformation(),
+          SDGInterface.ContextMenu.showCharacterInformation(),
           #selector(TextDisplayResponder.showCharacterInformation(_:))
         ),
       ]
