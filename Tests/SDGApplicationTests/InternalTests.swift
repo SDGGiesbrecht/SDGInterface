@@ -164,15 +164,6 @@ final class InternalTests: ApplicationTestCase {
       delegate = SDGApplication.NSApplicationDelegate(
         application: TestApplication(preferenceManager: nil)
       )
-      XCTAssertFalse(
-        delegate.validateMenuItem(
-          NSMenuItem(
-            title: "",
-            action: #selector(_NSApplicationDelegateProtocol.openPreferences(_:)),
-            keyEquivalent: ""
-          )
-        )
-      )
       delegate = SDGApplication.NSApplicationDelegate(
         application: TestApplication(preferenceManager: TestPreferenceManager())
       )

@@ -15,6 +15,7 @@
 #if canImport(AppKit)
   import AppKit
 
+  import SDGControlFlow
   import SDGText
   import SDGLocalization
 
@@ -22,8 +23,11 @@
 
   import SDGInterfaceLocalizations
 
+  // #workaround(Shouldn’t need low line.)
+  public let _hidePreferences = Shared(true)
+
   extension MenuBar {
-    private static func about() -> MenuEntry<MenuBarLocalization> {
+    internal static func about() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -73,7 +77,7 @@
       )
     }
 
-    private static func preferences() -> MenuEntry<MenuBarLocalization> {
+    internal static func preferences() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -94,7 +98,8 @@
         }),
         hotKeyModifiers: .command,
         hotKey: ",",
-        selector: #selector(_NSApplicationDelegateProtocol.openPreferences(_:))
+        selector: #selector(_NSApplicationDelegateProtocol.openPreferences(_:)),
+        isHidden: _hidePreferences
       )
     }
 
@@ -121,7 +126,7 @@
       )
     }
 
-    private static func hide() -> MenuEntry<MenuBarLocalization> {
+    internal static func hide() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -173,7 +178,7 @@
       )
     }
 
-    private static func hideOthers() -> MenuEntry<MenuBarLocalization> {
+    internal static func hideOthers() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -197,7 +202,7 @@
       )
     }
 
-    private static func showAll() -> MenuEntry<MenuBarLocalization> {
+    internal static func showAll() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -219,7 +224,7 @@
       )
     }
 
-    private static func quit() -> MenuEntry<MenuBarLocalization> {
+    internal static func quit() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
