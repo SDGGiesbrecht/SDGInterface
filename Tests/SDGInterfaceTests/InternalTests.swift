@@ -229,7 +229,7 @@ final class InternalTests: ApplicationTestCase {
         _ = delegate.validateMenuItem(
           NSMenuItem(
             title: "",
-            action: #selector(_NSApplicationDelegateProtocol.openPreferences(_:)),
+            action: #selector(NSApplicationDelegateProtocol.openPreferences(_:)),
             keyEquivalent: ""
           )
         )
@@ -246,7 +246,7 @@ final class InternalTests: ApplicationTestCase {
         delegate.validateMenuItem(
           NSMenuItem(
             title: "",
-            action: #selector(_NSApplicationDelegateProtocol.openPreferences(_:)),
+            action: #selector(NSApplicationDelegateProtocol.openPreferences(_:)),
             keyEquivalent: ""
           )
         )

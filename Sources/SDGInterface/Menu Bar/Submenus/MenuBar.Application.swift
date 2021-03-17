@@ -95,7 +95,7 @@
         }),
         hotKeyModifiers: .command,
         hotKey: ",",
-        selector: #selector(_NSApplicationDelegateProtocol.openPreferences(_:)),
+        selector: #selector(NSApplicationDelegateProtocol.openPreferences(_:)),
         isHidden: hidePreferences
       )
     }

@@ -21,7 +21,7 @@
   internal var permanentNSApplicationDelegateStorage: NSObject?
 
   internal class NSApplicationDelegate<Application>: NSObject, AppKit.NSApplicationDelegate,
-    _NSApplicationDelegateProtocol, NSMenuItemValidation
+    NSApplicationDelegateProtocol, NSMenuItemValidation
   where Application: SDGInterface.Application {
 
     // MARK: - Initialization
