@@ -109,7 +109,7 @@ extension Menu: Commands, MenuComponents where Components: SDGInterface.MenuComp
   #endif
 }
 
-#if canImport(SwiftUI) && !os(tvOS) && !os(watchOS) && !(os(iOS) && arch(arm))
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   @available(macOS 11, tvOS 13, iOS 14, watchOS 6, *)
   internal struct MenuPreviews: PreviewProvider {
     internal static var previews: some SwiftUI.View {
@@ -126,15 +126,13 @@ extension Menu: Commands, MenuComponents where Components: SDGInterface.MenuComp
         action: {}
       )
 
-      #if !canImport(AppKit)
-        typealias Entries = MenuEntry<InterfaceLocalization>
-      #else
-        typealias Entries = MenuComponentsConcatenation<
+      let menu = Menu<
+        InterfaceLocalization,
+        MenuComponentsConcatenation<
           MenuComponentsConcatenation<MenuEntry<InterfaceLocalization>, Divider>,
           Menu<InterfaceLocalization, MenuEntry<InterfaceLocalization>>
         >
-      #endif
-      let menu = Menu<InterfaceLocalization, Entries>(
+      >(
         label: UserFacing<StrictString, InterfaceLocalization>(
           { localization in  // @exempt(from: tests) Unreachable.
             switch localization {  // @exempt(from: tests)
@@ -145,27 +143,23 @@ extension Menu: Commands, MenuComponents where Components: SDGInterface.MenuComp
             }
           }),
         entries: {
-          #if !canImport(AppKit)
-            return MenuComponentsBuilder.buildBlock(entry)
-          #else
-            return MenuComponentsBuilder.buildBlock(
-              entry,
-              Divider(),
-              Menu(
-                label: UserFacing<StrictString, InterfaceLocalization>({ localization in
-                  switch localization {
-                  case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                    return "Submenu"
-                  case .deutschDeutschland:
-                    return "Untermenü"
-                  }
-                }),
-                entries: {
-                  entry
+          return MenuComponentsBuilder.buildBlock(
+            entry,
+            Divider(),
+            Menu(
+              label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+                switch localization {
+                case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+                  return "Submenu"
+                case .deutschDeutschland:
+                  return "Untermenü"
                 }
-              )
+              }),
+              entries: {
+                entry
+              }
             )
-          #endif
+          )
         }
       )
       return Group {
