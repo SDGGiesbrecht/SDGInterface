@@ -412,7 +412,7 @@
   }
 
   @available(macOS 11, *)
-  extension MenuBar where ApplicationSpecificMenus: SDGInterface.Commands {
+  extension MenuBar: MenuBarProtocol where ApplicationSpecificMenus: SDGInterface.Commands {
 
     /// Generates a SwiftUI representation of the menu bar modifications.
     @SwiftUI.CommandsBuilder public func swiftUI() -> some SwiftUI.Commands {
