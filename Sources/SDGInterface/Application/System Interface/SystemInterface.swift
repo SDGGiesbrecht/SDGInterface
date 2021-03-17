@@ -117,7 +117,7 @@ public protocol SystemInterface {
 
   #if canImport(AppKit)
     /// The type of the menu bar.
-    associatedtype MenuBarType: MenuBarProtocol
+    associatedtype MenuBarType: LegacyMenuBar
 
     /// Used by some systems as the menu bar.
     var menuBar: MenuBarType { get }

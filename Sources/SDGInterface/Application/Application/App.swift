@@ -18,7 +18,7 @@
 
 @available(macOS 11, *)
 internal struct SwiftUIApplication<Application>: App
-where Application: SDGInterface.Application {
+where Application: SDGInterface.Application, Application.MenuBarType: MenuBarProtocol {
 
   // MARK: - Properties
 

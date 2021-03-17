@@ -12,15 +12,19 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit)
-  import AppKit
+#if canImport(SwiftUI)
+  import SwiftUI
 #endif
 
 /// A menu bar.
-public protocol MenuBarProtocol {
+@available(macOS 11, *)
+public protocol MenuBarProtocol: LegacyMenuBar {
 
-  #if canImport(AppKit)
-    /// Generates a Cocoa representation of the menu bar.
-    func cocoa() -> NSMenu
+  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    /// The type of the SwiftUI view.
+    associatedtype SwiftUICommands: SwiftUI.Commands
+
+    /// Constructs a SwiftUI representation of the menu bar modifications.
+    func swiftUI() -> SwiftUICommands
   #endif
 }

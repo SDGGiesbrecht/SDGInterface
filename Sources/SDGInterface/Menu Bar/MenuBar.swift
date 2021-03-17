@@ -30,7 +30,7 @@
   /// Some menu items only appear if the application provides details they need to operate:
   /// - “Preferences...” appears if the application has a preference manager.
   /// - “Help” appears if a help book is specified in the `Info.plist` file.
-  public struct MenuBar<ApplicationSpecificMenus>: MenuBarProtocol
+  public struct MenuBar<ApplicationSpecificMenus>: LegacyMenuBar
   where ApplicationSpecificMenus: LegacyCommands {
 
     // MARK: - Initialization
