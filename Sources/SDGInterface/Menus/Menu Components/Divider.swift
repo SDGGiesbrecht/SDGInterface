@@ -35,7 +35,6 @@ public struct Divider: LegacyMenuComponents {
     }
   #endif
 
-  #warning("Not implemented yet.")
   #if canImport(UIKit) && !os(tvOS) && !os(watchOS)
     public func cocoa() -> [UIMenuItem] {
       return []
