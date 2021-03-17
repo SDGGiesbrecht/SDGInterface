@@ -1,5 +1,5 @@
 /*
- Application.swift
+ LegacyApplication.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -22,9 +22,7 @@ import Foundation
 
 import SDGLogic
 
-/// A type that represents an application.
-///
-/// Create an application by declaring a structure that conforms to the `Application` protocol.
+/// The subset of the `Application` protocol that can be conformed to even on platform versions preceding SwiftUI’s availability.
 public protocol LegacyApplication: SystemInterface {
 
   /// Creates an application.
@@ -41,6 +39,11 @@ public protocol LegacyApplication: SystemInterface {
 
   /// The type that manages the application’s preferences.
   var preferenceManager: PreferenceManager? { get }
+
+  /// Initializes and runs the application.
+  ///
+  /// This method never returns. It is only marked `Void` for compatibility with `@main`.
+  static func main()
 }
 
 extension LegacyApplication {
@@ -51,7 +54,7 @@ extension LegacyApplication {
 
   // MARK: - Launching
 
-  @discardableResult private static func prepareForMain() -> Self {
+  @discardableResult internal static func prepareForMain() -> Self {
     let application = Self()
     // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
     #if !os(WASI)
@@ -68,7 +71,10 @@ extension LegacyApplication {
 
   // #workaround(Swift 5.3.2, Web lacks RunLoop.)
   #if !os(WASI)
-    private static func legacyMain() -> Never {  // @exempt(from: tests)
+    /// Initializes and runs the application in the legacy manner.
+    ///
+    /// This variant of `main` works on platform versions preceding SwiftUI’s availability.
+    public static func legacyMain() -> Never {  // @exempt(from: tests)
       #if canImport(AppKit)
         exit(NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv))
       #elseif canImport(UIKit)
@@ -88,9 +94,6 @@ extension LegacyApplication {
         }
       #endif
     }
-    /// Initializes and runs the application.
-    ///
-    /// This method never returns. It is only marked `Void` for compatibility with `@main`.
     public static func main() {  // @exempt(from: tests)
       let application = prepareForMain()
       withExtendedLifetime(application) {

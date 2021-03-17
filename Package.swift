@@ -40,7 +40,7 @@ import PackageDescription
 ///
 /// import SDGInterface
 ///
-/// public struct SampleApplication: SDGInterface.Application {
+/// public struct SampleApplication: LegacyApplication /* or Application */ {
 ///
 ///   public init() {}
 ///
