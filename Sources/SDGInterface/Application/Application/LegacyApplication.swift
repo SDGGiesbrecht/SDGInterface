@@ -71,10 +71,7 @@ extension LegacyApplication {
 
   // #workaround(Swift 5.3.2, Web lacks RunLoop.)
   #if !os(WASI)
-    /// Initializes and runs the application in the legacy manner.
-    ///
-    /// This variant of `main` works on platform versions preceding SwiftUI’s availability.
-    public static func legacyMain() -> Never {  // @exempt(from: tests)
+    internal static func _legacyMain() -> Never {  // @exempt(from: tests)
       #if canImport(AppKit)
         exit(NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv))
       #elseif canImport(UIKit)
@@ -94,11 +91,17 @@ extension LegacyApplication {
         }
       #endif
     }
-    public static func main() {  // @exempt(from: tests)
+    /// Initializes and runs the application in the legacy manner.
+    ///
+    /// This variant of `main` works on platform versions preceding SwiftUI’s availability.
+    public static func legacyMain() -> Never {
       let application = prepareForMain()
       withExtendedLifetime(application) {
         legacyMain()
       }
+    }
+    public static func main() {  // @exempt(from: tests)
+      legacyMain()
     }
   #endif
 
