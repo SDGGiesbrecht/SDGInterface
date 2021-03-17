@@ -70,7 +70,7 @@
       )
     }
 
-    private static func showSideBar() -> MenuEntry<MenuBarLocalization> {
+    internal static func showSideBar() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {
@@ -94,7 +94,7 @@
       )
     }
 
-    private static func enterFullScreen() -> MenuEntry<MenuBarLocalization> {
+    internal static func enterFullScreen() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {

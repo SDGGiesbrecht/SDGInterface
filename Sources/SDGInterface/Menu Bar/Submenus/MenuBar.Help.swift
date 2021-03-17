@@ -23,7 +23,7 @@
 
   extension MenuBar {
 
-    private static func helpEntry() -> MenuEntry<MenuBarLocalization> {
+    internal static func helpEntry() -> MenuEntry<MenuBarLocalization> {
       return MenuEntry(
         label: UserFacing<StrictString, MenuBarLocalization>({ localization in
           switch localization {

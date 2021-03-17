@@ -414,28 +414,53 @@
   @available(macOS 11, *)
   extension MenuBar where ApplicationSpecificMenus: SDGInterface.Commands {
 
-    /// Generates a SwiftUI representation of the application‐specific menus.
+    /// Generates a SwiftUI representation of the menu bar modifications.
     @SwiftUI.CommandsBuilder public func swiftUI() -> some SwiftUI.Commands {
 
       CommandGroup(replacing: .appInfo) {
+        // Improved grammar of interpolation.
         MenuBar<SDGInterface.EmptyCommands>.about().swiftUI()
       }
 
       CommandGroup(replacing: .appSettings) {
+        // Hiding managed separately.
         MenuBar<SDGInterface.EmptyCommands>.preferences().swiftUI()
       }
 
       CommandGroup(replacing: .appVisibility) {
+        // Improved grammar of interpolation.
         MenuBar<SDGInterface.EmptyCommands>.hide().swiftUI()
         MenuBar<SDGInterface.EmptyCommands>.hideOthers().swiftUI()
         MenuBar<SDGInterface.EmptyCommands>.showAll().swiftUI()
       }
 
       CommandGroup(replacing: .appTermination) {
+        // Improved grammar of interpolation.
         MenuBar<SDGInterface.EmptyCommands>.quit().swiftUI()
       }
 
+      CommandGroup(replacing: .textEditing) {
+        MenuBar<SDGInterface.EmptyCommands>.find().swiftUI()
+        MenuBar<SDGInterface.EmptyCommands>.spellingAndGrammar().swiftUI()
+        MenuBar<SDGInterface.EmptyCommands>.substitutions().swiftUI()
+        // Without bad capitalization.
+        // Includes normalization.
+        MenuBar<SDGInterface.EmptyCommands>.transformations().swiftUI()
+        ContextMenu.showCharacterInformation().swiftUI()
+      }
+
+      CommandGroup(replacing: .textFormatting) {
+        // Includes improved baseline and capitalization.
+        MenuBar<SDGInterface.EmptyCommands>.font().swiftUI()
+        MenuBar<SDGInterface.EmptyCommands>.text().swiftUI()
+      }
+
       applicationSpecificSubmenus.swiftUICommands()
+
+      CommandGroup(replacing: .help) {
+        // Improved grammar of interpolation.
+        MenuBar<SDGInterface.EmptyCommands>.helpEntry().swiftUI()
+      }
     }
   }
 #endif
