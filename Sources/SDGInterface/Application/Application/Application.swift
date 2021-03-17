@@ -66,36 +66,45 @@ extension Application {
     return application
   }
 
-  #if !os(watchOS)
-    // #workaround(Swift 5.3.2, Web lacks RunLoop.)
-    #if !os(WASI)
-      /// Initializes and runs the application.
-      ///
-      /// This method never returns. It is only marked `Void` for compatibility with `@main`.
-      public static func main() {  // @exempt(from: tests)
-        let application = prepareForMain()
-        withExtendedLifetime(application) { () -> Never in
-          #if canImport(AppKit)
-            exit(NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv))
-          #elseif canImport(UIKit)
-            // Register the intended application externally, because UIApplicationMain insists on initializing its own.
-            applicationToUse = application
-            exit(
-              UIApplicationMain(
-                CommandLine.argc,
-                CommandLine.unsafeArgv,
-                nil,
-                NSStringFromClass(UIApplicationDelegate<Self>.self)
-              )
-            )
-          #else
-            while true {
-              RunLoop.current.run()
-            }
-          #endif
-        }
+  // #workaround(Swift 5.3.2, Web lacks RunLoop.)
+  #if !os(WASI)
+    private static func cocoaMain() -> Never {  // @exempt(from: tests)
+      #if canImport(AppKit)
+        exit(NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv))
+      #elseif canImport(UIKit)
+        // Register the intended application externally, because UIApplicationMain insists on initializing its own.
+        applicationToUse = application
+        exit(
+          UIApplicationMain(
+            CommandLine.argc,
+            CommandLine.unsafeArgv,
+            nil,
+            NSStringFromClass(UIApplicationDelegate<Self>.self)
+          )
+        )
+      #endif
+    }
+    /// Initializes and runs the application.
+    ///
+    /// This method never returns. It is only marked `Void` for compatibility with `@main`.
+    public static func main() {  // @exempt(from: tests)
+      let application = prepareForMain()
+      withExtendedLifetime(application) {
+        #if canImport(SwiftUI)
+          if #available(macOS 11, *) {
+            SwiftUIApplication<Self>.main()
+          } else {
+            cocoaMain()
+          }
+        #elseif canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+          cocoaMain()
+        #else
+          while true {
+            RunLoop.current.run()
+          }
+        #endif
       }
-    #endif
+    }
   #endif
 
   internal func performPostLaunchSetUp() {
