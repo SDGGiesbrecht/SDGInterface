@@ -68,7 +68,7 @@ extension Application {
 
   // #workaround(Swift 5.3.2, Web lacks RunLoop.)
   #if !os(WASI)
-    private static func cocoaMain() -> Never {  // @exempt(from: tests)
+    private static func legacyMain() -> Never {  // @exempt(from: tests)
       #if canImport(AppKit)
         exit(NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv))
       #elseif canImport(UIKit)
@@ -82,6 +82,10 @@ extension Application {
             NSStringFromClass(UIApplicationDelegate<Self>.self)
           )
         )
+      #else
+        while true {
+          RunLoop.current.run()
+        }
       #endif
     }
     /// Initializes and runs the application.
@@ -90,19 +94,7 @@ extension Application {
     public static func main() {  // @exempt(from: tests)
       let application = prepareForMain()
       withExtendedLifetime(application) {
-        #if canImport(SwiftUI)
-          if #available(macOS 11, *) {
-            SwiftUIApplication<Self>.main()
-          } else {
-            cocoaMain()
-          }
-        #elseif canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
-          cocoaMain()
-        #else
-          while true {
-            RunLoop.current.run()
-          }
-        #endif
+        legacyMain()
       }
     }
   #endif
