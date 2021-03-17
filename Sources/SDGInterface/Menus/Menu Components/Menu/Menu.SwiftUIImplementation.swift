@@ -33,9 +33,10 @@
       // MARK: - View
 
       internal var body: some SwiftUI.View {
-        #warning("Not implemented yet.")
         #if os(tvOS) || os(watchOS)
-          return SwiftUI.EmptyView()
+        return VStack {
+          entries.swiftUI()
+        }
         #else
           return SwiftUI.Menu(String(label.resolved(for: localization.value.resolved()))) {
             entries.swiftUI()
