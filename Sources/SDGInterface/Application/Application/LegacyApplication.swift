@@ -25,7 +25,7 @@ import SDGLogic
 /// A type that represents an application.
 ///
 /// Create an application by declaring a structure that conforms to the `Application` protocol.
-public protocol Application: SystemInterface {
+public protocol LegacyApplication: SystemInterface {
 
   /// Creates an application.
   init()
@@ -43,7 +43,7 @@ public protocol Application: SystemInterface {
   var preferenceManager: PreferenceManager? { get }
 }
 
-extension Application {
+extension LegacyApplication {
 
   public var preferenceManager: PreferenceManager? {
     return nil

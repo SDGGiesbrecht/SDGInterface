@@ -146,7 +146,7 @@ final class InternalTests: ApplicationTestCase {
 
   func testNSApplicationDelegate() {
     struct Error: Swift.Error {}
-    struct TestApplication: Application {
+    struct TestApplication: LegacyApplication {
       init() {
         self.init(preferenceManager: nil)
       }
@@ -320,7 +320,7 @@ final class InternalTests: ApplicationTestCase {
 
   func testUIApplicationDelegate() {
     struct Error: Swift.Error {}
-    struct TestApplication: Application {
+    struct TestApplication: LegacyApplication {
       init() {
         self.init(preferenceManager: nil)
       }

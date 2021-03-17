@@ -22,7 +22,7 @@
 
   internal class NSApplicationDelegate<Application>: NSObject, AppKit.NSApplicationDelegate,
     NSApplicationDelegateProtocol, NSMenuItemValidation
-  where Application: SDGInterface.Application {
+  where Application: LegacyApplication {
 
     // MARK: - Initialization
 

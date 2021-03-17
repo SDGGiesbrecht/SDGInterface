@@ -83,7 +83,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testApplication() {
-    struct ExampleApplication: Application {
+    struct ExampleApplication: LegacyApplication {
       // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
       #if !os(WASI)
         var applicationName: ProcessInfo.ApplicationNameResolver {
