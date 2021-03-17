@@ -24,7 +24,7 @@
   internal var applicationToUse: Any?
 
   internal class UIApplicationDelegate<Application>: NSObject, UIKit.UIApplicationDelegate
-  where Application: SDGInterface.Application {
+  where Application: LegacyApplication {
 
     // MARK: - Initialization
 

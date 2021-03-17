@@ -12,14 +12,14 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(SwiftUI) && !os(tvOS) && !os(watchOS) && !(os(iOS) && arch(arm))
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm)) && !os(watchOS)
   import SwiftUI
 
   import SDGControlFlow
   import SDGText
   import SDGLocalization
 
-  @available(macOS 11, iOS 14, *)
+  @available(macOS 11, tvOS 13, iOS 14, *)
   extension Menu where Components: MenuComponents {
 
     internal struct SwiftUIImplementation: SwiftUI.View {
@@ -33,9 +33,14 @@
       // MARK: - View
 
       internal var body: some SwiftUI.View {
-        return SwiftUI.Menu(String(label.resolved(for: localization.value.resolved()))) {
-          entries.swiftUI()
-        }
+        #warning("Not implemented yet.")
+        #if os(tvOS)
+          return SwiftUI.EmptyView()
+        #else
+          return SwiftUI.Menu(String(label.resolved(for: localization.value.resolved()))) {
+            entries.swiftUI()
+          }
+        #endif
       }
     }
   }

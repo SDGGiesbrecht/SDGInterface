@@ -19,7 +19,7 @@
 public protocol Application: LegacyApplication
 where MenuBarType: MenuBarProtocol {}
 
-@available(macOS 11, *)
+@available(macOS 11, tvOS 14, *)
 extension Application {
 
   /// Initializes and runs the application in the modern manner.

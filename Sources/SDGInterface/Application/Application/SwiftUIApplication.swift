@@ -16,7 +16,7 @@
   import SwiftUI
 #endif
 
-@available(macOS 11, *)
+@available(macOS 11, tvOS 14, *)
 internal struct SwiftUIApplication<Application>: App
 where Application: LegacyApplication, Application.MenuBarType: MenuBarProtocol {
 
@@ -32,10 +32,14 @@ where Application: LegacyApplication, Application.MenuBarType: MenuBarProtocol {
 
   internal var body: some Scene {
     #warning("Not customized.")
-    WindowGroup {
+    let scene = WindowGroup {
     }
-    .commands {
-      application.menuBar.swiftUI()
-    }
+    #if os(tvOS)
+      return scene
+    #else
+      return scene.commands {
+        application.menuBar.swiftUI()
+      }
+    #endif
   }
 }

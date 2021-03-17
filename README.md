@@ -41,7 +41,10 @@ import SDGLocalization
 
 import SDGInterface
 
-public struct SampleApplication: LegacyApplication /* or Application */ {
+@available(macOS 11, *)
+extension SampleApplication: Application {}
+
+public struct SampleApplication: LegacyApplication {
 
   public init() {}
 
@@ -90,6 +93,14 @@ public struct SampleApplication: LegacyApplication /* or Application */ {
 
   public var applicationIdentifier: String {
     return "com.example.SampleApplication"
+  }
+
+  public static func main() {
+    if #available(macOS 11, *) {
+      modernMain()
+    } else {
+      legacyMain()
+    }
   }
 
   public func finishLaunching(_ details: LaunchDetails) -> Bool {

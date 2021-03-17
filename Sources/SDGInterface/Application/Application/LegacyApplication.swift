@@ -76,7 +76,7 @@ extension LegacyApplication {
         exit(NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv))
       #elseif canImport(UIKit)
         // Register the intended application externally, because UIApplicationMain insists on initializing its own.
-        applicationToUse = application
+        applicationToUse = self
         exit(
           UIApplicationMain(
             CommandLine.argc,
