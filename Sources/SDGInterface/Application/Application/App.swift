@@ -33,7 +33,9 @@ where Application: SDGInterface.Application {
   internal var body: some Scene {
     #warning("Not customized.")
     WindowGroup {
-
+    }
+    .commands {
+      application.menuBar.swiftUI()
     }
   }
 }
