@@ -50,43 +50,19 @@ where ApplicationSpecificMenus: LegacyCommands {
 
   private let applicationSpecificSubmenus: ApplicationSpecificMenus
 
-  private var menu:
-    SDGInterface.Menu<
-      InterfaceLocalization,
-      MenuComponentsConcatenation<
+  #if canImport(AppKit)
+    private var menu:
+      SDGInterface.Menu<
+        InterfaceLocalization,
         MenuComponentsConcatenation<
           MenuComponentsConcatenation<
             MenuComponentsConcatenation<
               MenuComponentsConcatenation<
                 MenuComponentsConcatenation<
                   MenuComponentsConcatenation<
-                    SDGInterface.Menu<
-                      ApplicationNameLocalization,
-                      MenuComponentsConcatenation<
-                        MenuComponentsConcatenation<
-                          MenuComponentsConcatenation<
-                            MenuComponentsConcatenation<
-                              MenuComponentsConcatenation<
-                                MenuComponentsConcatenation<
-                                  MenuComponentsConcatenation<
-                                    MenuComponentsConcatenation<
-                                      MenuComponentsConcatenation<
-                                        MenuComponentsConcatenation<
-                                          MenuEntry<MenuBarLocalization>, SDGInterface.Divider
-                                        >, MenuEntry<MenuBarLocalization>
-                                      >, SDGInterface.Divider
-                                    >, SDGInterface.Menu<MenuBarLocalization, EmptyMenuComponents>
-                                  >, SDGInterface.Divider
-                                >, MenuEntry<MenuBarLocalization>
-                              >, MenuEntry<MenuBarLocalization>
-                            >, MenuEntry<MenuBarLocalization>
-                          >, SDGInterface.Divider
-                        >, MenuEntry<MenuBarLocalization>
-                      >
-                    >,
-                    SDGInterface.Menu<
-                      MenuBarLocalization,
-                      MenuComponentsConcatenation<
+                    MenuComponentsConcatenation<
+                      SDGInterface.Menu<
+                        ApplicationNameLocalization,
                         MenuComponentsConcatenation<
                           MenuComponentsConcatenation<
                             MenuComponentsConcatenation<
@@ -97,30 +73,20 @@ where ApplicationSpecificMenus: LegacyCommands {
                                       MenuComponentsConcatenation<
                                         MenuComponentsConcatenation<
                                           MenuComponentsConcatenation<
-                                            MenuComponentsConcatenation<
-                                              MenuEntry<MenuBarLocalization>,
-                                              MenuEntry<MenuBarLocalization>
-                                            >,
-                                            SDGInterface.Menu<
-                                              MenuBarLocalization, MenuEntry<MenuBarLocalization>
-                                            >
-                                          >, SDGInterface.Divider
-                                        >, MenuEntry<MenuBarLocalization>
-                                      >, MenuEntry<MenuBarLocalization>
-                                    >, MenuEntry<MenuBarLocalization>
+                                            MenuEntry<MenuBarLocalization>, SDGInterface.Divider
+                                          >, MenuEntry<MenuBarLocalization>
+                                        >, SDGInterface.Divider
+                                      >, SDGInterface.Menu<MenuBarLocalization, EmptyMenuComponents>
+                                    >, SDGInterface.Divider
                                   >, MenuEntry<MenuBarLocalization>
                                 >, MenuEntry<MenuBarLocalization>
-                              >, MenuEntry<InterfaceLocalization>
+                              >, MenuEntry<MenuBarLocalization>
                             >, SDGInterface.Divider
                           >, MenuEntry<MenuBarLocalization>
-                        >, MenuEntry<MenuBarLocalization>
-                      >
-                    >
-                  >,
-                  SDGInterface.Menu<
-                    MenuBarLocalization,
-                    MenuComponentsConcatenation<
-                      MenuComponentsConcatenation<
+                        >
+                      >,
+                      SDGInterface.Menu<
+                        MenuBarLocalization,
                         MenuComponentsConcatenation<
                           MenuComponentsConcatenation<
                             MenuComponentsConcatenation<
@@ -133,84 +99,25 @@ where ApplicationSpecificMenus: LegacyCommands {
                                           MenuComponentsConcatenation<
                                             MenuComponentsConcatenation<
                                               MenuComponentsConcatenation<
-                                                MenuComponentsConcatenation<
-                                                  MenuEntry<MenuBarLocalization>,
-                                                  MenuEntry<MenuBarLocalization>
-                                                >, SDGInterface.Divider
-                                              >, MenuEntry<MenuBarLocalization>
-                                            >, MenuEntry<MenuBarLocalization>
-                                          >, MenuEntry<MenuBarLocalization>
-                                        >, MenuEntry<MenuBarLocalization>
-                                      >, MenuEntry<MenuBarLocalization>
-                                    >, MenuEntry<MenuBarLocalization>
-                                  >, SDGInterface.Divider
-                                >,
-                                SDGInterface.Menu<
-                                  MenuBarLocalization,
-                                  MenuComponentsConcatenation<
-                                    MenuComponentsConcatenation<
-                                      MenuComponentsConcatenation<
-                                        MenuComponentsConcatenation<
-                                          MenuComponentsConcatenation<
-                                            MenuEntry<MenuBarLocalization>,
-                                            MenuEntry<MenuBarLocalization>
-                                          >, MenuEntry<MenuBarLocalization>
-                                        >, MenuEntry<MenuBarLocalization>
-                                      >, MenuEntry<MenuBarLocalization>
-                                    >, MenuEntry<MenuBarLocalization>
-                                  >
-                                >
-                              >,
-                              SDGInterface.Menu<
-                                MenuBarLocalization,
-                                MenuComponentsConcatenation<
-                                  MenuComponentsConcatenation<
-                                    MenuComponentsConcatenation<
-                                      MenuComponentsConcatenation<
-                                        MenuComponentsConcatenation<
-                                          MenuEntry<MenuBarLocalization>,
-                                          MenuEntry<MenuBarLocalization>
-                                        >, SDGInterface.Divider
-                                      >, MenuEntry<MenuBarLocalization>
-                                    >, MenuEntry<MenuBarLocalization>
-                                  >, MenuEntry<MenuBarLocalization>
-                                >
-                              >
-                            >,
-                            SDGInterface.Menu<
-                              MenuBarLocalization,
-                              MenuComponentsConcatenation<
-                                MenuComponentsConcatenation<
-                                  MenuComponentsConcatenation<
-                                    MenuComponentsConcatenation<
-                                      MenuComponentsConcatenation<
-                                        MenuComponentsConcatenation<
-                                          MenuComponentsConcatenation<
-                                            MenuEntry<MenuBarLocalization>, SDGInterface.Divider
+                                                MenuEntry<MenuBarLocalization>,
+                                                MenuEntry<MenuBarLocalization>
+                                              >,
+                                              SDGInterface.Menu<
+                                                MenuBarLocalization, MenuEntry<MenuBarLocalization>
+                                              >
+                                            >, SDGInterface.Divider
                                           >, MenuEntry<MenuBarLocalization>
                                         >, MenuEntry<MenuBarLocalization>
                                       >, MenuEntry<MenuBarLocalization>
                                     >, MenuEntry<MenuBarLocalization>
                                   >, MenuEntry<MenuBarLocalization>
-                                >, MenuEntry<MenuBarLocalization>
-                              >
-                            >
-                          >,
-                          SDGInterface.Menu<MenuBarLocalization, MenuEntry<InterfaceLocalization>>
-                        >, MenuEntry<InterfaceLocalization>
-                      >,
-                      SDGInterface.Menu<
-                        MenuBarLocalization,
-                        MenuComponentsConcatenation<
-                          MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+                                >, MenuEntry<InterfaceLocalization>
+                              >, SDGInterface.Divider
+                            >, MenuEntry<MenuBarLocalization>
+                          >, MenuEntry<MenuBarLocalization>
                         >
                       >
-                    >
-                  >
-                >,
-                SDGInterface.Menu<
-                  MenuBarLocalization,
-                  MenuComponentsConcatenation<
+                    >,
                     SDGInterface.Menu<
                       MenuBarLocalization,
                       MenuComponentsConcatenation<
@@ -228,18 +135,135 @@ where ApplicationSpecificMenus: LegacyCommands {
                                               MenuComponentsConcatenation<
                                                 MenuComponentsConcatenation<
                                                   MenuComponentsConcatenation<
-                                                    MenuComponentsConcatenation<
-                                                      MenuEntry<MenuBarLocalization>,
-                                                      MenuEntry<MenuBarLocalization>
-                                                    >, MenuEntry<MenuBarLocalization>
-                                                  >, MenuEntry<MenuBarLocalization>
-                                                >, SDGInterface.Divider
+                                                    MenuEntry<MenuBarLocalization>,
+                                                    MenuEntry<MenuBarLocalization>
+                                                  >, SDGInterface.Divider
+                                                >, MenuEntry<MenuBarLocalization>
                                               >, MenuEntry<MenuBarLocalization>
                                             >, MenuEntry<MenuBarLocalization>
+                                          >, MenuEntry<MenuBarLocalization>
+                                        >, MenuEntry<MenuBarLocalization>
+                                      >, MenuEntry<MenuBarLocalization>
+                                    >, SDGInterface.Divider
+                                  >,
+                                  SDGInterface.Menu<
+                                    MenuBarLocalization,
+                                    MenuComponentsConcatenation<
+                                      MenuComponentsConcatenation<
+                                        MenuComponentsConcatenation<
+                                          MenuComponentsConcatenation<
+                                            MenuComponentsConcatenation<
+                                              MenuEntry<MenuBarLocalization>,
+                                              MenuEntry<MenuBarLocalization>
+                                            >, MenuEntry<MenuBarLocalization>
+                                          >, MenuEntry<MenuBarLocalization>
+                                        >, MenuEntry<MenuBarLocalization>
+                                      >, MenuEntry<MenuBarLocalization>
+                                    >
+                                  >
+                                >,
+                                SDGInterface.Menu<
+                                  MenuBarLocalization,
+                                  MenuComponentsConcatenation<
+                                    MenuComponentsConcatenation<
+                                      MenuComponentsConcatenation<
+                                        MenuComponentsConcatenation<
+                                          MenuComponentsConcatenation<
+                                            MenuEntry<MenuBarLocalization>,
+                                            MenuEntry<MenuBarLocalization>
                                           >, SDGInterface.Divider
+                                        >, MenuEntry<MenuBarLocalization>
+                                      >, MenuEntry<MenuBarLocalization>
+                                    >, MenuEntry<MenuBarLocalization>
+                                  >
+                                >
+                              >,
+                              SDGInterface.Menu<
+                                MenuBarLocalization,
+                                MenuComponentsConcatenation<
+                                  MenuComponentsConcatenation<
+                                    MenuComponentsConcatenation<
+                                      MenuComponentsConcatenation<
+                                        MenuComponentsConcatenation<
+                                          MenuComponentsConcatenation<
+                                            MenuComponentsConcatenation<
+                                              MenuEntry<MenuBarLocalization>, SDGInterface.Divider
+                                            >, MenuEntry<MenuBarLocalization>
+                                          >, MenuEntry<MenuBarLocalization>
+                                        >, MenuEntry<MenuBarLocalization>
+                                      >, MenuEntry<MenuBarLocalization>
+                                    >, MenuEntry<MenuBarLocalization>
+                                  >, MenuEntry<MenuBarLocalization>
+                                >
+                              >
+                            >,
+                            SDGInterface.Menu<MenuBarLocalization, MenuEntry<InterfaceLocalization>>
+                          >, MenuEntry<InterfaceLocalization>
+                        >,
+                        SDGInterface.Menu<
+                          MenuBarLocalization,
+                          MenuComponentsConcatenation<
+                            MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+                          >
+                        >
+                      >
+                    >
+                  >,
+                  SDGInterface.Menu<
+                    MenuBarLocalization,
+                    MenuComponentsConcatenation<
+                      SDGInterface.Menu<
+                        MenuBarLocalization,
+                        MenuComponentsConcatenation<
+                          MenuComponentsConcatenation<
+                            MenuComponentsConcatenation<
+                              MenuComponentsConcatenation<
+                                MenuComponentsConcatenation<
+                                  MenuComponentsConcatenation<
+                                    MenuComponentsConcatenation<
+                                      MenuComponentsConcatenation<
+                                        MenuComponentsConcatenation<
+                                          MenuComponentsConcatenation<
+                                            MenuComponentsConcatenation<
+                                              MenuComponentsConcatenation<
+                                                MenuComponentsConcatenation<
+                                                  MenuComponentsConcatenation<
+                                                    MenuComponentsConcatenation<
+                                                      MenuComponentsConcatenation<
+                                                        MenuEntry<MenuBarLocalization>,
+                                                        MenuEntry<MenuBarLocalization>
+                                                      >, MenuEntry<MenuBarLocalization>
+                                                    >, MenuEntry<MenuBarLocalization>
+                                                  >, SDGInterface.Divider
+                                                >, MenuEntry<MenuBarLocalization>
+                                              >, MenuEntry<MenuBarLocalization>
+                                            >, SDGInterface.Divider
+                                          >,
+                                          SDGInterface.Menu<
+                                            MenuBarLocalization,
+                                            MenuComponentsConcatenation<
+                                              MenuComponentsConcatenation<
+                                                MenuComponentsConcatenation<
+                                                  MenuEntry<MenuBarLocalization>,
+                                                  MenuEntry<MenuBarLocalization>
+                                                >, MenuEntry<MenuBarLocalization>
+                                              >, MenuEntry<MenuBarLocalization>
+                                            >
+                                          >
                                         >,
                                         SDGInterface.Menu<
                                           MenuBarLocalization,
+                                          MenuComponentsConcatenation<
+                                            MenuComponentsConcatenation<
+                                              MenuEntry<MenuBarLocalization>,
+                                              MenuEntry<MenuBarLocalization>
+                                            >, MenuEntry<MenuBarLocalization>
+                                          >
+                                        >
+                                      >,
+                                      SDGInterface.Menu<
+                                        MenuBarLocalization,
+                                        MenuComponentsConcatenation<
                                           MenuComponentsConcatenation<
                                             MenuComponentsConcatenation<
                                               MenuComponentsConcatenation<
@@ -247,7 +271,55 @@ where ApplicationSpecificMenus: LegacyCommands {
                                                 MenuEntry<MenuBarLocalization>
                                               >, MenuEntry<MenuBarLocalization>
                                             >, MenuEntry<MenuBarLocalization>
-                                          >
+                                          >, MenuEntry<MenuBarLocalization>
+                                        >
+                                      >
+                                    >,
+                                    SDGInterface.Menu<
+                                      InterfaceLocalization,
+                                      MenuComponentsConcatenation<
+                                        MenuComponentsConcatenation<
+                                          MenuComponentsConcatenation<
+                                            MenuEntry<InterfaceLocalization>,
+                                            MenuEntry<InterfaceLocalization>
+                                          >, MenuEntry<InterfaceLocalization>
+                                        >, MenuEntry<InterfaceLocalization>
+                                      >
+                                    >
+                                  >, SDGInterface.Divider
+                                >, MenuEntry<MenuBarLocalization>
+                              >, SDGInterface.Divider
+                            >, MenuEntry<MenuBarLocalization>
+                          >, MenuEntry<MenuBarLocalization>
+                        >
+                      >,
+                      SDGInterface.Menu<
+                        MenuBarLocalization,
+                        MenuComponentsConcatenation<
+                          MenuComponentsConcatenation<
+                            MenuComponentsConcatenation<
+                              MenuComponentsConcatenation<
+                                MenuComponentsConcatenation<
+                                  MenuComponentsConcatenation<
+                                    MenuComponentsConcatenation<
+                                      MenuComponentsConcatenation<
+                                        MenuComponentsConcatenation<
+                                          MenuEntry<MenuBarLocalization>,
+                                          MenuEntry<MenuBarLocalization>
+                                        >, MenuEntry<MenuBarLocalization>
+                                      >, MenuEntry<MenuBarLocalization>
+                                    >, SDGInterface.Divider
+                                  >,
+                                  SDGInterface.Menu<
+                                    MenuBarLocalization,
+                                    MenuComponentsConcatenation<
+                                      SDGInterface.Menu<
+                                        MenuBarLocalization,
+                                        MenuComponentsConcatenation<
+                                          MenuComponentsConcatenation<
+                                            MenuEntry<MenuBarLocalization>,
+                                            MenuEntry<MenuBarLocalization>
+                                          >, MenuEntry<MenuBarLocalization>
                                         >
                                       >,
                                       SDGInterface.Menu<
@@ -259,144 +331,76 @@ where ApplicationSpecificMenus: LegacyCommands {
                                           >, MenuEntry<MenuBarLocalization>
                                         >
                                       >
-                                    >,
-                                    SDGInterface.Menu<
-                                      MenuBarLocalization,
-                                      MenuComponentsConcatenation<
-                                        MenuComponentsConcatenation<
-                                          MenuComponentsConcatenation<
-                                            MenuComponentsConcatenation<
-                                              MenuEntry<MenuBarLocalization>,
-                                              MenuEntry<MenuBarLocalization>
-                                            >, MenuEntry<MenuBarLocalization>
-                                          >, MenuEntry<MenuBarLocalization>
-                                        >, MenuEntry<MenuBarLocalization>
-                                      >
-                                    >
-                                  >,
-                                  SDGInterface.Menu<
-                                    InterfaceLocalization,
-                                    MenuComponentsConcatenation<
-                                      MenuComponentsConcatenation<
-                                        MenuComponentsConcatenation<
-                                          MenuEntry<InterfaceLocalization>,
-                                          MenuEntry<InterfaceLocalization>
-                                        >, MenuEntry<InterfaceLocalization>
-                                      >, MenuEntry<InterfaceLocalization>
                                     >
                                   >
                                 >, SDGInterface.Divider
                               >, MenuEntry<MenuBarLocalization>
-                            >, SDGInterface.Divider
-                          >, MenuEntry<MenuBarLocalization>
-                        >, MenuEntry<MenuBarLocalization>
-                      >
-                    >,
-                    SDGInterface.Menu<
-                      MenuBarLocalization,
-                      MenuComponentsConcatenation<
-                        MenuComponentsConcatenation<
-                          MenuComponentsConcatenation<
-                            MenuComponentsConcatenation<
-                              MenuComponentsConcatenation<
-                                MenuComponentsConcatenation<
-                                  MenuComponentsConcatenation<
-                                    MenuComponentsConcatenation<
-                                      MenuComponentsConcatenation<
-                                        MenuEntry<MenuBarLocalization>,
-                                        MenuEntry<MenuBarLocalization>
-                                      >, MenuEntry<MenuBarLocalization>
-                                    >, MenuEntry<MenuBarLocalization>
-                                  >, SDGInterface.Divider
-                                >,
-                                SDGInterface.Menu<
-                                  MenuBarLocalization,
-                                  MenuComponentsConcatenation<
-                                    SDGInterface.Menu<
-                                      MenuBarLocalization,
-                                      MenuComponentsConcatenation<
-                                        MenuComponentsConcatenation<
-                                          MenuEntry<MenuBarLocalization>,
-                                          MenuEntry<MenuBarLocalization>
-                                        >, MenuEntry<MenuBarLocalization>
-                                      >
-                                    >,
-                                    SDGInterface.Menu<
-                                      MenuBarLocalization,
-                                      MenuComponentsConcatenation<
-                                        MenuComponentsConcatenation<
-                                          MenuEntry<MenuBarLocalization>,
-                                          MenuEntry<MenuBarLocalization>
-                                        >, MenuEntry<MenuBarLocalization>
-                                      >
-                                    >
-                                  >
-                                >
-                              >, SDGInterface.Divider
                             >, MenuEntry<MenuBarLocalization>
                           >, MenuEntry<MenuBarLocalization>
-                        >, MenuEntry<MenuBarLocalization>
+                        >
                       >
                     >
                   >
-                >
-              >,
-              SDGInterface.Menu<
-                MenuBarLocalization,
-                MenuComponentsConcatenation<
+                >,
+                SDGInterface.Menu<
+                  MenuBarLocalization,
                   MenuComponentsConcatenation<
                     MenuComponentsConcatenation<
                       MenuComponentsConcatenation<
-                        MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
-                      >, SDGInterface.Divider
+                        MenuComponentsConcatenation<
+                          MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+                        >, SDGInterface.Divider
+                      >, MenuEntry<MenuBarLocalization>
                     >, MenuEntry<MenuBarLocalization>
-                  >, MenuEntry<MenuBarLocalization>
+                  >
                 >
-              >
-            >, ApplicationSpecificMenus.MenuComponentsType
-          >,
-          SDGInterface.Menu<
-            MenuBarLocalization,
-            MenuComponentsConcatenation<
+              >, ApplicationSpecificMenus.MenuComponentsType
+            >,
+            SDGInterface.Menu<
+              MenuBarLocalization,
               MenuComponentsConcatenation<
                 MenuComponentsConcatenation<
-                  MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
-                >, SDGInterface.Divider
-              >, MenuEntry<MenuBarLocalization>
+                  MenuComponentsConcatenation<
+                    MenuEntry<MenuBarLocalization>, MenuEntry<MenuBarLocalization>
+                  >, SDGInterface.Divider
+                >, MenuEntry<MenuBarLocalization>
+              >
             >
-          >
-        >, SDGInterface.Menu<MenuBarLocalization, MenuEntry<MenuBarLocalization>>
+          >, SDGInterface.Menu<MenuBarLocalization, MenuEntry<MenuBarLocalization>>
+        >
       >
-    >
-  {
-    return Menu(
-      label: UserFacing<StrictString, InterfaceLocalization>({ localization in
-        switch localization {
-        case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-          return "Menu Bar"
-        case .deutschDeutschland:
-          return "Menüleiste"
+    {
+      return Menu(
+        label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+            return "Menu Bar"
+          case .deutschDeutschland:
+            return "Menüleiste"
+          }
+        }),
+        entries: {
+          MenuComponentsBuilder.buildBlock(
+            MenuBar.application(),
+            MenuBar.file(),
+            MenuBar.edit(),
+            MenuBar.format(),
+            MenuBar.view(),
+            applicationSpecificSubmenus.menuComponents(),
+            MenuBar.window(),
+            MenuBar.help()
+          )
         }
-      }),
-      entries: {
-        MenuComponentsBuilder.buildBlock(
-          MenuBar.application(),
-          MenuBar.file(),
-          MenuBar.edit(),
-          MenuBar.format(),
-          MenuBar.view(),
-          applicationSpecificSubmenus.menuComponents(),
-          MenuBar.window(),
-          MenuBar.help()
-        )
-      }
-    )
-  }
+      )
+    }
+  #endif
 
-  /// The menu bar as an `NSMenu`.
-  public func cocoa() -> NSMenu {
-    return menu.cocoaMenu()
-  }
+  #if canImport(AppKit)
+    /// The menu bar as an `NSMenu`.
+    public func cocoa() -> NSMenu {
+      return menu.cocoaMenu()
+    }
+  #endif
 
   // MARK: - Items
 
@@ -415,52 +419,54 @@ where ApplicationSpecificMenus: LegacyCommands {
 @available(macOS 11, *)
 extension MenuBar: MenuBarProtocol where ApplicationSpecificMenus: SDGInterface.Commands {
 
-  /// Generates a SwiftUI representation of the menu bar modifications.
-  @SwiftUI.CommandsBuilder public func swiftUI() -> some SwiftUI.Commands {
+  #if !os(tvOS)
+    /// Generates a SwiftUI representation of the menu bar modifications.
+    @SwiftUI.CommandsBuilder public func swiftUI() -> some SwiftUI.Commands {
 
-    CommandGroup(replacing: .appInfo) {
-      // Improved grammar of interpolation.
-      MenuBar<SDGInterface.EmptyCommands>.about().swiftUI()
+      CommandGroup(replacing: .appInfo) {
+        // Improved grammar of interpolation.
+        MenuBar<SDGInterface.EmptyCommands>.about().swiftUI()
+      }
+
+      CommandGroup(replacing: .appSettings) {
+        // Hiding managed separately.
+        MenuBar<SDGInterface.EmptyCommands>.preferences().swiftUI()
+      }
+
+      CommandGroup(replacing: .appVisibility) {
+        // Improved grammar of interpolation.
+        MenuBar<SDGInterface.EmptyCommands>.hide().swiftUI()
+        MenuBar<SDGInterface.EmptyCommands>.hideOthers().swiftUI()
+        MenuBar<SDGInterface.EmptyCommands>.showAll().swiftUI()
+      }
+
+      CommandGroup(replacing: .appTermination) {
+        // Improved grammar of interpolation.
+        MenuBar<SDGInterface.EmptyCommands>.quit().swiftUI()
+      }
+
+      CommandGroup(replacing: .textEditing) {
+        MenuBar<SDGInterface.EmptyCommands>.find().swiftUI()
+        MenuBar<SDGInterface.EmptyCommands>.spellingAndGrammar().swiftUI()
+        MenuBar<SDGInterface.EmptyCommands>.substitutions().swiftUI()
+        // Without bad capitalization.
+        // Includes normalization.
+        MenuBar<SDGInterface.EmptyCommands>.transformations().swiftUI()
+        ContextMenu.showCharacterInformation().swiftUI()
+      }
+
+      CommandGroup(replacing: .textFormatting) {
+        // Includes improved baseline and capitalization.
+        MenuBar<SDGInterface.EmptyCommands>.font().swiftUI()
+        MenuBar<SDGInterface.EmptyCommands>.text().swiftUI()
+      }
+
+      applicationSpecificSubmenus.swiftUICommands()
+
+      CommandGroup(replacing: .help) {
+        // Improved grammar of interpolation.
+        MenuBar<SDGInterface.EmptyCommands>.helpEntry().swiftUI()
+      }
     }
-
-    CommandGroup(replacing: .appSettings) {
-      // Hiding managed separately.
-      MenuBar<SDGInterface.EmptyCommands>.preferences().swiftUI()
-    }
-
-    CommandGroup(replacing: .appVisibility) {
-      // Improved grammar of interpolation.
-      MenuBar<SDGInterface.EmptyCommands>.hide().swiftUI()
-      MenuBar<SDGInterface.EmptyCommands>.hideOthers().swiftUI()
-      MenuBar<SDGInterface.EmptyCommands>.showAll().swiftUI()
-    }
-
-    CommandGroup(replacing: .appTermination) {
-      // Improved grammar of interpolation.
-      MenuBar<SDGInterface.EmptyCommands>.quit().swiftUI()
-    }
-
-    CommandGroup(replacing: .textEditing) {
-      MenuBar<SDGInterface.EmptyCommands>.find().swiftUI()
-      MenuBar<SDGInterface.EmptyCommands>.spellingAndGrammar().swiftUI()
-      MenuBar<SDGInterface.EmptyCommands>.substitutions().swiftUI()
-      // Without bad capitalization.
-      // Includes normalization.
-      MenuBar<SDGInterface.EmptyCommands>.transformations().swiftUI()
-      ContextMenu.showCharacterInformation().swiftUI()
-    }
-
-    CommandGroup(replacing: .textFormatting) {
-      // Includes improved baseline and capitalization.
-      MenuBar<SDGInterface.EmptyCommands>.font().swiftUI()
-      MenuBar<SDGInterface.EmptyCommands>.text().swiftUI()
-    }
-
-    applicationSpecificSubmenus.swiftUICommands()
-
-    CommandGroup(replacing: .help) {
-      // Improved grammar of interpolation.
-      MenuBar<SDGInterface.EmptyCommands>.helpEntry().swiftUI()
-    }
-  }
+  #endif
 }

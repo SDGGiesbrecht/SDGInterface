@@ -12,32 +12,38 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit)
+#if canImport(SwiftUI)
   import SwiftUI
+#endif
+#if canImport(AppKit)
   import AppKit
+#endif
 
-  /// A divider.
-  public struct Divider: LegacyMenuComponents {
+/// A divider.
+public struct Divider: LegacyMenuComponents {
 
-    // MARK: - Initialization
+  // MARK: - Initialization
 
-    /// Creates a divider.
-    public init() {}
+  /// Creates a divider.
+  public init() {}
 
-    // MARK: - LegacyMenuComponents
+  // MARK: - LegacyMenuComponents
 
+  #if canImport(AppKit)
     public func cocoa() -> [NSMenuItem] {
       return [NSMenuItem.separator()]
     }
-  }
+  #endif
+}
 
-  @available(macOS 10.15, *)
-  extension Divider: MenuComponents {
+@available(macOS 10.15, tvOS 13, *)
+extension Divider: MenuComponents {
 
-    // MARK: - MenuComponents
+  // MARK: - MenuComponents
 
+  #if canImport(SwiftUI)
     public func swiftUI() -> some SwiftUI.View {
       return SwiftUI.Divider()
     }
-  }
-#endif
+  #endif
+}

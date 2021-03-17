@@ -95,7 +95,7 @@ import PackageDescription
 ///   }
 ///
 ///   public static func main() {
-///     if #available(macOS 11, *) {
+///     if #available(macOS 11, tvOS 14, *) {
 ///       modernMain()
 ///     } else {
 ///       legacyMain()
