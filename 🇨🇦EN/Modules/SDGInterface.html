@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+
+<!--
+
+ -->
+
+<html dir="ltr" lang="en-CA">
+ <head>
+  <meta charset="utf&#x002D;8">
+  <title>SDGInterface</title>
+  <link rel="stylesheet" href="../../CSS/Root.css">
+  <link rel="stylesheet" href="../../CSS/Swift.css">
+  <link rel="stylesheet" href="../../CSS/Site.css">
+  <script src="../../JavaScript/Site.js"></script>
+ </head>
+ <body>
+  <header class="navigation‐bar">
+   <nav class="navigation‐bar">
+    <div class="navigation‐path" dir="ltr">
+
+<a href="../../🇨🇦EN/SDGInterface.html">SDGInterface</a>
+<span>SDGInterface</span>
+
+    </div>
+    <div>
+     <span class="swift blockquote"><span class="punctuation">.</span><span class="external identifier">package</span><span class="punctuation">(</span><span class="external identifier">url</span><span class="punctuation">:</span> <span class="string"><span class="punctuation">"</span><a href="https://github.com/SDGGiesbrecht/SDGInterface"><span class="text">https://github.com/SDGGiesbrecht/SDGInterface</span></a><span class="punctuation">"</span></span><span class="punctuation">,</span> <span class="punctuation">.</span><span class="external identifier">upToNextMinor</span><span class="punctuation">(</span><span class="external identifier">from</span><span class="punctuation">:</span> <span class="string"><span class="punctuation">"</span><span class="text">0.10.0</span><span class="punctuation">"</span></span><span class="punctuation">)</span><span class="punctuation">)</span></span>
+    </div>
+   </nav>
+  </header>
+  <div class="content‐container">
+   <header class="index">
+    <nav class="index">
+
+<div id="Package‐index">
+<a class="heading" onclick="toggleIndexSectionVisibility(this)">Package</a>
+<a href="../../🇨🇦EN/SDGInterface.html">
+SDGInterface
+</a>
+</div>
+<div>
+<a class="heading" href="../../🇨🇦EN/Importing.html">Importing</a>
+</div>
+<div id="library‐index">
+<a class="heading" onclick="toggleIndexSectionVisibility(this)">Library Products</a>
+<a href="../../🇨🇦EN/Libraries/SDGErrorMessages.html">
+SDGErrorMessages
+</a>
+<a href="../../🇨🇦EN/Libraries/SDGInterface.html">
+SDGInterface
+</a>
+<a href="../../🇨🇦EN/Libraries/SDGInterfaceTestUtilities.html">
+SDGInterfaceTestUtilities
+</a>
+<a href="../../🇨🇦EN/Libraries/SDGKeyboard.html">
+SDGKeyboard
+</a>
+<a href="../../🇨🇦EN/Libraries/SDGProgressIndicators.html">
+SDGProgressIndicators
+</a>
+</div>
+<div id="target‐index">
+<a class="heading" onclick="toggleIndexSectionVisibility(this)">Modules</a>
+<a href="../../🇨🇦EN/Modules/SDGErrorMessages.html">
+SDGErrorMessages
+</a>
+<a href="../../🇨🇦EN/Modules/SDGInterface.html">
+SDGInterface
+</a>
+<a href="../../🇨🇦EN/Modules/SDGInterfaceTestUtilities.html">
+SDGInterfaceTestUtilities
+</a>
+<a href="../../🇨🇦EN/Modules/SDGKeyboard.html">
+SDGKeyboard
+</a>
+<a href="../../🇨🇦EN/Modules/SDGProgressIndicators.html">
+SDGProgressIndicators
+</a>
+</div>
+<div id="struct‐index">
+<a class="heading" onclick="toggleIndexSectionVisibility(this)">Types</a>
+<a href="../../🇨🇦EN/Types/Alignment.html">
+Alignment
+</a>
+<a href="../../🇨🇦EN/Types/AnyView.html">
+AnyView
+</a>
+<a href="../../🇨🇦EN/Types/ApplicationNameForm.html">
+ApplicationNameForm
+</a>
+<a href="../../🇨🇦EN/Types/ApplicationNameLocalization.html">
+ApplicationNameLocalization
+</a>
+<a href="../../🇨🇦EN/Types/AttachmentAnchor.html">
+AttachmentAnchor
+</a>
+<a href="../../🇨🇦EN/Types/Axis.html">
+Axis
+</a>
+<a href="../../🇨🇦EN/Types/Button%3cL%3e.html">
+Button&#x003C;L&#x003E;
+</a>
+<a href="../../🇨🇦EN/Types/ButtonLabel.html">
+ButtonLabel
+</a>
+<a href="../../🇨🇦EN/Types/CharacterInformation.html">
+CharacterInformation
+</a>
+<a href="../../🇨🇦EN/Types/CheckBox%3cL%3e.html">
+CheckBox&#x003C;L&#x003E;
+</a>
+<a href="../../🇨🇦EN/Types/CocoaImage.html">
+CocoaImage
+</a>
+<a href="../../🇨🇦EN/Types/CocoaView.html">
+CocoaView
+</a>
+<a href="../../🇨🇦EN/Types/CocoaWindow.html">
+CocoaWindow
+</a>
+<a href="../../🇨🇦EN/Types/Colour.html">
+Colour
+</a>
+<a href="../../🇨🇦EN/Types/CommandsBuilder.html">
+CommandsBuilder
+</a>
+<a href="../../🇨🇦EN/Types/CommandsConcatenation%3cLeading,%20Trailing%3e.html">
+CommandsConcatenation&#x003C;Leading, Trailing&#x003E;
+</a>
+<a href="../../🇨🇦EN/Types/CompatibilityLabel%3cL%3e.html">
+CompatibilityLabel&#x003C;L&#x003E;
+</a>
+<a href="../../🇨🇦EN/Types/ContentMode.html">
+ContentMode
+</a>
+<a href="../../🇨🇦EN/Types/ContextMenu.html">
+ContextMenu
+</a>
+<a href="../../🇨🇦EN/Types/Divider.html">
+Divider
+</a>
+<a href="../../🇨🇦EN/Types/Edge.html">
+Edge
+</a>
+<a href="../../🇨🇦EN/Types/EmptyCommands.html">
+EmptyCommands
+</a>
+<a href="../../🇨🇦EN/Types/EmptyMenuComponents.html">
+EmptyMenuComponents
+</a>
+<a href="../../🇨🇦EN/Types/EmptyView.html">
+EmptyView
+</a>
+<a href="../../🇨🇦EN/Types/ExtensionDetails.html">
+ExtensionDetails
+</a>
+<a href="../../🇨🇦EN/Types/FetchResult.html">
+FetchResult
+</a>
+<a href="../../🇨🇦EN/Types/Framed%3cContent%3e.html">
+Framed&#x003C;Content&#x003E;
+</a>
+<a href="../../🇨🇦EN/Types/Handoff.html">
+Handoff
+</a>
+<a href="../../🇨🇦EN/Types/HandoffAcceptanceDetails.html">
+HandoffAcceptanceDetails
+</a>
+<a href="../../🇨🇦EN/Types/HorizontalAlignment.html">
+HorizontalAlignment
+</a>
+<a href="../../🇨🇦EN/Types/HorizontalStack%3cEntry%3e.html">
+HorizontalStack&#x003C;Entry&#x003E;
+</a>
+<a href="../../🇨🇦EN/Types/Image.html">
+Image
+</a>
+<a href="../../🇨🇦EN/Types/Key.html">
+Key
+</a>
+<a href="../../🇨🇦EN/Types/KeyModifiers.html">
+KeyModifiers
+</a>
+<a href="../../🇨🇦EN/Types/Label%3cL%3e.html">
+Label&#x003C;L&#x003E;
+</a>
+<a href="../../🇨🇦EN/Types/LabelledProgressBar%3cL%3e.html">
+LabelledProgressBar&#x003C;L&#x003E;
+</a>
+<a href="../../🇨🇦EN/Types/LabelledTextField%3cL%3e.html">
+LabelledTextField&#x003C;L&#x003E;
+</a>
+<a href="../../🇨🇦EN/Types/LaunchDetails.html">
+LaunchDetails
+</a>
+<a href="../../🇨🇦EN/Types/Layered%3cForeground,%20Background%3e.html">
+Layered&#x003C;Foreground, Background&#x003E;
+</a>
+<a href="../../🇨🇦EN/Types/LayoutConstraintPriority.html">
+LayoutConstraintPriority
+</a>
+<a href="../../🇨🇦EN/Types/Log.html">
+Log
+</a>
+<a href="../../🇨🇦EN/Types/Menu%3cL,%20Components%3e.html">
+Menu&#x003C;L, Components&#x003E;
+</a>
+<a href="../../🇨🇦EN/Types/MenuBar%3cApplicationSpecificMenus%3e.html">
+MenuBar&#x003C;ApplicationSpecificMenus&#x003E;
+</a>
+<a href="../../🇨🇦EN/Types/MenuComponentsBuilder.html">
+MenuComponentsBuilder
+</a>
+<a href="../../🇨🇦EN/Types/MenuComponentsConcatenation%3cLeading,%20Trailing%3e.html">
+MenuComponentsConcatenation&#x003C;Leading, Trailing&#x003E;
+</a>
+<a href="../../🇨🇦EN/Types/MenuEntry%3cL%3e.html">
+MenuEntry&#x003C;L&#x003E;
+</a>
+<a href="../../🇨🇦EN/Types/OpeningDetails.html">
+OpeningDetails
+</a>
+<a href="../../🇨🇦EN/Types/Padded%3cContent%3e.html">
+Padded&#x003C;Content&#x003E;
+</a>
+<a href="../../🇨🇦EN/Types/Point.html">
+Point
+</a>
+<a href="../../🇨🇦EN/Types/PrintingDetails.html">
+PrintingDetails
+</a>
+<a href="../../🇨🇦EN/Types/PrintingResponse.html">
+PrintingResponse
+</a>
+<a href="../../🇨🇦EN/Types/ProgressBar.html">
+ProgressBar
+</a>
+<a href="../../🇨🇦EN/Types/Proportioned%3cContent%3e.html">
+Proportioned&#x003C;Content&#x003E;
+</a>
+<a href="../../🇨🇦EN/Types/QuickActionDetails.html">
+QuickActionDetails
+</a>
+<a href="../../🇨🇦EN/Types/Rectangle.html">
+Rectangle
+</a>
+<a href="../../🇨🇦EN/Types/RectangularAttachmentAnchor.html">
+RectangularAttachmentAnchor
+</a>
+<a href="../../🇨🇦EN/Types/RemoteNotificationDetails.html">
+RemoteNotificationDetails
+</a>
+<a href="../../🇨🇦EN/Types/RichText.html">
+RichText
+</a>
+<a href="../../🇨🇦EN/Types/SegmentedControl%3cOption,%20L%3e.html">
+SegmentedControl&#x003C;Option, L&#x003E;
+</a>
+<a href="../../🇨🇦EN/Types/Size.html">
+Size
+</a>
+<a href="../../🇨🇦EN/Types/SystemNotification.html">
+SystemNotification
+</a>
+<a href="../../🇨🇦EN/Types/Table%3cRowData%3e.html">
+Table&#x003C;RowData&#x003E;
+</a>
+<a href="../../🇨🇦EN/Types/TerminationResponse.html">
+TerminationResponse
+</a>
+<a href="../../🇨🇦EN/Types/TextContextMenu.html">
+TextContextMenu
+</a>
+<a href="../../🇨🇦EN/Types/TextEditor.html">
+TextEditor
+</a>
+<a href="../../🇨🇦EN/Types/TextField.html">
+TextField
+</a>
+<a href="../../🇨🇦EN/Types/TextView%3cL%3e.html">
+TextView&#x003C;L&#x003E;
+</a>
+<a href="../../🇨🇦EN/Types/VerticalAlignment.html">
+VerticalAlignment
+</a>
+<a href="../../🇨🇦EN/Types/ViewControllerRestorationResponse.html">
+ViewControllerRestorationResponse
+</a>
+<a href="../../🇨🇦EN/Types/Window%3cContent,%20L%3e.html">
+Window&#x003C;Content, L&#x003E;
+</a>
+<a href="../../🇨🇦EN/Types/WindowType.html">
+WindowType
+</a>
+</div>
+<div id="extension‐index">
+<a class="heading" onclick="toggleIndexSectionVisibility(this)">Extensions</a>
+<a href="../../🇨🇦EN/Extensions/Anchor.Source.html">
+Anchor.Source
+</a>
+<a href="../../🇨🇦EN/Extensions/Button.html">
+Button
+</a>
+<a href="../../🇨🇦EN/Extensions/CGPoint.html">
+CGPoint
+</a>
+<a href="../../🇨🇦EN/Extensions/CGRect.html">
+CGRect
+</a>
+<a href="../../🇨🇦EN/Extensions/CGSize.html">
+CGSize
+</a>
+<a href="../../🇨🇦EN/Extensions/CheckBox.html">
+CheckBox
+</a>
+<a href="../../🇨🇦EN/Extensions/ClosureSelector.html">
+ClosureSelector
+</a>
+<a href="../../🇨🇦EN/Extensions/CocoaTextView.html">
+CocoaTextView
+</a>
+<a href="../../🇨🇦EN/Extensions/CocoaViewRepresentableWrapper.html">
+CocoaViewRepresentableWrapper
+</a>
+<a href="../../🇨🇦EN/Extensions/CommandsConcatenation.html">
+CommandsConcatenation
+</a>
+<a href="../../🇨🇦EN/Extensions/CompatibilityLabel.html">
+CompatibilityLabel
+</a>
+<a href="../../🇨🇦EN/Extensions/Dictionary.html">
+Dictionary
+</a>
+<a href="../../🇨🇦EN/Extensions/Ellipse.html">
+Ellipse
+</a>
+<a href="../../🇨🇦EN/Extensions/Error.html">
+Error
+</a>
+<a href="../../🇨🇦EN/Extensions/Font.html">
+Font
+</a>
+<a href="../../🇨🇦EN/Extensions/Framed.html">
+Framed
+</a>
+<a href="../../🇨🇦EN/Extensions/GenericLabel.html">
+GenericLabel
+</a>
+<a href="../../🇨🇦EN/Extensions/HorizontalStack.html">
+HorizontalStack
+</a>
+<a href="../../🇨🇦EN/Extensions/Label.html">
+Label
+</a>
+<a href="../../🇨🇦EN/Extensions/LabelledProgressBar.html">
+LabelledProgressBar
+</a>
+<a href="../../🇨🇦EN/Extensions/LabelledTextField.html">
+LabelledTextField
+</a>
+<a href="../../🇨🇦EN/Extensions/Layered.html">
+Layered
+</a>
+<a href="../../🇨🇦EN/Extensions/Menu.html">
+Menu
+</a>
+<a href="../../🇨🇦EN/Extensions/MenuBar.html">
+MenuBar
+</a>
+<a href="../../🇨🇦EN/Extensions/MenuComponentsConcatenation.html">
+MenuComponentsConcatenation
+</a>
+<a href="../../🇨🇦EN/Extensions/MenuEntry.html">
+MenuEntry
+</a>
+<a href="../../🇨🇦EN/Extensions/MenuEntry.CocoaImplementation.html">
+MenuEntry.CocoaImplementation
+</a>
+<a href="../../🇨🇦EN/Extensions/NSAttributedString.html">
+NSAttributedString
+</a>
+<a href="../../🇨🇦EN/Extensions/NSColor.html">
+NSColor
+</a>
+<a href="../../🇨🇦EN/Extensions/NSMutableAttributedString.html">
+NSMutableAttributedString
+</a>
+<a href="../../🇨🇦EN/Extensions/NSRectEdge.html">
+NSRectEdge
+</a>
+<a href="../../🇨🇦EN/Extensions/Padded.html">
+Padded
+</a>
+<a href="../../🇨🇦EN/Extensions/PopOver.html">
+PopOver
+</a>
+<a href="../../🇨🇦EN/Extensions/PopoverAttachmentAnchor.html">
+PopoverAttachmentAnchor
+</a>
+<a href="../../🇨🇦EN/Extensions/ProcessInfo.html">
+ProcessInfo
+</a>
+<a href="../../🇨🇦EN/Extensions/Proportioned.html">
+Proportioned
+</a>
+<a href="../../🇨🇦EN/Extensions/SegmentedControl.html">
+SegmentedControl
+</a>
+<a href="../../🇨🇦EN/Extensions/SwiftUI.Alignment.html">
+SwiftUI.Alignment
+</a>
+<a href="../../🇨🇦EN/Extensions/SwiftUI.AnyView.html">
+SwiftUI.AnyView
+</a>
+<a href="../../🇨🇦EN/Extensions/SwiftUI.Color.html">
+SwiftUI.Color
+</a>
+<a href="../../🇨🇦EN/Extensions/SwiftUI.ContentMode.html">
+SwiftUI.ContentMode
+</a>
+<a href="../../🇨🇦EN/Extensions/SwiftUI.Edge.html">
+SwiftUI.Edge
+</a>
+<a href="../../🇨🇦EN/Extensions/SwiftUI.Edge.Set.html">
+SwiftUI.Edge.Set
+</a>
+<a href="../../🇨🇦EN/Extensions/SwiftUI.HorizontalAlignment.html">
+SwiftUI.HorizontalAlignment
+</a>
+<a href="../../🇨🇦EN/Extensions/SwiftUI.Image.html">
+SwiftUI.Image
+</a>
+<a href="../../🇨🇦EN/Extensions/SwiftUI.Rectangle.html">
+SwiftUI.Rectangle
+</a>
+<a href="../../🇨🇦EN/Extensions/SwiftUI.TupleView.html">
+SwiftUI.TupleView
+</a>
+<a href="../../🇨🇦EN/Extensions/SwiftUI.VerticalAlignment.html">
+SwiftUI.VerticalAlignment
+</a>
+<a href="../../🇨🇦EN/Extensions/Text.html">
+Text
+</a>
+<a href="../../🇨🇦EN/Extensions/TextEditor.CocoaImplementation.html">
+TextEditor.CocoaImplementation
+</a>
+<a href="../../🇨🇦EN/Extensions/UIColor.html">
+UIColor
+</a>
+<a href="../../🇨🇦EN/Extensions/UIPopoverArrowDirection.html">
+UIPopoverArrowDirection
+</a>
+<a href="../../🇨🇦EN/Extensions/UnitPoint.html">
+UnitPoint
+</a>
+<a href="../../🇨🇦EN/Extensions/Window.html">
+Window
+</a>
+</div>
+<div id="protocol‐index">
+<a class="heading" onclick="toggleIndexSectionVisibility(this)">Protocols</a>
+<a href="../../🇨🇦EN/Protocols/Application.html">
+Application
+</a>
+<a href="../../🇨🇦EN/Protocols/CocoaViewImplementation.html">
+CocoaViewImplementation
+</a>
+<a href="../../🇨🇦EN/Protocols/CocoaWindowImplementation.html">
+CocoaWindowImplementation
+</a>
+<a href="../../🇨🇦EN/Protocols/Commands.html">
+Commands
+</a>
+<a href="../../🇨🇦EN/Protocols/CompositeLegacyViewImplementation.html">
+CompositeLegacyViewImplementation
+</a>
+<a href="../../🇨🇦EN/Protocols/CompositeViewImplementation.html">
+CompositeViewImplementation
+</a>
+<a href="../../🇨🇦EN/Protocols/LegacyCommands.html">
+LegacyCommands
+</a>
+<a href="../../🇨🇦EN/Protocols/LegacyMenuComponents.html">
+LegacyMenuComponents
+</a>
+<a href="../../🇨🇦EN/Protocols/LegacyView.html">
+LegacyView
+</a>
+<a href="../../🇨🇦EN/Protocols/MenuBarProtocol.html">
+MenuBarProtocol
+</a>
+<a href="../../🇨🇦EN/Protocols/MenuComponents.html">
+MenuComponents
+</a>
+<a href="../../🇨🇦EN/Protocols/MenuProtocol.html">
+MenuProtocol
+</a>
+<a href="../../🇨🇦EN/Protocols/PreferenceManager.html">
+PreferenceManager
+</a>
+<a href="../../🇨🇦EN/Protocols/RichTextEditingResponder.html">
+RichTextEditingResponder
+</a>
+<a href="../../🇨🇦EN/Protocols/SwiftUIViewImplementation.html">
+SwiftUIViewImplementation
+</a>
+<a href="../../🇨🇦EN/Protocols/SystemInterface.html">
+SystemInterface
+</a>
+<a href="../../🇨🇦EN/Protocols/TextDisplayResponder.html">
+TextDisplayResponder
+</a>
+<a href="../../🇨🇦EN/Protocols/TextEditingResponder.html">
+TextEditingResponder
+</a>
+<a href="../../🇨🇦EN/Protocols/View.html">
+View
+</a>
+<a href="../../🇨🇦EN/Protocols/ViewShims.html">
+ViewShims
+</a>
+<a href="../../🇨🇦EN/Protocols/WindowProtocol.html">
+WindowProtocol
+</a>
+</div>
+<div id="func‐index">
+<a class="heading" onclick="toggleIndexSectionVisibility(this)">Functions</a>
+<a href="../../🇨🇦EN/Functions/testLegacyViewConformance(of:file:line:).html">
+testLegacyViewConformance(of:file:line:)
+</a>
+<a href="../../🇨🇦EN/Functions/testViewConformance(of:testBody:file:line:).html">
+testViewConformance(of:testBody:file:line:)
+</a>
+</div>
+<div>
+<a class="heading" href="../../🇨🇦EN/Related%20Projects.html">Related Projects</a>
+</div>
+<div>
+<a class="heading" href="../../🇨🇦EN/About.html">About</a>
+</div>
+
+    </nav>
+   </header>
+   <main>
+
+
+
+    <div class="main‐text‐column">
+     <div class="title">
+      <div class="symbol‐type">Module</div>
+      
+      <h1>SDGInterface</h1>
+      
+     </div>
+
+<div class="description">
+<p>Basic interface building blocks.</p>
+</div>
+<section class="declaration">
+<h2>Declaration</h2>
+<code class="swift blockquote"><span class="FunctionCallExprSyntax"><span class="MemberAccessExprSyntax"><span class="UnknownExprSyntax"></span><span class="punctuation TokenSyntax period">.</span><span class="internal identifier TokenSyntax identifier">target</span></span><span class="punctuation TokenSyntax leftParen">(</span><span class="TupleExprElementListSyntax"><span class="TupleExprElementSyntax"><span class="internal identifier TokenSyntax identifier">name</span><span class="punctuation TokenSyntax colon">:</span> <span class="string StringLiteralExprSyntax"><span class="string‐punctuation TokenSyntax stringQuote">"</span><span class="StringLiteralSegmentsSyntax"><span class="StringSegmentSyntax"><span class="text TokenSyntax stringSegment">SDGInterface</span></span></span><span class="string‐punctuation TokenSyntax stringQuote">"</span></span></span></span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+</section>
+
+
+
+
+
+
+
+<section>
+<h2>Types</h2>
+<div class="child">
+<a href="../../🇨🇦EN/Types/Alignment.html"><code class="swift"><span class="internal identifier">Alignment</span></code></a>
+<p>A shimmed version of <code class="swift"><span class="code"><a href="../../🇨🇦EN/Extensions/SwiftUI.Alignment.html"><span class="internal identifier">SwiftUI.Alignment</span></a></span></code> with no availability constraints.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">SwiftUI</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/AnyView.html"><code class="swift"><span class="internal identifier">AnyView</span></code></a>
+<p>A type‐erased view.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/ApplicationNameForm.html"><code class="swift"><span class="internal identifier">ApplicationNameForm</span></code></a>
+<p>A key form a particular grammatical form of the application’s name.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/ApplicationNameLocalization.html"><code class="swift"><span class="internal identifier">ApplicationNameLocalization</span></code></a>
+<p>A dynamic localization set based on the provided forms of the application’s name.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/AttachmentAnchor.html"><code class="swift"><span class="internal identifier">AttachmentAnchor</span></code></a>
+<p>A shimmed version of <code class="swift"><span class="SourceFileSyntax"><span class="CodeBlockItemListSyntax"><span class="CodeBlockItemSyntax"><span class="MemberAccessExprSyntax"><span class="IdentifierExprSyntax"><span class="external identifier TokenSyntax identifier">SwiftUI</span></span><span class="punctuation TokenSyntax period">.</span><a href="../../🇨🇦EN/Extensions/PopoverAttachmentAnchor.html"><span class="external identifier TokenSyntax identifier">PopoverAttachmentAnchor</span></a></span></span></span><span class="TokenSyntax eof"></span></span></code> with no availability constraints.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/Axis.html"><code class="swift"><span class="internal identifier">Axis</span></code></a>
+<p>A layout axis.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">SwiftUI</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/Button%3cL%3e.html"><code class="swift"><span class="internal identifier">Button&#x003C;L&#x003E;</span></code><code class="swift"><span class="GenericWhereClauseSyntax"> <span class="keyword TokenSyntax whereKeyword">where</span> <span class="GenericRequirementListSyntax"><span class="GenericRequirementSyntax"><span class="ConformanceRequirementSyntax"><span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">L</span></span> <span class="punctuation TokenSyntax colon">:</span> <span class="SimpleTypeIdentifierSyntax"><span class="external identifier TokenSyntax identifier">Localization</span></span></span></span></span></span></code></a>
+<p>A button.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">SwiftUI</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/ButtonLabel.html"><code class="swift"><span class="internal identifier">ButtonLabel</span></code></a>
+<p>A button label.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">&#x0026;&#x0026;</span> <span class="external identifier TokenSyntax prefixOperator">!</span><span class="external identifier TokenSyntax identifier">os</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">watchOS</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/CharacterInformation.html"><code class="swift"><span class="internal identifier">CharacterInformation</span></code></a>
+<p>User‐presentable Unicode information about the characters in a string.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">SwiftUI</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">&#x0026;&#x0026;</span> <span class="external identifier TokenSyntax prefixOperator">!</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">os</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">tvOS</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">os</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">iOS</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">os</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">watchOS</span><span class="punctuation TokenSyntax rightParen">)</span><span class="punctuation TokenSyntax rightParen">)</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/CheckBox%3cL%3e.html"><code class="swift"><span class="internal identifier">CheckBox&#x003C;L&#x003E;</span></code><code class="swift"><span class="GenericWhereClauseSyntax"> <span class="keyword TokenSyntax whereKeyword">where</span> <span class="GenericRequirementListSyntax"><span class="GenericRequirementSyntax"><span class="ConformanceRequirementSyntax"><span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">L</span></span> <span class="punctuation TokenSyntax colon">:</span> <span class="SimpleTypeIdentifierSyntax"><span class="external identifier TokenSyntax identifier">Localization</span></span></span></span></span></span></code></a>
+<p>A check box.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/CocoaImage.html"><code class="swift"><span class="internal identifier">CocoaImage</span></code></a>
+<p>A Cocoa image.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">&#x0026;&#x0026;</span> <span class="external identifier TokenSyntax prefixOperator">!</span><span class="external identifier TokenSyntax identifier">os</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">watchOS</span><span class="punctuation TokenSyntax rightParen">)</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/CocoaView.html"><code class="swift"><span class="internal identifier">CocoaView</span></code></a>
+<p>A Cocoa view.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">&#x0026;&#x0026;</span> <span class="external identifier TokenSyntax prefixOperator">!</span><span class="external identifier TokenSyntax identifier">os</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">watchOS</span><span class="punctuation TokenSyntax rightParen">)</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/CocoaWindow.html"><code class="swift"><span class="internal identifier">CocoaWindow</span></code></a>
+<p>A Cocoa window.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/Colour.html"><code class="swift"><span class="internal identifier">Colour</span></code></a>
+<p>A colour.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/CommandsBuilder.html"><code class="swift"><span class="internal identifier">CommandsBuilder</span></code></a>
+<p>A builder which constructs lists of menu components.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/CommandsConcatenation%3cLeading,%20Trailing%3e.html"><code class="swift"><span class="internal identifier">CommandsConcatenation&#x003C;Leading, Trailing&#x003E;</span></code><code class="swift"><span class="GenericWhereClauseSyntax"> <span class="keyword TokenSyntax whereKeyword">where</span> <span class="GenericRequirementListSyntax"><span class="GenericRequirementSyntax"><span class="ConformanceRequirementSyntax"><span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">Leading</span></span> <span class="punctuation TokenSyntax colon">:</span> <span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">LegacyCommands</span></span></span><span class="punctuation TokenSyntax comma">,</span> </span><span class="GenericRequirementSyntax"><span class="ConformanceRequirementSyntax"><span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">Trailing</span></span> <span class="punctuation TokenSyntax colon">:</span> <span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">LegacyCommands</span></span></span></span></span></span></code></a>
+<p>A concatenation of commands.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">SwiftUI</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/CompatibilityLabel%3cL%3e.html"><code class="swift"><span class="internal identifier">CompatibilityLabel&#x003C;L&#x003E;</span></code><code class="swift"><span class="GenericWhereClauseSyntax"> <span class="keyword TokenSyntax whereKeyword">where</span> <span class="GenericRequirementListSyntax"><span class="GenericRequirementSyntax"><span class="ConformanceRequirementSyntax"><span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">L</span></span> <span class="punctuation TokenSyntax colon">:</span> <span class="SimpleTypeIdentifierSyntax"><span class="external identifier TokenSyntax identifier">Localization</span></span></span></span></span></span></code></a>
+<p>A text label that preservers legacy characters in their noncanonical forms.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/ContentMode.html"><code class="swift"><span class="internal identifier">ContentMode</span></code></a>
+<p>A shimmed version of <code class="swift"><span class="code"><a href="../../🇨🇦EN/Extensions/SwiftUI.ContentMode.html"><span class="internal identifier">SwiftUI.ContentMode</span></a></span></code> with no availability constraints.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/ContextMenu.html"><code class="swift"><span class="internal identifier">ContextMenu</span></code></a>
+<p>A context menu.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/Divider.html"><code class="swift"><span class="internal identifier">Divider</span></code></a>
+<p>A divider.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/Edge.html"><code class="swift"><span class="internal identifier">Edge</span></code></a>
+<p>A shimmed version of <code class="swift"><span class="code"><a href="../../🇨🇦EN/Extensions/SwiftUI.Edge.html"><span class="internal identifier">SwiftUI.Edge</span></a></span></code> with no availability constraints.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/EmptyCommands.html"><code class="swift"><span class="internal identifier">EmptyCommands</span></code></a>
+<p>Empty commands.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/EmptyMenuComponents.html"><code class="swift"><span class="internal identifier">EmptyMenuComponents</span></code></a>
+<p>Empty menu components.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">SwiftUI</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/EmptyView.html"><code class="swift"><span class="internal identifier">EmptyView</span></code></a>
+<p>A shimmed version of <code class="swift"><span class="SourceFileSyntax"><span class="CodeBlockItemListSyntax"><span class="CodeBlockItemSyntax"><span class="MemberAccessExprSyntax"><span class="IdentifierExprSyntax"><span class="external identifier TokenSyntax identifier">SwiftUI</span></span><span class="punctuation TokenSyntax period">.</span><a href="../../🇨🇦EN/Types/EmptyView.html"><span class="internal identifier TokenSyntax identifier">EmptyView</span></a></span></span></span><span class="TokenSyntax eof"></span></span></code> with no availability constraints.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/ExtensionDetails.html"><code class="swift"><span class="internal identifier">ExtensionDetails</span></code></a>
+<p>Details about an extension.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/FetchResult.html"><code class="swift"><span class="internal identifier">FetchResult</span></code></a>
+<p>A fetch result.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">SwiftUI</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/Framed%3cContent%3e.html"><code class="swift"><span class="internal identifier">Framed&#x003C;Content&#x003E;</span></code><code class="swift"><span class="GenericWhereClauseSyntax"> <span class="keyword TokenSyntax whereKeyword">where</span> <span class="GenericRequirementListSyntax"><span class="GenericRequirementSyntax"><span class="ConformanceRequirementSyntax"><span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">Content</span></span> <span class="punctuation TokenSyntax colon">:</span> <span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">LegacyView</span></span></span></span></span></span></code></a>
+<p>The result of <code class="swift"><span class="code"><a href="../../🇨🇦EN/Protocols/LegacyView/Methods/frame(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:).html"><span class="internal identifier">frame</span><span class="punctuation">(</span><span class="internal identifier">minWidth</span><span class="punctuation">:</span><span class="internal identifier">idealWidth</span><span class="punctuation">:</span><span class="internal identifier">maxWidth</span><span class="punctuation">:</span><span class="internal identifier">minHeight</span><span class="punctuation">:</span><span class="internal identifier">idealHeight</span><span class="punctuation">:</span><span class="internal identifier">maxHeight</span><span class="punctuation">:</span><span class="internal identifier">alignment</span><span class="punctuation">:</span><span class="internal identifier"></span><span class="punctuation">)</span><span class="internal identifier"></span></a></span></code>.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/Handoff.html"><code class="swift"><span class="internal identifier">Handoff</span></code></a>
+<p>An activity handoff.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/HandoffAcceptanceDetails.html"><code class="swift"><span class="internal identifier">HandoffAcceptanceDetails</span></code></a>
+<p>Details about the acceptance of an activity handoff.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/HorizontalAlignment.html"><code class="swift"><span class="internal identifier">HorizontalAlignment</span></code></a>
+<p>A shimmed version of <code class="swift"><span class="code"><a href="../../🇨🇦EN/Extensions/SwiftUI.HorizontalAlignment.html"><span class="internal identifier">SwiftUI.HorizontalAlignment</span></a></span></code> with no availability constraints.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">SwiftUI</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/HorizontalStack%3cEntry%3e.html"><code class="swift"><span class="internal identifier">HorizontalStack&#x003C;Entry&#x003E;</span></code><code class="swift"><span class="GenericWhereClauseSyntax"> <span class="keyword TokenSyntax whereKeyword">where</span> <span class="GenericRequirementListSyntax"><span class="GenericRequirementSyntax"><span class="ConformanceRequirementSyntax"><span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">Entry</span></span> <span class="punctuation TokenSyntax colon">:</span> <span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">LegacyView</span></span></span></span></span></span></code></a>
+<p>A shimmed version of <code class="swift"><span class="SourceFileSyntax"><span class="CodeBlockItemListSyntax"><span class="CodeBlockItemSyntax"><span class="MemberAccessExprSyntax"><span class="IdentifierExprSyntax"><span class="external identifier TokenSyntax identifier">SwiftUI</span></span><span class="punctuation TokenSyntax period">.</span><span class="external identifier TokenSyntax identifier">HStack</span></span></span></span><span class="TokenSyntax eof"></span></span></code> with relaxed availability constraints.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">SwiftUI</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/Image.html"><code class="swift"><span class="internal identifier">Image</span></code></a>
+<p>An image.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/KeyModifiers.html"><code class="swift"><span class="internal identifier">KeyModifiers</span></code></a>
+<p>Modifier keys.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">SwiftUI</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/Label%3cL%3e.html"><code class="swift"><span class="internal identifier">Label&#x003C;L&#x003E;</span></code><code class="swift"><span class="GenericWhereClauseSyntax"> <span class="keyword TokenSyntax whereKeyword">where</span> <span class="GenericRequirementListSyntax"><span class="GenericRequirementSyntax"><span class="ConformanceRequirementSyntax"><span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">L</span></span> <span class="punctuation TokenSyntax colon">:</span> <span class="SimpleTypeIdentifierSyntax"><span class="external identifier TokenSyntax identifier">Localization</span></span></span></span></span></span></code></a>
+<p>A text label.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">SwiftUI</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/LabelledTextField%3cL%3e.html"><code class="swift"><span class="internal identifier">LabelledTextField&#x003C;L&#x003E;</span></code><code class="swift"><span class="GenericWhereClauseSyntax"> <span class="keyword TokenSyntax whereKeyword">where</span> <span class="GenericRequirementListSyntax"><span class="GenericRequirementSyntax"><span class="ConformanceRequirementSyntax"><span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">L</span></span> <span class="punctuation TokenSyntax colon">:</span> <span class="SimpleTypeIdentifierSyntax"><span class="external identifier TokenSyntax identifier">Localization</span></span></span></span></span></span></code></a>
+<p>A text field with a label.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/LaunchDetails.html"><code class="swift"><span class="internal identifier">LaunchDetails</span></code></a>
+<p>Details about the launch.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">SwiftUI</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/Layered%3cForeground,%20Background%3e.html"><code class="swift"><span class="internal identifier">Layered&#x003C;Foreground, Background&#x003E;</span></code><code class="swift"><span class="GenericWhereClauseSyntax"> <span class="keyword TokenSyntax whereKeyword">where</span> <span class="GenericRequirementListSyntax"><span class="GenericRequirementSyntax"><span class="ConformanceRequirementSyntax"><span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">Background</span></span> <span class="punctuation TokenSyntax colon">:</span> <span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">LegacyView</span></span></span><span class="punctuation TokenSyntax comma">,</span> </span><span class="GenericRequirementSyntax"><span class="ConformanceRequirementSyntax"><span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">Foreground</span></span> <span class="punctuation TokenSyntax colon">:</span> <span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">LegacyView</span></span></span></span></span></span></code></a>
+<p>The result of <code class="swift"><span class="code"><a href="../../🇨🇦EN/Protocols/LegacyView/Methods/background(_:alignment:).html"><span class="internal identifier">background</span><span class="punctuation">(</span><span class="internal identifier"></span><span class="keyword">_</span><span class="internal identifier"></span><span class="punctuation">:</span><span class="internal identifier">alignment</span><span class="punctuation">:</span><span class="internal identifier"></span><span class="punctuation">)</span><span class="internal identifier"></span></a></span></code>.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">&#x0026;&#x0026;</span> <span class="external identifier TokenSyntax prefixOperator">!</span><span class="external identifier TokenSyntax identifier">os</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">watchOS</span><span class="punctuation TokenSyntax rightParen">)</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/LayoutConstraintPriority.html"><code class="swift"><span class="internal identifier">LayoutConstraintPriority</span></code></a>
+<p>A layout constraint priority.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">&#x0026;&#x0026;</span> <span class="external identifier TokenSyntax prefixOperator">!</span><span class="external identifier TokenSyntax identifier">os</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">watchOS</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/Log.html"><code class="swift"><span class="internal identifier">Log</span></code></a>
+<p>A textual log.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">SwiftUI</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">&#x0026;&#x0026;</span> <span class="external identifier TokenSyntax prefixOperator">!</span><span class="external identifier TokenSyntax identifier">os</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">tvOS</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">&#x0026;&#x0026;</span> <span class="external identifier TokenSyntax prefixOperator">!</span><span class="external identifier TokenSyntax identifier">os</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">watchOS</span><span class="punctuation TokenSyntax rightParen">)</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">&#x0026;&#x0026;</span> <span class="external identifier TokenSyntax prefixOperator">!</span><span class="external identifier TokenSyntax identifier">os</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">tvOS</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">&#x0026;&#x0026;</span> <span class="external identifier TokenSyntax prefixOperator">!</span><span class="external identifier TokenSyntax identifier">os</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">watchOS</span><span class="punctuation TokenSyntax rightParen">)</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/Menu%3cL,%20Components%3e.html"><code class="swift"><span class="internal identifier">Menu&#x003C;L, Components&#x003E;</span></code><code class="swift"><span class="GenericWhereClauseSyntax"> <span class="keyword TokenSyntax whereKeyword">where</span> <span class="GenericRequirementListSyntax"><span class="GenericRequirementSyntax"><span class="ConformanceRequirementSyntax"><span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">Components</span></span> <span class="punctuation TokenSyntax colon">:</span> <span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">LegacyMenuComponents</span></span></span><span class="punctuation TokenSyntax comma">,</span> </span><span class="GenericRequirementSyntax"><span class="ConformanceRequirementSyntax"><span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">L</span></span> <span class="punctuation TokenSyntax colon">:</span> <span class="SimpleTypeIdentifierSyntax"><span class="external identifier TokenSyntax identifier">Localization</span></span></span></span></span></span></code></a>
+<p>A menu.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/MenuBar%3cApplicationSpecificMenus%3e.html"><code class="swift"><span class="internal identifier">MenuBar&#x003C;ApplicationSpecificMenus&#x003E;</span></code><code class="swift"><span class="GenericWhereClauseSyntax"> <span class="keyword TokenSyntax whereKeyword">where</span> <span class="GenericRequirementListSyntax"><span class="GenericRequirementSyntax"><span class="ConformanceRequirementSyntax"><span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">ApplicationSpecificMenus</span></span> <span class="punctuation TokenSyntax colon">:</span> <span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">LegacyCommands</span></span></span></span></span></span></code></a>
+<p>An application’s menu bar.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/MenuComponentsBuilder.html"><code class="swift"><span class="internal identifier">MenuComponentsBuilder</span></code></a>
+<p>A builder which constructs lists of menu components.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/MenuComponentsConcatenation%3cLeading,%20Trailing%3e.html"><code class="swift"><span class="internal identifier">MenuComponentsConcatenation&#x003C;Leading, Trailing&#x003E;</span></code><code class="swift"><span class="GenericWhereClauseSyntax"> <span class="keyword TokenSyntax whereKeyword">where</span> <span class="GenericRequirementListSyntax"><span class="GenericRequirementSyntax"><span class="ConformanceRequirementSyntax"><span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">Leading</span></span> <span class="punctuation TokenSyntax colon">:</span> <span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">LegacyMenuComponents</span></span></span><span class="punctuation TokenSyntax comma">,</span> </span><span class="GenericRequirementSyntax"><span class="ConformanceRequirementSyntax"><span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">Trailing</span></span> <span class="punctuation TokenSyntax colon">:</span> <span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">LegacyMenuComponents</span></span></span></span></span></span></code></a>
+<p>A concatenation of menu components.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">SwiftUI</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/MenuEntry%3cL%3e.html"><code class="swift"><span class="internal identifier">MenuEntry&#x003C;L&#x003E;</span></code><code class="swift"><span class="GenericWhereClauseSyntax"> <span class="keyword TokenSyntax whereKeyword">where</span> <span class="GenericRequirementListSyntax"><span class="GenericRequirementSyntax"><span class="ConformanceRequirementSyntax"><span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">L</span></span> <span class="punctuation TokenSyntax colon">:</span> <span class="SimpleTypeIdentifierSyntax"><span class="external identifier TokenSyntax identifier">Localization</span></span></span></span></span></span></code></a>
+<p>A menu entry.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/OpeningDetails.html"><code class="swift"><span class="internal identifier">OpeningDetails</span></code></a>
+<p>Details about opening a file.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">SwiftUI</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/Padded%3cContent%3e.html"><code class="swift"><span class="internal identifier">Padded&#x003C;Content&#x003E;</span></code><code class="swift"><span class="GenericWhereClauseSyntax"> <span class="keyword TokenSyntax whereKeyword">where</span> <span class="GenericRequirementListSyntax"><span class="GenericRequirementSyntax"><span class="ConformanceRequirementSyntax"><span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">Content</span></span> <span class="punctuation TokenSyntax colon">:</span> <span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">LegacyView</span></span></span></span></span></span></code></a>
+<p>The result of <code class="swift"><span class="code"><a href="../../🇨🇦EN/Protocols/LegacyView/Methods/padding(_:_:).html"><span class="internal identifier">padding</span><span class="punctuation">(</span><span class="internal identifier"></span><span class="keyword">_</span><span class="internal identifier"></span><span class="punctuation">:</span><span class="internal identifier"></span><span class="keyword">_</span><span class="internal identifier"></span><span class="punctuation">:</span><span class="internal identifier"></span><span class="punctuation">)</span><span class="internal identifier"></span></a></span></code>.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/Point.html"><code class="swift"><span class="internal identifier">Point</span></code></a>
+<p>A point.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/PrintingDetails.html"><code class="swift"><span class="internal identifier">PrintingDetails</span></code></a>
+<p>Details about printing.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/PrintingResponse.html"><code class="swift"><span class="internal identifier">PrintingResponse</span></code></a>
+<p>A response to a request to print.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">SwiftUI</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/Proportioned%3cContent%3e.html"><code class="swift"><span class="internal identifier">Proportioned&#x003C;Content&#x003E;</span></code><code class="swift"><span class="GenericWhereClauseSyntax"> <span class="keyword TokenSyntax whereKeyword">where</span> <span class="GenericRequirementListSyntax"><span class="GenericRequirementSyntax"><span class="ConformanceRequirementSyntax"><span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">Content</span></span> <span class="punctuation TokenSyntax colon">:</span> <span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">LegacyView</span></span></span></span></span></span></code></a>
+<p>The result of <code class="swift"><span class="code"><a href="../../🇨🇦EN/Protocols/LegacyView/Methods/aspectRatio(_:contentMode:).html"><span class="internal identifier">aspectRatio</span><span class="punctuation">(</span><span class="internal identifier"></span><span class="keyword">_</span><span class="internal identifier"></span><span class="punctuation">:</span><span class="internal identifier">contentMode</span><span class="punctuation">:</span><span class="internal identifier"></span><span class="punctuation">)</span><span class="internal identifier"></span></a></span></code>.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/QuickActionDetails.html"><code class="swift"><span class="internal identifier">QuickActionDetails</span></code></a>
+<p>Details about a quick action.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/Rectangle.html"><code class="swift"><span class="internal identifier">Rectangle</span></code></a>
+<p>A rectangle.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/RectangularAttachmentAnchor.html"><code class="swift"><span class="internal identifier">RectangularAttachmentAnchor</span></code></a>
+<p>A shimmed version of <code class="swift"><span class="SourceFileSyntax"><span class="CodeBlockItemListSyntax"><span class="CodeBlockItemSyntax"><span class="MemberAccessExprSyntax"><span class="MemberAccessExprSyntax"><span class="IdentifierExprSyntax"><span class="external identifier TokenSyntax identifier">SwiftUI</span></span><span class="punctuation TokenSyntax period">.</span><span class="external identifier TokenSyntax identifier">Anchor</span></span><span class="punctuation TokenSyntax period">.</span><span class="external identifier TokenSyntax identifier">Source</span></span></span></span><span class="TokenSyntax eof"></span></span></code> with no availability constraints.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/RemoteNotificationDetails.html"><code class="swift"><span class="internal identifier">RemoteNotificationDetails</span></code></a>
+<p>Details about a remote notification.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/RichText.html"><code class="swift"><span class="internal identifier">RichText</span></code></a>
+<p>Rich text.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">SwiftUI</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">&#x0026;&#x0026;</span> <span class="external identifier TokenSyntax prefixOperator">!</span><span class="external identifier TokenSyntax identifier">os</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">watchOS</span><span class="punctuation TokenSyntax rightParen">)</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">&#x0026;&#x0026;</span> <span class="external identifier TokenSyntax prefixOperator">!</span><span class="external identifier TokenSyntax identifier">os</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">watchOS</span><span class="punctuation TokenSyntax rightParen">)</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/SegmentedControl%3cOption,%20L%3e.html"><code class="swift"><span class="internal identifier">SegmentedControl&#x003C;Option, L&#x003E;</span></code><code class="swift"><span class="GenericWhereClauseSyntax"> <span class="keyword TokenSyntax whereKeyword">where</span> <span class="GenericRequirementListSyntax"><span class="GenericRequirementSyntax"><span class="ConformanceRequirementSyntax"><span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">L</span></span> <span class="punctuation TokenSyntax colon">:</span> <span class="SimpleTypeIdentifierSyntax"><span class="external identifier TokenSyntax identifier">Localization</span></span></span><span class="punctuation TokenSyntax comma">,</span> </span><span class="GenericRequirementSyntax"><span class="ConformanceRequirementSyntax"><span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">Option</span></span> <span class="punctuation TokenSyntax colon">:</span> <span class="SimpleTypeIdentifierSyntax"><span class="external identifier TokenSyntax identifier">CaseIterable</span></span></span><span class="punctuation TokenSyntax comma">,</span> </span><span class="GenericRequirementSyntax"><span class="ConformanceRequirementSyntax"><span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">Option</span></span> <span class="punctuation TokenSyntax colon">:</span> <span class="SimpleTypeIdentifierSyntax"><span class="external identifier TokenSyntax identifier">Hashable</span></span></span></span></span></span></code></a>
+<p>A button.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/Size.html"><code class="swift"><span class="internal identifier">Size</span></code></a>
+<p>A window size.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/SystemNotification.html"><code class="swift"><span class="internal identifier">SystemNotification</span></code></a>
+<p>A system notification.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">&#x0026;&#x0026;</span> <span class="external identifier TokenSyntax prefixOperator">!</span><span class="external identifier TokenSyntax identifier">os</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">watchOS</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/Table%3cRowData%3e.html"><code class="swift"><span class="internal identifier">Table&#x003C;RowData&#x003E;</span></code></a>
+<p>A table.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/TerminationResponse.html"><code class="swift"><span class="internal identifier">TerminationResponse</span></code></a>
+<p>A response to a request to terminate.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/TextContextMenu.html"><code class="swift"><span class="internal identifier">TextContextMenu</span></code></a>
+<p>The context menu used by text views.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">&#x0026;&#x0026;</span> <span class="external identifier TokenSyntax prefixOperator">!</span><span class="external identifier TokenSyntax identifier">os</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">tvOS</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">&#x0026;&#x0026;</span> <span class="external identifier TokenSyntax prefixOperator">!</span><span class="external identifier TokenSyntax identifier">os</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">watchOS</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/TextEditor.html"><code class="swift"><span class="internal identifier">TextEditor</span></code></a>
+<p>An editor for multiline text.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">SwiftUI</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/TextField.html"><code class="swift"><span class="internal identifier">TextField</span></code></a>
+<p>A text label.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">&#x0026;&#x0026;</span> <span class="external identifier TokenSyntax prefixOperator">!</span><span class="external identifier TokenSyntax identifier">os</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">watchOS</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/TextView%3cL%3e.html"><code class="swift"><span class="internal identifier">TextView&#x003C;L&#x003E;</span></code><code class="swift"><span class="GenericWhereClauseSyntax"> <span class="keyword TokenSyntax whereKeyword">where</span> <span class="GenericRequirementListSyntax"><span class="GenericRequirementSyntax"><span class="ConformanceRequirementSyntax"><span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">L</span></span> <span class="punctuation TokenSyntax colon">:</span> <span class="SimpleTypeIdentifierSyntax"><span class="external identifier TokenSyntax identifier">Localization</span></span></span></span></span></span></code></a>
+<p>A view for displaying text that cannot be edited.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/VerticalAlignment.html"><code class="swift"><span class="internal identifier">VerticalAlignment</span></code></a>
+<p>A shimmed version of <code class="swift"><span class="code"><a href="../../🇨🇦EN/Extensions/SwiftUI.VerticalAlignment.html"><span class="internal identifier">SwiftUI.VerticalAlignment</span></a></span></code> with no availability constraints.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/ViewControllerRestorationResponse.html"><code class="swift"><span class="internal identifier">ViewControllerRestorationResponse</span></code></a>
+<p>A response to a request for a view controller during state restoration.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">SwiftUI</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Types/Window%3cContent,%20L%3e.html"><code class="swift"><span class="internal identifier">Window&#x003C;Content, L&#x003E;</span></code><code class="swift"><span class="GenericWhereClauseSyntax"> <span class="keyword TokenSyntax whereKeyword">where</span> <span class="GenericRequirementListSyntax"><span class="GenericRequirementSyntax"><span class="ConformanceRequirementSyntax"><span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">Content</span></span> <span class="punctuation TokenSyntax colon">:</span> <span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">LegacyView</span></span></span><span class="punctuation TokenSyntax comma">,</span> </span><span class="GenericRequirementSyntax"><span class="ConformanceRequirementSyntax"><span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">L</span></span> <span class="punctuation TokenSyntax colon">:</span> <span class="SimpleTypeIdentifierSyntax"><span class="external identifier TokenSyntax identifier">Localization</span></span></span></span></span></span></code></a>
+<p>A window.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Types/WindowType.html"><code class="swift"><span class="internal identifier">WindowType</span></code></a>
+<p>A type of window.</p>
+</div>
+</section>
+<section>
+<h2>Extensions</h2>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/Anchor.Source.html"><code class="swift"><span class="internal identifier">Anchor.Source</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/Button.html"><code class="swift"><span class="internal identifier">Button</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/CGPoint.html"><code class="swift"><span class="internal identifier">CGPoint</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/CGRect.html"><code class="swift"><span class="internal identifier">CGRect</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/CGSize.html"><code class="swift"><span class="internal identifier">CGSize</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/CheckBox.html"><code class="swift"><span class="internal identifier">CheckBox</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/ClosureSelector.html"><code class="swift"><span class="internal identifier">ClosureSelector</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/CocoaTextView.html"><code class="swift"><span class="internal identifier">CocoaTextView</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/CocoaViewRepresentableWrapper.html"><code class="swift"><span class="internal identifier">CocoaViewRepresentableWrapper</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/CommandsConcatenation.html"><code class="swift"><span class="internal identifier">CommandsConcatenation</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/CompatibilityLabel.html"><code class="swift"><span class="internal identifier">CompatibilityLabel</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/Dictionary.html"><code class="swift"><span class="internal identifier">Dictionary</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/Ellipse.html"><code class="swift"><span class="internal identifier">Ellipse</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/Font.html"><code class="swift"><span class="internal identifier">Font</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/Framed.html"><code class="swift"><span class="internal identifier">Framed</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/GenericLabel.html"><code class="swift"><span class="internal identifier">GenericLabel</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/HorizontalStack.html"><code class="swift"><span class="internal identifier">HorizontalStack</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/Label.html"><code class="swift"><span class="internal identifier">Label</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/LabelledTextField.html"><code class="swift"><span class="internal identifier">LabelledTextField</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/Layered.html"><code class="swift"><span class="internal identifier">Layered</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/Menu.html"><code class="swift"><span class="internal identifier">Menu</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/MenuBar.html"><code class="swift"><span class="internal identifier">MenuBar</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/MenuComponentsConcatenation.html"><code class="swift"><span class="internal identifier">MenuComponentsConcatenation</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/MenuEntry.html"><code class="swift"><span class="internal identifier">MenuEntry</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/MenuEntry.CocoaImplementation.html"><code class="swift"><span class="internal identifier">MenuEntry.CocoaImplementation</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/NSAttributedString.html"><code class="swift"><span class="internal identifier">NSAttributedString</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/NSColor.html"><code class="swift"><span class="internal identifier">NSColor</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/NSMutableAttributedString.html"><code class="swift"><span class="internal identifier">NSMutableAttributedString</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/NSRectEdge.html"><code class="swift"><span class="internal identifier">NSRectEdge</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/Padded.html"><code class="swift"><span class="internal identifier">Padded</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/PopOver.html"><code class="swift"><span class="internal identifier">PopOver</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/PopoverAttachmentAnchor.html"><code class="swift"><span class="internal identifier">PopoverAttachmentAnchor</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/ProcessInfo.html"><code class="swift"><span class="internal identifier">ProcessInfo</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/Proportioned.html"><code class="swift"><span class="internal identifier">Proportioned</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/SegmentedControl.html"><code class="swift"><span class="internal identifier">SegmentedControl</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/SwiftUI.Alignment.html"><code class="swift"><span class="internal identifier">SwiftUI.Alignment</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/SwiftUI.AnyView.html"><code class="swift"><span class="internal identifier">SwiftUI.AnyView</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/SwiftUI.Color.html"><code class="swift"><span class="internal identifier">SwiftUI.Color</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/SwiftUI.ContentMode.html"><code class="swift"><span class="internal identifier">SwiftUI.ContentMode</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/SwiftUI.Edge.html"><code class="swift"><span class="internal identifier">SwiftUI.Edge</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/SwiftUI.Edge.Set.html"><code class="swift"><span class="internal identifier">SwiftUI.Edge.Set</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/SwiftUI.HorizontalAlignment.html"><code class="swift"><span class="internal identifier">SwiftUI.HorizontalAlignment</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/SwiftUI.Image.html"><code class="swift"><span class="internal identifier">SwiftUI.Image</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/SwiftUI.Rectangle.html"><code class="swift"><span class="internal identifier">SwiftUI.Rectangle</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/SwiftUI.TupleView.html"><code class="swift"><span class="internal identifier">SwiftUI.TupleView</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/SwiftUI.VerticalAlignment.html"><code class="swift"><span class="internal identifier">SwiftUI.VerticalAlignment</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/Text.html"><code class="swift"><span class="internal identifier">Text</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/TextEditor.CocoaImplementation.html"><code class="swift"><span class="internal identifier">TextEditor.CocoaImplementation</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/UIColor.html"><code class="swift"><span class="internal identifier">UIColor</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/UIPopoverArrowDirection.html"><code class="swift"><span class="internal identifier">UIPopoverArrowDirection</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/UnitPoint.html"><code class="swift"><span class="internal identifier">UnitPoint</span></code></a>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Extensions/Window.html"><code class="swift"><span class="internal identifier">Window</span></code></a>
+</div>
+</section>
+<section>
+<h2>Protocols</h2>
+<div class="child">
+<a href="../../🇨🇦EN/Protocols/Application.html"><code class="swift"><span class="internal identifier">Application</span></code></a>
+<p>A type that represents an application.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">&#x0026;&#x0026;</span> <span class="external identifier TokenSyntax prefixOperator">!</span><span class="external identifier TokenSyntax identifier">os</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">watchOS</span><span class="punctuation TokenSyntax rightParen">)</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Protocols/CocoaViewImplementation.html"><code class="swift"><span class="internal identifier">CocoaViewImplementation</span></code></a>
+<p>A view that is implemented using Cocoa.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">&#x0026;&#x0026;</span> <span class="external identifier TokenSyntax prefixOperator">!</span><span class="external identifier TokenSyntax identifier">os</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">watchOS</span><span class="punctuation TokenSyntax rightParen">)</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Protocols/CocoaWindowImplementation.html"><code class="swift"><span class="internal identifier">CocoaWindowImplementation</span></code></a>
+<p>A window that is implemented using Cocoa.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Protocols/Commands.html"><code class="swift"><span class="internal identifier">Commands</span></code></a>
+<p>A list of commands.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">SwiftUI</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Protocols/CompositeLegacyViewImplementation.html"><code class="swift"><span class="internal identifier">CompositeLegacyViewImplementation</span></code></a>
+<p>A view that is implemented as a composition of other view types.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">SwiftUI</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Protocols/CompositeViewImplementation.html"><code class="swift"><span class="internal identifier">CompositeViewImplementation</span></code><code class="swift"><span class="GenericWhereClauseSyntax"> <span class="keyword TokenSyntax whereKeyword">where</span> <span class="GenericRequirementListSyntax"><span class="GenericRequirementSyntax"><span class="ConformanceRequirementSyntax"><span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">Composition</span></span> <span class="punctuation TokenSyntax colon">:</span> <span class="SimpleTypeIdentifierSyntax"><span class="internal identifier TokenSyntax identifier">View</span></span></span></span></span></span></code></a>
+<p>A view that is implemented as a composition of other view types.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Protocols/LegacyCommands.html"><code class="swift"><span class="internal identifier">LegacyCommands</span></code></a>
+<p>The subset of the <code class="swift"><span class="code"><a href="../../🇨🇦EN/Protocols/Commands.html"><span class="internal identifier">Commands</span></a></span></code> protocol that can be conformed to even on platform versions preceding SwiftUI’s availability.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Protocols/LegacyMenuComponents.html"><code class="swift"><span class="internal identifier">LegacyMenuComponents</span></code></a>
+<p>The subset of the <code class="swift"><span class="code"><a href="../../🇨🇦EN/Protocols/MenuComponents.html"><span class="internal identifier">MenuComponents</span></a></span></code> protocol that can be conformed to even on platform versions preceding SwiftUI’s availability.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">SwiftUI</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Protocols/LegacyView.html"><code class="swift"><span class="internal identifier">LegacyView</span></code></a>
+<p>The subset of the <code class="swift"><span class="code"><a href="../../🇨🇦EN/Protocols/View.html"><span class="internal identifier">View</span></a></span></code> protocol that can be conformed to even on platform versions preceding SwiftUI’s availability.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Protocols/MenuBarProtocol.html"><code class="swift"><span class="internal identifier">MenuBarProtocol</span></code></a>
+<p>A menu bar.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Protocols/MenuComponents.html"><code class="swift"><span class="internal identifier">MenuComponents</span></code></a>
+<p>A list of menu components.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Protocols/MenuProtocol.html"><code class="swift"><span class="internal identifier">MenuProtocol</span></code></a>
+<p>A menu.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Protocols/PreferenceManager.html"><code class="swift"><span class="internal identifier">PreferenceManager</span></code></a>
+<p>An object which manages application preferences.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax prefixOperator">!</span><span class="external identifier TokenSyntax identifier">os</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">Windows</span><span class="punctuation TokenSyntax rightParen">)</span> </span></code>
+<br>
+<a href="../../🇨🇦EN/Protocols/RichTextEditingResponder.html"><code class="swift"><span class="internal identifier">RichTextEditingResponder</span></code></a>
+<p>An object which responds to actions related to editing rich text.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">SwiftUI</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">&#x0026;&#x0026;</span> <span class="external identifier TokenSyntax prefixOperator">!</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">os</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">iOS</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">&#x0026;&#x0026;</span> <span class="external identifier TokenSyntax identifier">arch</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">arm</span><span class="punctuation TokenSyntax rightParen">)</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Protocols/SwiftUIViewImplementation.html"><code class="swift"><span class="internal identifier">SwiftUIViewImplementation</span></code></a>
+<p>A view that is implemented using SwiftUI.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Protocols/SystemInterface.html"><code class="swift"><span class="internal identifier">SystemInterface</span></code></a>
+<p>An interface for interaction with the operating system.</p>
+</div>
+<div class="child">
+<a href="../../🇨🇦EN/Protocols/TextDisplayResponder.html"><code class="swift"><span class="internal identifier">TextDisplayResponder</span></code></a>
+<p>An object which responds to actions related to displayed text.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax prefixOperator">!</span><span class="external identifier TokenSyntax identifier">os</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">Windows</span><span class="punctuation TokenSyntax rightParen">)</span> </span></code>
+<br>
+<a href="../../🇨🇦EN/Protocols/TextEditingResponder.html"><code class="swift"><span class="internal identifier">TextEditingResponder</span></code></a>
+<p>An object which responds to actions related to editing text.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">SwiftUI</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Protocols/View.html"><code class="swift"><span class="internal identifier">View</span></code></a>
+<p>A view.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">SwiftUI</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Protocols/ViewShims.html"><code class="swift"><span class="internal identifier">ViewShims</span></code></a>
+<p>An implementation detail of the <code class="swift"><span class="code"><a href="../../🇨🇦EN/Protocols/View.html"><span class="internal identifier">View</span></a></span></code> protocol.</p>
+</div>
+<div class="child">
+<code class="swift"><span class="UnknownSyntax"><span class="compilation‐condition TokenSyntax poundIfKeyword">#if</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">SwiftUI</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">AppKit</span><span class="punctuation TokenSyntax rightParen">)</span> <span class="external identifier TokenSyntax spacedBinaryOperator">||</span> <span class="external identifier TokenSyntax identifier">canImport</span><span class="punctuation TokenSyntax leftParen">(</span><span class="external identifier TokenSyntax identifier">UIKit</span><span class="punctuation TokenSyntax rightParen">)</span></span></code>
+<br>
+<a href="../../🇨🇦EN/Protocols/WindowProtocol.html"><code class="swift"><span class="internal identifier">WindowProtocol</span></code></a>
+<p>A window.</p>
+</div>
+</section>
+
+
+
+
+
+    </div>
+
+
+
+   </main>
+   <header class="platforms">
+<span>
+macOS
+</span>
+<span>
+Windows
+</span>
+<span>
+Web
+</span>
+<span>
+CentOS
+</span>
+<span>
+Ubuntu
+</span>
+<span>
+tvOS
+</span>
+<span>
+iOS
+</span>
+<span>
+Android
+</span>
+<span>
+Amazon Linux
+</span>
+<span>
+watchOS
+</span>
+   </header>
+  </div>
+  <footer dir="ltr">
+   <span>
+Copyright ©2018–2021 Jeremy David Giesbrecht and the SDGInterface project contributors. All rights reserved.
+</span>
+   <span dir="ltr" lang="en-CA">Generated with <a href="https://sdggiesbrecht.github.io/Workspace/🇨🇦EN/Workspace.html">Workspace</a>. <span lang="la-IT">Soli Deo gloria.</span></span>
+  </footer>
+  <script>contractIndex("target‐index");</script>
+ </body>
+</html>
