@@ -129,7 +129,7 @@ extension Menu: Commands, MenuComponents where Components: SDGInterface.MenuComp
       let menu = Menu<
         InterfaceLocalization,
         MenuComponentsConcatenation<
-          MenuComponentsConcatenation<MenuEntry<InterfaceLocalization>, Divider>,
+          MenuComponentsConcatenation<MenuEntry<InterfaceLocalization>, SDGInterface.Divider>,
           Menu<InterfaceLocalization, MenuEntry<InterfaceLocalization>>
         >
       >(
