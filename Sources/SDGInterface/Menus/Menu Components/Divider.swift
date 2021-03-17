@@ -43,7 +43,7 @@ public struct Divider: LegacyMenuComponents {
   #endif
 }
 
-@available(macOS 10.15, tvOS 13, iOS 13, *)
+@available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
 extension Divider: MenuComponents {
 
   // MARK: - MenuComponents

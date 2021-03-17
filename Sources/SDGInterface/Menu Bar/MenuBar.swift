@@ -419,7 +419,7 @@ where ApplicationSpecificMenus: LegacyCommands {
 @available(macOS 11, iOS 14, *)
 extension MenuBar: MenuBarProtocol where ApplicationSpecificMenus: SDGInterface.Commands {
 
-  #if canImport(SwiftUI) && !os(tvOS) && !(os(iOS) && arch(arm))
+  #if canImport(SwiftUI) && !os(tvOS) && !(os(iOS) && arch(arm)) && !os(watchOS)
     /// Generates a SwiftUI representation of the menu bar modifications.
     @SwiftUI.CommandsBuilder public func swiftUI() -> some SwiftUI.Commands {
       #if !os(iOS)

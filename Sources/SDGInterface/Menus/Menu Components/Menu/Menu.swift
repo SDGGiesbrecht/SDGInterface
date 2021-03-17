@@ -74,19 +74,19 @@ where L: Localization, Components: LegacyMenuComponents {
     }
   #endif
 
-  #if canImport(UIKit) && !os(tvOS)
+  #if canImport(UIKit) && !os(tvOS) && !os(watchOS)
     public func cocoa() -> [UIMenuItem] {
       return entries.cocoa()
     }
   #endif
 }
 
-@available(macOS 11, tvOS 13, iOS 14, *)
+@available(macOS 11, tvOS 13, iOS 14, watchOS 6, *)
 extension Menu: Commands, MenuComponents where Components: SDGInterface.MenuComponents {
 
   // MARK: - Commands
 
-  #if canImport(SwiftUI) && !os(tvOS) && !(os(iOS) && arch(arm))
+  #if canImport(SwiftUI) && !os(tvOS) && !(os(iOS) && arch(arm)) && !os(watchOS)
     public func swiftUICommands() -> some SwiftUI.Commands {
       return SwiftUICommandsImplementation(
         label: label,

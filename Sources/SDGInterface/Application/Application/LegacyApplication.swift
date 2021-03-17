@@ -74,7 +74,7 @@ extension LegacyApplication {
     internal static func _legacyMain() -> Never {  // @exempt(from: tests)
       #if canImport(AppKit)
         exit(NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv))
-      #elseif canImport(UIKit)
+      #elseif canImport(UIKit) && !os(watchOS)
         // Register the intended application externally, because UIApplicationMain insists on initializing its own.
         applicationToUse = self
         exit(

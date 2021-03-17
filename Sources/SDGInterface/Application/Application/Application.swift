@@ -29,7 +29,7 @@ extension Application {
     let application = prepareForMain()
     withExtendedLifetime(application) {
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-        if #available(tvOS 14, *) {
+        if #available(tvOS 14, watchOS 7, *) {
           SwiftUIApplication<Self>.main()
         } else {
           legacyMain()
