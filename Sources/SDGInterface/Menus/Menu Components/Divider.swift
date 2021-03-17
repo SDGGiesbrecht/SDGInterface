@@ -34,14 +34,21 @@ public struct Divider: LegacyMenuComponents {
       return [NSMenuItem.separator()]
     }
   #endif
+
+  #warning("Not implemented yet.")
+  #if canImport(UIKit) && !os(tvOS) && !os(watchOS)
+    public func cocoa() -> [UIMenuItem] {
+      return []
+    }
+  #endif
 }
 
-@available(macOS 10.15, tvOS 13, *)
+@available(macOS 10.15, tvOS 13, iOS 13, *)
 extension Divider: MenuComponents {
 
   // MARK: - MenuComponents
 
-  #if canImport(SwiftUI)
+  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
     public func swiftUI() -> some SwiftUI.View {
       return SwiftUI.Divider()
     }

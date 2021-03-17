@@ -16,30 +16,32 @@
   import SwiftUI
 #endif
 
-@available(macOS 11, tvOS 14, *)
-internal struct SwiftUIApplication<Application>: App
-where Application: LegacyApplication, Application.MenuBarType: MenuBarProtocol {
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  @available(macOS 11, tvOS 14, iOS 14, *)
+  internal struct SwiftUIApplication<Application>: App
+  where Application: LegacyApplication, Application.MenuBarType: MenuBarProtocol {
 
-  // MARK: - Properties
+    // MARK: - Properties
 
-  private let application: Application
+    private let application: Application
 
-  // MARK: - App
+    // MARK: - App
 
-  internal init() {
-    application = Application()
-  }
-
-  internal var body: some Scene {
-    #warning("Not customized.")
-    let scene = WindowGroup {
+    internal init() {
+      application = Application()
     }
-    #if os(tvOS)
-      return scene
-    #else
-      return scene.commands {
-        application.menuBar.swiftUI()
+
+    internal var body: some Scene {
+      #warning("Not customized.")
+      let scene = WindowGroup {
       }
-    #endif
+      #if os(tvOS)
+        return scene
+      #else
+        return scene.commands {
+          application.menuBar.swiftUI()
+        }
+      #endif
+    }
   }
-}
+#endif
