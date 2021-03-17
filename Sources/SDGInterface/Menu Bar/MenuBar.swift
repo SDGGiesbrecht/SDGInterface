@@ -439,22 +439,6 @@
         MenuBar<SDGInterface.EmptyCommands>.quit().swiftUI()
       }
 
-      CommandGroup(replacing: .printItem) {
-        // Otherwise absent.
-        MenuBar<SDGInterface.EmptyCommands>.pageSetUp().swiftUI()
-        MenuBar<SDGInterface.EmptyCommands>.print().swiftUI()
-      }
-
-      CommandGroup(replacing: .pasteboard) {
-        MenuBar<SDGInterface.EmptyCommands>.cut().swiftUI()
-        MenuBar<SDGInterface.EmptyCommands>.copy().swiftUI()
-        MenuBar<SDGInterface.EmptyCommands>.paste().swiftUI()
-        // Otherwise absent.
-        MenuBar<SDGInterface.EmptyCommands>.pasteAndMatchStyle().swiftUI()
-        MenuBar<SDGInterface.EmptyCommands>.delete().swiftUI()
-        MenuBar<SDGInterface.EmptyCommands>.selectAll().swiftUI()
-      }
-
       CommandGroup(replacing: .textEditing) {
         MenuBar<SDGInterface.EmptyCommands>.find().swiftUI()
         MenuBar<SDGInterface.EmptyCommands>.spellingAndGrammar().swiftUI()
