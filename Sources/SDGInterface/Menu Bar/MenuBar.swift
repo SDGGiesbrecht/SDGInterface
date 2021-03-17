@@ -418,46 +418,55 @@
     @SwiftUI.CommandsBuilder public func swiftUI() -> some SwiftUI.Commands {
 
       CommandGroup(replacing: .appInfo) {
+        // Improved grammar of interpolation.
         MenuBar<SDGInterface.EmptyCommands>.about().swiftUI()
       }
 
       CommandGroup(replacing: .appSettings) {
+        // Hiding managed separately.
         MenuBar<SDGInterface.EmptyCommands>.preferences().swiftUI()
       }
 
       CommandGroup(replacing: .appVisibility) {
+        // Improved grammar of interpolation.
         MenuBar<SDGInterface.EmptyCommands>.hide().swiftUI()
         MenuBar<SDGInterface.EmptyCommands>.hideOthers().swiftUI()
         MenuBar<SDGInterface.EmptyCommands>.showAll().swiftUI()
       }
 
       CommandGroup(replacing: .appTermination) {
+        // Improved grammar of interpolation.
         MenuBar<SDGInterface.EmptyCommands>.quit().swiftUI()
       }
 
       CommandGroup(replacing: .printItem) {
+        // Otherwise absent.
         MenuBar<SDGInterface.EmptyCommands>.pageSetUp().swiftUI()
         MenuBar<SDGInterface.EmptyCommands>.print().swiftUI()
       }
 
       CommandGroup(replacing: .pasteboard) {
-          MenuBar<SDGInterface.EmptyCommands>.cut().swiftUI()
-          MenuBar<SDGInterface.EmptyCommands>.copy().swiftUI()
-          MenuBar<SDGInterface.EmptyCommands>.paste().swiftUI()
-          MenuBar<SDGInterface.EmptyCommands>.pasteAndMatchStyle().swiftUI()
-          MenuBar<SDGInterface.EmptyCommands>.delete().swiftUI()
-          MenuBar<SDGInterface.EmptyCommands>.selectAll().swiftUI()
+        MenuBar<SDGInterface.EmptyCommands>.cut().swiftUI()
+        MenuBar<SDGInterface.EmptyCommands>.copy().swiftUI()
+        MenuBar<SDGInterface.EmptyCommands>.paste().swiftUI()
+        // Otherwise absent.
+        MenuBar<SDGInterface.EmptyCommands>.pasteAndMatchStyle().swiftUI()
+        MenuBar<SDGInterface.EmptyCommands>.delete().swiftUI()
+        MenuBar<SDGInterface.EmptyCommands>.selectAll().swiftUI()
       }
 
       CommandGroup(replacing: .textEditing) {
         MenuBar<SDGInterface.EmptyCommands>.find().swiftUI()
         MenuBar<SDGInterface.EmptyCommands>.spellingAndGrammar().swiftUI()
         MenuBar<SDGInterface.EmptyCommands>.substitutions().swiftUI()
+        // Without bad capitalization.
+        // Includes normalization.
         MenuBar<SDGInterface.EmptyCommands>.transformations().swiftUI()
         ContextMenu.showCharacterInformation().swiftUI()
       }
 
       CommandGroup(replacing: .textFormatting) {
+        // Includes improved baseline and capitalization.
         MenuBar<SDGInterface.EmptyCommands>.font().swiftUI()
         MenuBar<SDGInterface.EmptyCommands>.text().swiftUI()
       }
