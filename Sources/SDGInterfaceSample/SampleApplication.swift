@@ -79,7 +79,7 @@
       return "com.example.SampleApplication"
     }
 
-    public static func main() {
+    public static func main() {  // @exempt(from: tests)
       #if os(iOS) && arch(arm)
         legacyMain()
       #else
