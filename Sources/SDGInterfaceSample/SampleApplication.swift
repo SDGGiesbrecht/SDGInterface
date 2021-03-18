@@ -22,8 +22,10 @@
 
   import SDGInterface
 
-  @available(macOS 11, *)
-  extension SampleApplication: Application {}
+  #if !(os(iOS) && arch(arm))
+    @available(macOS 11, *)
+    extension SampleApplication: Application {}
+  #endif
 
   public struct SampleApplication: LegacyApplication {
 
@@ -77,11 +79,15 @@
     }
 
     public static func main() {
-      if #available(macOS 11, tvOS 14, iOS 14, *) {
-        modernMain()
-      } else {
+      #if os(iOS) && arch(arm)
         legacyMain()
-      }
+      #else
+        if #available(macOS 11, tvOS 14, iOS 14, *) {
+          modernMain()
+        } else {
+          legacyMain()
+        }
+      #endif
     }
 
     public var mainWindow: Window<Label<InterfaceLocalization>, InterfaceLocalization> {

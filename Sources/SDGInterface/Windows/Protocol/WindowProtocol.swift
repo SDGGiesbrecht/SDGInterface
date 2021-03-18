@@ -17,12 +17,14 @@
 #endif
 
 /// A window.
-@available(macOS 11, tvOS 14, *)
+@available(macOS 11, tvOS 14, iOS 14, *)
 public protocol WindowProtocol: LegacyWindow {
 
-  /// The type of the SwiftUI scene.
-  associatedtype SwiftUIScene: SwiftUI.Scene
+  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    /// The type of the SwiftUI scene.
+    associatedtype SwiftUIScene: SwiftUI.Scene
 
-  /// The SwiftUI scene.
-  func swiftUI() -> SwiftUIScene
+    /// The SwiftUI scene.
+    func swiftUI() -> SwiftUIScene
+  #endif
 }
