@@ -25,62 +25,60 @@
 import SDGText
 import SDGLocalization
 
-#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
-  /// A window.
-  @available(watchOS 6, *)
-  public struct Window<Content, L>: LegacyWindow where Content: LegacyView, L: Localization {
+/// A window.
+@available(watchOS 6, *)
+public struct Window<Content, L>: LegacyWindow where Content: LegacyView, L: Localization {
 
-    // MARK: - Initialization
+  // MARK: - Initialization
 
-    /// Creates a window.
-    ///
-    /// - Parameters:
-    ///   - type: The type of window.
-    ///   - name: The name of the window. (Used in places like the title bar or dock.)
-    ///   - content: The content view.
-    ///   - onClose: A closure to execute when the window closes.
-    public init(
-      type: WindowType,
-      name: UserFacing<StrictString, L>,
-      content: Content,
-      onClose: @escaping () -> Void = {}
-    ) {
-      self.type = type
-      self.name = name
-      self.content = content
-      self.onClose = onClose
-    }
-
-    // MARK: - Properties
-
-    private let type: WindowType
-    private let name: UserFacing<StrictString, L>
-    private let content: Content
-    private let onClose: () -> Void
-
-    // MARK: - WindowProtocol
-
-    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
-      public func cocoa() -> CocoaWindow {
-        return CocoaWindow(
-          CocoaImplementation(type: type, name: name, content: content, onClose: onClose)
-        )
-      }
-    #endif
+  /// Creates a window.
+  ///
+  /// - Parameters:
+  ///   - type: The type of window.
+  ///   - name: The name of the window. (Used in places like the title bar or dock.)
+  ///   - content: The content view.
+  ///   - onClose: A closure to execute when the window closes.
+  public init(
+    type: WindowType,
+    name: UserFacing<StrictString, L>,
+    content: Content,
+    onClose: @escaping () -> Void = {}
+  ) {
+    self.type = type
+    self.name = name
+    self.content = content
+    self.onClose = onClose
   }
 
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-    @available(macOS 11, tvOS 14, iOS 14, watchOS 7, *)
-    extension Window: WindowProtocol where Content: SDGInterface.View {
+  // MARK: - Properties
 
-      public func swiftUI() -> some Scene {
-        return SwiftUIImplementation(
-          type: type,
-          name: name,
-          content: content.swiftUI(),
-          onClose: onClose
-        )
-      }
+  private let type: WindowType
+  private let name: UserFacing<StrictString, L>
+  private let content: Content
+  private let onClose: () -> Void
+
+  // MARK: - WindowProtocol
+
+  #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+    public func cocoa() -> CocoaWindow {
+      return CocoaWindow(
+        CocoaImplementation(type: type, name: name, content: content, onClose: onClose)
+      )
     }
   #endif
+}
+
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  @available(macOS 11, tvOS 14, iOS 14, watchOS 7, *)
+  extension Window: WindowProtocol where Content: SDGInterface.View {
+
+    public func swiftUI() -> some Scene {
+      return SwiftUIImplementation(
+        type: type,
+        name: name,
+        content: content.swiftUI(),
+        onClose: onClose
+      )
+    }
+  }
 #endif
