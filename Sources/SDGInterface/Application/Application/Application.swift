@@ -30,6 +30,7 @@ extension Application {
     withExtendedLifetime(application) {
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
         if #available(tvOS 14, watchOS 7, *) {
+          applicationToUse = application
           SwiftUIApplication<Self>.main()
         } else {
           legacyMain()

@@ -34,9 +34,9 @@
 
       internal var body: some SwiftUI.View {
         #if os(tvOS) || os(watchOS)
-        return VStack {
-          entries.swiftUI()
-        }
+          return VStack {
+            entries.swiftUI()
+          }
         #else
           return SwiftUI.Menu(String(label.resolved(for: localization.value.resolved()))) {
             entries.swiftUI()

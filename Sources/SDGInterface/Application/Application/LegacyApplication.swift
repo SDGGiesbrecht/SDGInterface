@@ -71,12 +71,12 @@ extension LegacyApplication {
 
   // #workaround(Swift 5.3.2, Web lacks RunLoop.)
   #if !os(WASI)
-    internal static func _legacyMain() -> Never {  // @exempt(from: tests)
+    internal static func _legacyMain(application: Self) -> Never {  // @exempt(from: tests)
       #if canImport(AppKit)
         exit(NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv))
       #elseif canImport(UIKit) && !os(watchOS)
         // Register the intended application externally, because UIApplicationMain insists on initializing its own.
-        applicationToUse = self
+        applicationToUse = application
         exit(
           UIApplicationMain(
             CommandLine.argc,
@@ -97,7 +97,7 @@ extension LegacyApplication {
     public static func legacyMain() -> Never {
       let application = prepareForMain()
       withExtendedLifetime(application) {
-        legacyMain()
+        _legacyMain(application: application)
       }
     }
     public static func main() {  // @exempt(from: tests)

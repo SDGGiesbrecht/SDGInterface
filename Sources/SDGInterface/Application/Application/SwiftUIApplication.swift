@@ -21,6 +21,10 @@
   internal struct SwiftUIApplication<Application>: App
   where Application: LegacyApplication, Application.MenuBarType: MenuBarProtocol {
 
+    #if canImport(AppKit)
+      @NSApplicationDelegateAdaptor(NSApplicationDelegate<Application>.self) var applicationDelegate
+    #endif
+
     // MARK: - Properties
 
     private let application: Application
