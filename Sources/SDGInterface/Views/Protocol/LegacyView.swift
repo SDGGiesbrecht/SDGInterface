@@ -77,7 +77,7 @@ extension LegacyView {
     }
   #endif
 
-  #if !os(watchOS)
+  #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
     /// Constructs a Cocoa view, preferring to use SwiftUI for the implementation.
     ///
     /// - Important: This method should only be used on a view within its own `cocoa()` method. The view must also provide an independent implementation of `swiftUI()`.
