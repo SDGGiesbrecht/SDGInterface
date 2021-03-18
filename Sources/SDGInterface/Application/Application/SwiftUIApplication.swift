@@ -25,6 +25,10 @@
       @NSApplicationDelegateAdaptor(NSApplicationDelegate<Application>.self) var applicationDelegate
     #endif
 
+    #if canImport(UIKit)
+      @UIApplicationDelegateAdaptor(UIApplicationDelegate<Application>.self) var applicationDelegate
+    #endif
+
     // MARK: - Properties
 
     private let application: Application
