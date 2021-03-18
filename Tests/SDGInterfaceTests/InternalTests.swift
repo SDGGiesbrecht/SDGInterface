@@ -324,7 +324,7 @@ final class InternalTests: ApplicationTestCase {
 
   func testSwiftUIApplication() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      @available(macOS 11, iOS 14, *)
+      @available(macOS 11, iOS 14, tvOS 14, *)
       struct TestApplication: Application {
         init() {
           self.init(preferenceManager: nil)
@@ -350,7 +350,7 @@ final class InternalTests: ApplicationTestCase {
           )
         }
       }
-      if #available(macOS 11, iOS 14, *) {
+      if #available(macOS 11, iOS 14, tvOS 14, *) {
         _ = SwiftUIApplication<TestApplication>().body
       }
     #endif
