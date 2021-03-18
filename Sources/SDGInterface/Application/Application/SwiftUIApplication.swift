@@ -26,11 +26,11 @@
   {
 
     #if canImport(AppKit)
-      @NSApplicationDelegateAdaptor(NSApplicationDelegate<Application>.self) var applicationDelegate
+      @NSApplicationDelegateAdaptor(NSApplicationDelegate<Application>.self) internal var applicationDelegate
     #endif
 
     #if canImport(UIKit)
-      @UIApplicationDelegateAdaptor(UIApplicationDelegate<Application>.self) var applicationDelegate
+      @UIApplicationDelegateAdaptor(UIApplicationDelegate<Application>.self) internal var applicationDelegate
     #endif
 
     // MARK: - Properties
