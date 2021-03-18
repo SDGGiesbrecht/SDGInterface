@@ -102,7 +102,7 @@ extension LegacyApplication {
     /// Initializes and runs the application in the legacy manner.
     ///
     /// This variant of `main` works on platform versions preceding SwiftUI’s availability.
-    public static func legacyMain() -> Never {
+    public static func legacyMain() -> Never {  // @exempt(from: tests)
       let application = prepareForMain()
       withExtendedLifetime(application) {
         _legacyMain(application: application)

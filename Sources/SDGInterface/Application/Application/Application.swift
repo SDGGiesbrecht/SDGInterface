@@ -38,7 +38,7 @@ extension Application {
     }
   }
 
-  public static func main() {
+  public static func main() {  // @exempt(from: tests)
     modernMain()
   }
 }

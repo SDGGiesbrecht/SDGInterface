@@ -322,6 +322,40 @@ final class InternalTests: ApplicationTestCase {
     _ = string.compatibility
   }
 
+  func testSwiftUIApplication() {
+    #if canImport(SwiftUI)
+      @available(macOS 11, *)
+      struct TestApplication: Application {
+        init() {
+          self.init(preferenceManager: nil)
+        }
+        init(preferenceManager: PreferenceManager?) {
+          self.preferenceManager = preferenceManager
+        }
+        let preferenceManager: PreferenceManager?
+        // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
+        #if !os(WASI)
+          var applicationName: ProcessInfo.ApplicationNameResolver {
+            return { _ in "Test Application" }
+          }
+          var applicationIdentifier: String {
+            return "com.example.identifier"
+          }
+        #endif
+        var mainWindow: Window<EmptyView, AnyLocalization> {
+          return Window(
+            type: .primary(nil),
+            name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+            content: EmptyView()
+          )
+        }
+      }
+      if #available(macOS 11, *) {
+        _ = SwiftUIApplication<TestApplication>().body
+      }
+    #endif
+  }
+
   func testUIApplicationDelegate() {
     struct Error: Swift.Error {}
     struct TestApplication: LegacyApplication {
