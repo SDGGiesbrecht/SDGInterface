@@ -163,8 +163,12 @@ final class InternalTests: ApplicationTestCase {
           return "com.example.identifier"
         }
       #endif
-      func finishLaunching(_ details: LaunchDetails) -> Bool {
-        return true
+      var mainWindow: some LegacyWindow {
+        return Window(
+          type: .primary(nil),
+          name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+          content: EmptyView()
+        )
       }
     }
     struct TestPreferenceManager: PreferenceManager {
@@ -337,8 +341,12 @@ final class InternalTests: ApplicationTestCase {
           return "com.example.identifier"
         }
       #endif
-      func finishLaunching(_ details: LaunchDetails) -> Bool {
-        return true
+      var mainWindow: some LegacyWindow {
+        return Window(
+          type: .primary(nil),
+          name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+          content: EmptyView()
+        )
       }
     }
     struct TestPreferenceManager: PreferenceManager {

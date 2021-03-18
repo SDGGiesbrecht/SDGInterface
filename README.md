@@ -103,7 +103,7 @@ public struct SampleApplication: LegacyApplication {
     }
   }
 
-  public var mainWindow: LegacyWindow {
+  public var mainWindow: Window<Label<InterfaceLocalization>, InterfaceLocalization> {
     return Window(
       type: .primary(nil),
       name: UserFacing<StrictString, InterfaceLocalization>({ localization in

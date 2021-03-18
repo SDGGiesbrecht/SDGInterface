@@ -93,8 +93,12 @@ final class APITests: ApplicationTestCase {
           return "com.example.identifier"
         }
       #endif
-      func finishLaunching(_ details: LaunchDetails) -> Bool {
-        return true
+      var mainWindow: some LegacyWindow {
+        return Window(
+          type: .primary(nil),
+          name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+          content: EmptyView()
+        )
       }
     }
     XCTAssertNil(ExampleApplication().preferenceManager)
@@ -1668,14 +1672,14 @@ final class APITests: ApplicationTestCase {
               type: .primary(Size(width: 100, height: 100)),
               name: UserFacing<StrictString, AnyLocalization>({ _ in "Title" }),
               content: EmptyView()
-            ).body.body
+            ).swiftUI().body.body
           #if canImport(AppKit)
             _ =
               Window(
                 type: .fullscreen,
                 name: UserFacing<StrictString, AnyLocalization>({ _ in "Title" }),
                 content: EmptyView()
-              ).body.body
+              ).swiftUI().body.body
           #endif
         #endif
       }
