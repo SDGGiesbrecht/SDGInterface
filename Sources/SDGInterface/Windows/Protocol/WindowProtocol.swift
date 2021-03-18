@@ -17,7 +17,7 @@
 #endif
 
 /// A window.
-@available(macOS 11, *)
+@available(macOS 11, tvOS 14, *)
 public protocol WindowProtocol: LegacyWindow {
 
   /// The type of the SwiftUI scene.

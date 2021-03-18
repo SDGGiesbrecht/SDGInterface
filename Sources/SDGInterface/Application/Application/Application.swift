@@ -15,11 +15,11 @@
 /// A type that represents an application.
 ///
 /// Create an application by declaring a structure that conforms to the `Application` protocol.
-@available(macOS 11, iOS 14, *)
+@available(macOS 11, tvOS 14, iOS 14, *)
 public protocol Application: LegacyApplication
 where MenuBarType: MenuBarProtocol, MainWindow: WindowProtocol {}
 
-@available(macOS 11, iOS 14, *)
+@available(macOS 11, tvOS 14, iOS 14, *)
 extension Application {
 
   /// Initializes and runs the application in the modern manner.
@@ -29,13 +29,9 @@ extension Application {
     let application = prepareForMain()
     withExtendedLifetime(application) {
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-        if #available(tvOS 14, watchOS 7, *) {
-          applicationToUse = application
-          usingSwiftUI = true
-          SwiftUIApplication<Self>.main()
-        } else {
-          legacyMain()
-        }
+        applicationToUse = application
+        usingSwiftUI = true
+        SwiftUIApplication<Self>.main()
       #else
         legacyMain()
       #endif
