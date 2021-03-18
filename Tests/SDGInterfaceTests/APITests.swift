@@ -372,7 +372,7 @@ final class APITests: ApplicationTestCase {
     #if canImport(AppKit) || (canImport(UIKit) && !os(tvOS) && !os(watchOS))
       _ = Divider().cocoa()
     #endif
-    #if canImport(SwiftUI)
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       _ = Divider().swiftUI()
     #endif
   }
