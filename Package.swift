@@ -102,9 +102,24 @@ import PackageDescription
 ///     }
 ///   }
 ///
-///   public func finishLaunching(_ details: LaunchDetails) -> Bool {
-///     Swift.print("Hello, world!")
-///     return true
+///   public var mainWindow: LegacyWindow {
+///     return Window(
+///       type: .primary(nil),
+///       name: UserFacing<StrictString, InterfaceLocalization>({ localization in
+///         switch localization {
+///         case .englishCanada:
+///           return "Sample"
+///         }
+///       }),
+///       content: Label(
+///         UserFacing<StrictString, InterfaceLocalization>({ localization in
+///           switch localization {
+///           case .englishCanada:
+///             return "Hello, world!"
+///           }
+///         })
+///       )
+///     )
 ///   }
 /// }
 /// ```

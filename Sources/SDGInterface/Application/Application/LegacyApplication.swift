@@ -21,6 +21,9 @@ import Foundation
 #endif
 
 import SDGLogic
+import SDGLocalization
+
+internal var usingSwiftUI = false
 
 /// The subset of the `Application` protocol that can be conformed to even on platform versions preceding SwiftUI’s availability.
 public protocol LegacyApplication: SystemInterface {
@@ -36,6 +39,9 @@ public protocol LegacyApplication: SystemInterface {
     /// The application identifier.
     var applicationIdentifier: String { get }
   #endif
+
+  /// The application’s main window.
+  var mainWindow: LegacyWindow { get }
 
   /// The type that manages the application’s preferences.
   var preferenceManager: PreferenceManager? { get }
@@ -137,5 +143,16 @@ extension LegacyApplication {
     application.performPostLaunchSetUp()
     _ = application.finishLaunching(LaunchDetails())
     return application
+  }
+
+  // MARK: - SystemInterface
+
+  public func finishLaunching(_ details: LaunchDetails) -> Bool {
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+      if ¬usingSwiftUI {
+        mainWindow.display()
+      }
+    #endif
+    return true
   }
 }

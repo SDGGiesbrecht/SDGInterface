@@ -28,7 +28,7 @@ import SDGLocalization
 #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
   /// A window.
   @available(watchOS 6, *)
-  public struct Window<Content, L>: WindowProtocol where Content: LegacyView, L: Localization {
+  public struct Window<Content, L>: LegacyWindow where Content: LegacyView, L: Localization {
 
     // MARK: - Initialization
 
