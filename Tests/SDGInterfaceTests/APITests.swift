@@ -93,7 +93,7 @@ final class APITests: ApplicationTestCase {
           return "com.example.identifier"
         }
       #endif
-      var mainWindow: some LegacyWindow {
+      var mainWindow: Window<SDGInterface.EmptyView, AnyLocalization> {
         return Window(
           type: .primary(nil),
           name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),

@@ -163,7 +163,7 @@ final class InternalTests: ApplicationTestCase {
           return "com.example.identifier"
         }
       #endif
-      var mainWindow: some LegacyWindow {
+      var mainWindow: Window<EmptyView, AnyLocalization> {
         return Window(
           type: .primary(nil),
           name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
@@ -341,7 +341,7 @@ final class InternalTests: ApplicationTestCase {
           return "com.example.identifier"
         }
       #endif
-      var mainWindow: some LegacyWindow {
+      var mainWindow: Window<EmptyView, AnyLocalization> {
         return Window(
           type: .primary(nil),
           name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
