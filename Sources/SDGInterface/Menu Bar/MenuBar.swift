@@ -405,16 +405,18 @@ where ApplicationSpecificMenus: LegacyCommands {
 
   // MARK: - Items
 
-  internal static func fallbackApplicationName(
-    quotationMarks: (leading: StrictString, trailing: StrictString)
-  ) -> StrictString {
-    var result = quotationMarks.leading
-    result.append("\u{2068}")
-    result.append(contentsOf: ApplicationNameForm.localizedIsolatedForm.resolved())
-    result.append("\u{2069}")
-    result.append(contentsOf: quotationMarks.trailing)
-    return result
-  }
+  #if canImport(AppKit)
+    internal static func fallbackApplicationName(
+      quotationMarks: (leading: StrictString, trailing: StrictString)
+    ) -> StrictString {
+      var result = quotationMarks.leading
+      result.append("\u{2068}")
+      result.append(contentsOf: ApplicationNameForm.localizedIsolatedForm.resolved())
+      result.append("\u{2069}")
+      result.append(contentsOf: quotationMarks.trailing)
+      return result
+    }
+  #endif
 }
 
 @available(macOS 11, iOS 14, *)

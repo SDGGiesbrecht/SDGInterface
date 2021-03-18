@@ -31,8 +31,9 @@
     #endif
 
     #if canImport(UIKit) && !os(watchOS)
-      @UIApplicationDelegateAdaptor(UIApplicationDelegate<Application>.self) internal
-        var applicationDelegate
+      @UIApplicationDelegateAdaptor(  // @exempt(from: tests)
+        UIApplicationDelegate<Application>.self
+      ) internal var applicationDelegate
     #endif
 
     // MARK: - Properties

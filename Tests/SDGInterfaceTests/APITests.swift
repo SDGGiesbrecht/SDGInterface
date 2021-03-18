@@ -1073,9 +1073,7 @@ final class APITests: ApplicationTestCase {
     interface.prepareToUpdateInterface(nil)
     interface.finishUpdatingInterface(nil)
     _ = interface.reopen(hasVisibleWindows: nil)
-    #if canImport(AppKit)
-      _ = interface.dockMenu
-    #endif
+    _ = interface.dockMenu
     _ = interface.preprocessErrorForDisplay(interface)
     interface.updateAccordingToScreenChange(nil)
     interface.finishGainingAccessToProtectedData()
@@ -1117,9 +1115,7 @@ final class APITests: ApplicationTestCase {
         XCTAssertEqual(TerminationResponse(cocoa), response)
       #endif
     }
-    #if canImport(AppKit)
-      _ = interface.menuBar
-    #endif
+    _ = interface.menuBar
   }
 
   func testTable() {
