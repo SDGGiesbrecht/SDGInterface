@@ -80,7 +80,7 @@
       system.foundation = notification
       var details = LaunchDetails()
       details.notification = system
-      _ = application.finishLaunching(details)
+      _ = application.setUpAndFinishLaunching(details)
     }
 
     internal func applicationWillBecomeActive(_ notification: Notification) {

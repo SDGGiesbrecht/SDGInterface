@@ -141,18 +141,22 @@ extension LegacyApplication {
     let application = prepareForMain()
     _ = application.prepareToLaunch(LaunchDetails())
     application.performPostLaunchSetUp()
-    _ = application.finishLaunching(LaunchDetails())
+    _ = application.setUpAndFinishLaunching(LaunchDetails())
     return application
   }
 
-  // MARK: - SystemInterface
-
-  public func finishLaunching(_ details: LaunchDetails) -> Bool {
+  internal func setUpAndFinishLaunching(_ details: LaunchDetails) -> Bool {
     #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       if ¬usingSwiftUI {
         mainWindow.display()
       }
     #endif
+    return finishLaunching(details)
+  }
+
+  // MARK: - SystemInterface
+
+  public func finishLaunching(_ details: LaunchDetails) -> Bool {
     return true
   }
 }

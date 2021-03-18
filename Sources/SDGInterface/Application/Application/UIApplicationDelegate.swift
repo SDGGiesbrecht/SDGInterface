@@ -71,7 +71,7 @@
 
       var details = LaunchDetails()
       details.options = launchOptions
-      return self.application.finishLaunching(details)
+      return self.application.setUpAndFinishLaunching(details)
     }
 
     internal func applicationDidBecomeActive(_ application: UIApplication) {
