@@ -23,10 +23,11 @@
   import SDGInterface
 
   #if !(os(iOS) && arch(arm))
-    @available(macOS 11, *)
+    @available(macOS 11, watchOS 6, *)
     extension SampleApplication: Application {}
   #endif
 
+  @available(watchOS 6, *)
   public struct SampleApplication: LegacyApplication {
 
     public init() {}
@@ -82,7 +83,7 @@
       #if os(iOS) && arch(arm)
         legacyMain()
       #else
-        if #available(macOS 11, tvOS 14, iOS 14, *) {
+        if #available(macOS 11, tvOS 14, iOS 14, watchOS 7, *) {
           modernMain()
         } else {
           legacyMain()
@@ -112,6 +113,7 @@
   }
   // @endExample
 
+  @available(watchOS 6, *)
   extension SampleApplication {
 
     // MARK: - Application

@@ -15,11 +15,11 @@
 /// A type that represents an application.
 ///
 /// Create an application by declaring a structure that conforms to the `Application` protocol.
-@available(macOS 11, tvOS 14, iOS 14, *)
+@available(macOS 11, tvOS 14, iOS 14, watchOS 7, *)
 public protocol Application: LegacyApplication
 where MenuBarType: MenuBarProtocol, MainWindow: WindowProtocol {}
 
-@available(macOS 11, tvOS 14, iOS 14, *)
+@available(macOS 11, tvOS 14, iOS 14, watchOS 7, *)
 extension Application {
 
   /// Initializes and runs the application in the modern manner.

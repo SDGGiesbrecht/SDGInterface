@@ -17,7 +17,7 @@
 #endif
 
 /// A window.
-@available(macOS 11, tvOS 14, iOS 14, *)
+@available(macOS 11, tvOS 14, iOS 14, watchOS 7, *)
 public protocol WindowProtocol: LegacyWindow {
 
   #if canImport(SwiftUI) && !(os(iOS) && arch(arm))

@@ -33,101 +33,102 @@ import PackageDescription
 /// ### Example Usage
 ///
 /// ```swift
-///   import Foundation
+/// import Foundation
 ///
-///   import SDGText
-///   import SDGLocalization
+/// import SDGText
+/// import SDGLocalization
 ///
-///   import SDGInterface
+/// import SDGInterface
 ///
 /// #if !(os(iOS) && arch(arm))
-///   @available(macOS 11, *)
+///   @available(macOS 11, watchOS 6, *)
 ///   extension SampleApplication: Application {}
 /// #endif
 ///
-///   public struct SampleApplication: LegacyApplication {
+/// @available(watchOS 6, *)
+/// public struct SampleApplication: LegacyApplication {
 ///
-///     public init() {}
+///   public init() {}
 ///
-///     public var applicationName: ProcessInfo.ApplicationNameResolver {
-///       return { form in
-///         switch form {
-///         case .english(let region):
-///           switch region {
-///           case .unitedKingdom, .unitedStates, .canada:
-///             return "Sample"
-///           }
-///         case .español(let preposición):
-///           switch preposición {
-///           case .ninguna:
-///             return "Ejemplar"
-///           case .de:
-///             return "del Ejemplar"
-///           }
-///         case .deutsch(let fall):
-///           switch fall {
-///           case .nominativ, .akkusativ, .dativ:
-///             return "Beispiel"
-///           }
-///         case .français(let préposition):
-///           switch préposition {
-///           case .aucune:
-///             return "Exemple"
-///           case .de:
-///             return "de l’Exemple"
-///           }
-///
-///         case .ελληνικά(let πτώση):
-///           switch πτώση {
-///           case .ονομαστική:
-///             return "Παράδειγμα"
-///           case .αιτιατική:
-///             return "το Παράδειγμα"
-///           case .γενική:
-///             return "του Παραδείγματος"
-///           }
-///         case .עברית:
-///           return "דוגמה"
+///   public var applicationName: ProcessInfo.ApplicationNameResolver {
+///     return { form in
+///       switch form {
+///       case .english(let region):
+///         switch region {
+///         case .unitedKingdom, .unitedStates, .canada:
+///           return "Sample"
 ///         }
+///       case .español(let preposición):
+///         switch preposición {
+///         case .ninguna:
+///           return "Ejemplar"
+///         case .de:
+///           return "del Ejemplar"
+///         }
+///       case .deutsch(let fall):
+///         switch fall {
+///         case .nominativ, .akkusativ, .dativ:
+///           return "Beispiel"
+///         }
+///       case .français(let préposition):
+///         switch préposition {
+///         case .aucune:
+///           return "Exemple"
+///         case .de:
+///           return "de l’Exemple"
+///         }
+///
+///       case .ελληνικά(let πτώση):
+///         switch πτώση {
+///         case .ονομαστική:
+///           return "Παράδειγμα"
+///         case .αιτιατική:
+///           return "το Παράδειγμα"
+///         case .γενική:
+///           return "του Παραδείγματος"
+///         }
+///       case .עברית:
+///         return "דוגמה"
 ///       }
 ///     }
+///   }
 ///
-///     public var applicationIdentifier: String {
-///       return "com.example.SampleApplication"
-///     }
+///   public var applicationIdentifier: String {
+///     return "com.example.SampleApplication"
+///   }
 ///
-///     public static func main() {
-///       #if os(iOS) && arch(arm)
-///         legacyMain()
-///       #else
-///       if #available(macOS 11, tvOS 14, iOS 14, *) {
+///   public static func main() {
+///     #if os(iOS) && arch(arm)
+///       legacyMain()
+///     #else
+///       if #available(macOS 11, tvOS 14, iOS 14, watchOS 7, *) {
 ///         modernMain()
 ///       } else {
 ///         legacyMain()
 ///       }
-///       #endif
-///     }
+///     #endif
+///   }
 ///
-///     public var mainWindow: Window<Label<InterfaceLocalization>, InterfaceLocalization> {
-///       return Window(
-///         type: .primary(nil),
-///         name: UserFacing<StrictString, InterfaceLocalization>({ localization in
+///   public var mainWindow: Window<Label<InterfaceLocalization>, InterfaceLocalization> {
+///     return Window(
+///       type: .primary(nil),
+///       name: UserFacing<StrictString, InterfaceLocalization>({ localization in
+///         switch localization {
+///         case .englishCanada:
+///           return "Sample"
+///         }
+///       }),
+///       content: Label(
+///         UserFacing<StrictString, InterfaceLocalization>({ localization in
 ///           switch localization {
 ///           case .englishCanada:
-///             return "Sample"
+///             return "Hello, world!"
 ///           }
-///         }),
-///         content: Label(
-///           UserFacing<StrictString, InterfaceLocalization>({ localization in
-///             switch localization {
-///             case .englishCanada:
-///               return "Hello, world!"
-///             }
-///           })
-///         )
+///         })
 ///       )
-///     }
+///     )
 ///   }
+/// }
 /// ```
 ///
 /// ```swift

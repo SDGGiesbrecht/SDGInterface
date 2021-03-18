@@ -30,7 +30,7 @@
         var applicationDelegate
     #endif
 
-    #if canImport(UIKit)
+    #if canImport(UIKit) && !os(watchOS)
       @UIApplicationDelegateAdaptor(UIApplicationDelegate<Application>.self) internal
         var applicationDelegate
     #endif
