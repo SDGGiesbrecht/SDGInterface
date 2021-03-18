@@ -369,7 +369,10 @@ final class APITests: ApplicationTestCase {
   }
 
   func testDivider() {
-    #if canImport(AppKit)
+    #if canImport(AppKit) || (canImport(UIKit) && !os(tvOS) && !os(watchOS))
+      _ = Divider().cocoa()
+    #endif
+    #if canImport(SwiftUI)
       _ = Divider().swiftUI()
     #endif
   }
