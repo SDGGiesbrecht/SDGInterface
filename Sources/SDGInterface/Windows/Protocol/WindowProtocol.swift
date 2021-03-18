@@ -17,5 +17,12 @@
 #endif
 
 /// A window.
+@available(macOS 11, *)
 public protocol WindowProtocol: LegacyWindow {
+
+  /// The type of the SwiftUI scene.
+  associatedtype SwiftUIScene: SwiftUI.Scene
+
+  /// The SwiftUI scene.
+  func swiftUI() -> SwiftUIScene
 }

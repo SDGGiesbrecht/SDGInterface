@@ -111,12 +111,16 @@ public struct SampleApplication: LegacyApplication {
         case .englishCanada:
           return "Sample"
         }
-    }), content: Label(UserFacing<StrictString, InterfaceLocalization>({ localization in
-      switch localization {
-      case .englishCanada:
-        return "Hello, world!"
-      }
-  })))
+      }),
+      content: Label(
+        UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishCanada:
+            return "Hello, world!"
+          }
+        })
+      )
+    )
   }
 }
 ```

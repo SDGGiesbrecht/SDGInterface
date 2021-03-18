@@ -40,8 +40,10 @@ public protocol LegacyApplication: SystemInterface {
     var applicationIdentifier: String { get }
   #endif
 
+  /// The type of the main window.
+  associatedtype MainWindow: LegacyWindow
   /// The application’s main window.
-  var mainWindow: LegacyWindow { get }
+  var mainWindow: MainWindow { get }
 
   /// The type that manages the application’s preferences.
   var preferenceManager: PreferenceManager? { get }

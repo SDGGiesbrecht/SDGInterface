@@ -19,7 +19,11 @@
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   @available(macOS 11, tvOS 14, iOS 14, watchOS 7, *)
   internal struct SwiftUIApplication<Application>: App
-  where Application: LegacyApplication, Application.MenuBarType: MenuBarProtocol {
+  where
+    Application: LegacyApplication,
+    Application.MenuBarType: MenuBarProtocol,
+    Application.MainWindow: WindowProtocol
+  {
 
     #if canImport(AppKit)
       @NSApplicationDelegateAdaptor(NSApplicationDelegate<Application>.self) var applicationDelegate
@@ -40,9 +44,7 @@
     }
 
     internal var body: some Scene {
-      #warning("Not customized.")
-      let scene = WindowGroup {
-      }
+      let scene = application.mainWindow.swiftUI()
       #if os(tvOS) || os(watchOS)
         return scene
       #else
