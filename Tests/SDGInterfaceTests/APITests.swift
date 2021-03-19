@@ -567,19 +567,23 @@ final class APITests: ApplicationTestCase {
   }
 
   func testMenu() {
-    #if (canImport(SwiftUI) && !os(tvOS)) || canImport(AppKit) || (canImport(UIKit) && !os(tvOS))
+    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
       let entry = MenuEntry(
         label: UserFacing<StrictString, APILocalization>({ _ in "..." }),
         action: {}
       )
       let menuLabel = UserFacing<StrictString, APILocalization>({ _ in "initial" })
       let menu = SDGInterface.Menu(label: menuLabel, entries: { entry })
-      _ = menu.cocoa()
+      #if canImport(AppKit) || (canImport(UIKit) && !os(tvOS))
+        _ = menu.cocoa()
+      #endif
       _ = menu.menuComponents()
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-        if #available(macOS 11, iOS 14, *) {
+        if #available(macOS 11, tvOS 13, iOS 14, *) {
           _ = menu.swiftUI().body
-          _ = menu.swiftUICommands().body
+          #if !os(tvOS)
+            _ = menu.swiftUICommands().body
+          #endif
         }
       #endif
     #endif

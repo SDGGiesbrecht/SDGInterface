@@ -102,9 +102,7 @@
       for localization in InterfaceLocalization.allCases {
         LocalizationSetting(orderOfPrecedence: [localization.code]).do {
           if #available(macOS 11, tvOS 13, iOS 14, watchOS 6, *) {
-            #if !os(tvOS)
-              _ = MenuPreviews.previews
-            #endif
+            _ = MenuPreviews.previews
           }
         }
       }
