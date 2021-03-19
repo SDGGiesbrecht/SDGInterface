@@ -373,7 +373,7 @@ final class APITests: ApplicationTestCase {
       _ = Divider().cocoa()
     #endif
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      if #available(tvOS 13, *) {
+      if #available(tvOS 13, iOS 13, *) {
         _ = Divider().swiftUI()
       }
     #endif
