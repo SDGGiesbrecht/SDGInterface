@@ -989,6 +989,9 @@ final class APITests: ApplicationTestCase {
       )
       #if !os(Linux)
         XCTAssertEqual(doubled, doubledSeparately)
+      #else
+        _ = doubled
+        _ = doubledSeparately
       #endif
       XCTAssert(RichText(rawText: "...").scalars().elementsEqual("...".scalars))
       for _ in (half + RichText(rawText: "...")).reversed() {}
@@ -999,6 +1002,8 @@ final class APITests: ApplicationTestCase {
       let nothingConcatenated = half + RichText(rawText: "")
       #if !os(Linux)
         XCTAssertEqual(nothingConcatenated, half)
+      #else
+        _ = nothingConcatenated
       #endif
       richText = RichText(rawText: "......")
       let subrange =
@@ -1623,7 +1628,7 @@ final class APITests: ApplicationTestCase {
     let window = Window(
       type: .primary(nil),
       name: UserFacing<StrictString, AnyLocalization>({ _ in "Title" }),
-      content: EmptyView().cocoa()
+      content: EmptyView()
     )
     #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
       let cocoaWindow = window.cocoa()
