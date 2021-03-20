@@ -536,31 +536,31 @@ final class APITests: ApplicationTestCase {
   }
 
   func testLegacyView() {
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      class Legacy: LegacyView {
+    class Legacy: LegacyView {
+      #if canImport(AppKit) || canImport(UIKit)
         func cocoa() -> CocoaView {
           return EmptyView().cocoa()
         }
-      }
+      #endif
+    }
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
         _ = Legacy().swiftUIAnyView()
       }
     #endif
-    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
-      let combined = SDGInterface.EmptyView().popOver(
-        isPresented: Shared(false),
-        content: { SDGInterface.EmptyView() }
-      )
-      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
-        let testBody: Bool
-        #if os(tvOS)
-          testBody = false
-        #else
-          testBody = true
-        #endif
-        testViewConformance(of: combined, testBody: testBody)
-      }
-    #endif
+    let combined = SDGInterface.EmptyView().popOver(
+      isPresented: Shared(false),
+      content: { SDGInterface.EmptyView() }
+    )
+    if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+      let testBody: Bool
+      #if os(tvOS)
+        testBody = false
+      #else
+        testBody = true
+      #endif
+      testViewConformance(of: combined, testBody: testBody)
+    }
   }
 
   func testLog() {
