@@ -68,10 +68,10 @@ public struct Window<Content, L>: LegacyWindow where Content: LegacyView, L: Loc
   #endif
 }
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-  @available(macOS 11, tvOS 14, iOS 14, watchOS 7, *)
-  extension Window: WindowProtocol where Content: SDGInterface.View {
+@available(macOS 11, tvOS 14, iOS 14, watchOS 7, *)
+extension Window: WindowProtocol where Content: SDGInterface.View {
 
+  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
     public func swiftUI() -> some Scene {
       return SwiftUIImplementation(
         type: type,
@@ -80,5 +80,5 @@ public struct Window<Content, L>: LegacyWindow where Content: LegacyView, L: Loc
         onClose: onClose
       )
     }
-  }
-#endif
+  #endif
+}
