@@ -686,7 +686,7 @@ final class APITests: ApplicationTestCase {
       )
       menuLabel.value = "changed"
       menuLabel.value = "unrelated"
-      #if !os(tvOS)
+      #if canImport(AppKit) || (canImport(UIKit) && !os(tvOS))
         _ = entry.cocoa()
       #endif
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
@@ -700,7 +700,7 @@ final class APITests: ApplicationTestCase {
         hotKey: "a",
         action: {}
       )
-      #if !os(tvOS)
+      #if canImport(AppKit) || (canImport(UIKit) && !os(tvOS))
         _ = withHotKey.cocoa()
       #endif
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
