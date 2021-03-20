@@ -455,6 +455,10 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
+  func testFramed() {
+    _ = SDGInterface.EmptyView().frame(minWidth: 10, minHeight: 10)
+  }
+
   func testHorizontalStack() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *) {
@@ -521,6 +525,10 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
+  func testLayered() {
+    _ = SDGInterface.EmptyView().background(EmptyView())
+  }
+
   func testLayoutConstraintPriority() {
     #if canImport(AppKit) || canImport(UIKit)
       _ = LayoutConstraintPriority(rawValue: 500)
@@ -567,25 +575,23 @@ final class APITests: ApplicationTestCase {
   }
 
   func testMenu() {
-    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
-      let entry = MenuEntry(
-        label: UserFacing<StrictString, APILocalization>({ _ in "..." }),
-        action: {}
-      )
-      let menuLabel = UserFacing<StrictString, APILocalization>({ _ in "initial" })
-      let menu = SDGInterface.Menu(label: menuLabel, entries: { entry })
-      #if canImport(AppKit) || (canImport(UIKit) && !os(tvOS))
-        _ = menu.cocoa()
-      #endif
-      _ = menu.menuComponents()
-      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-        if #available(macOS 11, tvOS 13, iOS 14, *) {
-          _ = menu.swiftUI().body
-          #if !os(tvOS)
-            _ = menu.swiftUICommands().body
-          #endif
-        }
-      #endif
+    let entry = MenuEntry(
+      label: UserFacing<StrictString, APILocalization>({ _ in "..." }),
+      action: {}
+    )
+    let menuLabel = UserFacing<StrictString, APILocalization>({ _ in "initial" })
+    let menu = SDGInterface.Menu(label: menuLabel, entries: { entry })
+    #if canImport(AppKit) || (canImport(UIKit) && !os(tvOS))
+      _ = menu.cocoa()
+    #endif
+    _ = menu.menuComponents()
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      if #available(macOS 11, tvOS 13, iOS 14, *) {
+        _ = menu.swiftUI().body
+        #if !os(tvOS)
+          _ = menu.swiftUICommands().body
+        #endif
+      }
     #endif
   }
 
@@ -672,62 +678,60 @@ final class APITests: ApplicationTestCase {
   }
 
   func testMenuEntry() {
-    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
-      if #available(tvOS 13, *) {
-        let menuLabel = Shared<StrictString>("initial")
-        let entry = MenuEntry<APILocalization>(
+    if #available(tvOS 13, *) {
+      let menuLabel = Shared<StrictString>("initial")
+      let entry = MenuEntry<APILocalization>(
+        label: UserFacing<StrictString, APILocalization>({ _ in "" }),
+        action: {}
+      )
+      menuLabel.value = "changed"
+      menuLabel.value = "unrelated"
+      #if !os(tvOS)
+        _ = entry.cocoa()
+      #endif
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        if #available(macOS 11, iOS 14, *) {
+          _ = entry.swiftUI().body
+        }
+      #endif
+      let withHotKey = MenuEntry<APILocalization>(
+        label: UserFacing<StrictString, APILocalization>({ _ in "" }),
+        hotKeyModifiers: [.command],
+        hotKey: "a",
+        action: {}
+      )
+      #if !os(tvOS)
+        _ = withHotKey.cocoa()
+      #endif
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        if #available(macOS 11, iOS 14, *) {
+          _ = withHotKey.swiftUI().body
+        }
+      #endif
+      let hidden = MenuEntry<APILocalization>(
+        label: UserFacing<StrictString, APILocalization>({ _ in "" }),
+        action: {},
+        isHidden: Shared(true)
+      )
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        if #available(macOS 11, iOS 14, *) {
+          _ = hidden.swiftUI().body
+        }
+      #endif
+      #if canImport(UIKit)
+        let withSelector = MenuEntry<APILocalization>(
           label: UserFacing<StrictString, APILocalization>({ _ in "" }),
-          action: {}
-        )
-        menuLabel.value = "changed"
-        menuLabel.value = "unrelated"
-        #if !os(tvOS)
-          _ = entry.cocoa()
-        #endif
-        #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-          if #available(macOS 11, iOS 14, *) {
-            _ = entry.swiftUI().body
-          }
-        #endif
-        let withHotKey = MenuEntry<APILocalization>(
-          label: UserFacing<StrictString, APILocalization>({ _ in "" }),
-          hotKeyModifiers: [.command],
-          hotKey: "a",
-          action: {}
-        )
-        #if !os(tvOS)
-          _ = withHotKey.cocoa()
-        #endif
-        #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-          if #available(macOS 11, iOS 14, *) {
-            _ = withHotKey.swiftUI().body
-          }
-        #endif
-        let hidden = MenuEntry<APILocalization>(
-          label: UserFacing<StrictString, APILocalization>({ _ in "" }),
-          action: {},
-          isHidden: Shared(true)
+          selector: #selector(NSObject.copy)
         )
         #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-          if #available(macOS 11, iOS 14, *) {
-            _ = hidden.swiftUI().body
+          if #available(iOS 14, *) {
+            _ = withSelector.swiftUI().body
           }
+        #else
+          _ = withSelector
         #endif
-        #if canImport(UIKit)
-          let withSelector = MenuEntry<APILocalization>(
-            label: UserFacing<StrictString, APILocalization>({ _ in "" }),
-            selector: #selector(NSObject.copy)
-          )
-          #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-            if #available(iOS 14, *) {
-              _ = withSelector.swiftUI().body
-            }
-          #else
-            _ = withSelector
-          #endif
-        #endif
-      }
-    #endif
+      #endif
+    }
   }
 
   func testNotification() {
@@ -742,6 +746,10 @@ final class APITests: ApplicationTestCase {
       }
       XCTAssertEqual(converted.count, 4)
     #endif
+  }
+
+  func testPadded() {
+    _ = SDGInterface.EmptyView().padding()
   }
 
   func testPoint() {
@@ -774,6 +782,10 @@ final class APITests: ApplicationTestCase {
         _ = PopoverAttachmentAnchor(shimmed)
       }
     #endif
+  }
+
+  func testProportioned() {
+    _ = SDGInterface.EmptyView().aspectRatio(contentMode: .fill)
   }
 
   func testQuickActionDetails() {
