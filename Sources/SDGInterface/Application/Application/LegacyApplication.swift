@@ -152,6 +152,8 @@ extension LegacyApplication {
       if ¬usingSwiftUI {
         mainWindow.display()
       }
+    #elseif DEBUG
+      _ = mainWindow  // Eager execution to simplify testing.
     #endif
     return finishLaunching(details)
   }

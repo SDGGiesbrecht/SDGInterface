@@ -60,6 +60,7 @@ extension SDGInterfaceTests.APITests {
       ("testLayered", testLayered),
       ("testLayoutConstraintPriority", testLayoutConstraintPriority),
       ("testLegacyView", testLegacyView),
+      ("testLetterbox", testLetterbox),
       ("testLog", testLog),
       ("testMenu", testMenu),
       ("testMenuBar", testMenuBar),

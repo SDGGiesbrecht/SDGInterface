@@ -508,21 +508,21 @@ final class APITests: ApplicationTestCase {
   func testLabel() {
     #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
       MenuBarTarget.shared.demonstrateLabel()
-      let label = SDGInterface.Label<SDGInterfaceSample.InterfaceLocalization>(
-        UserFacing({ _ in "..." }),
-        colour: .black
-      )
-      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
-        let testBody: Bool
-        // #workaround(Swift 5.3.2, SwiftUI would be a step backward from AppKit or UIKit without the ability to interact properly with menus such as “Copy”.)
-        #if !canImport(AppKit) && !canImport(UIKit)
-          testBody = true
-        #else
-          testBody = false
-        #endif
-        testViewConformance(of: label, testBody: testBody)
-      }
     #endif
+    let label = SDGInterface.Label<SDGInterfaceSample.InterfaceLocalization>(
+      UserFacing({ _ in "..." }),
+      colour: .black
+    )
+    if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+      let testBody: Bool
+      // #workaround(Swift 5.3.2, SwiftUI would be a step backward from AppKit or UIKit without the ability to interact properly with menus such as “Copy”.)
+      #if !canImport(AppKit) && !canImport(UIKit)
+        testBody = true
+      #else
+        testBody = false
+      #endif
+      testViewConformance(of: label, testBody: testBody)
+    }
   }
 
   func testLayered() {
@@ -561,6 +561,13 @@ final class APITests: ApplicationTestCase {
       #endif
       testViewConformance(of: combined, testBody: testBody)
     }
+  }
+
+  func testLetterbox() {
+    testViewConformance(
+      of: SDGInterface.EmptyView().letterbox(aspectRatio: 1, background: EmptyView()),
+      testBody: false
+    )
   }
 
   func testLog() {
@@ -1613,22 +1620,23 @@ final class APITests: ApplicationTestCase {
   }
 
   func testWindow() {
+    let window = Window(
+      type: .primary(nil),
+      name: UserFacing<StrictString, AnyLocalization>({ _ in "Title" }),
+      content: EmptyView().cocoa()
+    )
     #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
-      let window = Window(
-        type: .primary(nil),
-        name: UserFacing<StrictString, AnyLocalization>({ _ in "Title" }),
-        content: EmptyView().cocoa()
-      ).cocoa()
+      let cocoaWindow = window.cocoa()
       #if canImport(AppKit)  // UIKit raises an exception during tests.
-        window.display()
-        window.location = Point(100, 200)
-        window.size = Size(width: 300, height: 400)
+        cocoaWindow.display()
+        cocoaWindow.location = Point(100, 200)
+        cocoaWindow.size = Size(width: 300, height: 400)
       #endif
-      defer { window.close() }
+      defer { cocoaWindow.close() }
 
       #if canImport(AppKit)
-        window.isFullscreen = true
-        _ = window.isFullscreen
+        cocoaWindow.isFullscreen = true
+        _ = cocoaWindow.isFullscreen
         let fullscreenWindow = Window(
           type: .fullscreen,
           name: UserFacing<StrictString, AnyLocalization>({ _ in "Fullscreen" }),
@@ -1679,8 +1687,8 @@ final class APITests: ApplicationTestCase {
         primary.isAuxiliary = false
       #endif
 
-      _ = window.isVisible
-      window.location = Point(0, 0)
+      _ = cocoaWindow.isVisible
+      cocoaWindow.location = Point(0, 0)
 
       if #available(macOS 11, tvOS 14, iOS 14, *) {
         #if !(canImport(UIKit) && (os(iOS) && arch(arm)))
