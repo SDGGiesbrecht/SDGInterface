@@ -564,10 +564,12 @@ final class APITests: ApplicationTestCase {
   }
 
   func testLetterbox() {
-    testViewConformance(
-      of: SDGInterface.EmptyView().letterbox(aspectRatio: 1, background: EmptyView()),
-      testBody: false
-    )
+    if #available(tvOS 13, iOS 13, *) {
+      testViewConformance(
+        of: SDGInterface.EmptyView().letterbox(aspectRatio: 1, background: EmptyView()),
+        testBody: false
+      )
+    }
   }
 
   func testLog() {
