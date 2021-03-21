@@ -102,7 +102,7 @@ final class APITests: ApplicationTestCase {
       }
       // #workaround(Swift 5.3.2, Web lacks RunLoop.)
       #if os(WASI)
-        func main() {}
+        static func main() {}
       #endif
     }
     XCTAssertNil(ExampleApplication().preferenceManager)
