@@ -47,7 +47,7 @@
     }
 
     internal var body: some Scene {
-      /*let mainWindow = application.mainWindow.swiftUI()
+      let mainWindow = application.mainWindow.swiftUI()
       #if os(macOS)
       let preferences = Settings {
         #warning("Not implemented yet.")
@@ -65,16 +65,7 @@
           application.menuBar.swiftUI()
         }
       #endif
-      return withCommands*/
-      #warning("Continue here. Why is it greyed out?")
-      WindowGroup {
-        Text("Main Window")
-          .padding()
-      }
-      Settings {
-        Text("Settings")
-          .padding()
-      }
+      return withCommands
     }
   }
 #endif
