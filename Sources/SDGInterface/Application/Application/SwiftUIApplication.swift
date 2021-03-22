@@ -46,26 +46,24 @@
       application = Application()
     }
 
-    internal var body: some Scene {
-      let mainWindow = application.mainWindow.swiftUI()
+    @SceneBuilder private var windows: some Scene {
+      application.mainWindow.swiftUI()
       #if os(macOS)
-      let preferences = Settings {
+      Settings {
         #warning("Not implemented yet.")
         Text("Hello?")
           .padding()
       }
-      let withPreferences = SceneBuilder.buildBlock(mainWindow, preferences)
-      #else
-        let withPreferences = mainWindow
       #endif
+    }
+    internal var body: some Scene {
       #if os(tvOS) || os(watchOS)
-        let withCommands = withPreferences
+        windows
       #else
-        let withCommands = withPreferences.commands {
+        windows.commands {
           application.menuBar.swiftUI()
         }
       #endif
-      return withCommands
     }
   }
 #endif
