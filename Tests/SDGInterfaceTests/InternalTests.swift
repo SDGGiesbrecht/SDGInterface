@@ -170,6 +170,10 @@ final class InternalTests: ApplicationTestCase {
           content: EmptyView()
         )
       }
+      // #workaround(Swift 5.3.2, Web lacks RunLoop.)
+      #if os(WASI)
+        static func main() {}
+      #endif
     }
     struct TestPreferenceManager: PreferenceManager {
       func openPreferences() {}
