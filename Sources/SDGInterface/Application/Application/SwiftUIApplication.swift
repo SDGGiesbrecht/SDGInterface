@@ -47,14 +47,34 @@
     }
 
     internal var body: some Scene {
-      let scene = application.mainWindow.swiftUI()
-      #if os(tvOS) || os(watchOS)
-        return scene
+      /*let mainWindow = application.mainWindow.swiftUI()
+      #if os(macOS)
+      let preferences = Settings {
+        #warning("Not implemented yet.")
+        Text("Hello?")
+          .padding()
+      }
+      let withPreferences = SceneBuilder.buildBlock(mainWindow, preferences)
       #else
-        return scene.commands {
+        let withPreferences = mainWindow
+      #endif
+      #if os(tvOS) || os(watchOS)
+        let withCommands = withPreferences
+      #else
+        let withCommands = withPreferences.commands {
           application.menuBar.swiftUI()
         }
       #endif
+      return withCommands*/
+      #warning("Continue here. Why is it greyed out?")
+      WindowGroup {
+        Text("Main Window")
+          .padding()
+      }
+      Settings {
+        Text("Settings")
+          .padding()
+      }
     }
   }
 #endif

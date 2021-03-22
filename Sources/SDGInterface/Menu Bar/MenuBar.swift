@@ -431,10 +431,11 @@ extension MenuBar: MenuBarProtocol where ApplicationSpecificMenus: SDGInterface.
           MenuBar<SDGInterface.EmptyCommands>.about().swiftUI()
         }
 
-        CommandGroup(replacing: .appSettings) {
+        #warning("Disabled.")
+        /*CommandGroup(replacing: .appSettings) {
           // Hiding managed separately.
-          MenuBar<SDGInterface.EmptyCommands>.preferences().swiftUI()
-        }
+          //MenuBar<SDGInterface.EmptyCommands>.preferences().swiftUI()
+        }*/
 
         CommandGroup(replacing: .appVisibility) {
           // Improved grammar of interpolation.

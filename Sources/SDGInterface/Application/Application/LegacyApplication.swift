@@ -120,6 +120,7 @@ extension LegacyApplication {
     #endif
 
     #if canImport(AppKit)
+    if ¬usingSwiftUI {
       hidePreferences.value = preferenceManager == nil
       let menuBar = self.menuBar.cocoa()
       NSApplication.shared.mainMenu = menuBar
@@ -127,6 +128,7 @@ extension LegacyApplication {
         menuBar.items.first?.submenu?.items.first(where: { $0.submenu ≠ nil })?.submenu
       NSApplication.shared.windowsMenu = menuBar.items.dropLast().last?.submenu
       NSApplication.shared.helpMenu = menuBar.items.last?.submenu
+    }
     #endif
 
     #if canImport(AppKit)
