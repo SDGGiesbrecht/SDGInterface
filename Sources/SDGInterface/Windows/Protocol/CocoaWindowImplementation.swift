@@ -22,7 +22,7 @@
   /// A window that is implemented using Cocoa.
   ///
   /// If a type provides an implementation of `cocoa()`, conformance to this protocol can be declared in order to use default implementations for all the other requirements of `SDGSwift.WindowProtocol`.
-  public protocol CocoaWindowImplementation: WindowProtocol {}
+  public protocol CocoaWindowImplementation: LegacyWindow {}
 
   extension CocoaWindowImplementation where Self: CocoaWindow.NativeType {
     public func cocoa() -> CocoaWindow {

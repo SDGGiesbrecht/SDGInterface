@@ -40,7 +40,13 @@ import PackageDescription
 ///
 /// import SDGInterface
 ///
-/// public struct SampleApplication: SDGInterface.Application {
+/// #if !(os(iOS) && arch(arm))
+///   @available(macOS 11, watchOS 6, *)
+///   extension SampleApplication: Application {}
+/// #endif
+///
+/// @available(watchOS 6, *)
+/// public struct SampleApplication: LegacyApplication {
 ///
 ///   public init() {}
 ///
@@ -91,9 +97,36 @@ import PackageDescription
 ///     return "com.example.SampleApplication"
 ///   }
 ///
-///   public func finishLaunching(_ details: LaunchDetails) -> Bool {
-///     Swift.print("Hello, world!")
-///     return true
+///   public static func main() {  // @exempt(from: tests)
+///     #if os(iOS) && arch(arm)
+///       legacyMain()
+///     #else
+///       if #available(macOS 11, tvOS 14, iOS 14, watchOS 7, *) {
+///         modernMain()
+///       } else {
+///         legacyMain()
+///       }
+///     #endif
+///   }
+///
+///   public var mainWindow: Window<Label<InterfaceLocalization>, InterfaceLocalization> {
+///     return Window(
+///       type: .primary(nil),
+///       name: UserFacing<StrictString, InterfaceLocalization>({ localization in
+///         switch localization {
+///         case .englishCanada:
+///           return "Sample"
+///         }
+///       }),
+///       content: Label(
+///         UserFacing<StrictString, InterfaceLocalization>({ localization in
+///           switch localization {
+///           case .englishCanada:
+///             return "Hello, world!"
+///           }
+///         })
+///       )
+///     )
 ///   }
 /// }
 /// ```

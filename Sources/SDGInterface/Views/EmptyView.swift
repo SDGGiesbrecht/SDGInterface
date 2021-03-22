@@ -12,38 +12,36 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-    import SwiftUI
-  #endif
-  #if canImport(AppKit)
-    import AppKit
-  #elseif canImport(UIKit)
-    import UIKit
-  #endif
-
-  /// A shimmed version of `SwiftUI.EmptyView` with no availability constraints.
-  @available(watchOS 6, *)
-  public struct EmptyView: View {
-
-    // MARK: - Initialization
-
-    /// A shimmed version of `SwiftUI.EmptyView.init()` with no availability constraints.
-    public init() {}
-
-    // MARK: - View
-
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      @available(macOS 10.15, tvOS 13, iOS 13, *)
-      public func swiftUI() -> some SwiftUI.View {
-        return SwiftUI.EmptyView()
-      }
-    #endif
-
-    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
-      public func cocoa() -> CocoaView {
-        return CocoaView(CocoaView.NativeType())
-      }
-    #endif
-  }
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  import SwiftUI
 #endif
+#if canImport(AppKit)
+  import AppKit
+#elseif canImport(UIKit)
+  import UIKit
+#endif
+
+/// A shimmed version of `SwiftUI.EmptyView` with no availability constraints.
+@available(watchOS 6, *)
+public struct EmptyView: View {
+
+  // MARK: - Initialization
+
+  /// A shimmed version of `SwiftUI.EmptyView.init()` with no availability constraints.
+  public init() {}
+
+  // MARK: - View
+
+  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    @available(macOS 10.15, tvOS 13, iOS 13, *)
+    public func swiftUI() -> some SwiftUI.View {
+      return SwiftUI.EmptyView()
+    }
+  #endif
+
+  #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+    public func cocoa() -> CocoaView {
+      return CocoaView(CocoaView.NativeType())
+    }
+  #endif
+}

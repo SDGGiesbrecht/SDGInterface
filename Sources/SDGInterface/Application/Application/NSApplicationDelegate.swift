@@ -16,18 +16,40 @@
   import AppKit
 
   import SDGLogic
+  import SDGText
+  import SDGLocalization
+
+  import SDGInterfaceLocalizations
 
   // See Application.prepareForMain()
   internal var permanentNSApplicationDelegateStorage: NSObject?
 
+  /// See Application.main().
+  internal var applicationToUse: Any?
+
   internal class NSApplicationDelegate<Application>: NSObject, AppKit.NSApplicationDelegate,
-    _NSApplicationDelegateProtocol, NSMenuItemValidation
-  where Application: SDGInterface.Application {
+    NSApplicationDelegateProtocol, NSMenuItemValidation
+  where Application: LegacyApplication {
 
     // MARK: - Initialization
 
     internal init(application: Application) {
       self.application = application
+    }
+
+    internal override convenience init() {  // @exempt(from: tests)
+      // Only reachable through SwiftUI.App.main().
+      guard let application = applicationToUse as? Application else {
+        preconditionFailure(
+          UserFacing<StrictString, APILocalization>({ localization in
+            switch localization {
+            case .englishCanada:
+              return "Cannot initialize a delegate when no application has been registered."
+            }
+          })
+        )
+      }
+      self.init(application: application)
     }
 
     // MARK: - Properties
@@ -58,7 +80,7 @@
       system.foundation = notification
       var details = LaunchDetails()
       details.notification = system
-      _ = application.finishLaunching(details)
+      _ = application.setUpAndFinishLaunching(details)
     }
 
     internal func applicationWillBecomeActive(_ notification: Notification) {

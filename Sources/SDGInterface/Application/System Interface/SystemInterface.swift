@@ -115,21 +115,17 @@ public protocol SystemInterface {
   /// - Returns: `true` if the reopen operation has been handled, `false` to request that the operating system handle it.
   func reopen(hasVisibleWindows: Bool?) -> Bool
 
-  #if canImport(AppKit)
-    /// The type of the menu bar.
-    associatedtype MenuBarType: MenuBarProtocol
+  /// The type of the menu bar.
+  associatedtype MenuBarType: LegacyMenuBar
 
-    /// Used by some systems as the menu bar.
-    var menuBar: MenuBarType { get }
-  #endif
+  /// Used by some systems as the menu bar.
+  var menuBar: MenuBarType { get }
 
-  #if canImport(AppKit)
-    /// The type of the dock menu.
-    associatedtype DockMenuType: MenuProtocol
+  /// The type of the dock menu.
+  associatedtype DockMenuType: MenuProtocol
 
-    /// Used by some systems as the dock menu.
-    var dockMenu: DockMenuType? { get }
-  #endif
+  /// Used by some systems as the dock menu.
+  var dockMenu: DockMenuType? { get }
 
   /// Called by some systems before displaying an error to the user.
   ///
@@ -336,17 +332,13 @@ extension SystemInterface {
     return false
   }
 
-  #if canImport(AppKit)
-    public var menuBar: MenuBar<EmptyCommands> {
-      return MenuBar(applicationSpecificSubmenus: { EmptyCommands() })
-    }
-  #endif
+  public var menuBar: MenuBar<EmptyCommands> {
+    return MenuBar(applicationSpecificSubmenus: { EmptyCommands() })
+  }
 
-  #if canImport(AppKit)
-    public var dockMenu: Menu<AnyLocalization, EmptyMenuComponents>? {
-      return nil
-    }
-  #endif
+  public var dockMenu: Menu<AnyLocalization, EmptyMenuComponents>? {
+    return nil
+  }
 
   public func preprocessErrorForDisplay(_ error: Error) -> Error {
     return error

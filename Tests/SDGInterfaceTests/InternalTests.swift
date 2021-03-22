@@ -146,7 +146,7 @@ final class InternalTests: ApplicationTestCase {
 
   func testNSApplicationDelegate() {
     struct Error: Swift.Error {}
-    struct TestApplication: Application {
+    struct TestApplication: LegacyApplication {
       init() {
         self.init(preferenceManager: nil)
       }
@@ -163,9 +163,17 @@ final class InternalTests: ApplicationTestCase {
           return "com.example.identifier"
         }
       #endif
-      func finishLaunching(_ details: LaunchDetails) -> Bool {
-        return true
+      var mainWindow: Window<EmptyView, AnyLocalization> {
+        return Window(
+          type: .primary(nil),
+          name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+          content: EmptyView()
+        )
       }
+      // #workaround(Swift 5.3.2, Web lacks RunLoop.)
+      #if os(WASI)
+        static func main() {}
+      #endif
     }
     struct TestPreferenceManager: PreferenceManager {
       func openPreferences() {}
@@ -229,7 +237,7 @@ final class InternalTests: ApplicationTestCase {
         _ = delegate.validateMenuItem(
           NSMenuItem(
             title: "",
-            action: #selector(_NSApplicationDelegateProtocol.openPreferences(_:)),
+            action: #selector(NSApplicationDelegateProtocol.openPreferences(_:)),
             keyEquivalent: ""
           )
         )
@@ -246,7 +254,7 @@ final class InternalTests: ApplicationTestCase {
         delegate.validateMenuItem(
           NSMenuItem(
             title: "",
-            action: #selector(_NSApplicationDelegateProtocol.openPreferences(_:)),
+            action: #selector(NSApplicationDelegateProtocol.openPreferences(_:)),
             keyEquivalent: ""
           )
         )
@@ -318,9 +326,43 @@ final class InternalTests: ApplicationTestCase {
     _ = string.compatibility
   }
 
+  func testSwiftUIApplication() {
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      @available(macOS 11, iOS 14, tvOS 14, *)
+      struct TestApplication: Application {
+        init() {
+          self.init(preferenceManager: nil)
+        }
+        init(preferenceManager: PreferenceManager?) {
+          self.preferenceManager = preferenceManager
+        }
+        let preferenceManager: PreferenceManager?
+        // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
+        #if !os(WASI)
+          var applicationName: ProcessInfo.ApplicationNameResolver {
+            return { _ in "Test Application" }
+          }
+          var applicationIdentifier: String {
+            return "com.example.identifier"
+          }
+        #endif
+        var mainWindow: Window<EmptyView, AnyLocalization> {
+          return Window(
+            type: .primary(nil),
+            name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+            content: EmptyView()
+          )
+        }
+      }
+      if #available(macOS 11, iOS 14, tvOS 14, *) {
+        _ = SwiftUIApplication<TestApplication>().body
+      }
+    #endif
+  }
+
   func testUIApplicationDelegate() {
     struct Error: Swift.Error {}
-    struct TestApplication: Application {
+    struct TestApplication: LegacyApplication {
       init() {
         self.init(preferenceManager: nil)
       }
@@ -337,9 +379,17 @@ final class InternalTests: ApplicationTestCase {
           return "com.example.identifier"
         }
       #endif
-      func finishLaunching(_ details: LaunchDetails) -> Bool {
-        return true
+      var mainWindow: Window<EmptyView, AnyLocalization> {
+        return Window(
+          type: .primary(nil),
+          name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+          content: EmptyView()
+        )
       }
+      // #workaround(Swift 5.3.2, Web lacks RunLoop.)
+      #if os(WASI)
+        static func main() {}
+      #endif
     }
     struct TestPreferenceManager: PreferenceManager {
       func openPreferences() {}

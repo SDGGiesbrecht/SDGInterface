@@ -22,54 +22,52 @@ import SDGInterface
 
 import SDGTesting
 
-#if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  private func testSDGInterfaceViewConformance<T>(
-    of view: T,
-    testBody: Bool = true,
-    file: StaticString = #filePath,
-    line: UInt = #line
-  ) where T: SDGInterface.View {
+@available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+private func testSDGInterfaceViewConformance<T>(
+  of view: T,
+  testBody: Bool = true,
+  file: StaticString = #filePath,
+  line: UInt = #line
+) where T: SDGInterface.View {
 
-    testLegacyViewConformance(of: view, file: file, line: line)
+  testLegacyViewConformance(of: view, file: file, line: line)
 
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      let swiftUI = view.swiftUI()
-      if testBody {
-        _ = swiftUI.body
-      }
-    #endif
-  }
+  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    let swiftUI = view.swiftUI()
+    if testBody {
+      _ = swiftUI.body
+    }
+  #endif
+}
 
-  // @documentation(testViewConformance)
-  /// Tests a type’s conformance to View.
-  ///
-  /// - Parameters:
-  ///     - view: A view.
-  ///     - testBody: Optional. Whether or not to test the `body` property.
-  ///     - file: Optional. A different source file to associate with any failures.
-  ///     - line: Optional. A different line to associate with any failures.
+// @documentation(testViewConformance)
+/// Tests a type’s conformance to View.
+///
+/// - Parameters:
+///     - view: A view.
+///     - testBody: Optional. Whether or not to test the `body` property.
+///     - file: Optional. A different source file to associate with any failures.
+///     - line: Optional. A different line to associate with any failures.
+@available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+public func testViewConformance<T>(
+  of view: T,
+  testBody: Bool = true,
+  file: StaticString = #filePath,
+  line: UInt = #line
+) where T: SDGInterface.View {
+  testSDGInterfaceViewConformance(of: view, testBody: testBody, file: file, line: line)
+}
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   public func testViewConformance<T>(
     of view: T,
     testBody: Bool = true,
     file: StaticString = #filePath,
     line: UInt = #line
-  ) where T: SDGInterface.View {
+  ) where T: SDGInterface.View, T: SwiftUI.View {
     testSDGInterfaceViewConformance(of: view, testBody: testBody, file: file, line: line)
+    testSwiftUIViewConformance(of: view, testBody: testBody, file: file, line: line)
   }
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-    @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-    public func testViewConformance<T>(
-      of view: T,
-      testBody: Bool = true,
-      file: StaticString = #filePath,
-      line: UInt = #line
-    ) where T: SDGInterface.View, T: SwiftUI.View {
-      testSDGInterfaceViewConformance(of: view, testBody: testBody, file: file, line: line)
-      testSwiftUIViewConformance(of: view, testBody: testBody, file: file, line: line)
-    }
-  #endif
 #endif
 
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))

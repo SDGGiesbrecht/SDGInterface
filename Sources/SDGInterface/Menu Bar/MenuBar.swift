@@ -12,43 +12,46 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(SwiftUI)
+  import SwiftUI
+#endif
 #if canImport(AppKit)
   import AppKit
+#endif
 
-  import SwiftUI
+import SDGMathematics
+import SDGText
+import SDGLocalization
 
-  import SDGMathematics
-  import SDGText
-  import SDGLocalization
+import SDGInterfaceLocalizations
 
-  import SDGInterfaceLocalizations
+/// An application’s menu bar.
+///
+/// `MenuBar` is a fully localized version of Interface Builder’s template with several useful additions.
+///
+/// Some menu items only appear if the application provides details they need to operate:
+/// - “Preferences...” appears if the application has a preference manager.
+/// - “Help” appears if a help book is specified in the `Info.plist` file.
+public struct MenuBar<ApplicationSpecificMenus>: LegacyMenuBar
+where ApplicationSpecificMenus: LegacyCommands {
 
-  /// An application’s menu bar.
+  // MARK: - Initialization
+
+  /// Creates a menu bar.
   ///
-  /// `MenuBar` is a fully localized version of Interface Builder’s template with several useful additions.
-  ///
-  /// Some menu items only appear if the application provides details they need to operate:
-  /// - “Preferences...” appears if the application has a preference manager.
-  /// - “Help” appears if a help book is specified in the `Info.plist` file.
-  public struct MenuBar<ApplicationSpecificMenus>: MenuBarProtocol
-  where ApplicationSpecificMenus: LegacyCommands {
+  /// - Parameters:
+  ///   - applicationSpecificSubmenus: Application‐specific submenus to place before the “Window” menu.
+  public init(
+    applicationSpecificSubmenus: () -> ApplicationSpecificMenus
+  ) {
+    self.applicationSpecificSubmenus = applicationSpecificSubmenus()
+  }
 
-    // MARK: - Initialization
+  // MARK: - Properties
 
-    /// Creates a menu bar.
-    ///
-    /// - Parameters:
-    ///   - applicationSpecificSubmenus: Application‐specific submenus to place before the “Window” menu.
-    public init(
-      applicationSpecificSubmenus: () -> ApplicationSpecificMenus
-    ) {
-      self.applicationSpecificSubmenus = applicationSpecificSubmenus()
-    }
+  private let applicationSpecificSubmenus: ApplicationSpecificMenus
 
-    // MARK: - Properties
-
-    private let applicationSpecificSubmenus: ApplicationSpecificMenus
-
+  #if canImport(AppKit)
     private var menu:
       SDGInterface.Menu<
         InterfaceLocalization,
@@ -391,14 +394,18 @@
         }
       )
     }
+  #endif
 
+  #if canImport(AppKit)
     /// The menu bar as an `NSMenu`.
     public func cocoa() -> NSMenu {
       return menu.cocoaMenu()
     }
+  #endif
 
-    // MARK: - Items
+  // MARK: - Items
 
+  #if canImport(AppKit)
     internal static func fallbackApplicationName(
       quotationMarks: (leading: StrictString, trailing: StrictString)
     ) -> StrictString {
@@ -409,58 +416,61 @@
       result.append(contentsOf: quotationMarks.trailing)
       return result
     }
-  }
+  #endif
+}
 
-  @available(macOS 11, *)
-  extension MenuBar where ApplicationSpecificMenus: SDGInterface.Commands {
+@available(macOS 11, iOS 14, *)
+extension MenuBar: MenuBarProtocol where ApplicationSpecificMenus: SDGInterface.Commands {
 
+  #if canImport(SwiftUI) && !os(tvOS) && !(os(iOS) && arch(arm)) && !os(watchOS)
     /// Generates a SwiftUI representation of the menu bar modifications.
     @SwiftUI.CommandsBuilder public func swiftUI() -> some SwiftUI.Commands {
+      #if !os(iOS)
+        CommandGroup(replacing: .appInfo) {
+          // Improved grammar of interpolation.
+          MenuBar<SDGInterface.EmptyCommands>.about().swiftUI()
+        }
 
-      CommandGroup(replacing: .appInfo) {
-        // Improved grammar of interpolation.
-        MenuBar<SDGInterface.EmptyCommands>.about().swiftUI()
-      }
+        CommandGroup(replacing: .appSettings) {
+          // Hiding managed separately.
+          MenuBar<SDGInterface.EmptyCommands>.preferences().swiftUI()
+        }
 
-      CommandGroup(replacing: .appSettings) {
-        // Hiding managed separately.
-        MenuBar<SDGInterface.EmptyCommands>.preferences().swiftUI()
-      }
+        CommandGroup(replacing: .appVisibility) {
+          // Improved grammar of interpolation.
+          MenuBar<SDGInterface.EmptyCommands>.hide().swiftUI()
+          MenuBar<SDGInterface.EmptyCommands>.hideOthers().swiftUI()
+          MenuBar<SDGInterface.EmptyCommands>.showAll().swiftUI()
+        }
 
-      CommandGroup(replacing: .appVisibility) {
-        // Improved grammar of interpolation.
-        MenuBar<SDGInterface.EmptyCommands>.hide().swiftUI()
-        MenuBar<SDGInterface.EmptyCommands>.hideOthers().swiftUI()
-        MenuBar<SDGInterface.EmptyCommands>.showAll().swiftUI()
-      }
+        CommandGroup(replacing: .appTermination) {
+          // Improved grammar of interpolation.
+          MenuBar<SDGInterface.EmptyCommands>.quit().swiftUI()
+        }
 
-      CommandGroup(replacing: .appTermination) {
-        // Improved grammar of interpolation.
-        MenuBar<SDGInterface.EmptyCommands>.quit().swiftUI()
-      }
+        CommandGroup(replacing: .textEditing) {
+          MenuBar<SDGInterface.EmptyCommands>.find().swiftUI()
+          MenuBar<SDGInterface.EmptyCommands>.spellingAndGrammar().swiftUI()
+          MenuBar<SDGInterface.EmptyCommands>.substitutions().swiftUI()
+          // Without bad capitalization.
+          // Includes normalization.
+          MenuBar<SDGInterface.EmptyCommands>.transformations().swiftUI()
+          ContextMenu.showCharacterInformation().swiftUI()
+        }
 
-      CommandGroup(replacing: .textEditing) {
-        MenuBar<SDGInterface.EmptyCommands>.find().swiftUI()
-        MenuBar<SDGInterface.EmptyCommands>.spellingAndGrammar().swiftUI()
-        MenuBar<SDGInterface.EmptyCommands>.substitutions().swiftUI()
-        // Without bad capitalization.
-        // Includes normalization.
-        MenuBar<SDGInterface.EmptyCommands>.transformations().swiftUI()
-        ContextMenu.showCharacterInformation().swiftUI()
-      }
+        CommandGroup(replacing: .textFormatting) {
+          // Includes improved baseline and capitalization.
+          MenuBar<SDGInterface.EmptyCommands>.font().swiftUI()
+          MenuBar<SDGInterface.EmptyCommands>.text().swiftUI()
+        }
 
-      CommandGroup(replacing: .textFormatting) {
-        // Includes improved baseline and capitalization.
-        MenuBar<SDGInterface.EmptyCommands>.font().swiftUI()
-        MenuBar<SDGInterface.EmptyCommands>.text().swiftUI()
-      }
+        applicationSpecificSubmenus.swiftUICommands()
 
-      applicationSpecificSubmenus.swiftUICommands()
-
-      CommandGroup(replacing: .help) {
-        // Improved grammar of interpolation.
-        MenuBar<SDGInterface.EmptyCommands>.helpEntry().swiftUI()
-      }
+        CommandGroup(replacing: .help) {
+          // Improved grammar of interpolation.
+          MenuBar<SDGInterface.EmptyCommands>.helpEntry().swiftUI()
+        }
+      #endif
     }
-  }
-#endif
+  #endif
+}
