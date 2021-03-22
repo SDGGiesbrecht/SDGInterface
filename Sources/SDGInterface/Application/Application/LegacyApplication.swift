@@ -70,9 +70,11 @@ extension LegacyApplication {
       ProcessInfo.applicationName = application.applicationName
     #endif
     #if canImport(AppKit)
+    if ¬usingSwiftUI {
       let delegate = NSApplicationDelegate(application: application)
       permanentNSApplicationDelegateStorage = delegate
       NSApplication.shared.delegate = delegate
+    }
     #endif
     return application
   }
@@ -132,7 +134,9 @@ extension LegacyApplication {
     #endif
 
     #if canImport(AppKit)
+    if ¬usingSwiftUI {
       NSApplication.shared.activate(ignoringOtherApps: false)
+    }
     #endif
   }
 
