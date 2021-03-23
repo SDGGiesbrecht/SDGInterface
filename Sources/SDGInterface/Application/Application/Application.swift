@@ -17,7 +17,7 @@
 /// Create an application by declaring a structure that conforms to the `Application` protocol.
 @available(macOS 11, tvOS 14, iOS 14, watchOS 7, *)
 public protocol Application: LegacyApplication
-where MenuBarType: MenuBarProtocol, MainWindow: WindowProtocol {}
+where MenuBarType: MenuBarProtocol, MainWindow: WindowProtocol, Preferences: View {}
 
 @available(macOS 11, tvOS 14, iOS 14, watchOS 7, *)
 extension Application {

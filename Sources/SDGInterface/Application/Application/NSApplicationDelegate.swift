@@ -312,6 +312,13 @@
     // MARK: - NSMenuItemValidation
 
     internal func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+
+      // #workaround(Swift 5.3.3, @SceneBuilder does not support “if”, so Settings cannot be conditional.)
+      if menuItem.action == #selector(NSApplicationDelegate.showPreferencesWindow(_:)),
+         application.preferences is EmptyView {
+        menuItem.isHidden = true
+      }
+
       if let action = menuItem.action {
         return responds(to: action)
       } else {
