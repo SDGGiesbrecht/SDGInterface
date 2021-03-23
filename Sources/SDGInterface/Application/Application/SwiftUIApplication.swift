@@ -57,7 +57,7 @@ import SDGLogic
       let preferences = application.preferences
       if ¬(preferences is EmptyView) {
         Settings {
-          preferences.swi
+          preferences.swiftUI()
             .padding()
         }
       }
