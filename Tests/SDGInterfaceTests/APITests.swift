@@ -105,7 +105,8 @@ final class APITests: ApplicationTestCase {
         static func main() {}
       #endif
     }
-    XCTAssertNil(ExampleApplication().preferenceManager)
+    let preferences: Any = ExampleApplication().preferences
+    XCTAssert(preferences is SDGInterface.EmptyView)
   }
 
   func testApplicationName() {

@@ -105,7 +105,6 @@ extension SDGInterfaceTests.InternalTests {
       ("testMenuEntry", testMenuEntry),
       ("testNSApplicationDelegate", testNSApplicationDelegate),
       ("testPopOverCocoaImplementation", testPopOverCocoaImplementation),
-      ("testPreferenceManager", testPreferenceManager),
       ("testProportionedView", testProportionedView),
       ("testSegmentedControlCocoaImplementation", testSegmentedControlCocoaImplementation),
       ("testStrictString", testStrictString),

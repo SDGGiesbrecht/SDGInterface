@@ -147,13 +147,6 @@ final class InternalTests: ApplicationTestCase {
   func testNSApplicationDelegate() {
     struct Error: Swift.Error {}
     struct TestApplication: LegacyApplication {
-      init() {
-        self.init(preferenceManager: nil)
-      }
-      init(preferenceManager: PreferenceManager?) {
-        self.preferenceManager = preferenceManager
-      }
-      let preferenceManager: PreferenceManager?
       // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
       #if !os(WASI)
         var applicationName: ProcessInfo.ApplicationNameResolver {
@@ -170,17 +163,17 @@ final class InternalTests: ApplicationTestCase {
           content: EmptyView()
         )
       }
+      var preferences: Label<AnyLocalization> {
+        return Label(UserFacing<StrictString, AnyLocalization>({ _ in "..." }))
+      }
       // #workaround(Swift 5.3.2, Web lacks RunLoop.)
       #if os(WASI)
         static func main() {}
       #endif
     }
-    struct TestPreferenceManager: PreferenceManager {
-      func openPreferences() {}
-    }
     #if canImport(AppKit)
       var delegate = SDGInterface.NSApplicationDelegate(
-        application: TestApplication(preferenceManager: TestPreferenceManager())
+        application: TestApplication()
       )
       func testSystemInteraction() {
         let notification = Notification(name: Notification.Name(""))
@@ -244,12 +237,7 @@ final class InternalTests: ApplicationTestCase {
       }
       testSystemInteraction()
 
-      delegate = SDGInterface.NSApplicationDelegate(
-        application: TestApplication(preferenceManager: nil)
-      )
-      delegate = SDGInterface.NSApplicationDelegate(
-        application: TestApplication(preferenceManager: TestPreferenceManager())
-      )
+      delegate = SDGInterface.NSApplicationDelegate(application: TestApplication())
       XCTAssert(
         delegate.validateMenuItem(
           NSMenuItem(
@@ -284,13 +272,6 @@ final class InternalTests: ApplicationTestCase {
         }
       #endif
     }
-  }
-
-  func testPreferenceManager() {
-    // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
-    #if !os(WASI)
-      SampleApplication().preferenceManager?.openPreferences()
-    #endif
   }
 
   func testProportionedView() {
@@ -330,13 +311,6 @@ final class InternalTests: ApplicationTestCase {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       @available(macOS 11, iOS 14, tvOS 14, *)
       struct TestApplication: Application {
-        init() {
-          self.init(preferenceManager: nil)
-        }
-        init(preferenceManager: PreferenceManager?) {
-          self.preferenceManager = preferenceManager
-        }
-        let preferenceManager: PreferenceManager?
         // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
         #if !os(WASI)
           var applicationName: ProcessInfo.ApplicationNameResolver {
@@ -363,13 +337,6 @@ final class InternalTests: ApplicationTestCase {
   func testUIApplicationDelegate() {
     struct Error: Swift.Error {}
     struct TestApplication: LegacyApplication {
-      init() {
-        self.init(preferenceManager: nil)
-      }
-      init(preferenceManager: PreferenceManager?) {
-        self.preferenceManager = preferenceManager
-      }
-      let preferenceManager: PreferenceManager?
       // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
       #if !os(WASI)
         var applicationName: ProcessInfo.ApplicationNameResolver {
@@ -390,9 +357,6 @@ final class InternalTests: ApplicationTestCase {
       #if os(WASI)
         static func main() {}
       #endif
-    }
-    struct TestPreferenceManager: PreferenceManager {
-      func openPreferences() {}
     }
     #if canImport(UIKit)
       let delegate = SDGInterface.UIApplicationDelegate(
