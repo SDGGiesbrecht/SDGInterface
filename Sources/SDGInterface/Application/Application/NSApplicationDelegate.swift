@@ -62,6 +62,10 @@
       application.preferenceManager?.openPreferences()
     }
 
+    @objc internal func showPreferencesWindow(_ sender: Any?) {
+      // SwiftUI does not actually call this, but its presence is necessary for the preferences item to validate and not be greyed out. (Presumably this is a bug in @NSApplicationDelegateAdaptor, without which SwiftUI works properly.)
+    }
+
     // MARK: - NSApplicationDelegate
 
     internal func applicationWillFinishLaunching(_ notification: Notification) {
