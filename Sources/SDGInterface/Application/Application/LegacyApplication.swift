@@ -50,10 +50,6 @@ public protocol LegacyApplication: SystemInterface {
   /// The preferences view.
   var preferences: Preferences { get }
 
-  #warning("Remove.")
-  /// The type that manages the application’s preferences.
-  var preferenceManager: PreferenceManager? { get }
-
   /// Initializes and runs the application.
   ///
   /// This method never returns. It is only marked `Void` for compatibility with `@main`.
@@ -66,10 +62,6 @@ extension LegacyApplication {
     return EmptyView()
   }
 
-  public var preferenceManager: PreferenceManager? {
-    return nil
-  }
-
   // MARK: - Launching
 
   @discardableResult internal static func prepareForMain() -> Self {
@@ -80,11 +72,11 @@ extension LegacyApplication {
       ProcessInfo.applicationName = application.applicationName
     #endif
     #if canImport(AppKit)
-    if ¬usingSwiftUI {
-      let delegate = NSApplicationDelegate(application: application)
-      permanentNSApplicationDelegateStorage = delegate
-      NSApplication.shared.delegate = delegate
-    }
+      if ¬usingSwiftUI {
+        let delegate = NSApplicationDelegate(application: application)
+        permanentNSApplicationDelegateStorage = delegate
+        NSApplication.shared.delegate = delegate
+      }
     #endif
     return application
   }
@@ -132,21 +124,21 @@ extension LegacyApplication {
     #endif
 
     #if canImport(AppKit)
-    if ¬usingSwiftUI {
-      hidePreferences.value = preferenceManager == nil
-      let menuBar = self.menuBar.cocoa()
-      NSApplication.shared.mainMenu = menuBar
-      NSApplication.shared.servicesMenu =
-        menuBar.items.first?.submenu?.items.first(where: { $0.submenu ≠ nil })?.submenu
-      NSApplication.shared.windowsMenu = menuBar.items.dropLast().last?.submenu
-      NSApplication.shared.helpMenu = menuBar.items.last?.submenu
-    }
+      if ¬usingSwiftUI {
+        hidePreferences.value = preferences is EmptyView
+        let menuBar = self.menuBar.cocoa()
+        NSApplication.shared.mainMenu = menuBar
+        NSApplication.shared.servicesMenu =
+          menuBar.items.first?.submenu?.items.first(where: { $0.submenu ≠ nil })?.submenu
+        NSApplication.shared.windowsMenu = menuBar.items.dropLast().last?.submenu
+        NSApplication.shared.helpMenu = menuBar.items.last?.submenu
+      }
     #endif
 
     #if canImport(AppKit)
-    if ¬usingSwiftUI {
-      NSApplication.shared.activate(ignoringOtherApps: false)
-    }
+      if ¬usingSwiftUI {
+        NSApplication.shared.activate(ignoringOtherApps: false)
+      }
     #endif
   }
 

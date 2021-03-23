@@ -118,8 +118,15 @@
 
     // MARK: - Application
 
-    public var preferenceManager: SDGInterface.PreferenceManager? {
-      return PreferenceManager()
+    public var preferences: Label<InterfaceLocalization> {
+      return Label(
+        UserFacing<StrictString, InterfaceLocalization>({ localization in
+          switch localization {
+          case .englishCanada:
+            return "Preferences"
+          }
+        })
+      )
     }
 
     // MARK: - SystemInterface

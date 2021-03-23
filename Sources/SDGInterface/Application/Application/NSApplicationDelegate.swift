@@ -15,6 +15,7 @@
 #if canImport(AppKit)
   import AppKit
 
+  import SDGControlFlow
   import SDGLogic
   import SDGText
   import SDGLocalization
@@ -58,8 +59,33 @@
 
     // MARK: - Top Responder
 
+    private var preferencesWindow: CocoaWindow?
     @objc internal func openPreferences(_ sender: Any?) {
-      application.preferenceManager?.openPreferences()
+      let window = cached(in: &preferencesWindow) {
+        return Window(
+          type: .auxiliary(nil),
+          name: UserFacing<StrictString, MenuBarLocalization>({ localization in
+            switch localization {
+            case .españolEspaña:
+              return "Preferencias"
+            case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+              return "Preferences"
+            case .françaisFrance:
+              return "Préférences"
+
+            case .deutschDeutschland:
+              return "Einstellungen"
+            case .ελληνικάΕλλάδα:
+              return "Προτιμήσεις"
+            case .עברית־ישראל:
+              return "העדפות"
+            }
+          }),
+          content: application.preferences
+            .padding()
+        ).cocoa()
+      }
+      window.display()
     }
 
     @objc internal func showPreferencesWindow(_ sender: Any?) {
@@ -315,7 +341,8 @@
 
       // #workaround(Swift 5.3.3, @SceneBuilder does not support “if”, so Settings cannot be conditional.)
       if menuItem.action == #selector(NSApplicationDelegate.showPreferencesWindow(_:)),
-         application.preferences is EmptyView {
+        application.preferences is EmptyView
+      {
         menuItem.isHidden = true
       }
 

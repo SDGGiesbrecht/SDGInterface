@@ -54,13 +54,13 @@ import SDGLogic
       application.mainWindow.swiftUI()
 
       #if os(macOS)
-      let preferences = application.preferences
-      Settings {
-        if ¬(preferences is EmptyView) {
-          preferences.swiftUI()
-            .padding()
+        let preferences = application.preferences
+        Settings {
+          if ¬(preferences is EmptyView) {
+            preferences.swiftUI()
+              .padding()
+          }
         }
-      }
       #endif
     }
     internal var body: some Scene {
