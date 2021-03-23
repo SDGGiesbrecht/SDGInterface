@@ -45,6 +45,12 @@ public protocol LegacyApplication: SystemInterface {
   /// The application’s main window.
   var mainWindow: MainWindow { get }
 
+  /// The type of the preferences view.
+  associatedtype Preferences: LegacyView
+  /// The preferences view.
+  var preferences: Preferences { get }
+
+  #warning("Remove.")
   /// The type that manages the application’s preferences.
   var preferenceManager: PreferenceManager? { get }
 
@@ -55,6 +61,10 @@ public protocol LegacyApplication: SystemInterface {
 }
 
 extension LegacyApplication {
+
+  public var preferences: EmptyView {
+    return EmptyView()
+  }
 
   public var preferenceManager: PreferenceManager? {
     return nil

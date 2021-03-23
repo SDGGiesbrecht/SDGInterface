@@ -16,13 +16,16 @@
   import SwiftUI
 #endif
 
+import SDGLogic
+
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   @available(macOS 11, tvOS 14, iOS 14, watchOS 7, *)
   internal struct SwiftUIApplication<Application>: App
   where
     Application: LegacyApplication,
     Application.MenuBarType: MenuBarProtocol,
-    Application.MainWindow: WindowProtocol
+    Application.MainWindow: WindowProtocol,
+    Application.Preferences: View
   {
 
     #if canImport(AppKit)
@@ -47,12 +50,16 @@
     }
 
     @SceneBuilder private var windows: some Scene {
+
       application.mainWindow.swiftUI()
+
       #if os(macOS)
-      Settings {
-        #warning("Not implemented yet.")
-        Text("Hello?")
-          .padding()
+      let preferences = application.preferences
+      if ¬(preferences is EmptyView) {
+        Settings {
+          preferences.swi
+            .padding()
+        }
       }
       #endif
     }
