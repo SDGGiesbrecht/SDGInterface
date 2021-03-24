@@ -139,7 +139,7 @@ public struct SampleApplication: LegacyApplication {
 Some platforms lack certain features. The compilation conditions which appear throughout the documentation are defined as follows:
 
 ```swift
-.define("PLATFORM_LACKS_FOUNDATION_RUN_LOOP", .when(platforms: [.wasi])),
+.define("PLATFORM_LACKS_FOUNDATION_RUN_LOOP", .when(platforms: [.wasi]))
 ```
 
 ## Importing
