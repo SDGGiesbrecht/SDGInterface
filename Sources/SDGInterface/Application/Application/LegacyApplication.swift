@@ -81,8 +81,7 @@ extension LegacyApplication {
     return application
   }
 
-  // #workaround(Swift 5.3.2, Web lacks RunLoop.)
-  #if !os(WASI)
+  #if !PLATFORM_LACKS_FOUNDATION_RUN_LOOP
     internal static func _legacyMain(application: Self) -> Never {  // @exempt(from: tests)
       #if canImport(AppKit)
         exit(NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv))

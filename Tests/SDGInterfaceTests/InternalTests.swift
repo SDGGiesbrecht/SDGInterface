@@ -166,8 +166,7 @@ final class InternalTests: ApplicationTestCase {
       var preferences: Label<AnyLocalization> {
         return Label(UserFacing<StrictString, AnyLocalization>({ _ in "..." }))
       }
-      // #workaround(Swift 5.3.2, Web lacks RunLoop.)
-      #if os(WASI)
+      #if PLATFORM_LACKS_FOUNDATION_RUN_LOOP
         static func main() {}
       #endif
     }
@@ -382,8 +381,7 @@ final class InternalTests: ApplicationTestCase {
           content: EmptyView()
         )
       }
-      // #workaround(Swift 5.3.2, Web lacks RunLoop.)
-      #if os(WASI)
+      #if PLATFORM_LACKS_FOUNDATION_RUN_LOOP
         static func main() {}
       #endif
     }
