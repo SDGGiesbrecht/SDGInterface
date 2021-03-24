@@ -106,7 +106,7 @@ final class APITests: ApplicationTestCase {
     }
     let preferences: Any = ExampleApplication().preferences
     XCTAssert(preferences is SDGInterface.EmptyView)
-    #if PLATFORM_LACKS_FOUNDATION_RUN_LOOP
+    #if !PLATFORM_LACKS_FOUNDATION_RUN_LOOP
       _ = SampleApplication().preferences
     #endif
   }
