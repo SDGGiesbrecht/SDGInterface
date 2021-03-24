@@ -360,7 +360,7 @@ final class InternalTests: ApplicationTestCase {
     }
     #if canImport(UIKit)
       let delegate = SDGInterface.UIApplicationDelegate(
-        application: TestApplication(preferenceManager: TestPreferenceManager())
+        application: TestApplication()
       )
       func testSystemInteraction() {
         _ = delegate.application(UIApplication.shared, willFinishLaunchingWithOptions: nil)
