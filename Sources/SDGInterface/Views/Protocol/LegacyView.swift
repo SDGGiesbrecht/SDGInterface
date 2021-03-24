@@ -32,7 +32,6 @@ import SDGInterfaceLocalizations
 /// The subset of the `View` protocol that can be conformed to even on platform versions preceding SwiftUI’s availability.
 ///
 /// - Important: On watchOS, every `LegacyView` must also conform to `View`.
-@available(watchOS 6, *)
 public protocol LegacyView {
 
   #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
@@ -46,18 +45,17 @@ public protocol LegacyView {
     /// A type‐erased version of the SwiftUI view.
     ///
     /// `View`’s `swiftUI()` is preferred instead whenever possible, since the erasing of the associated type affects performance. This method exists for use cases that would be impossible with an associated type.
-    @available(macOS 10.15, tvOS 13, iOS 13, *)
+    @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
     func swiftUIAnyView() -> SwiftUI.AnyView
   #endif
 }
 
-@available(watchOS 6, *)
 extension LegacyView {
 
   // MARK: - Cocoa Interoperability
 
   #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-    @available(macOS 10.15, tvOS 13, iOS 13, *)
+    @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
     public func swiftUIAnyView() -> SwiftUI.AnyView {
       if let view = self as? ViewShims {
         return view._swiftUIImplementation()
@@ -154,7 +152,7 @@ extension LegacyView {
     ///
     /// - Parameters:
     ///   - usingCocoa: Pass `true` to return the `cocoa()` view wrapped in a SwiftUI view. Pass `false` to return the standard SwiftUI implementation from `swiftUI()`.
-    @available(macOS 10.15, tvOS 13, iOS 13, *)
+    @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
     public func resolved(usingCocoa: Bool) -> SwiftUI.AnyView {
       #if os(watchOS)
         return swiftUIAnyView()
@@ -166,7 +164,7 @@ extension LegacyView {
         }
       #endif  // @exempt(from: tests)
     }
-    @available(macOS 10.15, tvOS 13, iOS 13, *)
+    @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
     internal func adjustForLegacyMode() -> SwiftUI.AnyView {
       return resolved(usingCocoa: legacyMode)
     }
@@ -266,26 +264,27 @@ extension LegacyView {
 
   // MARK: - Pop‐Overs
 
-  /// A shimmed version of `SwiftUI.View.popover(isPresented:attachmentAnchor:arrowEdge:content:)` with no availability constraints.
-  ///
-  /// - Parameters:
-  ///   - isPresented: Whether the pop‐over is presented.
-  ///   - attachmentAnchor: The anchor where the pop‐over is attached.
-  ///   - arrowEdge: The edge where the pop‐over’s arrow is located.
-  ///   - content: The content of the pop‐over.
-  @available(watchOS, unavailable)
-  public func popOver<Content>(
-    isPresented: Shared<Bool>,
-    attachmentAnchor: AttachmentAnchor = .rectangle(.bounds),
-    arrowEdge: SDGInterface.Edge = .top,
-    content: @escaping () -> Content
-  ) -> PopOver<Self, Content> {
-    return PopOver(
-      anchor: self,
-      isPresented: isPresented,
-      attachmentAnchor: attachmentAnchor,
-      arrowEdge: arrowEdge,
-      content: content
-    )
-  }
+  #if !os(watchOS)
+    /// A shimmed version of `SwiftUI.View.popover(isPresented:attachmentAnchor:arrowEdge:content:)` with no availability constraints.
+    ///
+    /// - Parameters:
+    ///   - isPresented: Whether the pop‐over is presented.
+    ///   - attachmentAnchor: The anchor where the pop‐over is attached.
+    ///   - arrowEdge: The edge where the pop‐over’s arrow is located.
+    ///   - content: The content of the pop‐over.
+    public func popOver<Content>(
+      isPresented: Shared<Bool>,
+      attachmentAnchor: AttachmentAnchor = .rectangle(.bounds),
+      arrowEdge: SDGInterface.Edge = .top,
+      content: @escaping () -> Content
+    ) -> PopOver<Self, Content> {
+      return PopOver(
+        anchor: self,
+        isPresented: isPresented,
+        attachmentAnchor: attachmentAnchor,
+        arrowEdge: arrowEdge,
+        content: content
+      )
+    }
+  #endif
 }

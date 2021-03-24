@@ -22,7 +22,6 @@
 #endif
 
 /// A shimmed version of `SwiftUI.EmptyView` with no availability constraints.
-@available(watchOS 6, *)
 public struct EmptyView: View {
 
   // MARK: - Initialization
@@ -33,7 +32,7 @@ public struct EmptyView: View {
   // MARK: - View
 
   #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-    @available(macOS 10.15, tvOS 13, iOS 13, *)
+    @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
     public func swiftUI() -> some SwiftUI.View {
       return SwiftUI.EmptyView()
     }
