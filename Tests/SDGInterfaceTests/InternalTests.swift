@@ -250,6 +250,10 @@ final class InternalTests: ApplicationTestCase {
       XCTAssertFalse(
         delegate.validateMenuItem(NSMenuItem(title: "", action: nil, keyEquivalent: ""))
       )
+      delegate.openPreferences(nil)
+      for localization in MenuBarLocalization.allCases {
+        LocalizationSetting(orderOfPrecedence: [localization.code]).do {}
+      }
     #endif
   }
 
@@ -330,6 +334,31 @@ final class InternalTests: ApplicationTestCase {
       }
       if #available(macOS 11, iOS 14, tvOS 14, *) {
         _ = SwiftUIApplication<TestApplication>().body
+      }
+      @available(macOS 11, iOS 14, tvOS 14, *)
+      struct WithPreferences: Application {
+        // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
+        #if !os(WASI)
+          var applicationName: ProcessInfo.ApplicationNameResolver {
+            return { _ in "Test Application" }
+          }
+          var applicationIdentifier: String {
+            return "com.example.identifier"
+          }
+        #endif
+        var mainWindow: Window<EmptyView, AnyLocalization> {
+          return Window(
+            type: .primary(nil),
+            name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+            content: EmptyView()
+          )
+        }
+        var preferences: TextEditor {
+          return TextEditor(contents: Shared(RichText()))
+        }
+      }
+      if #available(macOS 11, iOS 14, tvOS 14, *) {
+        _ = SwiftUIApplication<WithPreferences>().body
       }
     #endif
   }

@@ -88,9 +88,8 @@
       window.display()
     }
 
-    @objc internal func showPreferencesWindow(_ sender: Any?) {
-      // SwiftUI does not actually call this, but its presence is necessary for the preferences item to validate and not be greyed out. (Presumably this is a bug in @NSApplicationDelegateAdaptor, without which SwiftUI works properly.)
-    }
+    // SwiftUI does not actually call this, but its presence is necessary for the preferences item to validate and not be greyed out. (Presumably this is a bug in @NSApplicationDelegateAdaptor, without which SwiftUI works properly.)
+    @objc internal func showPreferencesWindow(_ sender: Any?) {}
 
     // MARK: - NSApplicationDelegate
 
@@ -342,7 +341,7 @@
       // #workaround(Swift 5.3.3, @SceneBuilder does not support “if”, so Settings cannot be conditional.)
       if menuItem.action == #selector(NSApplicationDelegate.showPreferencesWindow(_:)),
         application.preferences is EmptyView
-      {
+      {  // @exempt(from: tests) Only reachable from SwiftUI’s main().
         menuItem.isHidden = true
       }
 
