@@ -336,7 +336,7 @@ for target in package.targets {
     // #workaround(workspace version 0.36.3, Bug prevents centralization of windows conditions.)
     // #workaround(Swift 5.3.3, Web lacks Foundation.RunLoop.)
     // @example(conditions)
-    .define("PLATFORM_LACKS_FOUNDATION_RUN_LOOP", .when(platforms: [.wasi])),
+    .define("PLATFORM_LACKS_FOUNDATION_RUN_LOOP", .when(platforms: [.wasi]))
     // @endExample
   ])
 }
