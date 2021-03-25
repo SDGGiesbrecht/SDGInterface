@@ -352,8 +352,8 @@ final class InternalTests: ApplicationTestCase {
             content: EmptyView()
           )
         }
-        var preferences: TextEditor {
-          return TextEditor(contents: Shared(RichText()))
+        var preferences: TextField {
+          return TextField(contents: Shared(""))
         }
       }
       if #available(macOS 11, iOS 14, tvOS 14, *) {
