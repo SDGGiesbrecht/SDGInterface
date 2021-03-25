@@ -45,8 +45,10 @@ public protocol LegacyApplication: SystemInterface {
   /// The application’s main window.
   var mainWindow: MainWindow { get }
 
-  /// The type that manages the application’s preferences.
-  var preferenceManager: PreferenceManager? { get }
+  /// The type of the preferences view.
+  associatedtype Preferences: LegacyView
+  /// The preferences view.
+  var preferences: Preferences { get }
 
   /// Initializes and runs the application.
   ///
@@ -56,8 +58,8 @@ public protocol LegacyApplication: SystemInterface {
 
 extension LegacyApplication {
 
-  public var preferenceManager: PreferenceManager? {
-    return nil
+  public var preferences: EmptyView {
+    return EmptyView()
   }
 
   // MARK: - Launching
@@ -70,15 +72,16 @@ extension LegacyApplication {
       ProcessInfo.applicationName = application.applicationName
     #endif
     #if canImport(AppKit)
-      let delegate = NSApplicationDelegate(application: application)
-      permanentNSApplicationDelegateStorage = delegate
-      NSApplication.shared.delegate = delegate
+      if ¬usingSwiftUI {
+        let delegate = NSApplicationDelegate(application: application)
+        permanentNSApplicationDelegateStorage = delegate
+        NSApplication.shared.delegate = delegate
+      }
     #endif
     return application
   }
 
-  // #workaround(Swift 5.3.2, Web lacks RunLoop.)
-  #if !os(WASI)
+  #if !PLATFORM_LACKS_FOUNDATION_RUN_LOOP
     internal static func _legacyMain(application: Self) -> Never {  // @exempt(from: tests)
       #if canImport(AppKit)
         exit(NSApplicationMain(CommandLine.argc, CommandLine.unsafeArgv))
@@ -120,17 +123,21 @@ extension LegacyApplication {
     #endif
 
     #if canImport(AppKit)
-      hidePreferences.value = preferenceManager == nil
-      let menuBar = self.menuBar.cocoa()
-      NSApplication.shared.mainMenu = menuBar
-      NSApplication.shared.servicesMenu =
-        menuBar.items.first?.submenu?.items.first(where: { $0.submenu ≠ nil })?.submenu
-      NSApplication.shared.windowsMenu = menuBar.items.dropLast().last?.submenu
-      NSApplication.shared.helpMenu = menuBar.items.last?.submenu
+      if ¬usingSwiftUI {
+        hidePreferences.value = preferences is EmptyView
+        let menuBar = self.menuBar.cocoa()
+        NSApplication.shared.mainMenu = menuBar
+        NSApplication.shared.servicesMenu =
+          menuBar.items.first?.submenu?.items.first(where: { $0.submenu ≠ nil })?.submenu
+        NSApplication.shared.windowsMenu = menuBar.items.dropLast().last?.submenu
+        NSApplication.shared.helpMenu = menuBar.items.last?.submenu
+      }
     #endif
 
     #if canImport(AppKit)
-      NSApplication.shared.activate(ignoringOtherApps: false)
+      if ¬usingSwiftUI {
+        NSApplication.shared.activate(ignoringOtherApps: false)
+      }
     #endif
   }
 

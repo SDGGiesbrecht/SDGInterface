@@ -16,13 +16,16 @@
   import SwiftUI
 #endif
 
+import SDGLogic
+
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   @available(macOS 11, tvOS 14, iOS 14, watchOS 7, *)
   internal struct SwiftUIApplication<Application>: App
   where
     Application: LegacyApplication,
     Application.MenuBarType: MenuBarProtocol,
-    Application.MainWindow: WindowProtocol
+    Application.MainWindow: WindowProtocol,
+    Application.Preferences: View
   {
 
     #if canImport(AppKit)
@@ -46,12 +49,25 @@
       application = Application()
     }
 
+    @SceneBuilder private var windows: some Scene {
+
+      application.mainWindow.swiftUI()
+
+      #if os(macOS)
+        let preferences = application.preferences
+        Settings {
+          if ¬(preferences is EmptyView) {
+            preferences.swiftUI()
+              .padding()
+          }
+        }
+      #endif
+    }
     internal var body: some Scene {
-      let scene = application.mainWindow.swiftUI()
       #if os(tvOS) || os(watchOS)
-        return scene
+        windows
       #else
-        return scene.commands {
+        windows.commands {
           application.menuBar.swiftUI()
         }
       #endif

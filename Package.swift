@@ -16,7 +16,7 @@
 
 import PackageDescription
 
-// #example(1, application) #example(2, main)
+// #example(1, application) #example(2, main) #example(3, conditions)
 /// SDGInterface provides tools for implementing a graphical user interface.
 ///
 /// > [Καὶ ὁ Λόγος σὰρξ ἐγένετο καὶ ἐσκήνωσεν ἐν ἡμῖν, καὶ ἐθεασάμεθα τὴν δόξαν αὐτοῦ, δόξαν ὡς μονογενοῦς παρὰ πατρός, πλήρης χάριτος καὶ ἀληθείας.](https://www.biblegateway.com/passage/?search=John+1&version=SBLGNT;NIV)
@@ -133,6 +133,12 @@ import PackageDescription
 ///
 /// ```swift
 /// @main extension SampleApplication {}
+/// ```
+///
+/// Some platforms lack certain features. The compilation conditions which appear throughout the documentation are defined as follows:
+///
+/// ```swift
+/// .define("PLATFORM_LACKS_FOUNDATION_RUN_LOOP", .when(platforms: [.wasi]))
 /// ```
 let package = Package(
   name: "SDGInterface",
@@ -322,6 +328,18 @@ let package = Package(
     ),
   ]
 )
+
+for target in package.targets {
+  var swiftSettings = target.swiftSettings ?? []
+  defer { target.swiftSettings = swiftSettings }
+  swiftSettings.append(contentsOf: [
+    // #workaround(workspace version 0.36.3, Bug prevents centralization of windows conditions.)
+    // #workaround(Swift 5.3.3, Web lacks Foundation.RunLoop.)
+    // @example(conditions)
+    .define("PLATFORM_LACKS_FOUNDATION_RUN_LOOP", .when(platforms: [.wasi]))
+    // @endExample
+  ])
+}
 
 if ProcessInfo.processInfo.environment["TARGETING_WATCHOS"] == "true" {
   // #workaround(xcodebuild -version 12.4, Test targets don’t work on watchOS.) @exempt(from: unicode)

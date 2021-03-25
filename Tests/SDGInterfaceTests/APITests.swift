@@ -100,12 +100,15 @@ final class APITests: ApplicationTestCase {
           content: EmptyView()
         )
       }
-      // #workaround(Swift 5.3.2, Web lacks RunLoop.)
-      #if os(WASI)
+      #if PLATFORM_LACKS_FOUNDATION_RUN_LOOP
         static func main() {}
       #endif
     }
-    XCTAssertNil(ExampleApplication().preferenceManager)
+    let preferences: Any = ExampleApplication().preferences
+    XCTAssert(preferences is SDGInterface.EmptyView)
+    #if !PLATFORM_LACKS_FOUNDATION_RUN_LOOP
+      _ = SampleApplication().preferences
+    #endif
   }
 
   func testApplicationName() {
