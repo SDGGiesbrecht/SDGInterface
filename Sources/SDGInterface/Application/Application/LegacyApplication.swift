@@ -58,6 +58,10 @@ public protocol LegacyApplication: SystemInterface {
 
 extension LegacyApplication {
 
+  public var applicationIdentifier: String {
+    return ProcessInfo.applicationIdentifier
+  }
+
   public var preferences: EmptyView {
     return EmptyView()
   }
