@@ -31,8 +31,7 @@ public protocol LegacyApplication: SystemInterface {
   /// Creates an application.
   init()
 
-  // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
-  #if !os(WASI)
+  #if !PLATFORM_LACKS_FOUNDATION_PROCESS_INFO
     /// A closure which produces the declined application name suitable for use in various gramatical contexts.
     var applicationName: ProcessInfo.ApplicationNameResolver { get }
 
@@ -58,9 +57,11 @@ public protocol LegacyApplication: SystemInterface {
 
 extension LegacyApplication {
 
-  public var applicationIdentifier: String {
-    return ProcessInfo.applicationIdentifier
-  }
+  #if !PLATFORM_LACKS_FOUNDATION_PROCESS_INFO
+    public var applicationIdentifier: String {
+      return ProcessInfo.applicationIdentifier
+    }
+  #endif
 
   public var preferences: EmptyView {
     return EmptyView()
@@ -70,8 +71,7 @@ extension LegacyApplication {
 
   @discardableResult internal static func prepareForMain() -> Self {
     let application = Self()
-    // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
-    #if !os(WASI)
+    #if !PLATFORM_LACKS_FOUNDATION_PROCESS_INFO
       ProcessInfo.applicationIdentifier = application.applicationIdentifier
       ProcessInfo.applicationName = application.applicationName
     #endif

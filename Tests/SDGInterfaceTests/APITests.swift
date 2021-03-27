@@ -84,8 +84,7 @@ final class APITests: ApplicationTestCase {
 
   func testApplication() {
     struct ExampleApplication: LegacyApplication {
-      // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
-      #if !os(WASI)
+      #if !PLATFORM_LACKS_FOUNDATION_PROCESS_INFO
         var applicationName: ProcessInfo.ApplicationNameResolver {
           return { _ in "..." }
         }
@@ -112,8 +111,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testApplicationName() {
-    // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
-    #if !os(WASI)
+    #if !PLATFORM_LACKS_FOUNDATION_PROCESS_INFO
       XCTAssertEqual(ProcessInfo.applicationName(.español(.de)), "del Ejemplar")
       XCTAssertEqual(ProcessInfo.applicationName(.deutsch(.akkusativ)), "Beispiel")
       XCTAssertEqual(ProcessInfo.applicationName(.deutsch(.dativ)), "Beispiel")

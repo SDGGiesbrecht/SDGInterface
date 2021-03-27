@@ -12,8 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-// #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
-#if !os(WASI)
+#if !PLATFORM_LACKS_FOUNDATION_PROCESS_INFO
   // @example(application)
   import Foundation
 
