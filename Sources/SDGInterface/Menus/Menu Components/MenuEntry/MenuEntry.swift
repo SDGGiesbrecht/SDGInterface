@@ -156,9 +156,6 @@ public struct MenuEntry<L>: LegacyMenuComponents where L: Localization {
     platformTag: Int?
   ) {
     self.label = label
-    #if DEBUG
-      _ = label.resolved()  // Eager execution to simplify testing.
-    #endif
     self.hotKeyModifiers = hotKeyModifiers
     self.hotKey = hotKey
     self.action = action

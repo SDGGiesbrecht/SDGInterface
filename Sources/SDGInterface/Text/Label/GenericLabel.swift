@@ -35,9 +35,6 @@ internal struct GenericLabel<L, S>: LegacyView where L: Localization, S: StringF
     _ text: Shared<UserFacing<S, L>>,
     colour: Colour
   ) {
-    #if DEBUG
-      _ = text.value.resolved()  // Eager execution to simplify testing.
-    #endif
     self.text = text
     self.colour = colour
   }
