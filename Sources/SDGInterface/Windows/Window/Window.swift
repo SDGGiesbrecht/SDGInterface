@@ -44,9 +44,6 @@ public struct Window<Content, L>: LegacyWindow where Content: LegacyView, L: Loc
     content: Content,
     onClose: @escaping () -> Void = {}
   ) {
-    #if DEBUG
-      _ = name.resolved()  // Eager execution to simplify testing.
-    #endif
     self.type = type
     self.name = name
     self.content = content

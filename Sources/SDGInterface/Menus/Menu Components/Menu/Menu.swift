@@ -45,7 +45,6 @@ where L: Localization, Components: LegacyMenuComponents {
   ) {
     #if DEBUG
       // Eager execution to simplify testing.
-      _ = label.resolved()
       _ = entries()
     #endif
     self.label = label
