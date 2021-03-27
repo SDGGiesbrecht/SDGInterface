@@ -31,8 +31,7 @@ public struct ApplicationNameLocalization: Localization {
     if let defined = _correspondingIsolatedName {
       return defined
     } else {
-      // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
-      #if os(WASI)
+      #if PLATFORM_LACKS_FOUNDATION_PROCESS_INFO
         return ""
       #else
         // This fallback is only for “und”.
@@ -50,8 +49,7 @@ public struct ApplicationNameLocalization: Localization {
   // MARK: - Localization
 
   public init?(exactly code: String) {
-    // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
-    #if os(WASI)
+    #if PLATFORM_LACKS_FOUNDATION_PROCESS_INFO
       return nil
     #else
       guard let form = ApplicationNameForm.isolatedForm(for: code),

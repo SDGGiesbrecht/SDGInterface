@@ -94,10 +94,6 @@ public struct SampleApplication: LegacyApplication {
     }
   }
 
-  public var applicationIdentifier: String {
-    return "com.example.SampleApplication"
-  }
-
   public static func main() {  // @exempt(from: tests)
     #if os(iOS) && arch(arm)
       legacyMain()
@@ -139,7 +135,8 @@ public struct SampleApplication: LegacyApplication {
 Some platforms lack certain features. The compilation conditions which appear throughout the documentation are defined as follows:
 
 ```swift
-.define("PLATFORM_LACKS_FOUNDATION_RUN_LOOP", .when(platforms: [.wasi]))
+.define("PLATFORM_LACKS_FOUNDATION_PROCESS_INFO", .when(platforms: [.wasi])),
+.define("PLATFORM_LACKS_FOUNDATION_RUN_LOOP", .when(platforms: [.wasi])),
 ```
 
 ## Importing

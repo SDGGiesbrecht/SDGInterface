@@ -40,8 +40,7 @@ import SDGInterfaceInternalTestUtilities
 final class InternalTests: ApplicationTestCase {
 
   func testApplicationName() {
-    // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
-    #if !os(WASI)
+    #if !PLATFORM_LACKS_FOUNDATION_PROCESS_INFO
       let previous = ProcessInfo.applicationName
       func testAllLocalizations() {
         defer {
@@ -147,8 +146,7 @@ final class InternalTests: ApplicationTestCase {
   func testNSApplicationDelegate() {
     struct Error: Swift.Error {}
     struct TestApplication: LegacyApplication {
-      // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
-      #if !os(WASI)
+      #if !PLATFORM_LACKS_FOUNDATION_PROCESS_INFO
         var applicationName: ProcessInfo.ApplicationNameResolver {
           return { _ in "Test Application" }
         }
@@ -314,8 +312,7 @@ final class InternalTests: ApplicationTestCase {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       @available(macOS 11, iOS 14, tvOS 14, *)
       struct TestApplication: Application {
-        // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
-        #if !os(WASI)
+        #if !PLATFORM_LACKS_FOUNDATION_PROCESS_INFO
           var applicationName: ProcessInfo.ApplicationNameResolver {
             return { _ in "Test Application" }
           }
@@ -336,8 +333,7 @@ final class InternalTests: ApplicationTestCase {
       }
       @available(macOS 11, iOS 14, tvOS 14, *)
       struct WithPreferences: Application {
-        // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
-        #if !os(WASI)
+        #if !PLATFORM_LACKS_FOUNDATION_PROCESS_INFO
           var applicationName: ProcessInfo.ApplicationNameResolver {
             return { _ in "Test Application" }
           }
@@ -365,8 +361,7 @@ final class InternalTests: ApplicationTestCase {
   func testUIApplicationDelegate() {
     struct Error: Swift.Error {}
     struct TestApplication: LegacyApplication {
-      // #workaround(Swift 5.3.2, Web lacks ProcessInfo.)
-      #if !os(WASI)
+      #if !PLATFORM_LACKS_FOUNDATION_PROCESS_INFO
         var applicationName: ProcessInfo.ApplicationNameResolver {
           return { _ in "Test Application" }
         }
