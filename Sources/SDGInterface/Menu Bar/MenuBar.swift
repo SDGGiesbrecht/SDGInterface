@@ -431,6 +431,9 @@ extension MenuBar: MenuBarProtocol where ApplicationSpecificMenus: SDGInterface.
           MenuBar<SDGInterface.EmptyCommands>.about().swiftUI()
         }
 
+        // #workaround(Swift 5.3.2, The defaults for this section behave poorly with WindowGroup; the window cannot be forcibly unique, copies steal Cocoa views from each other, and the grammar is bad.)
+        CommandGroup(replacing: .newItem) {}
+
         CommandGroup(replacing: .appVisibility) {
           // Improved grammar of interpolation.
           MenuBar<SDGInterface.EmptyCommands>.hide().swiftUI()
