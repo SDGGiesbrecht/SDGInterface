@@ -48,12 +48,13 @@ public struct Alert<L, M, N> where L: Localization, M: Localization, N: Localiza
   private let style: Style
   private let title: UserFacing<StrictString, L>
   private let message: UserFacing<StrictString, M>?
-  private let dismissalButton: Button<N>?
+  internal let dismissalButton: Button<N>?
 
   // MARK: - AppKit
 
   #if canImport(AppKit)
-    public func cocoa() -> NSAlert {
+    // Internal because the dismisal action is handled at the call site.
+    internal func cocoa() -> NSAlert {
       let alert = NSAlert()
       alert.alertStyle = style.cocoa()
       alert.messageText = String(title.resolved())
