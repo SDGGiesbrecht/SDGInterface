@@ -31,7 +31,7 @@ where V: LegacyView, L: Localization, M: Localization, N: Localization {
   // MARK: - LegacyView
 
   public func cocoa() -> CocoaView {
-    fatalError()
+    return CocoaView(CocoaImplementation(view: view, alert: alert, isPresented: isPresented))
   }
 }
 
