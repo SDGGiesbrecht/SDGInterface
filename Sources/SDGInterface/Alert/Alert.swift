@@ -15,6 +15,9 @@
 #if canImport(SwiftUI)
   import SwiftUI
 #endif
+#if canImport(AppKit)
+  import AppKit
+#endif
 
 import SDGText
 import SDGLocalization
@@ -29,10 +32,12 @@ public struct Alert<L, M, N> where L: Localization, M: Localization, N: Localiza
   /// 	- message: The message.
   ///   - dismissalButton: The dismissal button.
   public init(
+    style: Style,
     title: UserFacing<StrictString, L>,
     message: UserFacing<StrictString, M>,
     dismissalButton: Button<N>
   ) {
+    self.style = style
     self.title = title
     self.message = message
     self.dismissalButton = dismissalButton
@@ -40,9 +45,25 @@ public struct Alert<L, M, N> where L: Localization, M: Localization, N: Localiza
 
   // MARK: - Properties
 
+  private let style: Style
   private let title: UserFacing<StrictString, L>
   private let message: UserFacing<StrictString, M>?
   private let dismissalButton: Button<N>?
+
+  // MARK: - AppKit
+
+  #if canImport(AppKit)
+    public func cocoa() -> NSAlert {
+      let alert = NSAlert()
+      alert.alertStyle = style.cocoa()
+      alert.messageText = String(title.resolved())
+      alert.informativeText = String(title.resolved())
+      if let dismissal = dismissalButton {
+        alert.addButton(withTitle: String(dismissal.label.resolved()))
+      }
+      return alert
+    }
+  #endif
 
   // MARK: - SwiftUI
 

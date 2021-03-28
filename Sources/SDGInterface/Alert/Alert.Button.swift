@@ -41,8 +41,8 @@ extension Alert {
     // MARK: - Properties
 
     private let style: Style
-    private let label: UserFacing<StrictString, L>
-    private let action: (() -> Void)?
+    internal let label: UserFacing<StrictString, L>
+    internal let action: (() -> Void)?
 
     // MARK: - SwiftUI
 
@@ -57,7 +57,6 @@ extension Alert {
         case .destructive:
           return SwiftUI.Alert.Button.destructive(Text(String(label.resolved())), action: action)
         }
-
       }
     #endif
   }
