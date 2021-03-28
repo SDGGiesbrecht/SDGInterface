@@ -36,7 +36,7 @@ where V: LegacyView, L: Localization, M: Localization, N: Localization {
 }
 
 @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-extension ViewWithAlert: View where V: View {
+extension ViewWithAlert: View, ViewShims where V: View {
 
   // MARK: - View
 

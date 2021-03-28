@@ -17,7 +17,13 @@ import SDGControlFlow
 extension LegacyView {
 
   /// Returns a view with an associated alert.
-  public func alert(isPresented: Shared<Bool>) -> Any {
-
+  ///
+  /// - Parameters:
+  ///   - isPresented: A binding that toggles the presentation of the alert.
+  ///   - alert: The alert.
+  public func alert<L, M, N>(isPresented: Shared<Bool>, alert: Alert<L, M, N>) -> ViewWithAlert<
+    Self, L, M, N
+  > {
+    return ViewWithAlert(view: self, alert: alert, isPresented: isPresented)
   }
 }
