@@ -12,6 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(SwiftUI)
+  import SwiftUI
+#endif
+
 import SDGText
 import SDGLocalization
 
@@ -39,5 +43,22 @@ extension Alert {
     private let style: Style
     private let label: UserFacing<StrictString, L>
     private let action: (() -> Void)?
+
+    // MARK: - SwiftUI
+
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+      public func swiftUI() -> SwiftUI.Alert.Button {
+        switch style {
+        case .default:
+          return SwiftUI.Alert.Button.default(Text(String(label.resolved())), action: action)
+        case .cancellation:
+          return SwiftUI.Alert.Button.cancel(Text(String(label.resolved())), action: action)
+        case .destructive:
+          return SwiftUI.Alert.Button.destructive(Text(String(label.resolved())), action: action)
+        }
+
+      }
+    #endif
   }
 }

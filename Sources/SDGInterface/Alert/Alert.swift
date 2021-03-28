@@ -25,30 +25,35 @@ public struct Alert<L, M, N> where L: Localization, M: Localization, N: Localiza
   /// Creates an alert.
   ///
   /// - Parameters:
-  ///   - message: The message.
-  /// 	- details: Details.
+  ///   - title: The title.
+  /// 	- message: The message.
   ///   - dismissalButton: The dismissal button.
   public init(
-    message: UserFacing<StrictString, L>,
-    details: UserFacing<StrictString, M>?,
+    title: UserFacing<StrictString, L>,
+    message: UserFacing<StrictString, M>,
     dismissalButton: Button<N>
   ) {
+    self.title = title
     self.message = message
-    self.details = details
     self.dismissalButton = dismissalButton
   }
 
   // MARK: - Properties
 
-  private let message: UserFacing<StrictString, L>
-  private let details: UserFacing<StrictString, M>?
-  private let dismissalButton: Button<N>
+  private let title: UserFacing<StrictString, L>
+  private let message: UserFacing<StrictString, M>?
+  private let dismissalButton: Button<N>?
 
   // MARK: - SwiftUI
 
   #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-  public func swiftUI() -> SwiftUI.Alert {
-    return SwiftUI.Alert(title: Text(String(message.resolved())), message: details.)
-  }
+    @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+    public func swiftUI() -> SwiftUI.Alert {
+      return SwiftUI.Alert(
+        title: Text(String(title.resolved())),
+        message: message.map({ Text(String($0.resolved())) }),
+        dismissButton: dismissalButton?.swiftUI()
+      )
+    }
+  #endif
 }
