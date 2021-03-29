@@ -31,9 +31,9 @@ where V: LegacyView, L: Localization, M: Localization, N: Localization {
   // MARK: - LegacyView
 
   #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
-  public func cocoa() -> CocoaView {
-    return CocoaView(CocoaImplementation(view: view, alert: alert, isPresented: isPresented))
-  }
+    public func cocoa() -> CocoaView {
+      return CocoaView(CocoaImplementation(view: view, alert: alert, isPresented: isPresented))
+    }
   #endif
 }
 

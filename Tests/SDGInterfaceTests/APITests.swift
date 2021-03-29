@@ -43,6 +43,24 @@ import SDGInterfaceInternalTestUtilities
 
 final class APITests: ApplicationTestCase {
 
+  func testAlert() {
+    let withAlert = SDGInterface.EmptyView()
+      .alert(
+        isPresented: Shared(false),
+        alert: SDGInterface.Alert(
+          style: .informational,
+          title: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+          message: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+          dismissalButton: SDGInterface.Alert.Button(
+            style: .default,
+            label: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+            action: {}
+          )
+        )
+      )
+    testViewConformance(of: withAlert)
+  }
+
   func testAlignment() {
     XCTAssertEqual(SDGInterface.Alignment(horizontal: .centre, vertical: .centre), .centre)
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))

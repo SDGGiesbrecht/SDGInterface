@@ -22,6 +22,7 @@ import XCTest
 extension SDGInterfaceTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
+      ("testAlert", testAlert),
       ("testAlignment", testAlignment),
       ("testAnchorSource", testAnchorSource),
       ("testAnyView", testAnyView),
