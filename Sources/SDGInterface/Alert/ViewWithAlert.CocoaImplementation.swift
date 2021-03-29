@@ -20,7 +20,7 @@ import SDGControlFlow
 
 extension ViewWithAlert {
 
-  #if canImport(AppKit)
+  #if canImport(AppKit) || (canImport(UIKit) && !os(watch))
     internal class CocoaImplementation: CocoaView.NativeType, SharedValueObserver {
 
       // MARK: - Initialization
