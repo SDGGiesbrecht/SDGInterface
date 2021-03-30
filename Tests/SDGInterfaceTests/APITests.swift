@@ -43,6 +43,64 @@ import SDGInterfaceInternalTestUtilities
 
 final class APITests: ApplicationTestCase {
 
+  func testAlert() {
+    let alert = SDGInterface.Alert(
+      style: .informational,
+      title: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+      message: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+      dismissalButton: AlertButton(
+        style: .default,
+        label: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+        action: {}
+      )
+    )
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        _ = alert.swiftUI()
+      }
+    #endif
+    #if canImport(UIKit)
+      _ = alert.cocoa()
+    #endif
+
+    let withAlert = SDGInterface.EmptyView()
+      .alert(
+        isPresented: Shared(false),
+        alert: alert
+      )
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        testViewConformance(of: withAlert)
+      }
+    #endif
+  }
+
+  func testAlertButton() {
+    for buttonStyle in [.default, .cancellation, .destructive] as [AlertButtonStyle] {
+      let button = AlertButton(
+        style: buttonStyle,
+        label: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+        action: {}
+      )
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+          _ = button.swiftUI()
+        }
+      #endif
+      #if canImport(UIKit)
+        _ = button.cocoa()
+      #endif
+    }
+  }
+
+  func testAlertStyle() {
+    for alertStyle in [.informational, .warning, .critical] as [AlertStyle] {
+      #if canImport(AppKit)
+        _ = alertStyle.cocoa()
+      #endif
+    }
+  }
+
   func testAlignment() {
     XCTAssertEqual(SDGInterface.Alignment(horizontal: .centre, vertical: .centre), .centre)
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))

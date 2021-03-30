@@ -39,6 +39,22 @@ import SDGInterfaceInternalTestUtilities
 
 final class InternalTests: ApplicationTestCase {
 
+  func testAlert() {
+    let alert = SDGInterface.Alert(
+      style: .informational,
+      title: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+      message: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+      dismissalButton: AlertButton(
+        style: .default,
+        label: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+        action: {}
+      )
+    )
+    #if canImport(AppKit) || canImport(UIKit)
+      _ = alert.cocoa()
+    #endif
+  }
+
   func testApplicationName() {
     #if !PLATFORM_LACKS_FOUNDATION_PROCESS_INFO
       let previous = ProcessInfo.applicationName

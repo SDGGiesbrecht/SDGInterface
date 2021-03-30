@@ -22,6 +22,9 @@ import XCTest
 extension SDGInterfaceTests.APITests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
+      ("testAlert", testAlert),
+      ("testAlertButton", testAlertButton),
+      ("testAlertStyle", testAlertStyle),
       ("testAlignment", testAlignment),
       ("testAnchorSource", testAnchorSource),
       ("testAnyView", testAnyView),
@@ -96,6 +99,7 @@ extension SDGInterfaceTests.APITests {
 extension SDGInterfaceTests.InternalTests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
+      ("testAlert", testAlert),
       ("testApplicationName", testApplicationName),
       ("testButtonCocoaImplementation", testButtonCocoaImplementation),
       ("testButtonLabel", testButtonLabel),
