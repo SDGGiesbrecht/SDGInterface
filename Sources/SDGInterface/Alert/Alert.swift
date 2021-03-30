@@ -30,7 +30,7 @@ public struct Alert<L, M, N> where L: Localization, M: Localization, N: Localiza
   /// - Parameters:
   ///   - style: The style of the alert.
   ///   - title: The title.
-  /// 	- message: The message.
+  ///   - message: The message.
   ///   - dismissalButton: The dismissal button.
   public init(
     style: Style,
