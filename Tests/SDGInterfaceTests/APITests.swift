@@ -51,7 +51,7 @@ final class APITests: ApplicationTestCase {
           style: .informational,
           title: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
           message: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
-          dismissalButton: SDGInterface.Alert.Button(
+          dismissalButton: AlertButton(
             style: .default,
             label: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
             action: {}
@@ -59,6 +59,27 @@ final class APITests: ApplicationTestCase {
         )
       )
     testViewConformance(of: withAlert)
+  }
+
+  func testAlertButton() {
+    for buttonStyle in [.default, .cancellation, .destructive] as [AlertButtonStyle] {
+      let button = AlertButton(
+        style: buttonStyle,
+        label: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+        action: {}
+      )
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        _ = button.swiftUI()
+      #endif
+    }
+  }
+
+  func testAlertStyle() {
+    for alertStyle in [.informational, .warning, .critical] as [AlertStyle] {
+      #if canImport(AppKit)
+        _ = alertStyle.cocoa()
+      #endif
+    }
   }
 
   func testAlignment() {

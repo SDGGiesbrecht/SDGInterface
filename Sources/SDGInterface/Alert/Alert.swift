@@ -33,10 +33,10 @@ public struct Alert<L, M, N> where L: Localization, M: Localization, N: Localiza
   ///   - message: The message.
   ///   - dismissalButton: The dismissal button.
   public init(
-    style: Style,
+    style: AlertStyle,
     title: UserFacing<StrictString, L>,
     message: UserFacing<StrictString, M>,
-    dismissalButton: Button<N>
+    dismissalButton: AlertButton<N>
   ) {
     self.style = style
     self.title = title
@@ -46,10 +46,10 @@ public struct Alert<L, M, N> where L: Localization, M: Localization, N: Localiza
 
   // MARK: - Properties
 
-  private let style: Style
+  private let style: AlertStyle
   private let title: UserFacing<StrictString, L>
   private let message: UserFacing<StrictString, M>?
-  internal let dismissalButton: Button<N>?
+  internal let dismissalButton: AlertButton<N>?
 
   // MARK: - AppKit
 

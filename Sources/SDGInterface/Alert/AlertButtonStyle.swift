@@ -1,5 +1,5 @@
 /*
- Alert.Button.Style.swift
+ AlertButtonStyle.swift
 
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
@@ -12,18 +12,15 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-extension Alert.Button {
+/// A style of alert button.
+public enum AlertButtonStyle {
 
-  /// A style of alert button.
-  public enum Style {
+  /// The default style.
+  case `default`
 
-    /// The default style.
-    case `default`
+  /// A style indicating cancellation.
+  case cancellation
 
-    /// A style indicating cancellation.
-    case cancellation
-
-    /// A style indicating a destructive action.
-    case destructive
-  }
+  /// A style indicating a destructive action.
+  case destructive
 }
