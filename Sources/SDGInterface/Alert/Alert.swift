@@ -69,7 +69,7 @@ public struct Alert<L, M, N> where L: Localization, M: Localization, N: Localiza
     }
   #endif
 
-  #if canImport(UIKit)
+  #if canImport(UIKit) && !os(watchOS)
     /// Constructs a Cocoa representation of the alert.
     public func cocoa() -> UIAlertController {
       let alert = UIAlertController(

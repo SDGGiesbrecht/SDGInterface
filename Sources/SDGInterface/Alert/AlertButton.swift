@@ -47,7 +47,7 @@ public struct AlertButton<L> where L: Localization {
 
   // MARK: - Cocoa
 
-  #if canImport(UIKit)
+  #if canImport(UIKit) && !os(watchOS)
     /// Constructs a Cocoa representation of the alter button.
     public func cocoa() -> UIAlertAction {
       let wrappedAction: ((UIAlertAction) -> Void)? = action.map { action in

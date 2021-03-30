@@ -30,7 +30,7 @@ public enum AlertButtonStyle {
 
   // MARK: - Cocoa
 
-  #if canImport(UIKit)
+  #if canImport(UIKit) && !os(watchOS)
     /// Constructs a Cocoa representation of the button style.
     public func cocoa() -> UIAlertAction.Style {
       switch self {
