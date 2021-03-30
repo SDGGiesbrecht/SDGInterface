@@ -50,7 +50,7 @@ final class InternalTests: ApplicationTestCase {
         action: {}
       )
     )
-    #if canImport(AppKit)
+    #if canImport(AppKit) || canImport(UIKit)
       _ = alert.cocoa()
     #endif
   }

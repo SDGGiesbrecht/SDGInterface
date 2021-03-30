@@ -70,8 +70,8 @@ public struct Alert<L, M, N> where L: Localization, M: Localization, N: Localiza
   #endif
 
   #if canImport(UIKit)
-    // Internal because the dismisal action is handled at the call site.
-    internal func cocoa() -> UIAlertController {
+    /// Constructs a Cocoa representation of the alert.
+    public func cocoa() -> UIAlertController {
       let alert = UIAlertController(
         title: String(title.resolved()),
         message: message.map({ String($0.resolved()) }),

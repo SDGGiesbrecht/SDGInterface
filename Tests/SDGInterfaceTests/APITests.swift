@@ -59,6 +59,9 @@ final class APITests: ApplicationTestCase {
         _ = alert.swiftUI()
       }
     #endif
+    #if canImport(UIKit)
+      _ = alert.cocoa()
+    #endif
 
     let withAlert = SDGInterface.EmptyView()
       .alert(
@@ -83,6 +86,9 @@ final class APITests: ApplicationTestCase {
         if #available(macOS 10.15, tvOS 13, iOS 13, *) {
           _ = button.swiftUI()
         }
+      #endif
+      #if canImport(UIKit)
+        _ = button.cocoa()
       #endif
     }
   }
