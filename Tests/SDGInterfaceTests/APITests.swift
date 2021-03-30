@@ -55,7 +55,9 @@ final class APITests: ApplicationTestCase {
       )
     )
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      _ = alert.swiftUI()
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        _ = alert.swiftUI()
+      }
     #endif
 
     let withAlert = SDGInterface.EmptyView()
@@ -63,7 +65,11 @@ final class APITests: ApplicationTestCase {
         isPresented: Shared(false),
         alert: alert
       )
-    testViewConformance(of: withAlert)
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        testViewConformance(of: withAlert)
+      }
+    #endif
   }
 
   func testAlertButton() {
@@ -74,7 +80,9 @@ final class APITests: ApplicationTestCase {
         action: {}
       )
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-        _ = button.swiftUI()
+        if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+          _ = button.swiftUI()
+        }
       #endif
     }
   }
