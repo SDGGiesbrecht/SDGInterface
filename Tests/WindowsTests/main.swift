@@ -99,6 +99,7 @@ extension SDGInterfaceTests.APITests {
 extension SDGInterfaceTests.InternalTests {
   static let windowsTests: [XCTestCaseEntry] = [
     testCase([
+      ("testAlert", testAlert),
       ("testApplicationName", testApplicationName),
       ("testButtonCocoaImplementation", testButtonCocoaImplementation),
       ("testButtonLabel", testButtonLabel),

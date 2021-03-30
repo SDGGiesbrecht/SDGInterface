@@ -44,19 +44,24 @@ import SDGInterfaceInternalTestUtilities
 final class APITests: ApplicationTestCase {
 
   func testAlert() {
+    let alert = SDGInterface.Alert(
+      style: .informational,
+      title: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+      message: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+      dismissalButton: AlertButton(
+        style: .default,
+        label: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+        action: {}
+      )
+    )
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      _ = alert.swiftUI()
+    #endif
+
     let withAlert = SDGInterface.EmptyView()
       .alert(
         isPresented: Shared(false),
-        alert: SDGInterface.Alert(
-          style: .informational,
-          title: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
-          message: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
-          dismissalButton: AlertButton(
-            style: .default,
-            label: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
-            action: {}
-          )
-        )
+        alert: alert
       )
     testViewConformance(of: withAlert)
   }

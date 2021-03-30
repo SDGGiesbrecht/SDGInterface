@@ -35,6 +35,7 @@ import SDGControlFlow
       internal var body: some SwiftUI.View {
         return view.swiftUI()
           .alert(isPresented: $isPresented.value) {
+            // @exempt(from: tests) Would hang indefinitely.
             self.alert.swiftUI()
           }
       }
