@@ -47,6 +47,7 @@ extension Alert {
     // MARK: - SwiftUI
 
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      /// Constructs a SwiftUI representation of the alert button.
       @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
       public func swiftUI() -> SwiftUI.Alert.Button {
         switch style {

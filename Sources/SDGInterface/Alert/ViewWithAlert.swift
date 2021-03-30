@@ -19,6 +19,7 @@
 import SDGControlFlow
 import SDGLocalization
 
+/// A view with an associated alert.
 public struct ViewWithAlert<V, L, M, N>: LegacyView
 where V: LegacyView, L: Localization, M: Localization, N: Localization {
 

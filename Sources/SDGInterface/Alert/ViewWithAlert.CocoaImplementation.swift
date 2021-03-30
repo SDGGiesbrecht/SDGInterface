@@ -36,8 +36,8 @@ extension ViewWithAlert {
         isPresented.register(observer: self)
       }
 
-      required init?(coder: NSCoder) {
-        codingNotSupported()
+      internal required init?(coder: NSCoder) {  // @exempt(from: tests)
+        return nil
       }
 
       // MARK: - Properties

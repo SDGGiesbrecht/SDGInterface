@@ -28,6 +28,7 @@ public struct Alert<L, M, N> where L: Localization, M: Localization, N: Localiza
   /// Creates an alert.
   ///
   /// - Parameters:
+  ///   - style: The style of the alert.
   ///   - title: The title.
   /// 	- message: The message.
   ///   - dismissalButton: The dismissal button.
@@ -69,6 +70,7 @@ public struct Alert<L, M, N> where L: Localization, M: Localization, N: Localiza
   // MARK: - SwiftUI
 
   #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    /// Constructs a SwiftUI representation of the alert.
     @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
     public func swiftUI() -> SwiftUI.Alert {
       return SwiftUI.Alert(

@@ -35,6 +35,7 @@ extension Alert {
     // MARK: - AppKit
 
     #if canImport(AppKit)
+      /// Constructs a Cocoa representation of the alert style.
       public func cocoa() -> NSAlert.Style {
         switch self {
         case .critical:
