@@ -15,6 +15,9 @@
 #if canImport(SwiftUI)
   import SwiftUI
 #endif
+#if canImport(UIKit)
+  import UIKit
+#endif
 
 import SDGText
 import SDGLocalization
@@ -41,6 +44,24 @@ public struct AlertButton<L> where L: Localization {
   private let style: AlertButtonStyle
   internal let label: UserFacing<StrictString, L>
   internal let action: (() -> Void)?
+
+  // MARK: - Cocoa
+
+  #if canImport(UIKit)
+    /// Constructs a Cocoa representation of the alter button.
+    public func cocoa() -> UIAlertAction {
+      let wrappedAction: ((UIAlertAction) -> Void)? = action.map { action in
+        return { (UIAlertAction) -> Void in
+          return action()
+        }
+      }
+      return UIAlertAction(
+        title: String(label.resolved()),
+        style: style.cocoa(),
+        handler: wrappedAction
+      )
+    }
+  #endif
 
   // MARK: - SwiftUI
 

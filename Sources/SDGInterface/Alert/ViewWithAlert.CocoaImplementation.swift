@@ -15,6 +15,9 @@
 #if canImport(AppKit)
   import AppKit
 #endif
+#if canImport(UIKit)
+  import UIKit
+#endif
 
 import SDGControlFlow
 
@@ -49,8 +52,13 @@ extension ViewWithAlert {
 
       internal func valueChanged(for identifier: String) {
         if isPresented.value {  // @exempt(from: tests) Would hang indefinitely.
-          alert.cocoa().runModal()
-          alert.dismissalButton?.action?()
+          #if canImport(AppKit)
+            alert.cocoa().runModal()
+            alert.dismissalButton?.action?()
+          #else
+            let alertController = alert.cocoa()
+            self.controller?.present(alertController, animated: true, completion: nil)
+          #endif
         }
       }
     }

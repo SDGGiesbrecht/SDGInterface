@@ -12,6 +12,10 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
+#if canImport(UIKit)
+  import UIKit
+#endif
+
 /// A style of alert button.
 public enum AlertButtonStyle {
 
@@ -23,4 +27,20 @@ public enum AlertButtonStyle {
 
   /// A style indicating a destructive action.
   case destructive
+
+  // MARK: - Cocoa
+
+  #if canImport(UIKit)
+    /// Constructs a Cocoa representation of the button style.
+    public func cocoa() -> UIAlertAction.Style {
+      switch self {
+      case .default:
+        return .default
+      case .cancellation:
+        return .cancel
+      case .destructive:
+        return .destructive
+      }
+    }
+  #endif
 }

@@ -59,9 +59,24 @@ public struct Alert<L, M, N> where L: Localization, M: Localization, N: Localiza
       let alert = NSAlert()
       alert.alertStyle = style.cocoa()
       alert.messageText = String(title.resolved())
-      alert.informativeText = String(title.resolved())
+      alert.informativeText = message.map({ String($0.resolved()) })
       if let dismissal = dismissalButton {
         alert.addButton(withTitle: String(dismissal.label.resolved()))
+      }
+      return alert
+    }
+  #endif
+
+  #if canImport(UIKit)
+    // Internal because the dismisal action is handled at the call site.
+    internal func cocoa() -> UIAlertController {
+      let alert = UIAlertController(
+        title: String(title.resolved()),
+        message: message.map({ String($0.resolved()) }),
+        preferredStyle: .alert
+      )
+      if let dismissal = dismissalButton {
+        alert.addAction(dismissal.cocoa())
       }
       return alert
     }
