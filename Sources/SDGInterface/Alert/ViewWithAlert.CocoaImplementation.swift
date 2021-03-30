@@ -51,8 +51,8 @@ extension ViewWithAlert {
       // MARK: - SharedValueObserver
 
       internal func valueChanged(for identifier: String) {
-        if isPresented.value {  // @exempt(from: tests) Would hang indefinitely.
-          #if canImport(AppKit)
+        if isPresented.value {
+          #if canImport(AppKit)  // @exempt(from: tests) Would hang indefinitely.
             alert.cocoa().runModal()
             alert.dismissalButton?.action?()
           #else
