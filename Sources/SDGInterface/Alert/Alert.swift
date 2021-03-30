@@ -59,7 +59,9 @@ public struct Alert<L, M, N> where L: Localization, M: Localization, N: Localiza
       let alert = NSAlert()
       alert.alertStyle = style.cocoa()
       alert.messageText = String(title.resolved())
-      alert.informativeText = message.map({ String($0.resolved()) })
+      if let message = self.message {
+        alert.informativeText = String(message.resolved())
+      }
       if let dismissal = dismissalButton {
         alert.addButton(withTitle: String(dismissal.label.resolved()))
       }
