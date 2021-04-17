@@ -431,6 +431,13 @@ final class APITests: ApplicationTestCase {
     #endif
   }
 
+  func testDerivedLog() {
+    #if canImport(AppKit) || canImport(UIKit)
+      let log = DerivedLog(source: Shared(0), derivation: { "\($0.inDigits())" })
+      _ = log.cocoa()
+    #endif
+  }
+
   func testDivider() {
     #if canImport(AppKit) || (canImport(UIKit) && !os(tvOS) && !os(watchOS))
       _ = Divider().cocoa()

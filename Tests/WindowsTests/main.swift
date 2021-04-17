@@ -48,6 +48,7 @@ extension SDGInterfaceTests.APITests {
       ("testContentMode", testContentMode),
       ("testContextMenu", testContextMenu),
       ("testDemonstrations", testDemonstrations),
+      ("testDerivedLog", testDerivedLog),
       ("testDivider", testDivider),
       ("testEdge", testEdge),
       ("testEdgeSet", testEdgeSet),
