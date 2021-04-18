@@ -30,7 +30,7 @@
 
   internal class NSApplicationDelegate<Application>: NSObject, AppKit.NSApplicationDelegate,
     NSApplicationDelegateProtocol, NSMenuItemValidation
-  where Application: LegacyApplication {
+  where Application: Service {
 
     // MARK: - Initialization
 

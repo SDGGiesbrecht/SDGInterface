@@ -26,7 +26,7 @@
   #if !os(watchOS)
 
     internal class UIApplicationDelegate<Application>: NSObject, UIKit.UIApplicationDelegate
-    where Application: LegacyApplication {
+    where Application: Service {
 
       // MARK: - Initialization
 
