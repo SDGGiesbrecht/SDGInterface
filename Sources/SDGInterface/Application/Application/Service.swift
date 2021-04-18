@@ -146,7 +146,7 @@ extension Service {
 
     #if canImport(AppKit)
       if let object = self as? NSObject {
-        NSApplication.shared.servicesProvider = self
+        NSApplication.shared.servicesProvider = object
       }
     #endif
   }
