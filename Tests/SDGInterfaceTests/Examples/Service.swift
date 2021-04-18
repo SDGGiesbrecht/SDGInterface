@@ -22,7 +22,13 @@ final class ServiceExample: Service {
 
   init() {}
 
-  var applicationName: ProcessInfo.ApplicationNameResolver {
-    return { _ in "..." }
-  }
+  #if !PLATFORM_LACKS_FOUNDATION_PROCESS_INFO
+    var applicationName: ProcessInfo.ApplicationNameResolver {
+      return { _ in "..." }
+    }
+  #endif
+
+  #if PLATFORM_LACKS_FOUNDATION_RUN_LOOP
+    static func main() {}
+  #endif
 }
