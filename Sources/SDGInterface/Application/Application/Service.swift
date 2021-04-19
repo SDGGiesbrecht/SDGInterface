@@ -146,6 +146,7 @@ extension Service {
 
     #if canImport(AppKit)
       if let object = self as? NSObject {
+        // @exempt(from: tests)
         NSApplication.shared.servicesProvider = object
       }
     #endif
