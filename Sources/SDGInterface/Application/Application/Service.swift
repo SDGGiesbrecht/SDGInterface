@@ -169,7 +169,7 @@ extension Service {
     return finishLaunching(details)
   }
 
-  public func _displayMainWindow() {}
+  public func _displayMainWindow() {}  // @exempt(from: tests)
 
   // MARK: - SystemInterface
 
