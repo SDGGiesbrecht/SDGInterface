@@ -17,7 +17,7 @@ import WorkspaceConfiguration
 let configuration = WorkspaceConfiguration()
 configuration._applySDGDefaults()
 
-configuration.documentation.currentVersion = Version(0, 11, 1)
+configuration.documentation.currentVersion = Version(0, 11, 2)
 
 configuration.documentation.projectWebsite = URL(
   string: "https://sdggiesbrecht.github.io/SDGInterface"
