@@ -25,16 +25,6 @@
   /// The subset of the `CocoaViewImplementation` protocol that can be conformed to even on platform versions preceding SwiftUI’s availability.
   public protocol LegacyCocoaViewImplementation: LegacyView {}
 
-  extension LegacyCocoaViewImplementation {
-
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      @available(macOS 10.15, tvOS 13, iOS 13, *)
-      public func swiftUI() -> some SwiftUI.View {
-        return CocoaViewRepresentableWrapper(cocoa())
-      }
-    #endif
-  }
-
   #if canImport(AppKit)
     extension LegacyCocoaViewImplementation where Self: NSView {
       public func cocoa() -> CocoaView {
