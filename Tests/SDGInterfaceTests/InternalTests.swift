@@ -91,7 +91,7 @@ final class InternalTests: ApplicationTestCase {
       )
       legacyMode = true
       defer { legacyMode = false }
-      let cocoa = button.cocoa().native as! Button.Superclass
+      let cocoa = button.cocoa().native as! Button<InterfaceLocalization>.Superclass
       #if canImport(AppKit)
         cocoa.sendAction(cocoa.action, to: cocoa.target)
       #else
@@ -309,7 +309,9 @@ final class InternalTests: ApplicationTestCase {
       )
       legacyMode = true
       defer { legacyMode = false }
-      let cocoa = segmentedControl.cocoa().native as! SegmentedControl.Superclass
+      let cocoa =
+        segmentedControl.cocoa().native
+        as! SegmentedControl<Enumeration, InterfaceLocalization>.Superclass
       #if canImport(AppKit)
         cocoa.selectSegment(withTag: 1)
       #else
