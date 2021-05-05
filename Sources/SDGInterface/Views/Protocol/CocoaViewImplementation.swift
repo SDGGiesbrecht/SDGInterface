@@ -25,10 +25,11 @@
   /// A view that is implemented using Cocoa.
   ///
   /// If a type provides an implementation of `cocoa()`, conformance to this protocol can be declared in order to use default implementations for all the other requirements of `SDGSwift.View`.
-  public protocol CocoaViewImplementation: View {}
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  public protocol CocoaViewImplementation: LegacyCocoaViewImplementation, View {}
 
+  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension CocoaViewImplementation {
-
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       @available(macOS 10.15, tvOS 13, iOS 13, *)
       public func swiftUI() -> some SwiftUI.View {
@@ -36,18 +37,4 @@
       }
     #endif
   }
-
-  #if canImport(AppKit)
-    extension CocoaViewImplementation where Self: NSView {
-      public func cocoa() -> CocoaView {
-        return CocoaView(self)
-      }
-    }
-  #else
-    extension CocoaViewImplementation where Self: UIView {
-      public func cocoa() -> CocoaView {
-        return CocoaView(self)
-      }
-    }
-  #endif
 #endif
