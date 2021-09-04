@@ -14,6 +14,8 @@
 
 import Foundation
 
-@objc internal protocol NSApplicationDelegateProtocol {
-  @objc func openPreferences(_ sender: Any?)
-}
+#if canImport(AppKit)
+  @objc internal protocol NSApplicationDelegateProtocol {
+    @objc func openPreferences(_ sender: Any?)
+  }
+#endif
