@@ -12,8 +12,8 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if !os(Windows)  // #workaround(Swift 5.3.2, Causes linker error.)
-  import Foundation
+#if canImport(ObjectiveC)
+import Foundation
 
   /// An object which responds to actions related to editing text.
   @objc public protocol TextEditingResponder: TextDisplayResponder {

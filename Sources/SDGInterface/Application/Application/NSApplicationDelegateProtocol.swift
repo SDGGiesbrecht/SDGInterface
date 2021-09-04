@@ -12,9 +12,9 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-import Foundation
-
 #if canImport(AppKit)
+  import Foundation
+
   @objc internal protocol NSApplicationDelegateProtocol {
     @objc func openPreferences(_ sender: Any?)
   }
