@@ -340,6 +340,7 @@ for target in package.targets {
   ])
 }
 
+import Foundation
 if ProcessInfo.processInfo.environment["TARGETING_WATCHOS"] == "true" {
   // #workaround(xcodebuild -version 12.4, Test targets don’t work on watchOS.) @exempt(from: unicode)
   package.targets.removeAll(where: { $0.isTest })
