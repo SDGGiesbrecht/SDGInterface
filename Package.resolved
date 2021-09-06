@@ -6,8 +6,17 @@
         "repositoryURL": "https://github.com/SDGGiesbrecht/SDGCornerstone",
         "state": {
           "branch": null,
-          "revision": "6c935d8c4640e8476158a870459bab2f112d9cef",
-          "version": "7.1.3"
+          "revision": "9e3d5bcb91ee6698c39143ede1fa2396003e72c9",
+          "version": "7.2.3"
+        }
+      },
+      {
+        "package": "swift-collections",
+        "repositoryURL": "https://github.com/apple/swift-collections",
+        "state": {
+          "branch": null,
+          "revision": "9d8719c8bebdc79740b6969c912ac706eb721d7a",
+          "version": "0.0.7"
         }
       },
       {
