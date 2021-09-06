@@ -13,7 +13,7 @@
  */
 
 #if canImport(ObjectiveC)
-import Foundation
+  import Foundation
 
   /// An object which responds to actions related to displayed text.
   @objc public protocol TextDisplayResponder {

@@ -13,7 +13,7 @@
  */
 
 #if canImport(ObjectiveC)
-import Foundation
+  import Foundation
 
   /// An object which responds to actions related to editing rich text.
   @objc public protocol RichTextEditingResponder: TextEditingResponder {
