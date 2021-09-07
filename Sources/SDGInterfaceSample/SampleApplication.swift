@@ -22,7 +22,7 @@
   import SDGInterface
 
   #if !(os(iOS) && arch(arm))
-    @available(macOS 11, watchOS 6, *)
+    @available(macOS 11, tvOS 14, watchOS 6, *)
     extension SampleApplication: Application {}
   #endif
 
