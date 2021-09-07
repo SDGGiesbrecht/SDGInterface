@@ -136,7 +136,7 @@ public struct MenuEntry<L>: LegacyMenuComponents where L: Localization {
         label: label,
         hotKeyModifiers: [],
         hotKey: nil,
-        action: {
+        action: {  // @exempt(from: tests)
           UIApplication.shared.sendAction(selector, to: nil, from: nil, for: nil)
         },
         isDisabled: { false },
