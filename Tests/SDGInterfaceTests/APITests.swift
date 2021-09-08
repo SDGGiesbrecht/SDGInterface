@@ -1849,6 +1849,8 @@ final class APITests: ApplicationTestCase {
             #endif
           }
         #endif
+      #else
+        _ = window
       #endif
     }
   }
