@@ -83,7 +83,7 @@
 #endif
 
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm)) && !os(watchOS)
-  @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+  @available(macOS 10.15, tvOS 13, iOS 13, *)
   internal struct SegmentedControlPreviews: PreviewProvider {
     internal static var previews: some SwiftUI.View {
 

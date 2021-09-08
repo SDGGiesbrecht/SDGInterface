@@ -133,8 +133,10 @@
     func testRichTextPreviews() {
       for localization in InterfaceLocalization.allCases {
         LocalizationSetting(orderOfPrecedence: [localization.code]).do {
-          if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-            _ = RichTextPreviews.previews
+          if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+            #if !os(watchOS)
+              _ = RichTextPreviews.previews
+            #endif
           }
         }
       }
@@ -143,24 +145,30 @@
     func testSegmentedControlPreviews() {
       for localization in InterfaceLocalization.allCases {
         LocalizationSetting(orderOfPrecedence: [localization.code]).do {
-          if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-            _ = SegmentedControlPreviews.previews
+          if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+            #if !os(watchOS)
+              _ = SegmentedControlPreviews.previews
+            #endif
           }
         }
       }
     }
 
     func testTablePreviews() {
-      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-        _ = TablePreviews.previews
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        #if !os(watchOS)
+          _ = TablePreviews.previews
+        #endif
       }
     }
 
     func testTextViewPreviews() {
       for localization in InterfaceLocalization.allCases {
         LocalizationSetting(orderOfPrecedence: [localization.code]).do {
-          if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
-            _ = TextViewPreviews.previews
+          if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+            #if !os(watchOS)
+              _ = TextViewPreviews.previews
+            #endif
           }
         }
       }
