@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(AppKit) || canImport(UIKit)
+#if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
   import SDGInterface
 
   class CocoaWindowExample: CocoaWindow.NativeType, CocoaWindowImplementation {}

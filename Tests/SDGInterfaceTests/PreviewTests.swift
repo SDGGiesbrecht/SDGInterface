@@ -39,8 +39,8 @@
     func testCheckBoxPreviews() {
       for localization in InterfaceLocalization.allCases {
         LocalizationSetting(orderOfPrecedence: [localization.code]).do {
-          if #available(macOS 10.15, iOS 13, watchOS 6, *) {
-            #if !(os(tvOS) || os(iOS))
+          if #available(macOS 10.15, *) {
+            #if !(os(tvOS) || os(iOS) || os(watchOS))
               _ = CheckBoxPreviews.previews
             #endif
           }

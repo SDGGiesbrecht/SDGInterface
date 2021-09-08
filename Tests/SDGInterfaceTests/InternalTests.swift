@@ -50,7 +50,7 @@ final class InternalTests: ApplicationTestCase {
         action: {}
       )
     )
-    #if canImport(AppKit) || canImport(UIKit)
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       _ = alert.cocoa()
     #endif
   }
@@ -85,24 +85,28 @@ final class InternalTests: ApplicationTestCase {
 
   func testButtonCocoaImplementation() {
     #if canImport(AppKit) || canImport(UIKit)
-      let button = Button(
-        label: UserFacing<StrictString, InterfaceLocalization>({ _ in "Button" }),
-        action: {}
-      )
-      legacyMode = true
-      defer { legacyMode = false }
-      let cocoa = button.cocoa().native as! Button<InterfaceLocalization>.Superclass
-      #if canImport(AppKit)
-        cocoa.sendAction(cocoa.action, to: cocoa.target)
-      #else
-        _ = cocoa
-      #endif
+      if #available(watchOS 6, *) {
+        let button = Button(
+          label: UserFacing<StrictString, InterfaceLocalization>({ _ in "Button" }),
+          action: {}
+        )
+        legacyMode = true
+        defer { legacyMode = false }
+        #if canImport(UIKit) && !os(watchOS)
+          let cocoa = button.cocoa().native as! Button<InterfaceLocalization>.Superclass
+          #if canImport(AppKit)
+            cocoa.sendAction(cocoa.action, to: cocoa.target)
+          #else
+            _ = cocoa
+          #endif
+        #endif
+      }
     #endif
   }
 
   func testButtonLabel() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         _ = ButtonLabel.text("text").swiftUI()
         _ = ButtonLabel.symbol(Image.empty).swiftUI()
       }
@@ -137,11 +141,13 @@ final class InternalTests: ApplicationTestCase {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       forAllLegacyModes {
         if #available(macOS 10.15, tvOS 13, iOS 13, *) {
-          let combined = SDGInterface.EmptyView().popOver(
-            isPresented: Shared(false),
-            content: { SDGInterface.EmptyView() }
-          ).adjustForLegacyMode()
-          testViewConformance(of: combined, testBody: false)
+          #if !os(watchOS)
+            let combined = SDGInterface.EmptyView().popOver(
+              isPresented: Shared(false),
+              content: { SDGInterface.EmptyView() }
+            ).adjustForLegacyMode()
+            testViewConformance(of: combined, testBody: false)
+          #endif
         }
       }
     #endif
