@@ -639,35 +639,43 @@ final class APITests: ApplicationTestCase {
   }
 
   func testLegacyView() {
-    class Legacy: LegacyView {
-      #if canImport(AppKit) || canImport(UIKit)
-        #if !os(watchOS)
-          func cocoa() -> CocoaView {
-            return EmptyView().cocoa()
+    if #available(watchOS 6, *) {
+      #if os(watchOS)
+        class Legacy: LegacyView, SDGInterface.View {
+          func swiftUI() -> some SwiftUI.View {
+            return EmptyView().swiftUI()
           }
-        #endif
+        }
+      #else
+        class Legacy: LegacyView {
+          #if canImport(AppKit) || canImport(UIKit)
+            func cocoa() -> CocoaView {
+              return EmptyView().cocoa()
+            }
+          #endif
+        }
+      #endif
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        if #available(macOS 10.15, iOS 13, tvOS 13, *) {
+          _ = Legacy().swiftUIAnyView()
+        }
+      #endif
+      #if !os(watchOS)
+        let combined = SDGInterface.EmptyView().popOver(
+          isPresented: Shared(false),
+          content: { SDGInterface.EmptyView() }
+        )
+        if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+          let testBody: Bool
+          #if os(tvOS)
+            testBody = false
+          #else
+            testBody = true
+          #endif
+          testViewConformance(of: combined, testBody: testBody)
+        }
       #endif
     }
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
-        _ = Legacy().swiftUIAnyView()
-      }
-    #endif
-    #if !os(watchOS)
-      let combined = SDGInterface.EmptyView().popOver(
-        isPresented: Shared(false),
-        content: { SDGInterface.EmptyView() }
-      )
-      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
-        let testBody: Bool
-        #if os(tvOS)
-          testBody = false
-        #else
-          testBody = true
-        #endif
-        testViewConformance(of: combined, testBody: testBody)
-      }
-    #endif
   }
 
   func testLetterbox() {
