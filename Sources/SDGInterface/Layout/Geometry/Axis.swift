@@ -22,7 +22,7 @@ public enum Axis {
   /// Vertical.
   case vertical
 
-  #if canImport(AppKit) || canImport(UIKit)
+  #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
     // MARK: - Layout Representation
 
     internal var string: String {

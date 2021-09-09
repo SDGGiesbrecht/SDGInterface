@@ -567,6 +567,10 @@ final class APITests: ApplicationTestCase {
             testBody: false
           )
         #endif
+        testViewConformance(
+          of: HorizontalStack(spacing: 0, content: [EmptyView()]),
+          testBody: false
+        )
       }
     #endif
   }
