@@ -33,7 +33,7 @@ import SDGMathematics
 
       // MARK: - View
 
-      internal var body: some SwiftUI.View {
+      internal var body: some SwiftUI.View {  // @exempt(from: tests) watchOS
         let view: ProgressView<EmptyView, EmptyView>
         if let value = value.value {
           let progress = ProgressBar.zeroToOneRepresentation(of: value, in: range.value)
