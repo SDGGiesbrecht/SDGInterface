@@ -230,10 +230,12 @@ final class APITests: ApplicationTestCase {
 
     _ = NSAttributedString(RichText())
     mutable = NSMutableAttributedString(string: "ABC")
-    mutable.resetCasing(of: NSRange(location: 0, length: 3))
-    mutable.makeUpperCase(NSRange(location: 0, length: 3))
-    mutable.makeSmallCaps(NSRange(location: 0, length: 3))
-    mutable.makeLowerCase(NSRange(location: 0, length: 3))
+    #if canImport(AppKit) || canImport(UIKit)
+      mutable.resetCasing(of: NSRange(location: 0, length: 3))
+      mutable.makeUpperCase(NSRange(location: 0, length: 3))
+      mutable.makeSmallCaps(NSRange(location: 0, length: 3))
+      mutable.makeLowerCase(NSRange(location: 0, length: 3))
+    #endif
   }
 
   func testBackground() {
@@ -1878,8 +1880,10 @@ final class APITests: ApplicationTestCase {
         name: UserFacing<StrictString, AnyLocalization>({ _ in "Title" }),
         content: EmptyView()
       )
-      if #available(watchOS 7, *) {
-        _ = swiftUI.swiftUI().body
+      if #available(macOS 11, tvOS 14, iOS 14, watchOS 7, *) {
+        #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+          _ = swiftUI.swiftUI().body
+        #endif
       }
     }
   }
