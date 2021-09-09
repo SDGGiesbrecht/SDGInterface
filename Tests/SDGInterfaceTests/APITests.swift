@@ -626,6 +626,9 @@ final class APITests: ApplicationTestCase {
         #endif
         testViewConformance(of: label, testBody: testBody)
       }
+      #if canImport(SwiftUI)
+        _ = label.swiftUI().body
+      #endif
     }
   }
 
