@@ -572,7 +572,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testImage() {
-    #if canImport(AppKit) || canImport(UIKit)
+    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
       #if !os(watchOS)
         MenuBarTarget.shared.demonstrateImage()
       #endif
@@ -583,6 +583,7 @@ final class APITests: ApplicationTestCase {
           let image = Image(swiftUI)
           _ = image.swiftUI()
           _ = image.cocoaImage()
+          _ = Image(CocoaImage()).cocoaImage()
         }
       #endif
     #endif
