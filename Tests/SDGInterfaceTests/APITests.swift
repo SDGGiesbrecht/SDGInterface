@@ -1873,6 +1873,14 @@ final class APITests: ApplicationTestCase {
       #else
         _ = window
       #endif
+      let swiftUI = Window(
+        type: .primary(nil),
+        name: UserFacing<StrictString, AnyLocalization>({ _ in "Title" }),
+        content: EmptyView()
+      )
+      if #available(watchOS 7, *) {
+        _ = swiftUI.swiftUI().body
+      }
     }
   }
 }
