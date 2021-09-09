@@ -229,6 +229,8 @@ final class APITests: ApplicationTestCase {
     #endif
 
     _ = NSAttributedString(RichText())
+    mutable = NSMutableAttributedString(string: "ABC")
+    mutable.resetCasing(of: NSRange(location: 0, length: 3))
   }
 
   func testBackground() {
