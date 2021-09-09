@@ -231,6 +231,9 @@ final class APITests: ApplicationTestCase {
     _ = NSAttributedString(RichText())
     mutable = NSMutableAttributedString(string: "ABC")
     mutable.resetCasing(of: NSRange(location: 0, length: 3))
+    mutable.makeUpperCase(NSRange(location: 0, length: 3))
+    mutable.makeSmallCaps(NSRange(location: 0, length: 3))
+    mutable.makeLowerCase(NSRange(location: 0, length: 3))
   }
 
   func testBackground() {
@@ -1582,7 +1585,7 @@ final class APITests: ApplicationTestCase {
       #if canImport(SwiftUI)
         let testBody: Bool
         // #workaround(Swift 5.3.2, SwiftUI would be a step backward from AppKit or UIKit without the ability to get the selected text for menu items like “Show Character Information”.)
-        #if !canImport(AppKit) && !canImport(UIKit)
+        #if !canImport(AppKit) && !(canImport(UIKit) && !os(watchOS))
           testBody = true
         #else
           testBody = false
