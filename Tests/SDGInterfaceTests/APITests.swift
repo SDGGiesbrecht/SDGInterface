@@ -633,8 +633,10 @@ final class APITests: ApplicationTestCase {
         #endif
         testViewConformance(of: label, testBody: testBody)
       }
-      #if canImport(SwiftUI)
-        _ = label.swiftUI().body
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        if #available(iOS 13, *) {
+          _ = label.swiftUI().body
+        }
       #endif
     }
   }
