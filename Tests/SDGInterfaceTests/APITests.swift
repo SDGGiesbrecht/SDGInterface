@@ -634,7 +634,7 @@ final class APITests: ApplicationTestCase {
         testViewConformance(of: label, testBody: testBody)
       }
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-        if #available(iOS 13, *) {
+        if #available(tvOS 13, iOS 13, *) {
           _ = label.swiftUI().body
         }
       #endif
