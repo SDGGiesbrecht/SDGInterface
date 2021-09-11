@@ -1878,7 +1878,7 @@ final class APITests: ApplicationTestCase {
         _ = window
       #endif
       let swiftUI = Window(
-        type: .primary(nil),
+        type: .primary(Size(width: 100, height: 200)),
         name: UserFacing<StrictString, AnyLocalization>({ _ in "Title" }),
         content: EmptyView()
       )

@@ -42,7 +42,7 @@ public struct Window<Content, L>: LegacyWindow where Content: LegacyView, L: Loc
     type: WindowType,
     name: UserFacing<StrictString, L>,
     content: Content,
-    onClose: @escaping () -> Void = {}
+    onClose: @escaping () -> Void = {}  // @exempt(from: tests)
   ) {
     self.type = type
     self.name = name
