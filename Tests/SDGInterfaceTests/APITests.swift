@@ -635,7 +635,9 @@ final class APITests: ApplicationTestCase {
       }
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
         if #available(tvOS 13, iOS 13, *) {
-          _ = label.swiftUI().body
+          #if !os(macOS)
+            _ = label.swiftUI().body
+          #endif
         }
       #endif
     }
