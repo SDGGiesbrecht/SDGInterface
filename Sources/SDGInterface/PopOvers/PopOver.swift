@@ -38,6 +38,7 @@ public struct PopOver<Anchor, Content>: LegacyView where Anchor: LegacyView, Con
     arrowEdge: SDGInterface.Edge,
     content: @escaping () -> Content
   ) {
+    // @exempt(from: tests) Unreachable on watchOS.
     self.anchor = anchor
     self.isPresented = isPresented
     self.attachmentAnchor = attachmentAnchor
@@ -91,7 +92,7 @@ public struct PopOver<Anchor, Content>: LegacyView where Anchor: LegacyView, Con
     // MARK: - View
 
     #if canImport(SwiftUI) && !os(tvOS) && !(os(iOS) && arch(arm))
-      public func swiftUI() -> some SwiftUI.View {
+      public func swiftUI() -> some SwiftUI.View {  // @exempt(from: tests) Unreachable on watchOS.
         let content = self.content
         return SwiftUIImplementation(
           anchor: anchor.swiftUI(),

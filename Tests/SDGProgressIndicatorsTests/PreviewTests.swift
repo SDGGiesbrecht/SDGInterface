@@ -23,13 +23,13 @@
   final class PreviewTests: ApplicationTestCase {
 
     func testLabelledProgressBarPreviews() {
-      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
+      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 7, *) {
         _ = LabelledProgressBarPreviews.previews
       }
     }
 
     func testProgressBarPreviews() {
-      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
+      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 7, *) {
         _ = ProgressBarPreviews.previews
       }
     }

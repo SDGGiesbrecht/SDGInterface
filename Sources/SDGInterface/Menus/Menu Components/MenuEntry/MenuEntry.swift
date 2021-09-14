@@ -95,6 +95,7 @@ public struct MenuEntry<L>: LegacyMenuComponents where L: Localization {
         hotKeyModifiers: hotKeyModifiers,
         hotKey: hotKey,
         action: {
+          // @exempt(from: tests)
           NSApplication.shared.sendAction(selector, to: target, from: proxy())
         },
         isDisabled: {
@@ -137,6 +138,7 @@ public struct MenuEntry<L>: LegacyMenuComponents where L: Localization {
         hotKeyModifiers: [],
         hotKey: nil,
         action: {
+          // @exempt(from: tests)
           UIApplication.shared.sendAction(selector, to: nil, from: nil, for: nil)
         },
         isDisabled: { false },

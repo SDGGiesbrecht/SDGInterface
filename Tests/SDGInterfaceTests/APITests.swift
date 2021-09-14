@@ -55,11 +55,11 @@ final class APITests: ApplicationTestCase {
       )
     )
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         _ = alert.swiftUI()
       }
     #endif
-    #if canImport(UIKit)
+    #if canImport(UIKit) && !os(watchOS)
       _ = alert.cocoa()
     #endif
 
@@ -69,7 +69,7 @@ final class APITests: ApplicationTestCase {
         alert: alert
       )
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         testViewConformance(of: withAlert)
       }
     #endif
@@ -83,11 +83,11 @@ final class APITests: ApplicationTestCase {
         action: {}
       )
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-        if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
           _ = button.swiftUI()
         }
       #endif
-      #if canImport(UIKit)
+      #if canImport(UIKit) && !os(watchOS)
         _ = button.cocoa()
       #endif
     }
@@ -123,7 +123,7 @@ final class APITests: ApplicationTestCase {
 
   func testAnchorSource() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         var shimmed = RectangularAttachmentAnchor.rectangle(SDGInterface.Rectangle())
         _ = Anchor<CGRect>.Source(shimmed)
         shimmed = .bounds
@@ -134,13 +134,14 @@ final class APITests: ApplicationTestCase {
 
   func testAnyView() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         _ = AnyView(EmptyView()).swiftUI()
       }
     #endif
   }
 
   func testApplication() {
+    @available(watchOS 6, *)
     struct ExampleApplication: LegacyApplication {
       #if !PLATFORM_LACKS_FOUNDATION_PROCESS_INFO
         var applicationName: ProcessInfo.ApplicationNameResolver {
@@ -161,11 +162,13 @@ final class APITests: ApplicationTestCase {
         static func main() {}
       #endif
     }
-    let preferences: Any = ExampleApplication().preferences
-    XCTAssert(preferences is SDGInterface.EmptyView)
-    #if !PLATFORM_LACKS_FOUNDATION_RUN_LOOP
-      _ = SampleApplication().preferences
-    #endif
+    if #available(watchOS 6, *) {
+      let preferences: Any = ExampleApplication().preferences
+      XCTAssert(preferences is SDGInterface.EmptyView)
+      #if !PLATFORM_LACKS_FOUNDATION_RUN_LOOP
+        _ = SampleApplication().preferences
+      #endif
+    }
   }
 
   func testApplicationName() {
@@ -226,10 +229,17 @@ final class APITests: ApplicationTestCase {
     #endif
 
     _ = NSAttributedString(RichText())
+    mutable = NSMutableAttributedString(string: "ABC")
+    #if canImport(AppKit) || canImport(UIKit)
+      mutable.resetCasing(of: NSRange(location: 0, length: 3))
+      mutable.makeUpperCase(NSRange(location: 0, length: 3))
+      mutable.makeSmallCaps(NSRange(location: 0, length: 3))
+      mutable.makeLowerCase(NSRange(location: 0, length: 3))
+    #endif
   }
 
   func testBackground() {
-    #if canImport(AppKit) || canImport(UIKit)
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       forAllLegacyModes {
         _ = Colour.red.background(Colour.blue).cocoa()
       }
@@ -237,22 +247,24 @@ final class APITests: ApplicationTestCase {
   }
 
   func testButton() {
-    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
-      MenuBarTarget.shared.demonstrateButton()
+    #if canImport(SwiftUI) || canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+      #if !os(watchOS)
+        MenuBarTarget.shared.demonstrateButton()
+      #endif
       let label = UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
         { localization in
           return "Button"
         }
       )
       let button = Button(label: label, action: {})
-      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         testViewConformance(of: button)
       }
     #endif
   }
 
   func testCharacterInformation() {
-    #if canImport(AppKit) || canImport(UIKit)
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       CharacterInformation.display(for: "abc", origin: nil)
       let view = CocoaView()
       let window = Window(
@@ -271,7 +283,9 @@ final class APITests: ApplicationTestCase {
 
   func testCheckBox() {
     #if canImport(AppKit) || canImport(UIKit)
-      MenuBarTarget.shared.demonstrateCheckBox()
+      #if !os(watchOS)
+        MenuBarTarget.shared.demonstrateCheckBox()
+      #endif
       #if canImport(AppKit)
         let label = UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
           { _ in
@@ -295,48 +309,56 @@ final class APITests: ApplicationTestCase {
   }
 
   func testCocoaView() {
-    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
-      let anchor = CocoaView()
-      let window = Window(
-        type: .primary(nil),
-        name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
-        content: anchor
-      )
-      let cocoaWindow = window.cocoa()
-      defer { cocoaWindow.close() }
-      let popOver = CocoaView()
-      anchor.displayPopOver(popOver, attachmentAnchor: .point(Point(0, 0)))
-      anchor.displayPopOver(
-        popOver,
-        attachmentAnchor: .rectangle(
-          .rectangle(Rectangle(origin: Point(10, 20), size: Size(width: 30, height: 40)))
+    #if canImport(SwiftUI) || canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
+      #if !os(watchOS)
+        let anchor = CocoaView()
+        let window = Window(
+          type: .primary(nil),
+          name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+          content: anchor
         )
-      )
+        let cocoaWindow = window.cocoa()
+        defer { cocoaWindow.close() }
+        let popOver = CocoaView()
+        anchor.displayPopOver(popOver, attachmentAnchor: .point(Point(0, 0)))
+        anchor.displayPopOver(
+          popOver,
+          attachmentAnchor: .rectangle(
+            .rectangle(Rectangle(origin: Point(10, 20), size: Size(width: 30, height: 40)))
+          )
+        )
+      #endif
     #endif
   }
 
   func testCocoaViewImplementation() {
     #if canImport(AppKit) || canImport(UIKit)
-      let view = CocoaViewExample()
-      _ = view.cocoa()
-      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-        if #available(macOS 10.15, tvOS 13, iOS 13, *) {
-          _ = view.swiftUI()
-        }
+      #if !os(watchOS)
+        let view = CocoaViewExample()
+        _ = view.cocoa()
+        #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+          if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+            _ = view.swiftUI()
+          }
+        #endif
       #endif
     #endif
   }
 
   func testCocoaWindow() {
     #if canImport(AppKit) || canImport(UIKit)
-      let window = CocoaWindow(CocoaWindow.NativeType()).cocoa()
-      window.size = Size(width: 100, height: 100)
+      #if !os(watchOS)
+        let window = CocoaWindow(CocoaWindow.NativeType()).cocoa()
+        window.size = Size(width: 100, height: 100)
+      #endif
     #endif
   }
 
   func testCocoaWindowImplementation() {
     #if canImport(AppKit) || canImport(UIKit)
-      _ = CocoaWindowExample().cocoa()
+      #if !os(watchOS)
+        _ = CocoaWindowExample().cocoa()
+      #endif
     #endif
   }
 
@@ -357,7 +379,7 @@ final class APITests: ApplicationTestCase {
     #endif
 
     #if canImport(SwiftUI) || canImport(AppKit) || (canImport(UIKit) && !(os(iOS) && arch(arm)))
-      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         testViewConformance(of: Colour.red, testBody: false)
       }
     #endif
@@ -376,7 +398,9 @@ final class APITests: ApplicationTestCase {
     _ = commands.menuComponents()
     #if canImport(SwiftUI) && !os(tvOS) && !(os(iOS) && arch(arm))
       if #available(macOS 11, iOS 14, *) {
-        _ = commands.swiftUICommands()
+        #if !os(watchOS)
+          _ = commands.swiftUICommands()
+        #endif
       }
     #endif
   }
@@ -397,7 +421,7 @@ final class APITests: ApplicationTestCase {
           return EmptyView()
         }
       }
-      if #available(tvOS 13, iOS 13, *) {
+      if #available(tvOS 13, iOS 13, watchOS 6, *) {
         testViewConformance(of: TestView(), testBody: false)
       }
     #endif
@@ -432,7 +456,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testDerivedLog() {
-    #if canImport(AppKit) || canImport(UIKit)
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       let log = DerivedLog(source: Shared(0), derivation: { "\($0.inDigits())" })
       _ = log.cocoa()
     #endif
@@ -443,7 +467,7 @@ final class APITests: ApplicationTestCase {
       _ = Divider().cocoa()
     #endif
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      if #available(tvOS 13, iOS 13, *) {
+      if #available(tvOS 13, iOS 13, watchOS 6, *) {
         _ = Divider().swiftUI()
       }
     #endif
@@ -491,7 +515,7 @@ final class APITests: ApplicationTestCase {
       _ = empty.cocoa()
     #endif
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      if #available(tvOS 13, iOS 13, *) {
+      if #available(tvOS 13, iOS 13, watchOS 6, *) {
         _ = empty.swiftUI()
       }
     #endif
@@ -499,7 +523,7 @@ final class APITests: ApplicationTestCase {
 
   func testEmptyView() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         _ = EmptyView().swiftUI()
       }
     #endif
@@ -508,8 +532,10 @@ final class APITests: ApplicationTestCase {
   func testFetchResult() {
     #if canImport(UIKit)
       for result in FetchResult.allCases {
-        let cocoa = result.cocoa
-        XCTAssertEqual(result, FetchResult(cocoa))
+        #if !os(watchOS)
+          let cocoa = result.cocoa
+          XCTAssertEqual(result, FetchResult(cocoa))
+        #endif
       }
     #endif
   }
@@ -526,22 +552,30 @@ final class APITests: ApplicationTestCase {
   }
 
   func testFramed() {
-    _ = SDGInterface.EmptyView().frame(minWidth: 10, minHeight: 10)
+    if #available(watchOS 6, *) {
+      _ = SDGInterface.EmptyView().frame(minWidth: 10, minHeight: 10)
+    }
   }
 
   func testHorizontalStack() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *) {
+        #if !os(watchOS)
+          testViewConformance(
+            of: HorizontalStack(spacing: 0, content: [AnyView(CocoaView())]),
+            testBody: false
+          )
+          testViewConformance(
+            of: HorizontalStack(alignment: .top, spacing: 1, content: [AnyView(CocoaView())]),
+            testBody: false
+          )
+          testViewConformance(
+            of: HorizontalStack(alignment: .bottom, spacing: 2, content: [AnyView(CocoaView())]),
+            testBody: false
+          )
+        #endif
         testViewConformance(
-          of: HorizontalStack(spacing: 0, content: [AnyView(CocoaView())]),
-          testBody: false
-        )
-        testViewConformance(
-          of: HorizontalStack(alignment: .top, spacing: 1, content: [AnyView(CocoaView())]),
-          testBody: false
-        )
-        testViewConformance(
-          of: HorizontalStack(alignment: .bottom, spacing: 2, content: [AnyView(CocoaView())]),
+          of: HorizontalStack(spacing: 0, content: [EmptyView()]),
           testBody: false
         )
       }
@@ -549,15 +583,18 @@ final class APITests: ApplicationTestCase {
   }
 
   func testImage() {
-    #if canImport(AppKit) || canImport(UIKit)
-      MenuBarTarget.shared.demonstrateImage()
+    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+      #if !os(watchOS)
+        MenuBarTarget.shared.demonstrateImage()
+      #endif
 
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-        if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
           let swiftUI = SwiftUI.Image(CocoaImage())
           let image = Image(swiftUI)
           _ = image.swiftUI()
           _ = image.cocoaImage()
+          _ = Image(CocoaImage()).cocoaImage()
         }
       #endif
     #endif
@@ -577,64 +614,91 @@ final class APITests: ApplicationTestCase {
 
   func testLabel() {
     #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
-      MenuBarTarget.shared.demonstrateLabel()
-    #endif
-    let label = SDGInterface.Label<SDGInterfaceSample.InterfaceLocalization>(
-      UserFacing({ _ in "..." }),
-      colour: .black
-    )
-    if #available(macOS 10.15, tvOS 13, iOS 13, *) {
-      let testBody: Bool
-      // #workaround(Swift 5.3.2, SwiftUI would be a step backward from AppKit or UIKit without the ability to interact properly with menus such as “Copy”.)
-      #if !canImport(AppKit) && !canImport(UIKit)
-        testBody = true
-      #else
-        testBody = false
+      #if !os(watchOS)
+        MenuBarTarget.shared.demonstrateLabel()
       #endif
-      testViewConformance(of: label, testBody: testBody)
+    #endif
+    if #available(watchOS 6, *) {
+      let label = SDGInterface.Label<SDGInterfaceSample.InterfaceLocalization>(
+        UserFacing({ _ in "..." }),
+        colour: .black
+      )
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        let testBody: Bool
+        // #workaround(Swift 5.3.2, SwiftUI would be a step backward from AppKit or UIKit without the ability to interact properly with menus such as “Copy”.)
+        #if !canImport(AppKit) && !canImport(UIKit)
+          testBody = true
+        #else
+          testBody = false
+        #endif
+        testViewConformance(of: label, testBody: testBody)
+      }
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        if #available(tvOS 13, iOS 13, *) {
+          #if !os(macOS) && !os(tvOS) && !os(iOS)
+            _ = label.swiftUI().body
+          #endif
+        }
+      #endif
     }
   }
 
   func testLayered() {
-    _ = SDGInterface.EmptyView().background(EmptyView())
+    if #available(watchOS 6, *) {
+      _ = SDGInterface.EmptyView().background(EmptyView())
+    }
   }
 
   func testLayoutConstraintPriority() {
     #if canImport(AppKit) || canImport(UIKit)
-      _ = LayoutConstraintPriority(rawValue: 500)
+      #if !os(watchOS)
+        _ = LayoutConstraintPriority(rawValue: 500)
+      #endif
     #endif
   }
 
   func testLegacyView() {
-    class Legacy: LegacyView {
-      #if canImport(AppKit) || canImport(UIKit)
-        func cocoa() -> CocoaView {
-          return EmptyView().cocoa()
+    if #available(watchOS 6, *) {
+      #if os(watchOS)
+        class Legacy: LegacyView, SDGInterface.View {
+          func swiftUI() -> some SwiftUI.View {
+            return EmptyView().swiftUI()
+          }
+        }
+      #else
+        class Legacy: LegacyView {
+          #if canImport(AppKit) || canImport(UIKit)
+            func cocoa() -> CocoaView {
+              return EmptyView().cocoa()
+            }
+          #endif
         }
       #endif
-    }
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      if #available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *) {
-        _ = Legacy().swiftUIAnyView()
-      }
-    #endif
-    let combined = SDGInterface.EmptyView().popOver(
-      isPresented: Shared(false),
-      content: { SDGInterface.EmptyView() }
-    )
-    if #available(macOS 10.15, tvOS 13, iOS 13, *) {
-      let testBody: Bool
-      #if os(tvOS)
-        testBody = false
-      #else
-        testBody = true
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        if #available(macOS 10.15, iOS 13, tvOS 13, *) {
+          _ = Legacy().swiftUIAnyView()
+        }
       #endif
-      testViewConformance(of: combined, testBody: testBody)
+      #if !os(watchOS)
+        let combined = SDGInterface.EmptyView().popOver(
+          isPresented: Shared(false),
+          content: { SDGInterface.EmptyView() }
+        )
+        if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+          let testBody: Bool
+          #if os(tvOS)
+            testBody = false
+          #else
+            testBody = true
+          #endif
+          testViewConformance(of: combined, testBody: testBody)
+        }
+      #endif
     }
   }
 
   func testLetterbox() {
-    if #available(tvOS 13, iOS 13, *) {
+    if #available(tvOS 13, iOS 13, watchOS 6, *) {
       testViewConformance(
         of: SDGInterface.EmptyView().letterbox(aspectRatio: 1, background: EmptyView()),
         testBody: false
@@ -644,8 +708,10 @@ final class APITests: ApplicationTestCase {
 
   func testLog() {
     #if canImport(AppKit) || canImport(UIKit)
-      MenuBarTarget.shared.demonstrateLog()
-      if #available(macOS 10.12, tvOS 10, iOS 10, *) {
+      #if !os(watchOS)
+        MenuBarTarget.shared.demonstrateLog()
+      #endif
+      if #available(macOS 10.12, tvOS 10, iOS 10, watchOS 6, *) {
         let waited = expectation(description: "Waited for log to scroll.")
         Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in waited.fulfill() }
         waitForExpectations(timeout: 5, handler: nil)
@@ -654,24 +720,28 @@ final class APITests: ApplicationTestCase {
   }
 
   func testMenu() {
-    let entry = MenuEntry(
-      label: UserFacing<StrictString, APILocalization>({ _ in "..." }),
-      action: {}
-    )
-    let menuLabel = UserFacing<StrictString, APILocalization>({ _ in "initial" })
-    let menu = SDGInterface.Menu(label: menuLabel, entries: { entry })
-    #if canImport(AppKit) || (canImport(UIKit) && !os(tvOS))
-      _ = menu.cocoa()
-    #endif
-    _ = menu.menuComponents()
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      if #available(macOS 11, tvOS 13, iOS 14, *) {
-        _ = menu.swiftUI().body
-        #if !os(tvOS)
-          _ = menu.swiftUICommands().body
+    if #available(watchOS 6, *) {
+      let entry = MenuEntry(
+        label: UserFacing<StrictString, APILocalization>({ _ in "..." }),
+        action: {}
+      )
+      let menuLabel = UserFacing<StrictString, APILocalization>({ _ in "initial" })
+      let menu = SDGInterface.Menu(label: menuLabel, entries: { entry })
+      #if canImport(AppKit) || (canImport(UIKit) && !os(tvOS))
+        #if !os(watchOS)
+          _ = menu.cocoa()
         #endif
-      }
-    #endif
+      #endif
+      _ = menu.menuComponents()
+      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        if #available(macOS 11, tvOS 13, iOS 14, *) {
+          _ = menu.swiftUI().body
+          #if !os(tvOS) && !os(watchOS)
+            _ = menu.swiftUICommands().body
+          #endif
+        }
+      #endif
+    }
   }
 
   func testMenuBar() {
@@ -750,14 +820,14 @@ final class APITests: ApplicationTestCase {
       EmptyMenuComponents()
     )
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      if #available(macOS 11, tvOS 13, iOS 14, *) {
+      if #available(macOS 11, tvOS 13, iOS 14, watchOS 6, *) {
         _ = concatenation.swiftUI()
       }
     #endif
   }
 
   func testMenuEntry() {
-    if #available(tvOS 13, *) {
+    if #available(tvOS 13, watchOS 6, *) {
       let menuLabel = Shared<StrictString>("initial")
       let entry = MenuEntry<APILocalization>(
         label: UserFacing<StrictString, APILocalization>({ _ in "" }),
@@ -766,7 +836,9 @@ final class APITests: ApplicationTestCase {
       menuLabel.value = "changed"
       menuLabel.value = "unrelated"
       #if canImport(AppKit) || (canImport(UIKit) && !os(tvOS))
-        _ = entry.cocoa()
+        #if !os(watchOS)
+          _ = entry.cocoa()
+        #endif
       #endif
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
         if #available(macOS 11, iOS 14, *) {
@@ -780,7 +852,9 @@ final class APITests: ApplicationTestCase {
         action: {}
       )
       #if canImport(AppKit) || (canImport(UIKit) && !os(tvOS))
-        _ = withHotKey.cocoa()
+        #if !os(watchOS)
+          _ = withHotKey.cocoa()
+        #endif
       #endif
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
         if #available(macOS 11, iOS 14, *) {
@@ -797,7 +871,7 @@ final class APITests: ApplicationTestCase {
           _ = hidden.swiftUI().body
         }
       #endif
-      #if canImport(UIKit)
+      #if canImport(UIKit) && !os(watchOS)
         let withSelector = MenuEntry<APILocalization>(
           label: UserFacing<StrictString, APILocalization>({ _ in "" }),
           selector: #selector(NSObject.copy)
@@ -828,7 +902,9 @@ final class APITests: ApplicationTestCase {
   }
 
   func testPadded() {
-    _ = SDGInterface.EmptyView().padding()
+    if #available(watchOS 6, *) {
+      _ = SDGInterface.EmptyView().padding()
+    }
   }
 
   func testPoint() {
@@ -839,7 +915,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testPopOver() {
-    #if canImport(AppKit) || canImport(UIKit)
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       let window = Window(
         type: .primary(nil),
         name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
@@ -854,7 +930,7 @@ final class APITests: ApplicationTestCase {
 
   func testPopOverAttachmentAnchor() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         var shimmed = AttachmentAnchor.point(Point(0, 0))
         _ = PopoverAttachmentAnchor(shimmed)
         shimmed = AttachmentAnchor.rectangle(.rectangle(SDGInterface.Rectangle()))
@@ -864,7 +940,9 @@ final class APITests: ApplicationTestCase {
   }
 
   func testProportioned() {
-    _ = SDGInterface.EmptyView().aspectRatio(contentMode: .fill)
+    if #available(watchOS 6, *) {
+      _ = SDGInterface.EmptyView().aspectRatio(contentMode: .fill)
+    }
   }
 
   func testQuickActionDetails() {
@@ -1117,22 +1195,26 @@ final class APITests: ApplicationTestCase {
 
   func testSegmentedControl() {
     #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
-      MenuBarTarget.shared.demonstrateSegmentedControl()
+      #if !os(watchOS)
+        MenuBarTarget.shared.demonstrateSegmentedControl()
+      #endif
 
       enum Enumeration: CaseIterable {
         case a, b
       }
-      let segmentedControl = SegmentedControl(
-        labels: { _ in
-          UserFacing<ButtonLabel, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in
-            .text("label")
-          })
-        },
-        selection: Shared(Enumeration.a)
-      )
-      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
-        testViewConformance(of: segmentedControl)
-      }
+      #if !os(watchOS)
+        let segmentedControl = SegmentedControl(
+          labels: { _ in
+            UserFacing<ButtonLabel, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in
+              .text("label")
+            })
+          },
+          selection: Shared(Enumeration.a)
+        )
+        if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+          testViewConformance(of: segmentedControl)
+        }
+      #endif
     #endif
   }
 
@@ -1145,7 +1227,7 @@ final class APITests: ApplicationTestCase {
 
   func testSwiftUIViewImplementation() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      if #available(macOS 10.15, tvOS 13, iOS 13, *) {  // @exempt(from: unicode)
+      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {  // @exempt(from: unicode)
         let view = SwiftUIViewExample()
         _ = view.swiftUI()
         #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
@@ -1224,7 +1306,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testTable() {
-    #if canImport(AppKit) || canImport(UIKit)
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       let data = Shared([0])
       let table = Table<Int>(
         data: data,
@@ -1266,7 +1348,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testTextEditor() {
-    #if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS)
+    #if (canImport(AppKit) || canImport(UIKit)) && !os(tvOS) && !os(watchOS)
       MenuBarTarget.shared.demonstrateTextEditor()
       let text = Shared(RichText())
       let textEditor = TextEditor(contents: text)
@@ -1438,7 +1520,7 @@ final class APITests: ApplicationTestCase {
         _ = TextContextMenu.contextMenu
       #endif
     #endif
-    #if canImport(UIKit)
+    #if (canImport(UIKit) && !os(watchOS))
       let log = Log(contents: Shared("")).cocoa().native
       (log as! UITextViewDelegate).textViewDidChange!(log as! UITextView)
       (log as! UITextView).attributedText = NSAttributedString(string: "x, y, z")
@@ -1448,18 +1530,24 @@ final class APITests: ApplicationTestCase {
 
   func testTextField() {
     #if canImport(AppKit) || canImport(UIKit)
-      MenuBarTarget.shared.demonstrateTextField()
-      forEachWindow { window in
-        _ = TextField(contents: Shared(StrictString()))
+      #if !os(watchOS)
+        MenuBarTarget.shared.demonstrateTextField()
+        forEachWindow { window in
+          _ = TextField(contents: Shared(StrictString()))
+        }
+        MenuBarTarget.shared.demonstrateLabelledTextField()
+      #endif
+      if #available(watchOS 6, *) {
+        let labelled = LabelledTextField(
+          label: Label(
+            UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in "" })
+          ),
+          field: TextField(contents: Shared(StrictString()))
+        )
+        #if !os(watchOS)
+          _ = labelled.cocoa()
+        #endif
       }
-      MenuBarTarget.shared.demonstrateLabelledTextField()
-      let labelled = LabelledTextField(
-        label: Label(
-          UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in "" })
-        ),
-        field: TextField(contents: Shared(StrictString()))
-      )
-      _ = labelled.cocoa()
       let shared = Shared<StrictString>("Before")
       _ = TextField(contents: shared)
       shared.value = "After"
@@ -1493,7 +1581,7 @@ final class APITests: ApplicationTestCase {
             )
           )
           XCTAssertEqual(shared.value, "xyz")
-        #else
+        #elseif canImport(UIKit) && !os(watchOS)
           let field = TextField(contents: shared).cocoa().native as! UITextField
           field.insertText("...")
         #endif
@@ -1503,7 +1591,7 @@ final class APITests: ApplicationTestCase {
       #if canImport(SwiftUI)
         let testBody: Bool
         // #workaround(Swift 5.3.2, SwiftUI would be a step backward from AppKit or UIKit without the ability to get the selected text for menu items like “Show Character Information”.)
-        #if !canImport(AppKit) && !canImport(UIKit)
+        #if !canImport(AppKit) && !(canImport(UIKit) && !os(watchOS))
           testBody = true
         #else
           testBody = false
@@ -1514,7 +1602,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testTextView() {
-    #if canImport(AppKit) || canImport(UIKit)
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       let textView = TextView(
         contents: UserFacing<RichText, SDGInterfaceLocalizations.InterfaceLocalization>({ _ in "abc"
         }
@@ -1575,7 +1663,7 @@ final class APITests: ApplicationTestCase {
   func testUnitPoint() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       let point = Point(1, 2)
-      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         let converted = UnitPoint(point)
         XCTAssertEqual(converted.x, 1)
         XCTAssertEqual(converted.y, 2)
@@ -1585,7 +1673,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testView() {
-    #if canImport(AppKit) || canImport(UIKit)
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       func newView() -> CocoaView {
         #if canImport(AppKit)
           let native = NSView()
@@ -1680,12 +1768,12 @@ final class APITests: ApplicationTestCase {
       }
     #endif
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         testViewConformance(of: SwiftUIViewExample())
       }
     #endif
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         struct SomeView: SwiftUI.View {
           var body: some SwiftUI.View {
             return SwiftUI.EmptyView()
@@ -1697,94 +1785,110 @@ final class APITests: ApplicationTestCase {
   }
 
   func testWindow() {
-    let window = Window(
-      type: .primary(nil),
-      name: UserFacing<StrictString, AnyLocalization>({ _ in "Title" }),
-      content: EmptyView()
-    )
-    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
-      let cocoaWindow = window.cocoa()
-      #if canImport(AppKit)  // UIKit raises an exception during tests.
-        cocoaWindow.display()
-        cocoaWindow.location = Point(100, 200)
-        cocoaWindow.size = Size(width: 300, height: 400)
-      #endif
-      defer { cocoaWindow.close() }
-
-      #if canImport(AppKit)
-        cocoaWindow.isFullscreen = true
-        _ = cocoaWindow.isFullscreen
-        let fullscreenWindow = Window(
-          type: .fullscreen,
-          name: UserFacing<StrictString, AnyLocalization>({ _ in "Fullscreen" }),
-          content: EmptyView().cocoa()
-        ).cocoa()
-        fullscreenWindow.isFullscreen = true
-        fullscreenWindow.display()
-        defer { fullscreenWindow.close() }
-      #endif
-      RunLoop.main.run(until: Date() + 3)
-
-      let neverOnscreen = Window(
+    if #available(watchOS 6, *) {
+      let window = Window(
         type: .primary(nil),
-        name: UserFacing<StrictString, AnyLocalization>({ _ in "Fullscreen" }),
-        content: EmptyView().cocoa()
-      ).cocoa()
-      neverOnscreen.centreInScreen()
-
-      #if canImport(UIKit)
-        _ = Window(
-          type: .primary(nil),
-          name: UserFacing<StrictString, AnyLocalization>({ _ in "Title" }),
-          content: EmptyView().cocoa()
-        )
-      #endif
-
-      let primary = Window(
-        type: .primary(nil),
-        name: UserFacing<StrictString, AnyLocalization>({ _ in "..." }),
-        content: EmptyView().cocoa()
-      ).cocoa()
-      _ = primary.size
-      _ = primary.location
-      #if canImport(AppKit)
-        XCTAssert(primary.isPrimary)
-        primary.isPrimary = false
-        XCTAssertFalse(primary.isFullscreen)
-        primary.isFullscreen = false
-      #endif
-
-      #if canImport(AppKit)
-        let auxiliary = Window(
-          type: .auxiliary(nil),
-          name: UserFacing<StrictString, AnyLocalization>({ _ in "..." }),
-          content: EmptyView().cocoa()
-        ).cocoa()
-        XCTAssert(auxiliary.isAuxiliary)
-        primary.isAuxiliary = false
-      #endif
-
-      _ = cocoaWindow.isVisible
-      cocoaWindow.location = Point(0, 0)
-
-      if #available(macOS 11, tvOS 14, iOS 14, *) {
-        #if !(canImport(UIKit) && (os(iOS) && arch(arm)))
-          _ =
-            Window(
-              type: .primary(Size(width: 100, height: 100)),
-              name: UserFacing<StrictString, AnyLocalization>({ _ in "Title" }),
-              content: EmptyView()
-            ).swiftUI().body.body
-          #if canImport(AppKit)
-            _ =
-              Window(
-                type: .fullscreen,
-                name: UserFacing<StrictString, AnyLocalization>({ _ in "Title" }),
-                content: EmptyView()
-              ).swiftUI().body.body
+        name: UserFacing<StrictString, AnyLocalization>({ _ in "Title" }),
+        content: EmptyView()
+      )
+      #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
+        #if !os(watchOS)
+          let cocoaWindow = window.cocoa()
+          #if canImport(AppKit)  // UIKit raises an exception during tests.
+            cocoaWindow.display()
+            cocoaWindow.location = Point(100, 200)
+            cocoaWindow.size = Size(width: 300, height: 400)
           #endif
+          defer { cocoaWindow.close() }
+
+          #if canImport(AppKit)
+            cocoaWindow.isFullscreen = true
+            _ = cocoaWindow.isFullscreen
+            let fullscreenWindow = Window(
+              type: .fullscreen,
+              name: UserFacing<StrictString, AnyLocalization>({ _ in "Fullscreen" }),
+              content: EmptyView().cocoa()
+            ).cocoa()
+            fullscreenWindow.isFullscreen = true
+            fullscreenWindow.display()
+            defer { fullscreenWindow.close() }
+          #endif
+          RunLoop.main.run(until: Date() + 3)
+
+          let neverOnscreen = Window(
+            type: .primary(nil),
+            name: UserFacing<StrictString, AnyLocalization>({ _ in "Fullscreen" }),
+            content: EmptyView().cocoa()
+          ).cocoa()
+          neverOnscreen.centreInScreen()
+
+          #if canImport(UIKit)
+            _ = Window(
+              type: .primary(nil),
+              name: UserFacing<StrictString, AnyLocalization>({ _ in "Title" }),
+              content: EmptyView().cocoa()
+            )
+          #endif
+
+          let primary = Window(
+            type: .primary(nil),
+            name: UserFacing<StrictString, AnyLocalization>({ _ in "..." }),
+            content: EmptyView().cocoa()
+          ).cocoa()
+          _ = primary.size
+          _ = primary.location
+          #if canImport(AppKit)
+            XCTAssert(primary.isPrimary)
+            primary.isPrimary = false
+            XCTAssertFalse(primary.isFullscreen)
+            primary.isFullscreen = false
+          #endif
+
+          #if canImport(AppKit)
+            let auxiliary = Window(
+              type: .auxiliary(nil),
+              name: UserFacing<StrictString, AnyLocalization>({ _ in "..." }),
+              content: EmptyView().cocoa()
+            ).cocoa()
+            XCTAssert(auxiliary.isAuxiliary)
+            primary.isAuxiliary = false
+          #endif
+
+          _ = cocoaWindow.isVisible
+          cocoaWindow.location = Point(0, 0)
+
+          if #available(macOS 11, tvOS 14, iOS 14, *) {
+            #if !(canImport(UIKit) && (os(iOS) && arch(arm)))
+              _ =
+                Window(
+                  type: .primary(Size(width: 100, height: 100)),
+                  name: UserFacing<StrictString, AnyLocalization>({ _ in "Title" }),
+                  content: EmptyView()
+                ).swiftUI().body.body
+              #if canImport(AppKit)
+                _ =
+                  Window(
+                    type: .fullscreen,
+                    name: UserFacing<StrictString, AnyLocalization>({ _ in "Title" }),
+                    content: EmptyView()
+                  ).swiftUI().body.body
+              #endif
+            #endif
+          }
+        #endif
+      #else
+        _ = window
+      #endif
+      let swiftUI = Window(
+        type: .primary(Size(width: 100, height: 200)),
+        name: UserFacing<StrictString, AnyLocalization>({ _ in "Title" }),
+        content: EmptyView()
+      )
+      if #available(macOS 11, tvOS 14, iOS 14, watchOS 7, *) {
+        #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+          _ = swiftUI.swiftUI().body
         #endif
       }
-    #endif
+    }
   }
 }

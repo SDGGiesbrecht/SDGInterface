@@ -33,7 +33,7 @@
 
       // MARK: - View
 
-      internal var body: some SwiftUI.View {
+      internal var body: some SwiftUI.View {  // @exempt(from: tests) Unreachable on watchOS.
         #if DEBUG
           _ = content()  // Eager execution to simplify testing.
         #endif

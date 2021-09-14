@@ -53,9 +53,10 @@
     private let range: Shared<ClosedRange<Double>>
     private let value: Shared<Double?>
 
-    internal static func zeroToOneRepresentation(of value: Double, in range: ClosedRange<Double>)
-      -> Double
-    {
+    internal static func zeroToOneRepresentation(
+      of value: Double,
+      in range: ClosedRange<Double>
+    ) -> Double {  // @exempt(from: tests) watchOS
       return (value − range.lowerBound) ÷ (range.upperBound − range.lowerBound)
     }
 

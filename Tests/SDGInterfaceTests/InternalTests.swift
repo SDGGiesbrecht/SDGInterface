@@ -50,7 +50,7 @@ final class InternalTests: ApplicationTestCase {
         action: {}
       )
     )
-    #if canImport(AppKit) || canImport(UIKit)
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       _ = alert.cocoa()
     #endif
   }
@@ -85,24 +85,28 @@ final class InternalTests: ApplicationTestCase {
 
   func testButtonCocoaImplementation() {
     #if canImport(AppKit) || canImport(UIKit)
-      let button = Button(
-        label: UserFacing<StrictString, InterfaceLocalization>({ _ in "Button" }),
-        action: {}
-      )
-      legacyMode = true
-      defer { legacyMode = false }
-      let cocoa = button.cocoa().native as! Button<InterfaceLocalization>.Superclass
-      #if canImport(AppKit)
-        cocoa.sendAction(cocoa.action, to: cocoa.target)
-      #else
-        _ = cocoa
-      #endif
+      if #available(watchOS 6, *) {
+        let button = Button(
+          label: UserFacing<StrictString, InterfaceLocalization>({ _ in "Button" }),
+          action: {}
+        )
+        legacyMode = true
+        defer { legacyMode = false }
+        #if canImport(UIKit) && !os(watchOS)
+          let cocoa = button.cocoa().native as! Button<InterfaceLocalization>.Superclass
+          #if canImport(AppKit)
+            cocoa.sendAction(cocoa.action, to: cocoa.target)
+          #else
+            _ = cocoa
+          #endif
+        #endif
+      }
     #endif
   }
 
   func testButtonLabel() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+      if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         _ = ButtonLabel.text("text").swiftUI()
         _ = ButtonLabel.symbol(Image.empty).swiftUI()
       }
@@ -137,11 +141,13 @@ final class InternalTests: ApplicationTestCase {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       forAllLegacyModes {
         if #available(macOS 10.15, tvOS 13, iOS 13, *) {
-          let combined = SDGInterface.EmptyView().popOver(
-            isPresented: Shared(false),
-            content: { SDGInterface.EmptyView() }
-          ).adjustForLegacyMode()
-          testViewConformance(of: combined, testBody: false)
+          #if !os(watchOS)
+            let combined = SDGInterface.EmptyView().popOver(
+              isPresented: Shared(false),
+              content: { SDGInterface.EmptyView() }
+            ).adjustForLegacyMode()
+            testViewConformance(of: combined, testBody: false)
+          #endif
         }
       }
     #endif
@@ -161,6 +167,7 @@ final class InternalTests: ApplicationTestCase {
 
   func testNSApplicationDelegate() {
     struct Error: Swift.Error {}
+    @available(watchOS 6, *)
     struct TestApplication: LegacyApplication {
       #if !PLATFORM_LACKS_FOUNDATION_PROCESS_INFO
         var applicationName: ProcessInfo.ApplicationNameResolver {
@@ -275,31 +282,33 @@ final class InternalTests: ApplicationTestCase {
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
         let isPresented = Shared(false)
         if #available(macOS 10.15, tvOS 13, iOS 13, *) {
-          let combined = SDGInterface.EmptyView().popOver(
-            isPresented: isPresented,
-            content: { SDGInterface.EmptyView() }
-          ).adjustForLegacyMode()
-          let window = Window(
-            type: .primary(nil),
-            name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
-            content: combined
-          )
-          window.display()
-          isPresented.value = true
+          #if !os(watchOS)
+            let combined = SDGInterface.EmptyView().popOver(
+              isPresented: isPresented,
+              content: { SDGInterface.EmptyView() }
+            ).adjustForLegacyMode()
+            let window = Window(
+              type: .primary(nil),
+              name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+              content: combined
+            )
+            window.display()
+            isPresented.value = true
+          #endif
         }
       #endif
     }
   }
 
   func testProportionedView() {
-    #if canImport(AppKit) || canImport(UIKit)
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       _ = Proportioned(content: CocoaView(), aspectRatio: 1, contentMode: .fill).cocoa()
       _ = Proportioned(content: CocoaView(), aspectRatio: 1, contentMode: .fit).cocoa()
     #endif
   }
 
   func testSegmentedControlCocoaImplementation() {
-    #if canImport(AppKit) || canImport(UIKit)
+    #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       enum Enumeration: CaseIterable {
         case a, b
       }
@@ -328,7 +337,7 @@ final class InternalTests: ApplicationTestCase {
 
   func testSwiftUIApplication() {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      @available(macOS 11, iOS 14, tvOS 14, *)
+      @available(macOS 11, iOS 14, tvOS 14, watchOS 7, *)
       struct TestApplication: Application {
         #if !PLATFORM_LACKS_FOUNDATION_PROCESS_INFO
           var applicationName: ProcessInfo.ApplicationNameResolver {
@@ -346,10 +355,10 @@ final class InternalTests: ApplicationTestCase {
           )
         }
       }
-      if #available(macOS 11, iOS 14, tvOS 14, *) {
+      if #available(macOS 11, iOS 14, tvOS 14, watchOS 7, *) {
         _ = SwiftUIApplication<TestApplication>().body
       }
-      @available(macOS 11, iOS 14, tvOS 14, *)
+      @available(macOS 11, iOS 14, tvOS 14, watchOS 7, *)
       struct WithPreferences: Application {
         #if !PLATFORM_LACKS_FOUNDATION_PROCESS_INFO
           var applicationName: ProcessInfo.ApplicationNameResolver {
@@ -370,7 +379,7 @@ final class InternalTests: ApplicationTestCase {
           return TextField(contents: Shared(""))
         }
       }
-      if #available(macOS 11, iOS 14, tvOS 14, *) {
+      if #available(macOS 11, iOS 14, tvOS 14, watchOS 7, *) {
         _ = SwiftUIApplication<WithPreferences>().body
       }
     #endif
@@ -378,6 +387,7 @@ final class InternalTests: ApplicationTestCase {
 
   func testUIApplicationDelegate() {
     struct Error: Swift.Error {}
+    @available(watchOS 6, *)
     struct TestApplication: LegacyApplication {
       #if !PLATFORM_LACKS_FOUNDATION_PROCESS_INFO
         var applicationName: ProcessInfo.ApplicationNameResolver {
@@ -398,7 +408,7 @@ final class InternalTests: ApplicationTestCase {
         static func main() {}
       #endif
     }
-    #if canImport(UIKit)
+    #if canImport(UIKit) && !os(watchOS)
       let delegate = SDGInterface.UIApplicationDelegate(
         application: TestApplication()
       )
@@ -472,7 +482,7 @@ final class InternalTests: ApplicationTestCase {
   }
 
   func testUIResponder() {
-    #if canImport(UIKit) && !os(tvOS)
+    #if canImport(UIKit) && !os(tvOS) && !os(watchOS)
       let executed = expectation(description: "Action executed.")
       let menuEntry = MenuEntry(
         label: UserFacing<StrictString, SDGInterfaceLocalizations.InterfaceLocalization>(
