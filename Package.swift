@@ -331,8 +331,8 @@ for target in package.targets {
   defer { target.swiftSettings = swiftSettings }
   swiftSettings.append(contentsOf: [
     // #workaround(workspace version 0.36.3, Bug prevents centralization of windows conditions.)
-    // #workaround(Swift 5.3.3, Web lacks Foundation.ProcessInfo.)
-    // #workaround(Swift 5.3.3, Web lacks Foundation.RunLoop.)
+    // #workaround(Swift 5.4.2, Web lacks Foundation.ProcessInfo.)
+    // #workaround(Swift 5.4.2, Web lacks Foundation.RunLoop.)
     // @example(conditions)
     .define("PLATFORM_LACKS_FOUNDATION_PROCESS_INFO", .when(platforms: [.wasi])),
     .define("PLATFORM_LACKS_FOUNDATION_RUN_LOOP", .when(platforms: [.wasi])),
