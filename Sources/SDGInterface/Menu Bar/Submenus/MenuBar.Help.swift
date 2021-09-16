@@ -99,7 +99,7 @@
           }
         }),
         entries: {
-            helpEntry()
+          helpEntry()
         }
       )
     }

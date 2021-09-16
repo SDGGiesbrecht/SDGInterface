@@ -164,8 +164,8 @@
           }
         }),
         entries: {
-            font()
-            text()
+          font()
+          text()
         }
       )
     }

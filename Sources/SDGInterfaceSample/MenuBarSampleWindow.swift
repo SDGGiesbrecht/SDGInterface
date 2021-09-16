@@ -46,7 +46,7 @@
           }
         }),
         entries: {
-            fullscreen()
+          fullscreen()
         }
       )
     }

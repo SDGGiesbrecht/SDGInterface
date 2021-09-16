@@ -204,12 +204,12 @@
           }
         }),
         entries: {
-            findEntry()
-            findAndReplace()
-            findNext()
-            findPrevious()
-            jumpToSelection()
-            useSelectionForFind()
+          findEntry()
+          findAndReplace()
+          findNext()
+          findPrevious()
+          jumpToSelection()
+          useSelectionForFind()
         }
       )
     }

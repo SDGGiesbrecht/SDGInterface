@@ -122,10 +122,10 @@
           }
         }),
         entries: {
-            minimize()
-            zoom()
-            Divider()
-            bringAllToFront()
+          minimize()
+          zoom()
+          Divider()
+          bringAllToFront()
         }
       )
     }

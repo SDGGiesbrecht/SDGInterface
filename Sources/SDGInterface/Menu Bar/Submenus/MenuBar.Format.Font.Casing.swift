@@ -98,10 +98,10 @@
           }
         }),
         entries: {
-            useDefault()
-            upperCase()
-            smallUpperCase()
-            lowerCase()
+          useDefault()
+          upperCase()
+          smallUpperCase()
+          lowerCase()
         }
       )
     }

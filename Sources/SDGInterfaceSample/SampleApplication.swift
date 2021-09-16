@@ -174,7 +174,7 @@
       {
         return MenuBar(
           applicationSpecificSubmenus: {
-              MenuBar<EmptyCommands>.sample()
+            MenuBar<EmptyCommands>.sample()
           }
         )
       }

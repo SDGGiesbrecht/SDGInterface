@@ -113,9 +113,9 @@
           }
         }),
         entries: {
-            useDefault()
-            useNone()
-            useAll()
+          useDefault()
+          useNone()
+          useAll()
         }
       )
     }

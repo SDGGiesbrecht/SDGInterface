@@ -41,8 +41,8 @@ public struct ContextMenu {
             }
           }),
         entries: {
-            ContextMenu.normalizeText()
-            ContextMenu.showCharacterInformation()
+          ContextMenu.normalizeText()
+          ContextMenu.showCharacterInformation()
         }
       )
     }

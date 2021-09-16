@@ -140,10 +140,10 @@
           }
         }),
         entries: {
-            useDefault()
-            useNone()
-            tighten()
-            loosen()
+          useDefault()
+          useNone()
+          tighten()
+          loosen()
         }
       )
     }

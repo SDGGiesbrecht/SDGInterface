@@ -63,7 +63,7 @@
           }
         }),
         entries: {
-            clearMenu()
+          clearMenu()
         }
       )
     }

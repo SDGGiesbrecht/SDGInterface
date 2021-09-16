@@ -86,10 +86,10 @@
           }
         }),
         entries: {
-            error()
-            menu()
-            view()
-            window()
+          error()
+          menu()
+          view()
+          window()
         }
       )
     }

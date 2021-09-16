@@ -48,9 +48,9 @@
           }
         }),
         entries: {
-            paragraphDefault()
-            paragraphRightToLeft()
-            paragraphLeftToRight()
+          paragraphDefault()
+          paragraphRightToLeft()
+          paragraphLeftToRight()
         }
       )
     }
@@ -156,9 +156,9 @@
           }
         }),
         entries: {
-            selectionDefault()
-            selectionRightToLeft()
-            selectionLeftToRight()
+          selectionDefault()
+          selectionRightToLeft()
+          selectionLeftToRight()
         }
       )
     }
@@ -224,8 +224,8 @@
           }
         }),
         entries: {
-            paragraph()
-            selection()
+          paragraph()
+          selection()
         }
       )
     }

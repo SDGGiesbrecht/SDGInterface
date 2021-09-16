@@ -147,14 +147,14 @@
           }
         }),
         entries: {
-            button()
-            buttonSet()
-            checkBox()
-            image()
-            label()
-            log()
-            textEditor()
-            textField()
+          button()
+          buttonSet()
+          checkBox()
+          image()
+          label()
+          log()
+          textEditor()
+          textField()
         }
       )
     }

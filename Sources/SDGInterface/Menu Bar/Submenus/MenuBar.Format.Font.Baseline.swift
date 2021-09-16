@@ -164,11 +164,11 @@
           }
         }),
         entries: {
-            normal()
-            superscript()
-            `subscript`()
-            raise()
-            lower()
+          normal()
+          superscript()
+          `subscript`()
+          raise()
+          lower()
         }
       )
     }

@@ -43,7 +43,7 @@
           }
         }),
         entries: {
-            menuEntry()
+          menuEntry()
         }
       )
     }
@@ -63,9 +63,9 @@
           }
         }),
         entries: {
-            menuEntry()
-            Divider()
-            submenu()
+          menuEntry()
+          Divider()
+          submenu()
         }
       )
     }

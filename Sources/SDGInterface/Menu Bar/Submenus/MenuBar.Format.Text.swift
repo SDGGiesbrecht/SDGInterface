@@ -251,16 +251,16 @@
           }
         }),
         entries: {
-            alignRight()
-            centre()
-            justify()
-            alignLeft()
-            Divider()
-            writingDirection()
-            Divider()
-            showRuler()
-            copyRuler()
-            pasteRuler()
+          alignRight()
+          centre()
+          justify()
+          alignLeft()
+          Divider()
+          writingDirection()
+          Divider()
+          showRuler()
+          copyRuler()
+          pasteRuler()
         }
       )
     }

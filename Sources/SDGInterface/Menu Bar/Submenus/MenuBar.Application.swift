@@ -299,17 +299,17 @@
       return Menu(
         label: ApplicationNameForm.localizedIsolatedForm,
         entries: {
-            about()
-            Divider()
-            preferences()
-            Divider()
-            services()
-            Divider()
-            hide()
-            hideOthers()
-            showAll()
-            Divider()
-            quit()
+          about()
+          Divider()
+          preferences()
+          Divider()
+          services()
+          Divider()
+          hide()
+          hideOthers()
+          showAll()
+          Divider()
+          quit()
         }
       )
     }

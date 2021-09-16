@@ -170,12 +170,12 @@
           }
         }),
         entries: {
-            showSpellingAndGrammar()
-            checkDocumentNow()
-            Divider()
-            checkSpellingWhileTyping()
-            checkGrammarWithSpelling()
-            correctSpellingAutomatically()
+          showSpellingAndGrammar()
+          checkDocumentNow()
+          Divider()
+          checkSpellingWhileTyping()
+          checkGrammarWithSpelling()
+          correctSpellingAutomatically()
         }
       )
     }

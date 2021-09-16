@@ -213,14 +213,14 @@
           }
         }),
         entries: {
-            showSubstitutions()
-            Divider()
-            smartCopyPaste()
-            smartQuotes()
-            smartDashes()
-            smartLinks()
-            dataDetectors()
-            textReplacement()
+          showSubstitutions()
+          Divider()
+          smartCopyPaste()
+          smartQuotes()
+          smartDashes()
+          smartLinks()
+          dataDetectors()
+          textReplacement()
         }
       )
     }

@@ -64,8 +64,8 @@
           }
         }),
         entries: {
-            textFieldEntry()
-            labelledTextField()
+          textFieldEntry()
+          labelledTextField()
         }
       )
     }

@@ -141,21 +141,21 @@ extension Menu: Commands, MenuComponents where Components: SDGInterface.MenuComp
             }
           }),
         entries: {
-            entry
-            Divider()
-            Menu(
-              label: UserFacing<StrictString, InterfaceLocalization>({ localization in
-                switch localization {
-                case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
-                  return "Submenu"
-                case .deutschDeutschland:
-                  return "Untermenü"
-                }
-              }),
-              entries: {
-                entry
+          entry
+          Divider()
+          Menu(
+            label: UserFacing<StrictString, InterfaceLocalization>({ localization in
+              switch localization {
+              case .englishUnitedKingdom, .englishUnitedStates, .englishCanada:
+                return "Submenu"
+              case .deutschDeutschland:
+                return "Untermenü"
               }
-            )
+            }),
+            entries: {
+              entry
+            }
+          )
         }
       )
       return Group {

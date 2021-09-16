@@ -90,8 +90,8 @@
           }
         }),
         entries: {
-            startSpeaking()
-            stopSpeaking()
+          startSpeaking()
+          stopSpeaking()
         }
       )
     }
