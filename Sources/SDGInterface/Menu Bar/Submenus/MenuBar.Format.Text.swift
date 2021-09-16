@@ -251,18 +251,16 @@
           }
         }),
         entries: {
-          return MenuComponentsBuilder.buildBlock(
-            alignRight(),
-            centre(),
-            justify(),
-            alignLeft(),
-            Divider(),
-            writingDirection(),
-            Divider(),
-            showRuler(),
-            copyRuler(),
+            alignRight()
+            centre()
+            justify()
+            alignLeft()
+            Divider()
+            writingDirection()
+            Divider()
+            showRuler()
+            copyRuler()
             pasteRuler()
-          )
         }
       )
     }

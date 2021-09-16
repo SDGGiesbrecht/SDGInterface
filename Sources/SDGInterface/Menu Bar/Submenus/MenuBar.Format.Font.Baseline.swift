@@ -164,13 +164,11 @@
           }
         }),
         entries: {
-          return MenuComponentsBuilder.buildBlock(
-            normal(),
-            superscript(),
-            `subscript`(),
-            raise(),
+            normal()
+            superscript()
+            `subscript`()
+            raise()
             lower()
-          )
         }
       )
     }

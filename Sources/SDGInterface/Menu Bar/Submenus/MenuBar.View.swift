@@ -148,13 +148,11 @@
           }
         }),
         entries: {
-          return MenuComponentsBuilder.buildBlock(
-            showToolbar(),
-            customizeToolbar(),
-            Divider(),
-            showSideBar(),
+            showToolbar()
+            customizeToolbar()
+            Divider()
+            showSideBar()
             enterFullScreen()
-          )
         }
       )
     }

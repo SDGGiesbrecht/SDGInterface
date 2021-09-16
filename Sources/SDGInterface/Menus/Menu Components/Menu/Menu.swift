@@ -40,8 +40,7 @@ where L: Localization, Components: LegacyMenuComponents {
   ///     - entries: The menu entries.
   public init(
     label: UserFacing<StrictString, L>,
-    // #workaround(Swift 5.3.3, Should be @MenuComponentsBuilder.)
-    entries: () -> Components
+    @MenuComponentsBuilder entries: () -> Components
   ) {
     #if DEBUG
       // Eager execution to simplify testing.
@@ -142,9 +141,8 @@ extension Menu: Commands, MenuComponents where Components: SDGInterface.MenuComp
             }
           }),
         entries: {
-          return MenuComponentsBuilder.buildBlock(
-            entry,
-            Divider(),
+            entry
+            Divider()
             Menu(
               label: UserFacing<StrictString, InterfaceLocalization>({ localization in
                 switch localization {
@@ -158,7 +156,6 @@ extension Menu: Commands, MenuComponents where Components: SDGInterface.MenuComp
                 entry
               }
             )
-          )
         }
       )
       return Group {

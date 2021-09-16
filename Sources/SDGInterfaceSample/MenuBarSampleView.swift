@@ -147,16 +147,14 @@
           }
         }),
         entries: {
-          MenuComponentsBuilder.buildBlock(
-            button(),
-            buttonSet(),
-            checkBox(),
-            image(),
-            label(),
-            log(),
-            textEditor(),
+            button()
+            buttonSet()
+            checkBox()
+            image()
+            label()
+            log()
+            textEditor()
             textField()
-          )
         }
       )
     }

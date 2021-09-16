@@ -122,12 +122,10 @@
           }
         }),
         entries: {
-          return MenuComponentsBuilder.buildBlock(
-            minimize(),
-            zoom(),
-            Divider(),
+            minimize()
+            zoom()
+            Divider()
             bringAllToFront()
-          )
         }
       )
     }

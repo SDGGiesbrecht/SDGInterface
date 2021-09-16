@@ -170,14 +170,12 @@
           }
         }),
         entries: {
-          return MenuComponentsBuilder.buildBlock(
-            showSpellingAndGrammar(),
-            checkDocumentNow(),
-            Divider(),
-            checkSpellingWhileTyping(),
-            checkGrammarWithSpelling(),
+            showSpellingAndGrammar()
+            checkDocumentNow()
+            Divider()
+            checkSpellingWhileTyping()
+            checkGrammarWithSpelling()
             correctSpellingAutomatically()
-          )
         }
       )
     }

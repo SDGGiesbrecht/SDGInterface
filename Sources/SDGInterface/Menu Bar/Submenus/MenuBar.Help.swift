@@ -99,9 +99,7 @@
           }
         }),
         entries: {
-          return MenuComponentsBuilder.buildBlock(
             helpEntry()
-          )
         }
       )
     }

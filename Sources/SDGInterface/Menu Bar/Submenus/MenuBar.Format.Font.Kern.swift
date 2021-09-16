@@ -140,12 +140,10 @@
           }
         }),
         entries: {
-          return MenuComponentsBuilder.buildBlock(
-            useDefault(),
-            useNone(),
-            tighten(),
+            useDefault()
+            useNone()
+            tighten()
             loosen()
-          )
         }
       )
     }

@@ -301,21 +301,19 @@
           }
         }),
         entries: {
-          return MenuComponentsBuilder.buildBlock(
-            new(),
-            open(),
-            openRecent(),
-            Divider(),
-            close(),
-            save(),
-            duplicate(),
-            rename(),
-            moveTo(),
-            revertToSaved(),
-            Divider(),
-            pageSetUp(),
+            new()
+            open()
+            openRecent()
+            Divider()
+            close()
+            save()
+            duplicate()
+            rename()
+            moveTo()
+            revertToSaved()
+            Divider()
+            pageSetUp()
             print()
-          )
         }
       )
     }

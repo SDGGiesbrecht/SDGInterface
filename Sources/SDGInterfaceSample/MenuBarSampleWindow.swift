@@ -46,9 +46,7 @@
           }
         }),
         entries: {
-          MenuComponentsBuilder.buildBlock(
             fullscreen()
-          )
         }
       )
     }

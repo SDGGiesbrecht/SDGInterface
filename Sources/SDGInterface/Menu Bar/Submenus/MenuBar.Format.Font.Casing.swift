@@ -98,12 +98,10 @@
           }
         }),
         entries: {
-          return MenuComponentsBuilder.buildBlock(
-            useDefault(),
-            upperCase(),
-            smallUpperCase(),
+            useDefault()
+            upperCase()
+            smallUpperCase()
             lowerCase()
-          )
         }
       )
     }

@@ -43,9 +43,7 @@
           }
         }),
         entries: {
-          MenuComponentsBuilder.buildBlock(
             menuEntry()
-          )
         }
       )
     }
@@ -65,11 +63,9 @@
           }
         }),
         entries: {
-          MenuComponentsBuilder.buildBlock(
-            menuEntry(),
-            Divider(),
+            menuEntry()
+            Divider()
             submenu()
-          )
         }
       )
     }

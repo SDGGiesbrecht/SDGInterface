@@ -164,10 +164,8 @@
           }
         }),
         entries: {
-          return MenuComponentsBuilder.buildBlock(
-            font(),
+            font()
             text()
-          )
         }
       )
     }

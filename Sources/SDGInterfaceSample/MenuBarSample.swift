@@ -86,12 +86,10 @@
           }
         }),
         entries: {
-          MenuComponentsBuilder.buildBlock(
-            error(),
-            menu(),
-            view(),
+            error()
+            menu()
+            view()
             window()
-          )
         }
       )
     }

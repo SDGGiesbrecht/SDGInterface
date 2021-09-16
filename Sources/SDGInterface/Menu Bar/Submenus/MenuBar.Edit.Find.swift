@@ -204,14 +204,12 @@
           }
         }),
         entries: {
-          return MenuComponentsBuilder.buildBlock(
-            findEntry(),
-            findAndReplace(),
-            findNext(),
-            findPrevious(),
-            jumpToSelection(),
+            findEntry()
+            findAndReplace()
+            findNext()
+            findPrevious()
+            jumpToSelection()
             useSelectionForFind()
-          )
         }
       )
     }

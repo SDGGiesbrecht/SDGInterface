@@ -90,10 +90,8 @@
           }
         }),
         entries: {
-          return MenuComponentsBuilder.buildBlock(
-            startSpeaking(),
+            startSpeaking()
             stopSpeaking()
-          )
         }
       )
     }

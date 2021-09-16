@@ -213,16 +213,14 @@
           }
         }),
         entries: {
-          return MenuComponentsBuilder.buildBlock(
-            showSubstitutions(),
-            Divider(),
-            smartCopyPaste(),
-            smartQuotes(),
-            smartDashes(),
-            smartLinks(),
-            dataDetectors(),
+            showSubstitutions()
+            Divider()
+            smartCopyPaste()
+            smartQuotes()
+            smartDashes()
+            smartLinks()
+            dataDetectors()
             textReplacement()
-          )
         }
       )
     }
