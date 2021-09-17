@@ -48,11 +48,9 @@
           }
         }),
         entries: {
-          return MenuComponentsBuilder.buildBlock(
-            paragraphDefault(),
-            paragraphRightToLeft(),
-            paragraphLeftToRight()
-          )
+          paragraphDefault()
+          paragraphRightToLeft()
+          paragraphLeftToRight()
         }
       )
     }
@@ -158,11 +156,9 @@
           }
         }),
         entries: {
-          return MenuComponentsBuilder.buildBlock(
-            selectionDefault(),
-            selectionRightToLeft(),
-            selectionLeftToRight()
-          )
+          selectionDefault()
+          selectionRightToLeft()
+          selectionLeftToRight()
         }
       )
     }
@@ -228,10 +224,8 @@
           }
         }),
         entries: {
-          return MenuComponentsBuilder.buildBlock(
-            paragraph(),
-            selection()
-          )
+          paragraph()
+          selection()
         }
       )
     }

@@ -14,9 +14,8 @@
 
 import SDGLocalization
 
-// #workaround(Swift 5.3.3, Should be @resultBuilder.)
 /// A builder which constructs lists of menu components.
-public enum MenuComponentsBuilder {
+@resultBuilder public enum MenuComponentsBuilder {
 
   /// Builds empty menu components.
   public static func buildBlock() -> EmptyMenuComponents {

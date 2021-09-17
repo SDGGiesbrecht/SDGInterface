@@ -45,15 +45,13 @@
           }
         }),
         entries: {
-          return MenuComponentsBuilder.buildBlock(
-            ContextMenu.normalizeText()
+          ContextMenu.normalizeText()
 
-              // “Make Upper Case” does not belong here. Upper‐case‐only is a font style, not a semantic aspect of the text. Attempting to fake it by switching to capital letters (a) results in semantically incorrect text, and (b) is irreversable. A font‐based version is available under the “Font” menu instead.
+          // “Make Upper Case” does not belong here. Upper‐case‐only is a font style, not a semantic aspect of the text. Attempting to fake it by switching to capital letters (a) results in semantically incorrect text, and (b) is irreversable. A font‐based version is available under the “Font” menu instead.
 
-              // “Make Lower Case” is never useful. Instead, reversion from an upper‐case‐only font style to normally cased font—which preserves true capitals—is available under the “Font” menu.
+          // “Make Lower Case” is never useful. Instead, reversion from an upper‐case‐only font style to normally cased font—which preserves true capitals—is available under the “Font” menu.
 
-              // “Capitalize” is just not possible for a machine to do properly in any language.
-          )
+          // “Capitalize” is just not possible for a machine to do properly in any language.
         }
       )
     }

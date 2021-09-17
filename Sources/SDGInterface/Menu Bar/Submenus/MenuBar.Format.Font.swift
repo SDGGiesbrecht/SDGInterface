@@ -349,25 +349,23 @@
           }
         }),
         entries: {
-          return MenuComponentsBuilder.buildBlock(
-            showFonts(),
-            bold(),
-            italic(),
-            underline(),
-            Divider(),
-            bigger(),
-            smaller(),
-            Divider(),
-            kern(),
-            ligatures(),
-            baseline(),
-            casing(),
-            Divider(),
-            showColours(),
-            Divider(),
-            copyStyle(),
-            pasteStyle()
-          )
+          showFonts()
+          bold()
+          italic()
+          underline()
+          Divider()
+          bigger()
+          smaller()
+          Divider()
+          kern()
+          ligatures()
+          baseline()
+          casing()
+          Divider()
+          showColours()
+          Divider()
+          copyStyle()
+          pasteStyle()
         }
       )
     }

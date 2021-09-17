@@ -381,16 +381,14 @@ where ApplicationSpecificMenus: LegacyCommands {
           }
         }),
         entries: {
-          MenuComponentsBuilder.buildBlock(
-            MenuBar.application(),
-            MenuBar.file(),
-            MenuBar.edit(),
-            MenuBar.format(),
-            MenuBar.view(),
-            applicationSpecificSubmenus.menuComponents(),
-            MenuBar.window(),
-            MenuBar.help()
-          )
+          MenuBar.application()
+          MenuBar.file()
+          MenuBar.edit()
+          MenuBar.format()
+          MenuBar.view()
+          applicationSpecificSubmenus.menuComponents()
+          MenuBar.window()
+          MenuBar.help()
         }
       )
     }

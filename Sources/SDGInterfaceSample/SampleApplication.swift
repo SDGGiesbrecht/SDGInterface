@@ -174,9 +174,7 @@
       {
         return MenuBar(
           applicationSpecificSubmenus: {
-            return CommandsBuilder.buildBlock(
-              MenuBar<EmptyCommands>.sample()
-            )
+            MenuBar<EmptyCommands>.sample()
           }
         )
       }

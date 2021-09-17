@@ -64,10 +64,8 @@
           }
         }),
         entries: {
-          MenuComponentsBuilder.buildBlock(
-            textFieldEntry(),
-            labelledTextField()
-          )
+          textFieldEntry()
+          labelledTextField()
         }
       )
     }

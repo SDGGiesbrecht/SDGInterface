@@ -14,9 +14,8 @@
 
 import SDGLocalization
 
-// #workaround(Swift 5.3.3, Should be @resultBuilder.)
 /// A builder which constructs lists of menu components.
-public enum CommandsBuilder {
+@resultBuilder public enum CommandsBuilder {
 
   /// Builds empty commands.
   public static func buildBlock() -> EmptyCommands {

@@ -320,24 +320,22 @@
           }
         }),
         entries: {
-          return MenuComponentsBuilder.buildBlock(
-            undo(),
-            redo(),
-            Divider(),
-            cut(),
-            copy(),
-            paste(),
-            pasteAndMatchStyle(),
-            delete(),
-            selectAll(),
-            Divider(),
-            find(),
-            spellingAndGrammar(),
-            substitutions(),
-            transformations(),
-            ContextMenu.showCharacterInformation(),
-            speech()
-          )
+          undo()
+          redo()
+          Divider()
+          cut()
+          copy()
+          paste()
+          pasteAndMatchStyle()
+          delete()
+          selectAll()
+          Divider()
+          find()
+          spellingAndGrammar()
+          substitutions()
+          transformations()
+          ContextMenu.showCharacterInformation()
+          speech()
         }
       )
     }

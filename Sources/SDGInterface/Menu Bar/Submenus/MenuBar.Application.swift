@@ -117,9 +117,7 @@
             return "שירותים"
           }
         }),
-        entries: {
-          return MenuComponentsBuilder.buildBlock()
-        }
+        entries: {}
       )
     }
 
@@ -301,19 +299,17 @@
       return Menu(
         label: ApplicationNameForm.localizedIsolatedForm,
         entries: {
-          return MenuComponentsBuilder.buildBlock(
-            about(),
-            Divider(),
-            preferences(),
-            Divider(),
-            services(),
-            Divider(),
-            hide(),
-            hideOthers(),
-            showAll(),
-            Divider(),
-            quit()
-          )
+          about()
+          Divider()
+          preferences()
+          Divider()
+          services()
+          Divider()
+          hide()
+          hideOthers()
+          showAll()
+          Divider()
+          quit()
         }
       )
     }

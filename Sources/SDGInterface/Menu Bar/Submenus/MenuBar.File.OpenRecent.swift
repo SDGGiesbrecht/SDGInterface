@@ -63,9 +63,7 @@
           }
         }),
         entries: {
-          return MenuComponentsBuilder.buildBlock(
-            clearMenu()
-          )
+          clearMenu()
         }
       )
     }

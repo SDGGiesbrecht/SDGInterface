@@ -113,11 +113,9 @@
           }
         }),
         entries: {
-          return MenuComponentsBuilder.buildBlock(
-            useDefault(),
-            useNone(),
-            useAll()
-          )
+          useDefault()
+          useNone()
+          useAll()
         }
       )
     }

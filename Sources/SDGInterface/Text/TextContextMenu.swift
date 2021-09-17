@@ -104,9 +104,7 @@
               return "Kontextmenü"
             }
           }),
-        entries: {
-          MenuComponentsBuilder.buildBlock()
-        }
+        entries: {}
       )
       let items =
         systemMenu.items
