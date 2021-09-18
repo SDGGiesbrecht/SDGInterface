@@ -14,7 +14,7 @@
 
 @testable import SDGInterface
 
-#if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
+#if PLATFORM_HAS_COCOA_INTERFACE
   public func forEachWindow(_ closure: (CocoaWindow) -> Void) {
     for window in Array(allWindows.values) {
       closure(CocoaWindow(window))
