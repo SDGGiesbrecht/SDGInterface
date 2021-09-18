@@ -135,6 +135,7 @@ public struct SampleApplication: LegacyApplication {
 Some platforms lack certain features. The compilation conditions which appear throughout the documentation are defined as follows:
 
 ```swift
+.define("PLATFORM_HAS_COCOA_INTERFACE", .when(platforms: [.macOS, .tvOS, .iOS])),
 .define("PLATFORM_LACKS_FOUNDATION_PROCESS_INFO", .when(platforms: [.wasi])),
 .define("PLATFORM_LACKS_FOUNDATION_RUN_LOOP", .when(platforms: [.wasi])),
 ```
