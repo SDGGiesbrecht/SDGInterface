@@ -28,7 +28,7 @@ extension Error {
 
   // MARK: - Display
 
-  #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
+  #if PLATFORM_HAS_COCOA_INTERFACE
     /// Displays the error to the user.
     public func display() {  // @exempt(from: tests) Requires user interaction.
       #if canImport(AppKit)

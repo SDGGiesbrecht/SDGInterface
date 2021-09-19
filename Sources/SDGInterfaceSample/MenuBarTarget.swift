@@ -27,7 +27,7 @@
 
     public static let shared = MenuBarTarget()
 
-    #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
+    #if PLATFORM_HAS_COCOA_INTERFACE
       private func demonstrate<Content, L>(_ window: Window<Content, L>) {
         window.display()
       }

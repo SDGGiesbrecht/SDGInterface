@@ -43,7 +43,7 @@ open class ApplicationTestCase: TestCase {
   }()
 
   open override func tearDown() {
-    #if (canImport(AppKit) || canImport(UIKit)) && !os(watchOS)
+    #if PLATFORM_HAS_COCOA_INTERFACE
       forEachWindow { window in
         window.close()
       }
