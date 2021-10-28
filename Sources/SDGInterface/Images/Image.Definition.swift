@@ -32,8 +32,8 @@
       #endif
 
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-        @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
-        case swiftUI(SwiftUI.Image)
+        /// The associated value is a `Swift.Image` where available, or `nil`.
+        case swiftUI(Any?)
       #endif
     }
   }
