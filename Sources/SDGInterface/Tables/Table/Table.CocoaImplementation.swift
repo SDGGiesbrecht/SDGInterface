@@ -237,8 +237,8 @@
           let cell: Cell
           if let reUsable = cocoaTable.dequeueReusableCell(
             withIdentifier: Self.reUseIdentifier
-          ) as? Cell {
-            cell = reUsable  // @exempt(from: tests) Hard to predicably reproduce.
+          ) as? Cell {  // @exempt(from: tests) Hard to predicably reproduce.
+            cell = reUsable
           } else {
             cell = Cell(columns: [])
           }
