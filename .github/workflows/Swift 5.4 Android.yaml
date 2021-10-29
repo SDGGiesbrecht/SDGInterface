@@ -94,7 +94,7 @@ jobs:
   Swift_5_4_Android_II:
     name: Swift 5.4 Android II
     runs-on: macos-11
-    needs: Android
+    needs: Swift_5_4_Android
     steps:
     - name: Check out
       uses: actions/checkout@v1
