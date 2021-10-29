@@ -386,12 +386,12 @@ final class APITests: ApplicationTestCase {
   }
 
   func testCommandsBuilder() {
-    _ = CommandsBuilder.buildBlock()
-    _ = CommandsBuilder.buildBlock(EmptyCommands())
+    _ = SDGInterface.CommandsBuilder.buildBlock()
+    _ = SDGInterface.CommandsBuilder.buildBlock(EmptyCommands())
   }
 
   func testCommandsConcatenation() {
-    let commands = CommandsBuilder.buildBlock(
+    let commands = SDGInterface.CommandsBuilder.buildBlock(
       EmptyCommands(),
       EmptyCommands()
     )

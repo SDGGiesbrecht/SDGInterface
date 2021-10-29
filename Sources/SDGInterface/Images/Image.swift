@@ -88,7 +88,7 @@
         case .cocoa(let image):
           return SwiftUI.Image(image)
         case .swiftUI(let image):
-          return image
+          return image as! SwiftUI.Image
         }
       }
     #endif

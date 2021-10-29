@@ -51,8 +51,8 @@ public struct AlertButton<L> where L: Localization {
     /// Constructs a Cocoa representation of the alter button.
     public func cocoa() -> UIAlertAction {
       let wrappedAction: ((UIAlertAction) -> Void)? = action.map { action in
-        return { (UIAlertAction) -> Void in
-          return action()  // @exempt(from: tests)
+        return { (UIAlertAction) -> Void in  // @exempt(from: tests)
+          return action()
         }
       }
       return UIAlertAction(

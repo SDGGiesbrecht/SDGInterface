@@ -121,7 +121,7 @@ extension Menu: Commands, MenuComponents where Components: SDGInterface.MenuComp
             return "Eintrag"
           }
         }),
-        action: {}
+        action: {}  // @exempt(from: tests)
       )
 
       let menu = Menu<

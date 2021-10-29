@@ -94,7 +94,7 @@
                 return "Taste"
               }
             }),
-            action: {}
+            action: {}  // @exempt(from: tests)
           ).adjustForLegacyMode()
             .padding(),
           name: "Button"

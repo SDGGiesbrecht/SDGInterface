@@ -43,8 +43,8 @@
         let range = layout.glyphRange(forCharacterRange: selectedRange(), actualCharacterRange: nil)
         return Rectangle(layout.boundingRect(forGlyphRange: range, in: text))
       #else
-        guard let range = selectedTextRange else {
-          return nil  // @exempt(from: tests)
+        guard let range = selectedTextRange else {  // @exempt(from: tests)
+          return nil
         }
         return selectionRects(for: range).first.map { Rectangle($0.rect) }
       #endif
@@ -56,8 +56,8 @@
       _ modify: (_ previousValue: NSAttributedString) -> NSAttributedString
     ) {
       let possibleStorage: NSTextStorage? = textStorage
-      guard let storage = possibleStorage else {
-        return  // @exempt(from: tests)
+      guard let storage = possibleStorage else {  // @exempt(from: tests)
+        return
       }
 
       let originalRange: NSRange
