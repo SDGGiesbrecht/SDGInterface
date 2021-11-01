@@ -135,6 +135,10 @@ import PackageDescription
 ///
 /// ```swift
 /// .define("PLATFORM_HAS_COCOA_INTERFACE", .when(platforms: [.macOS, .tvOS, .iOS])),
+/// .define(
+///   "PLATFORM_LACKS_FOUNDATION_NS_USER_ACTIVITY",
+///   .when(platforms: [.windows, .wasi, .linux, .android])
+/// ),
 /// .define("PLATFORM_LACKS_FOUNDATION_PROCESS_INFO", .when(platforms: [.wasi])),
 /// .define("PLATFORM_LACKS_FOUNDATION_RUN_LOOP", .when(platforms: [.wasi])),
 /// ```
@@ -331,11 +335,14 @@ for target in package.targets {
   var swiftSettings = target.swiftSettings ?? []
   defer { target.swiftSettings = swiftSettings }
   swiftSettings.append(contentsOf: [
-    // #workaround(workspace version 0.36.3, Bug prevents centralization of windows conditions.)
     // #workaround(Swift 5.4.2, Web lacks Foundation.ProcessInfo.)
     // #workaround(Swift 5.4.2, Web lacks Foundation.RunLoop.)
     // @example(conditions)
     .define("PLATFORM_HAS_COCOA_INTERFACE", .when(platforms: [.macOS, .tvOS, .iOS])),
+    .define(
+      "PLATFORM_LACKS_FOUNDATION_NS_USER_ACTIVITY",
+      .when(platforms: [.windows, .wasi, .linux, .android])
+    ),
     .define("PLATFORM_LACKS_FOUNDATION_PROCESS_INFO", .when(platforms: [.wasi])),
     .define("PLATFORM_LACKS_FOUNDATION_RUN_LOOP", .when(platforms: [.wasi])),
     // @endExample

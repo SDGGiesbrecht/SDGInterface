@@ -24,7 +24,7 @@ public struct Handoff {
 
   // MARK: - Properties
 
-  #if !(os(Windows) || os(WASI) || os(Linux) || os(Android))
+  #if !PLATFORM_LACKS_FOUNDATION_NS_USER_ACTIVITY
     /// The activity.
     public var activity: NSUserActivity?
   #endif
