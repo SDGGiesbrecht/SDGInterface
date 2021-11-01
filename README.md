@@ -136,6 +136,10 @@ Some platforms lack certain features. The compilation conditions which appear th
 
 ```swift
 .define("PLATFORM_HAS_COCOA_INTERFACE", .when(platforms: [.macOS, .tvOS, .iOS])),
+.define(
+  "PLATFORM_LACKS_FOUNDATION_NS_USER_ACTIVITY",
+  .when(platforms: [.windows, .wasi, .linux, .android])
+),
 .define("PLATFORM_LACKS_FOUNDATION_PROCESS_INFO", .when(platforms: [.wasi])),
 .define("PLATFORM_LACKS_FOUNDATION_RUN_LOOP", .when(platforms: [.wasi])),
 ```
