@@ -22,9 +22,6 @@ import XCTest
 
 import SDGXCTestUtilities
 
-#if PLATFORM_LACKS_SDG_CORNERSTONE_TEST_CASE
-  public typealias TestCase = XCTestCase
-#endif
 open class ApplicationTestCase: TestCase {
 
   open override func setUp() {
