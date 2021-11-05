@@ -1308,7 +1308,7 @@ final class APITests: ApplicationTestCase {
   func testTable() {
     #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       let data = Shared([0])
-      let table = Table<Int>(
+      let table = SDGInterface.Table<Int>(
         data: data,
         columns: [
           { integer in
