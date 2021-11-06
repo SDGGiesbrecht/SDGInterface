@@ -129,10 +129,7 @@ public struct RichText: Addable, CustomPlaygroundDisplayConvertible, CustomStrin
       return _segments
     }
     set {
-      // #workaround(Swift 5.3.2, Declaration may not be in a Comdat!)
-      #if !os(Windows)
-        cache = Cache()
-      #endif
+      cache = Cache()
       var new: [Segment] = []
       for segment in newValue where ¬segment.rawText.isEmpty {  // Ignore empty segments.
         if let previous = new.last {
@@ -161,16 +158,13 @@ public struct RichText: Addable, CustomPlaygroundDisplayConvertible, CustomStrin
     }
   }
 
-  // #workaround(Swift 5.3.2, Declaration may not be in a Comdat!)
-  #if !os(Windows)
-    private class Cache {
-      fileprivate init() {}
-      fileprivate var rawText: StrictString?
-      fileprivate var scalars: String.UnicodeScalarView?
-      fileprivate var attributedString: NSAttributedString?
-    }
-    private var cache = Cache()
-  #endif
+  private class Cache {
+    fileprivate init() {}
+    fileprivate var rawText: StrictString?
+    fileprivate var scalars: String.UnicodeScalarView?
+    fileprivate var attributedString: NSAttributedString?
+  }
+  private var cache = Cache()
 
   // Computed
 
@@ -185,12 +179,7 @@ public struct RichText: Addable, CustomPlaygroundDisplayConvertible, CustomStrin
       }
       return string
     }
-    // #workaround(Swift 5.3.2, Declaration may not be in a Comdat!)
-    #if os(Windows)
-      return closure()
-    #else
-      return cached(in: &cache.rawText, closure)
-    #endif
+    return cached(in: &cache.rawText, closure)
   }
 
   /// Returns the text as a sequence of raw text Unicode scalars.
@@ -204,12 +193,7 @@ public struct RichText: Addable, CustomPlaygroundDisplayConvertible, CustomStrin
       }
       return string
     }
-    // #workaround(Swift 5.3.2, Declaration may not be in a Comdat!)
-    #if os(Windows)
-      return closure()
-    #else
-      return cached(in: &cache.scalars, closure)
-    #endif
+    return cached(in: &cache.scalars, closure)
   }
 
   internal func attributedString() -> NSAttributedString {
@@ -222,12 +206,7 @@ public struct RichText: Addable, CustomPlaygroundDisplayConvertible, CustomStrin
       }
       return mutable.copy() as! NSAttributedString
     }
-    // #workaround(Swift 5.3.2, Declaration may not be in a Comdat!)
-    #if os(Windows)
-      return closure()
-    #else
-      return cached(in: &cache.attributedString, closure)
-    #endif
+    return cached(in: &cache.attributedString, closure)
   }
 
   // MARK: - Attributes
