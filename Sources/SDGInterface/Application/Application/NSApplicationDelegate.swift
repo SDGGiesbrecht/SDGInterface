@@ -338,7 +338,7 @@
 
     internal func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
 
-      // #workaround(Swift 5.5.1, @SceneBuilder does not support “if”, so Settings cannot be conditional.)
+      // #workaround(Swift 5.5.2, @SceneBuilder does not support “if”, so Settings cannot be conditional.)
       if menuItem.action == #selector(NSApplicationDelegate.showPreferencesWindow(_:)),
         application.preferences is EmptyView
       {  // @exempt(from: tests) Only reachable from SwiftUI’s main().
