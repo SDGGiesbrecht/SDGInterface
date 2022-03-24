@@ -157,7 +157,7 @@ let package = Package(
     .package(
       name: "SDGInterface",
       url: "https://github.com/SDGGiesbrecht/SDGInterface",
-      .upToNextMinor(from: Version(0, 13, 1))
+      .upToNextMinor(from: Version(0, 14, 0))
     ),
   ],
   targets: [
