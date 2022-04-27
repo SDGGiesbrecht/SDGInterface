@@ -60,5 +60,3 @@ configuration.documentation.api.ignoredDependencies = [
   "Foundation",
   "XCTest",
 ]
-
-configuration.supportedPlatforms.remove(.centOS)
