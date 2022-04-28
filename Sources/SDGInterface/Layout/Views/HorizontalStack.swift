@@ -99,7 +99,8 @@
           spacing: spacing.map({ CGFloat($0) }),
           content: {
             ForEach(
-              content.indices
+              content.indices,
+              id: \.self
             ) {  // @exempt(from: tests) Inaccurate coverage result.
               self.content[$0].swiftUI()
             }
