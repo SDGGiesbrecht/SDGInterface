@@ -978,7 +978,10 @@ final class APITests: ApplicationTestCase {
         #if canImport(AppKit) || canImport(UIKit)
           let processed = NSAttributedString(RichText(string))
           var font = processed.attributes(at: 0, effectiveRange: nil).font!
-          if font.fontName == ".SFNSDisplay" ∨ font.fontName == ".SFNSText" {
+          if font.fontName == ".SFNSDisplay"
+            ∨ font.fontName == ".SFNSText"
+            ∨ font.fontName == ".SFNS\u{2D}Regular"
+          {
             font.fontName = ".AppleSystemUIFont"
           }
           let mutable = processed.mutableCopy() as! NSMutableAttributedString
