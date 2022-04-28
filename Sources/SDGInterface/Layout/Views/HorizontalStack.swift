@@ -101,7 +101,8 @@
             ForEach(
               content.indices,
               id: \.self
-            ) {  // @exempt(from: tests) Inaccurate coverage result.
+            ) {
+              // @exempt(from: tests) Inaccurate coverage result.
               self.content[$0].swiftUI()
             }
           }

@@ -38,7 +38,8 @@
         guard let layout = layoutManager,
           let text = textContainer
         else {
-          return nil  // @exempt(from: tests)
+          return nil
+          // @exempt(from: tests)
         }
         let range = layout.glyphRange(forCharacterRange: selectedRange(), actualCharacterRange: nil)
         return Rectangle(layout.boundingRect(forGlyphRange: range, in: text))
@@ -56,7 +57,8 @@
       _ modify: (_ previousValue: NSAttributedString) -> NSAttributedString
     ) {
       let possibleStorage: NSTextStorage? = textStorage
-      guard let storage = possibleStorage else {  // @exempt(from: tests)
+      guard let storage = possibleStorage else {
+        // @exempt(from: tests)
         return
       }
 
