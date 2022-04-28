@@ -44,7 +44,8 @@
         let range = layout.glyphRange(forCharacterRange: selectedRange(), actualCharacterRange: nil)
         return Rectangle(layout.boundingRect(forGlyphRange: range, in: text))
       #else
-        guard let range = selectedTextRange else {  // @exempt(from: tests)
+        guard let range = selectedTextRange else {
+          // @exempt(from: tests)
           return nil
         }
         return selectionRects(for: range).first.map { Rectangle($0.rect) }
