@@ -659,7 +659,8 @@ final class APITests: ApplicationTestCase {
 
   func testLegacyView() {
     if #available(watchOS 6, *) {
-      #if os(watchOS)
+      // #warning(Did adding Android fix it?)
+      #if os(watchOS) && !os(Android)
         class Legacy: LegacyView, SDGInterface.View {
           func swiftUI() -> some SwiftUI.View {
             return EmptyView().swiftUI()
