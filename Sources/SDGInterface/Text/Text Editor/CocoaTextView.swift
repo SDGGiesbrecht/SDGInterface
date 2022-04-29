@@ -38,8 +38,7 @@
         guard let layout = layoutManager,
           let text = textContainer
         else {
-          return nil
-          // @exempt(from: tests)
+          return nil  // @exempt(from: tests)
         }
         let range = layout.glyphRange(forCharacterRange: selectedRange(), actualCharacterRange: nil)
         return Rectangle(layout.boundingRect(forGlyphRange: range, in: text))
