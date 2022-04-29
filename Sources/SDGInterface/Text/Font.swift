@@ -61,7 +61,8 @@ extension Font {
         }
         return Font(NSFontManager.shared.convert(cocoa, toHaveTrait: .boldFontMask))
       #else
-        guard let cocoa = UIFont.from(self) else {  // @exempt(from: tests)
+        guard let cocoa = UIFont.from(self) else {
+          // @exempt(from: tests)
           return self
         }
         let descriptor =
@@ -82,7 +83,8 @@ extension Font {
         }
         return Font(NSFontManager.shared.convert(cocoa, toHaveTrait: .italicFontMask))
       #else
-        guard let cocoa = UIFont.from(self) else {  // @exempt(from: tests)
+        guard let cocoa = UIFont.from(self) else {
+          // @exempt(from: tests)
           return self
         }
         let descriptor =

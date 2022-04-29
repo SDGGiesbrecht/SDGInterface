@@ -661,9 +661,12 @@ final class APITests: ApplicationTestCase {
     if #available(watchOS 6, *) {
       #if os(watchOS)
         class Legacy: LegacyView, SDGInterface.View {
-          func swiftUI() -> some SwiftUI.View {
-            return EmptyView().swiftUI()
-          }
+          // #workaround(Swift 5.6, The next #if is redundant, but for compiler bug.)
+          #if !(os(Linux) || os(Android))
+            func swiftUI() -> some SwiftUI.View {
+              return EmptyView().swiftUI()
+            }
+          #endif
         }
       #else
         class Legacy: LegacyView {
@@ -978,7 +981,10 @@ final class APITests: ApplicationTestCase {
         #if canImport(AppKit) || canImport(UIKit)
           let processed = NSAttributedString(RichText(string))
           var font = processed.attributes(at: 0, effectiveRange: nil).font!
-          if font.fontName == ".SFNSDisplay" ∨ font.fontName == ".SFNSText" {
+          if font.fontName == ".SFNSDisplay"
+            ∨ font.fontName == ".SFNSText"
+            ∨ font.fontName == ".SFNS\u{2D}Regular"
+          {
             font.fontName = ".AppleSystemUIFont"
           }
           let mutable = processed.mutableCopy() as! NSMutableAttributedString
@@ -1775,9 +1781,12 @@ final class APITests: ApplicationTestCase {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         struct SomeView: SwiftUI.View {
-          var body: some SwiftUI.View {
-            return SwiftUI.EmptyView()
-          }
+          // #workaround(Swift 5.6, The next #if is redundant, but for compiler bug.)
+          #if !(os(Linux) || os(Android))
+            var body: some SwiftUI.View {
+              return SwiftUI.EmptyView()
+            }
+          #endif
         }
         testViewConformance(of: SomeView())
       }
