@@ -71,18 +71,23 @@ public struct Label<L>: LegacyView where L: Localization {
   #endif
 }
 
+@available(watchOS 6, *)
 extension Label: View {
 
   // MARK: - View
 
   #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-    @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
+    @available(macOS 10.15, tvOS 13, iOS 13, *)
     @ViewBuilder public func swiftUI() -> some SwiftUI.View {
-      if #available(macOS 12, tvOS 14, iOS 14, *) {
+      #if os(watchOS)
         genericLabel.swiftUI()
-      } else {
-        cocoa().swiftUI()
-      }
+      #else
+        if #available(macOS 12, tvOS 14, iOS 14, *) {
+          genericLabel.swiftUI()
+        } else {
+          cocoa().swiftUI()
+        }
+      #endif
     }
   #endif
 }

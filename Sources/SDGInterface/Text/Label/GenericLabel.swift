@@ -57,13 +57,13 @@ internal struct GenericLabel<L, S>: LegacyView where L: Localization, S: StringF
   #endif
 }
 
-@available(macOS 12, *)
+@available(macOS 12, watchOS 6, *)
 extension GenericLabel: View {
 
   // MARK: - View
 
   #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-    @available(tvOS 13, iOS 13, watchOS 6, *)
+    @available(tvOS 13, iOS 13, *)
     public func swiftUI() -> some SwiftUI.View {
       return SwiftUIImplementation(
         text: text,

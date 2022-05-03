@@ -21,6 +21,7 @@ import SDGText
 import SDGLocalization
 
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  @available(watchOS 6, *)
   extension GenericLabel {
 
     @available(macOS 12, tvOS 13, iOS 13, watchOS 6, *)
@@ -34,18 +35,19 @@ import SDGLocalization
 
       // MARK: - View
 
-      internal var body: some SwiftUI.View {
+      @ViewBuilder internal var body: some SwiftUI.View {
         let base = Text(verbatim: String(text.value.resolved(for: localization.value.resolved())))
           .foregroundColor(colour)
-        if #available(iOS 15, *) {
-          return SwiftUI.AnyView(
-            base#if !os(tvOS)
+        #if os(tvOS) || os(watchOS)
+          base
+        #else
+          if #available(iOS 15, *) {
+            base
               .textSelection(.enabled)
-            #endif
-          )
-        } else {
-          return SwiftUI.AnyView(base)
-        }
+          } else {
+            base
+          }
+        #endif
       }
     }
   }
