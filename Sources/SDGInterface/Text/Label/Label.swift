@@ -71,22 +71,21 @@ public struct Label<L>: LegacyView where L: Localization {
   #endif
 }
 
-// #workaround(Swift 5.3.2, SwiftUI would be a step backward from AppKit or UIKit without the ability to interact properly with menus such as “Copy”.)
-#if !canImport(AppKit) && !(canImport(UIKit) && !os(watchOS))
-  @available(watchOS 6, *)
-  extension Label: View {
+@available(macOS 10.15, watchOS 6, *)
+extension Label: View {
 
-    // MARK: - View
+  // MARK: - View
 
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      public func swiftUI() -> some SwiftUI.View {
-        return genericLabel.swiftUI()
+  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    @ViewBuilder public func swiftUI() -> some SwiftUI.View {
+      if #available(macOS 12, *) {
+        genericLabel.swiftUI()
+      } else {
+        cocoa().swiftUI()
       }
-    #endif
-  }
-#else
-  extension Label: CocoaViewImplementation {}
-#endif
+    }
+  #endif
+}
 
 #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
