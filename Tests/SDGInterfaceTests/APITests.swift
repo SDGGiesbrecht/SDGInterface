@@ -624,7 +624,7 @@ final class APITests: ApplicationTestCase {
         colour: .black
       )
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {
-        testViewConformance(of: label, testBody: true)
+        testViewConformance(of: label, testBody: false)
       }
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
         if #available(tvOS 13, iOS 13, *) {
