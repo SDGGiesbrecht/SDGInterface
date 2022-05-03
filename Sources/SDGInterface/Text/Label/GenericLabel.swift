@@ -63,7 +63,7 @@ extension GenericLabel: View {
   // MARK: - View
 
   #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-    @available(tvOS 13, watchOS 6, *)
+    @available(tvOS 13, iOS 13, watchOS 6, *)
     public func swiftUI() -> some SwiftUI.View {
       return SwiftUIImplementation(
         text: text,
