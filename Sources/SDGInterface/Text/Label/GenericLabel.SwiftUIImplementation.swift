@@ -46,6 +46,7 @@ import SDGLocalization
             base
               .textSelection(.enabled)
           } else {
+            // @exempt(from: tests)
             base
           }
         #endif
