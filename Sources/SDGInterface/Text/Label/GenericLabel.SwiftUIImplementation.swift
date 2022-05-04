@@ -35,8 +35,7 @@ import SDGLocalization
 
       // MARK: - View
 
-      @ViewBuilder internal var body: some SwiftUI.View {
-        // @exempt(from: tests)
+      @ViewBuilder internal var body: some SwiftUI.View {  // @exempt(from: tests)
         let base = Text(verbatim: String(text.value.resolved(for: localization.value.resolved())))
           .foregroundColor(colour)
         #if os(tvOS) || os(watchOS)
