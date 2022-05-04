@@ -84,6 +84,7 @@
           if #available(macOS 12, tvOS 14, iOS 14, *) {
             genericLabel.swiftUI()
           } else {
+            // @exempt(from: tests)
             cocoa().swiftUI()
           }
         #endif
