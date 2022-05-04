@@ -624,14 +624,7 @@ final class APITests: ApplicationTestCase {
         colour: .black
       )
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {
-        let testBody: Bool
-        // #workaround(Swift 5.3.2, SwiftUI would be a step backward from AppKit or UIKit without the ability to interact properly with menus such as “Copy”.)
-        #if !canImport(AppKit) && !canImport(UIKit)
-          testBody = true
-        #else
-          testBody = false
-        #endif
-        testViewConformance(of: label, testBody: testBody)
+        testViewConformance(of: label, testBody: false)
       }
       #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
         if #available(tvOS 13, iOS 13, *) {

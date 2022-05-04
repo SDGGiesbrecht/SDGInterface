@@ -20,11 +20,11 @@ import SDGControlFlow
 import SDGText
 import SDGLocalization
 
-// #workaround(Swift 5.3.2, SwiftUI would be a step backward from AppKit or UIKit without the ability to interact properly with menus such as “Copy”.)
-#if canImport(SwiftUI) && !canImport(AppKit) && !(canImport(UIKit) && !os(watchOS))
+#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
   @available(watchOS 6, *)
   extension GenericLabel {
 
+    @available(macOS 12, tvOS 13, iOS 13, watchOS 6, *)
     internal struct SwiftUIImplementation: SwiftUI.View {
 
       // MARK: - Properties
@@ -35,9 +35,20 @@ import SDGLocalization
 
       // MARK: - View
 
-      internal var body: some SwiftUI.View {
-        return Text(verbatim: String(text.value.resolved(for: localization.value.resolved())))
+      @ViewBuilder internal var body: some SwiftUI.View {  // @exempt(from: tests)
+        let base = Text(verbatim: String(text.value.resolved(for: localization.value.resolved())))
           .foregroundColor(colour)
+        #if os(tvOS) || os(watchOS)
+          base
+        #else
+          if #available(iOS 15, *) {
+            base
+              .textSelection(.enabled)
+          } else {
+            // @exempt(from: tests)
+            base
+          }
+        #endif
       }
     }
   }

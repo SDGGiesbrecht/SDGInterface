@@ -48,39 +48,28 @@ internal struct GenericLabel<L, S>: LegacyView where L: Localization, S: StringF
 
   #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
     public func cocoa() -> CocoaView {
-      // #workaround(Swift 5.3.2, SwiftUI would be a step backward from AppKit or UIKit without the ability to interact properly with menus such as “Copy”.)
-      #if !canImport(AppKit) && !canImport(UIKit)
-        return useSwiftUIOrFallback(to: {
-          return CocoaView(
-            CocoaImplementation(text: text, colour: colour)
-          )
-        })
-      #else
+      return useSwiftUI3OrFallback(to: {
         return CocoaView(
           CocoaImplementation(text: text, colour: colour)
         )
-      #endif
+      })
     }
   #endif
 }
 
-// #workaround(Swift 5.3.2, SwiftUI would be a step backward from AppKit or UIKit without the ability to interact properly with menus such as “Copy”.)
-#if !canImport(AppKit) && !(canImport(UIKit) && !os(watchOS))
-  @available(watchOS 6, *)
-  extension GenericLabel: View {
+@available(macOS 12, watchOS 6, *)
+extension GenericLabel: View {
 
-    // MARK: - View
+  // MARK: - View
 
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-      public func swiftUI() -> some SwiftUI.View {
-        return SwiftUIImplementation(
-          text: text,
-          colour: SwiftUI.Color(colour),
-          localization: LocalizationSetting.current
-        )
-      }
-    #endif
-  }
-#else
-  extension GenericLabel: CocoaViewImplementation {}
-#endif
+  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    @available(tvOS 13, iOS 13, *)
+    public func swiftUI() -> some SwiftUI.View {
+      return SwiftUIImplementation(
+        text: text,
+        colour: SwiftUI.Color(colour),
+        localization: LocalizationSetting.current
+      )
+    }
+  #endif
+}

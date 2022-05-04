@@ -70,20 +70,25 @@
     #endif
   }
 
-  // #workaround(Swift 5.3.2, SwiftUI would be a step backward from AppKit or UIKit without the ability to interact properly with menus such as “Copy”.)
-  #if !canImport(AppKit) && !(canImport(UIKit) && !os(watchOS))
-    @available(watchOS 6, *)
-    extension CompatibilityLabel: View {
+  @available(watchOS 6, *)
+  extension CompatibilityLabel: View {
 
-      // MARK: - View
+    // MARK: - View
 
-      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
-        public func swiftUI() -> some SwiftUI.View {
-          return genericLabel.swiftUI()
-        }
-      #endif
-    }
-  #else
-    extension CompatibilityLabel: CocoaViewImplementation {}
-  #endif
+    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      @available(macOS 10.15, tvOS 13, iOS 13, *)
+      @ViewBuilder public func swiftUI() -> some SwiftUI.View {
+        #if os(watchOS)
+          genericLabel.swiftUI()
+        #else
+          if #available(macOS 12, tvOS 14, iOS 14, *) {
+            genericLabel.swiftUI()
+          } else {
+            // @exempt(from: tests)
+            cocoa().swiftUI()
+          }
+        #endif
+      }
+    #endif
+  }
 #endif
