@@ -116,6 +116,11 @@
           (L.fallbackLocalization.code, "\(L.self).fallbackLocalization")
         )
 
+        let shortKey = "CFBundleName"
+        let shortFromInfo = unlocalizedDictionary?[shortKey] as? String
+        let fileName = applicationBundle.bundleURL.deletingPathExtension().lastPathComponent
+        assertEqual((fileName, "bundle.file‐name"), (shortFromInfo, "Info.plist.\(shortKey)"))
+
         #if !os(Linux)
           var fallbackLocalizedInformation: NSDictionary?
         #endif
@@ -132,7 +137,6 @@
                 return NSDictionary(contentsOfFile: url.path)
               }))
             let nameKey = "CFBundleDisplayName"
-            let shortKey = "CFBundleName"
             let systemName: String? = dictionary?[nameKey] as? String
             let short: String? = dictionary?[shortKey] as? String
 
