@@ -109,6 +109,13 @@
 
         let unlocalizedDictionary = applicationBundle.infoDictionary
 
+        let developmentRegionKey = "CFBundleDevelopmentRegion"
+        let developmentRegion = unlocalizedDictionary?[developmentRegionKey] as? String
+        assertEqual(
+          (developmentRegion, "Info.plist.\("CFBundleDevelopmentRegion")"),
+          (L.fallbackLocalization.code, "\(L.self).fallbackLocalization")
+        )
+
         #if !os(Linux)
           var fallbackLocalizedInformation: NSDictionary?
         #endif
