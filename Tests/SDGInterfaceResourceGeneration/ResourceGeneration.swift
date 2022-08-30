@@ -60,7 +60,7 @@
 
       let mapping = RichText.NormalizationAttribute.Mapping(compatibility)
       let mappingURL =
-        interfaceResourcesDirectory
+        sdgInterfaceTargetDirectory
         .appendingPathComponent("Normalization Mapping.json")
       try mapping.save(to: mappingURL)
       try String(from: mappingURL).appending("\n").save(to: mappingURL)
