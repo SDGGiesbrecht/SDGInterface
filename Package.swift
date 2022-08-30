@@ -185,6 +185,9 @@ let package = Package(
         .product(name: "SDGLocalization", package: "SDGCornerstone"),
         .product(name: "SDGGeometry", package: "SDGCornerstone"),
         .product(name: "SDGCalendar", package: "SDGCornerstone"),
+      ],
+      resources: [
+        .copy("Normalization Mapping.json")
       ]
     ),
     // #documentation(SDGInterfaceTestUtilities)
