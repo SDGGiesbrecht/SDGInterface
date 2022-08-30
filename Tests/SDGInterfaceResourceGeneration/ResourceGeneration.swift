@@ -24,7 +24,6 @@
   final class ResourceGeneration: XCTestCase {
 
     // Complete the word “test” to activate and run the generators.
-
     func tesRefreshUnicodeData() throws {
       let ucd = URL(string: "https://www.unicode.org/Public/UCD/latest/ucd")!
       let unicodeDataURL = ucd.appendingPathComponent("UnicodeData.txt")
