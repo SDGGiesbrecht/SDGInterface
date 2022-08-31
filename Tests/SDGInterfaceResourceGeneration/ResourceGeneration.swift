@@ -37,7 +37,9 @@
           continue
         }
 
-        let fields = entry.components(separatedBy: ";".scalars)
+        let fields = entry.components(
+          separatedBy: ";".scalars.literal(for: String.ScalarView.SubSequence.self)
+        )
         XCTAssertEqual(
           fields.count,
           15,
@@ -46,9 +48,13 @@
 
         let decomposition = fields[5].contents
         var possibleAttribute: RichText.NormalizationAttribute?
-        if decomposition.hasPrefix("<super>".scalars) {
+        if decomposition.hasPrefix(
+          "<super>".scalars.literal(for: String.ScalarView.SubSequence.self)
+        ) {
           possibleAttribute = .superscript
-        } else if decomposition.hasPrefix("<sub>".unicodeScalars) {
+        } else if decomposition.hasPrefix(
+          "<sub>".scalars.literal(for: String.ScalarView.SubSequence.self)
+        ) {
           possibleAttribute = .subscript
         }
         if let attribute = possibleAttribute {
