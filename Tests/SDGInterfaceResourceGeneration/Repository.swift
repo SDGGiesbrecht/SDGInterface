@@ -17,5 +17,5 @@ import Foundation
 let repositoryRoot = URL(fileURLWithPath: #filePath).deletingLastPathComponent()
   .deletingLastPathComponent().deletingLastPathComponent()
 
-let resourcesDirectory = repositoryRoot.appendingPathComponent("Resources")
-let interfaceResourcesDirectory = resourcesDirectory.appendingPathComponent("SDGInterface")
+let sourcesDirectory = repositoryRoot.appendingPathComponent("Sources")
+let sdgInterfaceTargetDirectory = sourcesDirectory.appendingPathComponent("SDGInterface")

@@ -24,7 +24,6 @@
   final class ResourceGeneration: XCTestCase {
 
     // Complete the word “test” to activate and run the generators.
-
     func tesRefreshUnicodeData() throws {
       let ucd = URL(string: "https://www.unicode.org/Public/UCD/latest/ucd")!
       let unicodeDataURL = ucd.appendingPathComponent("UnicodeData.txt")
@@ -60,7 +59,7 @@
 
       let mapping = RichText.NormalizationAttribute.Mapping(compatibility)
       let mappingURL =
-        interfaceResourcesDirectory
+        sdgInterfaceTargetDirectory
         .appendingPathComponent("Normalization Mapping.json")
       try mapping.save(to: mappingURL)
       try String(from: mappingURL).appending("\n").save(to: mappingURL)
