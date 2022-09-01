@@ -1,34 +1,32 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "SDGCornerstone",
-        "repositoryURL": "https://github.com/SDGGiesbrecht/SDGCornerstone",
-        "state": {
-          "branch": null,
-          "revision": "5ab7d7449d9c9bea201bbe536b8d51fb1ebc4106",
-          "version": "9.0.0"
-        }
-      },
-      {
-        "package": "swift-collections",
-        "repositoryURL": "https://github.com/apple/swift-collections",
-        "state": {
-          "branch": null,
-          "revision": "2d33a0ea89c961dcb2b3da2157963d9c0370347e",
-          "version": "1.0.1"
-        }
-      },
-      {
-        "package": "swift-numerics",
-        "repositoryURL": "https://github.com/apple/swift-numerics",
-        "state": {
-          "branch": null,
-          "revision": "0a23770641f65a4de61daf5425a37ae32a3fd00d",
-          "version": "1.0.1"
-        }
+  "pins" : [
+    {
+      "identity" : "sdgcornerstone",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SDGGiesbrecht/SDGCornerstone",
+      "state" : {
+        "revision" : "3dfcc1275bccee731142fd527a0c16cdfef77d15",
+        "version" : "10.0.0"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "swift-collections",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-collections",
+      "state" : {
+        "revision" : "2d33a0ea89c961dcb2b3da2157963d9c0370347e",
+        "version" : "1.0.1"
+      }
+    },
+    {
+      "identity" : "swift-numerics",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-numerics",
+      "state" : {
+        "revision" : "0a23770641f65a4de61daf5425a37ae32a3fd00d",
+        "version" : "1.0.1"
+      }
+    }
+  ],
+  "version" : 2
 }
