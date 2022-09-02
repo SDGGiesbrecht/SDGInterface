@@ -23,7 +23,7 @@
 #endif
 
 /// A colour.
-public struct Colour: Hashable {
+public struct Colour: Hashable, Sendable {
 
   // MARK: - Static Properties
 
