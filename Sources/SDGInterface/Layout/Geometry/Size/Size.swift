@@ -23,7 +23,7 @@
 #endif
 
 /// A window size.
-public struct Size: Equatable, Hashable {
+public struct Size: Equatable, Hashable, Sendable {
 
   // MARK: - Static Properties
 

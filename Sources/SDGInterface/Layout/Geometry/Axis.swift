@@ -13,7 +13,7 @@
  */
 
 /// A layout axis.
-public enum Axis {
+public enum Axis: Sendable {
 
   // MARK: - Cases
 
