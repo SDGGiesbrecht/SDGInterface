@@ -654,7 +654,7 @@ final class APITests: ApplicationTestCase {
     if #available(watchOS 6, *) {
       #if os(watchOS)
         class Legacy: LegacyView, SDGInterface.View {
-          // #workaround(Swift 5.6, The next #if is redundant, but for compiler bug.)
+          // #workaround(Swift 5.6.1, The next #if is redundant, but for compiler bug.)
           #if !(os(Linux) || os(Android))
             func swiftUI() -> some SwiftUI.View {
               return EmptyView().swiftUI()
@@ -1586,7 +1586,7 @@ final class APITests: ApplicationTestCase {
     if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
       #if canImport(SwiftUI)
         let testBody: Bool
-        // #workaround(Swift 5.6, SwiftUI would be a step backward from AppKit or UIKit without the ability to get the selected text for menu items like “Show Character Information”.)
+        // #workaround(Swift 5.6.1, SwiftUI would be a step backward from AppKit or UIKit without the ability to get the selected text for menu items like “Show Character Information”.)
         #if !canImport(AppKit) && !(canImport(UIKit) && !os(watchOS))
           testBody = true
         #else
@@ -1771,7 +1771,7 @@ final class APITests: ApplicationTestCase {
     #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         struct SomeView: SwiftUI.View {
-          // #workaround(Swift 5.6, The next #if is redundant, but for compiler bug.)
+          // #workaround(Swift 5.6.1, The next #if is redundant, but for compiler bug.)
           #if !(os(Linux) || os(Android))
             var body: some SwiftUI.View {
               return SwiftUI.EmptyView()
