@@ -1183,7 +1183,7 @@ final class APITests: ApplicationTestCase {
     )
 
     richText = RichText("...")
-    #if canImport(AppKit) || canImport(UIkit)
+    #if canImport(AppKit) || canImport(UIKit)
       richText.italicize(range: richText.bounds)
       richText.embolden(range: richText.bounds)
     #endif
