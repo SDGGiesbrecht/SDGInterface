@@ -19,7 +19,7 @@
 import SDGControlFlow
 import SDGMathematics
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+#if canImport(SwiftUI)
   @available(watchOS 7, *)
   extension ProgressBar {
 

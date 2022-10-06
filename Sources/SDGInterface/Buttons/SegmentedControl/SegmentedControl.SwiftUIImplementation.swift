@@ -20,7 +20,7 @@ import SDGControlFlow
 import SDGText
 import SDGLocalization
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm)) && !os(watchOS)
+#if canImport(SwiftUI) && !os(watchOS)
   extension SegmentedControl {
 
     @available(macOS 10.15, tvOS 13, iOS 13, *)

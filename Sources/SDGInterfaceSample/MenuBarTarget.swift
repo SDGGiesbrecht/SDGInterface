@@ -175,7 +175,7 @@
           labels: { $0.label },
           selection: Shared(.text)
         )
-        #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        #if canImport(SwiftUI)
           if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
             _ = segmentedControl.swiftUI().body  // Eager execution to simplify testing.
           }

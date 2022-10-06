@@ -86,7 +86,7 @@ public struct Alert<L, M, N> where L: Localization, M: Localization, N: Localiza
 
   // MARK: - SwiftUI
 
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  #if canImport(SwiftUI)
     /// Constructs a SwiftUI representation of the alert.
     @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
     public func swiftUI() -> SwiftUI.Alert {

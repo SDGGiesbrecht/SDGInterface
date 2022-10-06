@@ -80,18 +80,16 @@
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension LabelledTextField: View {
 
-    #if !(os(iOS) && arch(arm))
-      public func swiftUI() -> some SwiftUI.View {
-        return HStack(alignment: .firstTextBaseline) {
-          label.swiftUI().fixedSize()
-          field.swiftUI()
-        }
+    public func swiftUI() -> some SwiftUI.View {
+      return HStack(alignment: .firstTextBaseline) {
+        label.swiftUI().fixedSize()
+        field.swiftUI()
       }
-    #endif
+    }
   }
 #endif
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+#if canImport(SwiftUI)
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   internal struct LabelledTextFieldPreviews: PreviewProvider {
     internal static var previews: some SwiftUI.View {

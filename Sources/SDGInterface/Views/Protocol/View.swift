@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+#if canImport(SwiftUI)
   import SwiftUI
 #endif
 
@@ -27,7 +27,7 @@
 @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
 public protocol View: LegacyView, ViewShims {
 
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  #if canImport(SwiftUI)
     /// The type of the SwiftUI view.
     associatedtype SwiftUIView: SwiftUI.View
 
@@ -40,7 +40,7 @@ public protocol View: LegacyView, ViewShims {
 @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
 extension View {
 
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  #if canImport(SwiftUI)
     public func swiftUIAnyView() -> SwiftUI.AnyView {
       return SwiftUI.AnyView(swiftUI())
     }

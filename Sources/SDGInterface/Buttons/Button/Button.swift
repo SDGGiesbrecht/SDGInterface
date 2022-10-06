@@ -65,7 +65,7 @@
 
     // MARK: - View
 
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI)
       public func swiftUI() -> some SwiftUI.View {
         return SwiftUIImplementation(
           label: label,
@@ -77,7 +77,7 @@
   }
 #endif
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+#if canImport(SwiftUI)
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   internal struct ButtonPreviews: PreviewProvider {
     internal static var previews: some SwiftUI.View {

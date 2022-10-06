@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+#if canImport(SwiftUI)
   import SwiftUI
 #endif
 #if canImport(AppKit)
@@ -31,7 +31,7 @@ public struct EmptyView: View {
 
   // MARK: - View
 
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  #if canImport(SwiftUI)
     @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
     public func swiftUI() -> some SwiftUI.View {
       return SwiftUI.EmptyView()

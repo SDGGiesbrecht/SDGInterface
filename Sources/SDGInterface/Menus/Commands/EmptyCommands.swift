@@ -36,7 +36,7 @@ extension EmptyCommands: Commands {
 
   // MARK: - MenuComponents
 
-  #if canImport(SwiftUI) && !os(tvOS) && !(os(iOS) && arch(arm)) && !os(watchOS)
+  #if canImport(SwiftUI) && !os(tvOS) && !os(watchOS)
     public func swiftUICommands() -> some SwiftUI.Commands {
       return SwiftUI.EmptyCommands()
     }

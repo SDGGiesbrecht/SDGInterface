@@ -43,7 +43,7 @@ extension ViewWithAlert: View, ViewShims where V: View {
 
   // MARK: - View
 
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  #if canImport(SwiftUI)
     public func swiftUI() -> some SwiftUI.View {
       return SwiftUIImplementation(view: view, alert: alert, isPresented: isPresented)
     }

@@ -18,7 +18,7 @@
 
 import SDGLogic
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+#if canImport(SwiftUI)
   @available(macOS 11, tvOS 14, iOS 14, watchOS 7, *)
   internal struct SwiftUIApplication<Application>: App
   where

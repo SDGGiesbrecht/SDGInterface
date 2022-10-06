@@ -91,7 +91,7 @@ public struct PopOver<Anchor, Content>: LegacyView where Anchor: LegacyView, Con
 
     // MARK: - View
 
-    #if canImport(SwiftUI) && !os(tvOS) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI) && !os(tvOS)
       public func swiftUI() -> some SwiftUI.View {  // @exempt(from: tests) Unreachable on watchOS.
         let content = self.content
         return SwiftUIImplementation(

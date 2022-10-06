@@ -47,7 +47,7 @@ extension Divider: MenuComponents {
 
   // MARK: - MenuComponents
 
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  #if canImport(SwiftUI)
     public func swiftUI() -> some SwiftUI.View {
       return SwiftUI.Divider()
     }

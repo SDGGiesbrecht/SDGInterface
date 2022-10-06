@@ -31,7 +31,7 @@
         case cocoa(CocoaImage)
       #endif
 
-      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      #if canImport(SwiftUI)
         /// The associated value is a `Swift.Image` where available, or `nil`.
         case swiftUI(Any?)
       #endif

@@ -54,7 +54,7 @@ final class APITests: ApplicationTestCase {
         action: {}
       )
     )
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI)
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         _ = alert.swiftUI()
       }
@@ -68,7 +68,7 @@ final class APITests: ApplicationTestCase {
         isPresented: Shared(false),
         alert: alert
       )
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI)
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         testViewConformance(of: withAlert)
       }
@@ -82,7 +82,7 @@ final class APITests: ApplicationTestCase {
         label: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
         action: {}
       )
-      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      #if canImport(SwiftUI)
         if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
           _ = button.swiftUI()
         }
@@ -103,7 +103,7 @@ final class APITests: ApplicationTestCase {
 
   func testAlignment() {
     XCTAssertEqual(SDGInterface.Alignment(horizontal: .centre, vertical: .centre), .centre)
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI)
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         var swiftUI: SwiftUI.Alignment = .center
         var sdgInterface = SDGInterface.Alignment(swiftUI)!
@@ -122,7 +122,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testAnchorSource() {
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI)
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         var shimmed = RectangularAttachmentAnchor.rectangle(SDGInterface.Rectangle())
         _ = Anchor<CGRect>.Source(shimmed)
@@ -133,7 +133,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testAnyView() {
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI)
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         _ = AnyView(EmptyView()).swiftUI()
       }
@@ -336,7 +336,7 @@ final class APITests: ApplicationTestCase {
       #if !os(watchOS)
         let view = CocoaViewExample()
         _ = view.cocoa()
-        #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        #if canImport(SwiftUI)
           if #available(macOS 10.15, tvOS 13, iOS 13, *) {
             _ = view.swiftUI()
           }
@@ -378,7 +378,7 @@ final class APITests: ApplicationTestCase {
       XCTAssertEqual(Colour.cyan.blue, Colour(UIColor(Colour.cyan)).blue)
     #endif
 
-    #if canImport(SwiftUI) || canImport(AppKit) || (canImport(UIKit) && !(os(iOS) && arch(arm)))
+    #if canImport(SwiftUI) || canImport(AppKit) || canImport(UIKit)
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         testViewConformance(of: Colour.red, testBody: false)
       }
@@ -396,7 +396,7 @@ final class APITests: ApplicationTestCase {
       EmptyCommands()
     )
     _ = commands.menuComponents()
-    #if canImport(SwiftUI) && !os(tvOS) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI) && !os(tvOS)
       if #available(macOS 11, iOS 14, *) {
         #if !os(watchOS)
           _ = commands.swiftUICommands()
@@ -429,7 +429,7 @@ final class APITests: ApplicationTestCase {
 
   func testContentMode() {
     for mode in SDGInterface.ContentMode.allCases {
-      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      #if canImport(SwiftUI)
         if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
           let swiftUI = SwiftUI.ContentMode(mode)
           let roundTrip = SDGInterface.ContentMode(swiftUI)
@@ -466,7 +466,7 @@ final class APITests: ApplicationTestCase {
     #if canImport(AppKit) || (canImport(UIKit) && !os(tvOS) && !os(watchOS))
       _ = Divider().cocoa()
     #endif
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI)
       if #available(tvOS 13, iOS 13, watchOS 6, *) {
         _ = Divider().swiftUI()
       }
@@ -475,7 +475,7 @@ final class APITests: ApplicationTestCase {
 
   func testEdge() {
     for edge in SDGInterface.Edge.allCases {
-      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      #if canImport(SwiftUI)
         if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
           let swiftUI = SwiftUI.Edge(edge)
           let roundTrip = SDGInterface.Edge(swiftUI)
@@ -487,7 +487,7 @@ final class APITests: ApplicationTestCase {
 
   func testEdgeSet() {
     let horizontal = SDGInterface.Edge.Set.horizontal
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI)
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         let swiftUIHorizontal = SwiftUI.Edge.Set(horizontal)
         let roundTrip = SDGInterface.Edge.Set(swiftUIHorizontal)
@@ -514,7 +514,7 @@ final class APITests: ApplicationTestCase {
     #if canImport(AppKit) || (canImport(UIKit) && !os(tvOS) && !os(watchOS))
       _ = empty.cocoa()
     #endif
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI)
       if #available(tvOS 13, iOS 13, watchOS 6, *) {
         _ = empty.swiftUI()
       }
@@ -522,7 +522,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testEmptyView() {
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI)
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         _ = EmptyView().swiftUI()
       }
@@ -558,7 +558,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testHorizontalStack() {
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI)
       if #available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *) {
         #if !os(watchOS)
           testViewConformance(
@@ -588,7 +588,7 @@ final class APITests: ApplicationTestCase {
         MenuBarTarget.shared.demonstrateImage()
       #endif
 
-      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      #if canImport(SwiftUI)
         if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
           let swiftUI = SwiftUI.Image(CocoaImage())
           let image = Image(swiftUI)
@@ -605,7 +605,7 @@ final class APITests: ApplicationTestCase {
     #if canImport(AppKit)
       XCTAssertEqual(KeyModifiers(modifiers.cocoa()), modifiers)
     #endif
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI)
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         _ = modifiers.swiftUI()
       }
@@ -626,7 +626,7 @@ final class APITests: ApplicationTestCase {
       if #available(macOS 10.15, tvOS 13, iOS 13, *) {
         testViewConformance(of: label, testBody: false)
       }
-      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      #if canImport(SwiftUI)
         if #available(tvOS 13, iOS 13, *) {
           #if !os(macOS) && !os(tvOS) && !os(iOS)
             _ = label.swiftUI().body
@@ -670,7 +670,7 @@ final class APITests: ApplicationTestCase {
           #endif
         }
       #endif
-      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      #if canImport(SwiftUI)
         if #available(macOS 10.15, iOS 13, tvOS 13, *) {
           _ = Legacy().swiftUIAnyView()
         }
@@ -727,7 +727,7 @@ final class APITests: ApplicationTestCase {
         #endif
       #endif
       _ = menu.menuComponents()
-      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      #if canImport(SwiftUI)
         if #available(macOS 11, tvOS 13, iOS 14, *) {
           _ = menu.swiftUI().body
           #if !os(tvOS) && !os(watchOS)
@@ -813,7 +813,7 @@ final class APITests: ApplicationTestCase {
       EmptyMenuComponents(),
       EmptyMenuComponents()
     )
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI)
       if #available(macOS 11, tvOS 13, iOS 14, watchOS 6, *) {
         _ = concatenation.swiftUI()
       }
@@ -834,7 +834,7 @@ final class APITests: ApplicationTestCase {
           _ = entry.cocoa()
         #endif
       #endif
-      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      #if canImport(SwiftUI)
         if #available(macOS 11, iOS 14, *) {
           _ = entry.swiftUI().body
         }
@@ -850,7 +850,7 @@ final class APITests: ApplicationTestCase {
           _ = withHotKey.cocoa()
         #endif
       #endif
-      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      #if canImport(SwiftUI)
         if #available(macOS 11, iOS 14, *) {
           _ = withHotKey.swiftUI().body
         }
@@ -860,7 +860,7 @@ final class APITests: ApplicationTestCase {
         action: {},
         isHidden: Shared(true)
       )
-      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      #if canImport(SwiftUI)
         if #available(macOS 11, iOS 14, *) {
           _ = hidden.swiftUI().body
         }
@@ -870,7 +870,7 @@ final class APITests: ApplicationTestCase {
           label: UserFacing<StrictString, APILocalization>({ _ in "" }),
           selector: #selector(NSObject.copy)
         )
-        #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        #if canImport(SwiftUI)
           if #available(iOS 14, *) {
             _ = withSelector.swiftUI().body
           }
@@ -923,7 +923,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testPopOverAttachmentAnchor() {
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI)
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         var shimmed = AttachmentAnchor.point(Point(0, 0))
         _ = PopoverAttachmentAnchor(shimmed)
@@ -1220,7 +1220,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testSwiftUIViewImplementation() {
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI)
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {  // @exempt(from: unicode)
         let view = SwiftUIViewExample()
         _ = view.swiftUI()
@@ -1645,7 +1645,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testUIPopOverArrowDirection() {
-    #if canImport(UIKit) && !(os(iOS) && arch(arm)) && !os(watchOS)
+    #if canImport(UIKit) && !os(watchOS)
       var set: Set<UIPopoverArrowDirection.RawValue> = []
       for edge in SDGInterface.Edge.allCases {
         set.insert(UIPopoverArrowDirection(edge).rawValue)
@@ -1655,7 +1655,7 @@ final class APITests: ApplicationTestCase {
   }
 
   func testUnitPoint() {
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI)
       let point = Point(1, 2)
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         let converted = UnitPoint(point)
@@ -1717,18 +1717,16 @@ final class APITests: ApplicationTestCase {
         trailingMargin: nil
       )
 
-      #if !(os(iOS) && arch(arm))
-        if #available(macOS 10.15, tvOS 13, iOS 13, *) {
-          let swiftUI = newView().swiftUI()
-          let window = Window(
-            type: .primary(nil),
-            name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
-            content: SwiftUI.AnyView(swiftUI).cocoa()
-          ).cocoa()
-          window.display()
-          window.close()
-        }
-      #endif
+      if #available(macOS 10.15, tvOS 13, iOS 13, *) {
+        let swiftUI = newView().swiftUI()
+        let window = Window(
+          type: .primary(nil),
+          name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
+          content: SwiftUI.AnyView(swiftUI).cocoa()
+        ).cocoa()
+        window.display()
+        window.close()
+      }
 
       forAllLegacyModes {
         #if canImport(AppKit)
@@ -1761,12 +1759,12 @@ final class APITests: ApplicationTestCase {
         _ = newView().frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .centre).cocoa()
       }
     #endif
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI)
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         testViewConformance(of: SwiftUIViewExample())
       }
     #endif
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI)
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         struct SomeView: SwiftUI.View {
           // #workaround(Swift 5.6.1, The next #if is redundant, but for compiler bug.)
@@ -1855,7 +1853,7 @@ final class APITests: ApplicationTestCase {
           cocoaWindow.location = Point(0, 0)
 
           if #available(macOS 11, tvOS 14, iOS 14, *) {
-            #if !(canImport(UIKit) && (os(iOS) && arch(arm)))
+            #if !canImport(UIKit)
               _ =
                 Window(
                   type: .primary(Size(width: 100, height: 100)),
@@ -1882,7 +1880,7 @@ final class APITests: ApplicationTestCase {
         content: EmptyView()
       )
       if #available(macOS 11, tvOS 14, iOS 14, watchOS 7, *) {
-        #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        #if canImport(SwiftUI)
           _ = swiftUI.swiftUI().body
         #endif
       }

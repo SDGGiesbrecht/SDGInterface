@@ -64,7 +64,7 @@ final class APITests: ApplicationTestCase {
 
         withLegacyMode {
           if #available(tvOS 13, iOS 13, *) {
-            #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+            #if canImport(SwiftUI)
               _ = bar.swiftUI()
             #endif
           }

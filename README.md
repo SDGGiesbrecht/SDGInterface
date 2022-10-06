@@ -41,10 +41,8 @@ import SDGLocalization
 
 import SDGInterface
 
-#if !(os(iOS) && arch(arm))
-  @available(macOS 11, tvOS 14, iOS 14, watchOS 7, *)
-  extension SampleApplication: Application {}
-#endif
+@available(macOS 11, tvOS 14, iOS 14, watchOS 7, *)
+extension SampleApplication: Application {}
 
 @available(watchOS 6, *)
 public struct SampleApplication: LegacyApplication {
@@ -95,15 +93,11 @@ public struct SampleApplication: LegacyApplication {
   }
 
   public static func main() {  // @exempt(from: tests)
-    #if os(iOS) && arch(arm)
+    if #available(macOS 11, tvOS 14, iOS 14, watchOS 7, *) {
+      modernMain()
+    } else {
       legacyMain()
-    #else
-      if #available(macOS 11, tvOS 14, iOS 14, watchOS 7, *) {
-        modernMain()
-      } else {
-        legacyMain()
-      }
-    #endif
+    }
   }
 
   public var mainWindow: Window<Label<InterfaceLocalization>, InterfaceLocalization> {

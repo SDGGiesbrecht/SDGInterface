@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+#if canImport(SwiftUI)
   import SwiftUI
 #endif
 
@@ -32,7 +32,7 @@ private func testSDGInterfaceViewConformance<T>(
 
   testLegacyViewConformance(of: view, file: file, line: line)
 
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  #if canImport(SwiftUI)
     let swiftUI = view.swiftUI()
     if testBody {
       _ = swiftUI.body
@@ -57,7 +57,7 @@ public func testViewConformance<T>(
 ) where T: SDGInterface.View {
   testSDGInterfaceViewConformance(of: view, testBody: testBody, file: file, line: line)
 }
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+#if canImport(SwiftUI)
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   public func testViewConformance<T>(
     of view: T,
@@ -70,7 +70,7 @@ public func testViewConformance<T>(
   }
 #endif
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+#if canImport(SwiftUI)
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   private func testSwiftUIViewConformance<T>(
     of view: T,

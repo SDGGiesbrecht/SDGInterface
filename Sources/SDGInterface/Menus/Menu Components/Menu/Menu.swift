@@ -84,7 +84,7 @@ extension Menu: Commands, MenuComponents where Components: SDGInterface.MenuComp
 
   // MARK: - Commands
 
-  #if canImport(SwiftUI) && !os(tvOS) && !(os(iOS) && arch(arm)) && !os(watchOS)
+  #if canImport(SwiftUI) && !os(tvOS) && !os(watchOS)
     public func swiftUICommands() -> some SwiftUI.Commands {
       return SwiftUICommandsImplementation(
         label: label,
@@ -96,7 +96,7 @@ extension Menu: Commands, MenuComponents where Components: SDGInterface.MenuComp
 
   // MARK: - MenuComponents
 
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  #if canImport(SwiftUI)
     public func swiftUI() -> some SwiftUI.View {
       return SwiftUIImplementation(
         label: label,
@@ -107,7 +107,7 @@ extension Menu: Commands, MenuComponents where Components: SDGInterface.MenuComp
   #endif
 }
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+#if canImport(SwiftUI)
   @available(macOS 11, tvOS 13, iOS 14, watchOS 6, *)
   internal struct MenuPreviews: PreviewProvider {
     internal static var previews: some SwiftUI.View {

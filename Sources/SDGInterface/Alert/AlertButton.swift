@@ -66,7 +66,7 @@ public struct AlertButton<L> where L: Localization {
 
   // MARK: - SwiftUI
 
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  #if canImport(SwiftUI)
     /// Constructs a SwiftUI representation of the alert button.
     @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
     public func swiftUI() -> SwiftUI.Alert.Button {

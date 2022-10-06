@@ -540,7 +540,7 @@ public struct RichText: Addable, CustomPlaygroundDisplayConvertible, CustomStrin
   }
 }
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm)) && !os(watchOS)
+#if canImport(SwiftUI) && !os(watchOS)
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   internal struct RichTextPreviews: PreviewProvider {
     internal static var previews: some SwiftUI.View {
