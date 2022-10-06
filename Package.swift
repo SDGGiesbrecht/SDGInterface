@@ -332,7 +332,7 @@ for target in package.targets {
   var swiftSettings = target.swiftSettings ?? []
   defer { target.swiftSettings = swiftSettings }
   swiftSettings.append(contentsOf: [
-    // #warning(Swift 5.6.1, Web lacks Foundation.ProcessInfo.)
+    // #workaround(Swift 5.7, Web lacks Foundation.ProcessInfo.)
     // #warning(Swift 5.6.1, Web lacks Foundation.RunLoop.)
     // @example(conditions)
     .define("PLATFORM_HAS_COCOA_INTERFACE", .when(platforms: [.macOS, .tvOS, .iOS])),
@@ -340,7 +340,7 @@ for target in package.targets {
       "PLATFORM_LACKS_FOUNDATION_NS_USER_ACTIVITY",
       .when(platforms: [.windows, .wasi, .linux, .android])
     ),
-    //.define("PLATFORM_LACKS_FOUNDATION_PROCESS_INFO", .when(platforms: [.wasi])),
+    .define("PLATFORM_LACKS_FOUNDATION_PROCESS_INFO", .when(platforms: [.wasi])),
     //.define("PLATFORM_LACKS_FOUNDATION_RUN_LOOP", .when(platforms: [.wasi])),
     // @endExample
   ])
