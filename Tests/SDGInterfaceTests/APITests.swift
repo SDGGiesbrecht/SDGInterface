@@ -707,11 +707,9 @@ final class APITests: ApplicationTestCase {
       #if !os(watchOS)
         MenuBarTarget.shared.demonstrateLog()
       #endif
-      if #available(macOS 10.12, tvOS 10, iOS 10, watchOS 6, *) {
-        let waited = expectation(description: "Waited for log to scroll.")
-        Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in waited.fulfill() }
-        waitForExpectations(timeout: 5, handler: nil)
-      }
+      let waited = expectation(description: "Waited for log to scroll.")
+      Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in waited.fulfill() }
+      waitForExpectations(timeout: 5, handler: nil)
     #endif
   }
 
