@@ -38,7 +38,7 @@ public func testLegacyViewConformance<T>(
   #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
     _ = view.cocoa()
   #endif
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  #if canImport(SwiftUI)
     if #available(macOS 10.15, tvOS 13, iOS 13, *) {
       _ = view.swiftUIAnyView()
     }

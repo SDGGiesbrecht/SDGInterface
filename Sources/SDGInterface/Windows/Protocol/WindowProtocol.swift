@@ -20,7 +20,7 @@
 @available(macOS 11, tvOS 14, iOS 14, watchOS 7, *)
 public protocol WindowProtocol: LegacyWindow {
 
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  #if canImport(SwiftUI)
     /// The type of the SwiftUI scene.
     associatedtype SwiftUIScene: SwiftUI.Scene
 

@@ -148,7 +148,7 @@ public struct Colour: Hashable, Sendable {
 
     // MARK: - View
 
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI)
       @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
       public func swiftUI() -> some SwiftUI.View {
         return SwiftUI.Color(self)

@@ -70,7 +70,7 @@
 
     // MARK: - View
 
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI)
       public func swiftUI() -> some SwiftUI.View {
         return SwiftUIImplementation(
           labels: labels,
@@ -82,7 +82,7 @@
   }
 #endif
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm)) && !os(watchOS)
+#if canImport(SwiftUI) && !os(watchOS)
   @available(macOS 10.15, tvOS 13, iOS 13, *)
   internal struct SegmentedControlPreviews: PreviewProvider {
     internal static var previews: some SwiftUI.View {

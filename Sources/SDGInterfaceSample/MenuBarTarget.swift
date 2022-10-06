@@ -135,17 +135,15 @@
         let content = Shared(RichText())
         demonstrate(Log(contents: content), windowTitle: label)
         var entry = 0
-        if #available(macOS 10.12, tvOS 10, iOS 10, *) {
-          Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            entry += 1
-            var entryText = entry.inDigits()
-            if entry ≠ 1 {
-              entryText.prepend("\n")
-            }
-            content.value.append(contentsOf: RichText(rawText: entryText))
-            if entry == 100 {
-              timer.invalidate()  // @exempt(from: tests)
-            }
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+          entry += 1
+          var entryText = entry.inDigits()
+          if entry ≠ 1 {
+            entryText.prepend("\n")
+          }
+          content.value.append(contentsOf: RichText(rawText: entryText))
+          if entry == 100 {
+            timer.invalidate()  // @exempt(from: tests)
           }
         }
       }
@@ -177,7 +175,7 @@
           labels: { $0.label },
           selection: Shared(.text)
         )
-        #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        #if canImport(SwiftUI)
           if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
             _ = segmentedControl.swiftUI().body  // Eager execution to simplify testing.
           }

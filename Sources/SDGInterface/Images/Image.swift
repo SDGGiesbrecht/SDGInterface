@@ -55,7 +55,7 @@
       }
     #endif
 
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI)
       /// Creates an image from a SwiftUI image.
       ///
       /// - Parameters:
@@ -80,7 +80,7 @@
 
     private var definition: Definition
 
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI)
       /// Returns the image converted into a SwiftUI image.
       @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
       public func swiftUIImage() -> SwiftUI.Image {
@@ -99,7 +99,7 @@
         switch definition {
         case .cocoa(let image):
           return image
-        #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        #if canImport(SwiftUI)
           case .swiftUI:
             return nil
         #endif
@@ -143,7 +143,7 @@
 
     // MARK: - View
 
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI)
       public func swiftUI() -> some SwiftUI.View {
         return swiftUIImage()
       }
@@ -151,7 +151,7 @@
   }
 #endif
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+#if canImport(SwiftUI)
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   internal struct ImagePreviews: PreviewProvider {
     internal static var previews: some SwiftUI.View {

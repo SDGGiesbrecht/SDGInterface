@@ -38,7 +38,7 @@ extension Point {
     }
   #endif
 
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  #if canImport(SwiftUI)
     /// Creates a point from a SwiftUI point.
     ///
     /// - Parameters:

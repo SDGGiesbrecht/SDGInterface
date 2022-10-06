@@ -59,17 +59,13 @@
         #if canImport(AppKit)
           isAutomaticQuoteSubstitutionEnabled = true
         #else
-          if #available(iOS 11, tvOS 11, *) {  // @exempt(from: unicode)
-            smartQuotesType = .yes
-          }
+          smartQuotesType = .yes
         #endif
 
         #if canImport(AppKit)
           isAutomaticDashSubstitutionEnabled = true
         #else
-          if #available(iOS 11, tvOS 11, *) {  // @exempt(from: unicode)
-            smartDashesType = .yes
-          }
+          smartDashesType = .yes
         #endif
 
         #if canImport(UIKit)
@@ -79,9 +75,7 @@
         #if canImport(AppKit)
           smartInsertDeleteEnabled = true
         #else
-          if #available(iOS 11, tvOS 11, *) {  // @exempt(from: unicode)
-            smartInsertDeleteType = .yes
-          }
+          smartInsertDeleteType = .yes
         #endif
 
         #if canImport(AppKit)

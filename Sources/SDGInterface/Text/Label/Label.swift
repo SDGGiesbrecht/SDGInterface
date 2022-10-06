@@ -76,7 +76,7 @@ extension Label: View {
 
   // MARK: - View
 
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  #if canImport(SwiftUI)
     @available(macOS 10.15, tvOS 13, iOS 13, *)
     @ViewBuilder public func swiftUI() -> some SwiftUI.View {
       #if os(watchOS)
@@ -93,7 +93,7 @@ extension Label: View {
   #endif
 }
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+#if canImport(SwiftUI)
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   internal struct LabelPreviews: PreviewProvider {
     internal static var previews: some SwiftUI.View {

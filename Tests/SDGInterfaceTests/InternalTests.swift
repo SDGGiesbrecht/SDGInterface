@@ -105,7 +105,7 @@ final class InternalTests: ApplicationTestCase {
   }
 
   func testButtonLabel() {
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI)
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         _ = ButtonLabel.text("text").swiftUI()
         _ = ButtonLabel.symbol(Image.empty).swiftUI()
@@ -138,7 +138,7 @@ final class InternalTests: ApplicationTestCase {
   }
 
   func testLegacyView() {
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI)
       forAllLegacyModes {
         if #available(macOS 10.15, tvOS 13, iOS 13, *) {
           #if !os(watchOS)
@@ -279,7 +279,7 @@ final class InternalTests: ApplicationTestCase {
 
   func testPopOverCocoaImplementation() {
     withLegacyMode {
-      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      #if canImport(SwiftUI)
         let isPresented = Shared(false)
         if #available(macOS 10.15, tvOS 13, iOS 13, *) {
           #if !os(watchOS)
@@ -336,7 +336,7 @@ final class InternalTests: ApplicationTestCase {
   }
 
   func testSwiftUIApplication() {
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI)
       @available(macOS 11, iOS 14, tvOS 14, watchOS 7, *)
       struct TestApplication: Application {
         #if !PLATFORM_LACKS_FOUNDATION_PROCESS_INFO

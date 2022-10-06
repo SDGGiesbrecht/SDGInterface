@@ -79,13 +79,11 @@
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 7, *)
   extension LabelledProgressBar: View {
 
-    #if !(os(iOS) && arch(arm))
-      public func swiftUI() -> some SwiftUI.View {
-        return VStack(alignment: .leading) {
-          label.swiftUI()
-          progressBar.swiftUI()
-        }
+    public func swiftUI() -> some SwiftUI.View {
+      return VStack(alignment: .leading) {
+        label.swiftUI()
+        progressBar.swiftUI()
       }
-    #endif
+    }
   }
 #endif

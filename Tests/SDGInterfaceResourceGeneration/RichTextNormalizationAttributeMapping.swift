@@ -36,9 +36,7 @@
 
     public var file: Data {  // @exempt(from: accessControl)
       let encoder = JSONEncoder()
-      if #available(macOS 10.13, *) {  // @exempt(from: unicode)
-        encoder.outputFormatting.insert(.sortedKeys)
-      }
+      encoder.outputFormatting.insert(.sortedKeys)
       encoder.outputFormatting.insert(.prettyPrinted)
       return (try? encoder.encode(self))!
     }

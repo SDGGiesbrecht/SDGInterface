@@ -75,7 +75,7 @@
 
       // MARK: - View
 
-      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      #if canImport(SwiftUI)
         public func swiftUI() -> some SwiftUI.View {
           return SwiftUIImplementation(contents: contents, onCommit: onCommit)
         }

@@ -20,7 +20,7 @@
 @available(macOS 11, tvOS 13, iOS 14, watchOS 6, *)
 public protocol MenuComponents: LegacyMenuComponents {
 
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  #if canImport(SwiftUI)
     /// The type of the SwiftUI view.
     associatedtype SwiftUIView: SwiftUI.View
     /// Constructs a SwiftUI representation of the menu components.

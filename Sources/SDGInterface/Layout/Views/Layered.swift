@@ -101,7 +101,7 @@ extension Layered: View, ViewShims where Foreground: View, Background: View {
 
   // MARK: - View
 
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  #if canImport(SwiftUI)
     public func swiftUI() -> some SwiftUI.View {
       return foreground.swiftUI().background(
         background.swiftUI(),
@@ -111,7 +111,7 @@ extension Layered: View, ViewShims where Foreground: View, Background: View {
   #endif
 }
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+#if canImport(SwiftUI)
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   internal struct LayeredPreviews: PreviewProvider {
     internal static var previews: some SwiftUI.View {

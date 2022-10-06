@@ -41,7 +41,7 @@ public protocol LegacyView {
     func cocoa() -> CocoaView
   #endif
 
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  #if canImport(SwiftUI)
     /// A type‐erased version of the SwiftUI view.
     ///
     /// `View`’s `swiftUI()` is preferred instead whenever possible, since the erasing of the associated type affects performance. This method exists for use cases that would be impossible with an associated type.
@@ -54,7 +54,7 @@ extension LegacyView {
 
   // MARK: - Cocoa Interoperability
 
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  #if canImport(SwiftUI)
     @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
     public func swiftUIAnyView() -> SwiftUI.AnyView {
       if let view = self as? ViewShims {
@@ -92,7 +92,7 @@ extension LegacyView {
       to fallback: () -> CocoaView,
       useFallbackRegardless: Bool = false
     ) -> CocoaView {
-      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      #if canImport(SwiftUI)
         if #available(macOS 10.15, tvOS 13, iOS 13, *),
           ¬useFallbackRegardless
         {
@@ -125,7 +125,7 @@ extension LegacyView {
       to fallback: () -> CocoaView,
       useFallbackRegardless: Bool = false
     ) -> CocoaView {
-      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      #if canImport(SwiftUI)
         if #available(macOS 11, tvOS 14, iOS 14, watchOS 7, *),
           ¬useFallbackRegardless
         {
@@ -154,7 +154,7 @@ extension LegacyView {
       to fallback: () -> CocoaView,
       useFallbackRegardless: Bool = false
     ) -> CocoaView {
-      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      #if canImport(SwiftUI)
         if #available(macOS 12, tvOS 15, iOS 15, watchOS 8, *),
           ¬useFallbackRegardless
         {
@@ -172,7 +172,7 @@ extension LegacyView {
     }
   #endif
 
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  #if canImport(SwiftUI)
     /// Returns a resolved SwiftUI view, redirecting through the Cocoa implementation if requested.
     ///
     /// The method is intended for use during testing and previewing as a means to call fallback implementations out from underneath SwiftUI.

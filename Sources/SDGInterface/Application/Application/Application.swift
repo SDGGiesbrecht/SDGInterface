@@ -27,12 +27,12 @@ extension Application {
     ///
     /// This variant of `main` uses SwiftUI on some platforms and thus is unavailable on older platform versions.
     public static func modernMain() {  // @exempt(from: tests)
-      #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+      #if canImport(SwiftUI)
         usingSwiftUI = true
       #endif
       let application = prepareForMain()
       withExtendedLifetime(application) {
-        #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+        #if canImport(SwiftUI)
           applicationToUse = application
           SwiftUIApplication<Self>.main()
         #else

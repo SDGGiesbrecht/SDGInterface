@@ -56,7 +56,7 @@ where Leading: LegacyMenuComponents, Trailing: LegacyMenuComponents {
 extension MenuComponentsConcatenation: MenuComponents
 where Leading: MenuComponents, Trailing: MenuComponents {
 
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  #if canImport(SwiftUI)
     public func swiftUI() -> some SwiftUI.View {
       Group {
         leading.swiftUI()

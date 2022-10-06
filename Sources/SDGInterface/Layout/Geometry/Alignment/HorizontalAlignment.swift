@@ -12,11 +12,11 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+#if canImport(SwiftUI)
   import SwiftUI
 #endif
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+#if canImport(SwiftUI)
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   extension SwiftUI.HorizontalAlignment {
 
@@ -51,7 +51,7 @@ public enum HorizontalAlignment: Equatable {
 
   // MARK: - Initialization
 
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  #if canImport(SwiftUI)
     /// Wraps an instance of a standard `SwiftUI.HorizontalAlignment`.
     ///
     /// - Parameters:

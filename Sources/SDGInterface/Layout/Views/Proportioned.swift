@@ -111,7 +111,7 @@ extension Proportioned: View, ViewShims where Content: View {
 
   // MARK: - View
 
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  #if canImport(SwiftUI)
     public func swiftUI() -> some SwiftUI.View {
       return content.swiftUI().aspectRatio(
         aspectRatio.map({ CGFloat($0) }),
@@ -121,7 +121,7 @@ extension Proportioned: View, ViewShims where Content: View {
   #endif
 }
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+#if canImport(SwiftUI)
   @available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *)
   internal struct ProportionedPreviews: PreviewProvider {
     internal static var previews: some SwiftUI.View {

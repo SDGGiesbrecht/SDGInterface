@@ -218,7 +218,7 @@ extension MenuEntry: MenuComponents {
 
   // MARK: - MenuComponents
 
-  #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+  #if canImport(SwiftUI)
     @available(macOS 11, iOS 14, *)
     public func swiftUI() -> some SwiftUI.View {
       return SwiftUIImplementation(
@@ -233,7 +233,7 @@ extension MenuEntry: MenuComponents {
   #endif
 }
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+#if canImport(SwiftUI)
   @available(macOS 11, tvOS 13, iOS 14, watchOS 6, *)
   internal struct MenuEntryPreviews: PreviewProvider {
     internal static var previews: some SwiftUI.View {

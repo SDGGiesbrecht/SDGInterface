@@ -34,7 +34,7 @@ import SDGInterface
       }
     #endif
 
-    #if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+    #if canImport(SwiftUI)
       @available(macOS 10.15, tvOS 13, iOS 13, *)
       internal func adjustForLegacyMode() -> SwiftUI.AnyView {
         return resolved(usingCocoa: legacyMode)

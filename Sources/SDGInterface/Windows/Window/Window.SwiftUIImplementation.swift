@@ -20,7 +20,7 @@ import SDGControlFlow
 import SDGText
 import SDGLocalization
 
-#if canImport(SwiftUI) && !(os(iOS) && arch(arm))
+#if canImport(SwiftUI)
   @available(watchOS 7, *)
   extension Window {
 
