@@ -54,7 +54,7 @@
 
     #if canImport(AppKit) || (canImport(UIKit) && !os(watchOS))
       public func cocoa() -> CocoaView {
-        // #workaround(Swift 5.6.1, SwiftUI would be a step backward from AppKit or UIKit without the ability to get the selected text for menu items like “Show Character Information”.)
+        // #workaround(Swift 5.7.1, SwiftUI would be a step backward from AppKit or UIKit without the ability to get the selected text for menu items like “Show Character Information”.)
         #if !canImport(AppKit) && !canImport(UIKit)
           return useSwiftUIOrFallback(to: {
             return CocoaView(

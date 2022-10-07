@@ -654,12 +654,12 @@ final class APITests: ApplicationTestCase {
     if #available(watchOS 6, *) {
       #if os(watchOS)
         class Legacy: LegacyView, SDGInterface.View {
-          // #workaround(Swift 5.6.1, The next #if is redundant, but for compiler bug.)
-          #if !(os(Linux) || os(Android))
+          // #warning(Swift 5.6.1, The next #if is redundant, but for compiler bug.)
+          //#if !(os(Linux) || os(Android))
             func swiftUI() -> some SwiftUI.View {
               return EmptyView().swiftUI()
             }
-          #endif
+          //#endif
         }
       #else
         class Legacy: LegacyView {
@@ -1767,12 +1767,12 @@ final class APITests: ApplicationTestCase {
     #if canImport(SwiftUI)
       if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
         struct SomeView: SwiftUI.View {
-          // #workaround(Swift 5.6.1, The next #if is redundant, but for compiler bug.)
-          #if !(os(Linux) || os(Android))
+          // #warning(Swift 5.6.1, The next #if is redundant, but for compiler bug.)
+          //#if !(os(Linux) || os(Android))
             var body: some SwiftUI.View {
               return SwiftUI.EmptyView()
             }
-          #endif
+          //#endif
         }
         testViewConformance(of: SomeView())
       }
