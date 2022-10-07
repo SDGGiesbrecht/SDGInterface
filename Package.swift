@@ -332,8 +332,8 @@ for target in package.targets {
   var swiftSettings = target.swiftSettings ?? []
   defer { target.swiftSettings = swiftSettings }
   swiftSettings.append(contentsOf: [
-    // #workaround(Swift 5.6.1, Web lacks Foundation.ProcessInfo.)
-    // #workaround(Swift 5.6.1, Web lacks Foundation.RunLoop.)
+    // #workaround(Swift 5.7, Web lacks Foundation.ProcessInfo.)
+    // #workaround(Swift 5.7, Web lacks Foundation.RunLoop.)
     // @example(conditions)
     .define("PLATFORM_HAS_COCOA_INTERFACE", .when(platforms: [.macOS, .tvOS, .iOS])),
     .define(
