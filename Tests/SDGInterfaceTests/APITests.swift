@@ -1584,7 +1584,7 @@ final class APITests: ApplicationTestCase {
     if #available(macOS 10.15, tvOS 13, iOS 13, watchOS 6, *) {
       #if canImport(SwiftUI)
         let testBody: Bool
-        // #workaround(Swift 5.6.1, SwiftUI would be a step backward from AppKit or UIKit without the ability to get the selected text for menu items like “Show Character Information”.)
+        // #workaround(Swift 5.7, SwiftUI would be a step backward from AppKit or UIKit without the ability to get the selected text for menu items like “Show Character Information”.)
         #if !canImport(AppKit) && !(canImport(UIKit) && !os(watchOS))
           testBody = true
         #else
