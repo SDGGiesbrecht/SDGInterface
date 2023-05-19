@@ -4,7 +4,7 @@
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
 
- Copyright ©2018–2022 Jeremy David Giesbrecht and the SDGInterface project contributors.
+ Copyright ©2018–2023 Jeremy David Giesbrecht and the SDGInterface project contributors.
 
  Soli Deo gloria.
 
@@ -38,25 +38,3 @@ configuration._validateSDGStandards()
 configuration.testing.exemptionTokens.insert(
   TestCoverageExemptionToken("codingNotSupported", scope: .previousLine)
 )
-
-configuration.documentation.api.ignoredDependencies = [
-
-  // SDGCornerstone
-  "SDGCalendar",
-  "SDGCollections",
-  "SDGCornerstoneLocalizations",
-  "SDGLocalizationTestUtilities",
-  "SDGLogic",
-  "SDGLogicTestUtilities",
-  "SDGMathematics",
-  "SDGPersistence",
-  "SDGPersistenceTestUtilities",
-  "SDGTesting",
-  "SDGText",
-  "SDGXCTestUtilities",
-
-  // Swift
-  "Dispatch",
-  "Foundation",
-  "XCTest",
-]
