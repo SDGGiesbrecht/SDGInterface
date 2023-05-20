@@ -16,6 +16,7 @@
   import CoreGraphics
 #endif
 
+import SDGMathematics
 import SDGGeometry
 
 /// A rectangle.
