@@ -16,6 +16,8 @@
   import CoreGraphics
 #endif
 
+import SDGGeometry
+
 /// A rectangle.
 public struct Rectangle: Equatable, Sendable {
 

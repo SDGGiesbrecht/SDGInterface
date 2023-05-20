@@ -19,6 +19,7 @@
   import SwiftUI
 #endif
 
+import SDGMathematics
 import SDGGeometry
 
 /// A point.
