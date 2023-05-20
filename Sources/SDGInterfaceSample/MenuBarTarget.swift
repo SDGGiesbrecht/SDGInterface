@@ -25,7 +25,7 @@
 
   @objc public final class MenuBarTarget: NSObject {
 
-    public static let shared = MenuBarTarget()
+    public static let shared: MenuBarTarget = MenuBarTarget()
 
     #if PLATFORM_HAS_COCOA_INTERFACE
       private func demonstrate<Content, L>(_ window: Window<Content, L>) {
