@@ -70,6 +70,9 @@ extension Edge {
     #endif
 
     /// A shimmed version of `SwiftUI.Edge.Set.init` with no availability constraints.
+    ///
+    /// - Parameters:
+    ///   - edge: The edge.
     public init(_ edge: Edge) {
       switch edge {
       case .top:

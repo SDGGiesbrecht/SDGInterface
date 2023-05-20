@@ -75,6 +75,9 @@ public struct RichText: Addable, CustomPlaygroundDisplayConvertible, CustomStrin
   }
 
   /// Creates rich text from an attributed string.
+  ///
+  /// - Parameters:
+  ///   - attributedString: The attributed string.
   public init(_ attributedString: NSAttributedString) {
     var index = 0
     var segments: [Segment] = []
