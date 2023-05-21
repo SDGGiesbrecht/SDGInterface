@@ -151,7 +151,7 @@ final class APITests: ApplicationTestCase {
           return "com.example.identifier"
         }
       #endif
-      var mainWindow: Window<SDGInterface.EmptyView, AnyLocalization> {
+      var mainWindow: SDGInterface.Window<SDGInterface.EmptyView, AnyLocalization> {
         return Window(
           type: .primary(nil),
           name: UserFacing<StrictString, AnyLocalization>({ _ in "" }),
