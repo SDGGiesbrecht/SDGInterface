@@ -974,6 +974,8 @@ final class APITests: ApplicationTestCase {
         if font.fontName == ".SFNSDisplay"
           ∨ font.fontName == ".SFNSText"
           ∨ font.fontName == ".SFNS\u{2D}Regular"
+          ∨ font.fontName == ".SFCompact-Regular"
+          ∨ font.fontName == ".SFCompact-Black_opsz_GRAD_wght1900000"
         {
           font.fontName = ".AppleSystemUIFont"
         }
