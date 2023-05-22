@@ -211,20 +211,20 @@ final class APITests: ApplicationTestCase {
     #endif
 
     #if canImport(AppKit)
-      var italiano = NSMutableAttributedString("Roma, Italia")
+      var italiano = NSMutableAttributedString("Roma, Italia" as RichText)
       italiano.makeSmallCaps(NSRange(0..<italiano.length))
-      var türkçe = NSMutableAttributedString("İstanbul, Türkiye")
+      var türkçe = NSMutableAttributedString("İstanbul, Türkiye" as RichText)
       türkçe.makeSmallCaps(NSRange(0..<türkçe.length))
 
       italiano.resetCasing(of: NSRange(0..<italiano.length))
 
-      italiano = NSMutableAttributedString("Roma, Italia")
+      italiano = NSMutableAttributedString("Roma, Italia" as RichText)
       italiano.makeUpperCase(NSRange(0..<italiano.length))
-      türkçe = NSMutableAttributedString("İstanbul, Türkiye")
+      türkçe = NSMutableAttributedString("İstanbul, Türkiye" as RichText)
       türkçe.makeUpperCase(NSRange(0..<türkçe.length))
-      italiano = NSMutableAttributedString("Roma, Italia")
+      italiano = NSMutableAttributedString("Roma, Italia" as RichText)
       italiano.makeLowerCase(NSRange(0..<italiano.length))
-      türkçe = NSMutableAttributedString("İstanbul, Türkiye")
+      türkçe = NSMutableAttributedString("İstanbul, Türkiye" as RichText)
       türkçe.makeLowerCase(NSRange(0..<türkçe.length))
     #endif
 
