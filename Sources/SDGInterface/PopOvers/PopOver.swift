@@ -4,7 +4,7 @@
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
 
- Copyright ©2020–2022 Jeremy David Giesbrecht and the SDGInterface project contributors.
+ Copyright ©2020–2023 Jeremy David Giesbrecht and the SDGInterface project contributors.
 
  Soli Deo gloria.
 
@@ -83,9 +83,9 @@ public struct PopOver<Anchor, Content>: LegacyView where Anchor: LegacyView, Con
 #if os(tvOS)
   @available(tvOS 13, *)
   extension PopOver: CocoaViewImplementation {}
+#elseif os(watchOS)
 #else
-  @available(macOS 10.15, iOS 13, watchOS 6, *)
-  @available(watchOS, unavailable)
+  @available(macOS 10.15, iOS 13, *)
   extension PopOver: SDGInterface.View, ViewShims
   where Anchor: SDGInterface.View, Content: SDGInterface.View {
 

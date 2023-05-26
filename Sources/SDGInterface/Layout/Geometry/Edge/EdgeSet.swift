@@ -4,7 +4,7 @@
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
 
- Copyright ©2020–2022 Jeremy David Giesbrecht and the SDGInterface project contributors.
+ Copyright ©2020–2023 Jeremy David Giesbrecht and the SDGInterface project contributors.
 
  Soli Deo gloria.
 
@@ -70,6 +70,9 @@ extension Edge {
     #endif
 
     /// A shimmed version of `SwiftUI.Edge.Set.init` with no availability constraints.
+    ///
+    /// - Parameters:
+    ///   - edge: The edge.
     public init(_ edge: Edge) {
       switch edge {
       case .top:

@@ -4,7 +4,7 @@
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
 
- Copyright ©2020–2022 Jeremy David Giesbrecht and the SDGInterface project contributors.
+ Copyright ©2020–2023 Jeremy David Giesbrecht and the SDGInterface project contributors.
 
  Soli Deo gloria.
 
@@ -12,13 +12,12 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(SwiftUI) && !os(tvOS)
+#if canImport(SwiftUI) && (!os(tvOS) && !os(watchOS))
   import SwiftUI
 
   import SDGControlFlow
 
-  @available(macOS 10.15, iOS 13, watchOS 6, *)
-  @available(watchOS, unavailable)
+  @available(macOS 10.15, iOS 13, *)
   extension PopOver where Anchor: SDGInterface.View, Content: SDGInterface.View {
 
     internal struct SwiftUIImplementation: SwiftUI.View {

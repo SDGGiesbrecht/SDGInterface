@@ -4,7 +4,7 @@
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
 
- Copyright ©2019–2022 Jeremy David Giesbrecht and the SDGInterface project contributors.
+ Copyright ©2019–2023 Jeremy David Giesbrecht and the SDGInterface project contributors.
 
  Soli Deo gloria.
 
@@ -75,6 +75,9 @@ public struct RichText: Addable, CustomPlaygroundDisplayConvertible, CustomStrin
   }
 
   /// Creates rich text from an attributed string.
+  ///
+  /// - Parameters:
+  ///   - attributedString: The attributed string.
   public init(_ attributedString: NSAttributedString) {
     var index = 0
     var segments: [Segment] = []

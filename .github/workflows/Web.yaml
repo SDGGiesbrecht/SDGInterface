@@ -3,7 +3,7 @@
 # This source file is part of the SDGInterface open source project.
 # https://sdggiesbrecht.github.io/SDGInterface
 #
-# Copyright ©2021–2022 Jeremy David Giesbrecht and the SDGInterface project contributors.
+# Copyright ©2021–2023 Jeremy David Giesbrecht and the SDGInterface project contributors.
 #
 # Soli Deo gloria.
 #
@@ -18,7 +18,7 @@ jobs:
   Web:
     name: Web
     runs-on: ubuntu-20.04
-    container: ghcr.io/swiftwasm/carton:0.17.0
+    container: ghcr.io/swiftwasm/carton:0.19.1
     steps:
     - name: Check out
       uses: actions/checkout@v2

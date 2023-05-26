@@ -4,7 +4,7 @@
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
 
- Copyright ©2020–2022 Jeremy David Giesbrecht and the SDGInterface project contributors.
+ Copyright ©2020–2023 Jeremy David Giesbrecht and the SDGInterface project contributors.
 
  Soli Deo gloria.
 
@@ -25,7 +25,7 @@
 
   @objc public final class MenuBarTarget: NSObject {
 
-    public static let shared = MenuBarTarget()
+    public static let shared: MenuBarTarget = MenuBarTarget()
 
     #if PLATFORM_HAS_COCOA_INTERFACE
       private func demonstrate<Content, L>(_ window: Window<Content, L>) {

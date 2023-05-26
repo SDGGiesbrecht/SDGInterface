@@ -6,7 +6,7 @@
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
 
- Copyright ©2018–2022 Jeremy David Giesbrecht and the SDGInterface project contributors.
+ Copyright ©2018–2023 Jeremy David Giesbrecht and the SDGInterface project contributors.
 
  Soli Deo gloria.
 
@@ -345,3 +345,8 @@ for target in package.targets {
     // @endExample
   ])
 }
+
+// #workaround(Swift 5.7.2, Hardware compatibility; tools version does not reflect support.))
+#if compiler(<5.8) && !os(macOS)
+  #error("Swift 5.7 is only supported on macOS, tvOS, iOS and watchOS; elsewhere, please use Swift 5.8 or select an older version of SDGInterface.")
+#endif

@@ -4,7 +4,7 @@
  This source file is part of the SDGInterface open source project.
  https://sdggiesbrecht.github.io/SDGInterface
 
- Copyright ©2019–2022 Jeremy David Giesbrecht and the SDGInterface project contributors.
+ Copyright ©2019–2023 Jeremy David Giesbrecht and the SDGInterface project contributors.
 
  Soli Deo gloria.
 
@@ -15,6 +15,9 @@
 #if canImport(CoreGraphics)
   import CoreGraphics
 #endif
+
+import SDGMathematics
+import SDGGeometry
 
 /// A rectangle.
 public struct Rectangle: Equatable, Sendable {
