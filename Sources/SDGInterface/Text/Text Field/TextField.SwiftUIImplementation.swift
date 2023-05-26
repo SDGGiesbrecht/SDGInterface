@@ -12,7 +12,7 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-// #workaround(Swift 5.7, SwiftUI would be a step backward from AppKit or UIKit without the ability to get the selected text for menu items like “Show Character Information”.)
+// #workaround(Swift 5.7.2, SwiftUI would be a step backward from AppKit or UIKit without the ability to get the selected text for menu items like “Show Character Information”.)
 #if canImport(SwiftUI) && !canImport(AppKit) && !(canImport(UIKit) && !os(watchOS))
   import SwiftUI
 
