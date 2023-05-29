@@ -89,13 +89,9 @@ extension Edge {
     // MARK: - RawRepresentable
 
     public init(rawValue: Int8) {
-      self._rawValue = rawValue
+      self.rawValue = rawValue
     }
 
-    // #workaround(workspace version 0.41.0, Indirection because “let” is not detected as protocol conformance during documentation.)
-    @usableFromInline internal let _rawValue: Int8
-    @inlinable public var rawValue: Int8 {
-      return _rawValue
-    }
+    public let rawValue: Int8
   }
 }

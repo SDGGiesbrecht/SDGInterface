@@ -161,7 +161,7 @@ let package = Package(
     .library(name: "_SDGInterfaceSample", targets: ["SDGInterfaceSample"]),
   ],
   dependencies: [
-    .package(url: "https://github.com/SDGGiesbrecht/SDGCornerstone", from: Version(10, 0, 0))
+    .package(url: "https://github.com/SDGGiesbrecht/SDGCornerstone", from: Version(10, 1, 2))
   ],
   targets: [
 
@@ -332,8 +332,8 @@ for target in package.targets {
   var swiftSettings = target.swiftSettings ?? []
   defer { target.swiftSettings = swiftSettings }
   swiftSettings.append(contentsOf: [
-    // #workaround(Swift 5.7, Web lacks Foundation.ProcessInfo.)
-    // #workaround(Swift 5.7, Web lacks Foundation.RunLoop.)
+    // #workaround(Swift 5.8, Web lacks Foundation.ProcessInfo.)
+    // #workaround(Swift 5.8, Web lacks Foundation.RunLoop.)
     // @example(conditions)
     .define("PLATFORM_HAS_COCOA_INTERFACE", .when(platforms: [.macOS, .tvOS, .iOS])),
     .define(
@@ -345,8 +345,3 @@ for target in package.targets {
     // @endExample
   ])
 }
-
-// #workaround(Swift 5.7.2, Hardware compatibility; tools version does not reflect support.))
-#if compiler(<5.8) && !os(macOS)
-  #error("Swift 5.7 is only supported on macOS, tvOS, iOS and watchOS; elsewhere, please use Swift 5.8 or select an older version of SDGInterface.")
-#endif
