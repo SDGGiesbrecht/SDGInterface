@@ -12,12 +12,13 @@
  See http://www.apache.org/licenses/LICENSE-2.0 for licence information.
  */
 
-#if canImport(SwiftUI) && (!os(tvOS) && !os(watchOS))
+#if canImport(SwiftUI) && !os(tvOS) && !(os(watchOS) && compiler(>=5.8))
   import SwiftUI
 
   import SDGControlFlow
 
-  @available(macOS 10.15, iOS 13, *)
+  @available(macOS 10.15, iOS 13, watchOS 6, *)
+  @available(watchOS, unavailable)
   extension PopOver where Anchor: SDGInterface.View, Content: SDGInterface.View {
 
     internal struct SwiftUIImplementation: SwiftUI.View {

@@ -83,9 +83,10 @@ public struct PopOver<Anchor, Content>: LegacyView where Anchor: LegacyView, Con
 #if os(tvOS)
   @available(tvOS 13, *)
   extension PopOver: CocoaViewImplementation {}
-#elseif os(watchOS)
+#elseif os(watchOS) && compiler(>=5.8)
 #else
-  @available(macOS 10.15, iOS 13, *)
+  @available(macOS 10.15, iOS 13, watchOS 6, *)
+  @available(watchOS, unavailable)
   extension PopOver: SDGInterface.View, ViewShims
   where Anchor: SDGInterface.View, Content: SDGInterface.View {
 
