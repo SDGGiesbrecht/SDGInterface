@@ -35,10 +35,7 @@
     /// - Parameters:
     ///     - data: The data the table represents.
     ///     - columns: An array of closures—each representing a column—which produce a corresponding cell view for a particular data entry.
-    ///     - row: The data element represented by the row.
     ///     - sort: Optional. A sort order to impose on the table data.
-    ///     - preceding: The data entry preceding the less‐than sign.
-    ///     - following: The data entry following the less‐than sign.
     public init(
       data: Shared<[RowData]>,
       columns: [(_ row: RowData) -> AnyView],

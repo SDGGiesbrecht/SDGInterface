@@ -347,12 +347,8 @@
     ///
     /// - Parameters:
     ///   - property1: The first property of the view hierarchy.
-    ///   - view1: The view the first property comes from.
-    ///   - attribute1: The attribute of the first property.
     ///   - relation: The relationship between the two attributes.
     ///   - property2: The second property of the view hierarchy.
-    ///   - view2: The view the second property comes from.
-    ///   - attribute2: The attribute of the second property.
     ///   - coefficient: A coefficient by which to multiply the second attribute.
     ///   - constant: A constant to add to the second attribute.
     ///   - priority: The priority of the constraint.
