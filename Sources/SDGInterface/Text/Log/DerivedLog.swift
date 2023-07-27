@@ -32,7 +32,6 @@
     /// - Parameters:
     ///   - source: The source of the data.
     ///   - derivation: A closure which derives the log from the data.
-    ///   - sourceValue: The source value from which to derive the log.
     ///   - transparentBackground: Optional. Pass `true` to make the background transparent.
     public init(
       source: Shared<Source>,

@@ -140,7 +140,7 @@ Some platforms lack certain features. The compilation conditions which appear th
 
 ## Importing
 
-SDGInterface provides libraries for use with the [Swift Package Manager](https://swift.org/package-manager/).
+SDGInterface provides libraries for use with the Swift Package Manager.
 
 Simply add SDGInterface as a dependency in `Package.swift` and specify which of the libraries to use:
 
@@ -149,7 +149,6 @@ let package = Package(
   name: "MyPackage",
   dependencies: [
     .package(
-      name: "SDGInterface",
       url: "https://github.com/SDGGiesbrecht/SDGInterface",
       .upToNextMinor(from: Version(0, 15, 3))
     ),
