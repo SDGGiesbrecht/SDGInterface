@@ -966,7 +966,8 @@ final class APITests: ApplicationTestCase {
     let fontNameKey = NSAttributedString.Key(rawValue: "SDGTestFontName")
     func prepareForEqualityCheck(
       _ string: NSAttributedString,
-      ignoring ignored: [NSAttributedString.Key] = []
+      ignoring ignored: [NSAttributedString.Key] = [],
+      fixingSystemErrors: Bool = false
     ) -> NSAttributedString {
       #if canImport(AppKit) || canImport(UIKit)
         let processed = NSAttributedString(RichText(string))
@@ -991,6 +992,14 @@ final class APITests: ApplicationTestCase {
         )
         for attribute in ignored {
           mutable.removeAttribute(attribute, range: all)
+        }
+        if fixingSystemErrors {
+          let correct = NSAttributedString.Key("NSSuperScript")
+          let misspelled = NSAttributedString.Key("NSSuperscript")
+          if let superscript = mutable.attribute(misspelled, at: 0, effectiveRange: nil) {
+            mutable.removeAttribute(misspelled, range: all)
+            mutable.addAttribute(correct, value: superscript, range: all)
+          }
         }
         return mutable.copy() as! NSAttributedString
       #else
@@ -1025,7 +1034,7 @@ final class APITests: ApplicationTestCase {
         let alreadyCorrectSup = try NSAttributedString.from(html: "<sup>2</sup>", font: font)
         XCTAssertEqual(
           prepareForEqualityCheck(toFixSup),
-          prepareForEqualityCheck(alreadyCorrectSup)
+          prepareForEqualityCheck(alreadyCorrectSup, fixingSystemErrors: true)
         )
 
         let toFixSub = try NSAttributedString.from(html: "\u{2082}", font: font)
