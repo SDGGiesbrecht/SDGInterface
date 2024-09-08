@@ -1041,7 +1041,7 @@ final class APITests: ApplicationTestCase {
         let alreadyCorrectSub = try NSAttributedString.from(html: "<sub>2</sub>", font: font)
         XCTAssertEqual(
           prepareForEqualityCheck(toFixSub),
-          prepareForEqualityCheck(alreadyCorrectSub)
+          prepareForEqualityCheck(alreadyCorrectSub, fixingSystemErrors: true)
         )
 
         let mutable = basicHTML.mutableCopy() as! NSMutableAttributedString
